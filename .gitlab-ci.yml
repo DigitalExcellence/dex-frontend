@@ -1,29 +1,20 @@
 image: node:latest
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths: 
-    - node_modules/
-
 stages:
     - build
     - test
 
-job:test:
+test:
   stage: test
   before_script:
     - npm install --silent
-  script: node_modules/.bin/ng test
+  script: 
+    - npm run test
+    - npm run e2e
 
-job:e2e:
-  stage: test
-  before_script:
-    - npm install --silent
-  script: node_modules/.bin/ng e2e
-
-release:build:
+build:
   stage: build
-  script: node_modules/.bin/ng build
+  script: ng build
   artifacts:
     name: "project-$CI_COMMIT_REF_NAME"
     paths:
