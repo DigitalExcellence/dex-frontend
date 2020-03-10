@@ -11,6 +11,8 @@ test:
   script: 
     - npm run test
     - npm run e2e
+  tags:
+    - test
 
 build:
   stage: build
@@ -19,6 +21,6 @@ build:
     name: "project-$CI_COMMIT_REF_NAME"
     paths:
       - dist/
-  only:
-    - tags
+  tags:
+    - build
 
