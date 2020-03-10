@@ -12,7 +12,7 @@ test:
     - npm run test
     - npm run e2e
   tags:
-    - test
+    - front-end
 
 build:
   stage: build
@@ -22,5 +22,5 @@ build:
     paths:
       - dist/
   tags:
-    - build
+    - front-end
 
