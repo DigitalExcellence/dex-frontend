@@ -22,6 +22,7 @@ job 1:
 job 2:
   stage: test
   script: 
+    - which chromium-browser
     - node_modules/.bin/ng e2e
   tags:
     - front-end
