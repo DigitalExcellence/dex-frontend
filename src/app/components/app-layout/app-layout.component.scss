@@ -1,0 +1,35 @@
+.header {
+  position: relative;
+  background-color: #EBEBEB;
+  .branding{
+    z-index: 2;
+    .title {
+      a{
+        color:black;
+      }
+      a:hover{
+        text-decoration: none;
+      }
+    }
+  }
+
+  .navigation-holder{
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    a {
+      text-transform: uppercase;
+      color: black;
+      vertical-align: middle;
+      font-size: .8rem;
+      letter-spacing: .01em;
+      line-height: 3rem;
+      text-decoration: none;
+      margin-right:10px;
+    }
+    a:hover{
+      text-decoration: none;
+    }
+  }
+}
