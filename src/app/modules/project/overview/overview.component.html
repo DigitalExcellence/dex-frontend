@@ -1,1 +1,18 @@
 <h1>Projects</h1>
+<div class="row">
+  <div class="col-12">
+    <table class="projects-table">
+      <tr *ngFor="let project of projects">
+        <td>
+          <p><b>{{ project.name }}</b><br>{{ project.shortDescription }}</p>
+        </td>
+        <td>
+          <p>{{ project.createdDate | date:'longDate' }}</p>
+        </td>
+        <td>
+          <p>{{ project.user.username }}</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+.projects-table {
+  width: 100%;
+
+  tr:first-child td{
+    border-top: 1px solid #EBEBEB;
+  }
+  tr td {
+    border-bottom:1px solid #EBEBEB;
+    p{
+      margin: 15px 0px;
+    }
+  }
+}
