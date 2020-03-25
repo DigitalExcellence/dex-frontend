@@ -11,40 +11,10 @@
 </div>
 
 <div class="row">
-  <div class="col-2">
+  <div class="col-2" *ngFor="let externalSource of mostUsedSources">
     <div class="source">
-      <img src="assets/github-logo.svg">
-      <h3>gitHub</h3>
-    </div>
-  </div>
-  <div class="col-2">
-    <div class="source">
-      <img src="assets/github-logo.svg">
-      <h3>gitHub</h3>
-    </div>
-  </div>
-  <div class="col-2">
-    <div class="source">
-      <img src="assets/github-logo.svg">
-      <h3>gitHub</h3>
-    </div>
-  </div>
-  <div class="col-2">
-    <div class="source">
-      <img src="assets/github-logo.svg">
-      <h3>gitHub</h3>
-    </div>
-  </div>
-  <div class="col-2">
-    <div class="source">
-      <img src="assets/github-logo.svg">
-      <h3>gitHub</h3>
-    </div>
-  </div>
-  <div class="col-2">
-    <div class="source">
-      <img src="assets/github-logo.svg">
-      <h3>gitHub</h3>
+      <img src="{{ externalSource.image }}">
+      <h3>{{ externalSource.name }}</h3>
     </div>
   </div>
 </div>
@@ -63,7 +33,7 @@
 </div>
 <div class="row justify-content-center">
   <div class="col-12">
-    <a href="#">Add project manual</a>
+    <a [routerLink]="['/project/add/manual']">Add project manual</a>
   </div>
 </div>
 <div class="row justify-content-center">
