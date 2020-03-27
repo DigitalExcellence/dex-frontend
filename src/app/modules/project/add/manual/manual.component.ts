@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-manual',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManualComponent implements OnInit {
 
-  constructor() { }
+  public newProjectForm: FormGroup;
+
+  private contributors: string[];
+
+  constructor(private formBuilder: FormBuilder) {
+    this.newProjectForm = this.formBuilder.group({
+      name: [null, Validators.required],
+      uri: [null, Validators.required],
+      shortDescription: [null, Validators.required],
+      description: [null, null]
+    });
+  }
 
   ngOnInit(): void {
   }
 
+  public onSubmit() {
+
+  }
+
+  public onAddContributor() {
+
+  }
 }
