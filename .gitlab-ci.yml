@@ -12,18 +12,11 @@ before_script:
 stages:
   - test
   - build
-  - dockerize
 
 job:test:
   stage: test
   script: 
     - node_modules/.bin/ng test
-  tags:
-    - front-end
-    
-job:e2e:
-  stage: test
-  script: 
     - node_modules/.bin/ng e2e
   tags:
     - front-end
