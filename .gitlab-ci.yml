@@ -27,20 +27,6 @@ job:e2e:
     - node_modules/.bin/ng e2e
   tags:
     - front-end
-    
-job:dockerize:
-  stage: dockerize
-  image: docker:latest
-  services:
-    - docker:dind
-  before_script:
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  script:
-    - docker build -t dex-frontend .
-    - docker tag dex-frontend digitalexellence/digital-excellence_images
-    - docker push digitalexellence/digital-excellence_images
-  tags:
-    - frontend
 
 release:build:
   stage: build
