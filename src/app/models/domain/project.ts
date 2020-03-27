@@ -4,9 +4,10 @@ export interface Project {
   id: number;
   user: User;
   name: string;
-  shortDescription?: string;
   description: string;
-  createdDate: Date;
+  shortDescription?: string;
   url: string;
   contributors: string[];
+  created: Date;
+  updated: Date;
 }
