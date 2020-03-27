@@ -29,6 +29,6 @@ export class ManualComponent implements OnInit {
   }
 
   public onAddContributor() {
-
+    
   }
 }
