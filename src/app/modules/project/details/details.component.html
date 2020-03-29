@@ -8,8 +8,8 @@
 
 
 
-  <div class="row project_details">
-    <div class="col-4 offset-2">
+  <div class="clr-row project_details">
+    <div class="clr-col-4 offset-2">
       <h2>External Link</h2>
       <p><a href="{{ project.url }}">{{ project.url }}</a></p><br>
 
@@ -21,7 +21,7 @@
 
       <button>Edit</button>
     </div>
-    <div class="col-4">
+    <div class="clr-col-4">
       <h2>Contributors</h2>
       <ul>
         <li *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} - {{ collaborator.role}}</li>

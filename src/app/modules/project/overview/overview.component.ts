@@ -40,10 +40,17 @@ export class OverviewComponent implements OnInit {
       });
   }
 
+  /**
+   * Checks whether there are any projects
+   */
   public projectsEmpty(): boolean {
     return this.projects.length < 1;
   }
 
+  /**
+   * Triggers on project click in the list
+   * @param id project id
+   */
   public onProjectClick(id: number): void {
     this.router.navigate([`/project/details/${id}`]);
   }
