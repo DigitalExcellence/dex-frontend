@@ -10,8 +10,8 @@ export interface ApiConfig {
 
 export const API_CONFIG: ApiConfig = {
   url: `${environment.apiUrl}/api/`,
-  userRoute: 'users',
-  projectRoute: 'projects',
+  userRoute: 'user',
+  projectRoute: 'project',
   internalSearchRoute: 'search/internal',
   externalSearchRoute: 'search/external'
 };
