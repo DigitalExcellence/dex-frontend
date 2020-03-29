@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/models/domain/user';
 import { Router } from '@angular/router';
 import { Collaborator } from 'src/app/models/domain/collaborator';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-overview',
@@ -13,20 +14,34 @@ import { Collaborator } from 'src/app/models/domain/collaborator';
 })
 export class OverviewComponent implements OnInit {
 
-  public projects: Project[];
+  /**
+   * Array to receive and store the projects from the api.
+   */
+  public projects: Project[] = [];
+
+  /**
+   * Boolean to determine whether the component is loading the information from the api.
+   */
+  public loading = true;
 
   constructor(
     private router: Router,
     private projectService: ProjectService) { }
 
   ngOnInit(): void {
-    this.projectService.getAll().subscribe(result => {
-      this.projects = result;
-    }, (error: HttpErrorResponse) => {
-      if (error.status !== 404) {
-        console.log('Could not retrieve the projects');
-      }
-    });
+    this.projectService.getAll()
+      .pipe(finalize(() => this.loading = false))
+      .subscribe(result => {
+        this.projects = result;
+      }, (error: HttpErrorResponse) => {
+        if (error.status !== 404) {
+          console.log('Could not retrieve the projects');
+        }
+      });
+  }
+
+  public projectsEmpty(): boolean {
+    return this.projects.length < 1;
   }
 
   public onProjectClick(id: number): void {
