@@ -11,3 +11,4 @@ RUN ng build --prod
 
 FROM nginx
 COPY --from=compile-image /opt/ng/dist/dex-frontend /usr/share/nginx/html
+COPY ./docker/nginx-custom.conf /etc/nginx/conf.d/default.conf
