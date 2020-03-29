@@ -5,7 +5,7 @@ import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
   { path: 'overview', component: OverviewComponent },
-  { path: 'details', component: DetailsComponent },
+  { path: 'details/:id', component: DetailsComponent },
   { path: 'add', loadChildren: () => import('./add/add.module').then(m => m.AddModule) }
 ];
 

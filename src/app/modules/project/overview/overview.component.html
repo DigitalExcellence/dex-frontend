@@ -4,13 +4,13 @@
     <table class="projects-table">
       <tr *ngFor="let project of projects">
         <td>
-          <p><b>{{ project.name }}</b><br>{{ project.shortDescription }}</p>
+          <p (click)="onProjectClick(project.id)"><b>{{ project.name }}</b><br>{{ project.shortDescription }}</p>
         </td>
         <td>
-          <p><img alt="clock" class="clock-icon" src="assets/clock.svg"> {{ project.createdDate | date:'longDate' }}</p>
+          <p><img alt="clock" class="clock-icon" src="assets/clock.svg"> {{ project.created | date:'longDate' }}</p>
         </td>
         <td>
-          <p><img alt="user" class="clock-icon" src="assets/user.svg"> {{ project.user.username }}</p>
+          <p><img alt="user" class="clock-icon" src="assets/user.svg"> {{ project.user.name }}</p>
         </td>
       </tr>
     </table>
