@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { CollaboratorAdd } from 'src/app/models/resources/contributor-add';
+import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 /**
  * Component for manually adding a project.
@@ -25,7 +27,14 @@ export class ManualComponent implements OnInit {
    */
   public collaborators: CollaboratorAdd[] = [];
 
+  /**
+   * Boolean to enable and disable submit button
+   */
+  public submitEnabled = true;
+
+
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private projectService: ProjectService) {
 
@@ -56,6 +65,13 @@ export class ManualComponent implements OnInit {
     const newProject: ProjectAdd = this.newProjectForm.value;
     newProject.collaborators = this.collaborators;
     // Todo implement service call.
+
+    this.projectService.post(newProject)
+      .pipe(
+        finalize(() => this.submitEnabled = false)
+      ).subscribe(result => {
+        this.router.navigate([`/project/overview`]);
+      });
   }
 
   /**
