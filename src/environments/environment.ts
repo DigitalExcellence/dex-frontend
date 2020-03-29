@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  identityServerUrl: 'https://localhost:5001',
-  apiUrl: 'https://localhost:5003'
+  identityServerUrl: 'https://localhost:5003',
+  apiUrl: 'https://localhost:5001'
 };
 
 /*
