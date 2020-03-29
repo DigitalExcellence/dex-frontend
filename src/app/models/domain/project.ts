@@ -1,12 +1,14 @@
 import { User } from './user';
+import { Collaborator } from './collaborator';
 
 export interface Project {
   id: number;
   user: User;
   name: string;
-  shortDescription?: string;
   description: string;
-  createdDate: Date;
+  shortDescription?: string;
+  created: Date;
+  updated: Date;
   url: string;
-  contributors: string[];
+  collaborators: Collaborator[];
 }

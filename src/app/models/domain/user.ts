@@ -1,5 +1,11 @@
+import { Project } from './project';
+import { LinkedService } from './linked-service';
+
 export interface User {
   id: number;
-  username: string;
+  name: string;
+  email: string;
+  projects: Project[];
+  Services: LinkedService[];
   profileUrl: string;
 }
