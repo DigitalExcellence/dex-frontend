@@ -36,6 +36,7 @@ documentation:
   script:
     - npm run compodoc
   artifacts:
+    name: "project-documentation-$CI_COMMIT_REF_NAME"
     paths:
       - documentation/
   tags:

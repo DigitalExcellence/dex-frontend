@@ -1,6 +1,6 @@
 /**
  * Default config. Acts as a placeholder.
  */
-export interface defaultConfig {
-
+export interface DefaultConfig {
+    test: number;
 }
