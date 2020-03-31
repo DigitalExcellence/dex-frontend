@@ -26,7 +26,7 @@ lint:
   stage: analysis
   image: trion/ng-cli:latest
   script:
-    - npm run tslint
+    - npm run ts-lint
   tags:
     - front-end
 
