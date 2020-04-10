@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ExternalSource } from 'src/app/models/domain/external-source';
 
+/**
+ * Component to import projects from external sources
+ */
 @Component({
   selector: 'app-source',
   templateUrl: './source.component.html',
@@ -8,6 +11,9 @@ import { ExternalSource } from 'src/app/models/domain/external-source';
 })
 export class SourceComponent implements OnInit {
 
+  /**
+   * ExternalSources available to import your projects from
+   */
   public mostUsedSources: ExternalSource[] = [];
 
   constructor() { }

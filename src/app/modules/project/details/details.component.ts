@@ -5,6 +5,9 @@ import { ProjectService } from 'src/app/services/project.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
+/**
+ * Overview of a single project
+ */
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -12,6 +15,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailsComponent implements OnInit {
 
+  /**
+   * Variable to store the project which is retrieved from the api
+   */
   public project: Project;
 
   constructor(
@@ -30,10 +36,9 @@ export class DetailsComponent implements OnInit {
 
     this.projectService.get(id).subscribe(result => {
       this.project = result;
-      console.log(this.project);
     }, (error: HttpErrorResponse) => {
       if (error.status !== 404) {
-        console.log('Could not retrieve the project');
+        // TODO: Return a user friendly error
       }
     });
   }

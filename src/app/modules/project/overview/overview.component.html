@@ -1,9 +1,9 @@
 <h1>Projects</h1>
 <div class="clr-row">
   <div class="clr-col-12">
-    <ng-container *ngIf="!projectsEmpty() && !loading; else noProjects">
+    <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
       <table class="projects-table">
-        <tr *ngIf="loading">
+        <tr *ngIf="projectsLoading">
           <td colspan="3">Loading...</td>
         </tr>
         <tr *ngFor="let project of projects">

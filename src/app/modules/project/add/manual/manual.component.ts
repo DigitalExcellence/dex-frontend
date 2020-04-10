@@ -64,7 +64,6 @@ export class ManualComponent implements OnInit {
 
     const newProject: ProjectAdd = this.newProjectForm.value;
     newProject.collaborators = this.collaborators;
-    // Todo implement service call.
 
     this.projectService.post(newProject)
       .pipe(

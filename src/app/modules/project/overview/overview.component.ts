@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { Collaborator } from 'src/app/models/domain/collaborator';
 import { finalize } from 'rxjs/operators';
 
+/**
+ * Overview of all the projects
+ */
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
@@ -22,7 +25,7 @@ export class OverviewComponent implements OnInit {
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
-  public loading = true;
+  public projectsLoading = true;
 
   constructor(
     private router: Router,
@@ -30,7 +33,7 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.getAll()
-      .pipe(finalize(() => this.loading = false))
+      .pipe(finalize(() => this.projectsLoading = false))
       .subscribe(result => {
         this.projects = result;
       }, (error: HttpErrorResponse) => {
