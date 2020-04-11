@@ -42,7 +42,7 @@ export class ManualComponent implements OnInit {
       name: [null, Validators.required],
       uri: [null, Validators.required],
       shortDescription: [null, Validators.required],
-      description: [null, null]
+      description: [null]
     });
 
     this.newContributorForm = this.formBuilder.group({
@@ -58,7 +58,7 @@ export class ManualComponent implements OnInit {
 
   public onSubmit(): void {
     if (!this.newProjectForm.valid) {
-      // Todo display error.
+      this.newProjectForm.markAllAsTouched();
       return;
     }
 
