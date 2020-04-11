@@ -16,4 +16,28 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
  *  
  */
+.header {
+  background-color: #EBEBEB;
 
+  .title a, .header-nav a {
+    font-weight: bold;
+    color: #070707;
+    font-size: 16px;
+  }
+
+  .header-nav a {
+    text-transform: uppercase;
+    color: black;
+  }
+}
+
+.content-container {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+
+  .container {
+    max-width: 1000px;
+    width: 100%;
+  }
+}
