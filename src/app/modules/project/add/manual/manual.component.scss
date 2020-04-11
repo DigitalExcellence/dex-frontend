@@ -1,0 +1,19 @@
+.project-form {
+  .clr-form-control {
+    //Forcing clarity ui inputs to full width of the screen
+    align-items: initial;
+  }
+
+  .clr-input {
+    width: 100%;
+  }
+}
+
+.add-contributor-col {
+  display: flex;
+
+  .add-contributor-button {
+    margin: 0;
+    align-self: flex-end;
+  }
+}
