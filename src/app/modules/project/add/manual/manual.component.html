@@ -1,0 +1,105 @@
+<h1>Add new project</h1>
+<div class="clr-row">
+  <div class="clr-col-12">
+
+    <form clrForm clrLayout="vertical" [formGroup]="newProjectForm" class="project-form">
+
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <clr-input-container>
+            <label>Project name*</label>
+            <input placeholder="Digital excellence" clrInput formControlName="name" required />
+            <clr-control-error>This field is required!</clr-control-error>
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <clr-input-container>
+            <label>Project link*</label>
+            <input placeholder="https://github.com/fontys/digitalexcellence" clrInput formControlName="uri" required />
+            <clr-control-error>This field is required!</clr-control-error>
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <clr-input-container>
+            <label>Short description*</label>
+            <input clrInput formControlName="shortDescription" required />
+            <clr-control-error>This field is required!</clr-control-error>
+          </clr-input-container>
+        </div>
+      </div>
+
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <clr-input-container>
+            <label>Description*</label>
+            <textarea clrInput formControlName="description" required></textarea>
+            <clr-control-error>This field is required!</clr-control-error>
+          </clr-input-container>
+        </div>
+      </div>
+    </form>
+
+    <form clrForm clrLayout="vertical" [formGroup]="newContributorForm" class="project-form">
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <p><b>Add project members</b></p>
+          <div class="clr-row">
+
+            <div class="clr-col-5">
+              <clr-input-container>
+                <label>Contributor full name</label>
+                <input clrInput formControlName="fullName" required />
+                <clr-control-error>This field is required!</clr-control-error>
+              </clr-input-container>
+            </div>
+
+            <div class="clr-col-5">
+              <clr-input-container>
+                <label>Contributor function</label>
+                <input clrInput formControlName="role" required />
+                <clr-control-error>This field is required!</clr-control-error>
+              </clr-input-container>
+            </div>
+
+            <div class="clr-col-2 add-contributor-col">
+              <button type="button" class="btn btn-icon btn-primary add-contributor-button" aria-label="settings"
+                (click)="onClickAddContributor()" [disabled]="!newContributorForm.valid">
+                <clr-icon shape="plus"></clr-icon>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="clr-row" *ngIf="collaborators.length > 0">
+
+      <div class="clr-col-12">
+        <h3>Contributors</h3>
+      </div>
+
+      <div *ngFor="let collaborator of collaborators" class="clr-col-6">
+        <button type="button" class="btn btn-icon btn-danger" aria-label="error"
+          (click)="onClickDeleteContributor(collaborator)">
+          <clr-icon shape="trash"></clr-icon>
+        </button>
+        {{collaborator?.fullName}}
+        <hr class="dashed">
+      </div>
+    </div>
+
+    <div class="clr-row">
+      <div class="clr-col-12">
+        <button class="btn btn-success" type="submit" (click)="onSubmit()" [disabled]="submitEnabled">Submit</button>
+      </div>
+    </div>
+
+  </div>
+</div>

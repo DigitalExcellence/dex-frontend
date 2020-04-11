@@ -7,14 +7,12 @@ import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationComponent } from './components/navigation/navigation.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppLayoutComponent,
-    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     ClarityModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
