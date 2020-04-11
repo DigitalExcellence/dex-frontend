@@ -4,6 +4,35 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3,
+a {
   text-transform: uppercase;
+}
+
+h1 {
+  font-size:40px;
+}
+h2 {
+  font-size:18px;
+  font-weight: 600;
+}
+h3 {
+  font-size:14px;
+  font-weight: 600;
+}
+
+a {
+  display:block;
+  font-size:14px;
+  font-weight: 600;
+  text-decoration:underline !important;
+  color:black;
+  &:active, &:hover, &:focus, &:visited {
+    color:black;
+  }
+}
+
+p {
+  margin: 15px 0;
 }

@@ -48,43 +48,9 @@
     img {
       width:25px;
     }
-
-    &:active, &:hover, &:focus {
-      background: none;
-      border:none;
-    }
   }
 }
 
-h1 {
-  text-transform:uppercase;
-  font-size:40px;
+h1, a, p {
   text-align: center;
 }
-h2 {
-  text-transform:uppercase;
-  font-size:18px;
-  font-weight: 600;
-}
-h3 {
-  text-transform:uppercase;
-  font-size:14px;
-  font-weight: 600;
-  text-align: center;
-}
-
-a {
-  display:block;
-  text-transform:uppercase;
-  font-size:14px;
-  font-weight: 600;
-  text-align: center;
-  text-decoration:underline;
-  color:black;
-}
-
-p {
-  margin: 15px 0;
-  text-align: center;
-}
-
