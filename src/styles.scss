@@ -4,8 +4,11 @@ $light-mode-text-color: #707175;
 $light-mode-background-color: #F4F6F8;
 $light-mode-component-color: #FFFFFF;
 
-body {
-  font-family: "Open Sans", sans-serif;
+.main-container {
+  background-color: $light-mode-background-color;
+}
+body{
+  background-color: $light-mode-background-color;
 }
 h1,
 h2,
