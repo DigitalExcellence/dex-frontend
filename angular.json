@@ -181,5 +181,8 @@
       }
     }
   },
-  "defaultProject": "dex-frontend"
+  "defaultProject": "dex-frontend",
+  "cli": {
+    "analytics": false
+  }
 }

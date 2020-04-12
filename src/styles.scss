@@ -1,27 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+$light-mode-title-color: #323232;
+$light-mode-text-color: #707175;
+$light-mode-background-color: #F4F6F8;
+$light-mode-component-color: #FFFFFF;
+
 body {
   font-family: "Open Sans", sans-serif;
 }
-
 h1,
 h2,
 h3,
+h4,
 a {
-  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: $light-mode-title-color;
 }
-
 h1 {
-  font-size:40px;
+  font-size:55px;
 }
 h2 {
-  font-size:18px;
-  font-weight: 600;
+  font-size:30px;
 }
 h3 {
-  font-size:14px;
-  font-weight: 600;
+  font-size:18px;
 }
-
+h4 {
+  font-size:14px;
+}
 a {
   display:block;
   font-size:14px;
@@ -32,7 +38,6 @@ a {
     color:black;
   }
 }
-
 p {
   margin: 15px 0;
 }
