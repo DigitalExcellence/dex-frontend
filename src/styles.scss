@@ -1,45 +1,60 @@
-/* 
- *  
+/*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
- *   
- *   This program is free software: you can redistribute it and/or modify 
- *   it under the terms of the GNU Lesser General Public License as published 
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
  *   by the Free Software Foundation version 3 of the License.
- *   
- *   This program is distributed in the hope that it will be useful, 
- *   but WITHOUT ANY WARRANTY; without even the implied warranty 
- *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *   See the GNU Lesser General Public License for more details.
- *   
- *   You can find a copy of the GNU Lesser General Public License 
+ *
+ *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
- *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
- *  
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
 
 /* You can add global styles to this file, and also import other style files */
-body {
-  font-family: "Open Sans", sans-serif;
+$light-mode-title-color: #323232;
+$light-mode-text-color: #707175;
+$light-mode-background-color: #F4F6F8;
+$light-mode-component-color: #FFFFFF;
+
+.main-container {
+  background-color: $light-mode-background-color;
 }
 
+body{
+  background-color: $light-mode-background-color;
+}
 
 h1,
 h2,
 h3,
+h4,
 a {
-  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: $light-mode-title-color;
 }
 
 h1 {
-  font-size:40px;
+  font-size:55px;
 }
+
 h2 {
-  font-size:18px;
-  font-weight: 600;
+  font-size:30px;
 }
+
 h3 {
+  font-size:18px;
+}
+
+h4 {
   font-size:14px;
-  font-weight: 600;
 }
 
 a {
