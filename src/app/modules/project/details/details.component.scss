@@ -1,0 +1,72 @@
+/* 
+ *  
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *   
+ *   This program is free software: you can redistribute it and/or modify 
+ *   it under the terms of the GNU Lesser General Public License as published 
+ *   by the Free Software Foundation version 3 of the License.
+ *   
+ *   This program is distributed in the hope that it will be useful, 
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty 
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *   See the GNU Lesser General Public License for more details.
+ *   
+ *   You can find a copy of the GNU Lesser General Public License 
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
+ *  
+ */
+
+p {
+  font-size: 16px;
+}
+
+h1 {
+  text-transform:uppercase;
+  font-size: 40px;
+  font-weight: 900;
+}
+
+h2 {
+  text-transform:uppercase;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+h3 {
+  text-transform:uppercase;
+  font-size:14px;
+  font-weight: 600;
+}
+
+.project_description {
+  margin-top:75px;
+}
+
+.project_details {
+  margin-top:75px;
+  
+  p {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: underline;
+    color: black;
+    font-size: 12px;
+  }
+
+  ul {
+    font-size: 16px;
+    list-style: none;
+  }
+
+  button {
+    background: #E6E6E6;
+    border: none;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
