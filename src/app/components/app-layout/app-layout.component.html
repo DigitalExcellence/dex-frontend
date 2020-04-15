@@ -25,6 +25,10 @@
     <div class="header-nav">
       <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
       <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
+      <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active"
+        class="nav-link nav-text">Login</a>
+      <a *ngIf="isAuthenticated" (click)="signout()" routerLinkActive="active"
+        class="nav-link nav-text">Signout {{name}}</a>
     </div>
   </header>
 
