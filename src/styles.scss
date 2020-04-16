@@ -1,25 +1,50 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+
 body {
   font-family: "Open Sans", sans-serif;
+  background-color: $light-mode-background-color;
+
+  p {
+    font-family: 'Lato', sans-serif;
+    color: $light-mode-text-color;
+    font-size: 14px;
+  }
+
+  p.large {
+    font-size: 18px;
+  }
+
+  p.small {
+    font-size: 12px;
+  }
+}
+
+.main-container {
+  background: none;
 }
 
 h1,
 h2,
 h3,
+h4,
 a {
-  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: $light-mode-title-color;
 }
 
 h1 {
-  font-size:40px;
+  font-size:55px;
+  margin: 30px 0px;
 }
 h2 {
-  font-size:18px;
-  font-weight: 600;
+  font-size:30px;
 }
 h3 {
+  font-size:18px;
+}
+h4 {
   font-size:14px;
-  font-weight: 600;
 }
 
 a {
@@ -31,8 +56,4 @@ a {
   &:active, &:hover, &:focus, &:visited {
     color:black;
   }
-}
-
-p {
-  margin: 15px 0;
 }
