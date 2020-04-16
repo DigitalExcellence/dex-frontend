@@ -1,0 +1,141 @@
+//header
+h1{
+  text-align: center;
+  margin-top:240px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  input[type='search'] {
+    margin:36px 0 0 25px;
+    position:relative;
+    width:100%;
+    max-width:812px;
+    padding:8px 20px;
+    font-size:18px;
+    height: 60px;
+    color:#707175;
+    border:none;
+    background: #FFFFFF 0 0 no-repeat padding-box;
+    box-shadow: 0 3px 6px #1A1A1A1A;
+    border-radius: 6px;
+    opacity: 1;
+    font-family: lato, 'sans-serif';
+
+    &::placeholder{
+      color:#707175;
+    }
+
+    &:focus{
+      border:none;
+      outline:none;
+    }
+  }
+
+  button {
+    position: relative;
+    top: 18px;
+    right: 55px;
+    cursor:pointer;
+    background: none;
+    border:none;
+
+    &:focus{
+      outline:none;
+    }
+
+    img {
+      width:25px;
+    }
+  }
+}
+
+//project highlights
+.highlights{
+  margin-top:255px;
+
+  h3, p{
+    margin-top:0;
+  }
+
+  .card{
+    padding:30px 75px;
+    background: #FFFFFF;
+    box-shadow: 3px 3px 6px #00000015;
+    border-radius: 6px;
+    border:none;
+
+    .card-title{
+      display:flex;
+
+      .icon{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width:40px;
+        height:40px;
+        border-radius:50%;
+        background-color:#E85B3F;
+        margin-right:10px;
+
+        img{
+          width:28px;
+        }
+      }
+
+      h3{
+         display: flex;
+       }
+    }
+
+    p{
+      margin-top:20px;
+    }
+  }
+}
+
+//share
+.share{
+  margin:180px 0;
+
+  img{
+    width:100%;
+    max-width:580px;
+  }
+
+  .share-text{
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+  }
+
+  h1{
+    margin-top: 0;
+    text-align: left;
+    line-height:67px;
+  }
+
+  button{
+    margin-top:20px;
+    background: #E85B3F;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 6px;
+    opacity: 1;
+    border:none;
+    font-family: Montserrat, sans-serif;
+    font-weight:600;
+    color:white;
+    font-size:14px;
+    padding:12px 30px;
+
+    &:focus{
+      border:none;
+      outline:none;
+    }
+  }
+}

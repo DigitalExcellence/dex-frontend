@@ -1,45 +1,70 @@
-/* 
- *  
+/*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
- *   
- *   This program is free software: you can redistribute it and/or modify 
- *   it under the terms of the GNU Lesser General Public License as published 
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
  *   by the Free Software Foundation version 3 of the License.
- *   
- *   This program is distributed in the hope that it will be useful, 
- *   but WITHOUT ANY WARRANTY; without even the implied warranty 
- *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *   See the GNU Lesser General Public License for more details.
- *   
- *   You can find a copy of the GNU Lesser General Public License 
+ *
+ *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
- *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
- *  
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
 
-/* You can add global styles to this file, and also import other style files */
+@import 'variables';
+
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Lato', sans-serif;
+  background-color: $light-mode-background-color;
+
+  p {
+    font-family: 'Lato', sans-serif;
+    color: $light-mode-text-color;
+    font-size: 14px;
+  }
+
+  p.large {
+    font-size: 18px;
+  }
+
+  p.small {
+    font-size: 12px;
+  }
 }
 
+.main-container {
+  background: none;
+}
 
 h1,
 h2,
 h3,
+h4,
 a {
-  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: $light-mode-title-color;
 }
 
 h1 {
-  font-size:40px;
+  font-size:55px;
+  margin: 30px 0px;
 }
+
 h2 {
-  font-size:18px;
-  font-weight: 600;
+  font-size:30px;
 }
 h3 {
+  font-size:18px;
+}
+h4 {
   font-size:14px;
-  font-weight: 600;
 }
 
 a {
@@ -51,8 +76,4 @@ a {
   &:active, &:hover, &:focus, &:visited {
     color:black;
   }
-}
-
-p {
-  margin: 15px 0;
 }
