@@ -38,7 +38,7 @@ export class SourceComponent implements OnInit {
   ngOnInit(): void {
     const demoSource: ExternalSource = {
       id: 1,
-      name: 'gitHub',
+      name: 'GitHub',
       image: 'assets/github-logo.svg'
     };
     for (let index = 0; index < 6; index++) {
