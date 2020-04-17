@@ -55,7 +55,8 @@ export function getClientSettings(): UserManagerSettings {
     redirect_uri: "http://localhost:4200/auth-callback",
     post_logout_redirect_uri: "http://localhost:4200/",
     response_type: "id_token token",
-    scope: "openid profile ApiDataRead ApiDataWrite",
+    scope:
+      "openid ProjectRead ProjectWrite UserRead UserWrite HighlightRead HighlightWrite",
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,

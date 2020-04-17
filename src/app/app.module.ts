@@ -24,9 +24,10 @@ import { AppComponent } from "./app.component";
 import { AppLayoutComponent } from "./components/app-layout/app-layout.component";
 import { ClarityModule } from "@clr/angular";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HomeComponent } from "./modules/home/home.component";
 import { AuthCallbackComponent } from "./components/auth-callback/auth-callback.component";
+import { TokenInterceptor } from "./auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,13 @@ import { AuthCallbackComponent } from "./components/auth-callback/auth-callback.
     HttpClientModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
