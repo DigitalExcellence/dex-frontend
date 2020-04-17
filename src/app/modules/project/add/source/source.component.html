@@ -1,39 +1,69 @@
-<div class="clr-row justify-content-center header-text">
+<!-- 
+  
+  Digital Excellence Copyright (C) 2020 Brend Smits
+   
+   This program is free software: you can redistribute it and/or modify 
+   it under the terms of the GNU Lesser General Public License as published 
+   by the Free Software Foundation version 3 of the License.
+   
+   This program is distributed in the hope that it will be useful, 
+   but WITHOUT ANY WARRANTY; without even the implied warranty 
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+   See the GNU Lesser General Public License for more details.
+   
+   You can find a copy of the GNU Lesser General Public License 
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
+  
+ -->
+
+
+ <!-- header text -->
+<div class="clr-row header-text">
   <div class="clr-col-12">
-    <h1>Add new project</h1>
+    <h4>Projects > add project</h4>
+    <h1>Add New Project</h1>
   </div>
 </div>
 
+
+<!-- subtitle -->
 <div class="clr-row">
   <div class="clr-col-12">
-    <h2>Most used sources</h2>
+    <h3>Most Used Sources</h3>
   </div>
 </div>
 
+
+<!-- sources -->
 <div class="clr-row">
-  <div class="clr-col-2" *ngFor="let externalSource of mostUsedSources">
+  <div class="clr-col-12 clr-col-sm-6 clr-col-md-4 clr-col-lg-2" *ngFor="let externalSource of mostUsedSources">
     <div class="source">
       <img src="{{ externalSource?.image }}">
-      <h3>{{ externalSource?.name }}</h3>
+      <h4>{{ externalSource?.name }}</h4>
     </div>
   </div>
 </div>
 
+
+<!-- search bar -->
 <div class="clr-row justify-content-center">
-  <div class="clr-col-6 search clr-offset-3">
-    <input type="search" placeholder="SEARCH SOURCE">
-    <button><img src="assets/search-icon.svg"></button>
+  <div class="clr-col-lg-6 clr-col-md-8 clr-col-sm-10 search">
+    <input type="search" placeholder="Search source">
+    <button><img src="assets/research.svg"></button>
   </div>
 </div>
 
+
+<!-- add project manual -->
 <div class="clr-row justify-content-center">
   <div class="clr-col-12">
-    <h1>OR</h1>
+    <h1>or</h1>
   </div>
 </div>
 <div class="clr-row justify-content-center">
   <div class="clr-col-12">
-    <a routerLink="/project/add/manual">Add project manual</a>
+    <a routerLink="/project/add/manual">Add Project Manual</a>
   </div>
 </div>
 <div class="clr-row justify-content-center">

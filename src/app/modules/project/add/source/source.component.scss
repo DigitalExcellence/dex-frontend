@@ -1,13 +1,54 @@
-.header-text {
-  margin-top:75px;
+/* 
+ *  
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *   
+ *   This program is free software: you can redistribute it and/or modify 
+ *   it under the terms of the GNU Lesser General Public License as published 
+ *   by the Free Software Foundation version 3 of the License.
+ *   
+ *   This program is distributed in the hope that it will be useful, 
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty 
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *   See the GNU Lesser General Public License for more details.
+ *   
+ *   You can find a copy of the GNU Lesser General Public License 
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
+ *  
+ */
+
+ @import 'variables';
+
+
+ h1, a, p {
+  text-align: center;
 }
+
+a{
+  color:#e85b3f;
+}
+
+p{
+  margin-bottom: 80px;
+}
+
+ .header-text {
+  margin-top:30px;
+}
+.header-text h1{
+    text-align: left;
+  }
+
+
+// sources
 .source {
   margin-top:20px;
   width:100%;
   height:auto;
-  padding:15px 10px;
-  background-color:#E6E6E6;
+  padding:20px 10px;
+  background-color:white;
   border-radius: 6px;
+  box-shadow: 0 3px 6px #1A1A1A1A;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,34 +57,57 @@
   img {
     width:100px;
     height:auto;
-    margin-bottom: 20px;
-  }
-
-  h3 {
-    margin-bottom: 0;
   }
 }
 
-.search {
-  input[type='search'] {
-    margin-top:50px;
-    width:100%;
-    border-radius:50px;
-    padding:8px 20px;
-    border: 1px solid #707070;
-    font-size:15px;
-  }
 
-  input[type='search']:focus {
-    outline: none;
+// search bar
+.search {
+  margin:0 auto;
+  margin-top:20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:100%;
+
+
+  input[type='search'] {
+    margin:36px 0 0 25px;
+    position:relative;
+    width:100%;
+    max-width:812px;
+    padding:8px 20px;
+    font-size:18px;
+    height: 60px;
+    color:#707175;
+    border:none;
+    background: #FFFFFF 0 0 no-repeat padding-box;
+    box-shadow: 0 3px 6px #1A1A1A1A;
+    border-radius: 6px;
+    opacity: 1;
+    font-family: lato, 'sans-serif';
+
+    &::placeholder{
+      color:#707175;
+    }
+
+    &:focus{
+      border:none;
+      outline:none;
+    }
   }
 
   button {
+    position: relative;
+    top: 18px;
+    right: 55px;
+    cursor:pointer;
     background: none;
     border:none;
-    position: absolute;
-    right:30px;
-    top:2px;
+
+    &:focus{
+      outline:none;
+    }
 
     img {
       width:25px;
@@ -51,6 +115,5 @@
   }
 }
 
-h1, a, p {
-  text-align: center;
-}
+
+
