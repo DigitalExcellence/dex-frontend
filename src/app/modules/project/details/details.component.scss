@@ -23,7 +23,7 @@
   display: flex;
   place-content: center;
   border-radius: 50%;
-  background-color: $primary-color;
+  background-color: $accent-color-primary;
   margin-right: 10px;
   max-width: 180px;
 
@@ -61,7 +61,7 @@
 
 .project-tags__tag {
   text-decoration: none;
-  background: $primary-color;
+  background: $accent-color-primary;
   color: #fff;
   border-radius: var(--clr-btn-border-radius);
   padding: 3px 20px;
