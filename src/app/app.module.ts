@@ -27,8 +27,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HomeComponent } from "./modules/home/home.component";
 import { AuthCallbackComponent } from "./components/auth-callback/auth-callback.component";
-import { TokenInterceptor } from "./auth.interceptor";
-
+import { TokenInterceptor } from "./interceptors/auth.interceptor";
 @NgModule({
   declarations: [
     AppComponent,

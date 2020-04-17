@@ -11,7 +11,7 @@ export class LoginComponent {
   constructor(private authService: AuthService) {}
   title = "Login";
 
-  login() {
+  public loginIdentityServer() {
     this.authService.login();
   }
 }

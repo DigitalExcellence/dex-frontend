@@ -9,11 +9,13 @@ import { catchError } from "rxjs/internal/operators/catchError";
 })
 export class AuthService {
   // Observable navItem source
-  private _authNavStatusSource = new BehaviorSubject<boolean>(false);
+  private _authNavStatusSource: BehaviorSubject<boolean> = new BehaviorSubject<
+    boolean
+  >(false);
   // Observable navItem stream
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
-  private manager = new UserManager(getClientSettings());
+  private manager: UserManager = new UserManager(getClientSettings());
   private user: User | null;
 
   constructor(private http: HttpClient) {
@@ -23,31 +25,32 @@ export class AuthService {
     });
   }
 
-  login() {
+  public login() {
     return this.manager.signinRedirect();
   }
 
-  async completeAuthentication() {
+  public async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
     this._authNavStatusSource.next(this.isAuthenticated());
   }
 
-  isAuthenticated(): boolean {
+  private isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
   }
 
-  get authorizationHeaderValue(): string {
+  public get authorizationHeaderValue(): string {
     return `${this.user.token_type} ${this.user.access_token}`;
   }
 
-  get name(): string {
+  public get name(): string {
     return this.user != null ? this.user.profile.name : "";
   }
 
-  async signout() {
+  public async signout() {
     await this.manager.signoutRedirect();
   }
 }
+// TODO: Convert this to valuables from config / environment file
 export function getClientSettings(): UserManagerSettings {
   return {
     authority: "https://localhost:5005",
