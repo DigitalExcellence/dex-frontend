@@ -22,34 +22,13 @@
     </div>
   </div>
   <div class="clr-row">
-    <div class="clr-col-md-12 clr-col-lg-4">
+    <div *ngFor="let highlight of highlights" class="clr-col-md-12 clr-col-lg-4">
       <div class="card">
         <div class="card-title">
           <div class="icon"><img src="assets/code.svg"></div>
-          <h3>Gekke Bekke Trekke Game Paaspop 2019</h3>
+          <h3>{{highlight.project.name}}</h3>
         </div>
-        <p>Gekke Bekke Trekke is an interactive tablet game in which a group of festival-goers have to complete a set of
-          tasks within 3 minutes.</p>
-      </div>
-    </div>
-    <div class="clr-col-md-12 clr-col-lg-4">
-      <div class="card">
-        <div class="card-title">
-          <div class="icon"><img src="assets/code.svg"></div>
-          <h3>Gekke Bekke Trekke Game Paaspop 2019</h3>
-        </div>
-        <p>Gekke Bekke Trekke is an interactive tablet game in which a group of festival-goers have to complete a set of
-          tasks within 3 minutes.</p>
-      </div>
-    </div>
-    <div class="clr-col-md-12 clr-col-lg-4">
-      <div class="card">
-        <div class="card-title">
-          <div class="icon"><img src="assets/code.svg"></div>
-          <h3>Gekke Bekke Trekke Game Paaspop 2019</h3>
-        </div>
-        <p>Gekke Bekke Trekke is an interactive tablet game in which a group of festival-goers have to complete a set of
-          tasks within 3 minutes.</p>
+        <p>{{highlight.project.description}}</p>
       </div>
     </div>
   </div>
