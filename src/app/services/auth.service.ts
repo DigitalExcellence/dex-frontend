@@ -9,9 +9,7 @@ import { catchError } from "rxjs/internal/operators/catchError";
 })
 export class AuthService {
   // Observable navItem source
-  private _authNavStatusSource: BehaviorSubject<boolean> = new BehaviorSubject<
-    boolean
-  >(false);
+  private _authNavStatusSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   // Observable navItem stream
   authNavStatus$ = this._authNavStatusSource.asObservable();
 
@@ -43,7 +41,7 @@ export class AuthService {
   }
 
   public get name(): string {
-    return this.user != null ? this.user.profile.name : "";
+    return this.user != null ? this.user.profile.name : "John Doe";
   }
 
   public async signout() {
@@ -58,8 +56,7 @@ export function getClientSettings(): UserManagerSettings {
     redirect_uri: "http://localhost:4200/auth-callback",
     post_logout_redirect_uri: "http://localhost:4200/",
     response_type: "id_token token",
-    scope:
-      "openid ProjectRead ProjectWrite UserRead UserWrite HighlightRead HighlightWrite",
+    scope: "openid profile ProjectRead ProjectWrite UserRead UserWrite HighlightRead HighlightWrite",
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,

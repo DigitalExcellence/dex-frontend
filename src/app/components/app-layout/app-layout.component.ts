@@ -28,20 +28,20 @@ import { AuthService } from "src/app/services/auth.service";
   styleUrls: ["./app-layout.component.scss"],
 })
 export class AppLayoutComponent implements OnInit {
-  name: string;
-  isAuthenticated: boolean;
-  subscription: Subscription;
+  public name: string;
+  public isAuthenticated: boolean;
+  public subscription: Subscription;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.subscription = this.authService.authNavStatus$.subscribe(
-      (status) => (this.isAuthenticated = status)
-    );
-    this.name = this.authService.name;
+    this.subscription = this.authService.authNavStatus$.subscribe((status) => {
+      this.isAuthenticated = status;
+      this.name = this.authService.name;
+    });
   }
 
-  async signout() {
+  public async signout() {
     await this.authService.signout();
   }
 }

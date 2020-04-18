@@ -25,17 +25,19 @@
     <div class="header-nav">
       <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
       <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
-      <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active"
-        class="nav-link nav-text">Login</a>
-      <a *ngIf="isAuthenticated" (click)="signout()" routerLinkActive="active"
-        class="nav-link nav-text">Signout {{name}}</a>
     </div>
     <div class="search-bar">
       <input type="search" placeholder="search">
       <button><img src="assets/research.svg"></button>
     </div>
-    <div class="profile">
-      <h4>Janette Doe</h4>
+    <div class="header-nav account">
+      <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active"
+        class="nav-link nav-text">Login</a>
+      <a *ngIf="isAuthenticated" (click)="signout()" routerLinkActive="active" class="nav-link nav-text">Sign
+        Out</a>
+    </div>
+    <div *ngIf="isAuthenticated" class="profile">
+      <h4>{{name}}</h4>
       <img class="profile-picture" src="assets/janette-doe.png">
     </div>
   </header>
