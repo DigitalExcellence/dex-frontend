@@ -16,79 +16,84 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-@import 'variables';
+@import "variables";
 
 .header {
   display: flex;
   align-items: center;
-  box-shadow: 0 3px 6px #0000001A;
-  background-color: #FFFFFF;
+  box-shadow: 0 3px 6px #0000001a;
+  background-color: #ffffff;
 
-  a h4{
-    margin:0;
-    color:$light-mode-title-color;
+  a h4 {
+    margin: 0;
+    color: $light-mode-title-color;
   }
 
-  .title{
-
-    img{
-      width:90px;
+  .title {
+    img {
+      width: 90px;
     }
   }
 
-  .search-bar{
+  .search-bar {
     margin-left: 30px;
 
-    input[type='search']{
+    input[type="search"] {
       width: 266px;
       height: 28px;
-      background: #F2F2F2;
-      border: 1px solid #7070700D;
+      background: #f2f2f2;
+      border: 1px solid #7070700d;
       border-radius: 6px;
       opacity: 1;
-      padding-left:15px;
-      position:relative;
+      padding-left: 15px;
+      position: relative;
 
-      &::placeholder{
-        color:#707175;
+      &::placeholder {
+        color: #707175;
       }
 
-      &:focus{
-        border:none;
-        outline:none;
+      &:focus {
+        border: none;
+        outline: none;
       }
     }
 
     button {
       position: relative;
       top: -2px;
-      right:36px;
-      cursor:pointer;
+      right: 36px;
+      cursor: pointer;
       background: none;
-      border:none;
+      border: none;
 
-      &:focus{
-        outline:none;
+      &:focus {
+        outline: none;
       }
 
       img {
-        width:20px;
+        width: 20px;
       }
     }
   }
 
-  .profile{
+  .title a,
+  .header-nav a {
+    font-weight: bold;
+    color: #070707;
+    font-size: 16px;
+  }
+  .profile {
     display: flex;
     align-items: center;
-    margin-left:auto;
-    margin-right:24px;
+    margin-left: auto;
+    margin-right: 24px;
 
-    h4{
-      margin:0 15px 0 0;
+    h4 {
+      margin: 0 15px 0 0;
     }
 
-    .profile-picture{
-      width:30px;
+    .profile-picture {
+      width: 30px;
     }
   }
 }
