@@ -13,26 +13,8 @@
   </div>
 </div>
 
-<!--highlights-->
-<div class="highlights">
-  <div class="clr-row">
-    <div class="clr-col-12">
-      <h2>Highlighted projects</h2>
-      <p>Our top 3 projects</p>
-    </div>
-  </div>
-  <div class="clr-row">
-    <div *ngFor="let highlight of highlights" class="clr-col-md-12 clr-col-lg-4">
-      <div class="card" routerLink="/project/details/{{highlight.projectId}}">
-        <div class="card-title">
-          <div class="icon"><img src="assets/code.svg"></div>
-          <h3>{{highlight.project.name}}</h3>
-        </div>
-        <p>{{highlight.project.description}}</p>
-      </div>
-    </div>
-  </div>
-</div>
+<!--Highlights-->
+<app-top-highlight-cards></app-top-highlight-cards>
 
 <!--share image and button-->
 <div class="clr-row share">

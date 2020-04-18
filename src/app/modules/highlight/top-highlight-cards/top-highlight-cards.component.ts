@@ -1,16 +1,16 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { finalize } from "rxjs/operators";
 import { HttpErrorResponse } from "@angular/common/http";
-import { Highlight } from "src/app/models/domain/hightlight";
+import { finalize } from "rxjs/internal/operators/finalize";
 import { HighlightService } from "src/app/services/highlight.service";
+import { Router } from "@angular/router";
+import { Highlight } from "src/app/models/domain/hightlight";
 
 @Component({
-  selector: "home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: "app-top-highlight-cards",
+  templateUrl: "./top-highlight-cards.component.html",
+  styleUrls: ["./top-highlight-cards.component.scss"],
 })
-export class HomeComponent implements OnInit {
+export class TopHighlightCardsComponent implements OnInit {
   /**
    * Array to receive and store the projects from the api.
    */
@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
       .subscribe(
         (result) => {
           this.highlights = this.generateSampleSizeOf(result, 3);
-          console.log(this.highlights);
         },
         (error: HttpErrorResponse) => {
           if (error.status !== 404) {
