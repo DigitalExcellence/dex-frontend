@@ -1,34 +1,95 @@
-/* 
- *  
+/*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
- *   
- *   This program is free software: you can redistribute it and/or modify 
- *   it under the terms of the GNU Lesser General Public License as published 
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
  *   by the Free Software Foundation version 3 of the License.
- *   
- *   This program is distributed in the hope that it will be useful, 
- *   but WITHOUT ANY WARRANTY; without even the implied warranty 
- *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *   See the GNU Lesser General Public License for more details.
- *   
- *   You can find a copy of the GNU Lesser General Public License 
+ *
+ *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
- *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
- *  
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
+@import 'variables';
 
 .header {
-  background-color: #EBEBEB;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 3px 6px #0000001A;
+  background-color: #FFFFFF;
 
-  .title a, .header-nav a {
-    font-weight: bold;
-    color: #070707;
-    font-size: 16px;
+  a h4{
+    margin:0;
+    color:$light-mode-title-color;
   }
 
-  .header-nav a {
-    text-transform: uppercase;
-    color: black;
+  .title{
+
+    img{
+      width:90px;
+    }
+  }
+
+  .search-bar{
+    margin-left: 30px;
+
+    input[type='search']{
+      width: 266px;
+      height: 28px;
+      background: #F2F2F2;
+      border: 1px solid #7070700D;
+      border-radius: 6px;
+      opacity: 1;
+      padding-left:15px;
+      position:relative;
+
+      &::placeholder{
+        color:#707175;
+      }
+
+      &:focus{
+        border:none;
+        outline:none;
+      }
+    }
+
+    button {
+      position: relative;
+      top: -2px;
+      right:36px;
+      cursor:pointer;
+      background: none;
+      border:none;
+
+      &:focus{
+        outline:none;
+      }
+
+      img {
+        width:20px;
+      }
+    }
+  }
+
+  .profile{
+    display: flex;
+    align-items: center;
+    margin-left:auto;
+    margin-right:24px;
+
+    h4{
+      margin:0 15px 0 0;
+    }
+
+    .profile-picture{
+      width:30px;
+    }
   }
 }
 

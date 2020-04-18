@@ -1,26 +1,26 @@
-<!-- 
-  
+<!--
+
   Digital Excellence Copyright (C) 2020 Brend Smits
-   
-   This program is free software: you can redistribute it and/or modify 
-   it under the terms of the GNU Lesser General Public License as published 
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
    by the Free Software Foundation version 3 of the License.
-   
-   This program is distributed in the hope that it will be useful, 
-   but WITHOUT ANY WARRANTY; without even the implied warranty 
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
    See the GNU Lesser General Public License for more details.
-   
-   You can find a copy of the GNU Lesser General Public License 
+
+   You can find a copy of the GNU Lesser General Public License
    along with this program, in the LICENSE.md file in the root project directory.
-   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
-  
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
  -->
 
 <div class="main-container">
   <header class="header header-6">
     <div class="branding">
-      <span class="title"><a routerLink="">Dex</a></span>
+      <span class="title"><a routerLink=""><img src="assets/dex-logo-dark-orange.png"></a></span>
     </div>
     <div class="header-nav">
       <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
@@ -29,6 +29,14 @@
         class="nav-link nav-text">Login</a>
       <a *ngIf="isAuthenticated" (click)="signout()" routerLinkActive="active"
         class="nav-link nav-text">Signout {{name}}</a>
+    </div>
+    <div class="search-bar">
+      <input type="search" placeholder="search">
+      <button><img src="assets/research.svg"></button>
+    </div>
+    <div class="profile">
+      <h4>Janette Doe</h4>
+      <img class="profile-picture" src="assets/janette-doe.png">
     </div>
   </header>
 
