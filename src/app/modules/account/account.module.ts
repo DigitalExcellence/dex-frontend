@@ -6,12 +6,7 @@ import { ClarityModule } from "@clr/angular";
 import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AccountRoutingModule,
-    ClarityModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CommonModule, AccountRoutingModule, ClarityModule, ReactiveFormsModule],
   declarations: [LoginComponent],
 })
 export class AccountModule {}

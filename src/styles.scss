@@ -17,14 +17,14 @@
  *
  */
 
-@import 'variables';
+@import "variables";
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   background-color: $light-mode-background-color;
 
   p {
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
     color: $light-mode-text-color;
     font-size: 14px;
   }
@@ -46,31 +46,34 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   color: $light-mode-title-color;
 }
 
 h1 {
-  font-size:55px;
+  font-size: 55px;
   margin: 30px 0px;
 }
 
 h2 {
-  font-size:30px;
+  font-size: 30px;
 }
 h3 {
-  font-size:18px;
+  font-size: 18px;
 }
 h4 {
-  font-size:14px;
+  font-size: 14px;
 }
 
 a {
   text-decoration: underline;
   color: black;
 
-  &:active, &:hover, &:focus, &:visited {
+  &:active,
+  &:hover,
+  &:focus,
+  &:visited {
     color: black;
   }
 }

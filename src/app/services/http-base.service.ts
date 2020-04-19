@@ -15,8 +15,8 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 /**
  * Base Service which other services can implement to gain all standard API CRUD functionality.

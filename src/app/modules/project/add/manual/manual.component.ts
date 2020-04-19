@@ -15,13 +15,13 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { ProjectService } from "src/app/services/project.service";
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
-import { ProjectAdd } from "src/app/models/resources/project-add";
-import { CollaboratorAdd } from "src/app/models/resources/contributor-add";
-import { finalize } from "rxjs/operators";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { finalize } from "rxjs/operators";
+import { CollaboratorAdd } from "src/app/models/resources/contributor-add";
+import { ProjectAdd } from "src/app/models/resources/project-add";
+import { ProjectService } from "src/app/services/project.service";
 
 /**
  * Component for manually adding a project.

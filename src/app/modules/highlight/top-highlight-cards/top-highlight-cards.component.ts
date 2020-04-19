@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
 import { HttpErrorResponse } from "@angular/common/http";
-import { finalize } from "rxjs/internal/operators/finalize";
-import { HighlightService } from "src/app/services/highlight.service";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { finalize } from "rxjs/internal/operators/finalize";
 import { Highlight } from "src/app/models/domain/hightlight";
+import { HighlightService } from "src/app/services/highlight.service";
 
 @Component({
   selector: "app-top-highlight-cards",

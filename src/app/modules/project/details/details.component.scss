@@ -36,13 +36,14 @@
 .project-metadata__item {
   margin: 30px 0;
 
-  h3, p {
+  h3,
+  p {
     margin: 0;
   }
 
   a {
     font-weight: normal;
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
 
     &:link {
       color: $light-mode-title-color;
