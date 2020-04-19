@@ -1,14 +1,14 @@
 image: node:alpine
 
 stages:
-    - build
-    - test
+  - build
+  - test
 
 test:
   stage: test
   before_script:
     - npm install --silent
-  script: 
+  script:
     - npm run test
     - npm run e2e
   tags:
@@ -23,4 +23,3 @@ build:
       - dist/
   tags:
     - front-end
-

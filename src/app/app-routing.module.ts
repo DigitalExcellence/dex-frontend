@@ -16,7 +16,7 @@
  */
 
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { AuthCallbackComponent } from "./components/auth-callback/auth-callback.component";
 import { HomeComponent } from "./components/home/home.component";
 

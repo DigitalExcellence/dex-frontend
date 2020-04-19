@@ -17,83 +17,81 @@
  *  
  */
 
- @import 'variables';
+@import "variables";
 
-
- h1, a, p {
+h1,
+a,
+p {
   text-align: center;
 }
 
-a{
-  color:#e85b3f;
+a {
+  color: #e85b3f;
 }
 
-p{
+p {
   margin-bottom: 80px;
 }
 
- .header-text {
-  margin-top:30px;
+.header-text {
+  margin-top: 30px;
 }
-.header-text h1{
-    text-align: left;
-  }
-
+.header-text h1 {
+  text-align: left;
+}
 
 // sources
 .source {
-  margin-top:20px;
-  width:100%;
-  height:auto;
-  padding:20px 10px;
-  background-color:white;
+  margin-top: 20px;
+  width: 100%;
+  height: auto;
+  padding: 20px 10px;
+  background-color: white;
   border-radius: 6px;
-  box-shadow: 0 3px 6px #1A1A1A1A;
+  box-shadow: 0 3px 6px #1a1a1a1a;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   img {
-    width:100px;
-    height:auto;
+    width: 100px;
+    height: auto;
   }
 }
 
-
 // search bar
 .search {
-  margin:0 auto;
-  margin-top:20px;
+  margin: 0 auto;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width:100%;
+  width: 100%;
 
-
-  input[type='search'] {
-    margin:36px 0 0 25px;
-    position:relative;
-    width:100%;
-    max-width:812px;
-    padding:8px 20px;
-    font-size:18px;
+  input[type="search"] {
+    margin: 36px 0 0 25px;
+    position: relative;
+    width: 100%;
+    max-width: 812px;
+    padding: 8px 20px;
+    font-size: 18px;
     height: 60px;
-    color:#707175;
-    border:none;
-    background: #FFFFFF 0 0 no-repeat padding-box;
-    box-shadow: 0 3px 6px #1A1A1A1A;
+    color: #707175;
+    border: none;
+    background: #ffffff 0 0 no-repeat padding-box;
+    box-shadow: 0 3px 6px #1a1a1a1a;
     border-radius: 6px;
     opacity: 1;
-    font-family: lato, 'sans-serif';
+    font-family: lato, "sans-serif";
 
-    &::placeholder{
-      color:#707175;
+    &::placeholder {
+      color: #707175;
     }
 
-    &:focus{
-      border:none;
-      outline:none;
+    &:focus {
+      border: none;
+      outline: none;
     }
   }
 
@@ -101,19 +99,16 @@ p{
     position: relative;
     top: 18px;
     right: 55px;
-    cursor:pointer;
+    cursor: pointer;
     background: none;
-    border:none;
+    border: none;
 
-    &:focus{
-      outline:none;
+    &:focus {
+      outline: none;
     }
 
     img {
-      width:25px;
+      width: 25px;
     }
   }
 }
-
-
-

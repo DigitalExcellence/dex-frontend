@@ -15,14 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { finalize } from "rxjs/operators";
 import { Project } from "src/app/models/domain/project";
 import { ProjectService } from "src/app/services/project.service";
-import { HttpErrorResponse } from "@angular/common/http";
-import { User } from "src/app/models/domain/user";
-import { Router } from "@angular/router";
-import { Collaborator } from "src/app/models/domain/collaborator";
-import { finalize } from "rxjs/operators";
 
 /**
  * Overview of all the projects
