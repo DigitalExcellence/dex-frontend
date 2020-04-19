@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { UserManager, UserManagerSettings, User } from "oidc-client";
-import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { catchError } from "rxjs/internal/operators/catchError";
 
 @Injectable({
   providedIn: "root",
@@ -16,14 +14,14 @@ export class AuthService {
   private manager: UserManager = new UserManager(getClientSettings());
   private user: User | null;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.manager.getUser().then((user) => {
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
 
-  public login() {
+  public login(): Promise<void> {
     return this.manager.signinRedirect();
   }
 
@@ -44,7 +42,7 @@ export class AuthService {
     return this.user != null ? this.user.profile.name : "John Doe";
   }
 
-  public async signout() {
+  public async signout(): Promise<void> {
     await this.manager.signoutRedirect();
   }
 }
