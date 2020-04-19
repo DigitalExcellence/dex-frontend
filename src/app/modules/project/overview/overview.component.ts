@@ -41,7 +41,7 @@ export class OverviewComponent implements OnInit {
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
-  public projectsLoading = true;
+  public projectsLoading: boolean = true;
 
   constructor(private router: Router, private projectService: ProjectService) {}
 

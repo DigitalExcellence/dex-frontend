@@ -15,22 +15,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { environment } from "src/environments/environment";
+import { Project } from "./project";
 
-export interface ApiConfig {
-  url: string;
-  userRoute: string;
-  projectRoute: string;
-  highlightRoute: string;
-  internalSearchRoute: string;
-  externalSearchRoute: string;
+export interface Highlight {
+  id: number;
+  projectId: number;
+  project: Project;
 }
-
-export const API_CONFIG: ApiConfig = {
-  url: `${environment.apiUrl}/api/`,
-  userRoute: "user",
-  projectRoute: "project",
-  highlightRoute: "highlight",
-  internalSearchRoute: "search/internal",
-  externalSearchRoute: "search/external",
-};

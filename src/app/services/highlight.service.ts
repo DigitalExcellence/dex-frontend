@@ -15,22 +15,19 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { environment } from "src/environments/environment";
+import { Injectable } from "@angular/core";
+import { HttpBaseService } from "./http-base.service";
+import { HttpClient } from "@angular/common/http";
+import { API_CONFIG } from "../config/api-config";
+import { Highlight } from "../models/domain/hightlight";
+import { HighlightAdd } from "../models/resources/highlight-add";
+import { HighlightUpdate } from "../models/resources/highlight-update";
 
-export interface ApiConfig {
-  url: string;
-  userRoute: string;
-  projectRoute: string;
-  highlightRoute: string;
-  internalSearchRoute: string;
-  externalSearchRoute: string;
+@Injectable({
+  providedIn: "root",
+})
+export class HighlightService extends HttpBaseService<Highlight, HighlightAdd, HighlightUpdate> {
+  constructor(http: HttpClient) {
+    super(http, API_CONFIG.url + API_CONFIG.highlightRoute);
+  }
 }
-
-export const API_CONFIG: ApiConfig = {
-  url: `${environment.apiUrl}/api/`,
-  userRoute: "user",
-  projectRoute: "project",
-  highlightRoute: "highlight",
-  internalSearchRoute: "search/internal",
-  externalSearchRoute: "search/external",
-};

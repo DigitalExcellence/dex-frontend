@@ -37,7 +37,8 @@
         <div class="clr-col-12">
           <clr-input-container>
             <label>Project link*</label>
-            <input placeholder="https://github.com/fontys/digitalexcellence" clrInput formControlName="uri" required />
+            <input placeholder="https://github.com/fontys/digitalexcellence" clrInput formControlName="uri"
+              required />
             <clr-control-error>This field is required!</clr-control-error>
           </clr-input-container>
         </div>
@@ -87,8 +88,9 @@
             </div>
 
             <div class="clr-col-2 add-contributor-col">
-              <button type="button" class="btn btn-icon btn-primary add-contributor-button" aria-label="settings"
-                (click)="onClickAddContributor()" [disabled]="!newContributorForm.valid">
+              <button type="button" class="btn btn-icon btn-primary add-contributor-button"
+                aria-label="settings" (click)="onClickAddContributor()"
+                [disabled]="!newContributorForm.valid">
                 <clr-icon shape="plus"></clr-icon>
               </button>
             </div>
@@ -116,7 +118,8 @@
 
     <div class="clr-row">
       <div class="clr-col-12">
-        <button class="btn btn-success" type="submit" (click)="onSubmit()" [disabled]="submitEnabled">Submit</button>
+        <button class="btn btn-success" type="submit" (click)="onSubmit()"
+          [disabled]="!newProjectForm.valid">Submit</button>
       </div>
     </div>
 
