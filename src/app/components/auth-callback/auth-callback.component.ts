@@ -8,13 +8,9 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ["./auth-callback.component.css"],
 })
 export class AuthCallbackComponent implements OnInit {
-  error: boolean;
+  public error: boolean;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
   async ngOnInit() {
     // check for error
