@@ -17,7 +17,6 @@
 
 export interface HighlightUpdate {
   projectId: number;
-  isHighlighted: boolean;
   startDate: Date;
   endDate: Date;
 }
