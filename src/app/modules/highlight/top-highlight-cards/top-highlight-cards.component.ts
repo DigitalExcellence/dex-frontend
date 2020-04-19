@@ -19,7 +19,7 @@ export class TopHighlightCardsComponent implements OnInit {
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
-  public highlightsLoading = true;
+  public highlightsLoading: boolean = true;
   constructor(private router: Router, private projectService: HighlightService) {}
 
   ngOnInit(): void {
@@ -53,27 +53,27 @@ export class TopHighlightCardsComponent implements OnInit {
     */
 
     if (!Array.isArray(population)) throw new TypeError("Population must be an array.");
-    var n = population.length;
+    var n: number = population.length;
     if (k < 0 || k > n) throw new RangeError("Sample larger than population or is negative");
 
     var result = new Array(k);
-    var setsize = 21; // size of a small set minus size of an empty list
+    var setsize: number = 21; // size of a small set minus size of an empty list
 
     if (k > 5) setsize += Math.pow(4, Math.ceil(Math.log(k * 3)));
 
     if (n <= setsize) {
       // An n-length list is smaller than a k-length set
-      var pool = population.slice();
+      var pool: any[] = population.slice();
       for (var i = 0; i < k; i++) {
         // invariant:  non-selected at [0,n-i)
-        var j = (Math.random() * (n - i)) | 0;
+        var j: number = (Math.random() * (n - i)) | 0;
         result[i] = pool[j];
         pool[j] = pool[n - i - 1]; // move non-selected item into vacancy
       }
     } else {
       var selected = new Set();
       for (var i = 0; i < k; i++) {
-        var j = (Math.random() * n) | 0;
+        var j: number = (Math.random() * n) | 0;
         while (selected.has(j)) {
           j = (Math.random() * n) | 0;
         }
