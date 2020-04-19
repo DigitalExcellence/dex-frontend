@@ -25,24 +25,13 @@ import { AppLayoutComponent } from "./components/app-layout/app-layout.component
 import { ClarityModule } from "@clr/angular";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { HomeComponent } from "./modules/home/home.component";
 import { AuthCallbackComponent } from "./components/auth-callback/auth-callback.component";
 import { TokenInterceptor } from "./interceptors/auth.interceptor";
+import { HomeComponent } from "./components/home/home.component";
+import { TopHighlightCardsComponent } from "./modules/highlight/top-highlight-cards/top-highlight-cards.component";
 @NgModule({
-  declarations: [
-    AppComponent,
-    AppLayoutComponent,
-    HomeComponent,
-    AuthCallbackComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ClarityModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    SharedModule,
-  ],
+  declarations: [AppComponent, AppLayoutComponent, HomeComponent, AuthCallbackComponent, TopHighlightCardsComponent],
+  imports: [BrowserModule, AppRoutingModule, ClarityModule, BrowserAnimationsModule, HttpClientModule, SharedModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
