@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { UserManager, UserManagerSettings, User } from "oidc-client";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -39,25 +40,29 @@ export class AuthService {
   }
 
   public get name(): string {
-    return this.user != null ? this.user.profile.name : "John Doe";
+    if (this.user == null) {
+      return "";
+    } else {
+      return this.user.profile.name;
+    }
   }
 
   public async signout(): Promise<void> {
     await this.manager.signoutRedirect();
   }
 }
-// TODO: Convert this to valuables from config / environment file
+
 export function getClientSettings(): UserManagerSettings {
   return {
-    authority: "https://localhost:5005",
-    client_id: "dex-frontend",
-    redirect_uri: "http://localhost:4200/auth-callback",
-    post_logout_redirect_uri: "http://localhost:4200/",
+    authority: this.environment.identityServerUrl,
+    client_id: this.environment.identityClientId,
+    redirect_uri: this.environment.identityRedirectUri,
+    post_logout_redirect_uri: this.environment.identityLogoutRedirectUri,
     response_type: "id_token token",
     scope: "openid profile ProjectRead ProjectWrite UserRead UserWrite HighlightRead HighlightWrite",
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,
-    silent_redirect_uri: "http://localhost:4200/silent-refresh.html",
+    silent_redirect_uri: this.environment.identitySilentRedirectUri,
   };
 }
