@@ -17,31 +17,31 @@
  *
  */
 
-@import 'src/variables';
+@import "src/variables";
 
 .search {
   display: flex;
   align-items: center;
   justify-content: center;
-  input[type='search'] {
-    position:relative;
-    width:100%;
-    padding:8px 20px;
-    font-size:18px;
+  input[type="search"] {
+    position: relative;
+    width: 100%;
+    padding: 8px 20px;
+    font-size: 18px;
     height: 60px;
-    color:#707175;
-    border:none;
+    color: #707175;
+    border: none;
     background: $light-mode-component-color;
-    box-shadow: 0px 3px 6px #0000001A;
+    box-shadow: 0px 3px 6px #0000001a;
     border-radius: 6px;
-    font-family: lato, 'sans-serif';
+    font-family: lato, "sans-serif";
 
-    &::placeholder{
-      color:#707175;
+    &::placeholder {
+      color: #707175;
     }
-    &:focus{
-      border:none;
-      outline:none;
+    &:focus {
+      border: none;
+      outline: none;
     }
   }
   button {
@@ -54,12 +54,12 @@
     width: 0;
     padding: 0;
 
-    &:focus{
-      outline:none;
+    &:focus {
+      outline: none;
     }
 
     img {
-      width:25px;
+      width: 25px;
     }
   }
 }
@@ -71,8 +71,8 @@
   border-spacing: 0 15px;
 
   tr {
-    box-shadow: 0px 3px 6px #0000001A;
-
+    box-shadow: 0px 3px 6px #0000001a;
+    cursor: pointer;
     td {
       background: $light-mode-component-color;
     }
@@ -87,7 +87,12 @@
       border-top-right-radius: 6px;
     }
 
-    td, span, h3, p, p.large, p.small {
+    td,
+    span,
+    h3,
+    p,
+    p.large,
+    p.small {
       margin: 0;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -133,7 +138,7 @@
 }
 
 .projects-filter {
-  box-shadow: 0px 3px 6px #0000001A;
+  box-shadow: 0px 3px 6px #0000001a;
   background: $light-mode-component-color;
   padding: 20px 25px;
   border-radius: 6px;
@@ -147,7 +152,3 @@
     padding: 10px;
   }
 }
-
-
-
-

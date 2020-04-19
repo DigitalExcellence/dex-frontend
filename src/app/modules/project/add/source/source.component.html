@@ -18,7 +18,7 @@
  -->
 
 
- <!-- header text -->
+<!-- header text -->
 <div class="clr-row header-text">
   <div class="clr-col-12">
     <h4>Projects > add project</h4>
@@ -36,8 +36,10 @@
 
 
 <!-- sources -->
+<!-- TODO: If the external source is null, we should show something else. Probably some message -->
 <div class="clr-row">
-  <div class="clr-col-12 clr-col-sm-6 clr-col-md-4 clr-col-lg-2" *ngFor="let externalSource of mostUsedSources">
+  <div class="clr-col-12 clr-col-sm-6 clr-col-md-4 clr-col-lg-2"
+    *ngFor="let externalSource of mostUsedSources">
     <div class="source">
       <img src="{{ externalSource?.image }}">
       <h4>{{ externalSource?.name }}</h4>
@@ -49,7 +51,7 @@
 <!-- search bar -->
 <div class="clr-row justify-content-center">
   <div class="clr-col-lg-6 clr-col-md-8 clr-col-sm-10 search">
-    <input type="search" placeholder="Search source">
+    <input type="search" placeholder="search source">
     <button><img src="assets/research.svg"></button>
   </div>
 </div>
@@ -62,7 +64,7 @@
   </div>
 </div>
 <div class="clr-row justify-content-center">
-  <div class="clr-col-12">
+  <div class="clr-col-12 text-center">
     <a routerLink="/project/add/manual">Add Project Manual</a>
   </div>
 </div>
