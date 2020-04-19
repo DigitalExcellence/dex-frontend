@@ -23,16 +23,21 @@
       <span class="title"><a routerLink=""><img src="assets/dex-logo-dark-orange.png"></a></span>
     </div>
     <div class="header-nav">
-      <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text"><h4>Projects</h4></a>
-      <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text"><h4>Add project</h4></a>
-      <a class="nav-link nav-text"><h4>My projects</h4></a>
+      <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
+      <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
     </div>
     <div class="search-bar">
-      <input type="search" placeholder="search">
+      <input type="search" placeholder="search project">
       <button><img src="assets/research.svg"></button>
     </div>
-    <div class="profile">
-      <h4>Janette Doe</h4>
+    <div class="header-nav account">
+      <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active"
+        class="nav-link nav-text">Login</a>
+      <a *ngIf="isAuthenticated" (click)="signout()" routerLinkActive="active" class="nav-link nav-text">Sign
+        Out</a>
+    </div>
+    <div *ngIf="isAuthenticated" class="profile">
+      <h4>{{name}}</h4>
       <img class="profile-picture" src="assets/janette-doe.png">
     </div>
   </header>

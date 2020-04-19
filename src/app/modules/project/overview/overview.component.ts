@@ -19,7 +19,9 @@ import { Component, OnInit } from "@angular/core";
 import { Project } from "src/app/models/domain/project";
 import { ProjectService } from "src/app/services/project.service";
 import { HttpErrorResponse } from "@angular/common/http";
+import { User } from "src/app/models/domain/user";
 import { Router } from "@angular/router";
+import { Collaborator } from "src/app/models/domain/collaborator";
 import { finalize } from "rxjs/operators";
 
 /**

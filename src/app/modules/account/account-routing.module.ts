@@ -17,27 +17,12 @@
 
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { HomeComponent } from "./modules/home/home.component";
-import { AuthCallbackComponent } from "./components/auth-callback/auth-callback.component";
+import { LoginComponent } from "./login/login.component";
 
-const routes: Routes = [
-  { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "home", component: HomeComponent },
-  { path: "auth-callback", component: AuthCallbackComponent },
-  {
-    path: "project",
-    loadChildren: () =>
-      import("./modules/project/project.module").then((m) => m.ProjectModule),
-  },
-  {
-    path: "account",
-    loadChildren: () =>
-      import("./modules/account/account.module").then((m) => m.AccountModule),
-  },
-];
+const routes: Routes = [{ path: "login", component: LoginComponent }];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AccountRoutingModule {}

@@ -21,8 +21,13 @@
 
 export const environment = {
   production: false,
-  identityServerUrl: 'https://localhost:5003',
-  apiUrl: 'http://localhost:80'
+  identityServerUrl: "https://localhost:5005",
+  apiUrl: "https://localhost:5001",
+  identityCallbackUrl: "http://localhost:4200/",
+  identityClientId: "dex-frontend",
+  identityRedirectUri: "http://localhost:4200/auth-callback",
+  identityLogoutRedirectUri: "http://localhost:4200/",
+  identitySilentRedirectUri: "http://localhost:4200/silent-refresh.html",
 };
 
 /*
