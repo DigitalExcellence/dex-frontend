@@ -17,13 +17,12 @@
 
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ClrAccordionModule } from "@clr/angular";
 import { DetailsComponent } from "./details/details.component";
 import { OverviewComponent } from "./overview/overview.component";
 import { ProjectRoutingModule } from "./project-routing.module";
 
 @NgModule({
   declarations: [OverviewComponent, DetailsComponent],
-  imports: [CommonModule, ProjectRoutingModule, ClrAccordionModule],
+  imports: [CommonModule, ProjectRoutingModule],
 })
 export class ProjectModule {}
