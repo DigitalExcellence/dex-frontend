@@ -17,13 +17,58 @@
   
  -->
 
-<div class="row justify-content-center">
-  <div class="col-md-8 text-center">
-    <h1 class="mt-5">{{title}}</h1>
-    <p>
-      <button class="btn btn-lg btn-primary" (click)="loginIdentityServer()">Login with
-        IdentityServer</button>
-      <button class="btn btn-lg btn-primary disabled">Login with FHICT</button>
-    </p>
+
+<div class="container">
+  <div class="row login">
+
+    <!-- illustration -->
+    <div class="col-lg-6 illustration">
+      <img src="assets/illustation-orange-light.png">
+    </div>
+
+
+    <!-- login section -->
+    <div class="col-lg-6 login-section">
+      <h2>{{title}}</h2>
+      <p>Sign in with institution ID</p>
+
+
+      <!-- institutions  -->
+      <div class="institutions">
+        <button class="btn btn-lg btn-primary school" (click)="loginIdentityServer()">
+          <img src="assets/fontys-logo.png" alt="Fontys logo">
+          <h4>FHICT</h4>
+        </button>
+        <button class="btn btn-lg btn-primary school" (click)="loginIdentityServer()">
+          <img src="assets/fontys-logo.png" alt="Fontys logo">
+          <h4>FHICT</h4>
+        </button>
+        <button class="btn btn-lg btn-primary school" (click)="loginIdentityServer()">
+          <img src="assets/fontys-logo.png" alt="Fontys logo">
+          <h4>FHICT</h4>
+        </button>
+        <button class="btn btn-lg btn-primary school" (click)="loginIdentityServer()">
+          <img src="assets/fontys-logo.png" alt="Fontys logo">
+          <h4>FHICT</h4>
+        </button>
+        <button class="btn btn-lg btn-primary school" (click)="loginIdentityServer()">
+          <img src="assets/fontys-logo.png" alt="Fontys logo">
+          <h4>FHICT</h4>
+        </button>
+        <button class="btn btn-lg btn-primary school" (click)="loginIdentityServer()">
+          <img src="assets/fontys-logo.png" alt="Fontys logo">
+          <h4>FHICT</h4>
+        </button>
+      </div>
+
+
+      <!-- line -->
+      <div class="hr">
+        <span class="hr-text">or</span>
+      </div>
+
+
+      <button>Sign in with school ID</button>
+      <p>Don't have a DeX account yet? <a href="#">Register now</a></p>
+    </div>
   </div>
-</div>
