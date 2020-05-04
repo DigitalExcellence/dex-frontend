@@ -67,13 +67,39 @@ h4 {
 }
 
 a {
-  text-decoration: underline;
-  color: black;
+  font-family: "Lato", sans-serif;
+  color: $light-mode-text-color;
+  font-size: 14px;
 
   &:active,
   &:hover,
   &:focus,
   &:visited {
-    color: black;
+    color: $light-mode-title-color;
+  }
+}
+
+//Needs to be implemented in the overview.component.scss issue #106
+accordion-group {
+  .card-header {
+    background: none;
+    padding: 0px;
+    border: none;
+
+    button {
+      padding: 0px;
+      color: $light-mode-text-color;
+      font-size: 18px;
+    }
+  }
+
+  .card {
+    border: none;
+  }
+
+  .card-body {
+    background: #E9E9E9;
+    border-radius: 6px;
+    padding: 5px 10px;
   }
 }

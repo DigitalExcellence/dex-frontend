@@ -1,38 +1,70 @@
-/* 
- *  
+/*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
- *   
- *   This program is free software: you can redistribute it and/or modify 
- *   it under the terms of the GNU Lesser General Public License as published 
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
  *   by the Free Software Foundation version 3 of the License.
- *   
- *   This program is distributed in the hope that it will be useful, 
- *   but WITHOUT ANY WARRANTY; without even the implied warranty 
- *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *   See the GNU Lesser General Public License for more details.
- *   
- *   You can find a copy of the GNU Lesser General Public License 
+ *
+ *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
- *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
- *  
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
+@import "variables";
 
 .project-form {
-  .clr-form-control {
-    //Forcing clarity ui inputs to full width of the screen
-    align-items: initial;
+
+  input, textarea {
+    border: none;
+    border-radius: 6px;
+    box-shadow: 5px 5px black;
+    box-shadow: 0px 3px 6px #0000001A;
+    height: 45px;
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 0px 15px;
   }
 
-  .clr-input {
-    width: 100%;
+  textarea {
+    height: 250px;
+    padding-top: 15px;
   }
 }
 
 .add-contributor-col {
   display: flex;
+  justify-content: flex-end;
+  align-self: center;
 
   .add-contributor-button {
     margin: 0;
     align-self: flex-end;
   }
+
+  button {
+    background: $accent-color-primary;
+    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    font-size: 25px;
+    font-weight: 800;
+  }
 }
+
+.btn-success {
+  color: #fff;
+  background-color: $accent-color-primary;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 18px;
+}
+
+

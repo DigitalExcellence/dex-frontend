@@ -17,33 +17,32 @@
 
  -->
 
-<h4>home > projects</h4><!-- to do: implement working breadcrumbs -->
 <h1>Search project</h1>
 <div class="row">
   <div class="col-2">
     <div class="projects-filter">
       <h3>Filter</h3>
-      <!-- <clr-accordion [clrAccordionMultiPanel]="true">
-        <clr-accordion-panel>
-          <clr-accordion-title>Catergory</clr-accordion-title>
-          <clr-accordion-content></clr-accordion-content>
-        </clr-accordion-panel>
-
-        <clr-accordion-panel>
-          <clr-accordion-title>Tags</clr-accordion-title>
-          <clr-accordion-content></clr-accordion-content>
-        </clr-accordion-panel>
-
-        <clr-accordion-panel>
-          <clr-accordion-title>Sort options</clr-accordion-title>
-          <clr-accordion-content></clr-accordion-content>
-        </clr-accordion-panel>
-
-        <clr-accordion-panel>
-          <clr-accordion-title>Upload date</clr-accordion-title>
-          <clr-accordion-content></clr-accordion-content>
-        </clr-accordion-panel>
-      </clr-accordion> -->
+      <accordion>
+        <accordion-group heading="Category">
+          <form action="">
+            <input type="checkbox" name="category1" value="Code">
+            <label for="category1">Code</label><br>
+            <input type="checkbox" name="category2" value="Video">
+            <label for="category2">Video</label><br>
+            <input type="checkbox" name="category3" value="Research paper">
+            <label for="category3">Research paper</label>
+          </form>
+        </accordion-group>
+        <accordion-group heading="Tags">
+          <p>Some content</p>
+        </accordion-group>
+        <accordion-group heading="Sort options">
+          <p>Some content</p>
+        </accordion-group>
+        <accordion-group heading="Upload date">
+          <p>Some content</p>
+        </accordion-group>
+      </accordion>
     </div>
   </div>
 

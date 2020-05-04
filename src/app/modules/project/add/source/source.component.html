@@ -1,35 +1,26 @@
-<!-- 
-  
+<!--
+
   Digital Excellence Copyright (C) 2020 Brend Smits
-   
-   This program is free software: you can redistribute it and/or modify 
-   it under the terms of the GNU Lesser General Public License as published 
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
    by the Free Software Foundation version 3 of the License.
-   
-   This program is distributed in the hope that it will be useful, 
-   but WITHOUT ANY WARRANTY; without even the implied warranty 
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
    See the GNU Lesser General Public License for more details.
-   
-   You can find a copy of the GNU Lesser General Public License 
+
+   You can find a copy of the GNU Lesser General Public License
    along with this program, in the LICENSE.md file in the root project directory.
-   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
-  
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
  -->
-
-
-<!-- header text -->
-<div class="row header-text">
-  <div class="col-12">
-    <h4>Projects > add project</h4>
-    <h1>Add New Project</h1>
-  </div>
-</div>
-
 
 <!-- subtitle -->
 <div class="row">
   <div class="col-12">
+    <h1>Add New Project</h1>
     <h3>Most Used Sources</h3>
   </div>
 </div>
@@ -38,10 +29,12 @@
 <!-- sources -->
 <!-- TODO: If the external source is null, we should show something else. Probably some message -->
 <div class="row">
-  <div class="col-12 col-sm-6 col-md-4 col-lg-2" *ngFor="let externalSource of mostUsedSources">
+  <div class="col-12 col-sm-6 col-md-4 col-lg-2 source-box" *ngFor="let externalSource of mostUsedSources">
     <div class="source">
-      <img src="{{ externalSource?.image }}">
-      <h4>{{ externalSource?.name }}</h4>
+      <div class="source-content">
+        <img src="{{ externalSource?.image }}">
+        <h3>{{ externalSource?.name }}</h3>
+      </div>
     </div>
   </div>
 </div>
@@ -57,17 +50,17 @@
 
 
 <!-- add project manual -->
-<div class="row justify-content-center">
-  <div class="col-12">
+<div class="row">
+  <div class="col-12 text-center">
     <h1>or</h1>
   </div>
 </div>
-<div class="row justify-content-center">
+<div class="row">
   <div class="col-12 text-center">
     <a routerLink="/project/add/manual">Add Project Manual</a>
   </div>
 </div>
-<div class="row justify-content-center">
+<div class="row">
   <div class="col-4 offset-4">
     <p>Note: Only add a project manual if the source of your project does not exist in the list above.</p>
   </div>

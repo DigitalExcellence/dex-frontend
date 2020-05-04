@@ -33,13 +33,24 @@
     <div class="header-nav account">
       <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active"
         class="nav-link nav-text">Login</a>
-      <a *ngIf="isAuthenticated" (click)="signout()" routerLinkActive="active" class="nav-link nav-text">Sign
-        Out</a>
     </div>
     <div *ngIf="isAuthenticated" class="profile">
-      <h4>{{name}}</h4>
-      <img class="profile-picture" src="assets/janette-doe.png">
+      <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-basic">
+          {{name}} <img class="profile-picture" src="assets/janette-doe.png"> <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="#">My profile</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Account settings</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" *ngIf="isAuthenticated" (click)="signout()" routerLinkActive="active">Sign Out</a>
+          </li>
+        </ul>
+      </div>
     </div>
+
   </header>
 
   <div class="content-container">
@@ -47,7 +58,6 @@
     <div class="container">
       <router-outlet></router-outlet>
     </div>
-
   </div>
 
 </div>
