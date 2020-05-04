@@ -137,7 +137,12 @@
   }
 }
 
-.btn-primary, .show>.btn-primary.dropdown-toggle:focus, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+.btn-primary {
+  .show { }
+  .dropdown-toggle {
+    &, &:focus { }
+  }
+  // etc
   background: none;
   border: none;
   color: $light-mode-title-color;
