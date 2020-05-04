@@ -9,9 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added this very changelog - [#61](https://git.fhict.nl/dex/dex-frontend/-/issues/61)
+- Added this very changelog - [#62](https://github.com/DigitalExcellence/dex-frontend/issues/62)
 
 ### Changed
+
+- Changed from Clarity framework to NGX Bootstrap - [#101](https://github.com/DigitalExcellence/dex-frontend/issues/101)
 
 ### Deprecated
 
