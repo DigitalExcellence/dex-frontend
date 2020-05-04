@@ -19,8 +19,8 @@
 
 
 <!-- header text -->
-<div class="clr-row header-text">
-  <div class="clr-col-12">
+<div class="row header-text">
+  <div class="col-12">
     <h4>Projects > add project</h4>
     <h1>Add New Project</h1>
   </div>
@@ -28,8 +28,8 @@
 
 
 <!-- subtitle -->
-<div class="clr-row">
-  <div class="clr-col-12">
+<div class="row">
+  <div class="col-12">
     <h3>Most Used Sources</h3>
   </div>
 </div>
@@ -37,9 +37,8 @@
 
 <!-- sources -->
 <!-- TODO: If the external source is null, we should show something else. Probably some message -->
-<div class="clr-row">
-  <div class="clr-col-12 clr-col-sm-6 clr-col-md-4 clr-col-lg-2"
-    *ngFor="let externalSource of mostUsedSources">
+<div class="row">
+  <div class="col-12 col-sm-6 col-md-4 col-lg-2" *ngFor="let externalSource of mostUsedSources">
     <div class="source">
       <img src="{{ externalSource?.image }}">
       <h4>{{ externalSource?.name }}</h4>
@@ -49,8 +48,8 @@
 
 
 <!-- search bar -->
-<div class="clr-row justify-content-center">
-  <div class="clr-col-lg-6 clr-col-md-8 clr-col-sm-10 search">
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-8 col-sm-10 search">
     <input type="search" placeholder="search source">
     <button><img src="assets/research.svg"></button>
   </div>
@@ -58,18 +57,18 @@
 
 
 <!-- add project manual -->
-<div class="clr-row justify-content-center">
-  <div class="clr-col-12">
+<div class="row justify-content-center">
+  <div class="col-12">
     <h1>or</h1>
   </div>
 </div>
-<div class="clr-row justify-content-center">
-  <div class="clr-col-12 text-center">
+<div class="row justify-content-center">
+  <div class="col-12 text-center">
     <a routerLink="/project/add/manual">Add Project Manual</a>
   </div>
 </div>
-<div class="clr-row justify-content-center">
-  <div class="clr-col-4 clr-offset-4">
+<div class="row justify-content-center">
+  <div class="col-4 offset-4">
     <p>Note: Only add a project manual if the source of your project does not exist in the list above.</p>
   </div>
 </div>

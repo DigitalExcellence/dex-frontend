@@ -18,8 +18,8 @@
  -->
 
 <div *ngIf="project">
-  <div class="clr-row">
-    <div class="clr-col-3 project-metadata">
+  <div class="row">
+    <div class="col-3 project-metadata">
       <div class="project-icon"><img alt="Code project" src="assets/code.svg"></div>
       <div *ngIf="project.uri" class="project-metadata__item">
         <h3>External Link</h3>
@@ -47,7 +47,7 @@
         </ul>
       </div>
     </div>
-    <div class="clr-col-9">
+    <div class="col-9">
       <h1 class="project-title">{{ project.name | uppercase }}</h1>
       <div class="project-tags">
         <a class="project-tags__tag" href="#">
