@@ -101,6 +101,7 @@
     align-items: center;
     margin-left: auto;
   }
+
   .profile {
     display: flex;
     align-items: center;
@@ -129,35 +130,27 @@
 }
 
 .dropdown-menu {
-  left: auto!important;
-  right: 0px!important;
+  left: auto !important;
+  right: 0 !important;
 
   a {
     cursor: pointer;
   }
 }
 
-.btn-primary {
-  .show { }
-  .dropdown-toggle {
-    &, &:focus { }
-  }
-  // etc
-  background: none;
-  border: none;
-  color: $light-mode-title-color;
-  animation: none;
-  box-shadow: none;
+.btn {
+  &.dropdown-toggle {
+    font-family: $font-family-headings;
+    font-weight: 700;
+    color: $light-mode-title-color;
+    font-size: 14px;
 
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-  color: $light-mode-title-color;
-  font-size: 14px;
-
-  .caret {
-    margin-left: 5px;
+    .caret {
+      margin-left: 5px;
+    }
   }
 }
+
 
 img.profile-picture {
   margin-left: 5px;
