@@ -18,13 +18,12 @@
  */
 
 @import "variables";
+@import "~bootstrap/scss/bootstrap";
 
 body {
-  font-family: "Lato", sans-serif;
   background-color: $light-mode-background-color;
 
   p {
-    font-family: "Lato", sans-serif;
     color: $light-mode-text-color;
     font-size: 14px;
   }
@@ -46,34 +45,62 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Montserrat", sans-serif;
+  font-family: $font-family-headings;
   font-weight: 700;
   color: $light-mode-title-color;
 }
 
 h1 {
   font-size: 55px;
-  margin: 30px 0px;
+  margin: 30px 0;
 }
 
 h2 {
   font-size: 30px;
 }
+
 h3 {
   font-size: 18px;
 }
+
 h4 {
   font-size: 14px;
 }
 
 a {
-  text-decoration: underline;
-  color: black;
+  font-family: "Lato", sans-serif;
+  color: $light-mode-text-color;
+  font-size: 14px;
 
   &:active,
   &:hover,
   &:focus,
   &:visited {
-    color: black;
+    color: $light-mode-title-color;
+  }
+}
+
+//Needs to be implemented in the overview.component.scss issue #106
+accordion-group {
+  .card-header {
+    background: none;
+    padding: 0;
+    border: none;
+
+    button {
+      padding: 0;
+      color: $light-mode-text-color;
+      font-size: 18px;
+    }
+  }
+
+  .card {
+    border: none;
+  }
+
+  .card-body {
+    background: #E9E9E9;
+    border-radius: 6px;
+    padding: 5px 10px;
   }
 }

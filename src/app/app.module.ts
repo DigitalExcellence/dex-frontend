@@ -19,7 +19,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ClarityModule } from "@clr/angular";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AppLayoutComponent } from "./components/app-layout/app-layout.component";
@@ -28,10 +27,11 @@ import { HomeComponent } from "./components/home/home.component";
 import { TokenInterceptor } from "./interceptors/auth.interceptor";
 import { TopHighlightCardsComponent } from "./modules/highlight/top-highlight-cards/top-highlight-cards.component";
 import { SharedModule } from "./modules/shared/shared.module";
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [AppComponent, AppLayoutComponent, HomeComponent, AuthCallbackComponent, TopHighlightCardsComponent],
-  imports: [BrowserModule, AppRoutingModule, ClarityModule, BrowserAnimationsModule, HttpClientModule, SharedModule],
+  imports: [BsDropdownModule.forRoot(), BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, SharedModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

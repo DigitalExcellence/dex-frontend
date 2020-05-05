@@ -1,97 +1,91 @@
-<!-- 
-  
+<!--
+
   Digital Excellence Copyright (C) 2020 Brend Smits
-   
-   This program is free software: you can redistribute it and/or modify 
-   it under the terms of the GNU Lesser General Public License as published 
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
    by the Free Software Foundation version 3 of the License.
-   
-   This program is distributed in the hope that it will be useful, 
-   but WITHOUT ANY WARRANTY; without even the implied warranty 
-   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
    See the GNU Lesser General Public License for more details.
-   
-   You can find a copy of the GNU Lesser General Public License 
+
+   You can find a copy of the GNU Lesser General Public License
    along with this program, in the LICENSE.md file in the root project directory.
-   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
-  
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
  -->
 
-<h1>Add new project</h1>
-<div class="clr-row">
-  <div class="clr-col-12">
 
-    <form clrForm clrLayout="vertical" [formGroup]="newProjectForm" class="project-form">
+<div class="row">
+  <div class="offset-3 col-6">
+    <h1>Add new project</h1>
+    <form [formGroup]="newProjectForm" class="project-form">
 
-      <div class="clr-row">
-        <div class="clr-col-12">
-          <clr-input-container>
-            <label>Project name*</label>
-            <input placeholder="Digital excellence" clrInput formControlName="name" required />
-            <clr-control-error>This field is required!</clr-control-error>
-          </clr-input-container>
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <h3>Project name*</h3>
+            <input placeholder="Digital excellence" formControlName="name" required />
+          </div>
         </div>
       </div>
 
-      <div class="clr-row">
-        <div class="clr-col-12">
-          <clr-input-container>
-            <label>Project link*</label>
-            <input placeholder="https://github.com/fontys/digitalexcellence" clrInput formControlName="uri"
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <h3>Project link*</h3>
+            <input placeholder="https://github.com/fontys/digitalexcellence" formControlName="uri"
               required />
-            <clr-control-error>This field is required!</clr-control-error>
-          </clr-input-container>
+          </div>
         </div>
       </div>
 
-      <div class="clr-row">
-        <div class="clr-col-12">
-          <clr-input-container>
-            <label>Short description*</label>
-            <input clrInput formControlName="shortDescription" required />
-            <clr-control-error>This field is required!</clr-control-error>
-          </clr-input-container>
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <h3>Short description*</h3>
+            <input formControlName="shortDescription" required />
+          </div>
         </div>
       </div>
 
-      <div class="clr-row">
-        <div class="clr-col-12">
-          <clr-input-container>
-            <label>Description*</label>
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <h3>Description*</h3>
             <textarea clrInput formControlName="description" required></textarea>
-            <clr-control-error>This field is required!</clr-control-error>
-          </clr-input-container>
+          </div>
         </div>
       </div>
     </form>
 
-    <form clrForm clrLayout="vertical" [formGroup]="newContributorForm" class="project-form">
-      <div class="clr-row">
-        <div class="clr-col-12">
+    <form [formGroup]="newContributorForm" class="project-form">
+      <div class="row">
+        <div class="col-12">
           <p><b>Add project members</b></p>
-          <div class="clr-row">
+          <div class="row">
 
-            <div class="clr-col-5">
-              <clr-input-container>
-                <label>Contributor full name</label>
-                <input clrInput formControlName="fullName" required />
-                <clr-control-error>This field is required!</clr-control-error>
-              </clr-input-container>
+            <div class="col-5">
+              <div>
+                <h3>Contributor full name</h3>
+                <input formControlName="fullName" required />
+              </div>
             </div>
 
-            <div class="clr-col-5">
-              <clr-input-container>
-                <label>Contributor function</label>
-                <input clrInput formControlName="role" required />
-                <clr-control-error>This field is required!</clr-control-error>
-              </clr-input-container>
+            <div class="col-5">
+              <div>
+                <h3>Contributor function</h3>
+                <input formControlName="role" required />
+              </div>
             </div>
 
-            <div class="clr-col-2 add-contributor-col">
+            <div class="col-2 add-contributor-col">
               <button type="button" class="btn btn-icon btn-primary add-contributor-button"
                 aria-label="settings" (click)="onClickAddContributor()"
                 [disabled]="!newContributorForm.valid">
-                <clr-icon shape="plus"></clr-icon>
+                +
               </button>
             </div>
 
@@ -100,26 +94,25 @@
       </div>
     </form>
 
-    <div class="clr-row" *ngIf="collaborators.length > 0">
+    <div class="row" *ngIf="collaborators.length > 0">
 
-      <div class="clr-col-12">
+      <div class="col-12">
         <h3>Contributors</h3>
       </div>
 
-      <div *ngFor="let collaborator of collaborators" class="clr-col-6">
+      <div *ngFor="let collaborator of collaborators" class="col-6">
         <button type="button" class="btn btn-icon btn-danger" aria-label="error"
           (click)="onClickDeleteContributor(collaborator)">
-          <clr-icon shape="trash"></clr-icon>
         </button>
         {{collaborator?.fullName}}
         <hr class="dashed">
       </div>
     </div>
 
-    <div class="clr-row">
-      <div class="clr-col-12">
+    <div class="row">
+      <div class="col-12">
         <button class="btn btn-success" type="submit" (click)="onSubmit()"
-          [disabled]="!newProjectForm.valid">Submit</button>
+          [disabled]="!newProjectForm.valid">Add project</button>
       </div>
     </div>
 
