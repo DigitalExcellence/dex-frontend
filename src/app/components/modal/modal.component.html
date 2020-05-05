@@ -1,0 +1,8 @@
+<div [class.open]="open" class="modal-container">
+  <div (click)="closeModal()" class="backdrop"></div>
+  <div class="modal">
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

@@ -17,15 +17,28 @@
  *
  */
 
-import { Component, OnInit } from "@angular/core";
+import { Component, ComponentRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ModalService } from '../../services/modal.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
-  selector: "home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: 'home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  @ViewChild('testModal') modalContentRef: TemplateRef<any>;
+  private ref: ComponentRef<ModalComponent>;
 
-  ngOnInit(): void {}
+  constructor(private modalService: ModalService) {}
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.ref = this.modalService.show(this.modalContentRef);
+    }, 100);
+  }
+
+  cancel() {
+    this.ref.instance.closeModal();
+  }
 }

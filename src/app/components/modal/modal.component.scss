@@ -1,0 +1,53 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "variables";
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 1);
+  opacity: .25;
+}
+
+.modal-container {
+  transition: $transition-fade;
+  opacity: 0;
+
+  &.open {
+    opacity: 1;
+  }
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+
+  .content {
+    pointer-events: auto;
+    background: $light-mode-background-color;
+    max-width: 600px;
+    box-shadow: 0 3px 6px #1a1a1a1a;
+    border-radius: 6px;
+    padding: $modal-inner-padding;
+
+    .buttons {
+      button {
+        background: $accent-color-primary;
+        box-shadow: 0 3px 6px #00000029;
+        border-radius: 6px;
+        border: none;
+        font-family: $font-family-base;
+        font-weight: 600;
+        color: white;
+        font-size: 14px;
+        padding: 12px 30px;
+      }
+    }
+  }
+}
