@@ -19,7 +19,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { finalize } from "rxjs/operators";
-import { CollaboratorAdd } from "src/app/models/resources/contributor-add";
+import { CollaboratorAdd } from "src/app/models/resources/collaborator-add";
 import { ProjectAdd } from "src/app/models/resources/project-add";
 import { ProjectService } from "src/app/services/project.service";
 
