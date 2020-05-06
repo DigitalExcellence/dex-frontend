@@ -22,10 +22,10 @@ import { OverviewComponent } from "./overview/overview.component";
 import { ProjectRoutingModule } from "./project-routing.module";
 import { AccordionModule } from "ngx-bootstrap/accordion";
 import { EditComponent } from "./edit/edit.component";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [OverviewComponent, DetailsComponent, EditComponent],
-  imports: [CommonModule, ProjectRoutingModule, AccordionModule.forRoot(), ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProjectRoutingModule, AccordionModule.forRoot()],
 })
 export class ProjectModule {}
