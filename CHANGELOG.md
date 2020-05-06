@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Changed from Clarity framework to NGX Bootstrap - [#101](https://github.com/DigitalExcellence/dex-frontend/issues/101)
+- Implemented new design login page - [#66](https://github.com/DigitalExcellence/dex-frontend/issues/66)
 
 ### Deprecated
 
