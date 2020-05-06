@@ -57,14 +57,13 @@
 
 .project-title {
   margin-top: 0;
-  text-transform: uppercase;
 }
 
 .project-tags__tag {
   text-decoration: none;
   background: $accent-color-primary;
   color: #fff;
-  border-radius: var(--clr-btn-border-radius);
+  border-radius: 3px;
   padding: 3px 20px;
   box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
   margin: 0 5px;
@@ -76,10 +75,10 @@
 }
 
 .project-tags__see-more-link {
-  color: var(--clr-p1-color);
   margin-left: 15px;
 }
 
 .project-description {
+  margin-top: 30px;
   max-width: 800px;
 }

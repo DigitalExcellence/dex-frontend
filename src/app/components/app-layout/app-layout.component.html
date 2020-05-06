@@ -20,7 +20,7 @@
 <div class="main-container">
   <header class="header header-6">
     <div class="branding">
-      <span class="title"><a routerLink=""><img src="assets/dex-logo-dark-orange.png"></a></span>
+      <span class="title"><a routerLink=""><img alt="" src="assets/dex-logo-dark-orange.png"></a></span>
     </div>
     <div class="header-nav">
       <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
@@ -28,18 +28,29 @@
     </div>
     <div class="search-bar">
       <input type="search" placeholder="search project">
-      <button><img src="assets/research.svg"></button>
+      <button><img alt="" src="assets/research.svg"></button>
     </div>
     <div class="header-nav account">
       <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active"
         class="nav-link nav-text">Login</a>
-      <a *ngIf="isAuthenticated" (click)="signout()" routerLinkActive="active" class="nav-link nav-text">Sign
-        Out</a>
     </div>
     <div *ngIf="isAuthenticated" class="profile">
-      <h4>{{name}}</h4>
-      <img class="profile-picture" src="assets/janette-doe.png">
+      <div class="btn-group" dropdown>
+        <button class="btn dropdown-toggle" dropdownToggle id="button-basic" type="button"
+                aria-controls="dropdown-basic">
+          {{ name }} <img alt="" class="profile-picture" src="assets/janette-doe.png"> <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="#">My profile</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Account settings</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="signout()" routerLinkActive="active">Sign Out</a>
+          </li>
+        </ul>
+      </div>
     </div>
+
   </header>
 
   <div class="content-container">
@@ -47,7 +58,6 @@
     <div class="container">
       <router-outlet></router-outlet>
     </div>
-
   </div>
 
 </div>

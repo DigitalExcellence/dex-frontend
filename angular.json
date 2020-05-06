@@ -42,10 +42,17 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css", "src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src"]
+              "includePaths": [
+                "src"
+              ]
             },
             "scripts": [
               "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
