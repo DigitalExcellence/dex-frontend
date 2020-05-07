@@ -17,22 +17,21 @@
  *
  */
 
+@import 'variables';
 
 .login {
   margin: 100px 0;
-
 
   .illustration img {
     max-width: 500px;
   }
 
   // illustration will be invisible on smaller screens
-  @media (max-width: 1200px) {
+  @include media-breakpoint-down(lg) {
     .illustration {
       display: none;
     }
   }
-
 
   .login-section {
     display: flex;
@@ -73,7 +72,6 @@
     }
   }
 
-
   .hr {
     margin-top: 30px;
     margin-bottom: 5px;
@@ -81,27 +79,27 @@
     clear: both;
     overflow: hidden;
     width: 100%;
+
+    &::before {
+      right: 0.5em;
+      margin-left: -50%;
+    }
+
+    &::after {
+      left: 0.5em;
+      margin-right: -50%;
+    }
+
+    &::before, &::after {
+      content: '';
+      position: relative;
+      width: 50%;
+      background-color: #707175;
+      display: inline-block;
+      height: 1px;
+      vertical-align: middle;
+    }
   }
-}
-
-.hr::before {
-  right: 0.5em;
-  margin-left: -50%;
-}
-
-.hr::after {
-  left: 0.5em;
-  margin-right: -50%;
-}
-
-.hr::before, .hr::after {
-  content: '';
-  position: relative;
-  width: 50%;
-  background-color: #707175;
-  display: inline-block;
-  height: 1px;
-  vertical-align: middle;
 }
 
 span {
@@ -109,7 +107,6 @@ span {
   color: #707175;
   font-size: 14px;
 }
-
 
 button {
   margin: 30px 0;
@@ -120,7 +117,6 @@ button {
     outline: none;
   }
 }
-
 
 a {
   color: #e85b3f;
