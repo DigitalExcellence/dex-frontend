@@ -19,10 +19,12 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { DetailsComponent } from "./details/details.component";
 import { OverviewComponent } from "./overview/overview.component";
+import { EditComponent } from "./edit/edit.component";
 
 const routes: Routes = [
   { path: "overview", component: OverviewComponent },
   { path: "details/:id", component: DetailsComponent },
+  { path: "edit/:id", component: EditComponent },
   { path: "add", loadChildren: () => import("./add/add.module").then((m) => m.AddModule) },
 ];
 
