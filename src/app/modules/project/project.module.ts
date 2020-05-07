@@ -20,10 +20,12 @@ import { NgModule } from "@angular/core";
 import { DetailsComponent } from "./details/details.component";
 import { OverviewComponent } from "./overview/overview.component";
 import { ProjectRoutingModule } from "./project-routing.module";
-import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { AccordionModule } from "ngx-bootstrap/accordion";
+import { EditComponent } from "./edit/edit.component";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 @NgModule({
-  declarations: [OverviewComponent, DetailsComponent],
-    imports: [CommonModule, ProjectRoutingModule, AccordionModule.forRoot()],
+  declarations: [OverviewComponent, DetailsComponent, EditComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProjectRoutingModule, AccordionModule.forRoot()],
 })
 export class ProjectModule {}

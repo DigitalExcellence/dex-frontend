@@ -17,26 +17,30 @@
 
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { finalize } from "rxjs/operators";
 import { CollaboratorAdd } from "src/app/models/resources/collaborator-add";
 import { ProjectAdd } from "src/app/models/resources/project-add";
 import { ProjectService } from "src/app/services/project.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Project } from "src/app/models/domain/project";
+import { ProjectUpdate } from "src/app/models/resources/project-update";
 
 /**
- * Component for manually adding a project.
+ * Component for editting adding a project.
  */
 @Component({
-  selector: "app-manual",
-  templateUrl: "./manual.component.html",
-  styleUrls: ["./manual.component.scss"],
+  selector: "app-edit",
+  templateUrl: "./edit.component.html",
+  styleUrls: ["./edit.component.scss"],
 })
-export class ManualComponent implements OnInit {
+export class EditComponent implements OnInit {
   /**
    * Formgroup for entering project details.
    */
-  public newProjectForm: FormGroup;
-  public newContributorForm: FormGroup;
+  public editProjectForm: FormGroup;
+  public editContributorForm: FormGroup;
+  public project: Project;
 
   /**
    * Project's contributors.
@@ -47,34 +51,58 @@ export class ManualComponent implements OnInit {
    * Boolean to enable and disable submit button
    */
   public submitEnabled = true;
-
-  constructor(private router: Router, private formBuilder: FormBuilder, private projectService: ProjectService) {
-    this.newProjectForm = this.formBuilder.group({
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private projectService: ProjectService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.editProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
       uri: [null, Validators.required],
       shortDescription: [null, Validators.required],
       description: [null],
     });
 
-    this.newContributorForm = this.formBuilder.group({
+    this.editContributorForm = this.formBuilder.group({
       fullName: [null, Validators.required],
       role: [null, Validators.required],
     });
   }
 
-  ngOnInit(): void {}
-
-  public onSubmit(): void {
-    if (!this.newProjectForm.valid) {
-      this.newProjectForm.markAllAsTouched();
+  ngOnInit(): void {
+    const routeId = this.activatedRoute.snapshot.paramMap.get("id");
+    if (!routeId) {
+      return;
+    }
+    const id = Number(routeId);
+    if (id < 1) {
       return;
     }
 
-    const newProject: ProjectAdd = this.newProjectForm.value;
-    newProject.collaborators = this.collaborators;
+    this.projectService.get(id).subscribe(
+      (result) => {
+        this.project = result;
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status !== 404) {
+          // TODO: Return a user friendly error
+        }
+      }
+    );
+  }
+
+  public onSubmit(): void {
+    if (!this.editProjectForm.valid) {
+      this.editProjectForm.markAllAsTouched();
+      return;
+    }
+
+    const edittedProject: ProjectUpdate = this.editProjectForm.value;
+    edittedProject.collaborators = this.collaborators;
 
     this.projectService
-      .post(newProject)
+      .put(this.project.id, edittedProject)
       .pipe(finalize(() => (this.submitEnabled = false)))
       .subscribe((result) => {
         this.router.navigate([`/project/overview`]);
@@ -86,14 +114,14 @@ export class ManualComponent implements OnInit {
    * Adds submitted contributor to the contributors array.
    */
   public onClickAddContributor(): void {
-    if (!this.newContributorForm.valid) {
+    if (!this.editContributorForm.valid) {
       // Todo display error.
       return;
     }
 
-    const newContributor: CollaboratorAdd = this.newContributorForm.value;
+    const newContributor: CollaboratorAdd = this.editContributorForm.value;
     this.collaborators.push(newContributor);
-    this.newContributorForm.reset();
+    this.editContributorForm.reset();
   }
 
   /**

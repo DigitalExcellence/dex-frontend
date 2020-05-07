@@ -15,10 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { CollaboratorUpdate } from "./collaborator-update";
+
 export interface ProjectUpdate {
   id: number;
   userId: number;
-  contributors: string[];
+  collaborators: CollaboratorUpdate[];
   name: string;
   shortDescription: string;
   description: string;
