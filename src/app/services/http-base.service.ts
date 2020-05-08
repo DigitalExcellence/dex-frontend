@@ -36,8 +36,8 @@ export abstract class HttpBaseService<T, TPost, TUpdate> {
     return this.http.post<T>(`${this.url}`, object);
   }
 
-  public put(object: TUpdate): Observable<{}> {
-    return this.http.put<T>(`${this.url}`, object);
+  public put(id: number, object: TUpdate): Observable<{}> {
+    return this.http.put<T>(`${this.url}/${id}`, object);
   }
 
   public delete(id: number): Observable<{}> {

@@ -24,10 +24,28 @@
   align-items: center;
   box-shadow: 0 3px 6px #0000001a;
   background-color: #ffffff;
+  padding: 10px 20px;
 
-  a h4 {
+  .header-nav {
+    display: flex;
+  }
+
+  .branding {
+    margin-right: 64px;
+  }
+
+  a {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
     margin: 0;
-    color: $light-mode-title-color;
+    color: $light-mode-text-color;
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: $light-mode-title-color;
+    }
   }
 
   .title {
@@ -42,6 +60,7 @@
     input[type="search"] {
       width: 266px;
       height: 28px;
+      font-size: 12px;
       background: #f2f2f2;
       border: 1px solid #7070700d;
       border-radius: 6px;
@@ -77,18 +96,12 @@
     }
   }
 
-  .title a,
-  .header-nav a {
-    font-weight: bold;
-    color: #070707;
-    font-size: 16px;
-  }
   .account {
     display: flex;
     align-items: center;
     margin-left: auto;
-    margin-right: 24px;
   }
+
   .profile {
     display: flex;
     align-items: center;
@@ -114,4 +127,31 @@
     max-width: 1640px;
     width: 100%;
   }
+}
+
+.dropdown-menu {
+  left: auto !important;
+  right: 0 !important;
+
+  a {
+    cursor: pointer;
+  }
+}
+
+.btn {
+  &.dropdown-toggle {
+    font-family: $font-family-headings;
+    font-weight: 700;
+    color: $light-mode-title-color;
+    font-size: 14px;
+
+    .caret {
+      margin-left: 5px;
+    }
+  }
+}
+
+
+img.profile-picture {
+  margin-left: 5px;
 }

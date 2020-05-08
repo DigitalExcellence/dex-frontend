@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="col-9">
-      <h1 class="project-title">{{ project.name | uppercase }}</h1>
+      <h1 class="project-title">{{ project.name }}</h1>
       <div class="project-tags">
         <a class="project-tags__tag" href="#">
           Game
@@ -78,3 +78,4 @@
     </div>
   </div>
 </div>
+<button routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
