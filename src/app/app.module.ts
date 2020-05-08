@@ -28,9 +28,10 @@ import { TokenInterceptor } from "./interceptors/auth.interceptor";
 import { TopHighlightCardsComponent } from "./modules/highlight/top-highlight-cards/top-highlight-cards.component";
 import { SharedModule } from "./modules/shared/shared.module";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, AppLayoutComponent, HomeComponent, AuthCallbackComponent, TopHighlightCardsComponent],
+  declarations: [AppComponent, AppLayoutComponent, HomeComponent, AuthCallbackComponent, TopHighlightCardsComponent, FooterComponent],
   imports: [BsDropdownModule.forRoot(), BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, SharedModule],
   providers: [
     {
