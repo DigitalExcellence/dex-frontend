@@ -79,7 +79,7 @@ export function getClientSettings(): UserManagerSettings {
     redirect_uri: environment.identityRedirectUri,
     post_logout_redirect_uri: environment.identityLogoutRedirectUri,
     response_type: "id_token token",
-    scope: "openid profile ProjectRead ProjectWrite UserRead UserWrite HighlightRead HighlightWrite",
+    scope: "openid profile email dex-api",
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,
