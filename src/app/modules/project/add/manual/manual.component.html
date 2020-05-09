@@ -101,7 +101,7 @@
 
       <div *ngFor="let collaborator of collaborators" class="col-6">
         <button type="button" class="btn btn-icon btn-danger" aria-label="error"
-          (click)="onClickDeleteContributor(collaborator)">
+          (click)="onClickDeleteContributor(collaborator)"><span aria-hidden="true"> &times; </span>
         </button>
         {{collaborator?.fullName}}
         <hr class="dashed">
