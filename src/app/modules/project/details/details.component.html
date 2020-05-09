@@ -78,5 +78,7 @@
     </div>
   </div>
 </div>
-<button class="primary" routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
-<button class="primary ml-2">Highlight Project</button>
+<div *ngIf="isAuthenticated">
+  <button class="primary" routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
+  <button class="primary ml-2">Highlight Project</button>
+</div>

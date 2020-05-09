@@ -20,6 +20,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Project } from "src/app/models/domain/project";
 import { ProjectService } from "src/app/services/project.service";
+import { AuthService } from "src/app/services/auth.service";
 
 /**
  * Overview of a single project
@@ -34,8 +35,9 @@ export class DetailsComponent implements OnInit {
    * Variable to store the project which is retrieved from the api
    */
   public project: Project;
+  public isAuthenticated: boolean;
 
-  constructor(private activedRoute: ActivatedRoute, private projectService: ProjectService) {}
+  constructor(private activedRoute: ActivatedRoute, private projectService: ProjectService, private authService: AuthService) {}
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get("id");
@@ -46,6 +48,10 @@ export class DetailsComponent implements OnInit {
     if (id < 1) {
       return;
     }
+
+    this.authService.authNavStatus$.subscribe((status) => {
+      this.isAuthenticated = status;
+    });
 
     this.projectService.get(id).subscribe(
       (result) => {
