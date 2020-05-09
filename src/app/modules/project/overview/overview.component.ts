@@ -21,6 +21,9 @@ import { Router } from "@angular/router";
 import { finalize } from "rxjs/operators";
 import { Project } from "src/app/models/domain/project";
 import { ProjectService } from "src/app/services/project.service";
+import { SearchResults } from "src/app/models/domain/searchresults";
+import { Subject } from "rxjs";
+import { InternalSearchService } from "src/app/services/internal-search.service";
 
 /**
  * Overview of all the projects
@@ -39,9 +42,16 @@ export class OverviewComponent implements OnInit {
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
-  public projectsLoading: boolean = true;
+  public projectsLoading = true;
 
-  constructor(private router: Router, private projectService: ProjectService) {}
+  public searchResults: any;
+  public searchTerm$ = new Subject<string>();
+
+  constructor(private router: Router, private projectService: ProjectService, private internalSearchService: InternalSearchService) {
+    this.internalSearchService.search(this.searchTerm$).subscribe((results) => {
+      this.searchResults = results.searchResults;
+    });
+  }
 
   ngOnInit(): void {
     this.projectService
