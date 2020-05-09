@@ -1,18 +1,130 @@
-/* 
- *  
+/*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
- *   
- *   This program is free software: you can redistribute it and/or modify 
- *   it under the terms of the GNU Lesser General Public License as published 
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
  *   by the Free Software Foundation version 3 of the License.
- *   
- *   This program is distributed in the hope that it will be useful, 
- *   but WITHOUT ANY WARRANTY; without even the implied warranty 
- *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *   See the GNU Lesser General Public License for more details.
- *   
- *   You can find a copy of the GNU Lesser General Public License 
+ *
+ *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
- *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt 
- *  
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
+
+@import 'variables';
+
+.login {
+  margin: 100px 0;
+
+  .illustration img {
+    max-width: 500px;
+  }
+
+  // illustration will be invisible on smaller screens
+  @include media-breakpoint-down(lg) {
+    .illustration {
+      display: none;
+    }
+  }
+
+  .login-section {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  h2 {
+    margin-bottom: 50px;
+  }
+
+
+  .institutions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .school {
+    background: white;
+    box-shadow: 0 3px 6px #00000029;
+    border-radius: 6px;
+    border: none;
+
+    min-width: 150px;
+    width: 30%;
+    height: 40px;
+    padding: 12px;
+    margin: 5px;
+    flex-grow: 1;
+
+    img {
+      width: 30px;
+      float: left;
+      margin-left: 10px;
+    }
+  }
+
+  .hr {
+    margin-top: 30px;
+    margin-bottom: 5px;
+    text-align: center;
+    clear: both;
+    overflow: hidden;
+    width: 100%;
+
+    &::before {
+      right: 0.5em;
+      margin-left: -50%;
+    }
+
+    &::after {
+      left: 0.5em;
+      margin-right: -50%;
+    }
+
+    &::before, &::after {
+      content: '';
+      position: relative;
+      width: 50%;
+      background-color: #707175;
+      display: inline-block;
+      height: 1px;
+      vertical-align: middle;
+    }
+  }
+}
+
+span {
+  font-family: "Lato", sans-serif;
+  color: #707175;
+  font-size: 14px;
+}
+
+button {
+  margin: 30px 0;
+  width: 100%;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+
+a {
+  color: #e85b3f;
+}
+
+
+
+
+
+
+
