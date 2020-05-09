@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implementing design: Edit project page - [#98](https://github.com/DigitalExcellence/dex-frontend/issues/98)
 - Implemented new design login page - [#66](https://github.com/DigitalExcellence/dex-frontend/issues/66)
 - Changed the oauth scopes to include email - (https://github.com/DigitalExcellence/dex-backend/issues/107)
+
 ### Deprecated
 
 ### Removed
