@@ -83,6 +83,7 @@ export class EditComponent implements OnInit {
     this.projectService.get(id).subscribe(
       (result) => {
         this.project = result;
+        this.collaborators = this.project.collaborators;
       },
       (error: HttpErrorResponse) => {
         if (error.status !== 404) {

@@ -90,13 +90,13 @@
 
 
 
-    <div class="row" *ngIf="project?.collaborators.length > 0">
+    <div class="row" *ngIf="collaborators.length > 0">
 
       <div class="col-12">
         <h3>Collaborators</h3>
       </div>
 
-      <div *ngFor="let collaborator of project?.collaborators" class="col-5">
+      <div *ngFor="let collaborator of collaborators" class="col-5">
         <button type="button" class="btn btn-icon btn-danger" aria-label="error"
           (click)="onClickDeleteContributor(collaborator)"> <span aria-hidden="true"> &times; </span>
         </button>
