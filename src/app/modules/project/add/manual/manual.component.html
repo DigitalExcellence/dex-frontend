@@ -36,8 +36,7 @@
         <div class="col-12">
           <div>
             <h3>Project link*</h3>
-            <input placeholder="https://github.com/fontys/digitalexcellence" formControlName="uri"
-              required />
+            <input placeholder="https://github.com/fontys/digitalexcellence" formControlName="uri" required />
           </div>
         </div>
       </div>
@@ -69,14 +68,14 @@
 
             <div class="col-5">
               <div>
-                <h3>Contributor full name</h3>
+                <h3>Collaborator full name</h3>
                 <input formControlName="fullName" required />
               </div>
             </div>
 
             <div class="col-5">
               <div>
-                <h3>Contributor function</h3>
+                <h3>Collaborator function</h3>
                 <input formControlName="role" required />
               </div>
             </div>
@@ -97,7 +96,7 @@
     <div class="row" *ngIf="collaborators.length > 0">
 
       <div class="col-12">
-        <h3>Contributors</h3>
+        <h3>Collaborators</h3>
       </div>
 
       <div *ngFor="let collaborator of collaborators" class="col-6">

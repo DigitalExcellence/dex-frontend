@@ -43,7 +43,7 @@ export class EditComponent implements OnInit {
   public project: Project;
 
   /**
-   * Project's contributors.
+   * Project's collaborators.
    */
   public collaborators: CollaboratorAdd[] = [];
 
@@ -111,7 +111,7 @@ export class EditComponent implements OnInit {
 
   /**
    * Method which triggers when the add contributor button is pressed.
-   * Adds submitted contributor to the contributors array.
+   * Adds submitted contributor to the collaborators array.
    */
   public onClickAddContributor(): void {
     if (!this.editContributorForm.valid) {
@@ -126,7 +126,7 @@ export class EditComponent implements OnInit {
 
   /**
    * Method which triggers when the delete contributor button is pressed.
-   * Removes the contributors from the contributors array.
+   * Removes the collaborator from the collaborators array.
    */
   public onClickDeleteContributor(clickedContributor: CollaboratorAdd): void {
     const index = this.collaborators.findIndex((contributor) => contributor === clickedContributor);

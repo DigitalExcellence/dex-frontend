@@ -39,7 +39,7 @@ export class ManualComponent implements OnInit {
   public newContributorForm: FormGroup;
 
   /**
-   * Project's contributors.
+   * Project's collaborators.
    */
   public collaborators: CollaboratorAdd[] = [];
 
@@ -82,8 +82,8 @@ export class ManualComponent implements OnInit {
   }
 
   /**
-   * Method which triggers when the add contributor button is pressed.
-   * Adds submitted contributor to the contributors array.
+   * Method which triggers when the add Collaborator button is pressed.
+   * Adds submitted Collaborator to the collaborator array.
    */
   public onClickAddContributor(): void {
     if (!this.newContributorForm.valid) {
@@ -97,8 +97,8 @@ export class ManualComponent implements OnInit {
   }
 
   /**
-   * Method which triggers when the delete contributor button is pressed.
-   * Removes the contributors from the contributors array.
+   * Method which triggers when the delete Collaborator button is pressed.
+   * Removes the collaborators from the collaborator array.
    */
   public onClickDeleteContributor(clickedContributor: CollaboratorAdd): void {
     const index = this.collaborators.findIndex((contributor) => contributor === clickedContributor);
