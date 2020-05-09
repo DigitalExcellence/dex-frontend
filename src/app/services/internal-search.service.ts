@@ -16,29 +16,10 @@
  */
 
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { HttpBaseService } from "./http-base.service";
-import { API_CONFIG } from "../config/api-config";
-import { SearchResults } from "../models/domain/searchresults";
-import { Observable } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
-export class InternalSearchService extends HttpBaseService<SearchResults, SearchResults, SearchResults> {
-  constructor(http: HttpClient) {
-    super(http, API_CONFIG.url + API_CONFIG.internalSearchRoute);
-  }
-
-  search(terms: Observable<string>) {
-    return terms.pipe(
-      debounceTime(400),
-      distinctUntilChanged(),
-      switchMap((term) => this.searchEntries(term))
-    );
-  }
-  searchEntries(term): Observable<SearchResults> {
-    return this.http.get<SearchResults>(API_CONFIG.url + API_CONFIG.internalSearchRoute + "/" + term);
-  }
+export class InternalSearchService {
+  constructor() {}
 }

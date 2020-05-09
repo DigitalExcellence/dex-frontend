@@ -49,15 +49,8 @@
 
   <div class="col-10">
     <div class="search">
-      <input type="search" placeholder="search project" (keyup)="searchTerm$.next($event.target.value)">
+      <input type="search" placeholder="search project">
       <button><img src="assets/research.svg"></button>
-      <ul *ngIf="searchResults">
-        <li *ngFor="let result of searchResults | slice:0:9">
-          <a href="{{ result.latest }}" target="_blank">
-            {{ result.name }}
-          </a>
-        </li>
-      </ul>
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
