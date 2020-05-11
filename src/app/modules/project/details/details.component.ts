@@ -21,6 +21,8 @@ import { ActivatedRoute } from "@angular/router";
 import { Project } from "src/app/models/domain/project";
 import { ProjectService } from "src/app/services/project.service";
 import { AuthService } from "src/app/services/auth.service";
+import { HighlightService } from "src/app/services/highlight.service";
+import { HighlightAdd } from "src/app/models/resources/highlight-add";
 
 /**
  * Overview of a single project
@@ -37,7 +39,12 @@ export class DetailsComponent implements OnInit {
   public project: Project;
   public isAuthenticated: boolean;
 
-  constructor(private activedRoute: ActivatedRoute, private projectService: ProjectService, private authService: AuthService) {}
+  constructor(
+    private activedRoute: ActivatedRoute,
+    private projectService: ProjectService,
+    private authService: AuthService,
+    private highlightService: HighlightService
+  ) {}
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get("id");
@@ -63,5 +70,12 @@ export class DetailsComponent implements OnInit {
         }
       }
     );
+  }
+
+  public onHighlightButtonClick(): void {
+    const hightlightAdd: HighlightAdd = { projectId: this.project.id, startDate: null, endDate: null };
+    this.highlightService.post(hightlightAdd).subscribe((result) => {
+      console.log("Project highlighted: " + result.projectId);
+    });
   }
 }
