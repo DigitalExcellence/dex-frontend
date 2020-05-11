@@ -16,13 +16,13 @@
  */
 
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { finalize } from "rxjs/operators";
+import { finalize, filter, debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 import { Project } from "src/app/models/domain/project";
 import { ProjectService } from "src/app/services/project.service";
 import { SearchResults } from "src/app/models/domain/searchresults";
-import { Subject } from "rxjs";
+import { Subject, fromEvent, Observable, of } from "rxjs";
 import { InternalSearchService } from "src/app/services/internal-search.service";
 
 /**
@@ -38,20 +38,45 @@ export class OverviewComponent implements OnInit {
    * Array to receive and store the projects from the api.
    */
   public projects: Project[] = [];
+  public project: Project;
 
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
   public projectsLoading = true;
 
-  public searchResults: any;
-  public searchTerm$ = new Subject<string>();
+  public results: SearchResults;
+  // public searchTerm$ = new Subject<string>();
 
   constructor(private router: Router, private projectService: ProjectService, private internalSearchService: InternalSearchService) {
-    this.internalSearchService.search(this.searchTerm$).subscribe((results) => {
-      this.searchResults = results.searchResults;
+    this.results?.searchResults.forEach((search) => {
+      this.project.id = search.id;
+      this.project.name = search.name;
+      this.project.shortDescription = search.shortDescription;
+      this.project.updated = search.updated;
+      this.project.created = search.created;
+      this.projects.push(this.project);
     });
   }
+  // ngAfterViewInit() {
+  //   // server-side search
+  //   fromEvent(this.input.nativeElement, "keyup")
+  //     .pipe(
+  //       filter(Boolean),
+  //       debounceTime(150),
+  //       distinctUntilChanged(),
+  //       tap((text) => {
+  //         console.log(this.input.nativeElement.value);
+  //         this.internalSearchService.search(this.input.nativeElement.value).subscribe((results) => {
+  //           this.results = results;
+  //           this.results.searchResults.forEach((element) => {
+  //             console.log(element.name);
+  //           });
+  //         });
+  //       })
+  //     )
+  //     .subscribe();
+  // }
 
   ngOnInit(): void {
     this.projectService
@@ -67,6 +92,25 @@ export class OverviewComponent implements OnInit {
           }
         }
       );
+  }
+
+  public async onSearchQueryEnter(query: string) {
+    console.log(query);
+    let pizza: any;
+    await this.internalSearchService.search(of(query)).subscribe((results) => {
+      pizza = results;
+      // console.log(this.results);
+    });
+    this.projects = [];
+    console.log(pizza);
+    pizza.searchResults.forEach((search) => {
+      this.project.id = search.id;
+      this.project.name = search.name;
+      this.project.shortDescription = search.shortDescription;
+      this.project.updated = search.updated;
+      this.project.created = search.created;
+      this.projects.push(this.project);
+    });
   }
 
   /**
