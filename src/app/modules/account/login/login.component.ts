@@ -25,7 +25,7 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class LoginComponent {
   constructor(private authService: AuthService) {}
-  title = "Login";
+  title = "Sign in";
 
   public loginIdentityServer() {
     this.authService.login();
