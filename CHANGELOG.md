@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added this very changelog - [#62](https://github.com/DigitalExcellence/dex-frontend/issues/62)
 - Added issue & pull request templates (bug & report) - [#11](https://github.com/DigitalExcellence/dex-backend/issues/11)
+- Added Footer - [#68](https://github.com/DigitalExcellence/dex-frontend/issues/68)
 
 ### Changed
 
