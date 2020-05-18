@@ -21,6 +21,9 @@ import { Router } from "@angular/router";
 import { finalize } from "rxjs/operators";
 import { Project } from "src/app/models/domain/project";
 import { ProjectService } from "src/app/services/project.service";
+import { FormControl } from '@angular/forms';
+import { InternalSearchService } from 'src/app/services/internal-search.service';
+import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 
 /**
  * Overview of all the projects
@@ -35,13 +38,21 @@ export class OverviewComponent implements OnInit {
    * Array to receive and store the projects from the api.
    */
   public projects: Project[] = [];
+  public projectsToDisplay: Project[] = [];
 
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
   public projectsLoading: boolean = true;
 
-  constructor(private router: Router, private projectService: ProjectService) {}
+  public searchControl: FormControl = null;
+
+  constructor(
+    private router: Router,
+    private projectService: ProjectService,
+    private internalSearchService: InternalSearchService) {
+    this.searchControl = new FormControl('');
+  }
 
   ngOnInit(): void {
     this.projectService
@@ -50,6 +61,7 @@ export class OverviewComponent implements OnInit {
       .subscribe(
         (result) => {
           this.projects = result;
+          this.projectsToDisplay = result;
         },
         (error: HttpErrorResponse) => {
           if (error.status !== 404) {
@@ -57,6 +69,25 @@ export class OverviewComponent implements OnInit {
           }
         }
       );
+  }
+
+  /**
+   * Method which triggers when the serach input receives a key up.
+   * Calls the searchAndFilter to diplay the searched projects list.
+   * @param $event the event containing the info of the keyboard press.
+   */
+  public onSearchInput($event: KeyboardEvent): void {
+    const controlValue: string = this.searchControl.value;
+    if (controlValue == null || controlValue === '') {
+      // No search value present, display the default project list.
+      this.projectsToDisplay = this.projects;
+      return;
+    }
+
+    const searchQuery: InternalSearchQuery = {
+      query: controlValue
+    }
+    this.searchAndFilterProjects(searchQuery);
   }
 
   /**
@@ -73,4 +104,25 @@ export class OverviewComponent implements OnInit {
   public onProjectClick(id: number): void {
     this.router.navigate([`/project/details/${id}`]);
   }
+
+  /**
+   * Method to search for projects based on the query.
+   * Filters projects based on the foundProjects matching the query.
+   * Modifies the projectToDisplay list based on the filter. 
+   * @param query The query to search a project for.
+   */
+  private searchAndFilterProjects(query: InternalSearchQuery): void {
+    this.internalSearchService.get(query).subscribe(result => {
+      const foundProjects = result.results;
+      if (foundProjects == null || this.projects == null) {
+        return;
+      }
+
+      const filteredProjects = this.projects.filter(project => {
+        return foundProjects.map(foundProject => foundProject.id).includes(project.id);
+      });
+      this.projectsToDisplay = filteredProjects;
+    });
+  }
+
 }
