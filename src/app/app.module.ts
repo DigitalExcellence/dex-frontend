@@ -29,6 +29,7 @@ import { TopHighlightCardsComponent } from "./modules/highlight/top-highlight-ca
 import { SharedModule } from "./modules/shared/shared.module";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './components/footer/footer.component';
+import { HttpErrorInterceptor } from './interceptors/http-errror.interceptor';
 
 @NgModule({
   declarations: [AppComponent, AppLayoutComponent, HomeComponent, AuthCallbackComponent, TopHighlightCardsComponent, FooterComponent],
@@ -39,7 +40,12 @@ import { FooterComponent } from './components/footer/footer.component';
       useClass: TokenInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
