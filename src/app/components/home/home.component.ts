@@ -30,13 +30,14 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: BsModalService
   ) {
-    // const config = {
-    //   keyboard: true
-    // };
-    // const modalRef = this.modalService.show(ModalErrorComponent, config);
-
-    // modalRef.content.confirm.subscribe(() => console.log('CONFIRMED'));
-    // modalRef.content.deny.subscribe(() => console.log('DENIED'));
+    // Show the modal.
+    const config = {
+      keyboard: true
+    };
+    const modalRef = this.modalService.show(ModalErrorComponent, config);
+    // Listen to output events.
+    modalRef.content.confirm.subscribe(() => console.log('CONFIRMED'));
+    modalRef.content.deny.subscribe(() => console.log('DENIED'));
   }
 
   ngOnInit(): void {
