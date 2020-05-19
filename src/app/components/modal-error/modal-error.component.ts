@@ -19,6 +19,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
+/**
+ * Component which functions as a modal. Functions as proof of concept to use NGX-bootstrap modals.
+ */
 @Component({
   selector: 'app-modal-error',
   templateUrl: './modal-error.component.html',
@@ -26,10 +29,12 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class ModalErrorComponent implements OnInit {
 
+  /**
+   * EventEmitters to output which button was clicked.
+   * Could also be one eventEmitter which emits a boolean instead of use two separate events.
+   */
   @Output() confirm = new EventEmitter();
   @Output() deny = new EventEmitter();
-
-  config: any;
 
   constructor(
     public bsModalRef: BsModalRef
@@ -38,11 +43,17 @@ export class ModalErrorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Method which triggers when the confirm button is clicked.
+   */
   public onClickConfirm(): void {
     this.confirm.emit();
     this.bsModalRef.hide();
   }
 
+  /**
+   * Method which triggers when the deny button is clicked.
+   */
   public onClickDeny(): void {
     this.deny.emit();
     this.bsModalRef.hide();

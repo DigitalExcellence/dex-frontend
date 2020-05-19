@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private modalService: BsModalService
   ) {
+    // Proof of concept to display ngx-modals.
     // Show the modal.
     const config = {
       keyboard: true
