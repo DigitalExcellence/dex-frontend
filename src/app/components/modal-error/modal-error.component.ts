@@ -16,29 +16,36 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component, OnInit } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { ModalErrorComponent } from './../modal-error/modal-error.component';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-modal-error',
+  templateUrl: './modal-error.component.html',
+  styleUrls: ['./modal-error.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class ModalErrorComponent implements OnInit {
+
+  @Output() confirm = new EventEmitter();
+  @Output() deny = new EventEmitter();
+
+  config: any;
 
   constructor(
-    private modalService: BsModalService
-  ) {
-    // const config = {
-    //   keyboard: true
-    // };
-    // const modalRef = this.modalService.show(ModalErrorComponent, config);
-
-    // modalRef.content.confirm.subscribe(() => console.log('CONFIRMED'));
-    // modalRef.content.deny.subscribe(() => console.log('DENIED'));
-  }
+    public bsModalRef: BsModalRef
+  ) { }
 
   ngOnInit(): void {
   }
+
+  public onClickConfirm(): void {
+    this.confirm.emit();
+    this.bsModalRef.hide();
+  }
+
+  public onClickDeny(): void {
+    this.deny.emit();
+    this.bsModalRef.hide();
+  }
+
 }
