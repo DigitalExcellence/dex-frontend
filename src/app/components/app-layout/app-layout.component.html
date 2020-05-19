@@ -46,7 +46,8 @@
           <li role="menuitem"><a class="dropdown-item" href="#">My profile</a></li>
           <li role="menuitem"><a class="dropdown-item" href="#">Account settings</a></li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" (click)="signout()" routerLinkActive="active">Sign
+          <li role="menuitem"><a class="dropdown-item" (click)="onClickSignout()"
+              routerLinkActive="active">Sign
               Out</a>
           </li>
         </ul>
@@ -60,5 +61,5 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-<app-footer></app-footer>
+  <app-footer></app-footer>
 </div>

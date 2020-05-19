@@ -15,17 +15,17 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
-import { AuthService } from "src/app/services/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 /**
  * Component used to display the basic layout of the application.
  */
 @Component({
-  selector: "app-layout",
-  templateUrl: "./app-layout.component.html",
-  styleUrls: ["./app-layout.component.scss"],
+  selector: 'app-layout',
+  templateUrl: './app-layout.component.html',
+  styleUrls: ['./app-layout.component.scss'],
 })
 export class AppLayoutComponent implements OnInit {
   public name: string;
@@ -40,8 +40,10 @@ export class AppLayoutComponent implements OnInit {
       this.name = this.authService.name;
     });
   }
-
-  public async signout() {
+  /**
+   * Sign the user out of their account by calling the Auth Service signout method.
+   */
+  public async onClickSignout() {
     await this.authService.signout();
   }
 }

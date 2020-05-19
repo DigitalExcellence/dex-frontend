@@ -15,22 +15,22 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Project } from "src/app/models/domain/project";
-import { ProjectService } from "src/app/services/project.service";
-import { AuthService } from "src/app/services/auth.service";
-import { HighlightService } from "src/app/services/highlight.service";
-import { HighlightAdd } from "src/app/models/resources/highlight-add";
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Project } from 'src/app/models/domain/project';
+import { ProjectService } from 'src/app/services/project.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { HighlightService } from 'src/app/services/highlight.service';
+import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 
 /**
  * Overview of a single project
  */
 @Component({
-  selector: "app-details",
-  templateUrl: "./details.component.html",
-  styleUrls: ["./details.component.scss"],
+  selector: 'app-details',
+  templateUrl: './details.component.html',
+  styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
   /**
@@ -47,7 +47,7 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const routeId = this.activedRoute.snapshot.paramMap.get("id");
+    const routeId = this.activedRoute.snapshot.paramMap.get('id');
     if (!routeId) {
       return;
     }
@@ -72,10 +72,13 @@ export class DetailsComponent implements OnInit {
     );
   }
 
-  public onHighlightButtonClick(): void {
+  /**
+   * Highlight a project by calling the API
+   * For now, the highlight is infinite duration.
+   * This should be changed when modals are implemented
+   */
+  public onClickHighlightButton(): void {
     const hightlightAdd: HighlightAdd = { projectId: this.project.id, startDate: null, endDate: null };
-    this.highlightService.post(hightlightAdd).subscribe((result) => {
-      console.log("Project highlighted: " + result.projectId);
-    });
+    this.highlightService.post(hightlightAdd).subscribe((result) => {});
   }
 }
