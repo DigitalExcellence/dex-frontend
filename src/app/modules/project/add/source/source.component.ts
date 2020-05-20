@@ -38,7 +38,7 @@ export class SourceComponent implements OnInit {
     const demoSource: ExternalSource = {
       id: 1,
       name: "GitHub",
-      image: "assets/github-logo.svg",
+      image: "assets/images/github-logo.svg",
     };
     for (let index = 0; index < 6; index++) {
       demoSource.id = demoSource.id + index;

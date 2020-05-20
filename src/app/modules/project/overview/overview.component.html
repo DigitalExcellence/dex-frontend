@@ -50,7 +50,7 @@
   <div class="col-10">
     <div class="search">
       <input type="search" placeholder="search project">
-      <button><img src="assets/research.svg"></button>
+      <button><img src="assets/images/research.svg"></button>
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
@@ -61,7 +61,7 @@
         <tr *ngFor="let project of projects">
           <td class="title" (click)="onProjectClick(project.id)">
             <div class="icon-placeholder">
-              <img alt="project-image" src="assets/placeholder.svg">
+              <img alt="project-image" src="assets/images/placeholder.svg">
             </div>
             <span>
               <h3>{{ project.name }}</h3>
@@ -70,10 +70,10 @@
           </td>
           <td class="icon">
             <p class="large"><img alt="clock" class="icon"
-                src="assets/clock.svg">{{ project.created | date:'longDate' }}</p>
+                src="assets/images/clock.svg">{{ project.created | date:'longDate' }}</p>
           </td>
           <td class="icon">
-            <p class="large"><img alt="user" class="icon" src="assets/user.svg">{{ project.user.name }}</p>
+            <p class="large"><img alt="user" class="icon" src="assets/images/user.svg">{{ project.user.name }}</p>
           </td>
         </tr>
       </table>
