@@ -15,20 +15,20 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { finalize } from "rxjs/operators";
-import { Project } from "src/app/models/domain/project";
-import { ProjectService } from "src/app/services/project.service";
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
+import { Project } from 'src/app/models/domain/project';
+import { ProjectService } from 'src/app/services/project.service';
 
 /**
  * Overview of all the projects
  */
 @Component({
-  selector: "app-overview",
-  templateUrl: "./overview.component.html",
-  styleUrls: ["./overview.component.scss"],
+  selector: 'app-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
   /**
@@ -39,7 +39,7 @@ export class OverviewComponent implements OnInit {
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
-  public projectsLoading: boolean = true;
+  public projectsLoading = true;
 
   constructor(private router: Router, private projectService: ProjectService) {}
 
@@ -53,7 +53,7 @@ export class OverviewComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           if (error.status !== 404) {
-            console.log("Could not retrieve the projects");
+            console.log('Could not retrieve the projects');
           }
         }
       );
