@@ -49,7 +49,7 @@
 
   <div class="col-10">
     <div class="search">
-      <input type="search" placeholder="search project">
+      <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onSearchInput($event)">
       <button><img src="assets/images/research.svg"></button>
     </div>
 
@@ -58,7 +58,7 @@
         <tr *ngIf="projectsLoading">
           <td colspan="3">Loading...</td>
         </tr>
-        <tr *ngFor="let project of projects">
+        <tr *ngFor="let project of projectsToDisplay">
           <td class="title" (click)="onProjectClick(project.id)">
             <div class="icon-placeholder">
               <img alt="project-image" src="assets/images/placeholder.svg">
