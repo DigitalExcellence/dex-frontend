@@ -16,11 +16,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-export interface InternalSearchQuery {
-    query: string;
-    page?: number;
-    amountOnPage?: number;
-    sortBy?: string;
-    sortDirection?: string;
-    highlighted?: boolean;
+export interface SearchResultResource {
+    id: number;
+    name: string;
+    shortDescription: string;
+    created: Date;
+    updated: Date;
 }

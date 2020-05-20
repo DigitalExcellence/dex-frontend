@@ -16,11 +16,13 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-export interface InternalSearchQuery {
+import { SearchResultResource } from './search-result';
+
+export interface SearchResultsResource {
+    results: SearchResultResource[];
     query: string;
-    page?: number;
-    amountOnPage?: number;
-    sortBy?: string;
-    sortDirection?: string;
-    highlighted?: boolean;
+    count: number;
+    totalCount: number;
+    page: number;
+    totalPages: number;
 }
