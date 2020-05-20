@@ -16,68 +16,16 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
+@import "assets/styles/variables";
 
-@import "variables";
 @import "~bootstrap/scss/bootstrap";
 
 body {
   background-color: $light-mode-background-color;
-
-  p {
-    color: $light-mode-text-color;
-    font-size: 14px;
-  }
-
-  p.large {
-    font-size: 18px;
-  }
-
-  p.small {
-    font-size: 12px;
-  }
 }
 
 .main-container {
   background: none;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: $font-family-headings;
-  font-weight: 700;
-  color: $light-mode-title-color;
-}
-
-h1 {
-  font-size: 55px;
-  margin: 30px 0;
-}
-
-h2 {
-  font-size: 30px;
-}
-
-h3 {
-  font-size: 18px;
-}
-
-h4 {
-  font-size: 14px;
-}
-
-a {
-  font-family: "Lato", sans-serif;
-  color: $light-mode-text-color;
-  font-size: 14px;
-
-  &:active,
-  &:hover,
-  &:focus,
-  &:visited {
-    color: $light-mode-title-color;
-  }
 }
 
 //Needs to be implemented in the overview.component.scss issue #106
@@ -99,23 +47,8 @@ accordion-group {
   }
 
   .card-body {
-    background: #E9E9E9;
+    background: #e9e9e9;
     border-radius: 6px;
     padding: 5px 10px;
-  }
-}
-
-button {
-  &.primary {
-    background: #e85b3f;
-    box-shadow: 0 3px 6px #00000029;
-    border-radius: 6px;
-    opacity: 1;
-    border: none;
-    font-family: Montserrat, sans-serif;
-    font-weight: 600;
-    color: white;
-    font-size: 14px;
-    padding: 12px 30px;
   }
 }

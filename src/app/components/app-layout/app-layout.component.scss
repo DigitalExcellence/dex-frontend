@@ -17,7 +17,7 @@
  *
  */
 
-@import "variables";
+@import "assets/styles/variables";
 
 .header {
   display: flex;
@@ -150,7 +150,6 @@
     }
   }
 }
-
 
 img.profile-picture {
   margin-left: 5px;

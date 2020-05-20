@@ -16,8 +16,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-
-@import 'variables';
+@import "assets/styles/variables";
 
 .login {
   margin: 100px 0;
@@ -43,7 +42,6 @@
   h2 {
     margin-bottom: 50px;
   }
-
 
   .institutions {
     width: 100%;
@@ -90,8 +88,9 @@
       margin-right: -50%;
     }
 
-    &::before, &::after {
-      content: '';
+    &::before,
+    &::after {
+      content: "";
       position: relative;
       width: 50%;
       background-color: #707175;
@@ -121,10 +120,3 @@ button {
 a {
   color: #e85b3f;
 }
-
-
-
-
-
-
-
