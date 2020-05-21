@@ -36,8 +36,7 @@
         <div class="col-12">
           <div>
             <h3>Project link*</h3>
-            <input placeholder="https://github.com/fontys/digitalexcellence" formControlName="uri"
-              required />
+            <input placeholder="https://github.com/fontys/digitalexcellence" formControlName="uri" required />
           </div>
         </div>
       </div>
@@ -61,7 +60,7 @@
       </div>
     </form>
 
-    <form [formGroup]="newContributorForm" class="project-form">
+    <form [formGroup]="newCollaboratorForm" class="project-form">
       <div class="row">
         <div class="col-12">
           <p><b>Add project members</b></p>
@@ -69,22 +68,22 @@
 
             <div class="col-5">
               <div>
-                <h3>Contributor full name</h3>
+                <h3>Collaborator full name</h3>
                 <input formControlName="fullName" required />
               </div>
             </div>
 
             <div class="col-5">
               <div>
-                <h3>Contributor function</h3>
+                <h3>Collaborator role</h3>
                 <input formControlName="role" required />
               </div>
             </div>
 
-            <div class="col-2 add-contributor-col">
-              <button type="button" class="btn btn-icon btn-primary add-contributor-button"
-                aria-label="settings" (click)="onClickAddContributor()"
-                [disabled]="!newContributorForm.valid">
+            <div class="col-2 add-collaborator-col">
+              <button type="button" class="btn btn-icon btn-primary add-collaborator-button"
+                aria-label="settings" (click)="onClickAddCollaborator()"
+                [disabled]="!newCollaboratorForm.valid">
                 +
               </button>
             </div>
@@ -97,12 +96,12 @@
     <div class="row" *ngIf="collaborators.length > 0">
 
       <div class="col-12">
-        <h3>Contributors</h3>
+        <h3>Collaborators</h3>
       </div>
 
       <div *ngFor="let collaborator of collaborators" class="col-6">
         <button type="button" class="btn btn-icon btn-danger" aria-label="error"
-          (click)="onClickDeleteContributor(collaborator)">
+          (click)="onClickDeleteCollaborator(collaborator)"><span aria-hidden="true"> &times; </span>
         </button>
         {{collaborator?.fullName}}
         <hr class="dashed">
@@ -111,7 +110,7 @@
 
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-success" type="submit" (click)="onSubmit()"
+        <button class="btn btn-success" type="submit" (click)="onClickSubmit()"
           [disabled]="!newProjectForm.valid">Add project</button>
       </div>
     </div>
