@@ -19,6 +19,7 @@ export const environment = {
   production: true,
   identityServerUrl: "https://staging-dex-identity.kn01.fhict.nl",
   apiUrl: "https://staging-dex-api.kn01.fhict.nl",
+  frontendUrl: "https://staging-dex.kn01.fhict.nl",
   identityCallbackUrl: "https://staging-dex.kn01.fhict.nl/",
   identityClientId: "dex-frontend",
   identityRedirectUri: "https://staging-dex.kn01.fhict.nl/auth-callback",

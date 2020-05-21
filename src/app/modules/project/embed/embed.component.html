@@ -17,7 +17,7 @@
 
  -->
 
-<div *ngIf="project">
+ <div *ngIf="project">
   <div class="row">
     <div class="col-3 project-metadata">
       <div class="project-icon"><img alt="Code project" src="assets/code.svg"></div>
@@ -76,7 +76,5 @@
         {{ project.description }}
       </p>
     </div>
-    <app-embed-button></app-embed-button>
   </div>
 </div>
-<button routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
