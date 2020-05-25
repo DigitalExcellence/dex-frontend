@@ -14,12 +14,11 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { EmbedService } from './../../../services/embed.service';
+import { EmbedService } from 'src/app/services/embed.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from "@angular/common/http";
 import { ActivatedRoute } from "@angular/router";
 import { Project } from "src/app/models/domain/project";
-import { ProjectService } from "src/app/services/project.service";
 
 /**
  * Overview of a single project

@@ -34,5 +34,5 @@ export const API_CONFIG: ApiConfig = {
   highlightRoute: "highlight",
   internalSearchRoute: "search/internal",
   externalSearchRoute: "search/external",
-  embeddedProjectRoute: "Embed"
+  embeddedProjectRoute: "embed"
 };
