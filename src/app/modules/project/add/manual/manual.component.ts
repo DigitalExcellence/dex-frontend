@@ -123,6 +123,9 @@ export class ManualComponent implements OnInit {
     this.collaborators.splice(index, 1);
   }
 
+  /**
+   * Method to fill a form with the values of a mapped project.
+   */
   private fillFormWithProject(project: MappedProject): void {
     this.newProjectForm.get('name').setValue(project.name);
     this.newProjectForm.get('uri').setValue(project.uri);

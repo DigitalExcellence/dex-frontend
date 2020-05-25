@@ -17,6 +17,13 @@
 import { Observable } from 'rxjs';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 
+/**
+ * Interface to define the method used by all Wizard sources services.
+ */
 export interface GenericWizard {
+    /**
+     * Method to fetch the project for a url.
+     * @param url the url where the project is located.
+     */
     fetchProjectDetails(url: string): Observable<MappedProject>;
 }

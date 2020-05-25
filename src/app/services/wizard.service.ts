@@ -1,9 +1,3 @@
-import { MappedProject } from 'src/app/models/internal/mapped-project';
-import { WizardGitlabService } from './wizard-gitlab.service';
-import { WizardGithubService } from './wizard-github.service';
-import { Project } from 'src/app/models/domain/project';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -22,6 +16,10 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
  */
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
+import { WizardGitlabService } from './wizard-gitlab.service';
+import { WizardGithubService } from './wizard-github.service';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +27,8 @@ import { Router } from '@angular/router';
 export class WizardService {
 
   public fetchedProject: BehaviorSubject<MappedProject> = new BehaviorSubject(null);
+
+  private readonly addManualProjectRoute = 'project/add/manual';
 
   constructor(
     private router: Router,
@@ -38,30 +38,29 @@ export class WizardService {
 
   public fetchProjectForSource(url: string): void {
 
-    url = url.slice(0,url.indexOf("?"));
+    url = url.slice(0, url.indexOf("?"));
 
     const githubRegex = new RegExp('^https?:\/\/github.com\/.+\/.+');
-    const gitlabFHICTRegex = new RegExp('^https?:\/\/git\.fhict.nl\/.+\/.+');
     if (githubRegex.test(url)) {
       this.fetchSourceOnGithub(url);
       return;
     }
 
-    // if (gitlabFHICTRegex.test(url)) {
-    //   this.fetchSourceOnGitLab(url);
-    // }
-
+    const gitlabFHICTRegex = new RegExp('^https?:\/\/git\.fhict.nl\/.+\/.+');
+    if (gitlabFHICTRegex.test(url)) {
+      this.fetchSourceOnGitLab(url);
+      return;
+    }
   }
 
-  // TODO add return types back to methods.
   private fetchSourceOnGithub(url: string): void {
     this.wizardGithubService.fetchProjectDetails(url).subscribe(project => {
       this.fetchedProject.next(project);
-      this.router.navigate(['project/add/manual']);
+      this.router.navigate([this.addManualProjectRoute]);
     });
   }
 
-  private fetchSourceOnGitLab(url: string) {
-    this.wizardGitLabService.fetchProjectDetails(url);
+  private fetchSourceOnGitLab(url: string): void {
+    // this.wizardGitLabService.fetchProjectDetails(url);
   }
 }
