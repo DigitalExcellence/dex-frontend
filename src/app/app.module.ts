@@ -29,6 +29,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './components/footer/footer.component';
 import { SentryErrorHandler } from './error-handler/sentry.error-handles';
+import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,11 @@ import { SentryErrorHandler } from './error-handler/sentry.error-handles';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true,
     },
     {
