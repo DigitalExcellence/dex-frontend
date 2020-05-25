@@ -11,8 +11,8 @@ import { mergeMap } from 'rxjs/operators';
 })
 export class WizardGitlabService {
 
-  private readonly githubApiUrl = 'https://api.github.com';
-  private readonly githubReposEndpoint = 'repos';
+  private readonly gitLabApiUrl = 'https://git.fhict.nl';
+  private readonly gitLabReposEndpoint = 'api/v4/projects';
   private readonly githubCollaboratorsEndpoint = 'contributors';
 
 
@@ -26,24 +26,23 @@ export class WizardGitlabService {
 
   fetchProjectDetails(url: string): Project {
     const project: Project = null;
-
     const gitLabRegex = new RegExp('^https?:\/\/git\.fhict.nl\/(?<ownerName>.+)\/(?<repoName>.+)$');
     const urlGroups = (url.match(gitLabRegex).groups)
     const ownerName = urlGroups.ownerName;
     const repoName = urlGroups.repoName;
 
-
+    console.log(urlGroups)
     this.fetchRepo(repoName, ownerName)
-      .pipe(
-        mergeMap(repo => {
-          console.log(repo);
-          return this.fetchReadme(repoName, ownerName, repo.default_branch);
-        }
-        )
-      )
-      .subscribe(result => {
-        console.log(result);
-      });
+      // .pipe(
+      //   mergeMap(repo => {
+      //     console.log(repo);
+      //     return this.fetchReadme(repoName, ownerName, repo.default_branch);
+      //   }
+      //   )
+      // )
+      // .subscribe(result => {
+      //   console.log(result);
+      // });
 
     // forkJoin([
     //   this.fetchRepo(repoName, ownerName)
@@ -79,11 +78,15 @@ export class WizardGitlabService {
     return null;
   }
 
-  private fetchRepo(repo: string, owner: string): Observable<GithubRepo> {
-    const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${owner}/${repo}`;
-    return this.httpClient.get<GithubRepo>(url);
+  private fetchRepo(repo: string, owner: string): void {
+    const url = `${this.gitLabApiUrl}/${this.gitLabReposEndpoint}/${owner}%2F${repo}`;
+    this.httpClient.get<GithubRepo>(url).subscribe(
+      data =>{
+        console.log(data)
+      }
+    );
   }
-
+/*
   private fetchCollaborators(repo: string, owner: string) {
     const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${owner}/${repo}/${this.githubCollaboratorsEndpoint}`;
     return this.httpClient.get(url);
@@ -93,4 +96,5 @@ export class WizardGitlabService {
     const url = `${this.githubRawContentUrl}/${owner}/${repo}/${defaultBranch}/${this.githubReadme}`;
     return this.httpClient.get(url);
   }
+  */
 }

@@ -38,7 +38,8 @@ export class WizardService {
 
   public fetchProjectForSource(url: string): void {
 
-    url = url.slice(0,url.indexOf("?"));
+    // Remove parameters from url
+    url = url.replace(/\?.*$/g, "")
 
     const githubRegex = new RegExp('^https?:\/\/github.com\/.+\/.+');
     const gitlabFHICTRegex = new RegExp('^https?:\/\/git\.fhict.nl\/.+\/.+');
@@ -47,9 +48,9 @@ export class WizardService {
       return;
     }
 
-    // if (gitlabFHICTRegex.test(url)) {
-    //   this.fetchSourceOnGitLab(url);
-    // }
+    if (gitlabFHICTRegex.test(url)) {
+       this.fetchSourceOnGitLab(url);
+    }
 
   }
 
@@ -62,6 +63,7 @@ export class WizardService {
   }
 
   private fetchSourceOnGitLab(url: string) {
+
     this.wizardGitLabService.fetchProjectDetails(url);
   }
 }

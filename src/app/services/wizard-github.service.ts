@@ -31,9 +31,6 @@ export class WizardGithubService implements GenericWizard {
   fetchProjectDetails(url: string): Observable<MappedProject> {
     const project: Project = null;
 
-    // const ownerName = 'DigitalExcellence';
-    // const repoName = 'dex-backend';
-    
     const gitLabRegex = new RegExp('^https?:\/\/github.com\/(?<ownerName>.+)\/(?<repoName>.+)$');
     const urlGroups = (url.match(gitLabRegex).groups)
     const ownerName = urlGroups.ownerName;
