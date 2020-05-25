@@ -19,7 +19,7 @@ import { HttpClient } from '@angular/common/http';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, switchMap } from 'rxjs/operators';
 import { GitHubContributor } from '../models/resources/external/github/contributor';
 import { MappedCollaborator } from '../models/internal/mapped-collaborator';
 import { Collaborator } from '../models/domain/collaborator';
@@ -51,17 +51,22 @@ export class WizardGithubService implements GenericWizard {
     const repoName = urlGroups.repoName;
 
     return forkJoin([
-      this.fetchRepo(repoName, ownerName),
-      this.fetchCollaborators(repoName, ownerName),
       this.fetchRepo(repoName, ownerName)
         .pipe(
-          mergeMap((repo) => {
-            return this.fetchReadme(repoName, ownerName, repo.default_branch);
+          switchMap(repo => {
+            return this.fetchReadme(repoName, ownerName, repo.default_branch)
+              .pipe(
+                map(readme => {
+                  return { repo, readme };
+                })
+              );
           })
-        )
+        ),
+      this.fetchCollaborators(repoName, ownerName),
     ])
       .pipe(
-        map(([repo, collaborators, readme]) => {
+        map(([{ repo, readme }, collaborators]) => {
+          console.log(repo, readme, collaborators);
 
           const mappedCollaborators: MappedCollaborator[] = [];
           if (collaborators) {

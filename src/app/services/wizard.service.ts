@@ -57,16 +57,6 @@ export class WizardService {
       this.fetchSourceOnGithub(url);
       return;
     }
-
-    const gitlabFHICTRegex = new RegExp('^https?:\/\/git\.fhict.nl\/.+\/.+');
-    if (gitlabFHICTRegex.test(url)) {
-      this.fetchSourceOnGitLab(url);
-      return;
-    }
-
-    if(gitlabRegex.test(url)){
-      this.fetchSourceOnGitLab(url);
-    }
   }
 
   private fetchSourceOnGithub(url: string): void {
