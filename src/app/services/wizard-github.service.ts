@@ -1,4 +1,3 @@
-import { MappedProject } from 'src/app/models/internal/mapped-project';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -15,6 +14,8 @@ import { MappedProject } from 'src/app/models/internal/mapped-project';
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+
+import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { HttpClient } from '@angular/common/http';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';

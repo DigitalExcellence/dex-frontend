@@ -1,97 +1,123 @@
-import { GitHubRepo } from './../models/resources/external/github/repo';
+/*
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ */
+
+import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { HttpClient } from '@angular/common/http';
-import { Project } from 'src/app/models/domain/project';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
-import { MappedProject } from '../models/internal/mapped-project';
+import { Observable, forkJoin, of } from 'rxjs';
+import { mergeMap, map, switchMap } from 'rxjs/operators';
+import { MappedCollaborator } from 'src/app/models/internal/mapped-collaborator';
+import { Collaborator } from 'src/app/models/domain/collaborator';
+import { GitLabRepo } from 'src/app/models/resources/external/gitlab/repo';
+import { GitLabContributor } from 'src/app/models/resources/external/gitlab/contributor';
 
+/**
+ * Service to fetch a repo and it's details from Github.
+ */
 @Injectable({
   providedIn: 'root'
 })
-export class WizardGitlabService implements GenericWizard {
+export class WizardGitLabService implements GenericWizard {
 
-  private readonly gitLabApiUrl = 'https://gitlab.com';
-  private readonly gitLabReposEndpoint = 'api/v4/projects';
-  private readonly githubCollaboratorsEndpoint = 'contributors';
+  private readonly gitlabApiUrl = 'https://gitlab.com';
+  private readonly gitlabReposEndpoint = 'api/v4/projects';
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
   fetchProjectDetails(url: string): Observable<MappedProject> {
-    const project: Project = null;
+    return forkJoin([
+      this.fetchRepo(url)
+        // .pipe(
+        //   // switchMap(repo => {
+        //   //   return this.fetchReadme(repo.readme_url)
+        //   //     .pipe(
+        //   //       map(readme => {
+        //   //         console.log(repo)
+        //   //         return readme;
+        //   //       }),
+        //   //     );
+        //   // }),
+        //   Map(repo =>{
+        //     return repo;
+        //   })
+        // ),
+      //this.fetchCollaborators(y)
+    ])
+      .pipe(
+        map(([repo]) => {
+          console.log("finished")
+          console.log(repo)
+          // console.log(repo, readme, collaborators);
+          const collaborators = [];
+          const mappedCollaborators: MappedCollaborator[] = [];
+          if (collaborators) {
+            collaborators.forEach(colloborator => {
+              const mappedCollaborator: Collaborator = {
+                id: null,
+                fullName: colloborator.login,
+                role: 'Developer'
+              };
+              mappedCollaborators.push(mappedCollaborator);
+            });
+          }
+          
 
-    const gitLabRegex = new RegExp('^https?:\/\/gitlab.com\/(?<ownerName>.+)\/(?<repoName>.+)$');
-    const urlGroups = (url.match(gitLabRegex).groups)
-    const ownerName = urlGroups.ownerName;
-    const repoName = urlGroups.repoName;
-
-    console.log(urlGroups)
-    this.fetchRepo(repoName, ownerName)
-    // .pipe(
-    //   mergeMap(repo => {
-    //     console.log(repo);
-    //     return this.fetchReadme(repoName, ownerName, repo.default_branch);
-    //   }
-    //   )
-    // )
-    // .subscribe(result => {
-    //   console.log(result);
-    // });
-
-    // forkJoin([
-    //   this.fetchRepo(repoName, ownerName)
-    //     .pipe(
-    //       mergeMap(results => {
-    //         return this.fetchReadme(repoName, ownerName, results[0].default_branch);
-    //       })
-    //     ),
-    //   this.fetchCollaborators(repoName, ownerName)
-    // ])
-    // .subscribe(results => {
-    //   console.log(results);
-    // });
-
-
-    // forkJoin([
-    //   this.fetchRepo(repoName, ownerName),
-    //   this.fetchCollaborators(repoName, ownerName)
-    // ])
-    // .pipe(
-    //   mergeMap(results => {
-    //     this.fetchReadme(repoName, ownerName, results[0].default_branch);
-    //   })
-    // )
-    // .subscribe(results => {
-    //   console.log(results);
-    // });
-
-    // this.httpClient.get(finalUrl).subscribe(result => {
-    //   console.log(result);
-    // });
-
-    return null;
+          const mappedProject: MappedProject = {
+            name: repo.name,
+            description: repo.description,
+            shortDescription: repo.description,
+            uri: repo.web_url,
+            collaborators: mappedCollaborators 
+          };
+          return mappedProject;
+          
+        })
+      );
   }
 
-  private fetchRepo(repo: string, owner: string): void {
-    const url = `${this.gitLabApiUrl}/${this.gitLabReposEndpoint}/${owner}%2F${repo}`;
-    this.httpClient.get<GitHubRepo>(url).subscribe(
-      data => {
-        console.log(data)
-      }
-    );
+  /**
+   * Method to fetch the details of a repo.
+   * @param repoUrl url of the repository.
+   */
+  private fetchRepo(repoUrl: string): Observable<GitLabRepo> {
+    let projectName = repoUrl.replace("https://gitlab.com/","")
+    projectName = projectName.replace(/\//g,"%2F")
+    const url = `${this.gitlabApiUrl}/${this.gitlabReposEndpoint}/${projectName}`;
+    return this.httpClient.get<GitLabRepo>(url);
   }
-  /*
-    private fetchCollaborators(repo: string, owner: string) {
-      const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${owner}/${repo}/${this.githubCollaboratorsEndpoint}`;
-      return this.httpClient.get(url);
-    }
-  
-    private fetchReadme(repo: string, owner: string, defaultBranch: string) {
-      const url = `${this.githubRawContentUrl}/${owner}/${repo}/${defaultBranch}/${this.githubReadme}`;
-      return this.httpClient.get(url);
-    }
-    */
+
+  /**
+   * Method to fetch the colloborators of a repo.
+   * @param repoUrl url of the repository.
+   */
+  private fetchCollaborators(repoUrl: string): Observable<GitLabContributor[]> {
+    const url = `${this.gitlabApiUrl}/${this.gitlabReposEndpoint}/${repoUrl}/members`;
+    return this.httpClient.get<GitLabContributor[]>(url);
+  }
+
+  /**
+   * Method to fetch the readme of a repo.
+   * @param readmeUrl url of the readme file.
+   */
+  private fetchReadme(readmeUrl: string) {
+    const url = readmeUrl.replace("-/blob","-/raw")
+    return this.httpClient.get(url, { responseType: 'text' });
+  }
 }

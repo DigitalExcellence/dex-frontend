@@ -1,10 +1,3 @@
-import { WizardGitlabFHICTService } from './wizard-gitlab-fhict.service';
-import { MappedProject } from 'src/app/models/internal/mapped-project';
-import { WizardGitlabService } from './wizard-gitlab.service';
-import { WizardGithubService } from './wizard-github.service';
-import { Project } from 'src/app/models/domain/project';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -24,8 +17,9 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
-import { WizardGitlabService } from './wizard-gitlab.service';
+import { WizardGitLabService } from './wizard-gitlab.service';
 import { WizardGithubService } from './wizard-github.service';
+import { WizardGitlabFHICTService } from './wizard-gitlab-fhict.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
@@ -40,7 +34,7 @@ export class WizardService {
   constructor(
     private router: Router,
     private wizardGithubService: WizardGithubService,
-    private wizardGitLabService: WizardGitlabService,
+    private wizardGitLabService: WizardGitLabService,
     private WizardGitlabFHICTService: WizardGitlabFHICTService
   ) { }
 
@@ -57,6 +51,10 @@ export class WizardService {
       this.fetchSourceOnGithub(url);
       return;
     }
+    if(gitlabRegex.test(url)){
+      this.fetchSourceOnGitLab(url);
+      return;
+    }
   }
 
   private fetchSourceOnGithub(url: string): void {
@@ -66,11 +64,14 @@ export class WizardService {
     });
   }
 
-  private fetchSourceOnGitLabFHICT(url: string) {
-    this.WizardGitlabFHICTService.fetchProjectDetails(url);
-  }
+  // private fetchSourceOnGitLabFHICT(url: string) {
+  //   this.WizardGitlabFHICTService.fetchProjectDetails(url);
+  // }
 
   private fetchSourceOnGitLab(url: string) {
-    this.wizardGitLabService.fetchProjectDetails(url);
+    this.wizardGitLabService.fetchProjectDetails(url).subscribe(project => {
+      this.fetchedProject.next(project);
+      this.router.navigate([this.addManualProjectRoute]);
+    });
   }
 }

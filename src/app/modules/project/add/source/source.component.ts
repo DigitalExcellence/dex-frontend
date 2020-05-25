@@ -34,7 +34,7 @@ export class SourceComponent implements OnInit {
    */
   public mostUsedSources: ExternalSource[] = [];
 
-  public sourceUrlInput: FormControl = new FormControl('https://github.com/DigitalExcellence/dex-frontend');
+  public sourceUrlInput: FormControl = new FormControl('https://gitlab.com/matfpveb/projekti/2019-2020/12-animecentral');
 
   constructor(
     private wizardService: WizardService

@@ -1,4 +1,5 @@
-import { GithubRepo } from '../models/resources/external/github/repo';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
+import { GitHubRepo } from '../models/resources/external/github/repo';
 import { HttpClient } from '@angular/common/http';
 import { Project } from 'src/app/models/domain/project';
 import { GenericWizard } from './interfaces/generic-wizard';
@@ -10,7 +11,10 @@ import { mergeMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class WizardGitlabFHICTService implements GenericWizard {
-
+  fetchProjectDetails(url: string): Observable<MappedProject> {
+    throw new Error("Method not implemented.");
+  }
+/*
   private readonly gitLabApiUrl = 'https://git.fhict.nl';
   private readonly gitLabReposEndpoint = 'api/v4/projects';
   private readonly githubCollaboratorsEndpoint = 'contributors';
