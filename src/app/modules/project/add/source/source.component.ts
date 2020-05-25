@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -17,6 +18,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ExternalSource } from 'src/app/models/domain/external-source';
+import { WizardService } from 'src/app/services/wizard.service';
 
 /**
  * Component to import projects from external sources
@@ -32,7 +34,11 @@ export class SourceComponent implements OnInit {
    */
   public mostUsedSources: ExternalSource[] = [];
 
-  constructor() {}
+  public sourceUrlInput: FormControl = new FormControl('https://github.com/DigitalExcellence/dex-frontend');
+
+  constructor(
+    private wizardService: WizardService
+  ) { }
 
   ngOnInit(): void {
     const demoSource: ExternalSource = {
@@ -44,5 +50,18 @@ export class SourceComponent implements OnInit {
       demoSource.id = demoSource.id + index;
       this.mostUsedSources.push(demoSource);
     }
+  }
+
+  public onClickSubmitSourceUrl(): void {
+
+    const sourceUrl = this.sourceUrlInput.value;
+    if (sourceUrl == null || sourceUrl === '') {
+      // TODO: display error invalid url
+      return;
+    }
+
+    this.wizardService.fetchProjectForSource(sourceUrl);
+    // 1. Roep service aan
+    // 2. Project service weg op slaan in service
   }
 }

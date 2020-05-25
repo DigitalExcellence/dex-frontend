@@ -62,7 +62,10 @@ export class ManualComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    // Subscriben op wizard
+  }
 
   public onClickSubmit(): void {
     if (!this.newProjectForm.valid) {
