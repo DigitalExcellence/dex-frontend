@@ -1,4 +1,3 @@
-import { GithubRepo } from '../models/resources/external/github/repo';
 import { HttpClient } from '@angular/common/http';
 import { Project } from 'src/app/models/domain/project';
 import { GenericWizard } from './interfaces/generic-wizard';
