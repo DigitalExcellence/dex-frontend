@@ -4,6 +4,7 @@ import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { GitHubRepo } from '../models/resources/external/github/repo';
 
 @Injectable({
   providedIn: 'root'
@@ -80,7 +81,7 @@ export class WizardGitlabFHICTService {
 
   private fetchRepo(repo: string, owner: string): void {
     const url = `${this.gitLabApiUrl}/${this.gitLabReposEndpoint}/${owner}%2F${repo}`;
-    this.httpClient.get<GithubRepo>(url).subscribe(
+    this.httpClient.get<GitHubRepo>(url).subscribe(
       data => {
         console.log(data)
       }
