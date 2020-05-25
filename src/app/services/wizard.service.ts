@@ -43,9 +43,10 @@ export class WizardService {
       this.fetchSourceOnGithub(url);
       return;
     }
-    if (gitlabFHICTRegex.test(url)) {
-      this.fetchSourceOnGitLab(url);
-    }
+
+    // if (gitlabFHICTRegex.test(url)) {
+    //   this.fetchSourceOnGitLab(url);
+    // }
 
   }
 
@@ -53,6 +54,8 @@ export class WizardService {
   private fetchSourceOnGithub(url: string) {
     this.wizardGithubService.fetchProjectDetails(url);
   }
+
+
   private fetchSourceOnGitLab(url: string) {
     this.wizardGitLabService.fetchProjectDetails(url);
   }
