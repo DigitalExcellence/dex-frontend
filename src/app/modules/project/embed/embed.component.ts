@@ -51,9 +51,6 @@ export class EmbedComponent implements OnInit {
     this.embedService.getEmbed(routeId).subscribe(
       (result) => {
         this.project = result;
-      },
-      (error: HttpErrorResponse) => {
-        
       }
     );
 

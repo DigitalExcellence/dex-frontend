@@ -18,11 +18,8 @@
 import { EmbedService } from 'src/app/services/embed.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 import { EmbeddedProject } from 'src/app/models/domain/embedded-project';
 import { environment } from 'src/environments/environment';
-import {EmbeddedProjectResource} from "../../../models/resources/embedded-project-resource";
-
 
 @Component({
   selector: 'app-embed-button',
@@ -52,13 +49,10 @@ export class EmbedButtonComponent implements OnInit {
   }
 
   public onClickGenerateEmbed(): void{
-    this.EmbedService.post({ProjectId:this.projectId})
+    this.EmbedService.post({projectId:this.projectId})
       .subscribe(
         (result) => {
           this.embeddedProject = result;
-        },
-        (error: HttpErrorResponse) => {
-          //handle error
         }
       );
   }

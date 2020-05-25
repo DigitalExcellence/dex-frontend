@@ -1,3 +1,3 @@
 export interface EmbeddedProjectResource {
-    ProjectId: number;
+    projectId: number;
 }
