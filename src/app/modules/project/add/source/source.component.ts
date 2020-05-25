@@ -53,7 +53,6 @@ export class SourceComponent implements OnInit {
   }
 
   public onClickSubmitSourceUrl(): void {
-
     const sourceUrl = this.sourceUrlInput.value;
     if (sourceUrl == null || sourceUrl === '') {
       // TODO: display error invalid url
@@ -61,7 +60,5 @@ export class SourceComponent implements OnInit {
     }
 
     this.wizardService.fetchProjectForSource(sourceUrl);
-    // 1. Roep service aan
-    // 2. Project service weg op slaan in service
   }
 }

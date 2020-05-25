@@ -1,11 +1,14 @@
+import { MappedCollaborator } from './../models/internal/mapped-collaborator';
+import { MappedProject } from './../models/internal/mapped-project';
+import { Collaborator } from './../models/domain/collaborator';
 import { GithubRepo } from './../models/resources/external/github/repo';
 import { HttpClient } from '@angular/common/http';
 import { Project } from 'src/app/models/domain/project';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
-import { GithubContributor } from '../models/resources/external/contributor';
+import { mergeMap, map } from 'rxjs/operators';
+import { GithubContributor } from '../models/resources/external/github/contributor';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +28,13 @@ export class WizardGithubService implements GenericWizard {
     private httpClient: HttpClient
   ) { }
 
-  fetchProjectDetails(url: string): Project {
+  fetchProjectDetails(url: string): Observable<MappedProject> {
     const project: Project = null;
 
     const ownerName = 'DigitalExcellence';
     const repoName = 'dex-backend';
 
-    forkJoin([
+    return forkJoin([
       this.fetchRepo(repoName, ownerName),
       this.fetchCollaborators(repoName, ownerName),
       this.fetchRepo(repoName, ownerName)
@@ -41,11 +44,31 @@ export class WizardGithubService implements GenericWizard {
           })
         )
     ])
-      .subscribe(([repo, collobators, readme]) => {
-        console.log(repo, collobators, readme);
-      }, error => console.log(error));
+      .pipe(
+        map(([repo, collaborators, readme]) => {
 
-    return null;
+          const mappedCollaborators: MappedCollaborator[] = [];
+          if (collaborators) {
+            collaborators.forEach(colloborator => {
+              const mappedCollaborator: Collaborator = {
+                id: null,
+                fullName: colloborator.login,
+                role: 'Developer'
+              };
+              mappedCollaborators.push(mappedCollaborator);
+            });
+          }
+
+          const mappedProject: MappedProject = {
+            name: repo.name,
+            description: readme,
+            shortDescription: repo.description,
+            uri: repo.html_url,
+            collaborators: mappedCollaborators
+          };
+          return mappedProject;
+        })
+      );
   }
 
   private fetchRepo(repo: string, owner: string): Observable<GithubRepo> {

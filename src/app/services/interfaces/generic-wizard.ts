@@ -14,8 +14,9 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Project } from 'src/app/models/domain/project';
+import { Observable } from 'rxjs';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
 
 export interface GenericWizard {
-    fetchProjectDetails(url: string): Project;
+    fetchProjectDetails(url: string): Observable<MappedProject>;
 }

@@ -1,3 +1,4 @@
+import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardGitlabService } from './wizard-gitlab.service';
 import { WizardGithubService } from './wizard-github.service';
 import { Project } from 'src/app/models/domain/project';
@@ -20,15 +21,17 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WizardService {
 
-  public fetchedSource: BehaviorSubject<Project> = new BehaviorSubject(null);
+  public fetchedProject: BehaviorSubject<MappedProject> = new BehaviorSubject(null);
 
   constructor(
+    private router: Router,
     private wizardGithubService: WizardGithubService,
     private wizardGitLabService: WizardGitlabService,
   ) { }
@@ -50,10 +53,12 @@ export class WizardService {
   }
 
   // TODO add return types back to methods.
-  private fetchSourceOnGithub(url: string) {
-    this.wizardGithubService.fetchProjectDetails(url);
+  private fetchSourceOnGithub(url: string): void {
+    this.wizardGithubService.fetchProjectDetails(url).subscribe(project => {
+      this.fetchedProject.next(project);
+      this.router.navigate(['project/add/manual']);
+    });
   }
-
 
   private fetchSourceOnGitLab(url: string) {
     this.wizardGitLabService.fetchProjectDetails(url);

@@ -9,7 +9,7 @@ import { mergeMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class WizardGitlabService implements GenericWizard {
+export class WizardGitlabService {
 
   private readonly githubApiUrl = 'https://api.github.com';
   private readonly githubReposEndpoint = 'repos';
