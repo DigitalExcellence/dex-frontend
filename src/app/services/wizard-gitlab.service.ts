@@ -27,8 +27,11 @@ export class WizardGitlabService {
   fetchProjectDetails(url: string): Project {
     const project: Project = null;
 
-    const ownerName = 'DigitalExcellence';
-    const repoName = 'dex-backend';
+    const gitLabRegex = new RegExp('^https?:\/\/git\.fhict.nl\/(?<ownerName>.+)\/(?<repoName>.+)$');
+    const urlGroups = (url.match(gitLabRegex).groups)
+    const ownerName = urlGroups.ownerName;
+    const repoName = urlGroups.repoName;
+
 
     this.fetchRepo(repoName, ownerName)
       .pipe(
