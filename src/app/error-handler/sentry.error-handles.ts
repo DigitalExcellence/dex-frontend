@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -14,15 +15,21 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import * as Sentry from '@sentry/browser';
+import { ErrorHandler } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-export const environment = {
-  production: true,
-  identityServerUrl: 'https://staging-dex-identity.kn01.fhict.nl',
-  apiUrl: 'https://staging-dex-api.kn01.fhict.nl',
-  identityCallbackUrl: 'https://staging-dex.kn01.fhict.nl/',
-  identityClientId: 'dex-frontend',
-  identityRedirectUri: 'https://staging-dex.kn01.fhict.nl/auth-callback',
-  identityLogoutRedirectUri: 'https://staging-dex.kn01.fhict.nl/',
-  identitySilentRedirectUri: 'https://staging-dex.kn01.fhict.nl/silent-refresh.html',
-  sentryDsnUrl: 'https://d24eae0a8756460095b1928493131180@o395685.ingest.sentry.io/5247995'
-};
+Sentry.init({
+    dsn: environment.sentryDsnUrl
+});
+
+@Injectable()
+export class SentryErrorHandler implements ErrorHandler {
+
+    constructor() { }
+
+    handleError(error) {
+        Sentry.captureException(error.originalError || error);
+        throw error;
+    }
+}
