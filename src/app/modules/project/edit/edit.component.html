@@ -27,7 +27,7 @@
         <div class="col-12">
           <div>
             <h3>Project name*</h3>
-            <input placeholder="Digital excellence" formControlName="name" required [(ngModel)]="project.name">
+            <input placeholder="Digital Excellence" formControlName="name" required [ngModel]="project?.name">
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <div>
             <h3>Project link*</h3>
             <input placeholder="https://github.com/fontys/digitalexcellence" formControlName="uri" required
-              [(ngModel)]="project.uri">
+              [ngModel]="project?.uri">
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
         <div class="col-12">
           <div>
             <h3>Short description*</h3>
-            <input formControlName="shortDescription" required [(ngModel)]="project.shortDescription">
+            <input formControlName="shortDescription" required [ngModel]="project?.shortDescription">
           </div>
         </div>
       </div>
@@ -55,33 +55,32 @@
         <div class="col-12">
           <div>
             <h3>Description*</h3>
-            <textarea formControlName="description" required [(ngModel)]="project.description"></textarea>
+            <textarea formControlName="description" required [ngModel]="project?.description"></textarea>
           </div>
         </div>
       </div>
     </form>
 
 
-    <form [formGroup]="editContributorForm" class="project-form">
-      <p><b>Add project members</b></p>
+    <form [formGroup]="editCollaboratorForm" class="project-form">
+      <p><b>Edit project members</b></p>
       <div class="row">
         <div class="col-12">
-          <div *ngFor="let collaborator of project.collaborators">
-            <div class="row">
-              <div class="col-5">
-                <h3>Contributor full name</h3>
-                <input formControlName="fullName" required [(ngModel)]="collaborator.fullName">
-              </div>
-              <div class="col-5">
-                <h3>Contributor function</h3>
-                <input formControlName="role" required [(ngModel)]="collaborator.role">
-              </div>
-              <div class="col-2 add-contributor-col">
-                <button type="button" class="btn btn-icon btn-primary add-contributor-button" aria-label="settings"
-                  (click)="onClickAddContributor()" [disabled]="!editContributorForm.valid">
-                  +
-                </button>
-              </div>
+          <div class="row">
+            <div class="col-5">
+              <h3>Collaborator full name</h3>
+              <input formControlName="fullName" required>
+            </div>
+            <div class="col-5">
+              <h3>Collaborator role</h3>
+              <input formControlName="role" required>
+            </div>
+            <div class="col-2 add-collaborator-col">
+              <button type="button" class="btn btn-icon btn-primary add-collaborator-button"
+                aria-label="settings" (click)="onClickAddCollaborator()"
+                [disabled]="!editCollaboratorForm.valid">
+                +
+              </button>
             </div>
           </div>
         </div>
@@ -94,12 +93,12 @@
     <div class="row" *ngIf="collaborators.length > 0">
 
       <div class="col-12">
-        <h3>Contributors</h3>
+        <h3>Collaborators</h3>
       </div>
 
       <div *ngFor="let collaborator of collaborators" class="col-5">
         <button type="button" class="btn btn-icon btn-danger" aria-label="error"
-          (click)="onClickDeleteContributor(collaborator)">
+          (click)="onClickDeleteCollaborator(collaborator)"> <span aria-hidden="true"> &times; </span>
         </button>
         {{collaborator?.fullName}}
         <hr class="dashed">
@@ -108,10 +107,10 @@
 
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-success" type="submit" (click)="onSubmit()" [disabled]="!editProjectForm.valid">Edit
+        <button class="btn btn-success" type="submit" (click)="onClickSubmit()"
+          [disabled]="!editProjectForm.valid">Edit
           project</button>
       </div>
     </div>
-
   </div>
 </div>

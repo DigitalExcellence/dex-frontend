@@ -15,16 +15,16 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from "@angular/core";
-import { ExternalSource } from "src/app/models/domain/external-source";
+import { Component, OnInit } from '@angular/core';
+import { ExternalSource } from 'src/app/models/domain/external-source';
 
 /**
  * Component to import projects from external sources
  */
 @Component({
-  selector: "app-source",
-  templateUrl: "./source.component.html",
-  styleUrls: ["./source.component.scss"],
+  selector: 'app-source',
+  templateUrl: './source.component.html',
+  styleUrls: ['./source.component.scss'],
 })
 export class SourceComponent implements OnInit {
   /**
@@ -37,8 +37,8 @@ export class SourceComponent implements OnInit {
   ngOnInit(): void {
     const demoSource: ExternalSource = {
       id: 1,
-      name: "GitHub",
-      image: "assets/github-logo.svg",
+      name: 'GitHub',
+      image: 'assets/images/github-logo.svg',
     };
     for (let index = 0; index < 6; index++) {
       demoSource.id = demoSource.id + index;
