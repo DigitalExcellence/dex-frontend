@@ -1,10 +1,3 @@
-import { WizardGitlabFHICTService } from './wizard-gitlab-fhict.service';
-import { MappedProject } from 'src/app/models/internal/mapped-project';
-import { WizardGitlabService } from './wizard-gitlab.service';
-import { WizardGithubService } from './wizard-github.service';
-import { Project } from 'src/app/models/domain/project';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -25,9 +18,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardGitlabService } from './wizard-gitlab.service';
-import { WizardGithubService } from './wizard-github.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { WizardGitlabFHICTService } from './wizard-gitlab-fhict.service';
+import { WizardGithubService } from './wizard-github.service';
 
+/**
+ * Service to fetch project for various resources.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -41,13 +38,16 @@ export class WizardService {
     private router: Router,
     private wizardGithubService: WizardGithubService,
     private wizardGitLabService: WizardGitlabService,
-    private WizardGitlabFHICTService: WizardGitlabFHICTService
+    private wizardGitlabFHICTService: WizardGitlabFHICTService
   ) { }
 
+  /**
+   * Method to fetch a project from a source based on a url.
+   * @param url Url where the project is located.
+   */
   public fetchProjectForSource(url: string): void {
-
     // Remove parameters from url
-    url = url.replace(/\?.*$/g, "")
+    url = url.replace(/\?.*$/g, '');
 
     const githubRegex = new RegExp('^https?:\/\/github.com\/.+\/.+');
     const gitlabFHICTRegex = new RegExp('^https?:\/\/git\.fhict.nl\/.+\/.+');
@@ -59,6 +59,10 @@ export class WizardService {
     }
   }
 
+  /**
+   * Method to fetch a github project from the service. Set the fetchedProject and redirect the user to the add manual project component.
+   * @param url Url where the project is located.
+   */
   private fetchSourceOnGithub(url: string): void {
     this.wizardGithubService.fetchProjectDetails(url).subscribe(project => {
       this.fetchedProject.next(project);
@@ -67,7 +71,7 @@ export class WizardService {
   }
 
   private fetchSourceOnGitLabFHICT(url: string) {
-    this.WizardGitlabFHICTService.fetchProjectDetails(url);
+    this.wizardGitlabFHICTService.fetchProjectDetails(url);
   }
 
   private fetchSourceOnGitLab(url: string) {

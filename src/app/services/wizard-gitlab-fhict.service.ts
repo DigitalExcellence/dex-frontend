@@ -9,7 +9,7 @@ import { mergeMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class WizardGitlabFHICTService implements GenericWizard {
+export class WizardGitlabFHICTService {
 
   private readonly gitLabApiUrl = 'https://git.fhict.nl';
   private readonly gitLabReposEndpoint = 'api/v4/projects';
@@ -34,16 +34,16 @@ export class WizardGitlabFHICTService implements GenericWizard {
 
     console.log(urlGroups)
     this.fetchRepo(repoName, ownerName)
-      // .pipe(
-      //   mergeMap(repo => {
-      //     console.log(repo);
-      //     return this.fetchReadme(repoName, ownerName, repo.default_branch);
-      //   }
-      //   )
-      // )
-      // .subscribe(result => {
-      //   console.log(result);
-      // });
+    // .pipe(
+    //   mergeMap(repo => {
+    //     console.log(repo);
+    //     return this.fetchReadme(repoName, ownerName, repo.default_branch);
+    //   }
+    //   )
+    // )
+    // .subscribe(result => {
+    //   console.log(result);
+    // });
 
     // forkJoin([
     //   this.fetchRepo(repoName, ownerName)
@@ -82,20 +82,20 @@ export class WizardGitlabFHICTService implements GenericWizard {
   private fetchRepo(repo: string, owner: string): void {
     const url = `${this.gitLabApiUrl}/${this.gitLabReposEndpoint}/${owner}%2F${repo}`;
     this.httpClient.get<GithubRepo>(url).subscribe(
-      data =>{
+      data => {
         console.log(data)
       }
     );
   }
-/*
-  private fetchCollaborators(repo: string, owner: string) {
-    const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${owner}/${repo}/${this.githubCollaboratorsEndpoint}`;
-    return this.httpClient.get(url);
-  }
-
-  private fetchReadme(repo: string, owner: string, defaultBranch: string) {
-    const url = `${this.githubRawContentUrl}/${owner}/${repo}/${defaultBranch}/${this.githubReadme}`;
-    return this.httpClient.get(url);
-  }
-  */
+  /*
+    private fetchCollaborators(repo: string, owner: string) {
+      const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${owner}/${repo}/${this.githubCollaboratorsEndpoint}`;
+      return this.httpClient.get(url);
+    }
+  
+    private fetchReadme(repo: string, owner: string, defaultBranch: string) {
+      const url = `${this.githubRawContentUrl}/${owner}/${repo}/${defaultBranch}/${this.githubReadme}`;
+      return this.httpClient.get(url);
+    }
+    */
 }
