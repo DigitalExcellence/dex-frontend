@@ -15,16 +15,16 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { HttpClient } from '@angular/common/http';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
-import { mergeMap, map, switchMap } from 'rxjs/operators';
+import { Observable, forkJoin, of } from 'rxjs';
+import { mergeMap, map, switchMap, catchError } from 'rxjs/operators';
 import { GitHubContributor } from '../models/resources/external/github/contributor';
 import { MappedCollaborator } from '../models/internal/mapped-collaborator';
 import { Collaborator } from '../models/domain/collaborator';
 import { GitHubRepo } from '../models/resources/external/github/repo';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
 
 /**
  * Service to fetch a repo and it's details from Github.
@@ -50,10 +50,11 @@ export class WizardGithubService implements GenericWizard {
     const urlGroups = (url.match(gitLabRegex).groups);
     const ownerName = urlGroups.ownerName;
     const repoName = urlGroups.repoName;
-
+    // Execute all http requests in paralel.
     return forkJoin([
       this.fetchRepo(repoName, ownerName)
         .pipe(
+          // Use the result of the fetchRepo to fetch the readme based on the repo it's default branch.
           switchMap(repo => {
             return this.fetchReadme(repoName, ownerName, repo.default_branch)
               .pipe(
@@ -66,6 +67,7 @@ export class WizardGithubService implements GenericWizard {
       this.fetchCollaborators(repoName, ownerName),
     ])
       .pipe(
+        // Map the results to a MappedProject.
         map(([{ repo, readme }, collaborators]) => {
           console.log(repo, readme, collaborators);
 
@@ -100,7 +102,7 @@ export class WizardGithubService implements GenericWizard {
    */
   private fetchRepo(repoName: string, ownerName: string): Observable<GitHubRepo> {
     const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${ownerName}/${repoName}`;
-    return this.httpClient.get<GitHubRepo>(url);
+    return this.httpClient.get<GitHubRepo>(url).pipe(catchError(error => of(error)));
   }
 
   /**
@@ -110,7 +112,7 @@ export class WizardGithubService implements GenericWizard {
    */
   private fetchCollaborators(repoName: string, ownerName: string): Observable<GitHubContributor[]> {
     const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${ownerName}/${repoName}/${this.githubCollaboratorsEndpoint}`;
-    return this.httpClient.get<GitHubContributor[]>(url);
+    return this.httpClient.get<GitHubContributor[]>(url).pipe(catchError(error => of(error)));
   }
 
   /**
@@ -121,6 +123,6 @@ export class WizardGithubService implements GenericWizard {
    */
   private fetchReadme(repoName: string, ownerName: string, defaultBranch: string) {
     const url = `${this.githubRawContentUrl}/${ownerName}/${repoName}/${defaultBranch}/${this.githubReadme}`;
-    return this.httpClient.get(url, { responseType: 'text' });
+    return this.httpClient.get(url, { responseType: 'text' }).pipe(catchError(error => of(error)));
   }
 }

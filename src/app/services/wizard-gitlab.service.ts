@@ -32,7 +32,7 @@ import { GitLabContributor } from 'src/app/models/resources/external/gitlab/cont
 @Injectable({
   providedIn: 'root'
 })
-export class WizardGitLabService implements GenericWizard {
+export class WizardGitlabService implements GenericWizard {
 
   private readonly gitlabApiUrl = 'https://gitlab.com';
   private readonly gitlabReposEndpoint = 'api/v4/projects';
