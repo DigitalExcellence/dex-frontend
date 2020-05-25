@@ -1,29 +1,33 @@
-import { GithubRepo } from './../models/resources/external/github/repo';
+import { GithubRepo } from '../models/resources/external/github/repo';
 import { HttpClient } from '@angular/common/http';
 import { Project } from 'src/app/models/domain/project';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { MappedProject } from '../models/internal/mapped-project';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WizardGitlabService implements GenericWizard {
+export class WizardGitlabFHICTService implements GenericWizard {
 
-  private readonly gitLabApiUrl = 'https://gitlab.com';
+  private readonly gitLabApiUrl = 'https://git.fhict.nl';
   private readonly gitLabReposEndpoint = 'api/v4/projects';
   private readonly githubCollaboratorsEndpoint = 'contributors';
+
+
+  private readonly githubRawContentUrl = 'https://raw.githubusercontent.com';
+  private readonly githubReadme = 'README.md';
+
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
-  fetchProjectDetails(url: string): Observable<MappedProject> {
+  fetchProjectDetails(url: string): Project {
     const project: Project = null;
 
-    const gitLabRegex = new RegExp('^https?:\/\/gitlab.com\/(?<ownerName>.+)\/(?<repoName>.+)$');
+    const gitLabRegex = new RegExp('^https?:\/\/git\.fhict.nl\/(?<ownerName>.+)\/(?<repoName>.+)$');
     const urlGroups = (url.match(gitLabRegex).groups)
     const ownerName = urlGroups.ownerName;
     const repoName = urlGroups.repoName;

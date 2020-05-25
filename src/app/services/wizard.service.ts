@@ -1,3 +1,10 @@
+import { WizardGitlabFHICTService } from './wizard-gitlab-fhict.service';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
+import { WizardGitlabService } from './wizard-gitlab.service';
+import { WizardGithubService } from './wizard-github.service';
+import { Project } from 'src/app/models/domain/project';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -34,6 +41,7 @@ export class WizardService {
     private router: Router,
     private wizardGithubService: WizardGithubService,
     private wizardGitLabService: WizardGitlabService,
+    private WizardGitlabFHICTService: WizardGitlabFHICTService
   ) { }
 
   public fetchProjectForSource(url: string): void {
@@ -42,6 +50,9 @@ export class WizardService {
     url = url.replace(/\?.*$/g, "")
 
     const githubRegex = new RegExp('^https?:\/\/github.com\/.+\/.+');
+    const gitlabFHICTRegex = new RegExp('^https?:\/\/git\.fhict.nl\/.+\/.+');
+    const gitlabRegex = new RegExp('^https?:\/\/gitlab.com\/.+\/.+');
+
     if (githubRegex.test(url)) {
       this.fetchSourceOnGithub(url);
       return;
@@ -52,6 +63,10 @@ export class WizardService {
       this.fetchSourceOnGitLab(url);
       return;
     }
+
+    if(gitlabRegex.test(url)){
+      this.fetchSourceOnGitLab(url);
+    }
   }
 
   private fetchSourceOnGithub(url: string): void {
@@ -59,6 +74,10 @@ export class WizardService {
       this.fetchedProject.next(project);
       this.router.navigate([this.addManualProjectRoute]);
     });
+  }
+
+  private fetchSourceOnGitLabFHICT(url: string) {
+    this.WizardGitlabFHICTService.fetchProjectDetails(url);
   }
 
   private fetchSourceOnGitLab(url: string) {
