@@ -1,4 +1,3 @@
-import { GenericWizard } from './interfaces/generic-wizard';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -15,10 +14,11 @@ import { GenericWizard } from './interfaces/generic-wizard';
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import { WizardApiService } from './wizard-api.service';
+import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
-import { WizardGitlabService } from './wizard-gitlab.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { WizardGithubService } from './wizard-github.service';
 
@@ -30,14 +30,14 @@ import { WizardGithubService } from './wizard-github.service';
 })
 export class WizardService {
 
-  public fetchedProject: BehaviorSubject<MappedProject> = new BehaviorSubject(null);
+  public readonly fetchedProject: BehaviorSubject<MappedProject> = new BehaviorSubject(null);
 
   private readonly addManualProjectRoute = 'project/add/manual';
 
   constructor(
     private router: Router,
     private wizardGithubService: WizardGithubService,
-    private wizardGitLabService: WizardGitlabService,
+    private wizardApiService: WizardApiService
   ) { }
 
   /**
@@ -57,7 +57,7 @@ export class WizardService {
     }
 
     if (gitlabRegex.test(url)) {
-      this.fetchSource(this.wizardGitLabService, url);
+      this.fetchSource(this.wizardApiService, url);
       return;
     }
   }
@@ -78,6 +78,7 @@ export class WizardService {
    */
   private fetchSource(service: GenericWizard, url: string): void {
     service.fetchProjectDetails(url).subscribe(project => {
+      console.log(project, service);
       this.fetchedProject.next(project);
       this.router.navigate([this.addManualProjectRoute]);
     });

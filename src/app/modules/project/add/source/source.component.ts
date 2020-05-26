@@ -1,5 +1,3 @@
-import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -20,6 +18,8 @@ import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ExternalSource } from 'src/app/models/domain/external-source';
 import { WizardService } from 'src/app/services/wizard.service';
+import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 /**
  * Component to import projects from external sources
@@ -35,7 +35,7 @@ export class SourceComponent implements OnInit {
    */
   public mostUsedSources: ExternalSource[] = [];
 
-  public sourceUrlInput: FormControl = new FormControl('https://github.com/rubenb994/smylos-web');
+  public sourceUrlInput: FormControl = new FormControl('');
 
   constructor(
     private wizardService: WizardService,
