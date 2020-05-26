@@ -28,8 +28,9 @@ import { TopHighlightCardsComponent } from './modules/highlight/top-highlight-ca
 import { SharedModule } from './modules/shared/shared.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './components/footer/footer.component';
-import { SentryErrorHandler } from './error-handler/sentry.error-handles';
 import { HttpErrorInterceptor } from './interceptors/http.interceptor';
+import { SentryErrorHandler } from './error-handler/sentry.error-handler';
+import { errorHandlerFactory } from './error-handler/error-handler-factory';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { HttpErrorInterceptor } from './interceptors/http.interceptor';
     },
     {
       provide: ErrorHandler,
-      useClass: SentryErrorHandler
+      useFactory: errorHandlerFactory
     }
   ],
   bootstrap: [AppComponent],

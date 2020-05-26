@@ -1,5 +1,5 @@
-import { environment } from 'src/environments/environment';
 /*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -14,22 +14,18 @@ import { environment } from 'src/environments/environment';
  *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
-import * as Sentry from '@sentry/browser';
+import { SentryErrorHandler } from './sentry.error-handler';
 import { ErrorHandler } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
-Sentry.init({
-    dsn: environment.sentryDsnUrl
-});
-
-@Injectable()
-export class SentryErrorHandler implements ErrorHandler {
-
-    constructor() { }
-
-    handleError(error) {
-        Sentry.captureException(error.originalError || error);
-        throw error;
+/**
+ * Factory for selecting the right error handler based on the environment.
+ */
+export function errorHandlerFactory() {
+    if (environment.production) {
+        return new SentryErrorHandler();
     }
+    return new ErrorHandler();
 }

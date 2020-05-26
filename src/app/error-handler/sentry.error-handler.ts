@@ -14,29 +14,22 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, EMPTY } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
 import * as Sentry from '@sentry/browser';
+import { ErrorHandler } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
+Sentry.init({
+    dsn: environment.sentryDsnUrl
+});
+
 @Injectable()
-export class HttpErrorInterceptor implements HttpInterceptor {
+export class SentryErrorHandler implements ErrorHandler {
 
     constructor() { }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(request).pipe(
-            retry(1),
-            catchError((error: HttpErrorResponse) => {
-                if (environment.production) {
-                    // Log error to sentry.
-                    Sentry.captureException(new Error(` http error:${error.status} - ${error.message}`));
-                }
-                // Stop error from continuing.
-                return EMPTY;
-            })
-        );
+    handleError(error: any) {
+        Sentry.captureException(error.originalError || error);
+        throw error;
     }
 }
