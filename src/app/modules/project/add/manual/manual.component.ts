@@ -1,5 +1,3 @@
-import { MappedProject } from 'src/app/models/internal/mapped-project';
-import { WizardService } from 'src/app/services/wizard.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -24,7 +22,8 @@ import { finalize } from 'rxjs/operators';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectService } from 'src/app/services/project.service';
-import { Project } from 'src/app/models/domain/project';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
+import { WizardService } from 'src/app/services/wizard.service';
 
 /**
  * Component for manually adding a project.

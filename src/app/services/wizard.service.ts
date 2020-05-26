@@ -69,7 +69,6 @@ export class WizardService {
     this.fetchedProject.next(null);
   }
 
-
   /**
    * Method to fetch a repo/project from the wizard service.
    * Set the fetchedProject and redirect the user to the add manual project component.
@@ -78,7 +77,6 @@ export class WizardService {
    */
   private fetchSource(service: GenericWizard, url: string): void {
     service.fetchProjectDetails(url).subscribe(project => {
-      console.log(project, service);
       this.fetchedProject.next(project);
       this.router.navigate([this.addManualProjectRoute]);
     });

@@ -52,12 +52,12 @@ export class WizardGithubService implements GenericWizard {
     private httpClient: HttpClient
   ) { }
 
-  fetchProjectDetails(url: string): Observable<MappedProject> {
+  public fetchProjectDetails(url: string): Observable<MappedProject> {
     // Fetch the repo name & owner from the url.
     const urlOwnerRepo = this.parseNameAndOwnerFromUrl(url);
 
-    if (urlOwnerRepo == null) {
-      return throwError('Url invalid, could not be parsed.');
+    if (urlOwnerRepo == null || urlOwnerRepo.repoName == null || urlOwnerRepo.ownerName == null) {
+      return throwError('GitHub url invalid, could not be parsed.');
     }
     const repoName = urlOwnerRepo.repoName;
     const ownerName = urlOwnerRepo.ownerName;
@@ -68,6 +68,9 @@ export class WizardGithubService implements GenericWizard {
         .pipe(
           // Use the result of the fetchRepo to fetch the readme based on the repo it's default branch.
           switchMap(repo => {
+            if (repo == null) {
+              return throwError(`Could not fetch GitHub repo for url: ${url}.`);
+            }
             return this.fetchReadme(repoName, ownerName, repo.default_branch)
               .pipe(
                 map(readme => {
@@ -139,7 +142,7 @@ export class WizardGithubService implements GenericWizard {
    */
   private fetchRepo(repoName: string, ownerName: string): Observable<GitHubRepo> {
     const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${ownerName}/${repoName}`;
-    return this.httpClient.get<GitHubRepo>(url).pipe(catchError(error => of(error)));
+    return this.httpClient.get<GitHubRepo>(url).pipe(catchError(() => of(null)));
   }
 
   /**
@@ -149,7 +152,7 @@ export class WizardGithubService implements GenericWizard {
    */
   private fetchCollaborators(repoName: string, ownerName: string): Observable<GitHubContributor[]> {
     const url = `${this.githubApiUrl}/${this.githubReposEndpoint}/${ownerName}/${repoName}/${this.githubCollaboratorsEndpoint}`;
-    return this.httpClient.get<GitHubContributor[]>(url).pipe(catchError(error => of(error)));
+    return this.httpClient.get<GitHubContributor[]>(url).pipe(catchError(() => of(null)));
   }
 
   /**
@@ -160,6 +163,6 @@ export class WizardGithubService implements GenericWizard {
    */
   private fetchReadme(repoName: string, ownerName: string, defaultBranch: string): Observable<string> {
     const url = `${this.githubRawContentUrl}/${ownerName}/${repoName}/${defaultBranch}/${this.githubReadme}`;
-    return this.httpClient.get(url, { responseType: 'text' }).pipe(catchError(error => of(error)));
+    return this.httpClient.get(url, { responseType: 'text' }).pipe(catchError(() => of(null)));
   }
 }
