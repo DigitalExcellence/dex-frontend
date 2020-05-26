@@ -14,17 +14,17 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-
 import { HttpClient } from '@angular/common/http';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, of } from 'rxjs';
-import { mergeMap, map, switchMap, catchError } from 'rxjs/operators';
+import { Observable, forkJoin, of, throwError } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { GitHubContributor } from '../models/resources/external/github/contributor';
 import { MappedCollaborator } from '../models/internal/mapped-collaborator';
 import { Collaborator } from '../models/domain/collaborator';
 import { GitHubRepo } from '../models/resources/external/github/repo';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
+import { StringUtils } from '../utils/string.utils';
 
 /**
  * Service to fetch a repo and it's details from Github.
@@ -41,15 +41,27 @@ export class WizardGithubService implements GenericWizard {
   private readonly githubRawContentUrl = 'https://raw.githubusercontent.com';
   private readonly githubReadme = 'README.md';
 
+  private readonly githubUrlFragments = [
+    'https://',
+    'http://',
+    'www.',
+    'github.com/'
+  ];
+
   constructor(
     private httpClient: HttpClient
   ) { }
 
   fetchProjectDetails(url: string): Observable<MappedProject> {
-    const gitLabRegex = new RegExp('^https?:\/\/github.com\/(?<ownerName>.+)\/(?<repoName>.+)$');
-    const urlGroups = (url.match(gitLabRegex).groups);
-    const ownerName = urlGroups.ownerName;
-    const repoName = urlGroups.repoName;
+    // Fetch the repo name & owner from the url.
+    const urlOwnerRepo = this.parseNameAndOwnerFromUrl(url);
+
+    if (urlOwnerRepo == null) {
+      return throwError('Url invalid, could not be parsed.');
+    }
+    const repoName = urlOwnerRepo.repoName;
+    const ownerName = urlOwnerRepo.ownerName;
+
     // Execute all http requests in paralel.
     return forkJoin([
       this.fetchRepo(repoName, ownerName)
@@ -69,10 +81,9 @@ export class WizardGithubService implements GenericWizard {
       .pipe(
         // Map the results to a MappedProject.
         map(([{ repo, readme }, collaborators]) => {
-          console.log(repo, readme, collaborators);
 
           const mappedCollaborators: MappedCollaborator[] = [];
-          if (collaborators) {
+          if (collaborators != null) {
             collaborators.forEach(colloborator => {
               const mappedCollaborator: Collaborator = {
                 id: null,
@@ -93,6 +104,32 @@ export class WizardGithubService implements GenericWizard {
           return mappedProject;
         })
       );
+  }
+
+  /**
+   * Method to fetch the repoName & ownerName from a GitHub url.
+   * @param url the url to parse.
+   */
+  private parseNameAndOwnerFromUrl(url: string): { repoName: string, ownerName: string } {
+    // Strip off all default github url fragments
+    this.githubUrlFragments.forEach(urlFragment => {
+      url = StringUtils.stripString(url, urlFragment);
+    });
+
+    // String should now be in the following format:
+    // owner/repo-name/other-stuff
+    const splittedUrl = url.split('/');
+
+    // If there is no result from the split or the result only contains one value return null.
+    // Since the result should contains at least two values (repo name & owner).
+    if (splittedUrl == null || splittedUrl.length <= 1) {
+      return null;
+    }
+
+    return {
+      ownerName: splittedUrl[0],
+      repoName: splittedUrl[1]
+    };
   }
 
   /**
@@ -121,7 +158,7 @@ export class WizardGithubService implements GenericWizard {
    * @param ownerName Name of the repo owner.
    * @param defaultBranch Name of the default branch.
    */
-  private fetchReadme(repoName: string, ownerName: string, defaultBranch: string) {
+  private fetchReadme(repoName: string, ownerName: string, defaultBranch: string): Observable<string> {
     const url = `${this.githubRawContentUrl}/${ownerName}/${repoName}/${defaultBranch}/${this.githubReadme}`;
     return this.httpClient.get(url, { responseType: 'text' }).pipe(catchError(error => of(error)));
   }

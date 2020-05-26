@@ -57,7 +57,7 @@ export class WizardService {
       this.fetchSourceOnGithub(url);
       return;
     }
-    if(gitlabRegex.test(url)){
+    if (gitlabRegex.test(url)) {
       this.fetchSourceOnGitLab(url);
       return;
     }
