@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
@@ -34,10 +35,11 @@ export class SourceComponent implements OnInit {
    */
   public mostUsedSources: ExternalSource[] = [];
 
-  public sourceUrlInput: FormControl = new FormControl('https://gitlab.com/matfpveb/projekti/2019-2020/12-animecentral');
+  public sourceUrlInput: FormControl = new FormControl('https://github.com/rubenb994/smylos-web');
 
   constructor(
-    private wizardService: WizardService
+    private wizardService: WizardService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +54,10 @@ export class SourceComponent implements OnInit {
     }
   }
 
+  /**
+   * Method which triggers when the submit source url button is pressed.
+   * Fetches the source from the wizard service.
+   */
   public onClickSubmitSourceUrl(): void {
     const sourceUrl = this.sourceUrlInput.value;
     if (sourceUrl == null || sourceUrl === '') {
@@ -60,5 +66,14 @@ export class SourceComponent implements OnInit {
     }
 
     this.wizardService.fetchProjectForSource(sourceUrl);
+  }
+
+  /**
+   * Method which triggers when the add manual project is pressed.
+   * Resets the fetched source in the wizard service.
+   */
+  public onClickAddProjectManual(): void {
+    this.wizardService.reset();
+    this.router.navigate(['/project/add/manual']);
   }
 }

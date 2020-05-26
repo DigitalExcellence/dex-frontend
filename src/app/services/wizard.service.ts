@@ -1,3 +1,4 @@
+import { GenericWizard } from './interfaces/generic-wizard';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -19,7 +20,6 @@ import { Router } from '@angular/router';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardGitlabService } from './wizard-gitlab.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { WizardGitlabFHICTService } from './wizard-gitlab-fhict.service';
 import { WizardGithubService } from './wizard-github.service';
 
 /**
@@ -38,7 +38,6 @@ export class WizardService {
     private router: Router,
     private wizardGithubService: WizardGithubService,
     private wizardGitLabService: WizardGitlabService,
-    private wizardGitlabFHICTService: WizardGitlabFHICTService
   ) { }
 
   /**
@@ -50,38 +49,38 @@ export class WizardService {
     url = url.replace(/\?.*$/g, '');
 
     const githubRegex = new RegExp('^https?:\/\/github.com\/.+\/.+');
-    const gitlabFHICTRegex = new RegExp('^https?:\/\/git\.fhict.nl\/.+\/.+');
     const gitlabRegex = new RegExp('^https?:\/\/gitlab.com\/.+\/.+');
 
     if (githubRegex.test(url)) {
-      this.fetchSourceOnGithub(url);
+      this.fetchSource(this.wizardGithubService, url);
       return;
     }
+
     if (gitlabRegex.test(url)) {
-      this.fetchSourceOnGitLab(url);
+      this.fetchSource(this.wizardGitLabService, url);
       return;
     }
   }
 
   /**
-   * Method to fetch a github project from the service. Set the fetchedProject and redirect the user to the add manual project component.
-   * @param url Url where the project is located.
+   * Method to clear out the last fetchedProject.
    */
-  private fetchSourceOnGithub(url: string): void {
-    this.wizardGithubService.fetchProjectDetails(url).subscribe(project => {
+  public reset(): void {
+    this.fetchedProject.next(null);
+  }
+
+
+  /**
+   * Method to fetch a repo/project from the wizard service.
+   * Set the fetchedProject and redirect the user to the add manual project component.
+   * @param service the service to use to fetch the source.
+   * @param url url where the project is located.
+   */
+  private fetchSource(service: GenericWizard, url: string): void {
+    service.fetchProjectDetails(url).subscribe(project => {
       this.fetchedProject.next(project);
       this.router.navigate([this.addManualProjectRoute]);
     });
   }
 
-  private fetchSourceOnGitLabFHICT(url: string) {
-    this.wizardGitlabFHICTService.fetchProjectDetails(url);
-  }
-
-  private fetchSourceOnGitLab(url: string) {
-    this.wizardGitLabService.fetchProjectDetails(url).subscribe(project => {
-      this.fetchedProject.next(project);
-      this.router.navigate([this.addManualProjectRoute]);
-    });
-  }
 }
