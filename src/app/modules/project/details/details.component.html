@@ -76,10 +76,10 @@
         {{ project.description }}
       </p>
     </div>
-    <app-embed-button></app-embed-button>
   </div>
 </div>
 <div *ngIf="isAuthenticated">
+  <app-embed-button></app-embed-button>
   <button class="primary" routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
   <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
 </div>

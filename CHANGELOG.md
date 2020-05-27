@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implementing design: Edit project page - [#98](https://github.com/DigitalExcellence/dex-frontend/issues/98)
 - Implemented new design login page - [#66](https://github.com/DigitalExcellence/dex-frontend/issues/66)
 - Implemented search functionality for project overview - [#72](https://github.com/DigitalExcellence/dex-frontend/issues/72)
-- Added more structure to styling & moved scss to specific files in the assets folder - [#122](https://github.com/DigitalExcellence/dex-frontend/issues/122)
 - Added an embed button and embed page - [#140](https://github.com/DigitalExcellence/dex-frontend/issues/140)
 
 ### Changed
