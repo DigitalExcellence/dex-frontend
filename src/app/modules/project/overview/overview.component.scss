@@ -16,8 +16,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-
-@import "src/variables";
+@import "assets/styles/variables";
 
 .search {
   display: flex;
@@ -154,11 +153,9 @@
 }
 
 accordion-group .card-header {
-  background: red!important;
+  background: red !important;
 }
 
 .card-header {
   padding: 0px;
 }
-
-

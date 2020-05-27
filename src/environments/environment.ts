@@ -20,7 +20,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   identityServerUrl: 'https://localhost:5005',
   apiUrl: 'https://localhost:5001',
   identityCallbackUrl: 'http://localhost:4200/',

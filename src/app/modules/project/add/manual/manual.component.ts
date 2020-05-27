@@ -15,31 +15,31 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { finalize } from "rxjs/operators";
-import { CollaboratorAdd } from "src/app/models/resources/collaborator-add";
-import { ProjectAdd } from "src/app/models/resources/project-add";
-import { ProjectService } from "src/app/services/project.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
+import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { ProjectService } from 'src/app/services/project.service';
 
 /**
  * Component for manually adding a project.
  */
 @Component({
-  selector: "app-manual",
-  templateUrl: "./manual.component.html",
-  styleUrls: ["./manual.component.scss"],
+  selector: 'app-manual',
+  templateUrl: './manual.component.html',
+  styleUrls: ['./manual.component.scss'],
 })
 export class ManualComponent implements OnInit {
   /**
    * Formgroup for entering project details.
    */
   public newProjectForm: FormGroup;
-  public newContributorForm: FormGroup;
+  public newCollaboratorForm: FormGroup;
 
   /**
-   * Project's contributors.
+   * Project's collaborators.
    */
   public collaborators: CollaboratorAdd[] = [];
 
@@ -56,7 +56,7 @@ export class ManualComponent implements OnInit {
       description: [null],
     });
 
-    this.newContributorForm = this.formBuilder.group({
+    this.newCollaboratorForm = this.formBuilder.group({
       fullName: [null, Validators.required],
       role: [null, Validators.required],
     });
@@ -64,7 +64,7 @@ export class ManualComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public onSubmit(): void {
+  public onClickSubmit(): void {
     if (!this.newProjectForm.valid) {
       this.newProjectForm.markAllAsTouched();
       return;
@@ -82,26 +82,26 @@ export class ManualComponent implements OnInit {
   }
 
   /**
-   * Method which triggers when the add contributor button is pressed.
-   * Adds submitted contributor to the contributors array.
+   * Method which triggers when the add Collaborator button is pressed.
+   * Adds submitted Collaborator to the collaborator array.
    */
-  public onClickAddContributor(): void {
-    if (!this.newContributorForm.valid) {
+  public onClickAddCollaborator(): void {
+    if (!this.newCollaboratorForm.valid) {
       // Todo display error.
       return;
     }
 
-    const newContributor: CollaboratorAdd = this.newContributorForm.value;
-    this.collaborators.push(newContributor);
-    this.newContributorForm.reset();
+    const newCollaborator: CollaboratorAdd = this.newCollaboratorForm.value;
+    this.collaborators.push(newCollaborator);
+    this.newCollaboratorForm.reset();
   }
 
   /**
-   * Method which triggers when the delete contributor button is pressed.
-   * Removes the contributors from the contributors array.
+   * Method which triggers when the delete Collaborator button is pressed.
+   * Removes the collaborators from the collaborator array.
    */
-  public onClickDeleteContributor(clickedContributor: CollaboratorAdd): void {
-    const index = this.collaborators.findIndex((contributor) => contributor === clickedContributor);
+  public onClickDeleteCollaborator(clickedCollaborator: CollaboratorAdd): void {
+    const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
     if (index < 0) {
       // Todo display error.
       return;

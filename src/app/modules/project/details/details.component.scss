@@ -16,8 +16,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-
-@import "variables";
+@import "assets/styles/variables";
 
 .project-icon {
   display: flex;
@@ -51,7 +50,7 @@
   }
 }
 
-.project-metadata__item__contributors {
+.project-metadata__item__collaborators {
   list-style: none;
 }
 

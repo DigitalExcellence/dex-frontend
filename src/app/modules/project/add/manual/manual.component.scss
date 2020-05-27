@@ -16,14 +16,14 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-@import "variables";
+@import "assets/styles/variables";
 
 .project-form {
-
-  input, textarea {
+  input,
+  textarea {
     border: none;
     border-radius: 6px;
-    box-shadow: 0px 3px 6px #0000001A;
+    box-shadow: 0px 3px 6px #0000001a;
     height: 45px;
     width: 100%;
     margin-bottom: 25px;
@@ -36,12 +36,12 @@
   }
 }
 
-.add-contributor-col {
+.add-collaborator-col {
   display: flex;
   justify-content: flex-end;
   align-self: center;
 
-  .add-contributor-button {
+  .add-collaborator-button {
     margin: 0;
     align-self: flex-end;
   }
@@ -65,4 +65,3 @@
   border-radius: 6px;
   font-size: 18px;
 }
-

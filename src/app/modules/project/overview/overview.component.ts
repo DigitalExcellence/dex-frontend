@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -15,12 +16,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { finalize } from "rxjs/operators";
-import { Project } from "src/app/models/domain/project";
-import { ProjectService } from "src/app/services/project.service";
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { finalize, debounceTime } from 'rxjs/operators';
+import { Project } from 'src/app/models/domain/project';
+import { ProjectService } from 'src/app/services/project.service';
 import { FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
@@ -29,9 +30,9 @@ import { InternalSearchQuery } from 'src/app/models/resources/internal-search-qu
  * Overview of all the projects
  */
 @Component({
-  selector: "app-overview",
-  templateUrl: "./overview.component.html",
-  styleUrls: ["./overview.component.scss"],
+  selector: 'app-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
   /**
@@ -43,9 +44,14 @@ export class OverviewComponent implements OnInit {
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
-  public projectsLoading: boolean = true;
+  public projectsLoading = true;
 
+  /**
+   * FormControl for getting the input.
+   */
   public searchControl: FormControl = null;
+
+  private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
 
   constructor(
     private router: Router,
@@ -65,16 +71,25 @@ export class OverviewComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           if (error.status !== 404) {
-            console.log("Could not retrieve the projects");
+            console.log('Could not retrieve the projects');
           }
           throw error;
         }
       );
+
+    // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
+    this.searchSubject
+      .pipe(
+        debounceTime(500)
+      )
+      .subscribe((searchQuery) => {
+        this.searchAndFilterProjects(searchQuery);
+      });
   }
 
   /**
    * Method which triggers when the serach input receives a key up.
-   * Calls the searchAndFilter to diplay the searched projects list.
+   * Updates the search subject with the query.
    * @param $event the event containing the info of the keyboard press.
    */
   public onSearchInput($event: KeyboardEvent): void {
@@ -87,8 +102,8 @@ export class OverviewComponent implements OnInit {
 
     const searchQuery: InternalSearchQuery = {
       query: controlValue
-    }
-    this.searchAndFilterProjects(searchQuery);
+    };
+    this.searchSubject.next(searchQuery);
   }
 
   /**
@@ -109,10 +124,14 @@ export class OverviewComponent implements OnInit {
   /**
    * Method to search for projects based on the query.
    * Filters projects based on the foundProjects matching the query.
-   * Modifies the projectToDisplay list based on the filter. 
+   * Modifies the projectToDisplay list based on the filter.
    * @param query The query to search a project for.
    */
   private searchAndFilterProjects(query: InternalSearchQuery): void {
+    if (query == null) {
+      return;
+    }
+
     this.internalSearchService.get(query).subscribe(result => {
       const foundProjects = result.results;
       if (foundProjects == null || this.projects == null) {

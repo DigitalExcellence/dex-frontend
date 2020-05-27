@@ -15,35 +15,34 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router, ActivatedRoute } from "@angular/router";
-import { finalize } from "rxjs/operators";
-import { CollaboratorAdd } from "src/app/models/resources/collaborator-add";
-import { ProjectAdd } from "src/app/models/resources/project-add";
-import { ProjectService } from "src/app/services/project.service";
-import { HttpErrorResponse } from "@angular/common/http";
-import { Project } from "src/app/models/domain/project";
-import { ProjectUpdate } from "src/app/models/resources/project-update";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs/operators';
+import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
+import { ProjectService } from 'src/app/services/project.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Project } from 'src/app/models/domain/project';
+import { ProjectUpdate } from 'src/app/models/resources/project-update';
 
 /**
  * Component for editting adding a project.
  */
 @Component({
-  selector: "app-edit",
-  templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
   /**
    * Formgroup for entering project details.
    */
   public editProjectForm: FormGroup;
-  public editContributorForm: FormGroup;
+  public editCollaboratorForm: FormGroup;
   public project: Project;
 
   /**
-   * Project's contributors.
+   * Project's collaborators.
    */
   public collaborators: CollaboratorAdd[] = [];
 
@@ -64,14 +63,14 @@ export class EditComponent implements OnInit {
       description: [null],
     });
 
-    this.editContributorForm = this.formBuilder.group({
+    this.editCollaboratorForm = this.formBuilder.group({
       fullName: [null, Validators.required],
       role: [null, Validators.required],
     });
   }
 
   ngOnInit(): void {
-    const routeId = this.activatedRoute.snapshot.paramMap.get("id");
+    const routeId = this.activatedRoute.snapshot.paramMap.get('id');
     if (!routeId) {
       return;
     }
@@ -83,6 +82,7 @@ export class EditComponent implements OnInit {
     this.projectService.get(id).subscribe(
       (result) => {
         this.project = result;
+        this.collaborators = this.project.collaborators;
       },
       (error: HttpErrorResponse) => {
         if (error.status !== 404) {
@@ -92,7 +92,7 @@ export class EditComponent implements OnInit {
     );
   }
 
-  public onSubmit(): void {
+  public onClickSubmit(): void {
     if (!this.editProjectForm.valid) {
       this.editProjectForm.markAllAsTouched();
       return;
@@ -110,26 +110,26 @@ export class EditComponent implements OnInit {
   }
 
   /**
-   * Method which triggers when the add contributor button is pressed.
-   * Adds submitted contributor to the contributors array.
+   * Method which triggers when the add collaborator button is pressed.
+   * Adds submitted collaborator to the collaborators array.
    */
-  public onClickAddContributor(): void {
-    if (!this.editContributorForm.valid) {
+  public onClickAddCollaborator(): void {
+    if (!this.editCollaboratorForm.valid) {
       // Todo display error.
       return;
     }
 
-    const newContributor: CollaboratorAdd = this.editContributorForm.value;
-    this.collaborators.push(newContributor);
-    this.editContributorForm.reset();
+    const newCollaborator: CollaboratorAdd = this.editCollaboratorForm.value;
+    this.collaborators.push(newCollaborator);
+    this.editCollaboratorForm.reset();
   }
 
   /**
-   * Method which triggers when the delete contributor button is pressed.
-   * Removes the contributors from the contributors array.
+   * Method which triggers when the delete collaborator button is pressed.
+   * Removes the collaborator from the collaborators array.
    */
-  public onClickDeleteContributor(clickedContributor: CollaboratorAdd): void {
-    const index = this.collaborators.findIndex((contributor) => contributor === clickedContributor);
+  public onClickDeleteCollaborator(clickedCollaborator: CollaboratorAdd): void {
+    const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
     if (index < 0) {
       // Todo display error.
       return;

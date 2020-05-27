@@ -1,3 +1,4 @@
+import { EmbedComponent } from './embed/embed.component';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: "overview", component: OverviewComponent },
   { path: "details/:id", component: DetailsComponent },
   { path: "edit/:id", component: EditComponent },
+  { path: "embed/:id", component: EmbedComponent},
   { path: "add", loadChildren: () => import("./add/add.module").then((m) => m.AddModule) },
 ];
 
