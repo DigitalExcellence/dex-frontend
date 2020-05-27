@@ -1,4 +1,4 @@
-<button (click)="onClickGenerateEmbed()">Embed this</button>
+<button (click)="onClickGenerateEmbed()" class="primary ml-2">Embed this</button>
 <pre>
   <code *ngIf="embeddedProject">
     &lt;iframe src="{{frontendUrl}}/project/embed/{{embeddedProject.guid}}"
