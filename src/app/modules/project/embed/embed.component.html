@@ -17,10 +17,10 @@
 
  -->
 
-<div *ngIf="project">
+ <div *ngIf="project">
   <div class="row">
     <div class="col-3 project-metadata">
-      <div class="project-icon"><img alt="Code project" src="assets/images/code.svg"></div>
+      <div class="project-icon"><img alt="Code project" src="assets/code.svg"></div>
       <div *ngIf="project.uri" class="project-metadata__item">
         <h3>External Link</h3>
         <p>
@@ -40,8 +40,8 @@
         </p>
       </div>
       <div class="project-metadata__item">
-        <h3>Collaborators</h3>
-        <ul class="project-metadata__item__collaborators">
+        <h3>Contributors</h3>
+        <ul class="project-metadata__item__contributors">
           <li *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} -
             {{ collaborator.role}}</li>
         </ul>
@@ -77,9 +77,4 @@
       </p>
     </div>
   </div>
-</div>
-<div *ngIf="isAuthenticated">
-  <app-embed-button></app-embed-button>
-  <button class="primary" routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
-  <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
 </div>

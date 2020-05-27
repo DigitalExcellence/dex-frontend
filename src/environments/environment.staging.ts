@@ -17,11 +17,12 @@
 
 export const environment = {
   production: true,
-  identityServerUrl: "https://staging-dex-identity.kn01.fhict.nl",
-  apiUrl: "https://staging-dex-api.kn01.fhict.nl",
-  identityCallbackUrl: "https://staging-dex.kn01.fhict.nl/",
+  identityServerUrl: "https://identity.staging.dex.software/",
+  apiUrl: "https://api.staging.dex.software/",
+  frontendUrl: "https://staging.dex.software/",
+  identityCallbackUrl: "https://staging.dex.software/",
   identityClientId: "dex-frontend",
-  identityRedirectUri: "https://staging-dex.kn01.fhict.nl/auth-callback",
-  identityLogoutRedirectUri: "https://staging-dex.kn01.fhict.nl/",
-  identitySilentRedirectUri: "https://staging-dex.kn01.fhict.nl/silent-refresh.html",
+  identityRedirectUri: "https://identity.staging.dex.software/auth-callback",
+  identityLogoutRedirectUri: "https://staging.dex.software/",
+  identitySilentRedirectUri: "https://staging.dex.software/silent-refresh.html",
 };

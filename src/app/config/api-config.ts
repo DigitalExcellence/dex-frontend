@@ -18,6 +18,7 @@
 import { environment } from "src/environments/environment";
 
 export interface ApiConfig {
+  embeddedProjectRoute: string;
   url: string;
   userRoute: string;
   projectRoute: string;
@@ -33,4 +34,5 @@ export const API_CONFIG: ApiConfig = {
   highlightRoute: "highlight",
   internalSearchRoute: "search/internal",
   externalSearchRoute: "search/external",
+  embeddedProjectRoute: "embed"
 };
