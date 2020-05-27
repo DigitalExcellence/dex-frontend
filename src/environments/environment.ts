@@ -28,7 +28,6 @@ export const environment = {
   identityRedirectUri: 'http://localhost:4200/auth-callback',
   identityLogoutRedirectUri: 'http://localhost:4200/',
   identitySilentRedirectUri: 'http://localhost:4200/silent-refresh.html',
-  sentryDsnUrl: 'https://d24eae0a8756460095b1928493131180@o395685.ingest.sentry.io/5247995'
 };
 
 /*
