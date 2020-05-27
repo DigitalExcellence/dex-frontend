@@ -48,8 +48,8 @@ export class WizardService {
     // Remove parameters from url
     url = url.replace(/\?.*$/g, '');
 
-    const githubRegex = new RegExp('^https?:\/\/github.com\/.+\/.+');
-    const gitlabRegex = new RegExp('^https?:\/\/gitlab.com\/.+\/.+');
+    const githubRegex = new RegExp('^h?t?t?p?s?:?\/?\/?w?w?w?.?github.com\/.+\/.+');
+    const gitlabRegex = new RegExp('^h?t?t?p?s?:?\/?\/?w?w?w?.?gitlab.com\/.+\/.+');
 
     if (githubRegex.test(url)) {
       this.fetchSource(this.wizardGithubService, url);
@@ -60,6 +60,7 @@ export class WizardService {
       this.fetchSource(this.wizardApiService, url);
       return;
     }
+    throw Error('Submitted source url did not match any supported source');
   }
 
   /**
