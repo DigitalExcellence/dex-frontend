@@ -14,18 +14,10 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import { RoleScope } from "./role-scope";
 
-import { Project } from "./project";
-import { LinkedService } from "./linked-service";
-import { Role } from "./role";
-
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  identityId: string;
-  projects: Project[];
-  Services: LinkedService[];
-  profileUrl: string;
-  role: Role;
+export interface Role {
+    id: number;
+    name: string;
+    scopes: RoleScope[];
 }

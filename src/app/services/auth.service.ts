@@ -19,9 +19,13 @@
 
 import { Injectable } from "@angular/core";
 import { User, UserManager, UserManagerSettings } from "oidc-client";
+import { User as BackendUser } from "src/app/models/domain/user";
 import { Observable } from "rxjs";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { environment } from "src/environments/environment";
+import { HttpClient } from "@angular/common/http";
+import { API_CONFIG } from "src/app/config/api-config";
+import { Role } from "src/app/models/domain/role";
 
 @Injectable({
   providedIn: "root",
@@ -34,8 +38,13 @@ export class AuthService {
 
   private manager: UserManager = new UserManager(getClientSettings());
   private user: User | null;
+  private Backenduser: BackendUser | null;
 
-  constructor() {
+  protected http: HttpClient;
+
+  constructor(http: HttpClient) {
+    this.http = http;
+
     this.manager.getUser().then((user) => {
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
@@ -48,7 +57,18 @@ export class AuthService {
 
   public async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
+    this.Backenduser = await this.getBackendUser();
     this._authNavStatusSource.next(this.isAuthenticated());
+  }
+
+  public async getBackendUser(): Promise<BackendUser>{
+      return this.http.get<BackendUser>(`${API_CONFIG.url}User`).toPromise();
+  }
+  public getCurrentRole(): Role{
+    if(this.Backenduser == null){
+      return null;
+    }
+    return this.Backenduser.role;
   }
 
   public isAuthenticated(): boolean {
