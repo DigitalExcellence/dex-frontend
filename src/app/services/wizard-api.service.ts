@@ -30,7 +30,7 @@ import { MappedProject } from '../models/internal/mapped-project';
 })
 export class WizardApiService implements GenericWizard {
 
-  private readonly url = `${API_CONFIG.url}${API_CONFIG.projectRoute}/${API_CONFIG.wizardRoute}`;
+  private readonly url = `${API_CONFIG.url}${API_CONFIG.wizardRoute}`;
 
   constructor(
     private httpClient: HttpClient
