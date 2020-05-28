@@ -22,8 +22,8 @@ import { MappedProject } from 'src/app/models/internal/mapped-project';
  */
 export interface GenericWizard {
     /**
-     * Method to fetch the project for a url.
-     * @param url the url where the project is located.
+     * Method to fetch the project for a uri.
+     * @param uri the uri where the project is located.
      */
-    fetchProjectDetails(url: string): Observable<MappedProject>;
+    fetchProjectDetails(uri: string): Observable<MappedProject>;
 }

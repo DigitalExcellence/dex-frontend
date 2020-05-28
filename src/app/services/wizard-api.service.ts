@@ -36,8 +36,8 @@ export class WizardApiService implements GenericWizard {
     private httpClient: HttpClient
   ) { }
 
-  public fetchProjectDetails(url: string): Observable<MappedProject> {
-    const queryParams = new HttpParams().set('sourceUrl', url);
+  public fetchProjectDetails(uri: string): Observable<MappedProject> {
+    const queryParams = new HttpParams().set('sourceUri', uri);
     return this.httpClient.get<MappedProject>(this.url, { params: queryParams });
   }
 }

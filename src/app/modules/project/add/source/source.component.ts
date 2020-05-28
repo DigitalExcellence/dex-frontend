@@ -35,7 +35,7 @@ export class SourceComponent implements OnInit {
    */
   public mostUsedSources: ExternalSource[] = [];
 
-  public sourceUrlInput: FormControl = new FormControl('');
+  public sourceUriInput: FormControl = new FormControl('');
 
   constructor(
     private wizardService: WizardService,
@@ -55,17 +55,17 @@ export class SourceComponent implements OnInit {
   }
 
   /**
-   * Method which triggers when the submit source url button is pressed.
+   * Method which triggers when the submit source uri button is pressed.
    * Fetches the source from the wizard service.
    */
-  public onClickSubmitSourceUrl(): void {
-    const sourceUrl = this.sourceUrlInput.value;
-    if (sourceUrl == null || sourceUrl === '') {
-      // TODO: display error invalid url
+  public onClickSubmitSourceUri(): void {
+    const sourceUri = this.sourceUriInput.value;
+    if (sourceUri == null || sourceUri === '') {
+      // TODO: display error invalid uri
       return;
     }
 
-    this.wizardService.fetchProjectForSource(sourceUrl);
+    this.wizardService.fetchProjectForSource(sourceUri);
   }
 
   /**

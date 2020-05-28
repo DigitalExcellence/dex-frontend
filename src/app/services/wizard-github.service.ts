@@ -41,7 +41,7 @@ export class WizardGithubService implements GenericWizard {
   private readonly githubRawContentUrl = 'https://raw.githubusercontent.com';
   private readonly githubReadme = 'README.md';
 
-  private readonly githubUrlFragments = [
+  private readonly githubUriFragments = [
     'https://',
     'http://',
     'www.',
@@ -52,15 +52,15 @@ export class WizardGithubService implements GenericWizard {
     private httpClient: HttpClient
   ) { }
 
-  public fetchProjectDetails(url: string): Observable<MappedProject> {
-    // Fetch the repo name & owner from the url.
-    const urlOwnerRepo = this.parseNameAndOwnerFromUrl(url);
+  public fetchProjectDetails(uri: string): Observable<MappedProject> {
+    // Fetch the repo name & owner from the uri.
+    const uriOwnerRepo = this.parseNameAndOwnerFromUri(uri);
 
-    if (urlOwnerRepo == null || urlOwnerRepo.repoName == null || urlOwnerRepo.ownerName == null) {
-      return throwError('GitHub url invalid, could not be parsed.');
+    if (uriOwnerRepo == null || uriOwnerRepo.repoName == null || uriOwnerRepo.ownerName == null) {
+      return throwError('GitHub uri invalid, could not be parsed.');
     }
-    const repoName = urlOwnerRepo.repoName;
-    const ownerName = urlOwnerRepo.ownerName;
+    const repoName = uriOwnerRepo.repoName;
+    const ownerName = uriOwnerRepo.ownerName;
 
     // Execute all http requests in paralel.
     return forkJoin([
@@ -69,7 +69,7 @@ export class WizardGithubService implements GenericWizard {
           // Use the result of the fetchRepo to fetch the readme based on the repo it's default branch.
           switchMap(repo => {
             if (repo == null) {
-              return throwError(`Could not fetch GitHub repo for url: ${url}.`);
+              return throwError(`Could not fetch GitHub repo for uri: ${uri}.`);
             }
             return this.fetchReadme(repoName, ownerName, repo.default_branch)
               .pipe(
@@ -110,28 +110,28 @@ export class WizardGithubService implements GenericWizard {
   }
 
   /**
-   * Method to fetch the repoName & ownerName from a GitHub url.
-   * @param url the url to parse.
+   * Method to fetch the repoName & ownerName from a GitHub uri.
+   * @param uri the uri to parse.
    */
-  private parseNameAndOwnerFromUrl(url: string): { repoName: string, ownerName: string } {
-    // Strip off all default github url fragments
-    this.githubUrlFragments.forEach(urlFragment => {
-      url = StringUtils.stripString(url, urlFragment);
+  private parseNameAndOwnerFromUri(uri: string): { repoName: string, ownerName: string } {
+    // Strip off all default github uri fragments
+    this.githubUriFragments.forEach(uriFragment => {
+      uri = StringUtils.stripString(uri, uriFragment);
     });
 
     // String should now be in the following format:
     // owner/repo-name/other-stuff
-    const splittedUrl = url.split('/');
+    const splittedUri = uri.split('/');
 
     // If there is no result from the split or the result only contains one value return null.
     // Since the result should contains at least two values (repo name & owner).
-    if (splittedUrl == null || splittedUrl.length <= 1) {
+    if (splittedUri == null || splittedUri.length <= 1) {
       return null;
     }
 
     return {
-      ownerName: splittedUrl[0],
-      repoName: splittedUrl[1]
+      ownerName: splittedUri[0],
+      repoName: splittedUri[1]
     };
   }
 
