@@ -71,8 +71,8 @@ export class TopHighlightCardsComponent implements OnInit {
 
     if (!Array.isArray(population)) throw new TypeError("Population must be an array.");
     var n: number = population.length;
-    if (k < 0 || k > n) throw new RangeError("Sample larger than population or is negative");
-
+    if (k < 0) throw new RangeError("Sample larger than population or is negative");
+    if (k >= n) k = n;
     var result = new Array(k);
     var setsize: number = 21; // size of a small set minus size of an empty list
 
