@@ -21,9 +21,9 @@ jobs:
        run: npm install
      - name: Build
        run: npm run build --prod
-     - uses: actions/checkout@v1
+     - uses: actions/checkout@v2
      - name: Lint
        uses: mooyoul/tslint-actions@v1.1.1
        with:
-         token: ${{ secrets.DEX_GITHUB_TOKEN }}
+         token: ${{ secrets.GITHUB_TOKEN }}
          pattern: '*.ts'
