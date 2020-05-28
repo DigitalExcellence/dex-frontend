@@ -24,4 +24,5 @@ export const environment = {
   identityRedirectUri: 'https://staging-dex.kn01.fhict.nl/auth-callback',
   identityLogoutRedirectUri: 'https://staging-dex.kn01.fhict.nl/',
   identitySilentRedirectUri: 'https://staging-dex.kn01.fhict.nl/silent-refresh.html',
+  
 };
