@@ -22,7 +22,7 @@ jobs:
      - name: Build
        run: npm run build --prod
      - name: install codelyzer
-       run: npm -i codelyzer
+       run: npm install codelyzer
      - uses: actions/checkout@v2
      - name: Lint
        uses: mooyoul/tslint-actions@v1.1.1
