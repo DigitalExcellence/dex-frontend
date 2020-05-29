@@ -15,16 +15,22 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-export const environment = {
-  production: true,
-  identityServerUrl: 'https://identity.staging.dex.software/',
-  apiUrl: 'https://api.staging.dex.software/',
-  frontendUrl: 'https://staging.dex.software/',
-  identityCallbackUrl: 'https://staging.dex.software/',
-  identityClientId: 'dex-frontend',
-  identityRedirectUri: 'https://identity.staging.dex.software/auth-callback',
-  identityLogoutRedirectUri: 'https://staging.dex.software/',
-  identitySilentRedirectUri: 'https://staging.dex.software/silent-refresh.html',
-  // This should be empty because it will only be used in production.
-  sentryDsnUrl: ''
-};
+/**
+ * Class containing utility methods for strings.
+ */
+export class StringUtils {
+
+    /**
+     * Method to strip a value from the string.
+     * @param stringToStrip the string to strip the value from.
+     * @param valueToStrip the value which should be stripped.
+     */
+    public static stripString(stringToStrip: string, valueToStrip: string): string {
+        if (stringToStrip == null || valueToStrip == null || stringToStrip.indexOf(valueToStrip) === -1) {
+            return stringToStrip;
+        }
+
+        return stringToStrip.replace(valueToStrip, '');
+    }
+
+}

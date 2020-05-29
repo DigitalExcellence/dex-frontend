@@ -19,9 +19,13 @@
 
 import { Injectable } from "@angular/core";
 import { User, UserManager, UserManagerSettings } from "oidc-client";
+import { User as BackendUser } from "src/app/models/domain/user";
 import { Observable } from "rxjs";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { environment } from "src/environments/environment";
+import { HttpClient } from "@angular/common/http";
+import { API_CONFIG } from "src/app/config/api-config";
+import { Role } from "src/app/models/domain/role";
 
 @Injectable({
   providedIn: "root",
@@ -34,31 +38,79 @@ export class AuthService {
 
   private manager: UserManager = new UserManager(getClientSettings());
   private user: User | null;
+  private backenduser: BackendUser | null;
+  private http: HttpClient;
 
-  constructor() {
+  /**
+   * Creates an instance of auth service.
+   * @param http 
+   */
+  constructor(http: HttpClient) {
+    this.http = http;
+  }
+
+  /**
+   * on init
+   */
+  ngOnInit(){
     this.manager.getUser().then((user) => {
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
-
-  public login(): Promise<void> {
+/**
+ * Logins auth service
+ * @returns login 
+ */
+public login(): Promise<void> {
     return this.manager.signinRedirect();
   }
 
+  /**
+   * Completes authentication
+   */
   public async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
+    this.backenduser = await this.getBackendUser();
     this._authNavStatusSource.next(this.isAuthenticated());
   }
 
-  public isAuthenticated(): boolean {
+  /**
+   * Gets backend user
+   * @returns backend user 
+   */
+  public async getBackendUser(): Promise<BackendUser>{
+      return this.http.get<BackendUser>(`${API_CONFIG.url}User`).toPromise();
+  }
+  /**
+   * Gets current role
+   * @returns current role 
+   */
+  public getCurrentRole(): Role{
+    if(this.backenduser == null || this.backenduser.role == null){
+      return null;
+    }
+    return this.backenduser.role;
+  }
+
+/**
+ * Determines whether user is authenticated 
+ * @returns true if authenticated 
+ */
+public isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
   }
 
+  /**
+   * Gets authorization header value
+   */
   public get authorizationHeaderValue(): string {
     if (this) return `${this.user.token_type} ${this.user.access_token}`;
   }
 
+  /**
+   * Gets name
+   */
   public get name(): string {
     if (this.user == null) {
       return "";
@@ -67,11 +119,19 @@ export class AuthService {
     }
   }
 
+  /**
+   * Signouts auth service
+   * @returns signout 
+   */
   public async signout(): Promise<void> {
     await this.manager.signoutRedirect();
   }
 }
 
+/**
+ * Gets client settings
+ * @returns client settings 
+ */
 export function getClientSettings(): UserManagerSettings {
   return {
     authority: environment.identityServerUrl,

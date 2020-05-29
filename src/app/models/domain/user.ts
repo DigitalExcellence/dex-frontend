@@ -17,12 +17,15 @@
 
 import { Project } from "./project";
 import { LinkedService } from "./linked-service";
+import { Role } from "./role";
 
 export interface User {
   id: number;
   name: string;
   email: string;
+  identityId: string;
   projects: Project[];
   Services: LinkedService[];
   profileUrl: string;
+  role: Role;
 }

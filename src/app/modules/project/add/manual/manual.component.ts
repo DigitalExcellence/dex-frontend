@@ -22,6 +22,8 @@ import { finalize } from 'rxjs/operators';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectService } from 'src/app/services/project.service';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
+import { WizardService } from 'src/app/services/wizard.service';
 
 /**
  * Component for manually adding a project.
@@ -48,7 +50,11 @@ export class ManualComponent implements OnInit {
    */
   public submitEnabled = true;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private projectService: ProjectService) {
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private projectService: ProjectService,
+    private wizardService: WizardService) {
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
       uri: [null, Validators.required],
@@ -62,7 +68,14 @@ export class ManualComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.wizardService.fetchedProject.subscribe(project => {
+      if (project == null) {
+        return;
+      }
+      this.fillFormWithProject(project);
+    });
+  }
 
   public onClickSubmit(): void {
     if (!this.newProjectForm.valid) {
@@ -107,5 +120,17 @@ export class ManualComponent implements OnInit {
       return;
     }
     this.collaborators.splice(index, 1);
+  }
+
+  /**
+   * Method to fill a form with the values of a mapped project.
+   */
+  private fillFormWithProject(project: MappedProject): void {
+    this.newProjectForm.get('name').setValue(project.name);
+    this.newProjectForm.get('uri').setValue(project.uri);
+    this.newProjectForm.get('shortDescription').setValue(project.shortDescription);
+    this.newProjectForm.get('description').setValue(project.description);
+
+    this.collaborators = project.collaborators;
   }
 }

@@ -14,17 +14,16 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import { Observable } from 'rxjs';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
 
-export const environment = {
-  production: true,
-  identityServerUrl: 'https://identity.staging.dex.software/',
-  apiUrl: 'https://api.staging.dex.software/',
-  frontendUrl: 'https://staging.dex.software/',
-  identityCallbackUrl: 'https://staging.dex.software/',
-  identityClientId: 'dex-frontend',
-  identityRedirectUri: 'https://identity.staging.dex.software/auth-callback',
-  identityLogoutRedirectUri: 'https://staging.dex.software/',
-  identitySilentRedirectUri: 'https://staging.dex.software/silent-refresh.html',
-  // This should be empty because it will only be used in production.
-  sentryDsnUrl: ''
-};
+/**
+ * Interface to define the method used by all Wizard sources services.
+ */
+export interface GenericWizard {
+    /**
+     * Method to fetch the project for a uri.
+     * @param uri the uri where the project is located.
+     */
+    fetchProjectDetails(uri: string): Observable<MappedProject>;
+}

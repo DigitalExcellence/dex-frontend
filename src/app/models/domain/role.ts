@@ -14,17 +14,10 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import { RoleScope } from "./role-scope";
 
-export const environment = {
-  production: true,
-  identityServerUrl: 'https://identity.staging.dex.software/',
-  apiUrl: 'https://api.staging.dex.software/',
-  frontendUrl: 'https://staging.dex.software/',
-  identityCallbackUrl: 'https://staging.dex.software/',
-  identityClientId: 'dex-frontend',
-  identityRedirectUri: 'https://identity.staging.dex.software/auth-callback',
-  identityLogoutRedirectUri: 'https://staging.dex.software/',
-  identitySilentRedirectUri: 'https://staging.dex.software/silent-refresh.html',
-  // This should be empty because it will only be used in production.
-  sentryDsnUrl: ''
-};
+export interface Role {
+    id: number;
+    name: string;
+    scopes: RoleScope[];
+}
