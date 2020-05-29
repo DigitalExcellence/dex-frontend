@@ -25,4 +25,5 @@ export const environment = {
   identityRedirectUri: 'https://identity.staging.dex.software/auth-callback',
   identityLogoutRedirectUri: 'https://staging.dex.software/',
   identitySilentRedirectUri: 'https://staging.dex.software/silent-refresh.html',
+  sentryDsnUrl: ''
 };

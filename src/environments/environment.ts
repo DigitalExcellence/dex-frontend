@@ -28,6 +28,8 @@ export const environment = {
   identityRedirectUri: 'http://localhost:4200/auth-callback',
   identityLogoutRedirectUri: 'http://localhost:4200/',
   identitySilentRedirectUri: 'http://localhost:4200/silent-refresh.html',
+  // This should be empty because it will only be used in production.
+  sentryDsnUrl: ''
 };
 
 /*
