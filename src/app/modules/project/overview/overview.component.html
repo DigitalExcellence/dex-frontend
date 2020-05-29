@@ -50,7 +50,7 @@
   <div class="col-10">
     <div class="search">
       <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onSearchInput($event)">
-      <button><img src="assets/images/research.svg"></button>
+      <button><img alt="" src="assets/images/research.svg"></button>
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
