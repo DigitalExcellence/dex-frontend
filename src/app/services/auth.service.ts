@@ -47,13 +47,17 @@ export class AuthService {
    */
   constructor(http: HttpClient) {
     this.http = http;
+  }
 
+  /**
+   * on init
+   */
+  ngOnInit(){
     this.manager.getUser().then((user) => {
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
-
 /**
  * Logins auth service
  * @returns login 
