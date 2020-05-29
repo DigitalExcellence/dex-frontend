@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented search functionality for project overview - [#72](https://github.com/DigitalExcellence/dex-frontend/issues/72)
 - Added an embed button and embed page - [#140](https://github.com/DigitalExcellence/dex-frontend/issues/140)
 - Get current user role from the backend - [#141](https://github.com/DigitalExcellence/dex-frontend/issues/141)
+
 ### Changed
 
 - Changed from Clarity framework to NGX Bootstrap - [#101](https://github.com/DigitalExcellence/dex-frontend/issues/101)
