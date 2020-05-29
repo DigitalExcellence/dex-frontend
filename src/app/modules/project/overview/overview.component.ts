@@ -73,6 +73,7 @@ export class OverviewComponent implements OnInit {
           if (error.status !== 404) {
             console.log('Could not retrieve the projects');
           }
+          throw error;
         }
       );
 

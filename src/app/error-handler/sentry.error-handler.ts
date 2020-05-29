@@ -14,17 +14,22 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import * as Sentry from '@sentry/browser';
+import { ErrorHandler } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
-export const environment = {
-  production: true,
-  identityServerUrl: 'https://identity.staging.dex.software/',
-  apiUrl: 'https://api.staging.dex.software/',
-  frontendUrl: 'https://staging.dex.software/',
-  identityCallbackUrl: 'https://staging.dex.software/',
-  identityClientId: 'dex-frontend',
-  identityRedirectUri: 'https://identity.staging.dex.software/auth-callback',
-  identityLogoutRedirectUri: 'https://staging.dex.software/',
-  identitySilentRedirectUri: 'https://staging.dex.software/silent-refresh.html',
-  // This should be empty because it will only be used in production.
-  sentryDsnUrl: ''
-};
+Sentry.init({
+    dsn: environment.sentryDsnUrl
+});
+
+@Injectable()
+export class SentryErrorHandler implements ErrorHandler {
+
+    constructor() { }
+
+    handleError(error: any) {
+        Sentry.captureException(error.originalError || error);
+        throw error;
+    }
+}
