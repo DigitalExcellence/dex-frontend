@@ -38,10 +38,13 @@ export class AuthService {
 
   private manager: UserManager = new UserManager(getClientSettings());
   private user: User | null;
-  private Backenduser: BackendUser | null;
+  private backenduser: BackendUser | null;
+  private http: HttpClient;
 
-  protected http: HttpClient;
-
+  /**
+   * Creates an instance of auth service.
+   * @param http 
+   */
   constructor(http: HttpClient) {
     this.http = http;
 
@@ -51,34 +54,59 @@ export class AuthService {
     });
   }
 
-  public login(): Promise<void> {
+/**
+ * Logins auth service
+ * @returns login 
+ */
+public login(): Promise<void> {
     return this.manager.signinRedirect();
   }
 
+  /**
+   * Completes authentication
+   */
   public async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
-    this.Backenduser = await this.getBackendUser();
+    this.backenduser = await this.getBackendUser();
     this._authNavStatusSource.next(this.isAuthenticated());
   }
 
+  /**
+   * Gets backend user
+   * @returns backend user 
+   */
   public async getBackendUser(): Promise<BackendUser>{
       return this.http.get<BackendUser>(`${API_CONFIG.url}User`).toPromise();
   }
+  /**
+   * Gets current role
+   * @returns current role 
+   */
   public getCurrentRole(): Role{
-    if(this.Backenduser == null){
+    if(this.backenduser == null || this.backenduser.role == null){
       return null;
     }
-    return this.Backenduser.role;
+    return this.backenduser.role;
   }
 
-  public isAuthenticated(): boolean {
+/**
+ * Determines whether user is authenticated 
+ * @returns true if authenticated 
+ */
+public isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
   }
 
+  /**
+   * Gets authorization header value
+   */
   public get authorizationHeaderValue(): string {
     if (this) return `${this.user.token_type} ${this.user.access_token}`;
   }
 
+  /**
+   * Gets name
+   */
   public get name(): string {
     if (this.user == null) {
       return "";
@@ -87,11 +115,19 @@ export class AuthService {
     }
   }
 
+  /**
+   * Signouts auth service
+   * @returns signout 
+   */
   public async signout(): Promise<void> {
     await this.manager.signoutRedirect();
   }
 }
 
+/**
+ * Gets client settings
+ * @returns client settings 
+ */
 export function getClientSettings(): UserManagerSettings {
   return {
     authority: environment.identityServerUrl,
