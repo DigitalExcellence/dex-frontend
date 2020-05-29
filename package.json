@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~9.0.3",
     "@angular/platform-browser-dynamic": "~9.0.3",
     "@angular/router": "~9.0.3",
+    "@sentry/browser": "^5.15.5",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "bootstrap": "^4.4.1",
     "dotenv": "^5.0.0",

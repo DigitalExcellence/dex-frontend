@@ -17,6 +17,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ExternalSource } from 'src/app/models/domain/external-source';
+import { WizardService } from 'src/app/services/wizard.service';
+import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 /**
  * Component to import projects from external sources
@@ -32,7 +35,12 @@ export class SourceComponent implements OnInit {
    */
   public mostUsedSources: ExternalSource[] = [];
 
-  constructor() {}
+  public sourceUriInput: FormControl = new FormControl('');
+
+  constructor(
+    private wizardService: WizardService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     const demoSource: ExternalSource = {
@@ -44,5 +52,28 @@ export class SourceComponent implements OnInit {
       demoSource.id = demoSource.id + index;
       this.mostUsedSources.push(demoSource);
     }
+  }
+
+  /**
+   * Method which triggers when the submit source uri button is pressed.
+   * Fetches the source from the wizard service.
+   */
+  public onClickSubmitSourceUri(): void {
+    const sourceUri = this.sourceUriInput.value;
+    if (sourceUri == null || sourceUri === '') {
+      // TODO: display error invalid uri
+      return;
+    }
+
+    this.wizardService.fetchProjectForSource(sourceUri);
+  }
+
+  /**
+   * Method which triggers when the add manual project is pressed.
+   * Resets the fetched source in the wizard service.
+   */
+  public onClickAddProjectManual(): void {
+    this.wizardService.reset();
+    this.router.navigate(['/project/add/manual']);
   }
 }
