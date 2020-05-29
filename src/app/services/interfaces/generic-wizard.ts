@@ -14,27 +14,16 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import { Observable } from 'rxjs';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
 
-import { environment } from 'src/environments/environment';
-
-export interface ApiConfig {
-  embeddedProjectRoute: string;
-  url: string;
-  userRoute: string;
-  projectRoute: string;
-  highlightRoute: string;
-  internalSearchRoute: string;
-  externalSearchRoute: string;
-  wizardRoute: string;
+/**
+ * Interface to define the method used by all Wizard sources services.
+ */
+export interface GenericWizard {
+    /**
+     * Method to fetch the project for a uri.
+     * @param uri the uri where the project is located.
+     */
+    fetchProjectDetails(uri: string): Observable<MappedProject>;
 }
-
-export const API_CONFIG: ApiConfig = {
-  url: `${environment.apiUrl}/api/`,
-  userRoute: 'user',
-  projectRoute: 'project',
-  highlightRoute: 'highlight',
-  internalSearchRoute: 'search/internal',
-  externalSearchRoute: 'search/external',
-  embeddedProjectRoute: 'embed',
-  wizardRoute: 'wizard'
-};

@@ -15,26 +15,22 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { environment } from 'src/environments/environment';
+/**
+ * Class containing utility methods for strings.
+ */
+export class StringUtils {
 
-export interface ApiConfig {
-  embeddedProjectRoute: string;
-  url: string;
-  userRoute: string;
-  projectRoute: string;
-  highlightRoute: string;
-  internalSearchRoute: string;
-  externalSearchRoute: string;
-  wizardRoute: string;
+    /**
+     * Method to strip a value from the string.
+     * @param stringToStrip the string to strip the value from.
+     * @param valueToStrip the value which should be stripped.
+     */
+    public static stripString(stringToStrip: string, valueToStrip: string): string {
+        if (stringToStrip == null || valueToStrip == null || stringToStrip.indexOf(valueToStrip) === -1) {
+            return stringToStrip;
+        }
+
+        return stringToStrip.replace(valueToStrip, '');
+    }
+
 }
-
-export const API_CONFIG: ApiConfig = {
-  url: `${environment.apiUrl}/api/`,
-  userRoute: 'user',
-  projectRoute: 'project',
-  highlightRoute: 'highlight',
-  internalSearchRoute: 'search/internal',
-  externalSearchRoute: 'search/external',
-  embeddedProjectRoute: 'embed',
-  wizardRoute: 'wizard'
-};
