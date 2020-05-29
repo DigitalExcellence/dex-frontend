@@ -16,9 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented new design login page - [#66](https://github.com/DigitalExcellence/dex-frontend/issues/66)
 - Implemented search functionality for project overview - [#72](https://github.com/DigitalExcellence/dex-frontend/issues/72)
 - Added an embed button and embed page - [#140](https://github.com/DigitalExcellence/dex-frontend/issues/140)
+- Get current user role from the backend - [#141](https://github.com/DigitalExcellence/dex-frontend/issues/141)
 - Implemented global error handling  & logging to Sentry - [#77](https://github.com/DigitalExcellence/dex-frontend/issues/77)
 - Implemented wizard for GitHub and GitLab source url's - [#146](https://github.com/DigitalExcellence/dex-frontend/issues/146)
-
 
 ### Changed
 
@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+
 - Fixed the bug when there are less than 3 highlights - [#113](https://github.com/DigitalExcellence/dex-frontend/issues/113)
 
 ### Security
