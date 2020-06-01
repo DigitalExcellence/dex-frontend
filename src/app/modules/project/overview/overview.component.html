@@ -77,7 +77,10 @@
           </td>
         </tr>
       </table>
+      <pagination [totalItems]="projectsTotal.length" (pageChanged)="pageChanged($event)"></pagination>
+
     </ng-container>
+
 
     <ng-template #noProjects>There are no projects available.</ng-template>
   </div>

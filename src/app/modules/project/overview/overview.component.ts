@@ -25,6 +25,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import { FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 /**
  * Overview of all the projects
@@ -40,6 +41,7 @@ export class OverviewComponent implements OnInit {
    */
   public projects: Project[] = [];
   public projectsToDisplay: Project[] = [];
+  public projectsTotal: Project[] = [];
 
   /**
    * Boolean to determine whether the component is loading the information from the api.
@@ -67,7 +69,8 @@ export class OverviewComponent implements OnInit {
       .subscribe(
         (result) => {
           this.projects = result;
-          this.projectsToDisplay = result;
+          this.projectsToDisplay = result.slice(0, 10);
+          this.projectsTotal = result;
         },
         (error: HttpErrorResponse) => {
           if (error.status !== 404) {
@@ -96,7 +99,7 @@ export class OverviewComponent implements OnInit {
     const controlValue: string = this.searchControl.value;
     if (controlValue == null || controlValue === '') {
       // No search value present, display the default project list.
-      this.projectsToDisplay = this.projects;
+      this.projectsToDisplay = this.projects.slice(0, 10);
       return;
     }
 
@@ -130,6 +133,7 @@ export class OverviewComponent implements OnInit {
   private searchAndFilterProjects(query: InternalSearchQuery): void {
     if (query == null) {
       return;
+      this.projectsTotal = this.projects;
     }
 
     this.internalSearchService.get(query).subscribe(result => {
@@ -141,8 +145,14 @@ export class OverviewComponent implements OnInit {
       const filteredProjects = this.projects.filter(project => {
         return foundProjects.map(foundProject => foundProject.id).includes(project.id);
       });
-      this.projectsToDisplay = filteredProjects;
+      this.projectsToDisplay = filteredProjects.slice(0, 10);
+      this.projectsTotal = filteredProjects;
     });
   }
 
+  pageChanged(event: PageChangedEvent): void {
+    const startItem = (event.page - 1) * event.itemsPerPage;
+    const endItem = event.page * event.itemsPerPage;
+    this.projectsToDisplay = this.projects.slice(startItem, endItem);
+  }
 }

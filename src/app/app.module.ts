@@ -31,6 +31,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 import { SentryErrorHandler } from './error-handler/sentry.error-handler';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { errorHandlerFactory } from './error-handler/error-handler-factory';
   ],
   imports: [
     BsDropdownModule.forRoot(),
+    PaginationModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
