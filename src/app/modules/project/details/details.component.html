@@ -49,7 +49,7 @@
     </div>
     <div class="col-9">
       <h1 class="project-title">{{ project.name }}</h1>
-      <div class="project-tags">
+      <div class="project-tags" [hidden]="!displayTags()">
         <a class="project-tags__tag" href="#">
           Game
         </a>
