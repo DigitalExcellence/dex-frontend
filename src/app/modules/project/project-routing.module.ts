@@ -16,18 +16,18 @@ import { EmbedComponent } from './embed/embed.component';
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { DetailsComponent } from "./details/details.component";
-import { OverviewComponent } from "./overview/overview.component";
-import { EditComponent } from "./edit/edit.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { DetailsComponent } from './details/details.component';
+import { OverviewComponent } from './overview/overview.component';
+import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
-  { path: "overview", component: OverviewComponent },
-  { path: "details/:id", component: DetailsComponent },
-  { path: "edit/:id", component: EditComponent },
-  { path: "embed/:id", component: EmbedComponent},
-  { path: "add", loadChildren: () => import("./add/add.module").then((m) => m.AddModule) },
+  { path: 'overview', component: OverviewComponent },
+  { path: 'details/:id', component: DetailsComponent },
+  { path: 'edit/:id', component: EditComponent },
+  { path: 'embed/:id', component: EmbedComponent},
+  { path: 'add', loadChildren: () => import('./add/add.module').then((m) => m.AddModule) },
 ];
 
 @NgModule({

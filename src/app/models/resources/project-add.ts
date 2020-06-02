@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { CollaboratorAdd } from "./collaborator-add";
+import { CollaboratorAdd } from './collaborator-add';
 export interface ProjectAdd {
   userId: number;
   name: string;
