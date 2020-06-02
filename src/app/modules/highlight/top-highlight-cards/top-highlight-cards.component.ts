@@ -91,16 +91,25 @@ export class TopHighlightCardsComponent implements OnInit {
       const pool: any[] = population.slice();
       for (let i = 0; i < k; i++) {
         // invariant:  non-selected at [0,n-i)
-        const j: number = (Math.random() * (n - i)) || 0;
+        let j: number = Math.floor(Math.random() * (n - i));
+        if (!j) {
+          j = 0;
+        }
         result[i] = pool[j];
         pool[j] = pool[n - i - 1]; // move non-selected item into vacancy
       }
     } else {
       const selected = new Set();
       for (let i = 0; i < k; i++) {
-        let j: number = (Math.random() * n) || 0;
+        let j: number = Math.floor((Math.random() * n));
+        if (!j) {
+          j = 0;
+        }
         while (selected.has(j)) {
-          j = (Math.random() * n) || 0;
+          j = Math.floor((Math.random() * n));
+          if (!j) {
+            j = 0;
+          }
         }
         selected.add(j);
         result[i] = population[j];
