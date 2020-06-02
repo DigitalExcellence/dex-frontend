@@ -52,10 +52,15 @@ export class ModalHighlightComponent implements OnInit {
   }
   /**
    * Method which triggers when the confirm button is clicked. On confirm highlight form values are checked.
-   * error message is shown if the start date later than the end date.
+   * Error message is shown if the form fields are empty.
+   * Error message is shown if the start date later than the end date.
    */
   public onClickConfirm(): void {
     const highlightAddResource : HighlightAdd = this.highlightProjectForm.value;
+    if((highlightAddResource.startDate == null || highlightAddResource.endDate == null) && this.highlightProjectForm.value.indeterminate === false){
+      this.dateErrorMessage = "Error: Fill in a start and end date or choose never ending";
+      return;
+    }
     if(highlightAddResource.startDate > highlightAddResource.endDate || highlightAddResource.endDate < highlightAddResource.startDate){
       this.dateErrorMessage = "Error: Start date can't be later than end date";
       return;
