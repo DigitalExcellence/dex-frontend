@@ -27,4 +27,6 @@ jobs:
           npm i
           npm run build --prod
       - name: ng lint
-        run: ng lint
+        run: |
+          npm install -g angular-cli
+          ng lint
