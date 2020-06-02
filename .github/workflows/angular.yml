@@ -1,8 +1,6 @@
 name: Angular Workflow
 
-on:
-    pull_request:
-      branches: [ develop ]
+on: push
 
 jobs:
     build:
