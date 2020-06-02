@@ -24,7 +24,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { ModalHighlightComponent } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
+import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
+import { switchMap } from 'rxjs/operators';
+
 
 /**
  * Overview of a single project
@@ -80,21 +82,34 @@ export class DetailsComponent implements OnInit {
    * When Indeterminate checkbox is checked start date and end date are null
    */
   public onClickHighlightButton(): void {
+    if (this.project == null || this.project.id === 0) {
+      // TODO: Show appropriate error message: project id could not be found and therefore not be highlighted.
+      return;
+    }
     const modalRef = this.modalService.show(ModalHighlightComponent);
 
-    modalRef.content.confirm.subscribe((highlightResource) => {
-      const highlightAddResource: HighlightAdd = highlightResource;
+    modalRef.content.confirm
+      .pipe(
+        switchMap((highlightFormResult: HighlightFormResult) => {
+          // Use result of confirm subscription to call the api.
+          const highlightAddResource: HighlightAdd = {
+            projectId: this.project.id,
+            startDate: highlightFormResult.startDate,
+            endDate: highlightFormResult.endDate
+          };
 
-      if (highlightResource.indeterminate) {
-        highlightAddResource.startDate = null;
-        highlightAddResource.endDate = null;
-      }
+          if (highlightFormResult.indeterminate) {
+            highlightAddResource.startDate = null;
+            highlightAddResource.endDate = null;
+          }
 
-      if (this.project == null) {
-        return;
-      }
-      highlightAddResource.projectId = this.project.id;
-      this.highlightService.post(highlightAddResource).subscribe((result) => { });
-    });
+          return this.highlightService.post(highlightAddResource);
+        })
+      )
+      .subscribe((highlightFormResult: HighlightFormResult) => {
+        // TODO: display success message.
+      }, () => {
+        // TODO: display error message.
+      });
   }
 }

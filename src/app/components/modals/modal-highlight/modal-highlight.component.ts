@@ -3,6 +3,12 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 
+export interface HighlightFormResult {
+  startDate?: Date;
+  endDate?: Date;
+  indeterminate: boolean;
+}
+
 @Component({
   selector: 'app-modal',
   templateUrl: './modal-highlight.component.html',
@@ -51,13 +57,13 @@ export class ModalHighlightComponent {
    * Error message is shown if the start date later than the end date.
    */
   public onClickConfirm(): void {
-    const highlightAddResource: HighlightAdd = this.highlightProjectForm.value;
-    if ((highlightAddResource.startDate == null || highlightAddResource.endDate == null) &&
-      this.highlightProjectForm.value.indeterminate === false) {
+    const highlightFormResult: HighlightFormResult = this.highlightProjectForm.value;
+    if ((highlightFormResult.startDate == null || highlightFormResult.endDate == null) &&
+      highlightFormResult.indeterminate === false) {
       this.dateErrorMessage = 'Error: Fill in a start and end date or choose never ending';
       return;
     }
-    if (highlightAddResource.startDate > highlightAddResource.endDate || highlightAddResource.endDate < highlightAddResource.startDate) {
+    if (highlightFormResult.startDate > highlightFormResult.endDate || highlightFormResult.endDate < highlightFormResult.startDate) {
       this.dateErrorMessage = 'Error: Start date can\'t be later than end date';
       return;
     }

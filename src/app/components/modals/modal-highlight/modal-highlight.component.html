@@ -1,24 +1,24 @@
- <div class="modal-highlight-container">
-      <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    <div class="modal-body">
-      <h2>Hightlight project</h2>
-      <form [formGroup]="highlightProjectForm" class="highlight-form">
+<div class="modal-highlight-container">
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="modal-body">
+    <h2>Hightlight project</h2>
+    <form [formGroup]="highlightProjectForm" class="highlight-form">
       <div class="row">
         <div class="col-6">
           <div>
             <h3>Start Date</h3>
-            <input type="date" formControlName="startDate" [disabled]="dateFieldsEnabled"/>
+            <input type="date" formControlName="startDate" [disabled]="dateFieldsEnabled" />
           </div>
         </div>
         <div class="col-6">
           <div>
             <h3>End Date</h3>
-            <input type="date" formControlName="endDate" [disabled]="dateFieldsEnabled"/>
+            <input type="date" formControlName="endDate" [disabled]="dateFieldsEnabled" />
           </div>
         </div>
-        <div class="col-12">
+        <div class="col-12" *ngIf="dateErrorMessage != null">
           <p class="date-error-message">{{dateErrorMessage}}</p>
         </div>
       </div>
@@ -26,17 +26,18 @@
       <div class="row">
         <div class="col-12">
           <div class="highlight-form__checkbox">
-            <input type="checkbox" formControlName="indeterminate"/> <h4>Never ending</h4>
+            <input type="checkbox" formControlName="indeterminate" />
+            <h4>Never ending</h4>
           </div>
         </div>
       </div>
     </form>
-      <div class="row">
-        <div class="col-12 modal-buttons">
-          <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
-          <button type="button" class="primary" (click)="onClickConfirm()">Save</button>
-        </div>
+    <div class="row">
+      <div class="col-12 modal-buttons">
+        <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
+        <button type="button" class="primary" (click)="onClickConfirm()">Save</button>
       </div>
-
     </div>
+
   </div>
+</div>
