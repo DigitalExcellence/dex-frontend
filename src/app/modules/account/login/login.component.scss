@@ -116,6 +116,20 @@ button {
   }
 }
 
+// Styling for temporary disabled message, can be removed when sign in method is implemented
+.temporarly-disabled-text {
+  margin: 50px 0 10px 0;
+}
+
+.btn-school-id {
+  margin-top: 0;
+}
+
+button:disabled {
+  background-color: #707175;
+}
+// End of temporary styling
+
 a {
   color: #e85b3f;
 }
