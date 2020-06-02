@@ -17,18 +17,18 @@
  *
  */
 
-import { Injectable } from "@angular/core";
-import { User, UserManager, UserManagerSettings } from "oidc-client";
-import { User as BackendUser } from "src/app/models/domain/user";
-import { Observable } from "rxjs";
-import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { environment } from "src/environments/environment";
-import { HttpClient } from "@angular/common/http";
-import { API_CONFIG } from "src/app/config/api-config";
-import { Role } from "src/app/models/domain/role";
+import { Injectable } from '@angular/core';
+import { User, UserManager, UserManagerSettings } from 'oidc-client';
+import { User as BackendUser } from 'src/app/models/domain/user';
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { Role } from 'src/app/models/domain/role';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
   // Observable navItem source
@@ -43,7 +43,7 @@ export class AuthService {
 
   /**
    * Creates an instance of auth service.
-   * @param http 
+   * @param http httpclient
    */
   constructor(http: HttpClient) {
     this.http = http;
@@ -52,17 +52,18 @@ export class AuthService {
   /**
    * on init
    */
-  ngOnInit(){
+  ngOnInit() {
     this.manager.getUser().then((user) => {
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
-/**
- * Logins auth service
- * @returns login 
- */
-public login(): Promise<void> {
+
+  /**
+   * Logins auth service
+   * @returns login
+   */
+  public login(): Promise<void> {
     return this.manager.signinRedirect();
   }
 
@@ -77,27 +78,27 @@ public login(): Promise<void> {
 
   /**
    * Gets backend user
-   * @returns backend user 
+   * @returns backend user
    */
-  public async getBackendUser(): Promise<BackendUser>{
+  public async getBackendUser(): Promise<BackendUser> {
       return this.http.get<BackendUser>(`${API_CONFIG.url}User`).toPromise();
   }
   /**
    * Gets current role
-   * @returns current role 
+   * @returns current role
    */
-  public getCurrentRole(): Role{
-    if(this.backenduser == null || this.backenduser.role == null){
+  public getCurrentRole(): Role {
+    if (this.backenduser == null || this.backenduser.role == null) {
       return null;
     }
     return this.backenduser.role;
   }
 
-/**
- * Determines whether user is authenticated 
- * @returns true if authenticated 
- */
-public isAuthenticated(): boolean {
+  /**
+   * Determines whether user is authenticated
+   * @returns true if authenticated
+   */
+  public isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
   }
 
@@ -105,7 +106,9 @@ public isAuthenticated(): boolean {
    * Gets authorization header value
    */
   public get authorizationHeaderValue(): string {
-    if (this) return `${this.user.token_type} ${this.user.access_token}`;
+    if (this) {
+      return `${this.user.token_type} ${this.user.access_token}`;
+    }
   }
 
   /**
@@ -113,7 +116,7 @@ public isAuthenticated(): boolean {
    */
   public get name(): string {
     if (this.user == null) {
-      return "";
+      return '';
     } else {
       return this.user.profile.name;
     }
@@ -121,7 +124,7 @@ public isAuthenticated(): boolean {
 
   /**
    * Signouts auth service
-   * @returns signout 
+   * @returns signout
    */
   public async signout(): Promise<void> {
     await this.manager.signoutRedirect();
@@ -130,7 +133,7 @@ public isAuthenticated(): boolean {
 
 /**
  * Gets client settings
- * @returns client settings 
+ * @returns client settings
  */
 export function getClientSettings(): UserManagerSettings {
   return {
@@ -138,8 +141,8 @@ export function getClientSettings(): UserManagerSettings {
     client_id: environment.identityClientId,
     redirect_uri: environment.identityRedirectUri,
     post_logout_redirect_uri: environment.identityLogoutRedirectUri,
-    response_type: "id_token token",
-    scope: "openid profile email dex-api",
+    response_type: 'id_token token',
+    scope: 'openid profile email dex-api',
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,

@@ -15,16 +15,16 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { API_CONFIG } from "../config/api-config";
-import { Project } from "../models/domain/project";
-import { ProjectAdd } from "../models/resources/project-add";
-import { ProjectUpdate } from "../models/resources/project-update";
-import { HttpBaseService } from "./http-base.service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { API_CONFIG } from '../config/api-config';
+import { Project } from '../models/domain/project';
+import { ProjectAdd } from '../models/resources/project-add';
+import { ProjectUpdate } from '../models/resources/project-update';
+import { HttpBaseService } from './http-base.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class ProjectService extends HttpBaseService<Project, ProjectAdd, ProjectUpdate> {
   constructor(http: HttpClient) {

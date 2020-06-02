@@ -15,22 +15,22 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { AuthCallbackComponent } from "./components/auth-callback/auth-callback.component";
-import { HomeComponent } from "./components/home/home.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: "/home", pathMatch: "full" },
-  { path: "home", component: HomeComponent },
-  { path: "auth-callback", component: AuthCallbackComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'auth-callback', component: AuthCallbackComponent },
   {
-    path: "project",
-    loadChildren: () => import("./modules/project/project.module").then((m) => m.ProjectModule),
+    path: 'project',
+    loadChildren: () => import('./modules/project/project.module').then((m) => m.ProjectModule),
   },
   {
-    path: "account",
-    loadChildren: () => import("./modules/account/account.module").then((m) => m.AccountModule),
+    path: 'account',
+    loadChildren: () => import('./modules/account/account.module').then((m) => m.AccountModule),
   },
 ];
 
