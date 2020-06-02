@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { ServiceType } from "./service-type";
+import { ServiceType } from './service-type';
 
 export interface LinkedService {
   service: ServiceType;

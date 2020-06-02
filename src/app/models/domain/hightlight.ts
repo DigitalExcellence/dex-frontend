@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Project } from "./project";
+import { Project } from './project';
 
 export interface Highlight {
   id: number;

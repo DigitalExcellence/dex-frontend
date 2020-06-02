@@ -15,16 +15,16 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { API_CONFIG } from "../config/api-config";
-import { Highlight } from "../models/domain/hightlight";
-import { HighlightAdd } from "../models/resources/highlight-add";
-import { HighlightUpdate } from "../models/resources/highlight-update";
-import { HttpBaseService } from "./http-base.service";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { API_CONFIG } from '../config/api-config';
+import { Highlight } from '../models/domain/hightlight';
+import { HighlightAdd } from '../models/resources/highlight-add';
+import { HighlightUpdate } from '../models/resources/highlight-update';
+import { HttpBaseService } from './http-base.service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class HighlightService extends HttpBaseService<Highlight, HighlightAdd, HighlightUpdate> {
   constructor(http: HttpClient) {

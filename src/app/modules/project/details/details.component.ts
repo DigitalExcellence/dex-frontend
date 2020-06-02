@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -44,7 +45,7 @@ export class DetailsComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     private highlightService: HighlightService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get('id');
@@ -79,6 +80,14 @@ export class DetailsComponent implements OnInit {
    */
   public onClickHighlightButton(): void {
     const hightlightAdd: HighlightAdd = { projectId: this.project.id, startDate: null, endDate: null };
-    this.highlightService.post(hightlightAdd).subscribe((result) => {});
+    this.highlightService.post(hightlightAdd).subscribe((result) => { });
+  }
+
+  /**
+   * Method to display the tags based on the environment variable.
+   * Tags should be hidden in production for now untill futher implementation is finished.
+   */
+  public displayTags(): boolean {
+    return !environment.production;
   }
 }
