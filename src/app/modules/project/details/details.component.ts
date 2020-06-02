@@ -47,7 +47,7 @@ export class DetailsComponent implements OnInit {
     private authService: AuthService,
     private highlightService: HighlightService,
     private modalService: BsModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get('id');
@@ -83,18 +83,18 @@ export class DetailsComponent implements OnInit {
     const modalRef = this.modalService.show(ModalHighlightComponent);
 
     modalRef.content.confirm.subscribe((highlightResource) => {
-      const highlightAddResource : HighlightAdd = highlightResource;
+      const highlightAddResource: HighlightAdd = highlightResource;
 
-      if(highlightResource.indeterminate){
-          highlightAddResource.startDate = null;
-          highlightAddResource.endDate = null;
+      if (highlightResource.indeterminate) {
+        highlightAddResource.startDate = null;
+        highlightAddResource.endDate = null;
       }
 
-      if(this.project == null){
+      if (this.project == null) {
         return;
       }
       highlightAddResource.projectId = this.project.id;
-      this.highlightService.post(highlightAddResource).subscribe((result) => {});
+      this.highlightService.post(highlightAddResource).subscribe((result) => { });
     });
   }
 }
