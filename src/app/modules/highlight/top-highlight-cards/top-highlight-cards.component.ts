@@ -15,17 +15,17 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { finalize } from "rxjs/internal/operators/finalize";
-import { Highlight } from "src/app/models/domain/hightlight";
-import { HighlightService } from "src/app/services/highlight.service";
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs/internal/operators/finalize';
+import { Highlight } from 'src/app/models/domain/hightlight';
+import { HighlightService } from 'src/app/services/highlight.service';
 
 @Component({
-  selector: "app-top-highlight-cards",
-  templateUrl: "./top-highlight-cards.component.html",
-  styleUrls: ["./top-highlight-cards.component.scss"],
+  selector: 'app-top-highlight-cards',
+  templateUrl: './top-highlight-cards.component.html',
+  styleUrls: ['./top-highlight-cards.component.scss'],
 })
 export class TopHighlightCardsComponent implements OnInit {
   /**
@@ -36,7 +36,7 @@ export class TopHighlightCardsComponent implements OnInit {
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
-  public highlightsLoading: boolean = true;
+  public highlightsLoading = true;
   constructor(private router: Router, private projectService: HighlightService) {}
 
   ngOnInit(): void {
@@ -49,7 +49,7 @@ export class TopHighlightCardsComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           if (error.status !== 404) {
-            console.log("Could not retrieve the highlights");
+            console.log('Could not retrieve the highlights');
           }
         }
       );
@@ -69,30 +69,38 @@ export class TopHighlightCardsComponent implements OnInit {
         selection in the sample.
     */
 
-    if (!Array.isArray(population)) throw new TypeError("Population must be an array.");
-    var n: number = population.length;
-    if (k < 0) throw new RangeError("Sample larger than population or is negative");
-    if (k >= n) k = n;
-    var result = new Array(k);
-    var setsize: number = 21; // size of a small set minus size of an empty list
+    if (!Array.isArray(population)) {
+      throw new TypeError('Population must be an array.');
+    }
+    const n: number = population.length;
+    if (k < 0) {
+      throw new RangeError('Sample larger than population or is negative');
+    }
+    if (k >= n) {
+      k = n;
+    }
+    const result = new Array(k);
+    let setsize = 21; // size of a small set minus size of an empty list
 
-    if (k > 5) setsize += Math.pow(4, Math.ceil(Math.log(k * 3)));
+    if (k > 5) {
+      setsize += Math.pow(4, Math.ceil(Math.log(k * 3)));
+    }
 
     if (n <= setsize) {
       // An n-length list is smaller than a k-length set
-      var pool: any[] = population.slice();
-      for (var i = 0; i < k; i++) {
+      const pool: any[] = population.slice();
+      for (let i = 0; i < k; i++) {
         // invariant:  non-selected at [0,n-i)
-        var j: number = (Math.random() * (n - i)) | 0;
+        const j: number = (Math.random() * (n - i)) || 0;
         result[i] = pool[j];
         pool[j] = pool[n - i - 1]; // move non-selected item into vacancy
       }
     } else {
-      var selected = new Set();
-      for (var i = 0; i < k; i++) {
-        var j: number = (Math.random() * n) | 0;
+      const selected = new Set();
+      for (let i = 0; i < k; i++) {
+        let j: number = (Math.random() * n) || 0;
         while (selected.has(j)) {
-          j = (Math.random() * n) | 0;
+          j = (Math.random() * n) || 0;
         }
         selected.add(j);
         result[i] = population[j];

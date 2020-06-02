@@ -26,7 +26,13 @@ require('dotenv').load();
 const envConfigFile = `export const environment = {
    production: true,
    apiUrl: '${process.env.API_URL}',
+   frontendUrl: '${process.env.FRONTEND_URL}',
+   identityCallbackUrl: '${process.env.ID_CALLBACK_URL}',
    identityServerUrl: '${process.env.IDS_URL}',
+   identityClientId: '${process.env.ID_CLIENT_ID}',
+   identityRedirectUri: '${process.env.ID_REDIRECT_URI}',
+   identityLogoutRedirectUri: '${process.env.ID_LOGOUT_REDIRECT_URI}',
+   identitySilentRedirectUri: '${process.env.ID_SILENT_REDIRECT_URI}',
    sentryDsnUrl: '${process.env.SENTRY_DSN_URL}'
   };
 `;

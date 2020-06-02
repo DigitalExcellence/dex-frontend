@@ -34,10 +34,10 @@ export class EmbedButtonComponent implements OnInit {
   public frontendUrl = environment.frontendUrl;
   private projectId: number;
 
-  constructor(private activedRoute: ActivatedRoute, private EmbedService: EmbedService) { }
+  constructor(private activedRoute: ActivatedRoute, private embedService: EmbedService) { }
 
   ngOnInit(): void {
-    const routeId = this.activedRoute.snapshot.paramMap.get("id");
+    const routeId = this.activedRoute.snapshot.paramMap.get('id');
     if (!routeId) {
       return;
     }
@@ -48,8 +48,8 @@ export class EmbedButtonComponent implements OnInit {
     this.projectId = id;
   }
 
-  public onClickGenerateEmbed(): void{
-    this.EmbedService.post({projectId:this.projectId})
+  public onClickGenerateEmbed(): void {
+    this.embedService.post({projectId: this.projectId})
       .subscribe(
         (result) => {
           this.embeddedProject = result;

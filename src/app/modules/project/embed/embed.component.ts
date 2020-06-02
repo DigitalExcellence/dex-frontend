@@ -16,9 +16,9 @@
  */
 import { EmbedService } from 'src/app/services/embed.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from "@angular/common/http";
-import { ActivatedRoute } from "@angular/router";
-import { Project } from "src/app/models/domain/project";
+import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { Project } from 'src/app/models/domain/project';
 
 /**
  * Overview of a single project
@@ -38,13 +38,13 @@ export class EmbedComponent implements OnInit {
   constructor(private activedRoute: ActivatedRoute, private embedService: EmbedService) {}
 
   ngOnInit(): void {
-    const routeId = this.activedRoute.snapshot.paramMap.get("id");
+    const routeId = this.activedRoute.snapshot.paramMap.get('id');
     if (!routeId) {
       return;
     }
     // check if the routeid is in a valid guid format.
-    const regexp = new RegExp("^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$","i");
-    if(regexp.test(routeId) === false){
+    const regexp = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$', 'i');
+    if (regexp.test(routeId) === false) {
       return;
     }
 

@@ -15,17 +15,17 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component } from "@angular/core";
-import { AuthService } from "src/app/services/auth.service";
+import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   constructor(private authService: AuthService) {}
-  title = "Sign in";
+  title = 'Sign in';
 
   public loginIdentityServer() {
     this.authService.login();
