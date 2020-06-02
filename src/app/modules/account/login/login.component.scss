@@ -60,7 +60,6 @@
     width: 30%;
     height: 40px;
     padding: 12px;
-    margin: 5px;
     flex-grow: 1;
 
     img {
@@ -116,6 +115,20 @@ button {
     outline: none;
   }
 }
+
+// Styling for temporary disabled message, can be removed when sign in method is implemented
+.temporarly-disabled-text {
+  margin: 50px 0 10px 0;
+}
+
+.btn-school-id {
+  margin-top: 0;
+}
+
+button:disabled {
+  background-color: #707175;
+}
+// End of temporary styling
 
 a {
   color: #e85b3f;
