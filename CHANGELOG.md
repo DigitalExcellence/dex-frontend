@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated design for Project Edit page, buttons and other Quality of Life changes - [#128](https://github.com/DigitalExcellence/dex-frontend/pull/128)
 - Added more structure to styling & moved scss to specific files in the assets folder - [#122](https://github.com/DigitalExcellence/dex-frontend/issues/122)
 - Updated favicon to match branding & added favicon support for various platforms - [#145](https://github.com/DigitalExcellence/dex-frontend/issues/145)
+- Hidden project tags for production mode - [#148](https://github.com/DigitalExcellence/dex-frontend/issues/148)
 
 ### Deprecated
 
