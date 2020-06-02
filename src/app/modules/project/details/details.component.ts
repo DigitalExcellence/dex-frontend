@@ -23,6 +23,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ModalHighlightComponent } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
 
 /**
  * Overview of a single project
@@ -43,7 +45,8 @@ export class DetailsComponent implements OnInit {
     private activedRoute: ActivatedRoute,
     private projectService: ProjectService,
     private authService: AuthService,
-    private highlightService: HighlightService
+    private highlightService: HighlightService,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
@@ -74,11 +77,24 @@ export class DetailsComponent implements OnInit {
 
   /**
    * Highlight a project by calling the API
-   * For now, the highlight is infinite duration.
-   * This should be changed when modals are implemented
+   * When Indeterminate checkbox is checked start date and end date are null
    */
   public onClickHighlightButton(): void {
-    const hightlightAdd: HighlightAdd = { projectId: this.project.id, startDate: null, endDate: null };
-    this.highlightService.post(hightlightAdd).subscribe((result) => {});
+    const modalRef = this.modalService.show(ModalHighlightComponent);
+
+    modalRef.content.confirm.subscribe((highlightResource) => {
+      const highlightAddResource : HighlightAdd = highlightResource;
+
+      if(highlightResource.indeterminate){
+          highlightAddResource.startDate = null;
+          highlightAddResource.endDate = null;
+      }
+
+      if(this.project == null){
+        return;
+      }
+      highlightAddResource.projectId = this.project.id;
+      this.highlightService.post(highlightAddResource).subscribe((result) => {});
+    });
   }
 }

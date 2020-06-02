@@ -31,6 +31,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 import { SentryErrorHandler } from './error-handler/sentry.error-handler';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
+import { ModalHighlightComponent } from './components/modals/modal-highlight/modal-highlight.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -39,15 +41,17 @@ import { errorHandlerFactory } from './error-handler/error-handler-factory';
     HomeComponent,
     AuthCallbackComponent,
     TopHighlightCardsComponent,
-    FooterComponent
+    FooterComponent,
+    ModalHighlightComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     {
