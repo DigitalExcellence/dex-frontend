@@ -15,12 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { AuthService } from "../services/auth.service";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -38,7 +38,7 @@ export class TokenInterceptor implements HttpInterceptor {
       map((event: any) => {
         if (event instanceof HttpErrorResponse) {
           if (event.status === 401) {
-            this.router.navigate(["/account/login"]);
+            this.router.navigate(['/account/login']);
           }
         }
         return event;

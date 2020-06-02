@@ -15,14 +15,14 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AuthService } from "src/app/services/auth.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: "app-auth-callback",
-  templateUrl: "./auth-callback.component.html",
-  styleUrls: ["./auth-callback.component.scss"],
+  selector: 'app-auth-callback',
+  templateUrl: './auth-callback.component.html',
+  styleUrls: ['./auth-callback.component.scss'],
 })
 export class AuthCallbackComponent implements OnInit {
   public error: boolean;
@@ -31,12 +31,12 @@ export class AuthCallbackComponent implements OnInit {
 
   ngOnInit() {
     // check for error
-    if (this.route.snapshot.fragment.indexOf("error") >= 0) {
+    if (this.route.snapshot.fragment.indexOf('error') >= 0) {
       this.error = true;
       return;
     }
 
     this.authService.completeAuthentication();
-    this.router.navigate(["/home"]);
+    this.router.navigate(['/home']);
   }
 }

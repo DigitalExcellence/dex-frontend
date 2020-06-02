@@ -15,8 +15,8 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { User } from "./user";
-import { Collaborator } from "./collaborator";
+import { User } from './user';
+import { Collaborator } from './collaborator';
 
 export interface Project {
   id: number;

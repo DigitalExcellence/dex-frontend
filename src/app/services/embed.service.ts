@@ -1,7 +1,7 @@
 import { Project } from 'src/app/models/domain/project';
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { API_CONFIG } from "../config/api-config";
+import { HttpClient } from '@angular/common/http';
+import { API_CONFIG } from '../config/api-config';
 import { EmbeddedProject } from 'src/app/models/domain/embedded-project';
 import { EmbeddedProjectResource } from 'src/app/models/resources/embedded-project-resource';
 import { Observable } from 'rxjs';
