@@ -16,31 +16,37 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
+import { Component, OnInit } from '@angular/core';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 
+/**
+ * Component to display alerts provided by the AlertService.
+ */
 @Component({
-  selector: 'home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-alert',
+  templateUrl: './alert.component.html',
+  styleUrls: ['./alert.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class AlertComponent implements OnInit {
+
+  /**
+   * The alerts to display.
+   */
+  public alerts: AlertConfig[] = [];
 
   constructor(
     private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
-    // For demonstration purposes for the PR.
-
-    // const alertConfig: AlertConfig = {
-    //   type: AlertType.info,
-    //   preMessage: 'Premessage content',
-    //   mainMessage: 'This is the main message of an alert',
-    //   dismissible: false
-    // };
-    // this.alertService.pushAlert(alertConfig);
+    this.alertService.$activeAlerts.subscribe(activeAlerts => this.alerts = activeAlerts);
   }
+
+  /**
+   * Get the AlertType enum to set the right alert type in the template.
+   */
+  get alertType() { return AlertType; }
+
 }

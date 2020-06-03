@@ -29,8 +29,9 @@ import { SharedModule } from './modules/shared/shared.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http.interceptor';
-import { SentryErrorHandler } from './error-handler/sentry.error-handler';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -39,10 +40,12 @@ import { errorHandlerFactory } from './error-handler/error-handler-factory';
     HomeComponent,
     AuthCallbackComponent,
     TopHighlightCardsComponent,
-    FooterComponent
+    FooterComponent,
+    AlertComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
+    AlertModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

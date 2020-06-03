@@ -41,13 +41,11 @@
           {{ name }} <img alt="" class="profile-picture" src="assets/images/janette-doe.png"> <span
             class="caret"></span>
         </button>
-        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu"
-          aria-labelledby="button-basic">
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
           <li role="menuitem"><a class="dropdown-item" href="#">My profile</a></li>
           <li role="menuitem"><a class="dropdown-item" href="#">Account settings</a></li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" (click)="onClickSignout()"
-              routerLinkActive="active">Sign
+          <li role="menuitem"><a class="dropdown-item" (click)="onClickSignout()" routerLinkActive="active">Sign
               Out</a>
           </li>
         </ul>
@@ -58,6 +56,9 @@
 
   <div class="content-container">
     <div class="container">
+
+      <app-alert></app-alert>
+
       <router-outlet></router-outlet>
     </div>
   </div>
