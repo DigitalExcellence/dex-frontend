@@ -1,3 +1,6 @@
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertService } from 'src/app/services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -54,7 +57,8 @@ export class ManualComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
-    private wizardService: WizardService) {
+    private wizardService: WizardService,
+    private alertService: AlertService) {
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
       uri: [null, Validators.required],
@@ -100,7 +104,14 @@ export class ManualComponent implements OnInit {
    */
   public onClickAddCollaborator(): void {
     if (!this.newCollaboratorForm.valid) {
-      // Todo display error.
+      const alertConfig: AlertConfig = {
+        type: AlertType.warning,
+        preMessage: 'The form is invalid',
+        mainMessage: 'The collaborator could not be added',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
 

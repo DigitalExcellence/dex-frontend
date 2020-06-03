@@ -46,8 +46,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             retry(1),
             catchError((httpErrorResponse: DeXHttpErrorResponse) => {
                 // Create and send alert.
-                const mainErrorMessage = `${httpErrorResponse.error.title} - ${httpErrorResponse.error.detail}`;
-                this.alertService.pushAlert(this.createErrorAlertConfig(mainErrorMessage));
+                this.alertService.pushAlert(this.createErrorAlertConfig(httpErrorResponse.error.title, httpErrorResponse.error.detail));
 
                 if (environment.production) {
                     // Log error to sentry.
@@ -62,13 +61,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     /**
      * Method to return the default error AlertConfig for HttpInterceptor
      */
-    private createErrorAlertConfig(mainMessage: string): AlertConfig {
+    private createErrorAlertConfig(preMessage: string, mainMessage: string): AlertConfig {
         const alertConfig: AlertConfig = {
             type: AlertType.danger,
-            preMessage: 'Http Error:',
+            preMessage: preMessage,
             mainMessage: mainMessage,
             dismissible: true,
-            timeout: this.alertService.defaultTimeout
+            // timeout: this.alertService.defaultTimeout
         };
         return alertConfig;
     }
