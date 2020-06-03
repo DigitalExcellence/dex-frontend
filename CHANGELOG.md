@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented global error handling  & logging to Sentry - [#77](https://github.com/DigitalExcellence/dex-frontend/issues/77)
 - Implemented wizard for GitHub and GitLab source url's - [#146](https://github.com/DigitalExcellence/dex-frontend/issues/146)
 - Added the pipeline for the frontend - [#143](https://github.com/DigitalExcellence/dex-frontend/issues/143)
+- Implemented 404 page and catch all route - [#99](https://github.com/DigitalExcellence/dex-frontend/issues/99)
 
 ### Changed
 
