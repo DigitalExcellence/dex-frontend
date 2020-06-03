@@ -9,6 +9,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   padding: 15px;
 }
+
 .highlight-form {
   margin-top: 20px;
   input[type="date"] {
@@ -24,6 +25,7 @@
       border: 1px solid #707070;
     }
   }
+  
   p.date-error-message {
     color: $accent-color-primary;
   }
@@ -31,10 +33,12 @@
   &__checkbox {
     display: flex;
     align-items: center;
+
     input[type="checkbox"] {
       border: solid 1px #707070;
       margin-right: 15px;
     }
+    
     h4 {
       margin: 0;
     }
@@ -44,6 +48,7 @@
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
+
   button:nth-child(1) {
     margin-right: 15px;
   }

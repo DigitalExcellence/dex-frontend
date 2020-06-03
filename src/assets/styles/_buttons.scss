@@ -29,12 +29,14 @@ button {
         color: white;
         font-size: 14px;
         padding: 12px 30px;
+
       &:focus, &:active{
         background: #bb4b34;
         border:none;
         outline:none;
       }
     }
+    
     &.cancel {
         background: #8E8E8E;
         box-shadow: 0 3px 6px #00000029;
@@ -46,7 +48,8 @@ button {
         color: white;
         font-size: 14px;
         padding: 12px 30px;
-      &:focus, &:active{
+        
+      &:focus, &:active {
         background: #696969;
         border:none;
         outline:none;
