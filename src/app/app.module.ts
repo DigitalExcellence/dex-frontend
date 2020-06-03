@@ -32,6 +32,7 @@ import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { AlertComponent } from './components/alert/alert.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +41,9 @@ import { AlertComponent } from './components/alert/alert.component';
     HomeComponent,
     AuthCallbackComponent,
     TopHighlightCardsComponent,
+    AlertComponent,
     FooterComponent,
-    AlertComponent
+    NotFoundComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),

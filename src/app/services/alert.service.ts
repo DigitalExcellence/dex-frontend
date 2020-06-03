@@ -36,7 +36,7 @@ export class AlertService {
   /**
    * Default timeout in milliseconds.
    */
-  private readonly defaultTimeout = 1000;
+  private readonly defaultTimeout = 5000;
 
   constructor() { }
 
