@@ -1,0 +1,9 @@
+@import "assets/styles/variables";
+
+.container-not-found {
+    text-align: center;
+
+    a {
+        color: $accent-color-primary;
+    }
+}

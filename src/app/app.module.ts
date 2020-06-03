@@ -33,6 +33,7 @@ import { SentryErrorHandler } from './error-handler/sentry.error-handler';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
 import { ModalHighlightComponent } from './components/modals/modal-highlight/modal-highlight.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TopHighlightCardsComponent,
     FooterComponent,
     ModalHighlightComponent,
+    NotFoundComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
