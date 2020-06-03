@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -112,5 +113,13 @@ export class DetailsComponent implements OnInit {
       }, () => {
         // TODO: display error message.
       });
+  }
+
+  /**
+   * Method to display the tags based on the environment variable.
+   * Tags should be hidden in production for now untill futher implementation is finished.
+   */
+  public displayTags(): boolean {
+    return !environment.production;
   }
 }

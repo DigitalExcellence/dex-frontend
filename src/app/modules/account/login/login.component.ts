@@ -24,10 +24,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private authService: AuthService) {}
-  title = 'Sign in';
+  constructor(private authService: AuthService) { }
+  public readonly title = 'Sign in';
 
-  public loginIdentityServer() {
+  /**
+   * Method which triggers when the login FHICT button is pressed.
+   */
+  public onClickLoginFHICT() {
     this.authService.login();
   }
 }

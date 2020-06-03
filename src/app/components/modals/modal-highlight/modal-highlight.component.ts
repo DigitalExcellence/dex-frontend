@@ -9,6 +9,9 @@ export interface HighlightFormResult {
   indeterminate: boolean;
 }
 
+/**
+ * Pop-up modal with duration settings for highlighting a project.
+ */
 @Component({
   selector: 'app-modal',
   templateUrl: './modal-highlight.component.html',
