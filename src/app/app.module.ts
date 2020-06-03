@@ -32,6 +32,8 @@ import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { AlertComponent } from './components/alert/alert.component';
+import { ModalHighlightComponent } from './components/modals/modal-highlight/modal-highlight.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
@@ -43,16 +45,18 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     TopHighlightCardsComponent,
     AlertComponent,
     FooterComponent,
+    ModalHighlightComponent,
     NotFoundComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
     AlertModule.forRoot(),
+    ModalModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     {

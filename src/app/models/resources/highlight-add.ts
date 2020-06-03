@@ -17,6 +17,6 @@
 
 export interface HighlightAdd {
   projectId: number;
-  startDate: Date;
-  endDate: Date;
+  startDate?: Date;
+  endDate?: Date;
 }

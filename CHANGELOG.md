@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Get current user role from the backend - [#141](https://github.com/DigitalExcellence/dex-frontend/issues/141)
 - Implemented global error handling  & logging to Sentry - [#77](https://github.com/DigitalExcellence/dex-frontend/issues/77)
 - Implemented wizard for GitHub and GitLab source url's - [#146](https://github.com/DigitalExcellence/dex-frontend/issues/146)
+- Implemented the highlight modal - [#75](https://github.com/DigitalExcellence/dex-frontend/issues/75)
 - Added the pipeline for the frontend - [#143](https://github.com/DigitalExcellence/dex-frontend/issues/143)
 - Implemented alert service & displaying of alerts - [#76](https://github.com/DigitalExcellence/dex-frontend/issues/76)
 - Implemented 404 page and catch all route - [#99](https://github.com/DigitalExcellence/dex-frontend/issues/99)
@@ -32,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated favicon to match branding & added favicon support for various platforms - [#145](https://github.com/DigitalExcellence/dex-frontend/issues/145)
 - Hidden project tags for production mode - [#148](https://github.com/DigitalExcellence/dex-frontend/issues/148)
 - Changed Login page to display only one login with FHICT button & improved styling of login button - [#157](https://github.com/DigitalExcellence/dex-frontend/issues/157)
+- Moved accordion styling out of the global stylesheet and into the stylesheet of the overview component - [#106](https://github.com/DigitalExcellence/dex-frontend/issues/106)
 
 ### Deprecated
 
