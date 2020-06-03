@@ -30,7 +30,10 @@ export class LoginComponent {
   /**
    * Method which triggers when the login FHICT button is pressed.
    */
-  public onClickLoginFHICT(providerSchema?: string) {
-    this.authService.login(providerSchema);
+  public onClickLoginFHICT() {
+    this.authService.login('FHICT');
+  }
+  public onClickLoginIdentityServer(){
+    this.authService.login();
   }
 }
