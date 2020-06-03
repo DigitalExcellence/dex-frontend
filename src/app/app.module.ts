@@ -31,6 +31,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 import { SentryErrorHandler } from './error-handler/sentry.error-handler';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { errorHandlerFactory } from './error-handler/error-handler-factory';
     HomeComponent,
     AuthCallbackComponent,
     TopHighlightCardsComponent,
-    FooterComponent
+    FooterComponent,
+    NotFoundComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
