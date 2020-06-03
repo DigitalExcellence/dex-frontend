@@ -23,18 +23,45 @@
     <div class="projects-filter">
       <h3>Filter</h3>
       <accordion>
-        <accordion-group heading="Category">
+        <accordion-group heading="Category" isOpen="true">
           <form action="">
-            <input type="checkbox" name="category1" value="Code">
-            <label for="category1">Code</label><br>
-            <input type="checkbox" name="category2" value="Video">
-            <label for="category2">Video</label><br>
-            <input type="checkbox" name="category3" value="Research paper">
-            <label for="category3">Research paper</label>
+            <div>
+              <input id="code" name="code" type="checkbox" value="Code">
+              <label for="code"><span class="icon"><img alt="" src="assets/images/code.svg"></span> Code</label>
+            </div>
+            <div>
+              <input id="video" name="video" type="checkbox" value="Video">
+              <label for="video"><span class="icon"><img alt="" src="assets/images/video.svg"></span> Video</label>
+            </div>
+            <div>
+              <input id="research-paper" name="researchPaper" type="checkbox" value="Research paper">
+              <label for="research-paper"><span class="icon"><img alt="" src="assets/images/theses.svg"></span> Research paper</label>
+            </div>
+            <div>
+              <input id="survey-results" name="surveyResults" type="checkbox" value="Survey results">
+              <label for="survey-results"><span class="icon"><img alt="" src="assets/images/usertest.svg"></span> Survey results</label>
+            </div>
           </form>
         </accordion-group>
-        <accordion-group heading="Tags">
-          <p>Some content</p>
+        <accordion-group heading="Tags" isOpen="true">
+          <form action="">
+            <div>
+              <input id="learning" type="checkbox">
+              <label for="learning">Learning</label>
+            </div>
+            <div>
+              <input id="research" type="checkbox">
+              <label for="research">Research</label>
+            </div>
+            <div>
+              <input id="mobile" type="checkbox">
+              <label for="mobile">Mobile</label>
+            </div>
+            <div>
+              <input id="ux" type="checkbox">
+              <label for="ux">UX</label>
+            </div>
+          </form>
         </accordion-group>
         <accordion-group heading="Sort options">
           <p>Some content</p>
@@ -50,7 +77,7 @@
   <div class="col-10">
     <div class="search">
       <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onSearchInput($event)">
-      <button><img src="assets/images/research.svg"></button>
+      <button><img alt="" src="assets/images/research.svg"></button>
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
