@@ -24,6 +24,10 @@ import { ProjectService } from 'src/app/services/project.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
+import { switchMap } from 'rxjs/operators';
+
 
 /**
  * Overview of a single project
@@ -44,7 +48,8 @@ export class DetailsComponent implements OnInit {
     private activedRoute: ActivatedRoute,
     private projectService: ProjectService,
     private authService: AuthService,
-    private highlightService: HighlightService
+    private highlightService: HighlightService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
@@ -75,12 +80,39 @@ export class DetailsComponent implements OnInit {
 
   /**
    * Highlight a project by calling the API
-   * For now, the highlight is infinite duration.
-   * This should be changed when modals are implemented
+   * When Indeterminate checkbox is checked start date and end date fields are disabled and will be null,
+   * resulting in an infinite highlight.
    */
   public onClickHighlightButton(): void {
-    const hightlightAdd: HighlightAdd = { projectId: this.project.id, startDate: null, endDate: null };
-    this.highlightService.post(hightlightAdd).subscribe((result) => { });
+    if (this.project == null || this.project.id === 0) {
+      // TODO: Show appropriate error message: project id could not be found and therefore not be highlighted.
+      return;
+    }
+    const modalRef = this.modalService.show(ModalHighlightComponent);
+
+    modalRef.content.confirm
+      .pipe(
+        switchMap((highlightFormResult: HighlightFormResult) => {
+          // Use result of confirm subscription to call the api.
+          const highlightAddResource: HighlightAdd = {
+            projectId: this.project.id,
+            startDate: highlightFormResult.startDate,
+            endDate: highlightFormResult.endDate
+          };
+
+          if (highlightFormResult.indeterminate) {
+            highlightAddResource.startDate = null;
+            highlightAddResource.endDate = null;
+          }
+
+          return this.highlightService.post(highlightAddResource);
+        })
+      )
+      .subscribe((highlightFormResult: HighlightFormResult) => {
+        // TODO: display success message.
+      }, () => {
+        // TODO: display error message.
+      });
   }
 
   /**
