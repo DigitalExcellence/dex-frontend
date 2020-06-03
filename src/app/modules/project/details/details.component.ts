@@ -79,7 +79,8 @@ export class DetailsComponent implements OnInit {
 
   /**
    * Highlight a project by calling the API
-   * When Indeterminate checkbox is checked start date and end date are null
+   * When Indeterminate checkbox is checked start date and end date fields are disabled and will be null,
+   * resulting in an infinite highlight. 
    */
   public onClickHighlightButton(): void {
     if (this.project == null || this.project.id === 0) {
