@@ -129,6 +129,15 @@
   }
 }
 
+.custom-alert {
+  padding: 39px;
+  max-width: 1640px;
+  min-width: 100%;
+  position: fixed;
+  top: 50px;
+  z-index: 10;
+}
+
 .dropdown-menu {
   left: auto !important;
   right: 0 !important;

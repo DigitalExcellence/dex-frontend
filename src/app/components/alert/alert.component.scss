@@ -16,3 +16,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
+::ng-deep .alert {
+    margin: 0;
+    box-shadow: 0 3px 6px #0000001a;
+}
