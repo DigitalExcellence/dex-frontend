@@ -16,31 +16,18 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/services/alert.service';
-import { AlertType } from 'src/app/models/internal/alert-type';
-import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { Component } from '@angular/core';
 
+/**
+ * Component which functions as the landing page of the application.
+ */
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  constructor(
-    private alertService: AlertService
-  ) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    // For demonstration purposes for the PR.
-
-    // const alertConfig: AlertConfig = {
-    //   type: AlertType.info,
-    //   preMessage: 'Premessage content',
-    //   mainMessage: 'This is the main message of an alert',
-    //   dismissible: false
-    // };
-    // this.alertService.pushAlert(alertConfig);
-  }
 }
