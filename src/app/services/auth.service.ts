@@ -58,12 +58,14 @@ export class AuthService {
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
-
-  /**
-   * Logins auth service
-   * @returns login
-   */
-  public login(): Promise<void> {
+/**
+ * Logins auth service
+ * @returns login 
+ */
+public login(providerSchema?: string): Promise<void> {
+    if(providerSchema != null){
+      this.manager.settings.extraQueryParams = {"provider": providerSchema}
+    }
     return this.manager.signinRedirect();
   }
 
@@ -137,7 +139,9 @@ export class AuthService {
  */
 export function getClientSettings(): UserManagerSettings {
   return {
-    authority: environment.identityServerUrl,
+    // authority: environment.identityServerUrl,
+    authority: "https://localhost:5005/",
+    // authorization_endpoint: "External/Challenge",
     client_id: environment.identityClientId,
     redirect_uri: environment.identityRedirectUri,
     post_logout_redirect_uri: environment.identityLogoutRedirectUri,
