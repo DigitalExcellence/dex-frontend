@@ -16,18 +16,3 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component } from '@angular/core';
-
-/**
- * Component which functions as the landing page of the application.
- */
-@Component({
-  selector: 'home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-})
-export class HomeComponent {
-
-  constructor() { }
-
-}

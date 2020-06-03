@@ -29,8 +29,9 @@ import { SharedModule } from './modules/shared/shared.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './components/footer/footer.component';
 import { HttpErrorInterceptor } from './interceptors/http.interceptor';
-import { SentryErrorHandler } from './error-handler/sentry.error-handler';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { AlertComponent } from './components/alert/alert.component';
 import { ModalHighlightComponent } from './components/modals/modal-highlight/modal-highlight.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -42,12 +43,14 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     HomeComponent,
     AuthCallbackComponent,
     TopHighlightCardsComponent,
+    AlertComponent,
     FooterComponent,
     ModalHighlightComponent,
     NotFoundComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
+    AlertModule.forRoot(),
     ModalModule.forRoot(),
     BrowserModule,
     AppRoutingModule,

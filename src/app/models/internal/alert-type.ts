@@ -1,5 +1,4 @@
 /*
- *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -14,20 +13,15 @@
  *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
- *
  */
-import { Component } from '@angular/core';
 
 /**
- * Component which functions as the landing page of the application.
+ * Enum to define the type of alert used by NGX bootstrap.
+ * See documentation for reference: https://valor-software.com/ngx-bootstrap/#/alerts
  */
-@Component({
-  selector: 'home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-})
-export class HomeComponent {
-
-  constructor() { }
-
+export enum AlertType {
+    'success',
+    'info',
+    'warning',
+    'danger'
 }

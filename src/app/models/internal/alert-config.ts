@@ -16,18 +16,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component } from '@angular/core';
 
-/**
- * Component which functions as the landing page of the application.
- */
-@Component({
-  selector: 'home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-})
-export class HomeComponent {
-
-  constructor() { }
-
+import { AlertType } from 'src/app/models/internal/alert-type';
+export interface AlertConfig {
+    type: AlertType;
+    preMessage?: string;
+    mainMessage: string;
+    dismissible?: boolean;
+    timeout?: number;
 }
