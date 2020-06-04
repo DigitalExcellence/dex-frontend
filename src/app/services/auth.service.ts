@@ -18,7 +18,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { User, UserManager, UserManagerSettings } from 'oidc-client';
+import { User, UserManager, UserManagerSettings, WebStorageStateStore } from 'oidc-client';
 import { User as BackendUser } from 'src/app/models/domain/user';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -36,39 +36,32 @@ export class AuthService {
   // Observable navItem stream
   authNavStatus$: Observable<boolean> = this._authNavStatusSource.asObservable();
 
-  private manager: UserManager = new UserManager(getClientSettings());
+  private manager: UserManager;
   private user: User | null;
   private backenduser: BackendUser | null;
   private http: HttpClient;
 
-  /**
-   * Creates an instance of auth service.
-   * @param http httpclient
-   */
   constructor(http: HttpClient) {
+    this.manager = new UserManager(getClientSettings());
     this.http = http;
-  }
 
-  /**
-   * on init
-   */
-  ngOnInit() {
     this.manager.getUser().then((user) => {
+      console.log(user);
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
 
   /**
-   * Logins auth service
-   * @returns login
+   * Logins user in via the UserManager.
+   * @returns the login promise.
    */
   public login(): Promise<void> {
     return this.manager.signinRedirect();
   }
 
   /**
-   * Completes authentication
+   * Method to complete authentication.
    */
   public async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
@@ -77,15 +70,15 @@ export class AuthService {
   }
 
   /**
-   * Gets backend user
-   * @returns backend user
+   * Gets the backend user.
+   * @returns the backend user.
    */
   public async getBackendUser(): Promise<BackendUser> {
-      return this.http.get<BackendUser>(`${API_CONFIG.url}User`).toPromise();
+    return this.http.get<BackendUser>(`${API_CONFIG.url}User`).toPromise();
   }
   /**
-   * Gets current role
-   * @returns current role
+   * Gets current role of the backend user.
+   * @returns current role.
    */
   public getCurrentRole(): Role {
     if (this.backenduser == null || this.backenduser.role == null) {
@@ -95,15 +88,15 @@ export class AuthService {
   }
 
   /**
-   * Determines whether user is authenticated
-   * @returns true if authenticated
+   * Determines whether user is authenticated.
+   * @returns true if authenticated.
    */
   public isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
   }
 
   /**
-   * Gets authorization header value
+   * Gets the authorization header value.
    */
   public get authorizationHeaderValue(): string {
     if (this) {
@@ -112,7 +105,7 @@ export class AuthService {
   }
 
   /**
-   * Gets name
+   * Gets the name of the user.
    */
   public get name(): string {
     if (this.user == null) {
@@ -123,8 +116,8 @@ export class AuthService {
   }
 
   /**
-   * Signouts auth service
-   * @returns signout
+   * Methods to signout the current user.
+   * @returns Signout promise.
    */
   public async signout(): Promise<void> {
     await this.manager.signoutRedirect();
@@ -132,8 +125,8 @@ export class AuthService {
 }
 
 /**
- * Gets client settings
- * @returns client settings
+ * Gets client settings.
+ * @returns client settings.
  */
 export function getClientSettings(): UserManagerSettings {
   return {
@@ -147,5 +140,6 @@ export function getClientSettings(): UserManagerSettings {
     loadUserInfo: true,
     automaticSilentRenew: true,
     silent_redirect_uri: environment.identitySilentRedirectUri,
+    // userStore: new WebStorageStateStore({ store: window.localStorage })
   };
 }
