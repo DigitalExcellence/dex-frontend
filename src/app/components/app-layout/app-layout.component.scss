@@ -129,12 +129,16 @@
   }
 }
 
-.custom-alert {
-  padding: 39px;
-  max-width: 1640px;
-  min-width: 100%;
+.alert-container {
   position: fixed;
-  top: 50px;
+  top: 65px;
+  left: 0;
+  right: 0;
+  padding: 39px;
+  max-width: 1000px;
+  min-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
   z-index: 10;
 }
 

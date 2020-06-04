@@ -20,7 +20,7 @@
     <ng-container *ngFor="let alert of alerts">
 
         <alert [type]="alertType[alert.type]" [dismissible]="alert.dismissible">
-            <strong>{{alert.preMessage}}</strong> {{alert.mainMessage}}.
+            <strong>{{alert.preMessage}}</strong> {{alert.mainMessage}}
         </alert>
 
     </ng-container>
