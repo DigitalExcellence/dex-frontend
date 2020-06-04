@@ -20,7 +20,7 @@ import { Observable, EMPTY } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import * as Sentry from '@sentry/browser';
 import { environment } from 'src/environments/environment';
-import { AlertType } from '../models/internal/alert-type';
+import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertService } from 'src/app/services/alert.service';
 import { DeXHttpErrorResponse } from 'src/app/models/internal/dex-http-error-response';
@@ -45,7 +45,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             retry(1),
             catchError((httpErrorResponse: DeXHttpErrorResponse) => {
-                console.log(httpErrorResponse);
                 // Create and send alert.
                 if (httpErrorResponse.status === 0) {
                     // API Could not be reached
@@ -67,6 +66,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
     /**
      * Method to return the default error AlertConfig for HttpInterceptor
+     * @param preMessage the alert message prefix.
+     * @param mainMessage the alert message main content.
      */
     private createErrorAlertConfig(preMessage: string, mainMessage: string): AlertConfig {
         const alertConfig: AlertConfig = {
@@ -74,7 +75,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             preMessage: preMessage,
             mainMessage: mainMessage,
             dismissible: true,
-            // timeout: this.alertService.defaultTimeout
+            timeout: this.alertService.defaultTimeout
         };
         return alertConfig;
     }
