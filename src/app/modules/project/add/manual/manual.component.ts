@@ -1,6 +1,3 @@
-import { AlertType } from 'src/app/models/internal/alert-type';
-import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { AlertService } from 'src/app/services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -17,7 +14,9 @@ import { AlertService } from 'src/app/services/alert.service';
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertService } from 'src/app/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -84,6 +83,14 @@ export class ManualComponent implements OnInit {
   public onClickSubmit(): void {
     if (!this.newProjectForm.valid) {
       this.newProjectForm.markAllAsTouched();
+      const alertConfig: AlertConfig = {
+        type: AlertType.warning,
+        preMessage: 'The add project form is invalid',
+        mainMessage: 'The project could not be saved, please fill all required fields',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
 
@@ -93,7 +100,7 @@ export class ManualComponent implements OnInit {
     this.projectService
       .post(newProject)
       .pipe(finalize(() => (this.submitEnabled = false)))
-      .subscribe((result) => {
+      .subscribe(() => {
         this.router.navigate([`/project/overview`]);
       });
   }
@@ -106,8 +113,8 @@ export class ManualComponent implements OnInit {
     if (!this.newCollaboratorForm.valid) {
       const alertConfig: AlertConfig = {
         type: AlertType.warning,
-        preMessage: 'The form is invalid',
-        mainMessage: 'The collaborator could not be added',
+        preMessage: 'The add collaborator form is invalid',
+        mainMessage: 'Collaborator could not be added',
         dismissible: true,
         timeout: this.alertService.defaultTimeout
       };
@@ -127,7 +134,13 @@ export class ManualComponent implements OnInit {
   public onClickDeleteCollaborator(clickedCollaborator: CollaboratorAdd): void {
     const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
     if (index < 0) {
-      // Todo display error.
+      const alertConfig: AlertConfig = {
+        type: AlertType.warning,
+        mainMessage: 'Collaborator could not be removed',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
     this.collaborators.splice(index, 1);

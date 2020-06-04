@@ -1,4 +1,3 @@
-import { environment } from 'src/environments/environment';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -15,8 +14,7 @@ import { environment } from 'src/environments/environment';
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-
-import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
@@ -27,6 +25,9 @@ import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
 import { switchMap } from 'rxjs/operators';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
 
 
 /**
@@ -49,7 +50,8 @@ export class DetailsComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     private highlightService: HighlightService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -69,11 +71,6 @@ export class DetailsComponent implements OnInit {
     this.projectService.get(id).subscribe(
       (result) => {
         this.project = result;
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status !== 404) {
-          // TODO: Return a user friendly error
-        }
       }
     );
   }
@@ -85,7 +82,14 @@ export class DetailsComponent implements OnInit {
    */
   public onClickHighlightButton(): void {
     if (this.project == null || this.project.id === 0) {
-      // TODO: Show appropriate error message: project id could not be found and therefore not be highlighted.
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: 'Project could not be highlighted',
+        mainMessage: 'Project id could not be found',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
     const modalRef = this.modalService.show(ModalHighlightComponent);
@@ -109,9 +113,13 @@ export class DetailsComponent implements OnInit {
         })
       )
       .subscribe((highlightFormResult: HighlightFormResult) => {
-        // TODO: display success message.
-      }, () => {
-        // TODO: display error message.
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'Project was successfully highlighted',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
       });
   }
 
