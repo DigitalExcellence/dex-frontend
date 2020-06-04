@@ -33,7 +33,7 @@ export class LoginComponent {
   public onClickLoginFHICT() {
     this.authService.login('FHICT');
   }
-  public onClickLoginIdentityServer(){
+  public onClickLoginIdentityServer() {
     this.authService.login();
   }
 }

@@ -60,11 +60,11 @@ export class AuthService {
   }
 /**
  * Logins auth service
- * @returns login 
+ * @returns login
  */
-public login(providerSchema?: string): Promise<void> {
-    if(providerSchema != null){
-      this.manager.settings.extraQueryParams = {"provider": providerSchema}
+  public login(providerSchema?: string): Promise<void>{
+    if(providerSchema != null) {
+      this.manager.settings.extraQueryParams = {'provider': providerSchema};
     }
     return this.manager.signinRedirect();
   }
@@ -139,9 +139,7 @@ public login(providerSchema?: string): Promise<void> {
  */
 export function getClientSettings(): UserManagerSettings {
   return {
-    // authority: environment.identityServerUrl,
-    authority: "https://localhost:5005/",
-    // authorization_endpoint: "External/Challenge",
+    authority: environment.identityServerUrl,
     client_id: environment.identityClientId,
     redirect_uri: environment.identityRedirectUri,
     post_logout_redirect_uri: environment.identityLogoutRedirectUri,
