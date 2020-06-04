@@ -62,8 +62,8 @@ export class AuthService {
  * Logins auth service
  * @returns login
  */
-  public login(providerSchema?: string): Promise<void>{
-    if(providerSchema != null) {
+  public login(providerSchema?: string): Promise<void> {
+    if (providerSchema != null) {
       this.manager.settings.extraQueryParams = {'provider': providerSchema};
     }
     return this.manager.signinRedirect();
