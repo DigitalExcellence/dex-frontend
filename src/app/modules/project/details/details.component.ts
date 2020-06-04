@@ -1,4 +1,3 @@
-import { environment } from 'src/environments/environment';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -27,7 +26,8 @@ import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
 import { switchMap } from 'rxjs/operators';
-
+import { User } from 'src/app/models/domain/user';
+import { environment } from 'src/environments/environment';
 
 /**
  * Overview of a single project
@@ -43,6 +43,8 @@ export class DetailsComponent implements OnInit {
    */
   public project: Project;
   public isAuthenticated: boolean;
+
+  private currentUser: User;
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -64,6 +66,11 @@ export class DetailsComponent implements OnInit {
 
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
+    });
+
+
+    this.authService.$user.subscribe((user) => {
+      this.currentUser = user;
     });
 
     this.projectService.get(id).subscribe(
@@ -121,5 +128,17 @@ export class DetailsComponent implements OnInit {
    */
   public displayTags(): boolean {
     return !environment.production;
+  }
+
+  /**
+   * Method to display the edit project button based on the current user and the project user.
+   * @param project The project to check if the current user is the owner.
+   */
+  public displayEditProjectButton(project: Project): boolean {
+    if (this.currentUser == null || project == null || project.user == null) {
+      return false;
+    }
+
+    return project.user.id === this.currentUser.id;
   }
 }

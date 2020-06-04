@@ -31,6 +31,10 @@ import { Role } from 'src/app/models/domain/role';
   providedIn: 'root',
 })
 export class AuthService {
+
+  // Observable containing the logged in user.
+  public $user = new BehaviorSubject<BackendUser>(null);
+
   // Observable navItem source
   private _authNavStatusSource: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   // Observable navItem stream
@@ -46,8 +50,12 @@ export class AuthService {
     this.http = http;
 
     this.manager.getUser().then((user) => {
-      console.log(user);
       this.user = user;
+
+      this.getBackendUser().then((backendUser) => {
+        this.backenduser = backendUser;
+        this.$user.next(backendUser);
+      });
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
@@ -66,6 +74,7 @@ export class AuthService {
   public async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
     this.backenduser = await this.getBackendUser();
+    this.$user.next(this.backenduser);
     this._authNavStatusSource.next(this.isAuthenticated());
   }
 
@@ -140,6 +149,5 @@ export function getClientSettings(): UserManagerSettings {
     loadUserInfo: true,
     automaticSilentRenew: true,
     silent_redirect_uri: environment.identitySilentRedirectUri,
-    // userStore: new WebStorageStateStore({ store: window.localStorage })
   };
 }

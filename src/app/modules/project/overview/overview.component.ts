@@ -1,4 +1,3 @@
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -15,7 +14,6 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -25,6 +23,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import { FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 /**
  * Overview of all the projects
@@ -117,7 +116,7 @@ export class OverviewComponent implements OnInit {
    * Triggers on project click in the list
    * @param id project id
    */
-  public onProjectClick(id: number): void {
+  public onClickProject(id: number): void {
     this.router.navigate([`/project/details/${id}`]);
   }
 

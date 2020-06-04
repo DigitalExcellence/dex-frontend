@@ -80,6 +80,9 @@
 </div>
 <div *ngIf="isAuthenticated">
   <app-embed-button></app-embed-button>
-  <button class="primary" routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
+  <ng-container *ngIf="displayEditProjectButton(project)">
+    <button class="primary" routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
+  </ng-container>
+
   <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
 </div>
