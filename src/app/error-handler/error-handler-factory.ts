@@ -1,3 +1,4 @@
+import { AlertService } from './../services/alert.service';
 /*
  *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
@@ -23,9 +24,9 @@ import { environment } from 'src/environments/environment';
 /**
  * Factory for selecting the right error handler based on the environment.
  */
-export function errorHandlerFactory() {
+export function errorHandlerFactory(alertService: AlertService) {
     if (environment.production) {
-        return new SentryErrorHandler();
+        return new SentryErrorHandler(alertService);
     }
     return new ErrorHandler();
 }

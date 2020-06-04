@@ -1,3 +1,4 @@
+import { AlertService } from './services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -71,7 +72,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     },
     {
       provide: ErrorHandler,
-      useFactory: errorHandlerFactory
+      useFactory: errorHandlerFactory,
+      deps: [AlertService]
     }
   ],
   bootstrap: [AppComponent],

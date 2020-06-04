@@ -15,20 +15,36 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import * as Sentry from '@sentry/browser';
-import { ErrorHandler } from '@angular/core';
+import { ErrorHandler, Inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertService } from 'src/app/services/alert.service';
 
 Sentry.init({
     dsn: environment.sentryDsnUrl
 });
 
+/**
+ * Error Handler which logs all errors to Sentry.
+ */
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
 
-    constructor() { }
+    constructor(
+        private alertService: AlertService
+    ) { }
 
     handleError(error: any) {
+        const alertConfig: AlertConfig = {
+            type: AlertType.danger,
+            mainMessage: 'Project was succesfully updated',
+            dismissible: true,
+            timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
+
         Sentry.captureException(error.originalError || error);
         throw error;
     }

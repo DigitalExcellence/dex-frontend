@@ -96,7 +96,7 @@ export class EditComponent implements OnInit {
       this.editProjectForm.markAllAsTouched();
 
       const alertConfig: AlertConfig = {
-        type: AlertType.warning,
+        type: AlertType.danger,
         preMessage: 'The edit project form is invalid',
         mainMessage: 'The project could not be updated, please fill all required fields',
         dismissible: true,
@@ -131,7 +131,7 @@ export class EditComponent implements OnInit {
   public onClickAddCollaborator(): void {
     if (!this.editCollaboratorForm.valid) {
       const alertConfig: AlertConfig = {
-        type: AlertType.warning,
+        type: AlertType.danger,
         preMessage: 'The add collaborator form is invalid',
         mainMessage: 'Collaborator could not be added',
         dismissible: true,
@@ -154,7 +154,7 @@ export class EditComponent implements OnInit {
     const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
     if (index < 0) {
       const alertConfig: AlertConfig = {
-        type: AlertType.warning,
+        type: AlertType.danger,
         mainMessage: 'Collaborator could not be removed',
         dismissible: true,
         timeout: this.alertService.defaultTimeout

@@ -84,7 +84,7 @@ export class ManualComponent implements OnInit {
     if (!this.newProjectForm.valid) {
       this.newProjectForm.markAllAsTouched();
       const alertConfig: AlertConfig = {
-        type: AlertType.warning,
+        type: AlertType.danger,
         preMessage: 'The add project form is invalid',
         mainMessage: 'The project could not be saved, please fill all required fields',
         dismissible: true,
@@ -101,6 +101,13 @@ export class ManualComponent implements OnInit {
       .post(newProject)
       .pipe(finalize(() => (this.submitEnabled = false)))
       .subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'Project was succesfully saved',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
         this.router.navigate([`/project/overview`]);
       });
   }
@@ -112,7 +119,7 @@ export class ManualComponent implements OnInit {
   public onClickAddCollaborator(): void {
     if (!this.newCollaboratorForm.valid) {
       const alertConfig: AlertConfig = {
-        type: AlertType.warning,
+        type: AlertType.danger,
         preMessage: 'The add collaborator form is invalid',
         mainMessage: 'Collaborator could not be added',
         dismissible: true,
@@ -135,7 +142,7 @@ export class ManualComponent implements OnInit {
     const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
     if (index < 0) {
       const alertConfig: AlertConfig = {
-        type: AlertType.warning,
+        type: AlertType.danger,
         mainMessage: 'Collaborator could not be removed',
         dismissible: true,
         timeout: this.alertService.defaultTimeout
