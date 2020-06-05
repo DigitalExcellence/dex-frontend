@@ -157,7 +157,7 @@ export class OverviewComponent implements OnInit {
    */
   private searchAndFilterProjects(query: InternalSearchQuery): void {
     if (query == null) {
-      return;    
+      return;
     }
     this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
     .subscribe(result => {
