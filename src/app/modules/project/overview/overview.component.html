@@ -107,14 +107,10 @@
           </td>
         </tr>
       </table>
-      <pagination [totalItems]="projectsTotal.length" (pageChanged)="pageChanged($event)"></pagination>
-
     </ng-container>
-
-
     <ng-template #noProjects>There are no projects available.</ng-template>
-    <div *ngIf="amountOfProjectsOnSinglePage < paginationResponse.totalCount && showPaginationFooter" class="paginationDiv">
-      <pagination [(totalItems)]="paginationResponse.totalCount" [(itemsPerPage)]="amountOfProjectsOnSinglePage" (pageChanged)="pageChanged($event)" class="paginationFooter"></pagination>
+    <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="paginationDiv">
+      <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage" (pageChanged)="pageChanged($event)" class="paginationFooter"></pagination>
     </div>
   </div>
 </div>

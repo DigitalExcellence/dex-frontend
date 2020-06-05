@@ -72,6 +72,11 @@ export class OverviewComponent implements OnInit {
   private currentPage = 1;
 
   /**
+   * The number of projects that are on the platform
+   */
+  public totalNrOfProjects = 0;
+
+  /**
    * Default pagination option for the dropdown
    */
   public defaultPaginationOption = {
@@ -152,8 +157,7 @@ export class OverviewComponent implements OnInit {
    */
   private searchAndFilterProjects(query: InternalSearchQuery): void {
     if (query == null) {
-      return;
-      this.projectsTotal = this.projects;
+      return;    
     }
     this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
     .subscribe(result => {
@@ -204,6 +208,7 @@ export class OverviewComponent implements OnInit {
         this.paginationResponse = result;
         this.projects = result.results;
         this.projectsToDisplay = result.results;
+        this.totalNrOfProjects = result.totalCount;
       },
       (error: HttpErrorResponse) => {
         if (error.status !== 404) {
