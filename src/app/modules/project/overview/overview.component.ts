@@ -177,7 +177,7 @@ export class OverviewComponent implements OnInit {
    * @param event holds the current page of the pagination footer, as well as the amount
    * of projects that are being displayed on a single page
    */
-  pageChanged(event: PageChangedEvent): void {
+  public pageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
     this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
   }
@@ -187,7 +187,7 @@ export class OverviewComponent implements OnInit {
    * and based on that value retrieves the paginated projects with the right parameters.
    * @param $event the identifier of the selected value
    */
-  paginationDropDownSelectedValueChange($event: number) {
+  public onChangePaginationSelect($event: number) {
     this.amountOfProjectsOnSinglePage = this.paginationDropDownOptions[$event].amountOnPage;
     if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
       this.currentPage = 1;
@@ -209,12 +209,6 @@ export class OverviewComponent implements OnInit {
         this.projects = result.results;
         this.projectsToDisplay = result.results;
         this.totalNrOfProjects = result.totalCount;
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status !== 404) {
-          console.log('Could not retrieve the projects');
-        }
-        throw error;
       }
     );
   }

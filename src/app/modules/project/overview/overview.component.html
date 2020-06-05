@@ -71,7 +71,7 @@
         </accordion-group>
         <accordion-group heading="Pagination">
           <label>Nr. of projects</label>
-          <select (ngModelChange)="paginationDropDownSelectedValueChange($event)" [(ngModel)]=defaultPaginationOption.id>
+          <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]=defaultPaginationOption.id>
             <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption.id" class="paginationDropDown">{{paginationOption.amountOnPage}}</option>
           </select>
         </accordion-group>
@@ -109,8 +109,8 @@
       </table>
     </ng-container>
     <ng-template #noProjects>There are no projects available.</ng-template>
-    <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="paginationDiv">
-      <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage" (pageChanged)="pageChanged($event)" class="paginationFooter"></pagination>
+    <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
+      <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage" (pageChanged)="pageChanged($event)" class="pagination-footer"></pagination>
     </div>
   </div>
 </div>

@@ -18,16 +18,16 @@
  */
 @import "assets/styles/variables";
 
-.paginationDiv {
+.pagination-div {
   margin-left: 35%;
 }
 
-.paginationFooter::ng-deep .page-link {
+.pagination-footer::ng-deep .page-link {
   z-index: 1;
   color: #323232;
 }
 
-.paginationFooter::ng-deep .page-item.active .page-link {
+.pagination-footer::ng-deep .page-item.active .page-link {
   border-color: #e85b3f;
   background-color:#e85b3f !important;
   color: #ffffff;
