@@ -69,6 +69,12 @@
         <accordion-group heading="Upload date">
           <p>Some content</p>
         </accordion-group>
+        <accordion-group heading="Pagination">
+          <label>Nr. of projects</label>
+          <select (ngModelChange)="paginationDropDownSelectedValueChange($event)" [(ngModel)]=defaultPaginationOption.id>
+            <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption.id" class="paginationDropDown">{{paginationOption.amountOnPage}}</option>
+          </select>
+        </accordion-group>
       </accordion>
     </div>
   </div>
@@ -99,13 +105,13 @@
             <p class="large"><img alt="clock" class="icon"
                 src="assets/images/clock.svg">{{ project.created | date:'longDate' }}</p>
           </td>
-          <td class="icon">
-            <p class="large"><img alt="user" class="icon" src="assets/images/user.svg">{{ project.user.name }}</p>
-          </td>
         </tr>
       </table>
     </ng-container>
 
     <ng-template #noProjects>There are no projects available.</ng-template>
+    <div *ngIf="amountOfProjectsOnSinglePage < paginationResponse.totalCount && showPaginationFooter" class="paginationDiv">
+      <pagination [(totalItems)]="paginationResponse.totalCount" [(itemsPerPage)]="amountOfProjectsOnSinglePage" (pageChanged)="pageChanged($event)" class="paginationFooter"></pagination>
+    </div>
   </div>
 </div>

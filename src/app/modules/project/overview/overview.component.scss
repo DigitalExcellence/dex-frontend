@@ -18,6 +18,25 @@
  */
 @import "assets/styles/variables";
 
+.paginationDiv {
+  margin-left: 35%;
+}
+
+.paginationFooter::ng-deep .page-link {
+  z-index: 1;
+  color: #323232;
+}
+
+.paginationFooter::ng-deep .page-item.active .page-link {
+  border-color: #e85b3f;
+  background-color:#e85b3f !important;
+  color: #ffffff;
+}
+
+.paginationDropDown {
+  width: 80px;
+}
+
 .search {
   display: flex;
   align-items: center;
