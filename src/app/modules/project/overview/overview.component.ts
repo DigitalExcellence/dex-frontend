@@ -42,6 +42,7 @@ export class OverviewComponent implements OnInit {
    */
   public projects: Project[] = [];
   public projectsToDisplay: Project[] = [];
+  public projectsTotal: Project[] = [];
 
   /**
    * Stores the response with the paginated projects etc. from the api.
@@ -152,6 +153,7 @@ export class OverviewComponent implements OnInit {
   private searchAndFilterProjects(query: InternalSearchQuery): void {
     if (query == null) {
       return;
+      this.projectsTotal = this.projects;
     }
     this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
     .subscribe(result => {
