@@ -1,4 +1,3 @@
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -16,7 +15,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, debounceTime } from 'rxjs/operators';
@@ -59,17 +58,10 @@ export class OverviewComponent implements OnInit {
    */
   public searchControl: FormControl = null;
 
-  private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
-
   /**
    * The amount of projects that will be displayed on a single page.
    */
   public amountOfProjectsOnSinglePage = 10;
-
-  /**
-   * The current selected page of the pagination footer.
-   */
-  private currentPage = 1;
 
   /**
    * The number of projects that are on the platform
@@ -94,6 +86,13 @@ export class OverviewComponent implements OnInit {
     { id: 1, amountOnPage: 20 },
     { id: 2, amountOnPage: 30 },
   ];
+
+   /**
+   * The current selected page of the pagination footer.
+   */
+  private currentPage = 1;
+
+  private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
 
   constructor(
     private router: Router,
@@ -150,29 +149,6 @@ export class OverviewComponent implements OnInit {
   }
 
   /**
-   * Method to search for projects based on the query.
-   * Filters projects based on the foundProjects matching the query.
-   * Modifies the projectToDisplay list based on the filter.
-   * @param query The query to search a project for.
-   */
-  private searchAndFilterProjects(query: InternalSearchQuery): void {
-    if (query == null) {
-      return;
-    }
-    this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
-    .subscribe(result => {
-      const foundProjects = result.results;
-      if (foundProjects == null || this.projects == null) {
-        return;
-      }
-      if (foundProjects.length < this.amountOfProjectsOnSinglePage) {
-        this.showPaginationFooter = false;
-      }
-      this.projectsToDisplay = foundProjects;
-    });
-  }
-
-  /**
    * Method that retrieves the page of the pagination footer when the user selects a new one
    * @param event holds the current page of the pagination footer, as well as the amount
    * of projects that are being displayed on a single page
@@ -193,6 +169,29 @@ export class OverviewComponent implements OnInit {
       this.currentPage = 1;
     }
     this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
+  }
+
+  /**
+   * Method to search for projects based on the query.
+   * Filters projects based on the foundProjects matching the query.
+   * Modifies the projectToDisplay list based on the filter.
+   * @param query The query to search a project for.
+   */
+  private searchAndFilterProjects(query: InternalSearchQuery): void {
+    if (query == null) {
+      return;
+    }
+    this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
+    .subscribe(result => {
+      const foundProjects = result.results;
+      if (foundProjects == null || this.projects == null) {
+        return;
+      }
+      if (foundProjects.length < this.amountOfProjectsOnSinglePage) {
+        this.showPaginationFooter = false;
+      }
+      this.projectsToDisplay = foundProjects;
+    });
   }
 
   /**
