@@ -15,17 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { User } from './user';
-import { Collaborator } from './collaborator';
-
-export interface Project {
-  id: number;
-  user?: User;
-  name: string;
-  description?: string;
-  shortDescription?: string;
-  created: Date;
-  updated: Date;
-  uri?: string;
-  collaborators?: Collaborator[];
-}
+import { Project } from 'src/app/models/domain/project';
+export interface Pagination {
+    count: number;
+    page: number;
+    query?: string;
+    results: Project[];
+    totalCount: number;
+    totalPages: number;
+  }
