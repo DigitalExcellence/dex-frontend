@@ -24,11 +24,12 @@ import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
-import { switchMap } from 'rxjs/operators';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
-
+import { switchMap, first, flatMap } from 'rxjs/operators';
+import { User } from 'src/app/models/domain/user';
+import { throwError } from 'rxjs';
 
 /**
  * Overview of a single project
@@ -44,6 +45,9 @@ export class DetailsComponent implements OnInit {
    */
   public project: Project;
   public isAuthenticated: boolean;
+  public displayEditButton = false;
+
+  private currentUser: User;
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -129,5 +133,16 @@ export class DetailsComponent implements OnInit {
    */
   public displayTags(): boolean {
     return !environment.production;
+  }
+
+  /**
+   * Method to display the edit project button based on the current user and the project user.
+   * @param project The project to check if the current user is the owner.
+   */
+  private determineDisplayEditProjectButton(): void {
+    if (this.currentUser == null || this.project == null || this.project.user == null) {
+      this.displayEditButton = false;
+    }
+    this.displayEditButton = this.project.user.id === this.currentUser.id;
   }
 }
