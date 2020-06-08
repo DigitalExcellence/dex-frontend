@@ -48,21 +48,21 @@
           </form>
         </accordion-group>
         <accordion-group heading="Tags" isOpen="true">
-          <form action="">
+          <form [formGroup]="tagsForm">
             <div>
-              <input id="learning" type="checkbox">
+              <input formControlName="learning" id="learning" type="checkbox">
               <label for="learning">Learning</label>
             </div>
             <div>
-              <input id="research" type="checkbox">
+              <input formControlName="research" id="research" type="checkbox">
               <label for="research">Research</label>
             </div>
             <div>
-              <input id="mobile" type="checkbox">
+              <input formControlName="mobile" id="mobile" type="checkbox">
               <label for="mobile">Mobile</label>
             </div>
             <div>
-              <input id="ux" type="checkbox">
+              <input formControlName="ux" id="ux" type="checkbox">
               <label for="ux">UX</label>
             </div>
           </form>

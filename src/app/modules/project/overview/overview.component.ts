@@ -1,4 +1,3 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -15,7 +14,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, debounceTime } from 'rxjs/operators';
@@ -27,12 +25,20 @@ import { PaginationService } from 'src/app/services/pagination.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Pagination } from 'src/app/models/domain/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 interface CategoryFormResult {
-  code: false;
-  video: false;
-  research_paper: false;
-  survey_results: false;
+  code: boolean;
+  video: boolean;
+  research_paper: boolean;
+  survey_results: boolean;
+}
+
+interface TagFormResult {
+  learning: boolean;
+  reserach: boolean;
+  mobile: boolean;
+  ux: boolean;
 }
 
 /**
@@ -96,13 +102,21 @@ export class OverviewComponent implements OnInit {
   ];
 
   /**
+   * FormGroup for the category search option.
+   */
+  public categoryForm: FormGroup;
+
+  /**
+   * FormGroup for the tags search option.
+   */
+  public tagsForm: FormGroup;
+
+  /**
   * The current selected page of the pagination footer.
   */
   private currentPage = 1;
 
   private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
-
-  public categoryForm: FormGroup;
 
   constructor(
     private router: Router,
@@ -117,6 +131,13 @@ export class OverviewComponent implements OnInit {
       research_paper: false,
       survey_results: false
     });
+
+    this.tagsForm = this.formBuilder.group({
+      learning: false,
+      research: false,
+      mobile: false,
+      ux: false
+    });
   }
 
   ngOnInit(): void {
@@ -130,9 +151,14 @@ export class OverviewComponent implements OnInit {
         this.searchAndFilterProjects(searchQuery);
       });
 
-    this.categoryForm.valueChanges.subscribe((values: CategoryFormResult) => {
-      console.log(values);
-    });
+    // Following two oberservables can be used in the feature to implement category & tags searching
+    // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {
+    //   console.log(categoryFormResult);
+    // });
+
+    // this.tagsForm.valueChanges.subscribe((tagFormResult: TagFormResult) => {
+    //   console.log(tagFormResult);
+    // });
   }
 
   /**
