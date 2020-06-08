@@ -25,6 +25,7 @@ import { Collaborator } from '../models/domain/collaborator';
 import { GitHubRepo } from '../models/resources/external/github/repo';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { StringUtils } from '../utils/string.utils';
+import { HttpBackend } from '@angular/common/http';
 
 /**
  * Service to fetch a repo and it's details from Github.
@@ -48,9 +49,13 @@ export class WizardGithubService implements GenericWizard {
     'github.com/'
   ];
 
+  private httpClient: HttpClient;
+
   constructor(
-    private httpClient: HttpClient
-  ) { }
+    private httpBackend: HttpBackend
+  ) {
+    this.httpClient = new HttpClient(httpBackend);
+  }
 
   public fetchProjectDetails(uri: string): Observable<MappedProject> {
     // Fetch the repo name & owner from the uri.
