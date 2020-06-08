@@ -1,3 +1,4 @@
+import { FormBuilder, FormGroup } from '@angular/forms';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -26,6 +27,13 @@ import { PaginationService } from 'src/app/services/pagination.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Pagination } from 'src/app/models/domain/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+
+interface CategoryFormResult {
+  code: false;
+  video: false;
+  research_paper: false;
+  survey_results: false;
+}
 
 /**
  * Overview of all the projects
@@ -87,18 +95,28 @@ export class OverviewComponent implements OnInit {
     { id: 2, amountOnPage: 30 },
   ];
 
-   /**
-   * The current selected page of the pagination footer.
-   */
+  /**
+  * The current selected page of the pagination footer.
+  */
   private currentPage = 1;
 
   private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
 
+  public categoryForm: FormGroup;
+
   constructor(
     private router: Router,
     private paginationService: PaginationService,
-    private internalSearchService: InternalSearchService) {
+    private internalSearchService: InternalSearchService,
+    private formBuilder: FormBuilder) {
     this.searchControl = new FormControl('');
+
+    this.categoryForm = this.formBuilder.group({
+      code: false,
+      video: false,
+      research_paper: false,
+      survey_results: false
+    });
   }
 
   ngOnInit(): void {
@@ -111,6 +129,10 @@ export class OverviewComponent implements OnInit {
       .subscribe((searchQuery) => {
         this.searchAndFilterProjects(searchQuery);
       });
+
+    this.categoryForm.valueChanges.subscribe((values: CategoryFormResult) => {
+      console.log(values);
+    });
   }
 
   /**
@@ -182,16 +204,16 @@ export class OverviewComponent implements OnInit {
       return;
     }
     this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
-    .subscribe(result => {
-      const foundProjects = result.results;
-      if (foundProjects == null || this.projects == null) {
-        return;
-      }
-      if (foundProjects.length < this.amountOfProjectsOnSinglePage) {
-        this.showPaginationFooter = false;
-      }
-      this.projectsToDisplay = foundProjects;
-    });
+      .subscribe(result => {
+        const foundProjects = result.results;
+        if (foundProjects == null || this.projects == null) {
+          return;
+        }
+        if (foundProjects.length < this.amountOfProjectsOnSinglePage) {
+          this.showPaginationFooter = false;
+        }
+        this.projectsToDisplay = foundProjects;
+      });
   }
 
   /**
@@ -201,14 +223,15 @@ export class OverviewComponent implements OnInit {
    */
   private getProjectsWithPaginationParams(currentPage: number, numberOfProjectsOnSinglePage: number): void {
     this.paginationService.getProjectsPaginated(currentPage, numberOfProjectsOnSinglePage)
-    .pipe(finalize(() => (this.projectsLoading = false)))
-    .subscribe(
-      (result) => {
-        this.paginationResponse = result;
-        this.projects = result.results;
-        this.projectsToDisplay = result.results;
-        this.totalNrOfProjects = result.totalCount;
-      }
-    );
+      .pipe(finalize(() => (this.projectsLoading = false)))
+      .subscribe(
+        (result) => {
+          this.paginationResponse = result;
+          this.projects = result.results;
+          this.projectsToDisplay = result.results;
+          this.totalNrOfProjects = result.totalCount;
+          console.log(this.projects);
+        }
+      );
   }
 }
