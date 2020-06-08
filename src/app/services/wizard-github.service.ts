@@ -54,6 +54,7 @@ export class WizardGithubService implements GenericWizard {
   constructor(
     private httpBackend: HttpBackend
   ) {
+    // Initialize a new httpClient so that this service does not trigger the auth interceptor.
     this.httpClient = new HttpClient(httpBackend);
   }
 
