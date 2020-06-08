@@ -42,8 +42,8 @@ export class InternalSearchService {
   }
 
   getSearchResultsPaginated(internalSearchQuery: InternalSearchQuery, page: number, amountOnPage: number):
-  Observable<SearchResultsResource> {
+    Observable<SearchResultsResource> {
     return this.http.get<SearchResultsResource>(`${API_CONFIG.url}${API_CONFIG.internalSearchRoute}/${internalSearchQuery.query}`
-    + '?page=' + `${page}` + '&amountOnPage=' + `${amountOnPage}`);
+      + '?page=' + `${page}` + '&amountOnPage=' + `${amountOnPage}`);
   }
 }
