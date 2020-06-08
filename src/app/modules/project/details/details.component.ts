@@ -15,7 +15,6 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
@@ -25,9 +24,10 @@ import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, first, flatMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
 import { environment } from 'src/environments/environment';
+import { throwError } from 'rxjs';
 
 /**
  * Overview of a single project
@@ -43,6 +43,7 @@ export class DetailsComponent implements OnInit {
    */
   public project: Project;
   public isAuthenticated: boolean;
+  public displayEditButton = false;
 
   private currentUser: User;
 
@@ -68,21 +69,24 @@ export class DetailsComponent implements OnInit {
       this.isAuthenticated = status;
     });
 
-
-    this.authService.$user.subscribe((user) => {
-      this.currentUser = user;
-    });
-
-    this.projectService.get(id).subscribe(
-      (result) => {
-        this.project = result;
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status !== 404) {
-          // TODO: Return a user friendly error
+    this.projectService.get(id)
+      .pipe(
+        flatMap(project => {
+          if (project == null) {
+            return throwError(`Could not fetch project for id: ${id}`);
+          }
+          this.project = project;
+          return this.authService.$user.pipe(
+            first()
+          );
+        })
+      ).subscribe(user => {
+        if (user == null) {
+          return;
         }
-      }
-    );
+        this.currentUser = user;
+        this.determineDisplayEditProjectButton();
+      });
   }
 
   /**
@@ -115,7 +119,7 @@ export class DetailsComponent implements OnInit {
           return this.highlightService.post(highlightAddResource);
         })
       )
-      .subscribe((highlightFormResult: HighlightFormResult) => {
+      .subscribe(() => {
         // TODO: display success message.
       }, () => {
         // TODO: display error message.
@@ -134,11 +138,10 @@ export class DetailsComponent implements OnInit {
    * Method to display the edit project button based on the current user and the project user.
    * @param project The project to check if the current user is the owner.
    */
-  public displayEditProjectButton(project: Project): boolean {
-    if (this.currentUser == null || project == null || project.user == null) {
-      return false;
+  private determineDisplayEditProjectButton(): void {
+    if (this.currentUser == null || this.project == null || this.project.user == null) {
+      this.displayEditButton = false;
     }
-
-    return project.user.id === this.currentUser.id;
+    this.displayEditButton = this.project.user.id === this.currentUser.id;
   }
 }

@@ -80,7 +80,7 @@
 </div>
 <div *ngIf="isAuthenticated">
   <app-embed-button></app-embed-button>
-  <ng-container *ngIf="displayEditProjectButton(project)">
+  <ng-container *ngIf="displayEditButton">
     <button class="primary" routerLink="/project/edit/{{ project?.id }}">Edit Project</button>
   </ng-container>
 
