@@ -20,12 +20,12 @@ import { Collaborator } from './collaborator';
 
 export interface Project {
   id: number;
-  user: User;
+  user?: User;
   name: string;
-  description: string;
+  description?: string;
   shortDescription?: string;
   created: Date;
   updated: Date;
-  uri: string;
-  collaborators: Collaborator[];
+  uri?: string;
+  collaborators?: Collaborator[];
 }

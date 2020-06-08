@@ -35,11 +35,13 @@
             </div>
             <div>
               <input id="research-paper" name="researchPaper" type="checkbox" value="Research paper">
-              <label for="research-paper"><span class="icon"><img alt="" src="assets/images/theses.svg"></span> Research paper</label>
+              <label for="research-paper"><span class="icon"><img alt="" src="assets/images/theses.svg"></span> Research
+                paper</label>
             </div>
             <div>
               <input id="survey-results" name="surveyResults" type="checkbox" value="Survey results">
-              <label for="survey-results"><span class="icon"><img alt="" src="assets/images/usertest.svg"></span> Survey results</label>
+              <label for="survey-results"><span class="icon"><img alt="" src="assets/images/usertest.svg"></span> Survey
+                results</label>
             </div>
           </form>
         </accordion-group>
@@ -69,6 +71,13 @@
         <accordion-group heading="Upload date">
           <p>Some content</p>
         </accordion-group>
+        <accordion-group heading="Pagination">
+          <label>Nr. of projects</label>
+          <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]=defaultPaginationOption.id>
+            <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption.id"
+              class="paginationDropDown">{{paginationOption.amountOnPage}}</option>
+          </select>
+        </accordion-group>
       </accordion>
     </div>
   </div>
@@ -76,7 +85,7 @@
 
   <div class="col-10">
     <div class="search">
-      <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onSearchInput($event)">
+      <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onSearchInput()">
       <button><img alt="" src="assets/images/research.svg"></button>
     </div>
 
@@ -99,13 +108,13 @@
             <p class="large"><img alt="clock" class="icon"
                 src="assets/images/clock.svg">{{ project.created | date:'longDate' }}</p>
           </td>
-          <td class="icon">
-            <p class="large"><img alt="user" class="icon" src="assets/images/user.svg">{{ project.user.name }}</p>
-          </td>
         </tr>
       </table>
     </ng-container>
-
     <ng-template #noProjects>There are no projects available.</ng-template>
+    <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
+      <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage"
+        (pageChanged)="pageChanged($event)" class="pagination-footer"></pagination>
+    </div>
   </div>
 </div>

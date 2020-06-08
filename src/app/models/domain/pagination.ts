@@ -15,25 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-})
-export class LoginComponent {
-  constructor(private authService: AuthService) { }
-  public readonly title = 'Sign in';
-
-  /**
-   * Method which triggers when the login FHICT button is pressed.
-   */
-  public onClickLoginFHICT() {
-    this.authService.login('FHICT');
+import { Project } from 'src/app/models/domain/project';
+export interface Pagination {
+    count: number;
+    page: number;
+    query?: string;
+    results: Project[];
+    totalCount: number;
+    totalPages: number;
   }
-  public onClickLoginIdentityServer() {
-    this.authService.login();
-  }
-}
