@@ -26,6 +26,8 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Pagination } from 'src/app/models/domain/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 
 interface CategoryFormResult {
   code: boolean;
@@ -111,6 +113,21 @@ export class OverviewComponent implements OnInit {
    */
   public tagsForm: FormGroup;
 
+  public sortForm: FormGroup;
+
+  public sortTypeSelectOptions: SelectFormOption[] = [
+    { value: 'name', viewValue: 'Name' },
+    { value: 'created', viewValue: 'Created' },
+    { value: 'updated', viewValue: 'Updated' }
+  ];
+
+  public sortDirectionSelectOptions: SelectFormOption[] = [
+    { value: 'asc', viewValue: 'Ascending' },
+    { value: 'desc', viewValue: 'Descending' },
+  ];
+
+  public displaySearchElements = false;
+
   /**
   * The current selected page of the pagination footer.
   */
@@ -138,6 +155,15 @@ export class OverviewComponent implements OnInit {
       mobile: false,
       ux: false
     });
+
+    this.sortForm = this.formBuilder.group({
+      type: null,
+      direction: this.sortDirectionSelectOptions[0].value
+    });
+
+    if (!environment.production) {
+      this.displaySearchElements = true;
+    }
   }
 
   ngOnInit(): void {
@@ -150,6 +176,10 @@ export class OverviewComponent implements OnInit {
       .subscribe((searchQuery) => {
         this.searchAndFilterProjects(searchQuery);
       });
+
+    this.sortForm.valueChanges.subscribe(value => {
+      console.log(value);
+    });
 
     // Following two oberservables can be used in the feature to implement category & tags searching
     // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {

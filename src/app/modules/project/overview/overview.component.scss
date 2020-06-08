@@ -29,7 +29,7 @@
 
 .pagination-footer::ng-deep .page-item.active .page-link {
   border-color: #e85b3f;
-  background-color:#e85b3f !important;
+  background-color: #e85b3f !important;
   color: #ffffff;
 }
 
@@ -169,6 +169,13 @@
     margin: 0;
   }
 
+  .sort-options-form {
+    .sort-option-select {
+      margin-bottom: 15px;
+      width: 100%;
+    }
+  }
+
   form {
     input[type="checkbox"] {
       display: none;
@@ -179,7 +186,8 @@
         position: relative;
         padding-left: 20px;
 
-        &::before, &::after {
+        &::before,
+        &::after {
           content: "";
           display: inline-block;
           border-radius: 2px;
@@ -233,7 +241,7 @@
     margin-top: 10px;
 
     .card-header {
-      background: url('~src/assets/images/caret-down.svg') no-repeat center right;
+      background: url("~src/assets/images/caret-down.svg") no-repeat center right;
       padding: 0;
       border: none;
 

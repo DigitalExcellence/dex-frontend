@@ -23,7 +23,7 @@
     <div class="projects-filter">
       <h3>Filter</h3>
       <accordion>
-        <accordion-group heading="Category" isOpen="true">
+        <accordion-group [hidden]="!displaySearchElements" heading="Category" isOpen="true">
           <form [formGroup]="categoryForm">
             <div>
               <input formControlName="code" id="code" name="code" type="checkbox" value="Code">
@@ -47,7 +47,7 @@
             </div>
           </form>
         </accordion-group>
-        <accordion-group heading="Tags" isOpen="true">
+        <accordion-group [hidden]="!displaySearchElements" heading="Tags" isOpen="true">
           <form [formGroup]="tagsForm">
             <div>
               <input formControlName="learning" id="learning" type="checkbox">
@@ -67,11 +67,25 @@
             </div>
           </form>
         </accordion-group>
-        <accordion-group heading="Sort options">
-          <p>Some content</p>
-        </accordion-group>
-        <accordion-group heading="Upload date">
-          <p>Some content</p>
+        <accordion-group heading="Sort options" isOpen="true">
+
+          <form [formGroup]="sortForm" class="sort-options-form">
+            <label for="sort-type">Sort type</label>
+            <select formControlName="type" class='sort-option-select' id="sort-type">
+              <option *ngFor="let sortTypeOption of sortTypeSelectOptions" [value]="sortTypeOption.value">
+                {{sortTypeOption.viewValue}}
+              </option>
+            </select>
+
+            <label for="asc-desc">Sort direction</label>
+            <select formControlName="direction" class='sort-option-select' id="asc-desc">
+              <option *ngFor="let sortDirectionOption of sortDirectionSelectOptions"
+                [value]="sortDirectionOption.value">
+                {{sortDirectionOption.viewValue}}
+              </option>
+            </select>
+          </form>
+
         </accordion-group>
         <accordion-group heading="Pagination">
           <label>Nr. of projects</label>
