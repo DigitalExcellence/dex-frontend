@@ -15,7 +15,6 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, debounceTime } from 'rxjs/operators';
@@ -26,7 +25,6 @@ import { InternalSearchQuery } from 'src/app/models/resources/internal-search-qu
 import { PaginationService } from 'src/app/services/pagination.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Pagination } from 'src/app/models/domain/pagination';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 /**
  * Overview of all the projects
