@@ -24,9 +24,22 @@ import { EditComponent } from './edit/edit.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 @NgModule({
-  declarations: [OverviewComponent, DetailsComponent, EditComponent, EmbedButtonComponent, EmbedComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProjectRoutingModule, AccordionModule.forRoot()],
+  declarations: [
+    OverviewComponent,
+    DetailsComponent,
+    EditComponent,
+    EmbedButtonComponent,
+    EmbedComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ProjectRoutingModule,
+    AccordionModule.forRoot(),
+    PaginationModule.forRoot(),
+    BsDropdownModule.forRoot()],
 })
-export class ProjectModule {}
+export class ProjectModule { }

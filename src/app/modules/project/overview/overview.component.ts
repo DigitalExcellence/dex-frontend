@@ -19,10 +19,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, debounceTime } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
-import { ProjectService } from 'src/app/services/project.service';
 import { FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
+import { PaginationService } from 'src/app/services/pagination.service';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { Pagination } from 'src/app/models/domain/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 /**
@@ -39,6 +41,12 @@ export class OverviewComponent implements OnInit {
    */
   public projects: Project[] = [];
   public projectsToDisplay: Project[] = [];
+  public projectsTotal: Project[] = [];
+
+  /**
+   * Stores the response with the paginated projects etc. from the api.
+   */
+  public paginationResponse: Pagination;
 
   /**
    * Boolean to determine whether the component is loading the information from the api.
@@ -50,32 +58,51 @@ export class OverviewComponent implements OnInit {
    */
   public searchControl: FormControl = null;
 
+  /**
+   * The amount of projects that will be displayed on a single page.
+   */
+  public amountOfProjectsOnSinglePage = 10;
+
+  /**
+   * The number of projects that are on the platform
+   */
+  public totalNrOfProjects = 0;
+
+  /**
+   * Default pagination option for the dropdown
+   */
+  public defaultPaginationOption = {
+    id: 0,
+    amountOnPage: 10
+  };
+
+  public showPaginationFooter = true;
+
+  /**
+   * The possible pagination options for the dropdown
+   */
+  public paginationDropDownOptions = [
+    { id: 0, amountOnPage: 10 },
+    { id: 1, amountOnPage: 20 },
+    { id: 2, amountOnPage: 30 },
+  ];
+
+   /**
+   * The current selected page of the pagination footer.
+   */
+  private currentPage = 1;
+
   private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
 
   constructor(
     private router: Router,
-    private projectService: ProjectService,
+    private paginationService: PaginationService,
     private internalSearchService: InternalSearchService) {
     this.searchControl = new FormControl('');
   }
 
   ngOnInit(): void {
-    this.projectService
-      .getAll()
-      .pipe(finalize(() => (this.projectsLoading = false)))
-      .subscribe(
-        (result) => {
-          this.projects = result;
-          this.projectsToDisplay = result;
-        },
-        (error: HttpErrorResponse) => {
-          if (error.status !== 404) {
-            console.log('Could not retrieve the projects');
-          }
-          throw error;
-        }
-      );
-
+    this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
       .pipe(
@@ -95,7 +122,8 @@ export class OverviewComponent implements OnInit {
     const controlValue: string = this.searchControl.value;
     if (controlValue == null || controlValue === '') {
       // No search value present, display the default project list.
-      this.projectsToDisplay = this.projects;
+      this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
+      this.showPaginationFooter = true;
       return;
     }
 
@@ -121,6 +149,29 @@ export class OverviewComponent implements OnInit {
   }
 
   /**
+   * Method that retrieves the page of the pagination footer when the user selects a new one
+   * @param event holds the current page of the pagination footer, as well as the amount
+   * of projects that are being displayed on a single page
+   */
+  public pageChanged(event: PageChangedEvent): void {
+    this.currentPage = event.page;
+    this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
+  }
+
+  /**
+   * Method that retrieves the value that has changed from the pagination dropdown in the accordion,
+   * and based on that value retrieves the paginated projects with the right parameters.
+   * @param $event the identifier of the selected value
+   */
+  public onChangePaginationSelect($event: number) {
+    this.amountOfProjectsOnSinglePage = this.paginationDropDownOptions[$event].amountOnPage;
+    if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
+      this.currentPage = 1;
+    }
+    this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
+  }
+
+  /**
    * Method to search for projects based on the query.
    * Filters projects based on the foundProjects matching the query.
    * Modifies the projectToDisplay list based on the filter.
@@ -130,18 +181,34 @@ export class OverviewComponent implements OnInit {
     if (query == null) {
       return;
     }
-
-    this.internalSearchService.get(query).subscribe(result => {
+    this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
+    .subscribe(result => {
       const foundProjects = result.results;
       if (foundProjects == null || this.projects == null) {
         return;
       }
-
-      const filteredProjects = this.projects.filter(project => {
-        return foundProjects.map(foundProject => foundProject.id).includes(project.id);
-      });
-      this.projectsToDisplay = filteredProjects;
+      if (foundProjects.length < this.amountOfProjectsOnSinglePage) {
+        this.showPaginationFooter = false;
+      }
+      this.projectsToDisplay = foundProjects;
     });
   }
 
+  /**
+   * Method that retrieves paginated projects.
+   * @param currentPage the pagenumber for which we need to retrieve the projects.
+   * @param numberOfProjectsOnSinglePage the number of projects that will be displayed on a single page.
+   */
+  private getProjectsWithPaginationParams(currentPage: number, numberOfProjectsOnSinglePage: number): void {
+    this.paginationService.getProjectsPaginated(currentPage, numberOfProjectsOnSinglePage)
+    .pipe(finalize(() => (this.projectsLoading = false)))
+    .subscribe(
+      (result) => {
+        this.paginationResponse = result;
+        this.projects = result.results;
+        this.projectsToDisplay = result.results;
+        this.totalNrOfProjects = result.totalCount;
+      }
+    );
+  }
 }

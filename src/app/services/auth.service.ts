@@ -62,9 +62,12 @@ export class AuthService {
 
   /**
    * Logins user in via the UserManager.
-   * @returns the login promise.
+   * @param providerSchema optionalSchema to provide in the query params.
    */
-  public login(): Promise<void> {
+  public login(providerSchema?: string): Promise<void> {
+    if (providerSchema != null) {
+      this.manager.settings.extraQueryParams = { 'provider': providerSchema };
+    }
     return this.manager.signinRedirect();
   }
 
