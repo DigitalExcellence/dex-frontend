@@ -58,12 +58,14 @@ export class AuthService {
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
-
-  /**
-   * Logins auth service
-   * @returns login
-   */
-  public login(): Promise<void> {
+/**
+ * Logins auth service
+ * @returns login
+ */
+  public login(providerSchema?: string): Promise<void> {
+    if (providerSchema != null) {
+      this.manager.settings.extraQueryParams = {'provider': providerSchema};
+    }
     return this.manager.signinRedirect();
   }
 
