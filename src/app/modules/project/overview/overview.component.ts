@@ -42,6 +42,10 @@ interface TagFormResult {
   mobile: boolean;
   ux: boolean;
 }
+interface SortFormResult {
+  type: string;
+  direction: string;
+}
 
 /**
  * Overview of all the projects
@@ -78,6 +82,7 @@ export class OverviewComponent implements OnInit {
    * The amount of projects that will be displayed on a single page.
    */
   public amountOfProjectsOnSinglePage = 10;
+
 
   /**
    * The number of projects that are on the platform
@@ -116,6 +121,7 @@ export class OverviewComponent implements OnInit {
   public sortForm: FormGroup;
 
   public sortTypeSelectOptions: SelectFormOption[] = [
+    { value: null, viewValue: '-' },
     { value: 'name', viewValue: 'Name' },
     { value: 'created', viewValue: 'Created' },
     { value: 'updated', viewValue: 'Updated' }
@@ -134,6 +140,14 @@ export class OverviewComponent implements OnInit {
   private currentPage = 1;
 
   private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
+
+  private currentSearchInput: string = null;
+
+  private currentSortType: string = null;
+
+  private currentSortDirection: string = null;
+
+  private onlyHighlightedProjects = false;
 
   constructor(
     private router: Router,
@@ -167,7 +181,16 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
+    const internalSearchQuery: InternalSearchQuery = {
+      page: this.currentPage,
+      amountOnPage: this.amountOfProjectsOnSinglePage,
+      sortBy: null,
+      sortDirection: null,
+      highlighted: null,
+
+    };
+    this.getProjectsWithPaginationParams(internalSearchQuery);
+
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
       .pipe(
@@ -177,9 +200,7 @@ export class OverviewComponent implements OnInit {
         this.searchAndFilterProjects(searchQuery);
       });
 
-    this.sortForm.valueChanges.subscribe(value => {
-      console.log(value);
-    });
+    this.sortForm.valueChanges.subscribe(value => this.onSortFormValueChange(value));
 
     // Following two oberservables can be used in the feature to implement category & tags searching
     // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {
@@ -198,17 +219,30 @@ export class OverviewComponent implements OnInit {
    */
   public onSearchInput($event: KeyboardEvent): void {
     const controlValue: string = this.searchControl.value;
+    let internalSearchQuery: InternalSearchQuery = null;
     if (controlValue == null || controlValue === '') {
       // No search value present, display the default project list.
-      this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
+      internalSearchQuery = {
+        page: this.currentPage,
+        amountOnPage: this.amountOfProjectsOnSinglePage,
+        sortBy: this.currentSortType,
+        sortDirection: this.currentSortDirection,
+        highlighted: null
+      };
+      this.getProjectsWithPaginationParams(internalSearchQuery);
       this.showPaginationFooter = true;
       return;
     }
-
-    const searchQuery: InternalSearchQuery = {
-      query: controlValue
+    this.currentSearchInput = controlValue;
+    internalSearchQuery = {
+      query: this.currentSearchInput,
+      page: this.currentPage,
+      amountOnPage: this.amountOfProjectsOnSinglePage,
+      sortBy: this.currentSortType,
+      sortDirection: this.currentSortDirection,
+      highlighted: null
     };
-    this.searchSubject.next(searchQuery);
+    this.searchSubject.next(internalSearchQuery);
   }
 
   /**
@@ -233,7 +267,16 @@ export class OverviewComponent implements OnInit {
    */
   public pageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
-    this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
+
+    const internalSearchQuery: InternalSearchQuery = {
+      query: this.currentSearchInput,
+      page: this.currentPage,
+      amountOnPage: this.amountOfProjectsOnSinglePage,
+      sortBy: this.currentSortType,
+      sortDirection: this.currentSortDirection,
+      highlighted: null
+    };
+    this.getProjectsWithPaginationParams(internalSearchQuery);
   }
 
   /**
@@ -246,7 +289,15 @@ export class OverviewComponent implements OnInit {
     if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
       this.currentPage = 1;
     }
-    this.getProjectsWithPaginationParams(this.currentPage, this.amountOfProjectsOnSinglePage);
+    const internalSearchQuery: InternalSearchQuery = {
+      query: this.currentSearchInput,
+      page: this.currentPage,
+      amountOnPage: this.amountOfProjectsOnSinglePage,
+      sortBy: this.currentSortType,
+      sortDirection: this.currentSortDirection,
+      highlighted: null
+    };
+    this.getProjectsWithPaginationParams(internalSearchQuery);
   }
 
   /**
@@ -259,7 +310,8 @@ export class OverviewComponent implements OnInit {
     if (query == null) {
       return;
     }
-    this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
+
+    this.internalSearchService.getSearchResultsPaginated(query)
       .subscribe(result => {
         const foundProjects = result.results;
         if (foundProjects == null || this.projects == null) {
@@ -277,8 +329,8 @@ export class OverviewComponent implements OnInit {
    * @param currentPage the pagenumber for which we need to retrieve the projects.
    * @param numberOfProjectsOnSinglePage the number of projects that will be displayed on a single page.
    */
-  private getProjectsWithPaginationParams(currentPage: number, numberOfProjectsOnSinglePage: number): void {
-    this.paginationService.getProjectsPaginated(currentPage, numberOfProjectsOnSinglePage)
+  private getProjectsWithPaginationParams(internalSearchQuery: InternalSearchQuery): void {
+    this.paginationService.getProjectsPaginated(internalSearchQuery)
       .pipe(finalize(() => (this.projectsLoading = false)))
       .subscribe(
         (result) => {
@@ -289,5 +341,24 @@ export class OverviewComponent implements OnInit {
           console.log(this.projects);
         }
       );
+  }
+
+  private onSortFormValueChange(value: SortFormResult): void {
+    console.log(value);
+    if (value == null || value.type == null) {
+      return;
+    }
+    this.currentSortType = value.type;
+    this.currentSortDirection = value.direction;
+
+    const internalSearchQuery: InternalSearchQuery = {
+      query: this.currentSearchInput,
+      page: this.currentPage,
+      amountOnPage: this.amountOfProjectsOnSinglePage,
+      sortBy: this.currentSortType,
+      sortDirection: this.currentSortDirection,
+      highlighted: null
+    };
+    this.getProjectsWithPaginationParams(internalSearchQuery);
   }
 }
