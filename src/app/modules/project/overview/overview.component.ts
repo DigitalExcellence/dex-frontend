@@ -23,25 +23,13 @@ import { InternalSearchService } from 'src/app/services/internal-search.service'
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { Pagination } from 'src/app/models/domain/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
+import { SearchResultsResource } from 'src/app/models/resources/search-results';
 
-interface CategoryFormResult {
-  code: boolean;
-  video: boolean;
-  research_paper: boolean;
-  survey_results: boolean;
-}
 
-interface TagFormResult {
-  learning: boolean;
-  reserach: boolean;
-  mobile: boolean;
-  ux: boolean;
-}
 interface SortFormResult {
   type: string;
   direction: string;
@@ -66,7 +54,7 @@ export class OverviewComponent implements OnInit {
   /**
    * Stores the response with the paginated projects etc. from the api.
    */
-  public paginationResponse: Pagination;
+  public paginationResponse: SearchResultsResource;
 
   /**
    * Boolean to determine whether the component is loading the information from the api.
@@ -134,12 +122,7 @@ export class OverviewComponent implements OnInit {
 
   public displaySearchElements = false;
 
-  /**
-  * The current selected page of the pagination footer.
-  */
-  private currentPage = 1;
-
-  private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
+  private searchSubject = new BehaviorSubject<string>(null);
 
   /**
    * Parameters for keeping track of the current internalSearch query values.
@@ -151,6 +134,8 @@ export class OverviewComponent implements OnInit {
   private currentSortDirection: string = null;
 
   private currentOnlyHighlightedProjects: boolean = null;
+
+  private currentPage = 1;
 
   constructor(
     private router: Router,
@@ -184,7 +169,6 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.onInternalQueryChange();
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
@@ -192,7 +176,10 @@ export class OverviewComponent implements OnInit {
       .pipe(
         debounceTime(500)
       )
-      .subscribe((searchQuery) => {
+      .subscribe((result) => {
+        if (result == null) {
+          return;
+        }
         this.onInternalQueryChange();
       });
 
@@ -215,13 +202,18 @@ export class OverviewComponent implements OnInit {
    */
   public onSearchInput(): void {
     const controlValue: string = this.searchControl.value;
-    if (controlValue == null || controlValue === '' || this.currentSearchInput === controlValue) {
-      // TODO is this line below needed?
-      this.showPaginationFooter = true;
+    // Do nothing if input did not change.
+    if (this.currentSearchInput === controlValue) {
       return;
     }
+
+    // Do nothing if the input contains only spaces or line breaks.
+    if (!controlValue.replace(/\s/g, '').length) {
+      return;
+    }
+
     this.currentSearchInput = controlValue;
-    this.onInternalQueryChange();
+    this.searchSubject.next(controlValue);
   }
 
   /**
@@ -232,17 +224,17 @@ export class OverviewComponent implements OnInit {
   }
 
   /**
-   * Triggers on project click in the list
-   * @param id project id
+   * Triggers on project click in the list.
+   * @param id project id.
    */
   public onClickProject(id: number): void {
     this.router.navigate([`/project/details/${id}`]);
   }
 
   /**
-   * Method that retrieves the page of the pagination footer when the user selects a new one
+   * Method that retrieves the page of the pagination footer when the user selects a new one.
    * @param event holds the current page of the pagination footer, as well as the amount
-   * of projects that are being displayed on a single page
+   * of projects that are being displayed on a single page.
    */
   public pageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
@@ -252,7 +244,7 @@ export class OverviewComponent implements OnInit {
   /**
    * Method that retrieves the value that has changed from the pagination dropdown in the accordion,
    * and based on that value retrieves the paginated projects with the right parameters.
-   * @param $event the identifier of the selected value
+   * @param $event the identifier of the selected value.
    */
   public onChangePaginationSelect($event: number) {
     this.amountOfProjectsOnSinglePage = this.paginationDropDownOptions[$event].amountOnPage;
@@ -262,7 +254,10 @@ export class OverviewComponent implements OnInit {
     this.onInternalQueryChange();
   }
 
-
+  /**
+   * Method to handle values changes of the sort form.
+   * @param value the value of the form.
+   */
   private onSortFormValueChange(value: SortFormResult): void {
     if (value == null || value.type == null) {
       return;
@@ -272,6 +267,10 @@ export class OverviewComponent implements OnInit {
     this.onInternalQueryChange();
   }
 
+  /**
+   * Method to build the new internal search query when any of it params have changed.
+   * Calls the projectService or searchService based on the value of the query.
+   */
   private onInternalQueryChange(): void {
     const internalSearchQuery: InternalSearchQuery = {
       query: this.currentSearchInput === '' ? null : this.currentSearchInput,
@@ -282,43 +281,32 @@ export class OverviewComponent implements OnInit {
       highlighted: this.currentOnlyHighlightedProjects,
     };
 
-    if (internalSearchQuery == null) {
-      return;
-    }
-
     if (internalSearchQuery.query == null) {
-      // No search query provided use projectService
+      // No search query provided use projectService.
       this.paginationService.getProjectsPaginated(internalSearchQuery)
         .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe(result => {
-          this.paginationResponse = result;
-          this.projects = result.results;
-          this.projectsToDisplay = result.results;
-          this.totalNrOfProjects = result.totalCount;
-
-          if (this.projects.length < this.amountOfProjectsOnSinglePage) {
-            this.showPaginationFooter = false;
-          } else {
-            this.showPaginationFooter = true;
-          }
-        }
-        );
+        .subscribe(result => this.handleSearchAndProjectResponse(result));
     } else {
-      // Search query provided use searchService
+      // Search query provided use searchService.
       this.internalSearchService.getSearchResultsPaginated(internalSearchQuery)
         .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe(result => {
-          this.paginationResponse = result;
-          this.projects = result.results;
-          this.projectsToDisplay = result.results;
-          this.totalNrOfProjects = result.totalCount;
+        .subscribe(result => this.handleSearchAndProjectResponse(result));
+    }
+  }
 
-          if (this.projects.length < this.amountOfProjectsOnSinglePage) {
-            this.showPaginationFooter = false;
-          } else {
-            this.showPaginationFooter = true;
-          }
-        });
+  /**
+   * Method to handle the response of the call to the project or search service.
+   */
+  private handleSearchAndProjectResponse(response: SearchResultsResource): void {
+    this.paginationResponse = response;
+    this.projects = response.results;
+    this.projectsToDisplay = response.results;
+    this.totalNrOfProjects = response.totalCount;
+
+    if (this.projects.length < this.amountOfProjectsOnSinglePage && this.currentPage <= 1) {
+      this.showPaginationFooter = false;
+    } else {
+      this.showPaginationFooter = true;
     }
   }
 }
