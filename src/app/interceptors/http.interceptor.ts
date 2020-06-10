@@ -44,9 +44,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request)
             .pipe(
+                // First retry the request.
                 retry(1)
             )
             .pipe(
+                // Then catch the error after retrying.
                 catchError((httpErrorResponse: DeXHttpErrorResponse) => {
                     // Create and send alert.
                     if (httpErrorResponse.status === 0) {
