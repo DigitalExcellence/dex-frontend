@@ -151,6 +151,9 @@ export class DetailsComponent implements OnInit {
     }
     this.highlightByProjectIdService.getHighlightsByProjectId(this.project.id).subscribe(
       (results: Highlight[]) => {
+        if (results == null) {
+          return;
+        }
         results.forEach(highlight => {
           highlight.startDate = new Date(highlight.startDate).toUTCString();
           highlight.endDate = new Date(highlight.endDate).toUTCString();
