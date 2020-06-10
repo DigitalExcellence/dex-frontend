@@ -217,7 +217,7 @@ export class OverviewComponent implements OnInit {
    * Updates the search subject with the query.
    * @param $event the event containing the info of the keyboard press.
    */
-  public onSearchInput($event: KeyboardEvent): void {
+  public onSearchInput(): void {
     const controlValue: string = this.searchControl.value;
     let internalSearchQuery: InternalSearchQuery = null;
     if (controlValue == null || controlValue === '') {

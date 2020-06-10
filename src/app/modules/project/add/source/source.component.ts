@@ -20,6 +20,9 @@ import { ExternalSource } from 'src/app/models/domain/external-source';
 import { WizardService } from 'src/app/services/wizard.service';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { AlertService } from 'src/app/services/alert.service';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
 
 /**
  * Component to import projects from external sources
@@ -39,7 +42,8 @@ export class SourceComponent implements OnInit {
 
   constructor(
     private wizardService: WizardService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +65,14 @@ export class SourceComponent implements OnInit {
   public onClickSubmitSourceUri(): void {
     const sourceUri = this.sourceUriInput.value;
     if (sourceUri == null || sourceUri === '') {
-      // TODO: display error invalid uri
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: 'Source uri/url was invalid',
+        mainMessage: 'Source details could not be fetched',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
 

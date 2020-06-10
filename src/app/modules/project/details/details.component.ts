@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-
+import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
@@ -24,9 +24,11 @@ import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
 import { switchMap, first, flatMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
-import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
 
 /**
@@ -52,7 +54,8 @@ export class DetailsComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     private highlightService: HighlightService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -69,24 +72,11 @@ export class DetailsComponent implements OnInit {
       this.isAuthenticated = status;
     });
 
-    this.projectService.get(id)
-      .pipe(
-        flatMap(project => {
-          if (project == null) {
-            return throwError(`Could not fetch project for id: ${id}`);
-          }
-          this.project = project;
-          return this.authService.$user.pipe(
-            first()
-          );
-        })
-      ).subscribe(user => {
-        if (user == null) {
-          return;
-        }
-        this.currentUser = user;
-        this.determineDisplayEditProjectButton();
-      });
+    this.projectService.get(id).subscribe(
+      (result) => {
+        this.project = result;
+      }
+    );
   }
 
   /**
@@ -96,7 +86,14 @@ export class DetailsComponent implements OnInit {
    */
   public onClickHighlightButton(): void {
     if (this.project == null || this.project.id === 0) {
-      // TODO: Show appropriate error message: project id could not be found and therefore not be highlighted.
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: 'Project could not be highlighted',
+        mainMessage: 'Project id could not be found',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
     const modalRef = this.modalService.show(ModalHighlightComponent);
@@ -119,10 +116,14 @@ export class DetailsComponent implements OnInit {
           return this.highlightService.post(highlightAddResource);
         })
       )
-      .subscribe(() => {
-        // TODO: display success message.
-      }, () => {
-        // TODO: display error message.
+      .subscribe((highlightFormResult: HighlightFormResult) => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'Project was successfully highlighted',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
       });
   }
 
