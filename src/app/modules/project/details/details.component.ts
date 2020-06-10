@@ -59,7 +59,7 @@ export class DetailsComponent implements OnInit {
     private authService: AuthService,
     private highlightService: HighlightService,
     private modalService: BsModalService,
-    private alertService: AlertService
+    private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService,
   ) { }
 
