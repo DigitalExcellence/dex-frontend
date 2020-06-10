@@ -23,6 +23,9 @@ Sentry.init({
     dsn: environment.sentryDsnUrl
 });
 
+/**
+ * Error Handler which logs all errors to Sentry.
+ */
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
 

@@ -129,6 +129,19 @@
   }
 }
 
+.alert-container {
+  position: fixed;
+  top: 65px;
+  left: 0;
+  right: 0;
+  padding: 39px;
+  max-width: 1000px;
+  min-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+  z-index: 10;
+}
+
 .dropdown-menu {
   left: auto !important;
   right: 0 !important;
