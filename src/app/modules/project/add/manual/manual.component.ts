@@ -80,6 +80,10 @@ export class ManualComponent implements OnInit {
     });
   }
 
+  /**
+   * Method which triggers when the submit button is pressed.
+   * Creates a new project.
+   */
   public onClickSubmit(): void {
     if (!this.newProjectForm.valid) {
       this.newProjectForm.markAllAsTouched();
