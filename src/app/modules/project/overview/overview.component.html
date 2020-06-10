@@ -74,7 +74,8 @@
         <accordion-group heading="Pagination">
           <label>Nr. of projects</label>
           <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]=defaultPaginationOption.id>
-            <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption.id" class="paginationDropDown">{{paginationOption.amountOnPage}}</option>
+            <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption.id"
+              class="paginationDropDown">{{paginationOption.amountOnPage}}</option>
           </select>
         </accordion-group>
       </accordion>
@@ -84,7 +85,7 @@
 
   <div class="col-10">
     <div class="search">
-      <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onSearchInput($event)">
+      <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onSearchInput()">
       <button><img alt="" src="assets/images/research.svg"></button>
     </div>
 
@@ -112,7 +113,8 @@
     </ng-container>
     <ng-template #noProjects>There are no projects available.</ng-template>
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
-      <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage" (pageChanged)="pageChanged($event)" class="pagination-footer"></pagination>
+      <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage"
+        (pageChanged)="pageChanged($event)" class="pagination-footer"></pagination>
     </div>
   </div>
 </div>

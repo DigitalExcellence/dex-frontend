@@ -14,7 +14,9 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertService } from 'src/app/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -54,7 +56,8 @@ export class ManualComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
-    private wizardService: WizardService) {
+    private wizardService: WizardService,
+    private alertService: AlertService) {
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
       uri: [null, Validators.required],
@@ -77,9 +80,21 @@ export class ManualComponent implements OnInit {
     });
   }
 
+  /**
+   * Method which triggers when the submit button is pressed.
+   * Creates a new project.
+   */
   public onClickSubmit(): void {
     if (!this.newProjectForm.valid) {
       this.newProjectForm.markAllAsTouched();
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: 'The add project form is invalid',
+        mainMessage: 'The project could not be saved, please fill all required fields',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
 
@@ -89,7 +104,14 @@ export class ManualComponent implements OnInit {
     this.projectService
       .post(newProject)
       .pipe(finalize(() => (this.submitEnabled = false)))
-      .subscribe((result) => {
+      .subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'Project was succesfully saved',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
         this.router.navigate([`/project/overview`]);
       });
   }
@@ -100,7 +122,14 @@ export class ManualComponent implements OnInit {
    */
   public onClickAddCollaborator(): void {
     if (!this.newCollaboratorForm.valid) {
-      // Todo display error.
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: 'The add collaborator form is invalid',
+        mainMessage: 'Collaborator could not be added',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
 
@@ -116,7 +145,13 @@ export class ManualComponent implements OnInit {
   public onClickDeleteCollaborator(clickedCollaborator: CollaboratorAdd): void {
     const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
     if (index < 0) {
-      // Todo display error.
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        mainMessage: 'Collaborator could not be removed',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
       return;
     }
     this.collaborators.splice(index, 1);

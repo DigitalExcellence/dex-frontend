@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize, debounceTime } from 'rxjs/operators';
@@ -25,7 +25,6 @@ import { InternalSearchQuery } from 'src/app/models/resources/internal-search-qu
 import { PaginationService } from 'src/app/services/pagination.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Pagination } from 'src/app/models/domain/pagination';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 /**
  * Overview of all the projects
@@ -87,9 +86,9 @@ export class OverviewComponent implements OnInit {
     { id: 2, amountOnPage: 30 },
   ];
 
-   /**
-   * The current selected page of the pagination footer.
-   */
+  /**
+  * The current selected page of the pagination footer.
+  */
   private currentPage = 1;
 
   private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
@@ -118,7 +117,7 @@ export class OverviewComponent implements OnInit {
    * Updates the search subject with the query.
    * @param $event the event containing the info of the keyboard press.
    */
-  public onSearchInput($event: KeyboardEvent): void {
+  public onSearchInput(): void {
     const controlValue: string = this.searchControl.value;
     if (controlValue == null || controlValue === '') {
       // No search value present, display the default project list.
@@ -182,16 +181,16 @@ export class OverviewComponent implements OnInit {
       return;
     }
     this.internalSearchService.getSearchResultsPaginated(query, this.currentPage, this.amountOfProjectsOnSinglePage)
-    .subscribe(result => {
-      const foundProjects = result.results;
-      if (foundProjects == null || this.projects == null) {
-        return;
-      }
-      if (foundProjects.length < this.amountOfProjectsOnSinglePage) {
-        this.showPaginationFooter = false;
-      }
-      this.projectsToDisplay = foundProjects;
-    });
+      .subscribe(result => {
+        const foundProjects = result.results;
+        if (foundProjects == null || this.projects == null) {
+          return;
+        }
+        if (foundProjects.length < this.amountOfProjectsOnSinglePage) {
+          this.showPaginationFooter = false;
+        }
+        this.projectsToDisplay = foundProjects;
+      });
   }
 
   /**
@@ -201,14 +200,14 @@ export class OverviewComponent implements OnInit {
    */
   private getProjectsWithPaginationParams(currentPage: number, numberOfProjectsOnSinglePage: number): void {
     this.paginationService.getProjectsPaginated(currentPage, numberOfProjectsOnSinglePage)
-    .pipe(finalize(() => (this.projectsLoading = false)))
-    .subscribe(
-      (result) => {
-        this.paginationResponse = result;
-        this.projects = result.results;
-        this.projectsToDisplay = result.results;
-        this.totalNrOfProjects = result.totalCount;
-      }
-    );
+      .pipe(finalize(() => (this.projectsLoading = false)))
+      .subscribe(
+        (result) => {
+          this.paginationResponse = result;
+          this.projects = result.results;
+          this.projectsToDisplay = result.results;
+          this.totalNrOfProjects = result.totalCount;
+        }
+      );
   }
 }
