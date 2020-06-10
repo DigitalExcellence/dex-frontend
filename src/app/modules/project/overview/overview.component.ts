@@ -141,13 +141,16 @@ export class OverviewComponent implements OnInit {
 
   private searchSubject = new BehaviorSubject<InternalSearchQuery>(null);
 
+  /**
+   * Parameters for keeping track of the current internalSearch query values.
+   */
   private currentSearchInput: string = null;
 
   private currentSortType: string = null;
 
   private currentSortDirection: string = null;
 
-  private onlyHighlightedProjects = false;
+  private currentOnlyHighlightedProjects: boolean = null;
 
   constructor(
     private router: Router,
@@ -181,15 +184,8 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const internalSearchQuery: InternalSearchQuery = {
-      page: this.currentPage,
-      amountOnPage: this.amountOfProjectsOnSinglePage,
-      sortBy: null,
-      sortDirection: null,
-      highlighted: null,
 
-    };
-    this.getProjectsWithPaginationParams(internalSearchQuery);
+    this.onInternalQueryChange();
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
@@ -197,7 +193,7 @@ export class OverviewComponent implements OnInit {
         debounceTime(500)
       )
       .subscribe((searchQuery) => {
-        this.searchAndFilterProjects(searchQuery);
+        this.onInternalQueryChange();
       });
 
     this.sortForm.valueChanges.subscribe(value => this.onSortFormValueChange(value));
@@ -219,30 +215,13 @@ export class OverviewComponent implements OnInit {
    */
   public onSearchInput(): void {
     const controlValue: string = this.searchControl.value;
-    let internalSearchQuery: InternalSearchQuery = null;
-    if (controlValue == null || controlValue === '') {
-      // No search value present, display the default project list.
-      internalSearchQuery = {
-        page: this.currentPage,
-        amountOnPage: this.amountOfProjectsOnSinglePage,
-        sortBy: this.currentSortType,
-        sortDirection: this.currentSortDirection,
-        highlighted: null
-      };
-      this.getProjectsWithPaginationParams(internalSearchQuery);
+    if (controlValue == null || controlValue === '' || this.currentSearchInput === controlValue) {
+      // TODO is this line below needed?
       this.showPaginationFooter = true;
       return;
     }
     this.currentSearchInput = controlValue;
-    internalSearchQuery = {
-      query: this.currentSearchInput,
-      page: this.currentPage,
-      amountOnPage: this.amountOfProjectsOnSinglePage,
-      sortBy: this.currentSortType,
-      sortDirection: this.currentSortDirection,
-      highlighted: null
-    };
-    this.searchSubject.next(internalSearchQuery);
+    this.onInternalQueryChange();
   }
 
   /**
@@ -267,16 +246,7 @@ export class OverviewComponent implements OnInit {
    */
   public pageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
-
-    const internalSearchQuery: InternalSearchQuery = {
-      query: this.currentSearchInput,
-      page: this.currentPage,
-      amountOnPage: this.amountOfProjectsOnSinglePage,
-      sortBy: this.currentSortType,
-      sortDirection: this.currentSortDirection,
-      highlighted: null
-    };
-    this.getProjectsWithPaginationParams(internalSearchQuery);
+    this.onInternalQueryChange();
   }
 
   /**
@@ -289,76 +259,66 @@ export class OverviewComponent implements OnInit {
     if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
       this.currentPage = 1;
     }
-    const internalSearchQuery: InternalSearchQuery = {
-      query: this.currentSearchInput,
-      page: this.currentPage,
-      amountOnPage: this.amountOfProjectsOnSinglePage,
-      sortBy: this.currentSortType,
-      sortDirection: this.currentSortDirection,
-      highlighted: null
-    };
-    this.getProjectsWithPaginationParams(internalSearchQuery);
+    this.onInternalQueryChange();
   }
 
-  /**
-   * Method to search for projects based on the query.
-   * Filters projects based on the foundProjects matching the query.
-   * Modifies the projectToDisplay list based on the filter.
-   * @param query The query to search a project for.
-   */
-  private searchAndFilterProjects(query: InternalSearchQuery): void {
-    if (query == null) {
-      return;
-    }
-
-    this.internalSearchService.getSearchResultsPaginated(query)
-      .subscribe(result => {
-        const foundProjects = result.results;
-        if (foundProjects == null || this.projects == null) {
-          return;
-        }
-        if (foundProjects.length < this.amountOfProjectsOnSinglePage) {
-          this.showPaginationFooter = false;
-        }
-        this.projectsToDisplay = foundProjects;
-      });
-  }
-
-  /**
-   * Method that retrieves paginated projects.
-   * @param currentPage the pagenumber for which we need to retrieve the projects.
-   * @param numberOfProjectsOnSinglePage the number of projects that will be displayed on a single page.
-   */
-  private getProjectsWithPaginationParams(internalSearchQuery: InternalSearchQuery): void {
-    this.paginationService.getProjectsPaginated(internalSearchQuery)
-      .pipe(finalize(() => (this.projectsLoading = false)))
-      .subscribe(
-        (result) => {
-          this.paginationResponse = result;
-          this.projects = result.results;
-          this.projectsToDisplay = result.results;
-          this.totalNrOfProjects = result.totalCount;
-          console.log(this.projects);
-        }
-      );
-  }
 
   private onSortFormValueChange(value: SortFormResult): void {
-    console.log(value);
     if (value == null || value.type == null) {
       return;
     }
     this.currentSortType = value.type;
     this.currentSortDirection = value.direction;
+    this.onInternalQueryChange();
+  }
 
+  private onInternalQueryChange(): void {
     const internalSearchQuery: InternalSearchQuery = {
-      query: this.currentSearchInput,
+      query: this.currentSearchInput === '' ? null : this.currentSearchInput,
       page: this.currentPage,
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,
-      highlighted: null
+      highlighted: this.currentOnlyHighlightedProjects,
     };
-    this.getProjectsWithPaginationParams(internalSearchQuery);
+
+    if (internalSearchQuery == null) {
+      return;
+    }
+
+    if (internalSearchQuery.query == null) {
+      // No search query provided use projectService
+      this.paginationService.getProjectsPaginated(internalSearchQuery)
+        .pipe(finalize(() => (this.projectsLoading = false)))
+        .subscribe(result => {
+          this.paginationResponse = result;
+          this.projects = result.results;
+          this.projectsToDisplay = result.results;
+          this.totalNrOfProjects = result.totalCount;
+
+          if (this.projects.length < this.amountOfProjectsOnSinglePage) {
+            this.showPaginationFooter = false;
+          } else {
+            this.showPaginationFooter = true;
+          }
+        }
+        );
+    } else {
+      // Search query provided use searchService
+      this.internalSearchService.getSearchResultsPaginated(internalSearchQuery)
+        .pipe(finalize(() => (this.projectsLoading = false)))
+        .subscribe(result => {
+          this.paginationResponse = result;
+          this.projects = result.results;
+          this.projectsToDisplay = result.results;
+          this.totalNrOfProjects = result.totalCount;
+
+          if (this.projects.length < this.amountOfProjectsOnSinglePage) {
+            this.showPaginationFooter = false;
+          } else {
+            this.showPaginationFooter = true;
+          }
+        });
+    }
   }
 }
