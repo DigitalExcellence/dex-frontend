@@ -28,6 +28,9 @@ import { switchMap, first, flatMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
 import { environment } from 'src/environments/environment';
 import { throwError } from 'rxjs';
+import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
+import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
+import { Highlight } from 'src/app/models/domain/hightlight';
 
 /**
  * Overview of a single project
@@ -44,6 +47,7 @@ export class DetailsComponent implements OnInit {
   public project: Project;
   public isAuthenticated: boolean;
   public displayEditButton = false;
+  public isProjectHighlighted = false;
 
   private currentUser: User;
 
@@ -52,6 +56,7 @@ export class DetailsComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     private highlightService: HighlightService,
+    private getHighlightByProjectIdService: HighlightByProjectIdService,
     private modalService: BsModalService
   ) { }
 
@@ -87,6 +92,12 @@ export class DetailsComponent implements OnInit {
         this.currentUser = user;
         this.determineDisplayEditProjectButton();
       });
+    this.getHighlightByProjectIdService.getHighlightsByProjectId(id)
+      .subscribe(highlight => {
+        if (highlight.length > 0) {
+          this.isProjectHighlighted = true;
+        }
+    });
   }
 
   /**
@@ -120,10 +131,29 @@ export class DetailsComponent implements OnInit {
         })
       )
       .subscribe(() => {
+        this.isProjectHighlighted = true;
         // TODO: display success message.
       }, () => {
         // TODO: display error message.
       });
+  }
+
+  /**
+   * Method to delete a highlight.
+   */
+  public onClickDeleteHighlightButton(): void {
+    if (this.project == null || this.project.id === 0) {
+      return;
+    }
+    this.getHighlightByProjectIdService.getHighlightsByProjectId(this.project.id).subscribe(
+      (result: Highlight[]) => {
+        result.forEach(highlight => {
+          highlight.startDate = new Date(highlight.startDate).toUTCString();
+          highlight.endDate = new Date(highlight.endDate).toUTCString();
+        });
+        const initialState = {highlights: result};
+        this.modalService.show(ModalDeleteComponent, {initialState});
+    });
   }
 
   /**
