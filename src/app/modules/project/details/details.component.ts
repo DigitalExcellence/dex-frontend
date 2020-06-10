@@ -56,7 +56,7 @@ export class DetailsComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     private highlightService: HighlightService,
-    private getHighlightByProjectIdService: HighlightByProjectIdService,
+    private highlightByProjectIdService: HighlightByProjectIdService,
     private modalService: BsModalService
   ) { }
 
@@ -92,9 +92,12 @@ export class DetailsComponent implements OnInit {
         this.currentUser = user;
         this.determineDisplayEditProjectButton();
       });
-    this.getHighlightByProjectIdService.getHighlightsByProjectId(id)
-      .subscribe(highlight => {
-        if (highlight.length > 0) {
+    this.highlightByProjectIdService .getHighlightsByProjectId(id)
+      .subscribe(highlights => {
+        if (highlights == null) {
+          return;
+        }
+        if (highlights.length > 0) {
           this.isProjectHighlighted = true;
         }
     });
@@ -145,15 +148,16 @@ export class DetailsComponent implements OnInit {
     if (this.project == null || this.project.id === 0) {
       return;
     }
-    this.getHighlightByProjectIdService.getHighlightsByProjectId(this.project.id).subscribe(
-      (result: Highlight[]) => {
-        result.forEach(highlight => {
+    this.highlightByProjectIdService.getHighlightsByProjectId(this.project.id).subscribe(
+      (results: Highlight[]) => {
+        results.forEach(highlight => {
           highlight.startDate = new Date(highlight.startDate).toUTCString();
           highlight.endDate = new Date(highlight.endDate).toUTCString();
         });
-        const initialState = {highlights: result};
+        const initialState = {highlights: results};
         this.modalService.show(ModalDeleteComponent, {initialState});
-    });
+      }
+    );
   }
 
   /**

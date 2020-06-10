@@ -28,7 +28,7 @@ import { HighlightService } from 'src/app/services/highlight.service';
 @Component({
     selector: 'app-modal',
     templateUrl: './modal-delete.component.html',
-    styleUrls: ['./modal-delete.scss']
+    styleUrls: ['./modal-delete.component.scss']
   })
   export class ModalDeleteComponent implements OnInit {
 
@@ -46,7 +46,10 @@ import { HighlightService } from 'src/app/services/highlight.service';
     ) {}
 
     ngOnInit(): void {
-      this.deleteHighlightForm = this.formBuilder.group(this.formFields());
+      this.deleteHighlightForm = this.formBuilder.group(this.generateFormFields());
+      if (this.highlights == null) {
+        return;
+      }
       this.highlights.forEach(highlight => {
         if (highlight.startDate === this.defaultTimeStamp && highlight.endDate === this.defaultTimeStamp) {
           highlight.isNeverEnding = true;
@@ -57,7 +60,7 @@ import { HighlightService } from 'src/app/services/highlight.service';
     /**
      * Method to dynamically create the form fields
      */
-    public formFields(): {} {
+    public generateFormFields(): Object {
       const empObj = {};
       for (const highlight of this.highlights) {
         empObj[highlight.id.toString()] = '';

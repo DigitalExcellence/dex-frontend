@@ -25,13 +25,11 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
   })
   export class HighlightByProjectIdService {
-    protected http: HttpClient;
-    protected readonly url: string = API_CONFIG.url + API_CONFIG.highlightRoute;
+    protected readonly url = API_CONFIG.url + API_CONFIG.highlightRoute;
 
-    constructor(http: HttpClient) {
-      this.http = http;
-    }
+    constructor(private http: HttpClient) { }
+
     public getHighlightsByProjectId(projectId: number): Observable<Highlight[]> {
-      return this.http.get<Highlight[]>(`${this.url}` + '/Project/' + `${projectId}`);
+      return this.http.get<Highlight[]>(`${this.url}/Project/${projectId}`);
     }
   }
