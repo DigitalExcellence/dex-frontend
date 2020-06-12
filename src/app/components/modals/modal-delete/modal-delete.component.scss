@@ -85,3 +85,23 @@
     margin-right: 15px;
   }
 }
+
+.highlight-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  #neverEndingCheckbox, #checkbox {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+
+  label {
+    margin-bottom: 0px;
+  }
+
+  .date-spacing {
+    margin-left: 15px;
+  }
+}

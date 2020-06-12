@@ -29,12 +29,16 @@
           <form [formGroup]="deleteHighlightForm" class="highlight-form">
             <div *ngFor="let highlight of highlights">
               <div *ngIf="highlight.isNeverEnding; else displayDateTimes">
-                <label for="checkboxes"><b>Never Ending</b></label>
-                <input type="checkbox" id="checkboxes" [formControlName]="highlight.id" class="ml-2"/>
+                <div class="highlight-wrapper">
+                  <input type="checkbox" id="neverEndingCheckbox" [formControlName]="highlight.id" class=""/>
+                  <label for="neverEndingCheckbox"><b>Never Ending</b></label>
+                </div>
               </div>
               <ng-template #displayDateTimes>
-                <label for="checkboxes">{{highlight.startDate}} <b><i class="ml-2 mr-2">until</i></b>  {{highlight.endDate}}</label>
-                <input type="checkbox" id="checkboxes" [formControlName]="highlight.id" class="ml-2"/>
+                <div class="highlight-wrapper">
+                  <input type="checkbox" id="checkbox" [formControlName]="highlight.id" class=""/>
+                  <label for="checkbox"><b>Start date: </b>{{highlight.startDate}} <span class="date-spacing"></span><b>End date: </b>{{highlight.endDate}}</label>
+                </div>
               </ng-template>
             </div>
           </form>
@@ -45,7 +49,7 @@
   <div class="row">
     <div class="col-12 modal-buttons">
       <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
-      <button type="button" class="primary" (click)="onClickConfirm()">Save</button>
+      <button type="button" class="primary" (click)="onClickConfirm()">Delete</button>
     </div>
   </div>
 </div>
