@@ -1,3 +1,4 @@
+import { ModalBetaComponent } from './../modals/modal-beta/modal-beta.component';
 /*
  *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
@@ -17,6 +18,7 @@
  *
  */
 import { Component } from '@angular/core';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 
 /**
  * Component which functions as the landing page of the application.
@@ -28,6 +30,15 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor() { }
+  constructor(
+    private modalService: BsModalService,
+  ) {
+    const config: ModalOptions = {
+      backdrop: false,
+      class: 'modal-beta',
+      ignoreBackdropClick: true
+    };
+    // this.modalService.show(ModalBetaComponent, config);
+  }
 
 }

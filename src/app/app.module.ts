@@ -36,6 +36,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ModalHighlightComponent } from './components/modals/modal-highlight/modal-highlight.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ModalBetaComponent } from './components/modals/modal-beta/modal-beta.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     AlertComponent,
     FooterComponent,
     ModalHighlightComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ModalBetaComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
