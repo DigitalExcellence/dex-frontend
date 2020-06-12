@@ -71,14 +71,14 @@
 
           <form [formGroup]="sortForm" class="sort-options-form">
             <label for="sort-type">Sort type</label>
-            <select formControlName="type" class='sort-option-select' id="sort-type">
+            <select formControlName="type" class='option-select' id="sort-type">
               <option *ngFor="let sortTypeOption of sortTypeSelectOptions" [value]="sortTypeOption.value">
                 {{sortTypeOption.viewValue}}
               </option>
             </select>
 
             <label for="asc-desc">Sort direction</label>
-            <select formControlName="direction" class='sort-option-select' id="asc-desc">
+            <select formControlName="direction" class='option-select' id="asc-desc">
               <option *ngFor="let sortDirectionOption of sortDirectionSelectOptions"
                 [value]="sortDirectionOption.value">
                 {{sortDirectionOption.viewValue}}
@@ -87,6 +87,16 @@
           </form>
 
         </accordion-group>
+
+        <accordion-group heading="Highlighted" isOpen="true">
+          <label for="asc-desc">Filter options</label>
+          <select [formControl]="highlightFormControl" class='option-select' id="sort-type">
+            <option *ngFor="let highlightOption of highlightSelectOptions; let i = index" [value]="i">
+              {{highlightOption.viewValue}}
+            </option>
+          </select>
+        </accordion-group>
+
         <accordion-group heading="Pagination">
           <label>Nr. of projects</label>
           <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]=defaultPaginationOption.id>

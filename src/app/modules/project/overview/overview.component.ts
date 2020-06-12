@@ -108,6 +108,8 @@ export class OverviewComponent implements OnInit {
 
   public sortForm: FormGroup;
 
+  public highlightFormControl: FormControl;
+
   public sortTypeSelectOptions: SelectFormOption[] = [
     { value: null, viewValue: '-' },
     { value: 'name', viewValue: 'Name' },
@@ -118,6 +120,12 @@ export class OverviewComponent implements OnInit {
   public sortDirectionSelectOptions: SelectFormOption[] = [
     { value: 'asc', viewValue: 'Ascending' },
     { value: 'desc', viewValue: 'Descending' },
+  ];
+
+  public highlightSelectOptions: SelectFormOption[] = [
+    { value: null, viewValue: 'All projects' },
+    { value: true, viewValue: 'Only highlighted' },
+    { value: false, viewValue: 'Only non highlighted' }
   ];
 
   public displaySearchElements = false;
@@ -133,7 +141,7 @@ export class OverviewComponent implements OnInit {
 
   private currentSortDirection: string = null;
 
-  private currentOnlyHighlightedProjects: boolean = null;
+  public currentOnlyHighlightedProjects: boolean = null;
 
   private currentPage = 1;
 
@@ -163,6 +171,9 @@ export class OverviewComponent implements OnInit {
       direction: this.sortDirectionSelectOptions[0].value
     });
 
+    // Initialize with index value of 0 to by default select the first select option.
+    this.highlightFormControl = this.formBuilder.control(0);
+
     if (!environment.production) {
       this.displaySearchElements = true;
     }
@@ -184,6 +195,8 @@ export class OverviewComponent implements OnInit {
       });
 
     this.sortForm.valueChanges.subscribe(value => this.onSortFormValueChange(value));
+
+    this.highlightFormControl.valueChanges.subscribe(value => this.onHighlightFormValueChanges(value));
 
     // Following two oberservables can be used in the feature to implement category & tags searching
     // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {
@@ -255,7 +268,7 @@ export class OverviewComponent implements OnInit {
   }
 
   /**
-   * Method to handle values changes of the sort form.
+   * Method to handle value changes of the sort form.
    * @param value the value of the form.
    */
   private onSortFormValueChange(value: SortFormResult): void {
@@ -264,6 +277,21 @@ export class OverviewComponent implements OnInit {
     }
     this.currentSortType = value.type;
     this.currentSortDirection = value.direction;
+    this.onInternalQueryChange();
+  }
+
+  /**
+   * Method to handle the value changes of the highlight form.
+   * @param value the value of the highlight form.
+   */
+  private onHighlightFormValueChanges(value: number): void {
+    // Case the value since for some reason it is always returned as a string.
+    const convertedIndex = +value;
+    const foundOption = this.highlightSelectOptions[convertedIndex];
+    if (foundOption == null) {
+      return;
+    }
+    this.currentOnlyHighlightedProjects = foundOption.value;
     this.onInternalQueryChange();
   }
 
@@ -309,4 +337,5 @@ export class OverviewComponent implements OnInit {
       this.showPaginationFooter = true;
     }
   }
+
 }
