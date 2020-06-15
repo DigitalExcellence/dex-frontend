@@ -51,8 +51,7 @@ export class HomeComponent {
   private validateSearchInput(): void {
     if (this.searchControl.value !== '' && this.searchControl.value.replace(/\s/g, '').length) {
       this.router.navigate(['/project/overview'], {queryParams: {query: this.searchControl.value}});
-    }
-    else{
+    } else {
       this.router.navigate(['/project/overview']);
     }
   }
