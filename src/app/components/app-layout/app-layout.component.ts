@@ -32,7 +32,7 @@ export class AppLayoutComponent implements OnInit {
   public isAuthenticated: boolean;
   public subscription: Subscription;
 
-  public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues';
+  public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
 
   constructor(private authService: AuthService) { }

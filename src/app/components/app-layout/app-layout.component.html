@@ -58,11 +58,17 @@
 
   <div *ngIf="displayBetaBanner" class="modal-beta-container">
     <div class="modal-beta-content">
-    <p>DeX is a new platform and developed by students, it's still in <span class="accent-text-color">beta</span>. You
-      might encounter some bugs
-      or shortcomings. If you do, please do report them on our Github <a [href]="dexGithubIssueUrl">here</a></p>
-    <button (click)="onClickCloseBetaMessage()" aria-label="Close Account Info Modal Box">&times;</button>
+      <p>DeX is a new platform and developed by students, it's still in <span class="accent-text-color">beta</span>. You
+        might encounter some bugs
+        or shortcomings. If you do, please do report them on our Github <a [href]="dexGithubIssueUrl">here</a></p>
+      <button (click)="onClickCloseBetaMessage()" aria-label="Close Account Info Modal Box">&times;</button>
     </div>
+  </div>
+
+  <div class="feedback-button-container">
+    <a [href]="dexGithubIssueUrl" target="_blank">
+      <button class="feedback-button">Give Feedback</button>
+    </a>
   </div>
 
   <div class="alert-container">

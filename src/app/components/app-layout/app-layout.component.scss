@@ -137,7 +137,7 @@
   align-items: center;
   z-index: 8;
 
-  .modal-beta-content{
+  .modal-beta-content {
     background-color: #323232;
     padding: 10px 25px;
     max-width: 1200px;
@@ -147,7 +147,7 @@
   }
   p {
     display: inline-block;
-    color: white;
+    color: #f8f8f8;
   }
 
   * {
@@ -164,8 +164,37 @@
     outline: none;
     border: none;
     background: none;
-    color: #FFFFFF;
+    color: #f8f8f8;
     font-size: 20px;
+  }
+}
+
+.feedback-button-container {
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+  right: 15%;
+
+  .feedback-button,
+  .feedback-button:active,
+  .feedback-button:visited {
+    border: 0;
+    outline: none;
+  }
+
+  .feedback-button {
+    background: #aeaeae 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 6px 6px 0px 0px;
+
+    width: 188px;
+    height: 49px;
+
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 0px;
+    color: #f8f8f8;
+    text-transform: capitalize;
   }
 }
 
