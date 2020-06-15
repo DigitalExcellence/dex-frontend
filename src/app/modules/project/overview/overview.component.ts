@@ -194,6 +194,8 @@ export class OverviewComponent implements OnInit {
         this.onInternalQueryChange();
       });
 
+    this.searchControl.valueChanges.subscribe(value => this.onSearchInputValueChange(value));
+
     this.sortForm.valueChanges.subscribe(value => this.onSortFormValueChange(value));
 
     this.highlightFormControl.valueChanges.subscribe(value => this.onHighlightFormValueChanges(value));
@@ -213,20 +215,20 @@ export class OverviewComponent implements OnInit {
    * Updates the search subject with the query.
    * @param $event the event containing the info of the keyboard press.
    */
-  public onSearchInput(): void {
-    const controlValue: string = this.searchControl.value;
+  public onSearchInputValueChange(value: string): void {
     // Do nothing if input did not change.
-    if (this.currentSearchInput === controlValue) {
+    if (this.currentSearchInput === value) {
       return;
     }
 
-    // Do nothing if the input contains only spaces or line breaks.
-    if (!controlValue.replace(/\s/g, '').length) {
+    // Do nothing if the input contains only spaces or line breaks AND the value is not already empty.
+    // Indicating that the search was cleared and a new request should be made.
+    if (value !== '' && !value.replace(/\s/g, '').length) {
       return;
     }
 
-    this.currentSearchInput = controlValue;
-    this.searchSubject.next(controlValue);
+    this.currentSearchInput = value;
+    this.searchSubject.next(value);
   }
 
   /**
@@ -272,7 +274,7 @@ export class OverviewComponent implements OnInit {
    * @param value the value of the form.
    */
   private onSortFormValueChange(value: SortFormResult): void {
-    if (value == null || value.type == null) {
+    if (value == null || value.type == null || value.type === 'null') {
       return;
     }
     this.currentSortType = value.type;
