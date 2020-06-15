@@ -31,7 +31,15 @@
   }
 
   .branding {
+    display: flex;
     margin-right: 64px;
+
+    .beta-text {
+      cursor: pointer;
+      display: inline-flex;
+      align-self: flex-end;
+      margin: 0;
+    }
   }
 
   a {
@@ -115,6 +123,31 @@
     .profile-picture {
       width: 30px;
     }
+  }
+}
+
+.modal-beta-container {
+  width: 100%;
+  padding: 5px 20px;
+  background-color: #303235;
+  text-align: center;
+
+  p {
+    display: inline-block;
+    color: white;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  .accent-text-color,
+  a {
+    color: $accent-color-primary;
+  }
+
+  button {
+    margin-left: 10px;
   }
 }
 

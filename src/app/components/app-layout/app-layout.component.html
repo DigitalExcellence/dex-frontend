@@ -21,7 +21,9 @@
   <header class="header header-6">
     <div class="branding">
       <span class="title"><a routerLink=""><img alt="" src="assets/images/dex-logo-dark-orange.png"></a></span>
+      <p (click)="onClickHeaderBetaText()" class="beta-text">Beta</p>
     </div>
+
     <div class="header-nav">
       <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
       <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
@@ -53,6 +55,13 @@
     </div>
 
   </header>
+
+  <div *ngIf="displayBetaBanner" class="modal-beta-container">
+    <p>DeX is a new platform and developed by students, it's still in <span class="accent-text-color">beta</span>. You
+      might encounter some bugs
+      or shortcomings. If you do, please do report them on our Github <a [href]="dexGithubIssueUrl">here</a></p>
+    <button (click)="onClickCloseBetaMessage()" aria-label="Close Account Info Modal Box">×</button>
+  </div>
 
   <div class="alert-container">
     <app-alert></app-alert>

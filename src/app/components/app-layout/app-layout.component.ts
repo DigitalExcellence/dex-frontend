@@ -32,7 +32,10 @@ export class AppLayoutComponent implements OnInit {
   public isAuthenticated: boolean;
   public subscription: Subscription;
 
-  constructor(private authService: AuthService) {}
+  public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues';
+  public displayBetaBanner = true;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
@@ -45,5 +48,21 @@ export class AppLayoutComponent implements OnInit {
    */
   public async onClickSignout() {
     await this.authService.signout();
+  }
+
+  /**
+   * Method which triggers when the user clicks the close beta banner button.
+   * Hides the beta banner.
+   */
+  public onClickCloseBetaMessage(): void {
+    this.displayBetaBanner = false;
+  }
+
+  /**
+   * Method which triggers when the user clicks the beta text in the header.
+   * Displays the beta banner.
+   */
+  public onClickHeaderBetaText(): void {
+    this.displayBetaBanner = true;
   }
 }

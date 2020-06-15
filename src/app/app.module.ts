@@ -1,4 +1,3 @@
-import { AlertService } from './services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -16,7 +15,7 @@ import { AlertService } from './services/alert.service';
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, ErrorHandler, Injector } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +35,6 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ModalHighlightComponent } from './components/modals/modal-highlight/modal-highlight.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ModalBetaComponent } from './components/modals/modal-beta/modal-beta.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +46,7 @@ import { ModalBetaComponent } from './components/modals/modal-beta/modal-beta.co
     AlertComponent,
     FooterComponent,
     ModalHighlightComponent,
-    NotFoundComponent,
-    ModalBetaComponent
+    NotFoundComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
