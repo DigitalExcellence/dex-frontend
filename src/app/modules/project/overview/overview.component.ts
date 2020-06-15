@@ -181,7 +181,6 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentSearchInput = this.activatedRoute.snapshot.queryParamMap.get('query');
-    
     this.onInternalQueryChange();
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
