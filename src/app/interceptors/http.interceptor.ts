@@ -42,26 +42,32 @@ export class HttpErrorInterceptor implements HttpInterceptor {
      * Catch the error and send it to Sentry for production.
      */
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(request).pipe(
-            retry(1),
-            catchError((httpErrorResponse: DeXHttpErrorResponse) => {
-                // Create and send alert.
-                if (httpErrorResponse.status === 0) {
-                    // API Could not be reached
-                    this.alertService.pushAlert(this.createErrorAlertConfig('API could not be reached', 'Please check your internet connection'));
-                } else {
-                    // API Could be reached but returned error
-                    this.alertService.pushAlert(this.createErrorAlertConfig(httpErrorResponse.error.title, httpErrorResponse.error.detail));
-                }
+        return next.handle(request)
+            .pipe(
+                // First retry the request.
+                retry(1)
+            )
+            .pipe(
+                // Then catch the error after retrying.
+                catchError((httpErrorResponse: DeXHttpErrorResponse) => {
+                    // Create and send alert.
+                    if (httpErrorResponse.status === 0) {
+                        // API Could not be reached
+                        this.alertService.pushAlert(this.createErrorAlertConfig('API could not be reached', 'Please check your internet connection'));
+                    } else {
+                        // API Could be reached but returned error
+                        // tslint:disable-next-line: max-line-length
+                        this.alertService.pushAlert(this.createErrorAlertConfig(httpErrorResponse.error.title, httpErrorResponse.error.detail));
+                    }
 
-                if (environment.production) {
-                    // Log error to sentry.
-                    Sentry.captureException(new Error(` http error:${httpErrorResponse.status} - ${httpErrorResponse.message}`));
-                }
-                // Stop error from continuing.
-                return EMPTY;
-            })
-        );
+                    if (environment.production) {
+                        // Log error to sentry.
+                        Sentry.captureException(new Error(` http error:${httpErrorResponse.status} - ${httpErrorResponse.message}`));
+                    }
+                    // Stop error from continuing.
+                    return EMPTY;
+                })
+            );
     }
 
     /**
