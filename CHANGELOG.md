@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented pagination on search results and project overview - [#158](https://github.com/DigitalExcellence/dex-frontend/issues/158)
 - Implemented alerts to display user friendly success & error messages - [#172](https://github.com/DigitalExcellence/dex-frontend/issues/172)
 - Implemented sorting & filtering accordion for project overview - [#171](https://github.com/DigitalExcellence/dex-frontend/issues/171)
+- Implemented search functionality on home page - [#166](https://github.com/DigitalExcellence/dex-frontend/issues/166)
 
 
 ### Changed
