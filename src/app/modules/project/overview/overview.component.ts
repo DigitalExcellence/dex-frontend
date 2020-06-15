@@ -111,7 +111,6 @@ export class OverviewComponent implements OnInit {
   public highlightFormControl: FormControl;
 
   public sortTypeSelectOptions: SelectFormOption[] = [
-    { value: null, viewValue: '-' },
     { value: 'name', viewValue: 'Name' },
     { value: 'created', viewValue: 'Created' },
     { value: 'updated', viewValue: 'Updated' }
@@ -137,9 +136,9 @@ export class OverviewComponent implements OnInit {
    */
   private currentSearchInput: string = null;
 
-  private currentSortType: string = null;
+  private currentSortType: string = this.sortTypeSelectOptions[0].value;
 
-  private currentSortDirection: string = null;
+  private currentSortDirection: string = this.sortDirectionSelectOptions[0].value;
 
   public currentOnlyHighlightedProjects: boolean = null;
 
@@ -167,7 +166,7 @@ export class OverviewComponent implements OnInit {
     });
 
     this.sortForm = this.formBuilder.group({
-      type: null,
+      type: this.sortTypeSelectOptions[0].value,
       direction: this.sortDirectionSelectOptions[0].value
     });
 
