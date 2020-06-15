@@ -129,9 +129,22 @@
 .modal-beta-container {
   width: 100%;
   padding: 5px 20px;
-  background-color: #303235;
+  position: absolute;
+  top: 80px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 8;
 
+  .modal-beta-content{
+    background-color: #323232;
+    padding: 10px 25px;
+    max-width: 1200px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+  }
   p {
     display: inline-block;
     color: white;
@@ -147,7 +160,12 @@
   }
 
   button {
-    margin-left: 10px;
+    width: 40px;
+    outline: none;
+    border: none;
+    background: none;
+    color: #FFFFFF;
+    font-size: 20px;
   }
 }
 
