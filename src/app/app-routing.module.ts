@@ -20,10 +20,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'privacy', component: PrivacyPolicyComponent },
   { path: 'auth-callback', component: AuthCallbackComponent },
   {
     path: 'project',
@@ -33,7 +35,7 @@ const routes: Routes = [
     path: 'account',
     loadChildren: () => import('./modules/account/account.module').then((m) => m.AccountModule),
   },
-  { path: '**', component: NotFoundComponent }
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
