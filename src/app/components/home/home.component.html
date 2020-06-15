@@ -26,8 +26,8 @@
 <div class="row justify-content-center">
   <div class="col-12">
     <div class="search">
-      <input type="search" placeholder="Search source">
-      <button><img src="assets/images/research.svg"></button>
+      <input type="search" placeholder="Search source" [formControl]="searchControl" (keydown)="keyDownFunction($event)">
+      <button (click)="onClickSearch()"><img src="assets/images/research.svg"></button>
     </div>
   </div>
 </div>

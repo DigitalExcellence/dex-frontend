@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { finalize, debounceTime } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { FormControl } from '@angular/forms';
@@ -148,7 +148,8 @@ export class OverviewComponent implements OnInit {
     private router: Router,
     private paginationService: PaginationService,
     private internalSearchService: InternalSearchService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -179,6 +180,8 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentSearchInput = this.activatedRoute.snapshot.queryParamMap.get('query');
+    
     this.onInternalQueryChange();
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.

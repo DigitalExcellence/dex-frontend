@@ -17,6 +17,9 @@
  *
  */
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Project } from 'src/app/models/domain/project';
+import { Router, NavigationExtras } from '@angular/router';
 
 /**
  * Component which functions as the landing page of the application.
@@ -26,8 +29,23 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
+
 export class HomeComponent {
 
-  constructor() { }
+  public searchControl: FormControl = null;
 
+  constructor(
+    private router: Router) {
+    this.searchControl = new FormControl('');
+   }
+
+  public onClickSearch(): void {
+    this.router.navigate(['/project/overview'], {queryParams: {query: this.searchControl.value}});
+  }
+
+  public keyDownFunction(event): void {
+    if (event.code === 'Enter') {
+      this.router.navigate(['/project/overview'], {queryParams: {query: this.searchControl.value}});
+    }
+  }
 }
