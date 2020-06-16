@@ -27,9 +27,8 @@ import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
-import { switchMap, first, flatMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
-import { throwError } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
 import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
 import { Highlight } from 'src/app/models/domain/hightlight';
@@ -60,8 +59,8 @@ export class DetailsComponent implements OnInit {
     private highlightService: HighlightService,
     private modalService: BsModalService,
     private alertService: AlertService,
-    private highlightByProjectIdService: HighlightByProjectIdService,
-  ) { }
+    private highlightByProjectIdService: HighlightByProjectIdService
+    ) { }
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get('id');
@@ -82,15 +81,18 @@ export class DetailsComponent implements OnInit {
         this.project = result;
       }
     );
-    this.highlightByProjectIdService .getHighlightsByProjectId(id)
-      .subscribe(highlights => {
-        if (highlights == null) {
-          return;
-        }
-        if (highlights.length > 0) {
-          this.isProjectHighlighted = true;
-        }
-    });
+
+    if (this.isAuthenticated) {
+      this.highlightByProjectIdService .getHighlightsByProjectId(id)
+        .subscribe(highlights => {
+          if (highlights == null) {
+            return;
+          }
+          if (highlights.length > 0) {
+            this.isProjectHighlighted = true;
+          }
+      });
+    }
   }
 
   /**
@@ -155,8 +157,13 @@ export class DetailsComponent implements OnInit {
           return;
         }
         results.forEach(highlight => {
-         highlight.startDate = this.formatTimestamps(highlight.startDate);
-         highlight.endDate = this.formatTimestamps(highlight.endDate);
+         if (highlight.startDate != null && highlight.endDate != null) {
+          highlight.startDate = this.formatTimestamps(highlight.startDate);
+          highlight.endDate = this.formatTimestamps(highlight.endDate);
+         } else {
+          highlight.startDate = 'Never Ending';
+          highlight.endDate = 'Never Ending';
+         }
         });
         const initialState = {highlights: results};
         this.modalService.show(ModalDeleteComponent, {initialState});
