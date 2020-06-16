@@ -1,4 +1,5 @@
 /*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -13,15 +14,22 @@
  *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
+import { Component, OnInit } from '@angular/core';
 
-import { Project } from './project';
+/**
+ * Component which functions as the privacy policy page of the application
+ */
+@Component({
+  selector: 'app-privacy-policy',
+  templateUrl: './privacy-policy.component.html'
+})
+export class PrivacyPolicyComponent implements OnInit {
 
-export interface Highlight {
-  id: number;
-  projectId: number;
-  project: Project;
-  startDate?: string;
-  endDate?: string;
-  isNeverEnding?: boolean;
+  constructor() { }
+
+  ngOnInit() {
+  }
+
 }
