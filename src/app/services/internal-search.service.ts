@@ -21,7 +21,7 @@ import { Injectable } from '@angular/core';
 import { SearchResultsResource } from '../models/resources/search-results';
 import { API_CONFIG } from '../config/api-config';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Service to communicate with the InteralSearchEndpoint of the API.
@@ -30,20 +30,31 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   providedIn: 'root',
 })
 export class InternalSearchService {
+
+  private readonly url = `${API_CONFIG.url}${API_CONFIG.internalSearchRoute}/`;
+
   constructor(private http: HttpClient) {
   }
 
-  /**
-   * Method to get the SearchResults for projects based on an InternalSearchQuery.
-   * @param internalSearchQuery the query to search the projects with.
-   */
-  get(internalSearchQuery: InternalSearchQuery): Observable<SearchResultsResource> {
-    return this.http.get<SearchResultsResource>(`${API_CONFIG.url}${API_CONFIG.internalSearchRoute}/${internalSearchQuery.query}`);
-  }
+  getSearchResultsPaginated(internalSearchQuery: InternalSearchQuery): Observable<SearchResultsResource> {
+    let url = this.url + internalSearchQuery.query;
+    let params = '';
+    for (const key of Object.keys(internalSearchQuery)) {
+      if (internalSearchQuery[key] == null) {
+        continue;
+      }
 
-  getSearchResultsPaginated(internalSearchQuery: InternalSearchQuery, page: number, amountOnPage: number):
-    Observable<SearchResultsResource> {
-    return this.http.get<SearchResultsResource>(`${API_CONFIG.url}${API_CONFIG.internalSearchRoute}/${internalSearchQuery.query}`
-      + '?page=' + `${page}` + '&amountOnPage=' + `${amountOnPage}`);
+      if (params === '') {
+        params += `${key}=${internalSearchQuery[key]}`;
+        continue;
+      }
+      params += `&${key}=${internalSearchQuery[key]}`;
+    }
+
+    if (params !== '') {
+      url += `?${params}`;
+    }
+
+    return this.http.get<SearchResultsResource>(url);
   }
 }
