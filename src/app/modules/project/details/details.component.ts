@@ -60,7 +60,7 @@ export class DetailsComponent implements OnInit {
     private modalService: BsModalService,
     private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get('id');
@@ -83,7 +83,7 @@ export class DetailsComponent implements OnInit {
     );
 
     if (this.isAuthenticated) {
-      this.highlightByProjectIdService .getHighlightsByProjectId(id)
+      this.highlightByProjectIdService.getHighlightsByProjectId(id)
         .subscribe(highlights => {
           if (highlights == null) {
             return;
@@ -91,7 +91,7 @@ export class DetailsComponent implements OnInit {
           if (highlights.length > 0) {
             this.isProjectHighlighted = true;
           }
-      });
+        });
     }
   }
 
@@ -157,16 +157,16 @@ export class DetailsComponent implements OnInit {
           return;
         }
         results.forEach(highlight => {
-         if (highlight.startDate != null && highlight.endDate != null) {
-          highlight.startDate = this.formatTimestamps(highlight.startDate);
-          highlight.endDate = this.formatTimestamps(highlight.endDate);
-         } else {
-          highlight.startDate = 'Never Ending';
-          highlight.endDate = 'Never Ending';
-         }
+          if (highlight.startDate != null && highlight.endDate != null) {
+            highlight.startDate = this.formatTimestamps(highlight.startDate);
+            highlight.endDate = this.formatTimestamps(highlight.endDate);
+          } else {
+            highlight.startDate = 'Never Ending';
+            highlight.endDate = 'Never Ending';
+          }
         });
-        const initialState = {highlights: results};
-        this.modalService.show(ModalDeleteComponent, {initialState});
+        const initialState = { highlights: results };
+        this.modalService.show(ModalDeleteComponent, { initialState });
       }
     );
   }
@@ -194,8 +194,8 @@ export class DetailsComponent implements OnInit {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayOfTheWeek = days[new Date(highlightTimestamp).getDay()];
     const dateStamp = new Date(highlightTimestamp).getUTCDate() + '-' + (new Date(highlightTimestamp).getUTCMonth() + 1)
-    + '-' + new Date(highlightTimestamp).getUTCFullYear();
-    const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' +  ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
+      + '-' + new Date(highlightTimestamp).getUTCFullYear();
+    const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' + ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
     const timeZone = 'GMT';
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }

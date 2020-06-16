@@ -16,23 +16,22 @@
  */
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpBackend } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { API_CONFIG } from '../config/api-config';
 import { Highlight } from '../models/domain/hightlight';
 import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
-  })
-  export class HighlightByProjectIdService {
-    protected readonly url = API_CONFIG.url + API_CONFIG.highlightRoute;
-    private http: HttpClient;
+  providedIn: 'root'
+})
+export class HighlightByProjectIdService {
 
-    constructor(private handler: HttpBackend) {
-      this.http = new HttpClient(handler);
-    }
+  protected readonly url = API_CONFIG.url + API_CONFIG.highlightRoute;
 
-    public getHighlightsByProjectId(projectId: number): Observable<Highlight[]> {
-      return this.http.get<Highlight[]>(`${this.url}/Project/${projectId}`);
-    }
+  constructor(
+    private http: HttpClient) { }
+
+  public getHighlightsByProjectId(projectId: number): Observable<Highlight[]> {
+    return this.http.get<Highlight[]>(`${this.url}/${API_CONFIG.projectRoute}/${projectId}`);
   }
+}
