@@ -45,8 +45,13 @@
     font-family: "Lato", sans-serif;
 
     &:link {
-      color: $light-mode-title-color;
+      color: $light-mode-text-color;
     }
+  }
+  ul{
+    font-family: "Lato", sans-serif;
+    color:$light-mode-text-color;
+    padding:0;
   }
 }
 
