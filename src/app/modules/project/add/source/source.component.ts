@@ -50,33 +50,33 @@ export class SourceComponent implements OnInit {
     this.mostUsedSources.push(
         {
           id: 1,
-          name: "GitHub",
-          image: "assets/images/github-logo.svg",
+          name: 'GitHub',
+          image: 'assets/images/github-logo.svg',
         },
         {
           id: 2,
-          name: "GitLab",
-          image: "assets/images/gitlab-logo.png",
+          name: 'GitLab',
+          image: 'assets/images/gitlab-logo.png',
         },
         {
           id: 3,
-          name: "Codepen",
-          image: "assets/images/codepen-logo.png",
+          name: 'Codepen',
+          image: 'assets/images/codepen-logo.png',
         },
         {
           id: 4,
-          name: "HBO Kennisbank",
-          image: "assets/images/hbokennisbank-logo.png",
+          name: 'HBO Kennisbank',
+          image: 'assets/images/hbokennisbank-logo.png',
         },
         {
           id: 5,
-          name: "Google Drive",
-          image: "assets/images/googledrive-logo.png",
+          name: 'Google Drive',
+          image: 'assets/images/googledrive-logo.png',
         },
         {
           id: 6,
-          name: "Dropbox",
-          image: "assets/images/dropbox-logo.png",
+          name: 'Dropbox',
+          image: 'assets/images/dropbox-logo.png',
         }
     );
   }
