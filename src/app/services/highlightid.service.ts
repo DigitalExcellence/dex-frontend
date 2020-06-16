@@ -15,17 +15,23 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { API_CONFIG } from '../config/api-config';
+import { Highlight } from '../models/domain/hightlight';
+import { Observable } from 'rxjs';
 
-/**
- * Module in which reusable components and modules can be imported and exported.
- */
-@NgModule({
-  declarations: [ModalDeleteComponent],
-  imports: [CommonModule, ReactiveFormsModule],
-  exports: [ReactiveFormsModule],
+@Injectable({
+  providedIn: 'root'
 })
-export class SharedModule {}
+export class HighlightByProjectIdService {
+
+  protected readonly url = API_CONFIG.url + API_CONFIG.highlightRoute;
+
+  constructor(
+    private http: HttpClient) { }
+
+  public getHighlightsByProjectId(projectId: number): Observable<Highlight[]> {
+    return this.http.get<Highlight[]>(`${this.url}/${API_CONFIG.projectRoute}/${projectId}`);
+  }
+}
