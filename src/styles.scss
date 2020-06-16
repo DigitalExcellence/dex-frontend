@@ -20,6 +20,12 @@
 
 @import "~bootstrap/scss/bootstrap";
 
+.modal-beta {
+  max-width: 1100px;
+  margin: 24px;
+  top: 70px;
+}
+
 body {
   background-color: $light-mode-background-color;
 }

@@ -1,4 +1,3 @@
-import { AlertService } from './services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -16,7 +15,7 @@ import { AlertService } from './services/alert.service';
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, ErrorHandler, Injector } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
