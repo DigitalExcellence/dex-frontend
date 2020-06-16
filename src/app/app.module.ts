@@ -32,9 +32,9 @@ import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 import { errorHandlerFactory } from './error-handler/error-handler-factory';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { AlertComponent } from './components/alert/alert.component';
-import { ModalHighlightComponent } from './components/modals/modal-highlight/modal-highlight.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
 
 @NgModule({
   declarations: [
@@ -45,8 +45,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     TopHighlightCardsComponent,
     AlertComponent,
     FooterComponent,
-    ModalHighlightComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ModalDeleteGenericComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),

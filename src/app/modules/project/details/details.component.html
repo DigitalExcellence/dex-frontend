@@ -53,11 +53,12 @@
 
         <div id="project-edit-buttons">
           <ng-container *ngIf="displayEditButton">
-            <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt="" src="assets/images/edit.svg"></button>
+            <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
+                src="assets/images/edit.svg"></button>
           </ng-container>
-<!--   Delete button, to be implemented  -->
+
           <ng-container>
-            <button class="primary" routerLink=""><img alt="" src="assets/images/trash.svg"></button>
+            <button class="primary" (click)="onClickRemoveProject()"><img alt="" src="assets/images/trash.svg"></button>
           </ng-container>
         </div>
       </div>
@@ -94,6 +95,7 @@
         <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
           <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
         </div>
+
         <app-embed-button></app-embed-button>
       </div>
     </div>
