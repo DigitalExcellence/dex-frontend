@@ -15,7 +15,7 @@ export interface HighlightFormResult {
 @Component({
   selector: 'app-modal',
   templateUrl: './modal-highlight.component.html',
-  styleUrls: ['./modal-highlight.scss']
+  styleUrls: ['./modal-highlight.component.scss']
 })
 export class ModalHighlightComponent {
 
