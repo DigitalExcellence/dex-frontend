@@ -31,23 +31,34 @@ import { Router } from '@angular/router';
 
 export class HomeComponent {
 
-  public searchControl: FormControl = null;
+  public searchControl: FormControl;
 
   constructor(
     private router: Router) {
     this.searchControl = new FormControl('');
    }
 
+  /**
+   * Called when the user clicks the search icon in the search bar
+   */
   public onClickSearch(): void {
     this.validateSearchInput();
   }
 
-  public keyDownFunction(event): void {
+  /**
+   * Method that checks if the enter key is pressed
+   * @param event event that contains the key that's pressed
+   */
+  public onKeyDownFunction(event): void {
     if (event.code === 'Enter') {
       this.validateSearchInput();
     }
   }
 
+  /**
+   * Method that validates the input, and based on the outcome
+   * routes to the overview page with/without queryparameters
+   */
   private validateSearchInput(): void {
     if (this.searchControl.value !== '' && this.searchControl.value.replace(/\s/g, '').length) {
       this.router.navigate(['/project/overview'], {queryParams: {query: this.searchControl.value}});
