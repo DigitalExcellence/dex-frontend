@@ -116,7 +116,7 @@
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
-      <table class="projects-table">
+      <table class="projects-table" role="presentation">
         <tr *ngIf="projectsLoading">
           <td colspan="3">Loading...</td>
         </tr>

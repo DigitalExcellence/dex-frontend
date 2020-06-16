@@ -27,9 +27,8 @@ import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
-import { switchMap, first, flatMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
-import { throwError } from 'rxjs';
 
 /**
  * Overview of a single project
@@ -116,7 +115,7 @@ export class DetailsComponent implements OnInit {
           return this.highlightService.post(highlightAddResource);
         })
       )
-      .subscribe((highlightFormResult: HighlightFormResult) => {
+      .subscribe(() => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
           mainMessage: 'Project was successfully highlighted',
@@ -135,14 +134,4 @@ export class DetailsComponent implements OnInit {
     return !environment.production;
   }
 
-  /**
-   * Method to display the edit project button based on the current user and the project user.
-   * @param project The project to check if the current user is the owner.
-   */
-  private determineDisplayEditProjectButton(): void {
-    if (this.currentUser == null || this.project == null || this.project.user == null) {
-      this.displayEditButton = false;
-    }
-    this.displayEditButton = this.project.user.id === this.currentUser.id;
-  }
 }
