@@ -19,16 +19,33 @@
 
 <!-- subtitle -->
 <div class="row">
-  <div class="col-12">
+  <div class="col-12 text-center">
     <h1>Add New Project</h1>
-    <h3>Most Used Sources</h3>
   </div>
 </div>
 
+<div class="row justify-content-center">
+  <div class="col-lg-6 col-md-8 col-sm-10 search">
+    <input type="search" placeholder="Paste a link to your project here" [formControl]="sourceUriInput">
+    <button (click)="onClickSubmitSourceUri()"><img src="assets/images/research.svg"></button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 text-center info-box-add">
+    <p>You can use a link to your GitHub or GitLab repositories, for other projects you can use the option below.</p>
+    <h3><a (click)="onClickAddProjectManual()">Add Project Manually</a></h3>
+    <p>Add your project manually if you don't have a project link</p>
+    <h1>or</h1>
+    <p>In the future you are able to upload projects by logging in to a specific source.<br>
+       For now, you can upload your projects with a link or by adding it manually.</p>
+  </div>
+</div>
 
 <!-- sources -->
 <!-- TODO: If the external source is null, we should show something else. Probably some message -->
-<div class="row">
+<div class="row temporary-disabled">
+  <div class="col-12"><h3>Most Used Sources</h3></div>
   <div class="col-12 col-sm-6 col-md-4 col-lg-2 source-box" *ngFor="let externalSource of mostUsedSources">
     <div class="source">
       <div class="source-content">
@@ -40,28 +57,3 @@
 </div>
 
 
-<!-- search bar -->
-<div class="row justify-content-center">
-  <div class="col-lg-6 col-md-8 col-sm-10 search">
-    <input type="search" placeholder="search source" [formControl]="sourceUriInput">
-    <button (click)="onClickSubmitSourceUri()"><img src="assets/images/research.svg"></button>
-  </div>
-</div>
-
-
-<!-- add project manual -->
-<div class="row">
-  <div class="col-12 text-center">
-    <h1>or</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12 text-center">
-    <a (click)="onClickAddProjectManual()">Add Project Manual</a>
-  </div>
-</div>
-<div class="row">
-  <div class="col-4 offset-4">
-    <p>Note: Only manually add a project if the source of your project is not listed above.</p>
-  </div>
-</div>
