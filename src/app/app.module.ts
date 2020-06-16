@@ -35,7 +35,8 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ModalHighlightComponent } from './components/modals/modal-highlight/modal-highlight.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ModalDeleteGenericComponent } from './components/modals/modal-delete/modal-delete-generic.component';
+import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
+import { ModalHighlightDeleteComponent } from 'src/app/components/modals/modal-highlight-delete/modal-highlight-delete.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ModalDeleteGenericComponent } from './components/modals/modal-delete/mo
     FooterComponent,
     ModalHighlightComponent,
     NotFoundComponent,
-    ModalDeleteGenericComponent
+    ModalDeleteGenericComponent,
+    ModalHighlightDeleteComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),

@@ -29,11 +29,11 @@ import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
-import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete/modal-delete-generic.component';
 import { Observable, EMPTY } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
-import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
+import { ModalHighlightDeleteComponent } from 'src/app/components/modals/modal-highlight-delete/modal-highlight-delete.component';
 import { Highlight } from 'src/app/models/domain/hightlight';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 
 
 /**
@@ -170,7 +170,7 @@ export class DetailsComponent implements OnInit {
           }
         });
         const initialState = { highlights: results };
-        this.modalService.show(ModalDeleteComponent, { initialState });
+        this.modalService.show(ModalHighlightDeleteComponent, { initialState });
       }
     );
   }

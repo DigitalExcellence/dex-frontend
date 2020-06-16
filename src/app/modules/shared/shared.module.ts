@@ -18,14 +18,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
 
 /**
  * Module in which reusable components and modules can be imported and exported.
  */
 @NgModule({
-  declarations: [ModalDeleteComponent],
+  declarations: [],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [ReactiveFormsModule],
 })
-export class SharedModule {}
+export class SharedModule { }
