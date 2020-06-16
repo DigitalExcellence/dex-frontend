@@ -23,17 +23,19 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
+import { ModalHighlightComponent, HighlightFormResult } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
+import { Observable, EMPTY } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
-import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
+import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
 import { Highlight } from 'src/app/models/domain/hightlight';
-import { scopes } from 'src/app/models/domain/scopes';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { scopes } from 'src/app/models/domain/scopes';
+
 
 /**
  * Overview of a single project
@@ -145,7 +147,7 @@ export class DetailsComponent implements OnInit {
           return this.highlightService.post(highlightAddResource);
         })
       )
-      .subscribe((highlightFormResult: HighlightFormResult) => {
+      .subscribe(() => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
           mainMessage: 'Project was successfully highlighted',
@@ -179,7 +181,7 @@ export class DetailsComponent implements OnInit {
           }
         });
         const initialState = { highlights: results };
-        this.modalService.show(ModalDeleteComponent, { initialState });
+        this.modalService.show(ModalHighlightDeleteComponent, { initialState });
       }
     );
   }
@@ -196,9 +198,6 @@ export class DetailsComponent implements OnInit {
    * Method which triggers when the delete project button is clicked.
    * Displays the remove modal.
    * Removes the project if modal returned true to confirm the delete.
-   * Method to display the edit project button based on the current user and the project user.
-   * If the user either has the ProjectWrite scope or is the creator of the project.
-   * @param project The project to check if the current user is the owner.
    */
   public onClickRemoveProject(): void {
     const modalOptions: ModalOptions = {

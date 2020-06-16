@@ -53,7 +53,8 @@
 
         <div id="project-edit-buttons">
           <ng-container *ngIf="displayEditButton">
-            <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt="" src="assets/images/edit.svg"></button>
+            <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
+                src="assets/images/edit.svg"></button>
           </ng-container>
           <ng-container *ngIf="displayDeleteProjectButton">
             <button class="primary" (click)="onClickRemoveProject()"><img alt="" src="assets/images/trash.svg"></button>
