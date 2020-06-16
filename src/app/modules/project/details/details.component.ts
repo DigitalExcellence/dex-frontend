@@ -29,7 +29,7 @@ import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
-import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete/modal-delete-generic.component';
 import { Observable, EMPTY } from 'rxjs';
 
 
@@ -151,7 +151,7 @@ export class DetailsComponent implements OnInit {
       }
     };
     // Display modal
-    const modalRef = this.modalService.show(ModalDeleteComponent, modalOptions);
+    const modalRef = this.modalService.show(ModalDeleteGenericComponent, modalOptions);
     // Map observable back to original type
     const modalRefRemove = modalRef.content.remove as Observable<boolean>;
 

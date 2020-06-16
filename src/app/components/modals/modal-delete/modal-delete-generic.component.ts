@@ -25,11 +25,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
  * Emits true via remove property if the removable was confirmed.
  */
 @Component({
-  selector: 'app-modal-delete',
-  templateUrl: './modal-delete.component.html',
-  styleUrls: ['./modal-delete.component.scss']
+  selector: 'app-modal-delete-generic',
+  templateUrl: './modal-delete-generic.component.html',
+  styleUrls: ['./modal-delete-generic.component.scss']
 })
-export class ModalDeleteComponent {
+export class ModalDeleteGenericComponent {
 
   @Output() remove = new EventEmitter<boolean>();
 
