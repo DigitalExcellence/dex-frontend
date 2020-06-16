@@ -27,11 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented the functionality to delete one/multiple highlighted project(s), and implemented a modal where the user can select and confirm the higlights that need to be removed - [#180](https://github.com/DigitalExcellence/dex-frontend/issues/180)
 - Implemented alerts to display user friendly success & error messages - [#172](https://github.com/DigitalExcellence/dex-frontend/issues/172)
 - Implemented sorting & filtering accordion for project overview - [#171](https://github.com/DigitalExcellence/dex-frontend/issues/171)
+- Added privacy policy and updated footer links accordingly - [#211](https://github.com/DigitalExcellence/dex-frontend/issues/211)
 - Implemented beta banner & feedback button - [#198](https://github.com/DigitalExcellence/dex-frontend/issues/198)
 - Implemented search functionality on home page - [#166](https://github.com/DigitalExcellence/dex-frontend/issues/166)
 - Added user to project-overview page, user is now also searchable - [#207](https://github.com/DigitalExcellence/dex-frontend/issues/207)
 - Implemented remove project modal - [#193](https://github.com/DigitalExcellence/dex-frontend/issues/193)
-
 
 ### Changed
 
