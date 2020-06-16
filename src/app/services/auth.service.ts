@@ -18,14 +18,12 @@
  */
 
 import { Injectable } from '@angular/core';
-import { User, UserManager, UserManagerSettings, WebStorageStateStore } from 'oidc-client';
+import { User, UserManager, UserManagerSettings } from 'oidc-client';
 import { User as BackendUser } from 'src/app/models/domain/user';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { API_CONFIG } from 'src/app/config/api-config';
-import { Role } from 'src/app/models/domain/role';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,15 +41,17 @@ export class AuthService {
   private manager: UserManager;
   private user: User | null;
   private backenduser: BackendUser | null;
-  private http: HttpClient;
 
-  constructor(http: HttpClient) {
+  constructor(
+    private userService: UserService
+  ) {
     this.manager = new UserManager(getClientSettings());
-    this.http = http;
 
     this.manager.getUser().then((user) => {
       this.user = user;
-
+      if (this.user == null) {
+        return;
+      }
       this.getBackendUser().then((backendUser) => {
         this.backenduser = backendUser;
         this.$user.next(backendUser);
@@ -86,17 +86,37 @@ export class AuthService {
    * @returns the backend user.
    */
   public async getBackendUser(): Promise<BackendUser> {
-    return this.http.get<BackendUser>(`${API_CONFIG.url}User`).toPromise();
-  }
-  /**
-   * Gets current role of the backend user.
-   * @returns current role.
-   */
-  public getCurrentRole(): Role {
-    if (this.backenduser == null || this.backenduser.role == null) {
-      return null;
+    // If the user is null then the user is not signed in so we cannot request the user from the backend.
+    if (this.user === null) {
+      return;
     }
-    return this.backenduser.role;
+    return this.userService.getCurrentUser().toPromise();
+  }
+
+  /**
+   * Gets the current backend user model.
+   * @Returns Backend user model.
+   */
+  public getCurrentBackendUser(): BackendUser {
+    if (this.backenduser == null) {
+      this.getBackendUser().then(result => {
+          this.backenduser = result;
+          return this.backenduser;
+      });
+    }
+    return this.backenduser;
+  }
+
+  /**
+   * Checks if the current user has the given scope.
+   * @Returns true if user has the scope.
+   */
+  public currentBackendUserHasScope(scope: string ): boolean {
+    const user = this.getCurrentBackendUser();
+    if (user?.role === undefined) {
+      return false;
+    }
+    return user.role.scopes.some(s => s.scope === scope);
   }
 
   /**

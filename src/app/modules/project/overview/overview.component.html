@@ -23,54 +23,80 @@
     <div class="projects-filter">
       <h3>Filter</h3>
       <accordion>
-        <accordion-group heading="Category" isOpen="true">
-          <form action="">
+        <accordion-group [hidden]="!displaySearchElements" heading="Category" isOpen="true">
+          <form [formGroup]="categoryForm">
             <div>
-              <input id="code" name="code" type="checkbox" value="Code">
+              <input formControlName="code" id="code" name="code" type="checkbox" value="Code">
               <label for="code"><span class="icon"><img alt="" src="assets/images/code.svg"></span> Code</label>
             </div>
             <div>
-              <input id="video" name="video" type="checkbox" value="Video">
+              <input formControlName="video" id="video" name="video" type="checkbox" value="Video">
               <label for="video"><span class="icon"><img alt="" src="assets/images/video.svg"></span> Video</label>
             </div>
             <div>
-              <input id="research-paper" name="researchPaper" type="checkbox" value="Research paper">
+              <input formControlName="research_paper" id="research-paper" name="researchPaper" type="checkbox"
+                value="Research paper">
               <label for="research-paper"><span class="icon"><img alt="" src="assets/images/theses.svg"></span> Research
                 paper</label>
             </div>
             <div>
-              <input id="survey-results" name="surveyResults" type="checkbox" value="Survey results">
+              <input formControlName="survey_results" id="survey-results" name="surveyResults" type="checkbox"
+                value="Survey results">
               <label for="survey-results"><span class="icon"><img alt="" src="assets/images/usertest.svg"></span> Survey
                 results</label>
             </div>
           </form>
         </accordion-group>
-        <accordion-group heading="Tags" isOpen="true">
-          <form action="">
+        <accordion-group [hidden]="!displaySearchElements" heading="Tags" isOpen="true">
+          <form [formGroup]="tagsForm">
             <div>
-              <input id="learning" type="checkbox">
+              <input formControlName="learning" id="learning" type="checkbox">
               <label for="learning">Learning</label>
             </div>
             <div>
-              <input id="research" type="checkbox">
+              <input formControlName="research" id="research" type="checkbox">
               <label for="research">Research</label>
             </div>
             <div>
-              <input id="mobile" type="checkbox">
+              <input formControlName="mobile" id="mobile" type="checkbox">
               <label for="mobile">Mobile</label>
             </div>
             <div>
-              <input id="ux" type="checkbox">
+              <input formControlName="ux" id="ux" type="checkbox">
               <label for="ux">UX</label>
             </div>
           </form>
         </accordion-group>
-        <accordion-group heading="Sort options">
-          <p>Some content</p>
+        <accordion-group heading="Sort options" isOpen="true">
+
+          <form [formGroup]="sortForm" class="sort-options-form">
+            <label for="sort-type">Sort type</label>
+            <select formControlName="type" class='option-select' id="sort-type">
+              <option *ngFor="let sortTypeOption of sortTypeSelectOptions" [value]="sortTypeOption.value">
+                {{sortTypeOption.viewValue}}
+              </option>
+            </select>
+
+            <label for="asc-desc">Sort direction</label>
+            <select formControlName="direction" class='option-select' id="asc-desc">
+              <option *ngFor="let sortDirectionOption of sortDirectionSelectOptions"
+                [value]="sortDirectionOption.value">
+                {{sortDirectionOption.viewValue}}
+              </option>
+            </select>
+          </form>
+
         </accordion-group>
-        <accordion-group heading="Upload date">
-          <p>Some content</p>
+
+        <accordion-group heading="Highlighted" isOpen="true">
+          <label for="asc-desc">Filter options</label>
+          <select [formControl]="highlightFormControl" class='option-select' id="sort-type">
+            <option *ngFor="let highlightOption of highlightSelectOptions; let i = index" [value]="i">
+              {{highlightOption.viewValue}}
+            </option>
+          </select>
         </accordion-group>
+
         <accordion-group heading="Pagination">
           <label>Nr. of projects</label>
           <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]=defaultPaginationOption.id>
@@ -85,7 +111,7 @@
 
   <div class="col-10">
     <div class="search">
-      <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onSearchInput()">
+      <input type="search" placeholder="search project" [formControl]="searchControl">
       <button><img alt="" src="assets/images/research.svg"></button>
     </div>
 
@@ -107,6 +133,10 @@
           <td class="icon">
             <p class="large"><img alt="clock" class="icon"
                 src="assets/images/clock.svg">{{ project.created | date:'longDate' }}</p>
+          </td>
+          <td class="icon">
+            <p class="large"><img alt="user" class="icon"
+                src="assets/images/user.svg">{{ project.user.name }}</p>
           </td>
         </tr>
       </table>

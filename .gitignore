@@ -67,3 +67,5 @@ testem.log
 Thumbs.db
 
 src/.idea/
+
+.scannerwork/

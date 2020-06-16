@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -31,13 +32,25 @@ export class AppLayoutComponent implements OnInit {
   public name: string;
   public isAuthenticated: boolean;
   public subscription: Subscription;
+  public displayAlertContainer = false;
 
-  constructor(private authService: AuthService) {}
+  public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
+  public displayBetaBanner = true;
+
+  constructor(private authService: AuthService, private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
       this.name = this.authService.name;
+    });
+
+    this.alertService.$activeAlerts.subscribe(alerts => {
+      if (alerts == null || alerts.length <= 0) {
+        this.displayAlertContainer = false;
+      } else {
+        this.displayAlertContainer = true;
+      }
     });
   }
   /**
@@ -45,5 +58,21 @@ export class AppLayoutComponent implements OnInit {
    */
   public async onClickSignout() {
     await this.authService.signout();
+  }
+
+  /**
+   * Method which triggers when the user clicks the close beta banner button.
+   * Hides the beta banner.
+   */
+  public onClickCloseBetaMessage(): void {
+    this.displayBetaBanner = false;
+  }
+
+  /**
+   * Method which triggers when the user clicks the beta text in the header.
+   * Displays the beta banner.
+   */
+  public onClickHeaderBetaText(): void {
+    this.displayBetaBanner = true;
   }
 }

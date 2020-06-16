@@ -15,13 +15,23 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Project } from './project';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { API_CONFIG } from '../config/api-config';
+import { Highlight } from '../models/domain/hightlight';
+import { Observable } from 'rxjs';
 
-export interface Highlight {
-  id: number;
-  projectId: number;
-  project: Project;
-  startDate?: string;
-  endDate?: string;
-  isNeverEnding?: boolean;
+@Injectable({
+  providedIn: 'root'
+})
+export class HighlightByProjectIdService {
+
+  protected readonly url = API_CONFIG.url + API_CONFIG.highlightRoute;
+
+  constructor(
+    private http: HttpClient) { }
+
+  public getHighlightsByProjectId(projectId: number): Observable<Highlight[]> {
+    return this.http.get<Highlight[]>(`${this.url}/${API_CONFIG.projectRoute}/${projectId}`);
+  }
 }
