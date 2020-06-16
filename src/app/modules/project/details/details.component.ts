@@ -184,11 +184,12 @@ export class DetailsComponent implements OnInit {
   }
 
   private formatTimestamps(highlightTimestamp: string): string {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayOfTheWeek = days[new Date(highlightTimestamp).getDay()];
-    const dateStamp = new Date(highlightTimestamp).getUTCDate() + "-" + (new Date(highlightTimestamp).getUTCMonth() + 1) + "-" + new Date(highlightTimestamp).getUTCFullYear();
-    const timeStamp = new Date(highlightTimestamp).getUTCHours() + ":" +  ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
+    const dateStamp = new Date(highlightTimestamp).getUTCDate() + '-' + (new Date(highlightTimestamp).getUTCMonth() + 1)
+    + '-' + new Date(highlightTimestamp).getUTCFullYear();
+    const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' +  ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
     const timeZone = 'GMT';
-    return dayOfTheWeek + ", " + dateStamp + ", " + timeStamp + " " + timeZone; 
+    return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
 }
