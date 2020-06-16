@@ -19,8 +19,6 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalAcceptGenericComponent } from 'src/app/components/modals/modal-accept-generic/modal-accept-generic.component';
-import { Observable, EMPTY } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
