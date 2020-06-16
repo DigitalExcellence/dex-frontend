@@ -1,4 +1,5 @@
 /*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -13,18 +14,41 @@
  *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
+@import "assets/styles/variables";
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+.modal-body {
+    position: unset;
+}
 
-/**
- * Module in which reusable components and modules can be imported and exported.
- */
-@NgModule({
-  declarations: [],
-  imports: [CommonModule, ReactiveFormsModule],
-  exports: [ReactiveFormsModule],
-})
-export class SharedModule { }
+.modal-delete-container {
+    background: #f8f8f8;
+    width: 600px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    padding: 15px;
+
+    button.close {
+        border: none;
+        background: none;
+        display: flex;
+        float: right;
+        &:focus,
+        &:active {
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    button:nth-child(1) {
+        margin-right: 15px;
+    }
+}
