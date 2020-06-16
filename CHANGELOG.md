@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented search functionality on home page - [#166](https://github.com/DigitalExcellence/dex-frontend/issues/166)
 - Added user to project-overview page, user is now also searchable - [#207](https://github.com/DigitalExcellence/dex-frontend/issues/207)
 - Implemented remove project modal - [#193](https://github.com/DigitalExcellence/dex-frontend/issues/193)
-
+- Added a privacy policy modal before the login - [215](https://github.com/DigitalExcellence/dex-frontend/issues/215)
 
 ### Changed
 
