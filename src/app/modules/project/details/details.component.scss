@@ -81,3 +81,40 @@
   margin-top: 30px;
   max-width: 800px;
 }
+
+.project-highlighted-div {
+  float: left;
+}
+
+#project-share-buttons {
+  margin-top: 60px;
+
+  button:first-child {
+    margin-left: 0px!important;
+  }
+
+  button {
+    margin-right: 20px;
+  }
+}
+
+#project-edit-buttons {
+  margin-top: 15px;
+  display: flex;
+
+  button {
+    border-radius: 18px;
+    width: 36px;
+    height: 36px;
+    padding: 0px;
+  }
+}
+
+#title-wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    margin-left: 15px;
+  }
+}
