@@ -19,18 +19,17 @@
 import { Component, OnInit } from '@angular/core';
 
 /**
- * Component which functions as the footer of the application.
+ * Component which functions as the privacy policy page of the application
  */
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  selector: 'app-privacy-policy',
+  templateUrl: './privacy-policy.component.html'
 })
-export class FooterComponent implements OnInit {
+export class PrivacyPolicyComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }
