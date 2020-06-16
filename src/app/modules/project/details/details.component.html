@@ -56,8 +56,7 @@
             <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
                 src="assets/images/edit.svg"></button>
           </ng-container>
-
-          <ng-container>
+          <ng-container *ngIf="displayDeleteProjectButton">
             <button class="primary" (click)="onClickRemoveProject()"><img alt="" src="assets/images/trash.svg"></button>
           </ng-container>
         </div>
@@ -90,13 +89,17 @@
         {{ project.description }}
       </p>
 
-      <div *ngIf="isAuthenticated" id="project-share-buttons">
-        <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
-        <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
-          <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
-        </div>
-
-        <app-embed-button></app-embed-button>
+      <div id="project-share-buttons">
+        <ng-container *ngIf="displayHighlightButton">
+          <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
+          
+          <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
+            <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="displayEmbedButton">
+          <app-embed-button></app-embed-button>
+        </ng-container>
       </div>
     </div>
   </div>
