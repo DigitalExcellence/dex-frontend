@@ -234,7 +234,6 @@ export class DetailsComponent implements OnInit {
   /**
    * Method to display the edit project button based on the current user and the project user.
    * If the user either has the ProjectWrite scope or is the creator of the project
-   * @param project The project to check if the current user is the owner.
    */
   private determineDisplayEditProjectButton(): void {
     if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
@@ -252,7 +251,6 @@ export class DetailsComponent implements OnInit {
   /**
    * Method to display the delete project button based on the current user and the project user.
    * If the user either has the ProjectWrite scope or is the creator of the project
-   * @param project The project to check if the current user is the owner.
    */
   private determineDisplayDeleteProjectButton(): void {
     if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
