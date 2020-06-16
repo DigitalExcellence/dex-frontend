@@ -58,7 +58,7 @@
           </ng-container>
 
           <ng-container>
-            <button class="primary" routerLink=""><img alt="" src="assets/images/trash.svg"></button>
+            <button class="primary" (click)="onClickRemoveProject()"><img alt="" src="assets/images/trash.svg"></button>
           </ng-container>
         </div>
       </div>
@@ -95,7 +95,6 @@
         <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
           <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
         </div>
-        <button class="primary ml-2" (click)="onClickRemoveProject()">Remove Project</button>
 
         <app-embed-button></app-embed-button>
       </div>
