@@ -87,17 +87,37 @@ export class AuthService {
    * @returns the backend user.
    */
   public async getBackendUser(): Promise<BackendUser> {
+    // If the user is null then the user is not signed in so we cannot request the user from the backend.
+    if (this.user === null) {
+      return;
+    }
     return this.userService.getCurrentUser().toPromise();
   }
+
   /**
-   * Gets current role of the backend user.
-   * @returns current role.
+   * Gets the current backend user model.
+   * @Returns Backend user model.
    */
-  public getCurrentRole(): Role {
-    if (this.backenduser == null || this.backenduser.role == null) {
-      return null;
+  public getCurrentBackendUser(): BackendUser {
+    if (this.backenduser == null) {
+      this.getBackendUser().then(result => {
+          this.backenduser = result;
+          return this.backenduser;
+      });
     }
-    return this.backenduser.role;
+    return this.backenduser;
+  }
+
+  /**
+   * Checks if the current user has the given scope.
+   * @Returns true if user has the scope.
+   */
+  public currentBackendUserHasScope(scope: string ): boolean {
+    const user = this.getCurrentBackendUser();
+    if (user?.role === undefined) {
+      return false;
+    }
+    return user.role.scopes.some(s => s.scope === scope);
   }
 
   /**

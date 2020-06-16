@@ -16,13 +16,13 @@
  */
 import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
@@ -32,6 +32,8 @@ import { User } from 'src/app/models/domain/user';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
 import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
 import { Highlight } from 'src/app/models/domain/hightlight';
+import { scopes } from 'src/app/models/domain/scopes';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 
 /**
  * Overview of a single project
@@ -47,8 +49,12 @@ export class DetailsComponent implements OnInit {
    */
   public project: Project;
   public isAuthenticated: boolean;
-  public displayEditButton = false;
   public isProjectHighlighted = false;
+
+  public displayEditButton = false;
+  public displayDeleteProjectButton = false;
+  public displayHighlightButton = false;
+  public displayEmbedButton = false;
 
   private currentUser: User;
 
@@ -59,7 +65,8 @@ export class DetailsComponent implements OnInit {
     private highlightService: HighlightService,
     private modalService: BsModalService,
     private alertService: AlertService,
-    private highlightByProjectIdService: HighlightByProjectIdService
+    private highlightByProjectIdService: HighlightByProjectIdService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -75,14 +82,20 @@ export class DetailsComponent implements OnInit {
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
     });
+    this.currentUser = this.authService.getCurrentBackendUser();
 
     this.projectService.get(id).subscribe(
       (result) => {
         this.project = result;
+
+        this.determineDisplayEditProjectButton();
+        this.determineDisplayDeleteProjectButton();
+        this.determineDisplayEmbedButton();
+        this.determineDisplayHighlightButton();
       }
     );
 
-    if (this.isAuthenticated) {
+    if (this.authService.currentBackendUserHasScope(scopes.HighlightRead)) {
       this.highlightByProjectIdService.getHighlightsByProjectId(id)
         .subscribe(highlights => {
           if (highlights == null) {
@@ -180,14 +193,109 @@ export class DetailsComponent implements OnInit {
   }
 
   /**
+   * Method which triggers when the delete project button is clicked.
+   * Displays the remove modal.
+   * Removes the project if modal returned true to confirm the delete.
    * Method to display the edit project button based on the current user and the project user.
+   * If the user either has the ProjectWrite scope or is the creator of the project.
+   * @param project The project to check if the current user is the owner.
+   */
+  public onClickRemoveProject(): void {
+    const modalOptions: ModalOptions = {
+      initialState: {
+        titleText: 'Delete project',
+        mainText: `Are you sure you want to delete the project, ${this.project.name}?`,
+      }
+    };
+    // Display modal
+    const modalRef = this.modalService.show(ModalDeleteGenericComponent, modalOptions);
+    // Map observable back to original type
+    const modalRefRemove = modalRef.content.remove as Observable<boolean>;
+
+    // Subscribe to remove event.
+    // Call the project remove service if true was returned.
+    modalRefRemove.pipe(
+      switchMap(deleteProject => {
+        if (deleteProject) {
+          return this.projectService.delete(this.project.id);
+        }
+        return EMPTY;
+      })
+    ).subscribe(() => {
+      this.alertService.pushAlert({
+        mainMessage: 'Removal of project was successful',
+        timeout: this.alertService.defaultTimeout,
+        dismissible: true,
+        type: AlertType.success
+      });
+      this.router.navigate(['project/overview']);
+    });
+  }
+
+  /**
+   * Method to display the edit project button based on the current user and the project user.
+   * If the user either has the ProjectWrite scope or is the creator of the project
    * @param project The project to check if the current user is the owner.
    */
   private determineDisplayEditProjectButton(): void {
+    if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
+      this.displayEditButton = true;
+      return;
+    }
+
     if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayEditButton = false;
+      return;
     }
     this.displayEditButton = this.project.user.id === this.currentUser.id;
+  }
+
+  /**
+   * Method to display the delete project button based on the current user and the project user.
+   * If the user either has the ProjectWrite scope or is the creator of the project
+   * @param project The project to check if the current user is the owner.
+   */
+  private determineDisplayDeleteProjectButton(): void {
+    if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
+      this.displayDeleteProjectButton = true;
+      return;
+    }
+
+    if (this.currentUser == null || this.project == null || this.project.user == null) {
+      this.displayDeleteProjectButton = false;
+      return;
+    }
+    this.displayDeleteProjectButton = this.project.user.id === this.currentUser.id;
+  }
+
+  /**
+   * Method to display the highlight buttons based on the current user.
+   * If the user either has the HighlightWrite scope.
+   */
+  private determineDisplayHighlightButton(): void {
+    if (this.authService.currentBackendUserHasScope(scopes.HighlightWrite)) {
+      this.displayHighlightButton = true;
+      return;
+    }
+    this.displayHighlightButton = false;
+  }
+
+  /**
+   * Method to display the embed button based on the current user and the project user.
+   * If the user either has the EmbedWrite scope or is the creator of the project
+   * @param project The project to check if the current user is the owner.
+   */
+  private determineDisplayEmbedButton(): void {
+    if (this.authService.currentBackendUserHasScope(scopes.EmbedWrite)) {
+      this.displayEmbedButton = true;
+      return;
+    }
+
+    if (this.currentUser == null || this.project == null || this.project.user == null) {
+      this.displayEmbedButton = false;
+      return;
+    }
+    this.displayEmbedButton = this.project.user.id === this.currentUser.id;
   }
 
   private formatTimestamps(highlightTimestamp: string): string {
