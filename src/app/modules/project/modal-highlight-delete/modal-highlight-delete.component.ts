@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -20,13 +21,15 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Highlight } from 'src/app/models/domain/hightlight';
 import { HighlightService } from 'src/app/services/highlight.service';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
 
 /**
  * Pop-up modal where you can select a highlight that
  * you want to delete.
  */
 @Component({
-  selector: 'app-modal=-highlight-delete',
+  selector: 'app-modal-highlight-delete',
   templateUrl: './modal-highlight-delete.component.html',
   styleUrls: ['./modal-highlight-delete.component.scss']
 })
@@ -42,7 +45,8 @@ export class ModalHighlightDeleteComponent implements OnInit {
   constructor(
     public bsModalRef: BsModalRef,
     private formBuilder: FormBuilder,
-    private highlightService: HighlightService
+    private highlightService: HighlightService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -79,6 +83,13 @@ export class ModalHighlightDeleteComponent implements OnInit {
         this.highlightService.delete(+key).subscribe();
       }
     }
+    const alertConfig: AlertConfig = {
+      type: AlertType.success,
+      mainMessage: 'The highlight was succesfully deleted',
+      dismissible: true,
+      timeout: this.alertService.defaultTimeout
+    };
+    this.alertService.pushAlert(alertConfig);
     this.confirm.emit();
     this.bsModalRef.hide();
   }

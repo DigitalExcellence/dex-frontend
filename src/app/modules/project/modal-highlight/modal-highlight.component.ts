@@ -31,7 +31,7 @@ export interface HighlightFormResult {
  * Pop-up modal with duration settings for highlighting a project.
  */
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-highlight',
   templateUrl: './modal-highlight.component.html',
   styleUrls: ['./modal-highlight.component.scss']
 })

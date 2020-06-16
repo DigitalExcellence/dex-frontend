@@ -23,7 +23,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
+import { ModalHighlightComponent, HighlightFormResult } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
@@ -31,7 +31,7 @@ import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
 import { Observable, EMPTY } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
-import { ModalHighlightDeleteComponent } from 'src/app/components/modals/modal-highlight-delete/modal-highlight-delete.component';
+import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
 import { Highlight } from 'src/app/models/domain/hightlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 
