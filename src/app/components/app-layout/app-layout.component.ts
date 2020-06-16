@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -31,16 +32,25 @@ export class AppLayoutComponent implements OnInit {
   public name: string;
   public isAuthenticated: boolean;
   public subscription: Subscription;
+  public displayAlertContainer = false;
 
   public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
       this.name = this.authService.name;
+    });
+
+    this.alertService.$activeAlerts.subscribe(alerts => {
+      if (alerts == null || alerts.length <= 0) {
+        this.displayAlertContainer = false;
+      } else {
+        this.displayAlertContainer = true;
+      }
     });
   }
   /**

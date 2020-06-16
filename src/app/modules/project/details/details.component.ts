@@ -27,9 +27,11 @@ import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
-import { switchMap, first, flatMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
-import { throwError } from 'rxjs';
+import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
+import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
+import { Highlight } from 'src/app/models/domain/hightlight';
 
 /**
  * Overview of a single project
@@ -46,6 +48,7 @@ export class DetailsComponent implements OnInit {
   public project: Project;
   public isAuthenticated: boolean;
   public displayEditButton = false;
+  public isProjectHighlighted = false;
 
   private currentUser: User;
 
@@ -55,7 +58,8 @@ export class DetailsComponent implements OnInit {
     private authService: AuthService,
     private highlightService: HighlightService,
     private modalService: BsModalService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private highlightByProjectIdService: HighlightByProjectIdService
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +81,18 @@ export class DetailsComponent implements OnInit {
         this.project = result;
       }
     );
+
+    if (this.isAuthenticated) {
+      this.highlightByProjectIdService.getHighlightsByProjectId(id)
+        .subscribe(highlights => {
+          if (highlights == null) {
+            return;
+          }
+          if (highlights.length > 0) {
+            this.isProjectHighlighted = true;
+          }
+        });
+    }
   }
 
   /**
@@ -124,7 +140,35 @@ export class DetailsComponent implements OnInit {
           timeout: this.alertService.defaultTimeout
         };
         this.alertService.pushAlert(alertConfig);
+        this.isProjectHighlighted = true;
       });
+  }
+
+  /**
+   * Method to delete a highlight.
+   */
+  public onClickDeleteHighlightButton(): void {
+    if (this.project == null || this.project.id === 0) {
+      return;
+    }
+    this.highlightByProjectIdService.getHighlightsByProjectId(this.project.id).subscribe(
+      (results: Highlight[]) => {
+        if (results == null) {
+          return;
+        }
+        results.forEach(highlight => {
+          if (highlight.startDate != null && highlight.endDate != null) {
+            highlight.startDate = this.formatTimestamps(highlight.startDate);
+            highlight.endDate = this.formatTimestamps(highlight.endDate);
+          } else {
+            highlight.startDate = 'Never Ending';
+            highlight.endDate = 'Never Ending';
+          }
+        });
+        const initialState = { highlights: results };
+        this.modalService.show(ModalDeleteComponent, { initialState });
+      }
+    );
   }
 
   /**
@@ -144,5 +188,15 @@ export class DetailsComponent implements OnInit {
       this.displayEditButton = false;
     }
     this.displayEditButton = this.project.user.id === this.currentUser.id;
+  }
+
+  private formatTimestamps(highlightTimestamp: string): string {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayOfTheWeek = days[new Date(highlightTimestamp).getDay()];
+    const dateStamp = new Date(highlightTimestamp).getUTCDate() + '-' + (new Date(highlightTimestamp).getUTCMonth() + 1)
+      + '-' + new Date(highlightTimestamp).getUTCFullYear();
+    const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' + ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
+    const timeZone = 'GMT';
+    return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
 }

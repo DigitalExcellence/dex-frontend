@@ -1,3 +1,4 @@
+import { API_CONFIG } from './../config/api-config';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -26,10 +27,37 @@ import { AlertService } from 'src/app/services/alert.service';
 import { DeXHttpErrorResponse } from 'src/app/models/internal/dex-http-error-response';
 
 /**
+ * Interface to define ignoredRequests.
+ */
+interface IgnoredRequests {
+    endpoint: string;
+    method: HttpMethods;
+}
+
+/**
+ * Enum to define possible HTTP Methods.
+ */
+enum HttpMethods {
+    'GET',
+    'POST',
+    'DELETE',
+    'PUT',
+    'PATCH'
+}
+
+/**
  * Interceptor which handles error handling and displaying for http requests.
  */
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
+
+    /**
+     * Array to define which request should be ignored by this interceptor.
+     * This can be used to not display error message for certain requests.
+     */
+    private readonly ignoredEndpoints: IgnoredRequests[] = [
+        { endpoint: 'highlight/project/', method: HttpMethods.GET },
+    ];
 
     constructor(
         private alertService: AlertService
@@ -42,6 +70,22 @@ export class HttpErrorInterceptor implements HttpInterceptor {
      * Catch the error and send it to Sentry for production.
      */
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        // Find a matching ignoredEndpoint based on the endpoint and method.
+        const foundIgnoredEndpoint = this.ignoredEndpoints.find(ignoredEndpoint => {
+            return request.url.includes(API_CONFIG.url + ignoredEndpoint.endpoint) &&
+                request.method === HttpMethods[ignoredEndpoint.method];
+        });
+
+        // If a ignored endpoint was found return with default behavior.
+        if (foundIgnoredEndpoint != null) {
+            return next.handle(request)
+                .pipe(
+                    // First retry the request.
+                    retry(1)
+                );
+        }
+
+        // For all non ignored requests use the error handler and retry functionality.
         return next.handle(request)
             .pipe(
                 // First retry the request.
@@ -51,6 +95,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 // Then catch the error after retrying.
                 catchError((httpErrorResponse: DeXHttpErrorResponse) => {
                     // Create and send alert.
+                    console.log('DISPLAY ALERT MESSAGE FOR', httpErrorResponse);
                     if (httpErrorResponse.status === 0) {
                         // API Could not be reached
                         this.alertService.pushAlert(this.createErrorAlertConfig('API could not be reached', 'Please check your internet connection'));

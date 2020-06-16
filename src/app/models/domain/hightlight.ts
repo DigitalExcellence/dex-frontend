@@ -21,4 +21,7 @@ export interface Highlight {
   id: number;
   projectId: number;
   project: Project;
+  startDate?: string;
+  endDate?: string;
+  isNeverEnding?: boolean;
 }
