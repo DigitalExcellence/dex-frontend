@@ -23,7 +23,6 @@ import { User as BackendUser } from 'src/app/models/domain/user';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environment } from 'src/environments/environment';
-import { Role } from 'src/app/models/domain/role';
 import { UserService } from './user.service';
 
 @Injectable({
