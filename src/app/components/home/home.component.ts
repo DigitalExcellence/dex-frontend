@@ -1,3 +1,6 @@
+import { ModalHighlightComponent } from './../modals/modal-highlight/modal-highlight.component';
+import { ModalDeleteComponent } from './../modals/modal-delete/modal-delete.component';
+import { BsModalService } from 'ngx-bootstrap/modal';
 /*
  *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
@@ -34,9 +37,12 @@ export class HomeComponent {
   public searchControl: FormControl;
 
   constructor(
-    private router: Router) {
+    private router: Router,
+    private modalService: BsModalService) {
     this.searchControl = new FormControl('');
-   }
+    // this.modalService.show(ModalHighlightComponent);
+    this.modalService.show(ModalDeleteComponent);
+  }
 
   /**
    * Called when the user clicks the search icon in the search bar
@@ -61,7 +67,7 @@ export class HomeComponent {
    */
   private validateSearchInput(): void {
     if (this.searchControl.value !== '' && this.searchControl.value.replace(/\s/g, '').length) {
-      this.router.navigate(['/project/overview'], {queryParams: {query: this.searchControl.value}});
+      this.router.navigate(['/project/overview'], { queryParams: { query: this.searchControl.value } });
     } else {
       this.router.navigate(['/project/overview']);
     }
