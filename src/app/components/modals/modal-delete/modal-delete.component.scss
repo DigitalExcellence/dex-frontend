@@ -22,7 +22,7 @@
     position: unset;
 }
 
-.modal-highlight-container {
+.modal-delete-container {
     background: #f8f8f8;
     width: 600px;
     border-radius: 6px;
@@ -40,41 +40,6 @@
         &:active {
             border: none;
             outline: none;
-        }
-    }
-}
-
-.highlight-form {
-    margin-top: 20px;
-    input[type="date"] {
-        border: none;
-        border-radius: 6px;
-        box-shadow: 0 3px 6px #0000001a;
-        height: 45px;
-        width: 100%;
-        margin-bottom: 25px;
-        padding: 0 15px;
-        &:focus {
-            outline: none;
-            border: 1px solid #707070;
-        }
-    }
-
-    p.date-error-message {
-        color: $accent-color-primary;
-    }
-
-    &__checkbox {
-        display: flex;
-        align-items: center;
-
-        input[type="checkbox"] {
-            border: solid 1px #707070;
-            margin-right: 15px;
-        }
-
-        h4 {
-            margin: 0;
         }
     }
 }

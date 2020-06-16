@@ -17,17 +17,17 @@
 
  -->
 
-<div class="modal-highlight-container">
+<div class="modal-delete-container">
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="modal-body">
-        <h2>Highlight project</h2>
-
+        <h2>{{titleText}}</h2>
+        <p>{{mainText}}</p>
         <div class="row">
             <div class="col-12 modal-buttons">
-                <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
-                <button type="button" class="primary" (click)="onClickConfirm()">Delete</button>
+                <button type="button" class="cancel" (click)="bsModalRef.hide()">Cancel</button>
+                <button type="button" class="primary" (click)="onClickDelete()">Delete</button>
             </div>
         </div>
 

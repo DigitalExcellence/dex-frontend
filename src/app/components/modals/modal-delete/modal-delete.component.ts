@@ -16,21 +16,37 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Output, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
+/**
+ * Modal to remove items.
+ * Emits true via remove property if the removable was confirmed.
+ */
 @Component({
   selector: 'app-modal-delete',
   templateUrl: './modal-delete.component.html',
   styleUrls: ['./modal-delete.component.scss']
 })
-export class ModalDeleteComponent implements OnInit {
+export class ModalDeleteComponent {
+
+  @Output() remove = new EventEmitter<boolean>();
+
+  public readonly titleText = '';
+  public readonly mainText = '';
 
   constructor(
     public bsModalRef: BsModalRef,
   ) { }
 
-  ngOnInit(): void {
+  /**
+   * Method which triggers when remove is confirmed.
+   * Emits true via the output property and closes the modal.
+   */
+  public onClickDelete(): void {
+    this.remove.emit(true);
+    this.bsModalRef.hide();
   }
 
 }

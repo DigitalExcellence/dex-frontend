@@ -1,6 +1,3 @@
-import { ModalHighlightComponent } from './../modals/modal-highlight/modal-highlight.component';
-import { ModalDeleteComponent } from './../modals/modal-delete/modal-delete.component';
-import { BsModalService } from 'ngx-bootstrap/modal';
 /*
  *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
@@ -37,11 +34,9 @@ export class HomeComponent {
   public searchControl: FormControl;
 
   constructor(
-    private router: Router,
-    private modalService: BsModalService) {
+    private router: Router) {
     this.searchControl = new FormControl('');
-    // this.modalService.show(ModalHighlightComponent);
-    this.modalService.show(ModalDeleteComponent);
+
   }
 
   /**

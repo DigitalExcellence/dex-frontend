@@ -16,20 +16,22 @@
  */
 import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalHighlightComponent, HighlightFormResult } from 'src/app/components/modals/modal-highlight/modal-highlight.component';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
-import { switchMap, first, flatMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
-import { throwError } from 'rxjs';
+import { ModalDeleteComponent } from 'src/app/components/modals/modal-delete/modal-delete.component';
+import { Observable, EMPTY } from 'rxjs';
+
 
 /**
  * Overview of a single project
@@ -55,7 +57,8 @@ export class DetailsComponent implements OnInit {
     private authService: AuthService,
     private highlightService: HighlightService,
     private modalService: BsModalService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -116,7 +119,7 @@ export class DetailsComponent implements OnInit {
           return this.highlightService.post(highlightAddResource);
         })
       )
-      .subscribe((highlightFormResult: HighlightFormResult) => {
+      .subscribe(() => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
           mainMessage: 'Project was successfully highlighted',
@@ -136,13 +139,40 @@ export class DetailsComponent implements OnInit {
   }
 
   /**
-   * Method to display the edit project button based on the current user and the project user.
-   * @param project The project to check if the current user is the owner.
+   * Method which triggers when the delete project button is clicked.
+   * Displays the remove modal.
+   * Removes the project if modal returned true to confirm the delete.
    */
-  private determineDisplayEditProjectButton(): void {
-    if (this.currentUser == null || this.project == null || this.project.user == null) {
-      this.displayEditButton = false;
-    }
-    this.displayEditButton = this.project.user.id === this.currentUser.id;
+  public onClickRemoveProject(): void {
+    const modalOptions: ModalOptions = {
+      initialState: {
+        titleText: 'Delete project',
+        mainText: `Are you sure you want to delete the project, ${this.project.name}?`,
+      }
+    };
+    // Display modal
+    const modalRef = this.modalService.show(ModalDeleteComponent, modalOptions);
+    // Map observable back to original type
+    const modalRefRemove = modalRef.content.remove as Observable<boolean>;
+
+    // Subscribe to remove event.
+    // Call the project remove service if true was returned.
+    modalRefRemove.pipe(
+      switchMap(deleteProject => {
+        if (deleteProject) {
+          return this.projectService.delete(this.project.id);
+        }
+        return EMPTY;
+      })
+    ).subscribe(() => {
+      this.alertService.pushAlert({
+        mainMessage: 'Removal of project was successful',
+        timeout: this.alertService.defaultTimeout,
+        dismissible: true,
+        type: AlertType.success
+      });
+      this.router.navigate(['project/overview']);
+    });
   }
+
 }
