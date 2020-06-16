@@ -31,7 +31,8 @@
               <div *ngIf="highlight.isNeverEnding; else displayDateTimes">
                 <div class="highlight-wrapper">
                   <input type="checkbox" id="neverEndingCheckbox" [formControlName]="highlight.id" class=""/>
-                  <label for="neverEndingCheckbox"><b>Never Ending</b></label>
+                  <label for="neverEndingCheckbox"><strong>Never Ending</strong></label>
+
                 </div>
               </div>
               <ng-template #displayDateTimes>
