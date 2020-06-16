@@ -37,7 +37,12 @@
               <ng-template #displayDateTimes>
                 <div class="highlight-wrapper">
                   <input type="checkbox" id="checkbox" [formControlName]="highlight.id" class=""/>
-                  <label for="checkbox"><strong>Start date: </strong>{{highlight.startDate}} <span class="date-spacing"></span><strong>End date: </strong>{{highlight.endDate}}</label>
+                  <label for="checkbox">
+                    <div class="row no-gutters">
+                      <div class="col-6"><strong>Start date:</strong>{{highlight.startDate}}</div>
+                      <div class="col-6"><strong>End date:</strong>{{highlight.endDate}}</div>
+                    </div>
+                  </label>
 
                 </div>
               </ng-template>
