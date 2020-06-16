@@ -34,6 +34,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { AlertComponent } from './components/alert/alert.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ModalDeleteGenericComponent } from './components/modals/modal-delete-ge
     TopHighlightCardsComponent,
     AlertComponent,
     FooterComponent,
+    PrivacyPolicyComponent,
     NotFoundComponent,
     ModalDeleteGenericComponent
   ],
