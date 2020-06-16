@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented sorting & filtering accordion for project overview - [#171](https://github.com/DigitalExcellence/dex-frontend/issues/171)
 - Implemented beta banner & feedback button - [#198](https://github.com/DigitalExcellence/dex-frontend/issues/198)
 - Implemented search functionality on home page - [#166](https://github.com/DigitalExcellence/dex-frontend/issues/166)
+- Added user to project-overview page, user is now also searchable - [#207](https://github.com/DigitalExcellence/dex-fronted/207)
 
 
 ### Changed
@@ -55,4 +56,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where user would need to login again after a window refresh - [#176](https://github.com/DigitalExcellence/dex-frontend/issues/176)
 - Fixed issue where user endpoint would get called when a user is not authenticated - [#189](https://github.com/DigitalExcellence/dex-frontend/issues/189)
 - Fixed issue where empty search would cause a 404 error to appear on the projects overview page - [#179](https://github.com/DigitalExcellence/dex-frontend/issues/179)
+
 ### Security
