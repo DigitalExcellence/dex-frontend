@@ -29,7 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented sorting & filtering accordion for project overview - [#171](https://github.com/DigitalExcellence/dex-frontend/issues/171)
 - Implemented beta banner & feedback button - [#198](https://github.com/DigitalExcellence/dex-frontend/issues/198)
 - Implemented search functionality on home page - [#166](https://github.com/DigitalExcellence/dex-frontend/issues/166)
-- Implemented remove modal - [#193](https://github.com/DigitalExcellence/dex-frontend/issues/193)
+- Added user to project-overview page, user is now also searchable - [#207](https://github.com/DigitalExcellence/dex-frontend/issues/207)
+- Implemented remove project modal - [#193](https://github.com/DigitalExcellence/dex-frontend/issues/193)
 
 
 ### Changed
