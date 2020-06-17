@@ -26,7 +26,7 @@
 
     <div class="header-nav">
       <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
-      <a *ngIf="isAuthenticated" routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
+      <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
     </div>
     <div class="header-nav account">
       <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active" class="nav-link nav-text">Sign
