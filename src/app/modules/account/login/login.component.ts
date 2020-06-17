@@ -54,12 +54,12 @@ export class LoginComponent {
       const modalOptions: ModalOptions = {
         initialState: {
           titleText: 'We value your privacy!',
-          mainText: `By clicking accept, you agree to our <a href="/policy" target="_blank">Privacy Policy</a>. You acknowledge that you have read and understand it. If you have questions or concerns you can contact us.`,
+          mainText: `By clicking accept, you agree to our <a href="/privacy" target="_blank" >Privacy Policy</a>. You acknowledge that you have read and understood it. If you have questions or concerns you can <a href="mailto:dex.fhict@gmail.com">contact us</a>.`,
         }
       };
       // Display modal
       const modalRef = this.modalService.show(ModalAcceptGenericComponent, modalOptions);
-      // wait for the true emitter
+      // wait for modal to emit true
       modalRef.content.accept.subscribe((result: boolean) => {
         if (result) {
           localStorage.setItem(privacyConsentKeyName, 'true');
