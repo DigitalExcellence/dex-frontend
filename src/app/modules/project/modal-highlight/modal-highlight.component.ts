@@ -1,4 +1,5 @@
 /*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -13,6 +14,7 @@
  *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
 import { Component, Output, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -28,9 +30,9 @@ export interface HighlightFormResult {
  * Pop-up modal with duration settings for highlighting a project.
  */
 @Component({
-  selector: 'app-modal',
+  selector: 'app-modal-highlight',
   templateUrl: './modal-highlight.component.html',
-  styleUrls: ['./modal-highlight.scss']
+  styleUrls: ['./modal-highlight.component.scss']
 })
 export class ModalHighlightComponent {
 

@@ -90,6 +90,7 @@ p {
 .search {
   margin: 0 auto;
   margin-top: 20px;
+  margin-bottom: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,4 +138,31 @@ p {
       width: 25px;
     }
   }
+}
+
+h3 a {
+  border-bottom: 3px solid #e85b3f;
+  cursor: pointer;
+
+  &:hover {
+    border-bottom: 3px solid #af3b24;
+    color: #af3b24;
+  }
+}
+
+.info-box-add {
+  p {
+    margin-bottom: 0px;
+  }
+
+  h3 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  margin-bottom: 75px;
+}
+
+.temporarily-disabled {
+  opacity: 0.5;
 }

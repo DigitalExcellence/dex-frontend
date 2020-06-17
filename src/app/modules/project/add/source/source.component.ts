@@ -47,15 +47,38 @@ export class SourceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const demoSource: ExternalSource = {
-      id: 1,
-      name: 'GitHub',
-      image: 'assets/images/github-logo.svg',
-    };
-    for (let index = 0; index < 6; index++) {
-      demoSource.id = demoSource.id + index;
-      this.mostUsedSources.push(demoSource);
-    }
+    this.mostUsedSources.push(
+        {
+          id: 1,
+          name: 'GitHub',
+          image: 'assets/images/github-logo.svg',
+        },
+        {
+          id: 2,
+          name: 'GitLab',
+          image: 'assets/images/gitlab-logo.png',
+        },
+        {
+          id: 3,
+          name: 'Codepen',
+          image: 'assets/images/codepen-logo.png',
+        },
+        {
+          id: 4,
+          name: 'HBO Kennisbank',
+          image: 'assets/images/hbokennisbank-logo.png',
+        },
+        {
+          id: 5,
+          name: 'Google Drive',
+          image: 'assets/images/googledrive-logo.png',
+        },
+        {
+          id: 6,
+          name: 'Dropbox',
+          image: 'assets/images/dropbox-logo.png',
+        }
+    );
   }
 
   /**
