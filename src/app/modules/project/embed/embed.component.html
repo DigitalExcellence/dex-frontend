@@ -19,8 +19,8 @@
 
  <div *ngIf="project">
   <div class="row">
-    <div class="col-3 project-metadata">
-      <div class="project-icon"><img alt="Code project" src="assets/code.svg"></div>
+    <div class="col-sm-3 order-last order-sm-first project-metadata">
+      <div class="project-icon"><img alt="Code project" src="assets/images/code.svg"></div>
       <div *ngIf="project.uri" class="project-metadata__item">
         <h3>External Link</h3>
         <p>
@@ -47,7 +47,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-9">
+    <div class="col-sm-9">
       <h1 class="project-title">{{ project.name }}</h1>
       <div class="project-tags">
         <a class="project-tags__tag" href="#">
