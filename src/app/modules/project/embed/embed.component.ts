@@ -34,7 +34,9 @@ export class EmbedComponent implements OnInit {
    */
   public project: Project;
 
-  constructor(private activedRoute: ActivatedRoute, private embedService: EmbedService) { }
+  constructor(
+    private activedRoute: ActivatedRoute,
+    private embedService: EmbedService) { }
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get('id');
