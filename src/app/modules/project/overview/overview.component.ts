@@ -81,7 +81,7 @@ export class OverviewComponent implements OnInit {
    */
   public defaultPaginationOption = {
     id: 0,
-    amountOnPage: 10,
+    amountOnPage: 10
   };
 
   public showPaginationFooter = true;
@@ -112,18 +112,18 @@ export class OverviewComponent implements OnInit {
   public sortTypeSelectOptions: SelectFormOption[] = [
     { value: 'name', viewValue: 'Name' },
     { value: 'created', viewValue: 'Created' },
-    { value: 'updated', viewValue: 'Updated' },
+    { value: 'updated', viewValue: 'Updated' }
   ];
 
   public sortDirectionSelectOptions: SelectFormOption[] = [
     { value: 'desc', viewValue: 'Descending' },
-    { value: 'asc', viewValue: 'Ascending' },
+    { value: 'asc', viewValue: 'Ascending' }
   ];
 
   public highlightSelectOptions: SelectFormOption[] = [
     { value: null, viewValue: 'All projects' },
     { value: true, viewValue: 'Only highlighted' },
-    { value: false, viewValue: 'Only non highlighted' },
+    { value: false, viewValue: 'Only non highlighted' }
   ];
 
   public displaySearchElements = false;
@@ -156,19 +156,19 @@ export class OverviewComponent implements OnInit {
       code: false,
       video: false,
       research_paper: false,
-      survey_results: false,
+      survey_results: false
     });
 
     this.tagsForm = this.formBuilder.group({
       learning: false,
       research: false,
       mobile: false,
-      ux: false,
+      ux: false
     });
 
     this.sortForm = this.formBuilder.group({
       type: this.sortTypeSelectOptions[0].value,
-      direction: this.sortDirectionSelectOptions[0].value,
+      direction: this.sortDirectionSelectOptions[0].value
     });
 
     // Initialize with index value of 0 to by default select the first select option.
