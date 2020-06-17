@@ -111,8 +111,8 @@ export class OverviewComponent implements OnInit {
 
   public sortTypeSelectOptions: SelectFormOption[] = [
     { value: 'updated', viewValue: 'Updated' },
-    { value: 'name', viewValue: 'Name' },
-    { value: 'created', viewValue: 'Created' }
+    { value: 'created', viewValue: 'Created' },
+    { value: 'name', viewValue: 'Name' }
   ];
 
   public sortDirectionSelectOptions: SelectFormOption[] = [
