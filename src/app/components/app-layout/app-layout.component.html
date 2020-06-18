@@ -18,7 +18,7 @@
  -->
 
 <div class="main-container">
-  <header *ngIf="!contentOnlyLayout" class="header header-6">
+  <header *ngIf="!displayContentWithoutLayout" class="header header-6">
     <div class="branding">
       <span class="title"><a routerLink=""><img alt="" src="assets/images/dex-logo-dark-orange.png"></a></span>
       <p (click)="onClickHeaderBetaText()" class="beta-text">Beta</p>
@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <div *ngIf="!contentOnlyLayout" class="feedback-button-container">
+  <div *ngIf="!displayContentWithoutLayout" class="feedback-button-container">
     <a [href]="dexGithubIssueUrl" target="_blank">
       <button class="feedback-button">Give Feedback</button>
     </a>
@@ -81,5 +81,5 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-  <app-footer *ngIf="!contentOnlyLayout"></app-footer>
+  <app-footer *ngIf="!displayContentWithoutLayout"></app-footer>
 </div>

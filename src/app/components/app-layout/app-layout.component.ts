@@ -33,15 +33,15 @@ export class AppLayoutComponent implements OnInit {
   public isAuthenticated: boolean;
   public subscription: Subscription;
   public displayAlertContainer = false;
-  public contentOnlyLayout = false;
+  public displayContentWithoutLayout = false;
 
   public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
 
   constructor(
-  private authService: AuthService, 
-  private alertService: AlertService, 
-  private router: Router) { }
+      private authService: AuthService,
+      private alertService: AlertService,
+      private router: Router) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
@@ -60,7 +60,7 @@ export class AppLayoutComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         if (event.url.startsWith('/project/embed/')) {
-          this.contentOnlyLayout = true;
+          this.displayContentWithoutLayout = true;
           this.displayBetaBanner = false;
         }
       }
