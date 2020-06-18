@@ -19,21 +19,19 @@
 
 
 <div class="row">
-  <div class="offset-3 col-6">
+  <div class="offset-2 col-8">
     <h1>Add new project</h1>
     <form [formGroup]="newProjectForm" class="project-form">
 
       <div class="row">
-        <div class="col-12">
+        <div class="col-6">
           <div>
             <h3>Project name*</h3>
             <input placeholder="Digital excellence" formControlName="name" required />
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
+        <div class="col-6">
           <div>
             <h3>Project link*</h3>
             <input placeholder="https://github.com/fontys/digitalexcellence" formControlName="uri" required />
