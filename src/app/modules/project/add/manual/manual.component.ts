@@ -30,10 +30,6 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
 
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
-// Import quill and markdown module to support on the fly markdown typing and converting it to styled html.
-import Quill from 'quill';
-import MarkdownShortcuts from 'quill-markdown-shortcuts';
-Quill.register('modules/markdownShortcuts', MarkdownShortcuts);
 
 /**
  * Component for manually adding a project.

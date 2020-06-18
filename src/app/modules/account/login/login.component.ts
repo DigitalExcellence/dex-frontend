@@ -1,4 +1,3 @@
-import { LocalStorageOptions } from 'src/app/utils/localstorage.utils';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -21,6 +20,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalAcceptGenericComponent } from 'src/app/components/modals/modal-accept-generic/modal-accept-generic.component';
 import { LocalStorageUtils } from 'src/app/utils/localstorage.utils';
+import { LocalStorageOptions } from 'src/app/utils/localstorage.utils';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +28,8 @@ import { LocalStorageUtils } from 'src/app/utils/localstorage.utils';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private modalService: BsModalService,
   ) { }
   public readonly title = 'Sign in';

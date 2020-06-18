@@ -1,4 +1,3 @@
-import { QuillModules } from 'ngx-quill';
 
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
@@ -20,6 +19,7 @@ import { QuillModules } from 'ngx-quill';
 import Quill from 'quill';
 import MarkdownShortcuts from 'quill-markdown-shortcuts';
 Quill.register('modules/markdownShortcuts', MarkdownShortcuts);
+import { QuillModules } from 'ngx-quill';
 
 /**
  * Class containing utility methods for Quill Editors.
