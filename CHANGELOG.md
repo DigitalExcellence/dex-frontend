@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented remove project modal - [#193](https://github.com/DigitalExcellence/dex-frontend/issues/193)
 - Added a privacy policy modal before the login - [215](https://github.com/DigitalExcellence/dex-frontend/issues/215)
 - Implemented permission validation for project edit / delete / highlight / embed buttons - [#213](https://github.com/DigitalExcellence/dex-frontend/issues/213)
-
+- Implemented WYSIWYG Editor for project description - [#216](https://github.com/DigitalExcellence/dex-frontend/issues/216)
 
 ### Changed
 
@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed default profile picture for users which are logged in - [#147](https://github.com/DigitalExcellence/dex-frontend/issues/147)
 - Changed login button text to sign in for consistency - [#186](https://github.com/DigitalExcellence/dex-frontend/issues/186)
 - Changed the design of the "Add Project" page - [#188](https://github.com/DigitalExcellence/dex-frontend/issues/188)
+- Added localStorage Utils class to access the localStorage and it's keys from one central piece of code - [#238](https://github.com/DigitalExcellence/dex-frontend/issues/238)
 
 ### Deprecated
 
@@ -63,5 +64,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where the alert container would display itself while there are no alerts active - [#200](https://github.com/DigitalExcellence/dex-frontend/issues/200)
 - Fixed issue where user endpoint would get called when a user is not authenticated - [#189](https://github.com/DigitalExcellence/dex-frontend/issues/189)
 - Fixed issue where empty search would cause a 404 error to appear on the projects overview page - [#179](https://github.com/DigitalExcellence/dex-frontend/issues/179)
+- Fixed issue where beta banner was not dismissible - [#239](#https://github.com/DigitalExcellence/dex-frontend/issues/239)
 
 ### Security
