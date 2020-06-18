@@ -49,7 +49,7 @@ export class LoginComponent {
    * If the user did not consent before a modal is shown to request consent.
    */
   private loginWithConsent(provider?: string): void {
-    const privacyConsentGiven: boolean = JSON.parse(LocalStorageUtils.getValue(LocalStorageUtils['privacy-consent-given']));
+    const privacyConsentGiven: boolean = JSON.parse(LocalStorageUtils.getValue(LocalStorageOptions.PrivacyConsentGiven));
     if (privacyConsentGiven) {
       this.authService.login(provider);
     } else {
