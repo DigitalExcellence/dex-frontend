@@ -1,4 +1,3 @@
-import { AlertService } from 'src/app/services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -19,6 +18,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageUtils, LocalStorageOptions } from 'src/app/utils/localstorage.utils';
+import { AlertService } from 'src/app/services/alert.service';
 
 /**
  * Component used to display the basic layout of the application.
@@ -54,6 +55,8 @@ export class AppLayoutComponent implements OnInit {
         this.displayAlertContainer = true;
       }
     });
+
+    this.displayBetaBanner = !JSON.parse(LocalStorageUtils.getValue(LocalStorageOptions['beta-banner-dismissed']));
   }
   /**
    * Sign the user out of their account by calling the Auth Service signout method.
@@ -67,6 +70,7 @@ export class AppLayoutComponent implements OnInit {
    * Hides the beta banner.
    */
   public onClickCloseBetaMessage(): void {
+    LocalStorageUtils.setValue(LocalStorageOptions['beta-banner-dismissed'], true);
     this.displayBetaBanner = false;
   }
 
