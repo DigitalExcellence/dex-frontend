@@ -37,7 +37,9 @@ export class AppLayoutComponent implements OnInit {
   public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
 
-  constructor(private authService: AuthService, private alertService: AlertService) { }
+  constructor(
+    private authService: AuthService,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
