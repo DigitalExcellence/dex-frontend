@@ -54,5 +54,8 @@ footer {
 
   .copyright {
     margin-top: 48px;
+    a.github-link{
+      color: $accent-color-primary;
+    }
   }
 }
