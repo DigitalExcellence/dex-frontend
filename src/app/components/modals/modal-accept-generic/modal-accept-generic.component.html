@@ -16,22 +16,20 @@
    If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
 
  -->
-<div class="highlights">
-  <div class="row">
-    <div class="col-12">
-      <h2>Highlighted projects</h2>
-      <p class="large">Our top {{highlights.length}} projects</p>
-    </div>
-  </div>
-  <div class="row">
-    <div *ngFor="let highlight of highlights" class="col-md-12 col-lg-4">
-      <div class="card" routerLink="/project/details/{{highlight.projectId}}">
-        <div class="card-title">
-          <div class="icon"><img src="assets/images/code.svg" alt=""></div>
-          <h3>{{highlight.project.name}}</h3>
+
+<div class="modal-accept-container">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="modal-body">
+        <h2>{{titleText}}</h2>
+        <p [innerHTML]="mainText"></p>
+        <div class="row">
+            <div class="col-12 modal-buttons">
+                <button type="button" class="cancel" (click)="bsModalRef.hide()">Cancel</button>
+                <button type="button" class="primary" (click)="onClickAccept()">Accept</button>
+            </div>
         </div>
-        <p class="large">{{highlight.project.description}}</p>
-      </div>
+
     </div>
-  </div>
 </div>
