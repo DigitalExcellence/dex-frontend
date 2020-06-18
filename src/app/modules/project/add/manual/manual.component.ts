@@ -26,7 +26,11 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectService } from 'src/app/services/project.service';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardService } from 'src/app/services/wizard.service';
+import { QuillUtils } from 'src/app/utils/quill.utils';
+
+// Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
+// Import quill and markdown module to support on the fly markdown typing and converting it to styled html.
 import Quill from 'quill';
 import MarkdownShortcuts from 'quill-markdown-shortcuts';
 Quill.register('modules/markdownShortcuts', MarkdownShortcuts);
@@ -59,19 +63,7 @@ export class ManualComponent implements OnInit {
   /**
    * Configuration of QuillToolbar
    */
-  public modulesConfigration = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike'],
-      ['blockquote', 'code-block'],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      [{ 'script': 'sub' }, { 'script': 'super' }],
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'align': [] }],
-      ['clean'],
-    ],
-    markdownShortcuts: {}
-  };
+  public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
   constructor(
     private router: Router,
@@ -111,9 +103,6 @@ export class ManualComponent implements OnInit {
    * Creates a new project.
    */
   public onClickSubmit(): void {
-    // console.log(this.newProjectForm.value);
-    // return;
-    console.log(this.newProjectForm.errors);
     if (!this.newProjectForm.valid) {
       this.newProjectForm.markAllAsTouched();
       const alertConfig: AlertConfig = {
@@ -194,7 +183,6 @@ export class ManualComponent implements OnInit {
     this.newProjectForm.get('uri').setValue(project.uri);
     this.newProjectForm.get('shortDescription').setValue(project.shortDescription);
     this.newProjectForm.get('description').setValue(project.description);
-    console.log(this.newProjectForm.value);
     this.collaborators = project.collaborators;
   }
 }

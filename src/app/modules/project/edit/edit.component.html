@@ -55,7 +55,9 @@
         <div class="col-12">
           <div>
             <h3>Description*</h3>
-            <textarea formControlName="description" required [ngModel]="project?.description"></textarea>
+            <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
+              formControlName="description" placeholder="" [ngModel]="project?.description">
+            </quill-editor>
           </div>
         </div>
       </div>
