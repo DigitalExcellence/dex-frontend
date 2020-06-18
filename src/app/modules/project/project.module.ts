@@ -29,6 +29,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
 import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
 import { SharedModule } from './../shared/shared.module';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,8 @@ import { SharedModule } from './../shared/shared.module';
     SharedModule,
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
-    BsDropdownModule.forRoot()],
+    BsDropdownModule.forRoot(),
+    QuillModule
+  ],
 })
 export class ProjectModule { }

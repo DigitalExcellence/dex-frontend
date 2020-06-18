@@ -35,33 +35,44 @@ body {
 }
 
 // Styles for QuillEditor
-.ql-container {
-  border: none !important;
+.dex-quill-editor {
+  .ql-container {
+    border: none !important;
+  }
+
+  .ql-editor,
+  .ql-toolbar {
+    box-shadow: 0px 3px 6px #0000001a;
+    border: none !important;
+  }
+
+  .ql-editor {
+    background-color: white;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-family: $font-family-base;
+    font-size: $font-size-body;
+    color: $light-mode-text-color;
+  }
+
+  .ql-toolbar {
+    background-color: rgb(226, 226, 226);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+
+  .ql-active {
+    path {
+      stroke: $accent-color-primary !important;
+    }
+  }
 }
 
-.ql-editor,
-.ql-toolbar {
-  box-shadow: 0px 3px 6px #0000001a;
-  border: none !important;
-}
-
-.ql-editor {
-  background-color: white;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  font-family: $font-family-base;
-  font-size: $font-size-body;
-  color: $light-mode-text-color;
-}
-
-.ql-toolbar {
-  background-color: rgb(226, 226, 226);
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-}
-
-.ql-active {
-  path {
-    stroke: $accent-color-primary !important;
+// Styles for QuillViewer
+.dex-quill-viewer {
+  .ql-editor {
+    padding: 0 !important;
+    font-family: $font-family-base;
+    font-size: $font-size-body;
   }
 }
