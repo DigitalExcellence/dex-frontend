@@ -26,6 +26,7 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectService } from 'src/app/services/project.service';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardService } from 'src/app/services/wizard.service';
+import * as showdown from 'showdown';
 
 /**
  * Component for manually adding a project.
@@ -91,6 +92,11 @@ export class ManualComponent implements OnInit {
     this.wizardService.fetchedProject.subscribe(project => {
       if (project == null) {
         return;
+      }
+
+      if (project.description != null && project.description.length > 0) {
+        const converter = new showdown.Converter();
+        project.description = converter.makeHtml(project.description);
       }
       this.fillFormWithProject(project);
     });
