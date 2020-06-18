@@ -56,7 +56,7 @@ export class AppLayoutComponent implements OnInit {
       }
     });
 
-    this.displayBetaBanner = !JSON.parse(LocalStorageUtils.getValue(LocalStorageOptions['beta-banner-dismissed']));
+    this.displayBetaBanner = !JSON.parse(LocalStorageUtils.getValue(LocalStorageOptions.BetaBannerDismissed));
   }
   /**
    * Sign the user out of their account by calling the Auth Service signout method.
@@ -70,7 +70,7 @@ export class AppLayoutComponent implements OnInit {
    * Hides the beta banner.
    */
   public onClickCloseBetaMessage(): void {
-    LocalStorageUtils.setValue(LocalStorageOptions['beta-banner-dismissed'], true);
+    LocalStorageUtils.setValue(LocalStorageOptions.BetaBannerDismissed, true);
     this.displayBetaBanner = false;
   }
 

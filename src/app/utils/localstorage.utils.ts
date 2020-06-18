@@ -19,7 +19,8 @@
  * Enum which defines which localStorage keys are used.
  */
 export enum LocalStorageOptions {
-    'beta-banner-dismissed',
+    BetaBannerDismissed,
+    PrivacyConsentGiven
 }
 
 /**
