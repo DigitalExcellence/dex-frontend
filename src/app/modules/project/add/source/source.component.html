@@ -26,7 +26,7 @@
 
 <div class="row justify-content-center">
   <div class="col-lg-6 col-md-8 col-sm-10 search">
-    <input type="search" placeholder="Paste a link to your project here" [formControl]="sourceUriInput">
+    <input type="search" placeholder="Paste a link to your project here" [formControl]="sourceUriInput" (keyup.enter)="onClickSubmitSourceUri()">
     <button (click)="onClickSubmitSourceUri()"><img src="assets/images/research.svg"></button>
   </div>
 </div>
@@ -56,4 +56,3 @@
     </div>
   </div>
 </div>
-
