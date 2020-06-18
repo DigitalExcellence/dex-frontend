@@ -1,9 +1,22 @@
 @import "assets/styles/variables";
 
 .container-not-found {
-    text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top:50px;
 
-    a {
-        color: $accent-color-primary;
-    }
+  h1.large{
+    font-size:177px;
+    margin-bottom: -20px;
+  }
+
+  button{
+    margin-top:30px;
+    width:250px;
+  }
+
+  a {
+    color: $accent-color-primary;
+  }
 }
