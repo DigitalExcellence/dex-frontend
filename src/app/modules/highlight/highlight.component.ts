@@ -15,15 +15,15 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-highlight",
-  templateUrl: "./highlight.component.html",
-  styleUrls: ["./highlight.component.scss"],
+  selector: 'app-highlight',
+  templateUrl: './highlight.component.html',
+  styleUrls: ['./highlight.component.scss'],
 })
 export class HighlightComponent implements OnInit {
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

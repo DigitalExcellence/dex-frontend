@@ -95,7 +95,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 // Then catch the error after retrying.
                 catchError((httpErrorResponse: DeXHttpErrorResponse) => {
                     // Create and send alert.
-                    console.log('DISPLAY ALERT MESSAGE FOR', httpErrorResponse);
                     if (httpErrorResponse.status === 0) {
                         // API Could not be reached
                         this.alertService.pushAlert(this.createErrorAlertConfig('API could not be reached', 'Please check your internet connection'));
