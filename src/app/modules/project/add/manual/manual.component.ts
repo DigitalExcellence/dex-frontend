@@ -27,6 +27,9 @@ import { ProjectService } from 'src/app/services/project.service';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardService } from 'src/app/services/wizard.service';
 import * as showdown from 'showdown';
+import Quill from 'quill';
+import MarkdownShortcuts from 'quill-markdown-shortcuts';
+Quill.register('modules/markdownShortcuts', MarkdownShortcuts);
 
 /**
  * Component for manually adding a project.
@@ -66,7 +69,8 @@ export class ManualComponent implements OnInit {
       [{ 'color': [] }, { 'background': [] }],
       [{ 'align': [] }],
       ['clean'],
-    ]
+    ],
+    markdownShortcuts: {}
   };
 
   constructor(
@@ -190,7 +194,7 @@ export class ManualComponent implements OnInit {
     this.newProjectForm.get('uri').setValue(project.uri);
     this.newProjectForm.get('shortDescription').setValue(project.shortDescription);
     this.newProjectForm.get('description').setValue(project.description);
-
+    console.log(this.newProjectForm.value);
     this.collaborators = project.collaborators;
   }
 }
