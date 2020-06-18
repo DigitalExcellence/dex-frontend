@@ -71,7 +71,6 @@ export class OverviewComponent implements OnInit {
    */
   public amountOfProjectsOnSinglePage = 10;
 
-
   /**
    * The number of projects that are on the platform
    */
@@ -111,14 +110,14 @@ export class OverviewComponent implements OnInit {
   public highlightFormControl: FormControl;
 
   public sortTypeSelectOptions: SelectFormOption[] = [
-    { value: 'name', viewValue: 'Name' },
+    { value: 'updated', viewValue: 'Updated' },
     { value: 'created', viewValue: 'Created' },
-    { value: 'updated', viewValue: 'Updated' }
+    { value: 'name', viewValue: 'Name' }
   ];
 
   public sortDirectionSelectOptions: SelectFormOption[] = [
-    { value: 'asc', viewValue: 'Ascending' },
     { value: 'desc', viewValue: 'Descending' },
+    { value: 'asc', viewValue: 'Ascending' }
   ];
 
   public highlightSelectOptions: SelectFormOption[] = [
@@ -149,7 +148,8 @@ export class OverviewComponent implements OnInit {
     private paginationService: PaginationService,
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute
+  ) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -186,21 +186,21 @@ export class OverviewComponent implements OnInit {
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
-      .pipe(
-        debounceTime(500)
+    .pipe(
+      debounceTime(500)
       )
       .subscribe((result) => {
-        if (result == null) {
-          return;
-        }
-        this.onInternalQueryChange();
-      });
+      if (result == null) {
+        return;
+      }
+      this.onInternalQueryChange();
+    });
 
-    this.searchControl.valueChanges.subscribe(value => this.onSearchInputValueChange(value));
+    this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
 
-    this.sortForm.valueChanges.subscribe(value => this.onSortFormValueChange(value));
+    this.sortForm.valueChanges.subscribe((value) => this.onSortFormValueChange(value));
 
-    this.highlightFormControl.valueChanges.subscribe(value => this.onHighlightFormValueChanges(value));
+    this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
     // Following two oberservables can be used in the feature to implement category & tags searching
     // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {
@@ -315,14 +315,16 @@ export class OverviewComponent implements OnInit {
 
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
-      this.paginationService.getProjectsPaginated(internalSearchQuery)
+      this.paginationService
+        .getProjectsPaginated(internalSearchQuery)
         .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe(result => this.handleSearchAndProjectResponse(result));
+        .subscribe((result) => this.handleSearchAndProjectResponse(result));
     } else {
       // Search query provided use searchService.
-      this.internalSearchService.getSearchResultsPaginated(internalSearchQuery)
+      this.internalSearchService
+        .getSearchResultsPaginated(internalSearchQuery)
         .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe(result => this.handleSearchAndProjectResponse(result));
+        .subscribe((result) => this.handleSearchAndProjectResponse(result));
     }
   }
 
@@ -341,5 +343,4 @@ export class OverviewComponent implements OnInit {
       this.showPaginationFooter = true;
     }
   }
-
 }

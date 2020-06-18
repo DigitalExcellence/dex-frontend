@@ -28,10 +28,6 @@
       <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
       <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
     </div>
-    <div class="search-bar">
-      <input type="search" placeholder="search project">
-      <button><img alt="" src="assets/images/research.svg"></button>
-    </div>
     <div class="header-nav account">
       <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active" class="nav-link nav-text">Sign
         in</a>
@@ -44,9 +40,6 @@
             class="caret"></span>
         </button>
         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-          <li role="menuitem"><a class="dropdown-item" href="#">My profile</a></li>
-          <li role="menuitem"><a class="dropdown-item" href="#">Account settings</a></li>
-          <li class="divider dropdown-divider"></li>
           <li role="menuitem"><a class="dropdown-item" (click)="onClickSignout()" routerLinkActive="active">Sign
               Out</a>
           </li>

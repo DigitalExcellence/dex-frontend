@@ -19,7 +19,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 
 export interface HighlightFormResult {
   startDate?: Date;

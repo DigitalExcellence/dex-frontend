@@ -16,7 +16,6 @@
  */
 import { EmbedService } from 'src/app/services/embed.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
 
@@ -35,7 +34,9 @@ export class EmbedComponent implements OnInit {
    */
   public project: Project;
 
-  constructor(private activedRoute: ActivatedRoute, private embedService: EmbedService) {}
+  constructor(
+    private activedRoute: ActivatedRoute,
+    private embedService: EmbedService) { }
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get('id');
