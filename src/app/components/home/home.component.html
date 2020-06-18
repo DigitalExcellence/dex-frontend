@@ -26,8 +26,9 @@
 <div class="row justify-content-center">
   <div class="col-12">
     <div class="search">
-      <input type="search" placeholder="Search source" [formControl]="searchControl" (keydown)="onKeyDownFunction($event)">
-      <button (click)="onClickSearch()"><img src="assets/images/research.svg"></button>
+      <input type="search" placeholder="search project" [formControl]="searchControl"
+        (keydown)="onKeyDownFunction($event)">
+      <button (click)="onClickSearch()"><img src="assets/images/research.svg" alt=""></button>
     </div>
   </div>
 </div>
@@ -38,7 +39,7 @@
 <!--share image and button-->
 <div class="row share">
   <div class="col-lg-6 col-md-12">
-    <img src="assets/images/illustation-orange-light.png">
+    <img src="assets/images/illustation-orange-light.png" alt="">
   </div>
   <div class="col-lg-4 col-md-12 share-text">
     <h1>Share a project and collaborate</h1>

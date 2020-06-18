@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented search functionality on home page - [#166](https://github.com/DigitalExcellence/dex-frontend/issues/166)
 - Added user to project-overview page, user is now also searchable - [#207](https://github.com/DigitalExcellence/dex-frontend/issues/207)
 - Implemented remove project modal - [#193](https://github.com/DigitalExcellence/dex-frontend/issues/193)
+- Added a privacy policy modal before the login - [215](https://github.com/DigitalExcellence/dex-frontend/issues/215)
 - Implemented permission validation for project edit / delete / highlight / embed buttons - [#213](https://github.com/DigitalExcellence/dex-frontend/issues/213)
 
 
@@ -49,10 +50,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed default profile picture for users which are logged in - [#147](https://github.com/DigitalExcellence/dex-frontend/issues/147)
 - Changed login button text to sign in for consistency - [#186](https://github.com/DigitalExcellence/dex-frontend/issues/186)
 - Changed the design of the "Add Project" page - [#188](https://github.com/DigitalExcellence/dex-frontend/issues/188)
+- Changed the project-add input and search inputs so you can now press the enter key to submit - [#224](https://github.com/DigitalExcellence/dex-frontend/issues/224)
 
 ### Deprecated
 
 ### Removed
+- Removed the 'x' from search inputs - [#224](https://github.com/DigitalExcellence/dex-frontend/issues/224)
 
 ### Fixed
 - Fixed the bug when there are less than 3 highlights - [#113](https://github.com/DigitalExcellence/dex-frontend/issues/113)
@@ -62,5 +65,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where the alert container would display itself while there are no alerts active - [#200](https://github.com/DigitalExcellence/dex-frontend/issues/200)
 - Fixed issue where user endpoint would get called when a user is not authenticated - [#189](https://github.com/DigitalExcellence/dex-frontend/issues/189)
 - Fixed issue where empty search would cause a 404 error to appear on the projects overview page - [#179](https://github.com/DigitalExcellence/dex-frontend/issues/179)
+- Fixed issue where a not authenticated user was able to open the project-add modals - [#224](https://github.com/DigitalExcellence/dex-frontend/issues/224)
 
 ### Security
