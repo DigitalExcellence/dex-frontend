@@ -36,6 +36,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ModalDeleteGenericComponent } from './components/modals/modal-delete-ge
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
+    QuillModule.forRoot()
   ],
   providers: [
     {

@@ -85,6 +85,8 @@ export class ManualComponent implements OnInit {
    * Creates a new project.
    */
   public onClickSubmit(): void {
+    console.log(this.newProjectForm.value);
+    return;
     if (!this.newProjectForm.valid) {
       this.newProjectForm.markAllAsTouched();
       const alertConfig: AlertConfig = {

@@ -21,9 +21,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddRoutingModule } from './add-routing.module';
 import { ManualComponent } from './manual/manual.component';
 import { SourceComponent } from './source/source.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
-  declarations: [SourceComponent, ManualComponent],
-  imports: [CommonModule, AddRoutingModule, ReactiveFormsModule],
+  declarations: [
+    SourceComponent,
+    ManualComponent
+  ],
+  imports: [
+    CommonModule,
+    AddRoutingModule,
+    ReactiveFormsModule,
+    QuillModule
+  ],
 })
-export class AddModule {}
+export class AddModule { }

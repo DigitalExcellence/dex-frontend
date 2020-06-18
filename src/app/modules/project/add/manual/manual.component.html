@@ -54,7 +54,8 @@
         <div class="col-12">
           <div>
             <h3>Description*</h3>
-            <textarea clrInput formControlName="description" required></textarea>
+            <quill-editor [styles]="{height: '200px'}" formControlName="description"></quill-editor>
+            <!-- <textarea clrInput formControlName="description" required></textarea> -->
           </div>
         </div>
       </div>
