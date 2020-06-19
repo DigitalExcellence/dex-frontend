@@ -18,9 +18,10 @@
  */
 
 @import "assets/styles/variables";
-.content-container{
+.content-container {
   min-height: calc(100vh - 324px);
 }
+
 .header {
   display: flex;
   align-items: center;
