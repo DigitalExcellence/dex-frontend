@@ -57,6 +57,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
      */
     private readonly ignoredEndpoints: IgnoredRequests[] = [
         { endpoint: 'highlight/project/', method: HttpMethods.GET },
+        { endpoint: 'wizard', method: HttpMethods.GET },
     ];
 
     constructor(
