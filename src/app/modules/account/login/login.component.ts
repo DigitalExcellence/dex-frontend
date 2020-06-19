@@ -19,6 +19,8 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalAcceptGenericComponent } from 'src/app/components/modals/modal-accept-generic/modal-accept-generic.component';
+import { LocalStorageUtils } from 'src/app/utils/localstorage.utils';
+import { LocalStorageOptions } from 'src/app/utils/localstorage.utils';
 
 @Component({
   selector: 'app-login',
@@ -26,9 +28,10 @@ import { ModalAcceptGenericComponent } from 'src/app/components/modals/modal-acc
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private authService: AuthService,
-              private modalService: BsModalService,
-    ) { }
+  constructor(
+    private authService: AuthService,
+    private modalService: BsModalService,
+  ) { }
   public readonly title = 'Sign in';
 
   /**
@@ -46,8 +49,8 @@ export class LoginComponent {
    * If the user did not consent before a modal is shown to request consent.
    */
   private loginWithConsent(provider?: string): void {
-    const privacyConsentKeyName = 'PrivacyConsentGiven';
-    if (localStorage.getItem(privacyConsentKeyName) === 'true') {
+    const privacyConsentGiven: boolean = JSON.parse(LocalStorageUtils.getValue(LocalStorageOptions.PrivacyConsentGiven));
+    if (privacyConsentGiven) {
       this.authService.login(provider);
     } else {
       // set modal options
@@ -62,7 +65,7 @@ export class LoginComponent {
       // wait for modal to emit true
       modalRef.content.accept.subscribe((result: boolean) => {
         if (result) {
-          localStorage.setItem(privacyConsentKeyName, 'true');
+          LocalStorageUtils.setValue(LocalStorageOptions.PrivacyConsentGiven, true);
           this.authService.login(provider);
         }
       });

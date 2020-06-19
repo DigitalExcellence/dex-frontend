@@ -85,14 +85,15 @@
           see more tags&hellip;
         </a>
       </div>
+
       <p class="project-description large">
-        {{ project.description }}
+        <quill-view class="dex-quill-viewer" [content]="project.description" format="text"></quill-view>
       </p>
 
       <div id="project-share-buttons">
         <ng-container *ngIf="displayHighlightButton">
           <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
-          
+
           <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
             <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
           </div>

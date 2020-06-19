@@ -1,4 +1,3 @@
-import { AlertService } from 'src/app/services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -19,6 +18,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageUtils, LocalStorageOptions } from 'src/app/utils/localstorage.utils';
+import { AlertService } from 'src/app/services/alert.service';
 import { NavigationEnd, Router } from '@angular/router';
 
 /**
@@ -66,6 +67,8 @@ export class AppLayoutComponent implements OnInit {
         }
       }
     });
+
+    this.displayBetaBanner = !JSON.parse(LocalStorageUtils.getValue(LocalStorageOptions.BetaBannerDismissed));
   }
 
   /**
@@ -80,6 +83,7 @@ export class AppLayoutComponent implements OnInit {
    * Hides the beta banner.
    */
   public onClickCloseBetaMessage(): void {
+    LocalStorageUtils.setValue(LocalStorageOptions.BetaBannerDismissed, true);
     this.displayBetaBanner = false;
   }
 
