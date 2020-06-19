@@ -21,6 +21,9 @@ import { Router } from '@angular/router';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { WizardGithubService } from './wizard-github.service';
+import { AlertConfig } from '../models/internal/alert-config';
+import { AlertType } from '../models/internal/alert-type';
+import { AlertService } from './alert.service';
 
 /**
  * Service to fetch project for various resources.
@@ -37,7 +40,8 @@ export class WizardService {
   constructor(
     private router: Router,
     private wizardGithubService: WizardGithubService,
-    private wizardApiService: WizardApiService
+    private wizardApiService: WizardApiService,
+    private alertService: AlertService,
   ) { }
 
   /**
@@ -49,18 +53,12 @@ export class WizardService {
     url = url.replace(/\?.*$/g, '');
 
     const githubRegex = new RegExp('^h?t?t?p?s?:?\/?\/?w?w?w?.?github.com\/.+\/.+');
-    const gitlabRegex = new RegExp('^h?t?t?p?s?:?\/?\/?w?w?w?.?gitlab.com\/.+\/.+');
 
     if (githubRegex.test(url)) {
       this.fetchSource(this.wizardGithubService, url);
       return;
     }
-
-    if (gitlabRegex.test(url)) {
-      this.fetchSource(this.wizardApiService, url);
-      return;
-    }
-    throw Error('Submitted source url did not match any supported source');
+    this.fetchSource(this.wizardApiService, url);
   }
 
   /**
@@ -80,7 +78,26 @@ export class WizardService {
     service.fetchProjectDetails(url).subscribe(project => {
       this.fetchedProject.next(project);
       this.router.navigate([this.addManualProjectRoute]);
-    });
+    },
+    () => {
+      const alertConfig: AlertConfig = {
+        type: AlertType.info,
+        preMessage: null,
+        mainMessage: 'We were unable to automagically retrieve information about your project. You can manually add this information using the form!',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      const project: MappedProject = {
+        collaborators: [],
+        name: '',
+        description: '',
+        shortDescription: '',
+        uri: url
+      };
+      this.fetchedProject.next(project);
+      this.router.navigate([this.addManualProjectRoute]);
+      this.alertService.pushAlert(alertConfig);
+     });
   }
 
 }
