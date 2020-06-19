@@ -26,18 +26,25 @@ import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
+import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
+import { SharedModule } from './../shared/shared.module';
+
 @NgModule({
   declarations: [
     OverviewComponent,
     DetailsComponent,
     EditComponent,
     EmbedButtonComponent,
-    EmbedComponent],
+    EmbedComponent,
+    ModalHighlightDeleteComponent,
+    ModalHighlightComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ProjectRoutingModule,
+    SharedModule,
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot()],

@@ -15,12 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { HighlightComponent } from "./highlight.component";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HighlightComponent } from './highlight.component';
 
 @NgModule({
   imports: [CommonModule],
   declarations: [HighlightComponent],
 })
-export class HighlightModule {}
+export class HighlightModule { }

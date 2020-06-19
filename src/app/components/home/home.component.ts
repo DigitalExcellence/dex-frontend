@@ -36,7 +36,8 @@ export class HomeComponent {
   constructor(
     private router: Router) {
     this.searchControl = new FormControl('');
-   }
+
+  }
 
   /**
    * Called when the user clicks the search icon in the search bar
@@ -61,7 +62,7 @@ export class HomeComponent {
    */
   private validateSearchInput(): void {
     if (this.searchControl.value !== '' && this.searchControl.value.replace(/\s/g, '').length) {
-      this.router.navigate(['/project/overview'], {queryParams: {query: this.searchControl.value}});
+      this.router.navigate(['/project/overview'], { queryParams: { query: this.searchControl.value } });
     } else {
       this.router.navigate(['/project/overview']);
     }

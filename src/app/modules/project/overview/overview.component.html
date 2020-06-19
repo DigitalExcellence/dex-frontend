@@ -116,7 +116,7 @@
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
-      <table class="projects-table">
+      <table class="projects-table" role="presentation">
         <tr *ngIf="projectsLoading">
           <td colspan="3">Loading...</td>
         </tr>
@@ -133,6 +133,10 @@
           <td class="icon">
             <p class="large"><img alt="clock" class="icon"
                 src="assets/images/clock.svg">{{ project.created | date:'longDate' }}</p>
+          </td>
+          <td class="icon">
+            <p class="large"><img alt="user" class="icon"
+                src="assets/images/user.svg">{{ project.user.name }}</p>
           </td>
         </tr>
       </table>

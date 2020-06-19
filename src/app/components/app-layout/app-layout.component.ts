@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -18,6 +19,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 /**
  * Component used to display the basic layout of the application.
@@ -31,18 +33,41 @@ export class AppLayoutComponent implements OnInit {
   public name: string;
   public isAuthenticated: boolean;
   public subscription: Subscription;
+  public displayAlertContainer = false;
+  public displayContentWithoutLayout = false;
 
   public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+      private authService: AuthService,
+      private alertService: AlertService,
+      private router: Router) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
       this.name = this.authService.name;
     });
+
+    this.alertService.$activeAlerts.subscribe(alerts => {
+      if (alerts == null || alerts.length <= 0) {
+        this.displayAlertContainer = false;
+      } else {
+        this.displayAlertContainer = true;
+      }
+    });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (event.url.startsWith('/project/embed/')) {
+          this.displayContentWithoutLayout = true;
+          this.displayBetaBanner = false;
+        }
+      }
+    });
   }
+
   /**
    * Sign the user out of their account by calling the Auth Service signout method.
    */

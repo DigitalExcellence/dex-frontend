@@ -23,6 +23,7 @@ import { FormControl } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert.service';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
+import { AuthService } from 'src/app/services/auth.service';
 
 /**
  * Component to import projects from external sources
@@ -39,23 +40,51 @@ export class SourceComponent implements OnInit {
   public mostUsedSources: ExternalSource[] = [];
 
   public sourceUriInput: FormControl = new FormControl('');
+  public isAuthenticated: boolean;
 
   constructor(
     private wizardService: WizardService,
     private router: Router,
-    private alertService: AlertService
-  ) { }
+    private alertService: AlertService,
+    private authService: AuthService
+    ) {}
 
   ngOnInit(): void {
-    const demoSource: ExternalSource = {
-      id: 1,
-      name: 'GitHub',
-      image: 'assets/images/github-logo.svg',
-    };
-    for (let index = 0; index < 6; index++) {
-      demoSource.id = demoSource.id + index;
-      this.mostUsedSources.push(demoSource);
-    }
+    this.authService.authNavStatus$.subscribe((status) => {
+      this.isAuthenticated = status;
+    });
+    this.mostUsedSources.push(
+      {
+        id: 1,
+        name: 'GitHub',
+        image: 'assets/images/github-logo.svg',
+      },
+      {
+        id: 2,
+        name: 'GitLab',
+        image: 'assets/images/gitlab-logo.png',
+      },
+      {
+        id: 3,
+        name: 'Codepen',
+        image: 'assets/images/codepen-logo.png',
+      },
+      {
+        id: 4,
+        name: 'HBO Kennisbank',
+        image: 'assets/images/hbokennisbank-logo.png',
+      },
+      {
+        id: 5,
+        name: 'Google Drive',
+        image: 'assets/images/googledrive-logo.png',
+      },
+      {
+        id: 6,
+        name: 'Dropbox',
+        image: 'assets/images/dropbox-logo.png',
+      }
+    );
   }
 
   /**
@@ -63,20 +92,23 @@ export class SourceComponent implements OnInit {
    * Fetches the source from the wizard service.
    */
   public onClickSubmitSourceUri(): void {
-    const sourceUri = this.sourceUriInput.value;
-    if (sourceUri == null || sourceUri === '') {
-      const alertConfig: AlertConfig = {
-        type: AlertType.danger,
-        preMessage: 'Source uri/url was invalid',
-        mainMessage: 'Source details could not be fetched',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
-      };
-      this.alertService.pushAlert(alertConfig);
-      return;
+    if (this.checkIfLoggedInAndReturnAlert()) {
+      const sourceUri = this.sourceUriInput.value;
+      if (sourceUri == null || sourceUri === '') {
+        const alertConfig: AlertConfig = {
+          type: AlertType.danger,
+          preMessage: 'Source uri/url was invalid',
+          mainMessage: 'Source details could not be fetched',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout,
+        };
+        this.alertService.pushAlert(alertConfig);
+        return;
+      }
+
+      this.wizardService.fetchProjectForSource(sourceUri);
     }
 
-    this.wizardService.fetchProjectForSource(sourceUri);
   }
 
   /**
@@ -84,7 +116,26 @@ export class SourceComponent implements OnInit {
    * Resets the fetched source in the wizard service.
    */
   public onClickAddProjectManual(): void {
-    this.wizardService.reset();
-    this.router.navigate(['/project/add/manual']);
+    if (this.checkIfLoggedInAndReturnAlert()) {
+      this.wizardService.reset();
+      this.router.navigate(['/project/add/manual']);
+    }
+
+  }
+  /**
+   * Check if the user is logged in, if not, return alert
+   */
+  private checkIfLoggedInAndReturnAlert(): boolean {
+        if (!this.isAuthenticated) {
+          const alertConfig: AlertConfig = {
+            type: AlertType.danger,
+            preMessage: 'You\'re not logged in!',
+            mainMessage: 'You can only add a project when you\'re logged in.',
+            dismissible: true,
+            timeout: this.alertService.defaultTimeout,
+          };
+          this.alertService.pushAlert(alertConfig);
+        }
+        return this.isAuthenticated;
   }
 }
