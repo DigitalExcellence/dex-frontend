@@ -40,7 +40,7 @@ export class QuillUtils {
                 [{ 'color': [] }, { 'background': [] }],
                 [{ 'align': [] }],
                 ['clean'],
-                ['link', 'image', 'video']
+                ['link']
             ],
             markdownShortcuts: {}
         };
