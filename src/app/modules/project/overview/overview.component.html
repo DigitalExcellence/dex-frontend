@@ -98,8 +98,8 @@
         </accordion-group>
 
         <accordion-group heading="Pagination">
-          <label>Amount of projects per apge</label>
-          <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]=defaultPaginationOption.id>
+          <label>Projects per page </label>
+          <select (ngModelChange)="onChangePaginationSelect($event)" class='option-select' [(ngModel)]=defaultPaginationOption.id >
             <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption.id"
               class="paginationDropDown">{{paginationOption.amountOnPage}}</option>
           </select>
