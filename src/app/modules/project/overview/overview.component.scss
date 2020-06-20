@@ -232,6 +232,16 @@
       }
     }
   }
+
+  select {
+    padding: 4px;
+    border-radius: 3px;
+    border: 1px solid #c1c1c1;
+  }
+
+  select, option {
+    outline: 0;
+  }
 }
 
 :host {
