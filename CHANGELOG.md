@@ -72,5 +72,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed the layout of project embed pages breaking on smaller viewports - [#223](https://github.com/DigitalExcellence/dex-frontend/issues/223)
 - Fixed issue where beta banner was not dismissible - [#239](#https://github.com/DigitalExcellence/dex-frontend/issues/239)
 - Fixed styling to match the designs, replaced images on home and sign in - [#233](https://github.com/DigitalExcellence/dex-frontend/issues/233)
+- Fixed styling of Add Project Manually forms and the Project Overview Filters - [#242](https://github.com/DigitalExcellence/dex-frontend/issues/242)
 
 ### Security
