@@ -112,7 +112,8 @@
         <h3>Collaborators</h3>
       </div>
 
-      <div *ngFor="let collaborator of collaborators" class="col-12 collaborator-item">
+      <div *ngFor="let collaborator of collaborators" class="col-6 collaborator-item">
+
         <button type="button" class="btn btn-icon btn-danger" aria-label="error"
                 (click)="onClickDeleteCollaborator(collaborator)"><span aria-hidden="true"> &times; </span>
         </button>
