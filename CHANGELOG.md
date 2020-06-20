@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed the project-add input and search inputs so you can now press the enter key to submit - [#224](https://github.com/DigitalExcellence/dex-frontend/issues/224)
 - Added localStorage Utils class to access the localStorage and it's keys from one central piece of code - [#238](https://github.com/DigitalExcellence/dex-frontend/issues/238)
 - Changed the wizard requests, fixed URL not supported error and added message - [#236](https://github.com/DigitalExcellence/dex-frontend/issues/236)
+- Changed styling of project overview filters and project add collaborators to match the designs - [#242](https://github.com/DigitalExcellence/dex-frontend/issues/242)
 
 ### Deprecated
 
@@ -72,6 +73,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed the layout of project embed pages breaking on smaller viewports - [#223](https://github.com/DigitalExcellence/dex-frontend/issues/223)
 - Fixed issue where beta banner was not dismissible - [#239](#https://github.com/DigitalExcellence/dex-frontend/issues/239)
 - Fixed styling to match the designs, replaced images on home and sign in - [#233](https://github.com/DigitalExcellence/dex-frontend/issues/233)
-- Fixed styling of Add Project Manually forms and the Project Overview Filters - [#242](https://github.com/DigitalExcellence/dex-frontend/issues/242)
 
 ### Security
