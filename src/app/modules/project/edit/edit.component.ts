@@ -26,6 +26,7 @@ import { ProjectUpdate } from 'src/app/models/resources/project-update';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
+import { QuillUtils } from 'src/app/utils/quill.utils';
 
 /**
  * Component for editting adding a project.
@@ -52,6 +53,11 @@ export class EditComponent implements OnInit {
    * Boolean to enable and disable submit button
    */
   public submitEnabled = true;
+
+  /**
+   * Configuration of QuillToolbar
+   */
+  public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
   constructor(
     private router: Router,
