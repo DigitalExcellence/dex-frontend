@@ -115,10 +115,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         return EMPTY;
                     }
 
+                    // Stop error from continuing if application is not run in production.
                     if (!environment.production) {
-                        // Stop error from continuing.
                         return EMPTY;
                     }
+
                     // Log error to sentry.
                     Sentry.captureException(new Error(` http error:${httpErrorResponse.status} - ${httpErrorResponse.message}`));
                     // Stop error from continuing.
