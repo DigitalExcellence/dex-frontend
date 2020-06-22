@@ -64,6 +64,11 @@ export class EditComponent implements OnInit {
    */
   public invalidId: string;
 
+  /**
+   * Property to indicate whether the project is loading.
+   */
+  public projectLoading = true;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -123,7 +128,12 @@ export class EditComponent implements OnInit {
 
     this.projectService
       .put(this.project.id, edittedProject)
-      .pipe(finalize(() => (this.submitEnabled = false)))
+      .pipe(
+        finalize(() => {
+          this.submitEnabled = false;
+          this.projectLoading = false;
+        })
+      )
       .subscribe((result) => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,

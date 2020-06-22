@@ -17,101 +17,111 @@
 
  -->
 
-<div *ngIf="project; else noProject">
+<ng-container *ngIf="projectLoading; else projectLoaded">
   <div class="row">
-    <div class="col-3 project-metadata">
-      <div class="project-icon"><img alt="Code project" src="assets/images/code.svg"></div>
-      <div *ngIf="project.uri" class="project-metadata__item">
-        <h3>External Link</h3>
-
-        <a href="{{ project.uri }}" rel="noreferrer" target="_blank">{{ project.uri }}</a>
-
-      </div>
-      <div class="project-metadata__item">
-        <h3>Upload Date</h3>
-        <p>
-          {{ project.created | date:'longDate' }}
-        </p>
-      </div>
-      <div class="project-metadata__item">
-        <h3>Uploader</h3>
-        <p>
-          {{ project.user.name }}
-        </p>
-      </div>
-      <div class="project-metadata__item">
-        <h3>Collaborators</h3>
-        <ul class="project-metadata__item__collaborators">
-          <li *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} -
-            {{ collaborator.role}}</li>
-        </ul>
-      </div>
+    <div class="offset-2 col-8">
+      <p>Project is being loaded</p>
     </div>
-    <div class="col-6">
-      <div id="title-wrapper">
-        <h1 class="project-title">{{ project.name }}</h1>
+  </div>
+</ng-container>
+<ng-template #projectLoaded>
+  <div *ngIf="project; else noProject">
+    <div class="row">
+      <div class="col-3 project-metadata">
+        <div class="project-icon"><img alt="Code project" src="assets/images/code.svg"></div>
+        <div *ngIf="project.uri" class="project-metadata__item">
+          <h3>External Link</h3>
 
-        <div id="project-edit-buttons">
-          <ng-container *ngIf="displayEditButton">
-            <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
-                src="assets/images/edit.svg"></button>
+          <a href="{{ project.uri }}" rel="noreferrer" target="_blank">{{ project.uri }}</a>
+
+        </div>
+        <div class="project-metadata__item">
+          <h3>Upload Date</h3>
+          <p>
+            {{ project.created | date:'longDate' }}
+          </p>
+        </div>
+        <div class="project-metadata__item">
+          <h3>Uploader</h3>
+          <p>
+            {{ project.user.name }}
+          </p>
+        </div>
+        <div class="project-metadata__item">
+          <h3>Collaborators</h3>
+          <ul class="project-metadata__item__collaborators">
+            <li *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} -
+              {{ collaborator.role}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-6">
+        <div id="title-wrapper">
+          <h1 class="project-title">{{ project.name }}</h1>
+
+          <div id="project-edit-buttons">
+            <ng-container *ngIf="displayEditButton">
+              <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
+                  src="assets/images/edit.svg"></button>
+            </ng-container>
+            <ng-container *ngIf="displayDeleteProjectButton">
+              <button class="primary" (click)="onClickRemoveProject()"><img alt=""
+                  src="assets/images/trash.svg"></button>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="project-tags" [hidden]="!displayTags()">
+          <a class="project-tags__tag" href="javascript:void(0)">
+            Game
+          </a>
+          <a class="project-tags__tag" href="javascript:void(0)">
+            JavaScript
+          </a>
+          <a class="project-tags__tag" href="javascript:void(0)">
+            HTML
+          </a>
+          <a class="project-tags__tag" href="javascript:void(0)">
+            CSS
+          </a>
+          <a class="project-tags__tag" href="javascript:void(0)">
+            UX
+          </a>
+          <a class="project-tags__tag" href="javascript:void(0)">
+            Interaction
+          </a>
+          <a class="project-tags__see-more-link" href="javascript:void(0)">
+            see more tags&hellip;
+          </a>
+        </div>
+
+        <p class="project-description large">
+          <quill-view class="dex-quill-viewer" [content]="project.description" format="text"></quill-view>
+        </p>
+
+        <div id="project-share-buttons">
+          <ng-container *ngIf="displayHighlightButton">
+            <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
+
+            <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
+              <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
+            </div>
           </ng-container>
-          <ng-container *ngIf="displayDeleteProjectButton">
-            <button class="primary" (click)="onClickRemoveProject()"><img alt="" src="assets/images/trash.svg"></button>
+          <ng-container *ngIf="displayEmbedButton">
+            <app-embed-button></app-embed-button>
           </ng-container>
         </div>
       </div>
-
-      <div class="project-tags" [hidden]="!displayTags()">
-        <a class="project-tags__tag" href="javascript:void(0)">
-          Game
-        </a>
-        <a class="project-tags__tag" href="javascript:void(0)">
-          JavaScript
-        </a>
-        <a class="project-tags__tag" href="javascript:void(0)">
-          HTML
-        </a>
-        <a class="project-tags__tag" href="javascript:void(0)">
-          CSS
-        </a>
-        <a class="project-tags__tag" href="javascript:void(0)">
-          UX
-        </a>
-        <a class="project-tags__tag" href="javascript:void(0)">
-          Interaction
-        </a>
-        <a class="project-tags__see-more-link" href="javascript:void(0)">
-          see more tags&hellip;
-        </a>
-      </div>
-
-      <p class="project-description large">
-        <quill-view class="dex-quill-viewer" [content]="project.description" format="text"></quill-view>
-      </p>
-
-      <div id="project-share-buttons">
-        <ng-container *ngIf="displayHighlightButton">
-          <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
-
-          <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
-            <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="displayEmbedButton">
-          <app-embed-button></app-embed-button>
-        </ng-container>
-      </div>
     </div>
   </div>
-</div>
 
-<ng-template #noProject>
-  <div class="row">
-    <div class="offset-2 col-8">
-      <h1>Project details</h1>
-      <p>The project with the identifier "{{invalidId}}" could not be found.</p>
+  <ng-template #noProject>
+    <div class="row">
+      <div class="offset-2 col-8">
+        <h1>Project details</h1>
+        <p>The project with the identifier "{{invalidId}}" could not be found.</p>
 
+      </div>
     </div>
-  </div>
+  </ng-template>
 </ng-template>
