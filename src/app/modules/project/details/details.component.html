@@ -17,7 +17,7 @@
 
  -->
 
-<div *ngIf="project">
+<div *ngIf="project; else noProject">
   <div class="row">
     <div class="col-3 project-metadata">
       <div class="project-icon"><img alt="Code project" src="assets/images/code.svg"></div>
@@ -105,3 +105,12 @@
     </div>
   </div>
 </div>
+
+<ng-template #noProject>
+  <div class="row">
+    <div class="offset-2 col-8">
+      <h1>Project details</h1>
+      <p>No project could be found with id: {{invalidId}}</p>
+    </div>
+  </div>
+</ng-template>

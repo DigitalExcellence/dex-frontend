@@ -58,6 +58,11 @@ export class DetailsComponent implements OnInit {
   public displayHighlightButton = false;
   public displayEmbedButton = false;
 
+  /**
+   * Property for storting the invalidId if an invalid project id was entered.
+   */
+  public invalidId: string;
+
   private currentUser: User;
 
   constructor(
@@ -77,7 +82,8 @@ export class DetailsComponent implements OnInit {
       return;
     }
     const id = Number(routeId);
-    if (id < 1) {
+    if (id == null || Number.isNaN(id) || id < 1) {
+      this.invalidId = routeId;
       return;
     }
 
