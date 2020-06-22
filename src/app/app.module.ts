@@ -36,6 +36,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
+import { StripHtmlPipe } from './utils/striptags.pipe';
 import { QuillModule } from 'ngx-quill';
 
 @NgModule({
@@ -49,7 +50,8 @@ import { QuillModule } from 'ngx-quill';
     FooterComponent,
     PrivacyPolicyComponent,
     NotFoundComponent,
-    ModalDeleteGenericComponent
+    ModalDeleteGenericComponent,
+    StripHtmlPipe
   ],
   imports: [
     BsDropdownModule.forRoot(),
