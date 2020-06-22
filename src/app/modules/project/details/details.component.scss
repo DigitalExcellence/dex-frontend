@@ -34,7 +34,8 @@
 
 .project-metadata__item {
   margin: 30px 0;
-
+  overflow: hidden;
+  text-overflow: ellipsis;
   h3,
   p {
     margin: 0;
@@ -43,7 +44,7 @@
   a {
     font-weight: normal;
     font-family: "Lato", sans-serif;
-
+    width: inherit;
     &:link {
       color: $light-mode-text-color;
     }

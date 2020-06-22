@@ -23,9 +23,9 @@
       <div class="project-icon"><img alt="Code project" src="assets/images/code.svg"></div>
       <div *ngIf="project.uri" class="project-metadata__item">
         <h3>External Link</h3>
-        <p>
-          <a href="{{ project.uri }}" rel="noreferrer">{{ project.uri }}</a>
-        </p>
+
+        <a href="{{ project.uri }}" rel="noreferrer" target="_blank">{{ project.uri }}</a>
+
       </div>
       <div class="project-metadata__item">
         <h3>Upload Date</h3>
