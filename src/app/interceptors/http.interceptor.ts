@@ -82,7 +82,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             return request.url.includes(API_CONFIG.url + ignoredEndpoint.endpoint) &&
                 request.method === HttpMethods[ignoredEndpoint.method];
         });
-        console.log(request);
+
         // If a ignored endpoint was found return with default behavior.
         if (foundIgnoredEndpoint != null) {
             return next.handle(request)
