@@ -137,6 +137,17 @@ export class EditComponent implements OnInit {
   }
 
   /**
+   * Method  which triggers when the cancel button is pressed.
+   * Redirects the user back to the project or the overview.
+   */
+  public onClickCancel(): void {
+    if (this.project == null) {
+      this.router.navigate(['project/overview']);
+    }
+    this.router.navigate([`project/details/${this.project.id}`]);
+  }
+
+  /**
    * Method which triggers when the add collaborator button is pressed.
    * Adds submitted collaborator to the collaborators array.
    */
