@@ -45,6 +45,7 @@ enum HttpMethods {
     'PATCH'
 }
 
+
 /**
  * Interceptor which handles error handling and displaying for http requests.
  */
@@ -58,6 +59,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     private readonly ignoredEndpoints: IgnoredRequests[] = [
         { endpoint: 'highlight/project/', method: HttpMethods.GET },
         { endpoint: 'wizard', method: HttpMethods.GET },
+    ];
+
+    private readonly ignoredStatusCodes: number[] = [
+        404
     ];
 
     constructor(
@@ -105,10 +110,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         this.alertService.pushAlert(this.createErrorAlertConfig(httpErrorResponse.error.title, httpErrorResponse.error.detail));
                     }
 
-                    if (environment.production) {
-                        // Log error to sentry.
-                        Sentry.captureException(new Error(` http error:${httpErrorResponse.status} - ${httpErrorResponse.message}`));
+                    // Return if the status codes are ignored.
+                    if (this.ignoredStatusCodes.includes(httpErrorResponse.status)) {
+                        return EMPTY;
                     }
+
+                    if (!environment.production) {
+                        // Stop error from continuing.
+                        return EMPTY;
+                    }
+                    // Log error to sentry.
+                    Sentry.captureException(new Error(` http error:${httpErrorResponse.status} - ${httpErrorResponse.message}`));
                     // Stop error from continuing.
                     return EMPTY;
                 })
