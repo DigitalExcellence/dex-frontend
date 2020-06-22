@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## Release v.0.6-beta
+
+### Added
+
 - Added this very changelog - [#62](https://github.com/DigitalExcellence/dex-frontend/issues/62)
 - Added issue & pull request templates (bug & report) - [#11](https://github.com/DigitalExcellence/dex-backend/issues/11)
 - Added Footer - [#68](https://github.com/DigitalExcellence/dex-frontend/issues/68)
@@ -58,8 +72,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed when Sentry logs http errors - [#231](https://github.com/DigitalExcellence/dex-frontend/issues/231)
 - Changed text when there are no Highlights - [#221](https://github.com/DigitalExcellence/dex-frontend/issues/221)
 
-### Deprecated
-
 ### Removed
 - Removed the 'x' from search inputs - [#224](https://github.com/DigitalExcellence/dex-frontend/issues/224)
 
@@ -77,5 +89,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where beta banner was not dismissible - [#239](#https://github.com/DigitalExcellence/dex-frontend/issues/239)
 - Fixed styling to match the designs, replaced images on home and sign in - [#233](https://github.com/DigitalExcellence/dex-frontend/issues/233)
 - Fixed issue where invalid project id would trigger error - [#235](https://github.com/DigitalExcellence/dex-frontend/issues/235)
-
-### Security
