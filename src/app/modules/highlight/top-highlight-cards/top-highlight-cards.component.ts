@@ -37,22 +37,15 @@ export class TopHighlightCardsComponent implements OnInit {
    * Boolean to determine whether the component is loading the information from the api.
    */
   public highlightsLoading = true;
-  constructor(private router: Router, private projectService: HighlightService) {}
+  constructor(private router: Router, private projectService: HighlightService) { }
 
   ngOnInit(): void {
     this.projectService
       .getAll()
       .pipe(finalize(() => (this.highlightsLoading = false)))
-      .subscribe(
-        (result) => {
-          this.highlights = this.generateSampleSizeOf(result, 3);
-        },
-        (error: HttpErrorResponse) => {
-          if (error.status !== 404) {
-            console.log('Could not retrieve the highlights');
-          }
-        }
-      );
+      .subscribe((result) => {
+        this.highlights = this.generateSampleSizeOf(result, 3);
+      });
   }
   private generateSampleSizeOf(population: string | any[], k: number) {
     /*

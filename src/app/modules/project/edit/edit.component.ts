@@ -59,6 +59,11 @@ export class EditComponent implements OnInit {
    */
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
+  /**
+   * Property for storting the invalidId if an invalid project id was entered.
+   */
+  public invalidId: string;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -85,7 +90,8 @@ export class EditComponent implements OnInit {
       return;
     }
     const id = Number(routeId);
-    if (id < 1) {
+    if (id == null || Number.isNaN(id) || id < 1) {
+      this.invalidId = routeId;
       return;
     }
 
