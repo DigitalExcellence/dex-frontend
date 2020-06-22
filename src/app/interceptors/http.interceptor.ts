@@ -57,6 +57,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
      * This can be used to not display error message for certain requests.
      */
     private readonly ignoredEndpoints: IgnoredRequests[] = [
+        { endpoint: 'highlight', method: HttpMethods.GET },
         { endpoint: 'highlight/project/', method: HttpMethods.GET },
         { endpoint: 'wizard', method: HttpMethods.GET },
     ];
@@ -81,7 +82,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             return request.url.includes(API_CONFIG.url + ignoredEndpoint.endpoint) &&
                 request.method === HttpMethods[ignoredEndpoint.method];
         });
-
+        console.log(request);
         // If a ignored endpoint was found return with default behavior.
         if (foundIgnoredEndpoint != null) {
             return next.handle(request)
