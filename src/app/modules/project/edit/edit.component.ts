@@ -100,12 +100,16 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    this.projectService.get(id).subscribe(
-      (result) => {
-        this.project = result;
-        this.collaborators = this.project.collaborators;
-      }
-    );
+    this.projectService.get(id)
+      .pipe(
+        finalize(() => this.projectLoading = false)
+      )
+      .subscribe(
+        (result) => {
+          this.project = result;
+          this.collaborators = this.project.collaborators;
+        }
+      );
   }
 
   public onClickSubmit(): void {
@@ -131,10 +135,9 @@ export class EditComponent implements OnInit {
       .pipe(
         finalize(() => {
           this.submitEnabled = false;
-          this.projectLoading = false;
         })
       )
-      .subscribe((result) => {
+      .subscribe(() => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
           mainMessage: 'Project was succesfully updated',
