@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added cancel button to project edit page - [#251](https://github.com/DigitalExcellence/dex-frontend/issues/251)
+
 ### Changed
+
+- External project links are now opened in a new tab - [#254](https://github.com/DigitalExcellence/dex-frontend/issues/254)
 
 ### Deprecated
 
@@ -17,7 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed issue where long project URI's would overlap other text on details page - [#252](https://github.com/DigitalExcellence/dex-frontend/issues/252)
+- Fixed issue where edit & details page would display error message while still loading the project - [#247](https://github.com/DigitalExcellence/dex-frontend/issues/247)
+
 ### Security
+
+
 
 ## Release v.0.6-beta - 22-06-2020
 
@@ -50,7 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented permission validation for project edit / delete / highlight / embed buttons - [#213](https://github.com/DigitalExcellence/dex-frontend/issues/213)
 - Implemented WYSIWYG Editor for project description - [#216](https://github.com/DigitalExcellence/dex-frontend/issues/216)
 - Added pipe to strip html to fix the html showing in highlights - [#243](https://github.com/DigitalExcellence/dex-frontend/issues/243)
-- Added cancel button to project edit page - [#251](https://github.com/DigitalExcellence/dex-frontend/issues/251)
+
 ### Changed
 
 - Changed from Clarity framework to NGX Bootstrap - [#101](https://github.com/DigitalExcellence/dex-frontend/issues/101)
@@ -71,7 +80,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed styling of project overview filters and project add collaborators to match the designs - [#242](https://github.com/DigitalExcellence/dex-frontend/issues/242)
 - Changed when Sentry logs http errors - [#231](https://github.com/DigitalExcellence/dex-frontend/issues/231)
 - Changed text when there are no Highlights - [#221](https://github.com/DigitalExcellence/dex-frontend/issues/221)
-- External project links are now opened in a new tab - [#254](https://github.com/DigitalExcellence/dex-frontend/issues/254)
 
 ### Removed
 - Removed the 'x' from search inputs - [#224](https://github.com/DigitalExcellence/dex-frontend/issues/224)
@@ -90,5 +98,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where beta banner was not dismissible - [#239](#https://github.com/DigitalExcellence/dex-frontend/issues/239)
 - Fixed styling to match the designs, replaced images on home and sign in - [#233](https://github.com/DigitalExcellence/dex-frontend/issues/233)
 - Fixed issue where invalid project id would trigger error - [#235](https://github.com/DigitalExcellence/dex-frontend/issues/235)
-- Fixed issue where long project URI's would overlap other text on details page - [#252](https://github.com/DigitalExcellence/dex-frontend/issues/252)
-- Fixed issue where edit & details page would display error message while still loading the project - [#247](https://github.com/DigitalExcellence/dex-frontend/issues/247)
