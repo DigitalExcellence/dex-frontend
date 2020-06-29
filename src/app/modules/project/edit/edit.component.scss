@@ -105,11 +105,20 @@
   }
 }
 
-.btn-success {
+.btn-success,
+.btn-cancel {
   color: #fff;
-  background-color: $accent-color-primary;
   border: none;
   padding: 12px 30px;
   border-radius: 6px;
   font-size: 18px;
+  margin-right: 24px;
+}
+
+.btn-success {
+  background-color: $accent-color-primary;
+}
+
+.btn-cancel {
+  background-color: #8e8e8e;
 }

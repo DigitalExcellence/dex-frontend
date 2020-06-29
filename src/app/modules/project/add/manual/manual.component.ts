@@ -87,7 +87,11 @@ export class ManualComponent implements OnInit {
       }
 
       if (project.description != null && project.description.length > 0) {
-        const converter = new showdown.Converter();
+        const converter = new showdown.Converter(
+          {
+            literalMidWordUnderscores: true
+          }
+        );
         project.description = converter.makeHtml(project.description);
       }
       this.fillFormWithProject(project);
