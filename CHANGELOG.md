@@ -9,11 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added cancel button to project edit page - [#251](https://github.com/DigitalExcellence/dex-frontend/issues/251)
 
 ### Changed
-
-- External project links are now opened in a new tab - [#254](https://github.com/DigitalExcellence/dex-frontend/issues/254)
 
 ### Deprecated
 
@@ -21,10 +18,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Security
+
+
+
+## Release v.0.6.1-beta - 17-08-2020
+
+### Added
+
+- Added cancel button to project edit page - [#251](https://github.com/DigitalExcellence/dex-frontend/issues/251)
+
+### Changed
+
+- External project links are now opened in a new tab - [#254](https://github.com/DigitalExcellence/dex-frontend/issues/254)
+
+### Fixed
+
 - Fixed issue where long project URI's would overlap other text on details page - [#252](https://github.com/DigitalExcellence/dex-frontend/issues/252)
 - Fixed issue where edit & details page would display error message while still loading the project - [#247](https://github.com/DigitalExcellence/dex-frontend/issues/247)
-
-### Security
 
 
 
