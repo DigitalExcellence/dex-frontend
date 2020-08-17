@@ -17,12 +17,21 @@
 
  -->
 <div class="highlights">
+
   <div class="row">
     <div class="col-12">
       <h2>Highlighted projects</h2>
-      <p class="large">Our top {{highlights.length}} projects</p>
+
+      <ng-container *ngIf="highlights && highlights.length > 0; else noHighlights">
+        <p class="large">Our top {{highlights.length}} projects</p>
+      </ng-container>
+      <ng-template #noHighlights>
+        <p class="large">Currently there are no highlighted projects</p>
+      </ng-template>
+
     </div>
   </div>
+
   <div class="row">
     <div *ngFor="let highlight of highlights" class="col-md-12 col-lg-4">
       <div class="card" routerLink="/project/details/{{highlight.projectId}}">
@@ -30,8 +39,9 @@
           <div class="icon"><img src="assets/images/code.svg" alt=""></div>
           <h3>{{highlight.project.name}}</h3>
         </div>
-        <p class="large">{{highlight.project.description}}</p>
+        <p class="large">{{highlight.project.description | striphtml}}</p>
       </div>
     </div>
   </div>
+
 </div>

@@ -34,7 +34,8 @@
 
 .project-metadata__item {
   margin: 30px 0;
-
+  overflow: hidden;
+  text-overflow: ellipsis;
   h3,
   p {
     margin: 0;
@@ -43,10 +44,16 @@
   a {
     font-weight: normal;
     font-family: "Lato", sans-serif;
-
+    width: inherit;
     &:link {
-      color: $light-mode-title-color;
+      color: $light-mode-text-color;
     }
+  }
+
+  ul {
+    font-family: "Lato", sans-serif;
+    color: $light-mode-text-color;
+    padding: 0;
   }
 }
 
@@ -58,23 +65,25 @@
   margin-top: 0;
 }
 
-.project-tags__tag {
-  text-decoration: none;
-  background: $accent-color-primary;
-  color: #fff;
-  border-radius: 3px;
-  padding: 3px 20px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
-  margin: 0 5px;
-  font-size: 12px;
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
 
-  &:first-child {
-    margin-left: 0;
+  .project-tags__tag {
+    text-decoration: none;
+    background: $accent-color-primary;
+    color: #fff;
+    border-radius: 3px;
+    padding: 3px 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
+    margin: 5px 5px 5px 0;
+    font-size: 12px;
   }
-}
 
-.project-tags__see-more-link {
-  margin-left: 15px;
+  .project-tags__see-more-link {
+    align-self: center;
+    margin-left: 15px;
+  }
 }
 
 .project-description {
@@ -90,7 +99,7 @@
   margin-top: 60px;
 
   button:first-child {
-    margin-left: 0px!important;
+    margin-left: 0 !important;
   }
 
   button {
@@ -106,7 +115,7 @@
     border-radius: 18px;
     width: 36px;
     height: 36px;
-    padding: 0px;
+    padding: 0;
   }
 }
 

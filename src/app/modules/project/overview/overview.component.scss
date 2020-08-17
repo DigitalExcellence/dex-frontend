@@ -129,6 +129,7 @@
       .icon-placeholder {
         height: 55px;
         width: 55px;
+        min-width: 55px;
         margin: 10px 20px;
         border-radius: 30px;
         background-color: $accent-color-primary;
@@ -231,6 +232,16 @@
         width: 100%;
       }
     }
+  }
+
+  select {
+    padding: 4px;
+    border-radius: 3px;
+    border: 1px solid #c1c1c1;
+  }
+
+  select, option {
+    outline: 0;
   }
 }
 

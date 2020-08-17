@@ -34,14 +34,20 @@
     height: 250px;
     padding-top: 15px;
   }
+
+  input:focus {
+    outline: auto #e4e4e4;
+  }
+
+  .form-footnote {
+    margin-top: -15px;
+  }
 }
 
 .add-collaborator-col {
   display: flex;
   justify-content: flex-end;
   align-self: center;
-  flex-direction: row;
-  margin: 0;
 
   .add-collaborator-button {
     margin: 0;
@@ -59,11 +65,60 @@
   }
 }
 
-.btn-success {
+.long-description-editor {
+  margin-bottom: 25px;
+}
+
+.title-spacing {
+  margin-bottom: 25px;
+}
+
+.collaborator-overview {
+  .collaborator-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    strong {
+      margin-right: 5px;
+      margin-left: 10px;
+    }
+
+    .collaborator-text {
+      display: flex;
+      align-self: center;
+      margin: 0;
+    }
+  }
+
+  button {
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $accent-color-primary;
+  }
+}
+
+.btn-success,
+.btn-cancel {
   color: #fff;
-  background-color: $accent-color-primary;
   border: none;
   padding: 12px 30px;
   border-radius: 6px;
   font-size: 18px;
+  margin-right: 24px;
+}
+
+.btn-success {
+  background-color: $accent-color-primary;
+}
+
+.btn-cancel {
+  background-color: #8e8e8e;
 }

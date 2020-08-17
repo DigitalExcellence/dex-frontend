@@ -50,7 +50,8 @@
               "src/styles.scss",
               "src/assets/styles/_buttons.scss",
               "src/assets/styles/_typography.scss",
-              "src/assets/styles/_variables.scss"
+              "src/assets/styles/_variables.scss",
+              "./node_modules/quill/dist/quill.snow.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

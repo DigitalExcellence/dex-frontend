@@ -33,16 +33,13 @@ p {
 }
 
 .header-text {
-  margin-top: 30px;
-}
-.header-text h1 {
-  text-align: left;
+  margin-top: 70px;
 }
 
 // sources
 .source-box {
   position: relative;
-  padding: 0px;
+  padding: 0;
 
   &:before {
     content: "";
