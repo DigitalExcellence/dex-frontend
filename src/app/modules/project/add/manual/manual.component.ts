@@ -26,6 +26,10 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectService } from 'src/app/services/project.service';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardService } from 'src/app/services/wizard.service';
+import { QuillUtils } from 'src/app/utils/quill.utils';
+
+// Import showdown for markdown to html conversion.
+import * as showdown from 'showdown';
 
 /**
  * Component for manually adding a project.
@@ -52,6 +56,11 @@ export class ManualComponent implements OnInit {
    */
   public submitEnabled = true;
 
+  /**
+   * Configuration of QuillToolbar
+   */
+  public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -75,6 +84,15 @@ export class ManualComponent implements OnInit {
     this.wizardService.fetchedProject.subscribe(project => {
       if (project == null) {
         return;
+      }
+
+      if (project.description != null && project.description.length > 0) {
+        const converter = new showdown.Converter(
+          {
+            literalMidWordUnderscores: true
+          }
+        );
+        project.description = converter.makeHtml(project.description);
       }
       this.fillFormWithProject(project);
     });
@@ -165,7 +183,6 @@ export class ManualComponent implements OnInit {
     this.newProjectForm.get('uri').setValue(project.uri);
     this.newProjectForm.get('shortDescription').setValue(project.shortDescription);
     this.newProjectForm.get('description').setValue(project.description);
-
     this.collaborators = project.collaborators;
   }
 }

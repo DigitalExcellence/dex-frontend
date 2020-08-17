@@ -18,6 +18,9 @@
  */
 
 @import "assets/styles/variables";
+.content-container {
+  min-height: calc(100vh - 324px);
+}
 
 .header {
   display: flex;
@@ -32,13 +35,12 @@
 
   .branding {
     display: flex;
+    align-items: flex-end;
     margin-right: 64px;
 
     .beta-text {
       cursor: pointer;
-      display: inline-flex;
-      align-self: flex-end;
-      margin: 0;
+      margin: 0 0 -4px 3px;
     }
   }
 
@@ -52,7 +54,7 @@
     &:active,
     &:hover,
     &:focus {
-      color: $light-mode-title-color;
+      color: $accent-color-primary;
     }
   }
 

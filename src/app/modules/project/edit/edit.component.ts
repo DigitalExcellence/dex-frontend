@@ -26,6 +26,7 @@ import { ProjectUpdate } from 'src/app/models/resources/project-update';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
+import { QuillUtils } from 'src/app/utils/quill.utils';
 
 /**
  * Component for editting adding a project.
@@ -53,6 +54,21 @@ export class EditComponent implements OnInit {
    */
   public submitEnabled = true;
 
+  /**
+   * Configuration of QuillToolbar
+   */
+  public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
+
+  /**
+   * Property for storting the invalidId if an invalid project id was entered.
+   */
+  public invalidId: string;
+
+  /**
+   * Property to indicate whether the project is loading.
+   */
+  public projectLoading = true;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -79,16 +95,21 @@ export class EditComponent implements OnInit {
       return;
     }
     const id = Number(routeId);
-    if (id < 1) {
+    if (id == null || Number.isNaN(id) || id < 1) {
+      this.invalidId = routeId;
       return;
     }
 
-    this.projectService.get(id).subscribe(
-      (result) => {
-        this.project = result;
-        this.collaborators = this.project.collaborators;
-      }
-    );
+    this.projectService.get(id)
+      .pipe(
+        finalize(() => this.projectLoading = false)
+      )
+      .subscribe(
+        (result) => {
+          this.project = result;
+          this.collaborators = this.project.collaborators;
+        }
+      );
   }
 
   public onClickSubmit(): void {
@@ -111,8 +132,12 @@ export class EditComponent implements OnInit {
 
     this.projectService
       .put(this.project.id, edittedProject)
-      .pipe(finalize(() => (this.submitEnabled = false)))
-      .subscribe((result) => {
+      .pipe(
+        finalize(() => {
+          this.submitEnabled = false;
+        })
+      )
+      .subscribe(() => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
           mainMessage: 'Project was succesfully updated',
@@ -122,6 +147,17 @@ export class EditComponent implements OnInit {
         this.alertService.pushAlert(alertConfig);
         this.router.navigate([`/project/overview`]);
       });
+  }
+
+  /**
+   * Method  which triggers when the cancel button is pressed.
+   * Redirects the user back to the project or the overview.
+   */
+  public onClickCancel(): void {
+    if (this.project == null) {
+      this.router.navigate(['project/overview']);
+    }
+    this.router.navigate([`project/details/${this.project.id}`]);
   }
 
   /**

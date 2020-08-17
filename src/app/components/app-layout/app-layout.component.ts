@@ -1,4 +1,3 @@
-import { AlertService } from 'src/app/services/alert.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -19,6 +18,9 @@ import { AlertService } from 'src/app/services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageUtils, LocalStorageOptions } from 'src/app/utils/localstorage.utils';
+import { AlertService } from 'src/app/services/alert.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 /**
  * Component used to display the basic layout of the application.
@@ -33,13 +35,15 @@ export class AppLayoutComponent implements OnInit {
   public isAuthenticated: boolean;
   public subscription: Subscription;
   public displayAlertContainer = false;
+  public displayContentWithoutLayout = false;
 
   public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
 
   constructor(
-    private authService: AuthService,
-    private alertService: AlertService) { }
+      private authService: AuthService,
+      private alertService: AlertService,
+      private router: Router) { }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
@@ -54,7 +58,19 @@ export class AppLayoutComponent implements OnInit {
         this.displayAlertContainer = true;
       }
     });
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (event.url.startsWith('/project/embed/')) {
+          this.displayContentWithoutLayout = true;
+          this.displayBetaBanner = false;
+        }
+      }
+    });
+
+    this.displayBetaBanner = !JSON.parse(LocalStorageUtils.getValue(LocalStorageOptions.BetaBannerDismissed));
   }
+
   /**
    * Sign the user out of their account by calling the Auth Service signout method.
    */
@@ -67,6 +83,7 @@ export class AppLayoutComponent implements OnInit {
    * Hides the beta banner.
    */
   public onClickCloseBetaMessage(): void {
+    LocalStorageUtils.setValue(LocalStorageOptions.BetaBannerDismissed, true);
     this.displayBetaBanner = false;
   }
 

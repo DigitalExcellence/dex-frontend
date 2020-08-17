@@ -46,21 +46,25 @@
   .institutions {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
   }
 
   .school {
+    margin: 15px 0;
     background: white;
     box-shadow: 0 3px 6px #00000029;
     border-radius: 6px;
     border: none;
-
     min-width: 150px;
     width: 30%;
     height: 40px;
     padding: 12px;
     flex-grow: 1;
+
+    &:nth-child(2) {
+      img {
+        margin-top: 3px;
+      }
+    }
 
     img {
       width: 30px;
@@ -70,7 +74,7 @@
   }
 
   .hr {
-    margin-top: 30px;
+    margin-top: 15px;
     margin-bottom: 5px;
     text-align: center;
     clear: both;
@@ -118,7 +122,7 @@ button {
 
 // Styling for temporary disabled message, can be removed when sign in method is implemented
 .temporarly-disabled-text {
-  margin: 50px 0 10px 0;
+  margin: 15px 0 10px 0;
 }
 
 .btn-school-id {

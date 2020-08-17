@@ -1,3 +1,4 @@
+import { finalize } from 'rxjs/operators';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -58,6 +59,16 @@ export class DetailsComponent implements OnInit {
   public displayHighlightButton = false;
   public displayEmbedButton = false;
 
+  /**
+   * Property to indicate whether the project is loading.
+   */
+  public projectLoading = true;
+
+  /**
+   * Property for storting the invalidId if an invalid project id was entered.
+   */
+  public invalidId: string;
+
   private currentUser: User;
 
   constructor(
@@ -77,7 +88,8 @@ export class DetailsComponent implements OnInit {
       return;
     }
     const id = Number(routeId);
-    if (id < 1) {
+    if (id == null || Number.isNaN(id) || id < 1) {
+      this.invalidId = routeId;
       return;
     }
 
@@ -86,16 +98,20 @@ export class DetailsComponent implements OnInit {
     });
     this.currentUser = this.authService.getCurrentBackendUser();
 
-    this.projectService.get(id).subscribe(
-      (result) => {
-        this.project = result;
+    this.projectService.get(id)
+      .pipe(
+        finalize(() => this.projectLoading = false)
+      )
+      .subscribe(
+        (result) => {
+          this.project = result;
 
-        this.determineDisplayEditProjectButton();
-        this.determineDisplayDeleteProjectButton();
-        this.determineDisplayEmbedButton();
-        this.determineDisplayHighlightButton();
-      }
-    );
+          this.determineDisplayEditProjectButton();
+          this.determineDisplayDeleteProjectButton();
+          this.determineDisplayEmbedButton();
+          this.determineDisplayHighlightButton();
+        }
+      );
 
     if (this.authService.currentBackendUserHasScope(scopes.HighlightRead)) {
       this.highlightByProjectIdService.getHighlightsByProjectId(id)
