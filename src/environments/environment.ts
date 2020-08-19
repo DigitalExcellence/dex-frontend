@@ -27,7 +27,7 @@ export const environment = {
   identityClientId: 'dex-frontend',
   identityRedirectUri: 'http://localhost:4200/auth-callback',
   identityLogoutRedirectUri: 'http://localhost:4200/',
-  identitySilentRedirectUri: 'http://localhost:4200/silent-refresh.html',
+  identitySilentRedirectUri: 'http://localhost:4200/auth-callback',
   frontendUrl: 'http://localhost:4200',
   // This should be empty because it will only be used in production.
   sentryDsnUrl: ''
