@@ -23,7 +23,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export interface HighlightFormResult {
   startDate?: Date;
   endDate?: Date;
-  description?: Text;
+  description?: string;
   indeterminate: boolean;
 }
 
