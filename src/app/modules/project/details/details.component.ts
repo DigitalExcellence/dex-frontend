@@ -160,7 +160,6 @@ export class DetailsComponent implements OnInit {
             highlightAddResource.startDate = null;
             highlightAddResource.endDate = null;
           }
-          console.log(highlightAddResource)
 
           return this.highlightService.post(highlightAddResource);
         })
