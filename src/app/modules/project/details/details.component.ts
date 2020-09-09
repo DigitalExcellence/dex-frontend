@@ -152,6 +152,7 @@ export class DetailsComponent implements OnInit {
           const highlightAddResource: HighlightAdd = {
             projectId: this.project.id,
             startDate: highlightFormResult.startDate,
+            description: highlightFormResult.description,
             endDate: highlightFormResult.endDate
           };
 
@@ -159,6 +160,7 @@ export class DetailsComponent implements OnInit {
             highlightAddResource.startDate = null;
             highlightAddResource.endDate = null;
           }
+          console.log(highlightAddResource)
 
           return this.highlightService.post(highlightAddResource);
         })

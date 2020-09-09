@@ -23,6 +23,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export interface HighlightFormResult {
   startDate?: Date;
   endDate?: Date;
+  description?: Text;
   indeterminate: boolean;
 }
 
@@ -49,6 +50,7 @@ export class ModalHighlightComponent {
     this.highlightProjectForm = this.formBuilder.group({
       startDate: [null],
       endDate: [null],
+      description: [null],
       indeterminate: [false],
     });
 
@@ -78,6 +80,7 @@ export class ModalHighlightComponent {
    */
   public onClickConfirm(): void {
     const highlightFormResult: HighlightFormResult = this.highlightProjectForm.value;
+
     if ((highlightFormResult.startDate == null || highlightFormResult.endDate == null) &&
       highlightFormResult.indeterminate === false) {
       this.dateErrorMessage = 'Error: Fill in a start and end date or choose never ending';
@@ -85,6 +88,10 @@ export class ModalHighlightComponent {
     }
     if (highlightFormResult.startDate > highlightFormResult.endDate || highlightFormResult.endDate < highlightFormResult.startDate) {
       this.dateErrorMessage = 'Error: Start date can\'t be later than end date';
+      return;
+    }
+    if (highlightFormResult.description === null) {
+      this.dateErrorMessage = 'Error: Please enter a description';
       return;
     }
     this.confirm.emit(this.highlightProjectForm.value);
