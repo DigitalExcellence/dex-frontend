@@ -43,8 +43,8 @@
             <input type="text" placeholder="Project description" formControlName="description">
           </div>
         </div>
-        <div class="col-12" *ngIf="dateErrorMessage != null">
-          <p class="date-error-message">{{dateErrorMessage}}</p>
+        <div class="col-12" *ngIf="validationErrorMessage != null">
+          <p class="validation-error-message">{{validationErrorMessage}}</p>
         </div>
       </div>
 

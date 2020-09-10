@@ -23,6 +23,6 @@ export interface Highlight {
   project: Project;
   startDate?: string;
   endDate?: string;
-  description?: string;
+  description: string;
   isNeverEnding?: boolean;
 }
