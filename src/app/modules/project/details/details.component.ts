@@ -159,7 +159,7 @@ export class DetailsComponent implements OnInit {
           if (highlightFormResult.indeterminate) {
             highlightAddResource.startDate = null;
             highlightAddResource.endDate = null;
-          }
+          };
 
           return this.highlightService.post(highlightAddResource);
         })
