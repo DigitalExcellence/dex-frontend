@@ -1,0 +1,33 @@
+.container {
+  width: 100%;
+  height: 200px;
+  padding: 2rem;
+  text-align: center;
+  border: dashed 1px #979797;
+  position: relative;
+  margin: 0 auto 20px auto;
+
+  input {
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  label {
+    color: white;
+    width: 183px;
+    height: 44px;
+    border-radius: 21.5px;
+    background-color: #e85b3f;
+    padding: 8px 16px;
+  }
+
+  h3 {
+    font-size: 18px;
+    color: #38424c;
+  }
+}

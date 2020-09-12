@@ -39,7 +39,8 @@ import { QuillModule } from 'ngx-quill';
     EmbedButtonComponent,
     EmbedComponent,
     ModalHighlightDeleteComponent,
-    ModalHighlightComponent],
+    ModalHighlightComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

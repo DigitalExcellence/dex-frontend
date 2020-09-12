@@ -34,7 +34,8 @@
         <div class="col-6">
           <div>
             <h3>Project link*</h3>
-            <input placeholder="Link to your project, https://github.com/fontys/projectname" formControlName="uri" required />
+            <input placeholder="Link to your project, https://github.com/fontys/projectname" formControlName="uri"
+              required />
           </div>
         </div>
       </div>
@@ -43,7 +44,8 @@
         <div class="col-12">
           <div>
             <h3>Short description*</h3>
-            <input placeholder="Fill in a short description of your project" formControlName="shortDescription" required />
+            <input placeholder="Fill in a short description of your project" formControlName="shortDescription"
+              required />
           </div>
         </div>
       </div>
@@ -63,6 +65,15 @@
             <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
               formControlName="description" placeholder="">
             </quill-editor>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="project-icon-picker">
+            <h3>Project icon</h3>
+            <app-file-uploader (fileUpload)="receiveFile($file)">
+            </app-file-uploader>
           </div>
         </div>
       </div>
@@ -113,7 +124,7 @@
       <div *ngFor="let collaborator of collaborators" class="col-5 collaborator-item">
 
         <button type="button" class="btn btn-icon btn-danger" aria-label="error"
-                (click)="onClickDeleteCollaborator(collaborator)"><span aria-hidden="true"> &times; </span>
+          (click)="onClickDeleteCollaborator(collaborator)"><span aria-hidden="true"> &times; </span>
         </button>
         <p class="collaborator-text large"><strong>{{collaborator?.fullName}}</strong>- {{collaborator?.role}}</p>
         <hr class="dashed">
