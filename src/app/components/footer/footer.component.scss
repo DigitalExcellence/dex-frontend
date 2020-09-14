@@ -52,13 +52,13 @@ footer {
       margin-top: 0;
     }
 
-    @media screen and (max-width: 991px) {
+    @include media-breakpoint-down(md) {
         text-align: center;
     }
   }
 
   h4{
-      @media screen and (max-width: 991px) {
+      @include media-breakpoint-down(md) {
         text-align: center;
       }
   }
