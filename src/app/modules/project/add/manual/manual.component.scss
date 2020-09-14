@@ -19,6 +19,7 @@
 @import "assets/styles/variables";
 
 .project-form {
+
   input,
   textarea {
     border: none;
@@ -41,6 +42,10 @@
 
   .form-footnote {
     margin-top: -15px;
+  }
+
+  .project-icon-picker {
+    margin-bottom: 25px;
   }
 }
 

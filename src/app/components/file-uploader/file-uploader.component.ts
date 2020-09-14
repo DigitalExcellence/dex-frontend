@@ -62,7 +62,6 @@ export class FileUploaderComponent {
         this.files.push(file)
       }
       this.uploadFiles()
-      this.simulateFileUpload(0);
     }
   }
 
@@ -98,25 +97,4 @@ export class FileUploaderComponent {
         }
       });
   }
-
-  /**
-   * Simulate the upload process
-   */
-  simulateFileUpload(index: number) {
-    setTimeout(() => {
-      if (index === this.files.length) {
-        return;
-      } else {
-        const progressInterval = setInterval(() => {
-          if (this.files[index].progress === 100) {
-            clearInterval(progressInterval);
-            this.simulateFileUpload(index + 1);
-          } else {
-            this.files[index].progress += 5;
-          }
-        }, 200);
-      }
-    }, 1000);
-  }
-
 }
