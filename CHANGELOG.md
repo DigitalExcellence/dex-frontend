@@ -11,8 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ### Changed
-
-- Changed all file line endings from CRLF to LF and added the .gitattributes to enforce it - [#163](https://github.com/DigitalExcellence/dex-backend/issues/163)
+- Changed footer.component.html and footer.component.scss for creating a responsive footer. In footer.component.html I added some bootstrap classes and in footer.component.scss I created a media query - [#163] (https://github.com/DigitalExcellence/dex-frontend/issues/163) 
 
 ### Deprecated
 
