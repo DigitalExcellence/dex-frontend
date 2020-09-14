@@ -61,6 +61,11 @@ export class ManualComponent implements OnInit {
    */
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
+  /**
+   * Accepted fileTypes for file-picker
+   */
+  acceptedTypes: Array<string> = ["image/png", "image/jpg", "image/jpeg"];
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { ReadVarExpr } from '@angular/compiler';
 
 @Component({
@@ -7,7 +7,12 @@ import { ReadVarExpr } from '@angular/compiler';
   styleUrls: ['./file-uploader.component.scss']
 })
 export class FileUploaderComponent {
-  files: any[] = [];
+
+  @Input() acceptMultiple: boolean;
+  @Input() acceptedTypes: Array<String>;
+  @Output() newFileEvent = new EventEmitter<File>();
+
+  files: Array<File> = [];
   // local URL of the image
   url: string;
 
@@ -34,9 +39,10 @@ export class FileUploaderComponent {
   }
 
   prepareFilesList(files: Array<any>) {
-    for (const item of files) {
-      item.progress = 0;
-      this.files.push(item);
+    for (const file of files) {
+      if (this.acceptedTypes.includes(file.type)) {
+        this.files.push(file)
+      }
     }
   }
 

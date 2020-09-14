@@ -72,7 +72,7 @@
         <div class="col-12">
           <div class="project-icon-picker">
             <h3>Project icon</h3>
-            <app-file-uploader (fileUpload)="receiveFile($file)">
+            <app-file-uploader [acceptMultiple]=false [acceptedTypes]="acceptedTypes.join(',')">
             </app-file-uploader>
           </div>
         </div>
