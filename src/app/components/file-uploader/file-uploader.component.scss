@@ -31,3 +31,36 @@
     color: #38424c;
   }
 }
+
+.files-list {
+  div.single-file {
+    div.file-info {
+      display: flex;
+      align-content: space-between;
+      align-items: center;
+
+      .file-icon {
+        width: 128px;
+        height: 128px;
+        background-position: center;
+        border-radius: 50%;
+      }
+
+      .file-name {
+        vertical-align: center;
+        margin-left: 5%;
+      }
+    }
+
+    .file-progress {
+      min-width: 100%;
+      background-color: #868686;
+      border-radius: 5%;
+    }
+
+    .progress-bar {
+      background-color: #e85b3f;
+      transition: 0.5s all;
+    }
+  }
+}

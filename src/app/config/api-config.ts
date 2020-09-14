@@ -26,6 +26,7 @@ export interface ApiConfig {
   internalSearchRoute: string;
   externalSearchRoute: string;
   wizardRoute: string;
+  uploadFileRoute: string;
 }
 
 export const API_CONFIG: ApiConfig = {
@@ -36,5 +37,6 @@ export const API_CONFIG: ApiConfig = {
   internalSearchRoute: 'search/internal',
   externalSearchRoute: 'search/external',
   embeddedProjectRoute: 'embed',
-  wizardRoute: 'wizard'
+  wizardRoute: 'wizard',
+  uploadFileRoute: 'upload',
 };

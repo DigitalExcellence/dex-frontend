@@ -7,17 +7,20 @@
 </div>
 <div class="files-list">
     <div class="single-file" *ngFor="let file of files; let i = index">
-        <div class="file-icon" style="width: 50px">
-        </div>
-        <div class="info">
-            <img src={{file?.url}}>
-            <h4 class="name">
+        <div class="file-info">
+            <img class="file-icon" [src]=file?.preview>
+            <h4 class="file-name">
                 {{ file?.name }}
             </h4>
+
+            <div class="delete" (click)="deleteFile(i)">
+                X
+            </div>
+        </div>
+        <div class="file-progress">
+            <div class="progress-bar" id="progress-bar-{{i}}" [style.width]="file.progress + '%'">{{file.progress}}%
+            </div>
         </div>
 
-        <div class="delete" (click)="deleteFile(i)">
-            X
-        </div>
     </div>
 </div>
