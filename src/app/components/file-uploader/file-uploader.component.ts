@@ -15,13 +15,11 @@ export class FileUploaderComponent {
 
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
-  @Output() newFileEvent = new EventEmitter<File>();
+  @Output() fileUploaded = new EventEmitter<string>();
 
   constructor(private uploadService: FileUploaderService) { }
 
   files: Array<uploadFile> = [];
-  // local URL of the image
-  url: string;
 
   /**
     * on file drop handler
@@ -126,6 +124,7 @@ export class FileUploaderComponent {
       }
       );
   }
+
   validatePathFile(path: string): boolean {
     // Format formats from I.E 'image/png' to 'png'
     const acceptedTypesFormatted: Array<string> = this.acceptedTypes.map(type => (type.split('/')[1]))
@@ -134,6 +133,7 @@ export class FileUploaderComponent {
     // Return the result
     return regex.test(path);
   }
+
   buildFormData(file): FormData {
     // Build a formdata object and add the fileData
     const formData = new FormData();

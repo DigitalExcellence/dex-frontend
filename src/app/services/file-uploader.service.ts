@@ -8,7 +8,7 @@ import { API_CONFIG } from '../config/api-config';
   providedIn: 'root'
 })
 export class FileUploaderService {
-  protected readonly url = 'https://file.io/';
+  protected readonly url = 'https://srv-store1.gofile.io/uploadFile';
 
   constructor(
     private http: HttpClient) { }

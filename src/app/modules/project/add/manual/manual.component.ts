@@ -192,6 +192,8 @@ export class ManualComponent implements OnInit {
     // If the fileName is truthy
     this.iconFileName = fileName ? fileName : undefined;
   }
+
+
   /**
    * Method to fill a form with the values of a mapped project.
    */
