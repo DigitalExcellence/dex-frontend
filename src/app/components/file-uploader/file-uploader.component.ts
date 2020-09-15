@@ -126,6 +126,13 @@ export class FileUploaderComponent {
       }
       );
   }
-      });
+  validatePathFile(path: string): boolean {
+    // Format formats from I.E 'image/png' to 'png'
+    const acceptedTypesFormatted: Array<string> = this.acceptedTypes.map(type => (type.split('/')[1]))
+    // Run a regex on the path to check if it has an allowed extension
+    let regex: RegExp = new RegExp(`([a-zA-Z0-9\s_\\.\-:])+\.(${acceptedTypesFormatted.join('|')})`);
+    // Return the result
+    return regex.test(path);
+  }
   }
 }

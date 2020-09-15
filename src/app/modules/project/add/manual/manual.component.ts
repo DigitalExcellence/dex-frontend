@@ -64,7 +64,7 @@ export class ManualComponent implements OnInit {
   /**
    * Accepted fileTypes for file-picker
    */
-  acceptedTypes: Array<string> = ["image/png", "image/jpg", "image/jpeg"];
+  public acceptedTypes: Array<string> = ["image/png", "image/jpg", "image/jpeg"];
 
   constructor(
     private router: Router,
