@@ -45,7 +45,7 @@ export class FileUploaderComponent {
     this.files.splice(index, 1);
   }
 
-  prepareFilesList(files: Array<any>) {
+  prepareFilesList(files: Array<uploadFile>) {
     // If the user can only select 1 image we want to reset the array
     if (!this.acceptMultiple) {
       this.files = [];
@@ -93,26 +93,39 @@ export class FileUploaderComponent {
    * Upload the file
    */
   uploadFile(file) {
-    const formData = new FormData();
-    formData.append('file', file);
-    file.inProgress = true;
-    this.uploadService.uploadFile(formData).pipe(
-      map(event => {
+    const formData: FormData = this.buildFormData(file);
+    // Call the service to upload the file
+    this.uploadService.uploadFile(formData)
+      .pipe
+      (map(event => {
         switch (event.type) {
           case HttpEventType.UploadProgress:
+            // divide the (uploaded bytes * 100) by the total bytes to calculate the progess in percentage
             file.progress = Math.round(event.loaded * 100 / event.total);
             break;
           case HttpEventType.Response:
             return event;
         }
       }),
-      catchError((error: HttpErrorResponse) => {
-        file.inProgress = false;
-        return of(`${file.name} upload failed.`);
-      })).subscribe((event: any) => {
+        catchError((error: HttpErrorResponse) => {
+          // If the upload errors, notify the user
+          return of(`${file.name} upload failed.`);
+        })
+      )
+      .subscribe
+      ((event: any) => {
         if (typeof (event) === 'object') {
-          console.log(event.body);
+          // File uploaded successfully
+          console.log(event.body.data.fileName);
+          // Validate that the server sent back a valid filePath
+          if (this.validatePathFile(event.body.data.fileName)) {
+            // Fire an event that the parent can catch
+            this.fileUploaded.emit(event.body.data.fileName)
+          }
         }
+      }
+      );
+  }
       });
   }
 }

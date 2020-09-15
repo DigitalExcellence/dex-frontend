@@ -1,5 +1,6 @@
 export interface uploadFile extends File {
-    preview: number,
+    preview: string,
     progress: number,
-    inProgress: boolean
+    inProgress: boolean,
+    readableSize: string
 }

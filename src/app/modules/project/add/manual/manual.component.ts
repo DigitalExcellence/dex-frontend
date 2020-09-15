@@ -123,6 +123,8 @@ export class ManualComponent implements OnInit {
 
     const newProject: ProjectAdd = this.newProjectForm.value;
     newProject.collaborators = this.collaborators;
+    // Only set the icon if a file has been uploaded
+    newProject.icon = this.iconFileName ? this.iconFileName : undefined;
 
     this.projectService
       .post(newProject)
@@ -180,6 +182,16 @@ export class ManualComponent implements OnInit {
     this.collaborators.splice(index, 1);
   }
 
+  /**
+   * Method which triggers when a file is uploaded successfully by 
+   * the app-file-uploader component
+   */
+  private iconFileName: string;
+  public onFileUpload(fileName: string) {
+    console.log(`FILE UPLOADED: ${fileName}`)
+    // If the fileName is truthy
+    this.iconFileName = fileName ? fileName : undefined;
+  }
   /**
    * Method to fill a form with the values of a mapped project.
    */
