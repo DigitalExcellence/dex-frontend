@@ -134,5 +134,10 @@ export class FileUploaderComponent {
     // Return the result
     return regex.test(path);
   }
+  buildFormData(file): FormData {
+    // Build a formdata object and add the fileData
+    const formData = new FormData();
+    formData.append('file', file);
+    return formData;
   }
 }
