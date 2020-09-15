@@ -52,16 +52,24 @@ export class FileUploaderComponent {
     }
     for (const file of files) {
       if (this.acceptedTypes.includes(file.type)) {
+        this.generatePreview(file);
         this.formatBytes(file)
-        const fileReader: FileReader = new FileReader();
-        fileReader.readAsDataURL(file)
-
-        fileReader.onload = event => {
-          file.preview = event.target.result;
-          file.progress = 0;
-        }
         this.files.push(file)
       }
+    }
+    this.uploadFiles()
+  }
+
+  private generatePreview(file: uploadFile) {
+    // We can use a FileReader to generate a base64 string based on the image
+    const fileReader: FileReader = new FileReader();
+    // Convert the file to base64
+    fileReader.readAsDataURL(file)
+    fileReader.onload = event => {
+      file.preview = event.target.result as string;
+    }
+  }
+
   private formatBytes(file: uploadFile, decimals = 2) {
     let bytes: number = file.size;
     if (bytes === 0) return '0 Bytes';
