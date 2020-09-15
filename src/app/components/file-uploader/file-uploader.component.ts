@@ -52,6 +52,7 @@ export class FileUploaderComponent {
     }
     for (const file of files) {
       if (this.acceptedTypes.includes(file.type)) {
+        this.formatBytes(file)
         const fileReader: FileReader = new FileReader();
         fileReader.readAsDataURL(file)
 
@@ -61,8 +62,17 @@ export class FileUploaderComponent {
         }
         this.files.push(file)
       }
-      this.uploadFiles()
-    }
+  private formatBytes(file: uploadFile, decimals = 2) {
+    let bytes: number = file.size;
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    file.readableSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
   private uploadFiles() {

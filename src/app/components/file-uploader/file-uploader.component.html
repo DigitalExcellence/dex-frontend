@@ -1,6 +1,6 @@
 <div class="container" app-drag-and-drop multiple (fileDropped)="onFileDropped($event)">
     <input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)"
-        [multiple]="acceptMultiple ? true : null" [accept]="acceptedTypes" />
+        [multiple]="acceptMultiple ? true : null" [accept]="acceptedTypes.join(',')" />
     <h3>Drag and drop a file here</h3>
     <h3>Or</h3>
     <label for="fileDropRef">Browse for a file here</label>
@@ -11,6 +11,9 @@
             <img class="file-icon" [src]=file?.preview>
             <h4 class="file-name">
                 {{ file?.name }}
+            </h4>
+            <h4 class="file-size">
+                {{ file?.readableSize }}
             </h4>
 
             <div class="delete" (click)="deleteFile(i)">
