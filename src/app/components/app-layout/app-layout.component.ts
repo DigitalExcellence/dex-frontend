@@ -36,6 +36,7 @@ export class AppLayoutComponent implements OnInit {
   public subscription: Subscription;
   public displayAlertContainer = false;
   public displayContentWithoutLayout = false;
+  public navbarOpen = false;
 
   public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
@@ -93,5 +94,9 @@ export class AppLayoutComponent implements OnInit {
    */
   public onClickHeaderBetaText(): void {
     this.displayBetaBanner = true;
+  }
+
+  public toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 }
