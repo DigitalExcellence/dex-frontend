@@ -110,3 +110,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where beta banner was not dismissible - [#239](#https://github.com/DigitalExcellence/dex-frontend/issues/239)
 - Fixed styling to match the designs, replaced images on home and sign in - [#233](https://github.com/DigitalExcellence/dex-frontend/issues/233)
 - Fixed issue where invalid project id would trigger error - [#235](https://github.com/DigitalExcellence/dex-frontend/issues/235)
+- Fixed issue where the feedback button would block the footer content on smaller screens - [#289](https://github.com/DigitalExcellence/dex-frontend/issues/289)
