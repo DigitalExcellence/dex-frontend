@@ -1,0 +1,16 @@
+<p>profile works!</p>
+
+<ng-container *ngIf="userLoading else userLoaded">
+
+
+    <ng-container *ngIf="user; else noUser">
+        <p>Username {{user.name}}</p>
+    </ng-container>
+    <ng-template #noUser>
+        <p>User could not be loaded</p>
+    </ng-template>
+
+</ng-container>
+<ng-template #userLoaded>
+    <p>User is loading</p>
+</ng-template>

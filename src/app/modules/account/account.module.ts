@@ -20,9 +20,10 @@ import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [CommonModule, AccountRoutingModule, ReactiveFormsModule],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, ProfileComponent],
 })
 export class AccountModule {}
