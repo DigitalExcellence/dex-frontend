@@ -32,6 +32,10 @@
   .header-nav {
     display: flex;
 
+    .nav-text {
+      text-align: left;
+    }
+
     /*
     In the burger menu, the elements of the navigation
     will be shows below each other
@@ -125,7 +129,7 @@
 
   .account {
     display: flex;
-    align-items: center;
+    align-items: left;
     margin-left: auto;
   }
 
@@ -272,6 +276,11 @@
     font-weight: 700;
     color: $light-mode-title-color;
     font-size: 14px;
+    padding: 8px 16px;
+
+    @include media-breakpoint-down(sm){
+      font-size: 16px;
+    }
 
     .caret {
       margin-left: 5px;
