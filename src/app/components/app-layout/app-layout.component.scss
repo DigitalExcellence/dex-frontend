@@ -144,6 +144,16 @@
       border-radius: 50%;
     }
   }
+
+  /*
+  In burger menu show the profile navigation items
+  below each other
+  */
+  .profile-dropdown{
+    @include media-breakpoint-down(sm){
+      flex-direction: column;
+    }
+  }
 }
 
 .modal-beta-container {
@@ -249,6 +259,10 @@
 
   a {
     cursor: pointer;
+  }
+
+  @include media-breakpoint-down(sm){
+    position: initial;
   }
 }
 
