@@ -203,7 +203,7 @@
   }
 
   // Move button to the bottom left and make it vertical
-  @media (max-width: 768px) {
+  @include media-breakpoint-down(md) {
     bottom: 30%;
     left: 0;
 
