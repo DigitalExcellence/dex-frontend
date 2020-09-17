@@ -18,13 +18,20 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 /**
  * Module in which reusable components and modules can be imported and exported.
  */
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ReactiveFormsModule],
-  exports: [ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TabsModule.forRoot()
+  ],
+  exports: [
+    ReactiveFormsModule,
+    TabsModule
+  ],
 })
 export class SharedModule { }

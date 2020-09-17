@@ -19,11 +19,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, AccountRoutingModule, ReactiveFormsModule],
-  declarations: [LoginComponent, ProfileComponent],
+  imports: [
+    CommonModule,
+    AccountRoutingModule,
+    SharedModule
+  ],
+  declarations: [
+    LoginComponent,
+    ProfileComponent
+  ],
 })
-export class AccountModule {}
+export class AccountModule { }

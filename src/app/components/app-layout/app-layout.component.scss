@@ -79,7 +79,7 @@
       position: relative;
 
       &::placeholder {
-        color: #707175;
+        color: $light-mode-text-color;
       }
 
       &:focus {
@@ -245,13 +245,17 @@
   &.dropdown-toggle {
     font-family: $font-family-headings;
     font-weight: 700;
-    color: $light-mode-title-color;
+    color: $light-mode-text-color;
     font-size: 14px;
 
     .caret {
       margin-left: 5px;
     }
   }
+}
+
+.btn:hover {
+  color: $accent-color-primary;
 }
 
 img.profile-picture {

@@ -1,16 +1,24 @@
-<p>profile works!</p>
+<div class="row justify-content-center">
+    <div class="col-6 dex-card">
+        <ng-container *ngIf="userLoading else userLoaded">
+            <p>User is loading...</p>
+        </ng-container>
+        <ng-template #userLoaded>
+            <ng-container *ngIf="user; else noUser">
 
-<ng-container *ngIf="userLoading else userLoaded">
+                <tabset type="pills">
+                    <tab heading="User info">
+                        <h2>User info</h2>
+                    </tab>
+                    <tab heading="Settings">
+                        Settings
+                    </tab>
+                </tabset>
 
-
-    <ng-container *ngIf="user; else noUser">
-        <p>Username {{user.name}}</p>
-    </ng-container>
-    <ng-template #noUser>
-        <p>User could not be loaded</p>
-    </ng-template>
-
-</ng-container>
-<ng-template #userLoaded>
-    <p>User is loading</p>
-</ng-template>
+            </ng-container>
+            <ng-template #noUser>
+                <p>User could not be loaded</p>
+            </ng-template>
+        </ng-template>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { finalize } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/domain/user';
@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
     this.userService
       .getCurrentUser()
       .pipe(
+        take(1),
         finalize(() => {
           this.userLoading = false;
         }))
