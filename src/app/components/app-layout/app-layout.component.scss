@@ -31,6 +31,14 @@
 
   .header-nav {
     display: flex;
+
+    /*
+    In the burger menu, the elements of the navigation
+    will be shows below each other
+    */
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
   }
 
   .branding {
@@ -42,7 +50,16 @@
       cursor: pointer;
       margin: 0 0 -4px 3px;
     }
+
+     /*
+    For extreme scenarios, the margin right from the Dex-logo
+    is decreased. So in these (extreme) scenarios, the burger menu
+    can still be rendered besides the logo
+    */
+    @include media-breakpoint-down(sm) {
+      margin-right: 15px;
   }
+}
 
   a {
     font-family: "Montserrat", sans-serif;
