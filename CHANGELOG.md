@@ -70,6 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented permission validation for project edit / delete / highlight / embed buttons - [#213](https://github.com/DigitalExcellence/dex-frontend/issues/213)
 - Implemented WYSIWYG Editor for project description - [#216](https://github.com/DigitalExcellence/dex-frontend/issues/216)
 - Added pipe to strip html to fix the html showing in highlights - [#243](https://github.com/DigitalExcellence/dex-frontend/issues/243)
+- Added functionality to upload an project icon when creating a project - [#266](https://github.com/DigitalExcellence/dex-frontend/issues/266)
 
 ### Changed
 
