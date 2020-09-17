@@ -21,6 +21,8 @@ import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SharedModule } from '../shared/shared.module';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   imports: [
@@ -30,7 +32,9 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileEditComponent,
+    SettingsComponent
   ],
 })
 export class AccountModule { }

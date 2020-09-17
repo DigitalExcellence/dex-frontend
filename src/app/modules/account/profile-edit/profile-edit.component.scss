@@ -16,7 +16,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-@import "assets/styles/variables";
-.tab {
-    margin-top: 32px;
+input {
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0px 3px 6px #0000001a;
+    height: 45px;
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 0px 15px;
 }

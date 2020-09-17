@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-6 dex-card">
+    <div class="col-6">
         <ng-container *ngIf="userLoading else userLoaded">
             <p>User is loading...</p>
         </ng-container>
@@ -7,11 +7,11 @@
             <ng-container *ngIf="user; else noUser">
 
                 <tabset type="pills">
-                    <tab heading="User info">
-                        <h2>User info</h2>
+                    <tab heading="User info" class="tab">
+                        <app-profile-edit></app-profile-edit>
                     </tab>
-                    <tab heading="Settings">
-                        Settings
+                    <tab heading="Settings" class="tab">
+                        <app-settings></app-settings>
                     </tab>
                 </tabset>
 
