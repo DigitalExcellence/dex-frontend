@@ -55,7 +55,6 @@ export class FileUploaderComponent {
         this.files.push(file)
       }
     }
-    this.uploadFiles()
   }
 
   private generatePreview(file: uploadFile) {
@@ -74,23 +73,28 @@ export class FileUploaderComponent {
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
 
     const i = Math.floor(Math.log(bytes) / Math.log(k));
 
     file.readableSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  private uploadFiles() {
+  uploadFiles(cb) {
+    let files = [];
     this.files.forEach(file => {
-      this.uploadFile(file);
+      this.uploadFile(file, (file) => {
+        console.log(file)
+        files.push(file);
+      });
     });
+      cb(files);
   }
 
   /**
    * Upload the file
    */
-  uploadFile(file) {
+  private uploadFile(file, cb) {
     const formData: FormData = this.buildFormData(file);
     // Call the service to upload the file
     this.uploadService.uploadFile(formData)
@@ -114,30 +118,17 @@ export class FileUploaderComponent {
       ((event: any) => {
         if (typeof (event) === 'object') {
           // File uploaded successfully
-          console.log(event.body.data.fileName);
-          // Validate that the server sent back a valid filePath
-          if (this.validatePathFile(event.body.data.fileName)) {
-            // Fire an event that the parent can catch
-            this.fileUploaded.emit(event.body.data.fileName)
+          console.log(`DATA: ${event.body.data}`);
+            cb(event.body.data.fileName)
           }
         }
-      }
       );
   }
 
-  validatePathFile(path: string): boolean {
-    // Format formats from I.E 'image/png' to 'png'
-    const acceptedTypesFormatted: Array<string> = this.acceptedTypes.map(type => (type.split('/')[1]))
-    // Run a regex on the path to check if it has an allowed extension
-    let regex: RegExp = new RegExp(`([a-zA-Z0-9\s_\\.\-:])+\.(${acceptedTypesFormatted.join('|')})`);
-    // Return the result
-    return regex.test(path);
-  }
-
-  buildFormData(file): FormData {
+  private buildFormData(file): FormData {
     // Build a formdata object and add the fileData
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('File', file);
     return formData;
   }
 }

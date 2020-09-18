@@ -17,7 +17,7 @@
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertService } from 'src/app/services/alert.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardService } from 'src/app/services/wizard.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
@@ -37,9 +38,11 @@ import * as showdown from 'showdown';
 @Component({
   selector: 'app-manual',
   templateUrl: './manual.component.html',
-  styleUrls: ['./manual.component.scss'],
+  styleUrls: ['./manual.component.scss']
 })
 export class ManualComponent implements OnInit {
+  @ViewChild(FileUploaderComponent) fileUploader:FileUploaderComponent;
+
   /**
    * Formgroup for entering project details.
    */
@@ -123,8 +126,10 @@ export class ManualComponent implements OnInit {
 
     const newProject: ProjectAdd = this.newProjectForm.value;
     newProject.collaborators = this.collaborators;
-    // Only set the icon if a file has been uploaded
-    newProject.icon = this.iconFileName ? this.iconFileName : undefined;
+    // Start uploading files
+    this.fileUploader.uploadFiles((files) => {
+      newProject.fileId = files[0].id;
+    });
 
     this.projectService
       .post(newProject)
@@ -183,7 +188,7 @@ export class ManualComponent implements OnInit {
   }
 
   /**
-   * Method which triggers when a file is uploaded successfully by 
+   * Method which triggers when a file is uploaded successfully by
    * the app-file-uploader component
    */
   private iconFileName: string;

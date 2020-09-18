@@ -23,5 +23,5 @@ export interface ProjectAdd {
   shortDescription: string;
   description?: string;
   url: string;
-  icon: string;
+  fileId: string;
 }
