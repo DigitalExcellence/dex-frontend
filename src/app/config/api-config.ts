@@ -38,5 +38,5 @@ export const API_CONFIG: ApiConfig = {
   externalSearchRoute: 'search/external',
   embeddedProjectRoute: 'embed',
   wizardRoute: 'wizard',
-  uploadFileRoute: 'upload',
+  uploadFileRoute: 'file',
 };
