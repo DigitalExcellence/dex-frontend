@@ -100,7 +100,7 @@ export class AppLayoutComponent implements OnInit {
    * Method which triggers when the user clicks on the burger menu in the header.
    * Toggles the navbar visibility
    */
-  public toggleNavbar() {
+  public toggleNavbar(): void {
     this.navbarOpen = !this.navbarOpen;
   }
 }
