@@ -18,6 +18,7 @@
  */
 
 @import "assets/styles/variables";
+
 .content-container {
   min-height: calc(100vh - 324px);
 }
@@ -230,6 +231,17 @@
     letter-spacing: 0px;
     color: #f8f8f8;
     text-transform: capitalize;
+  }
+
+  // Move button to the bottom left and make it vertical
+  @include media-breakpoint-down(md) {
+    bottom: 30%;
+    left: 0;
+
+    .feedback-button {
+      transform: rotate(90deg);
+      transform-origin: left bottom;
+    }
   }
 }
 
