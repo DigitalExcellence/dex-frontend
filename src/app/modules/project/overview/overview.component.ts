@@ -30,6 +30,7 @@ import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 
 
+
 interface SortFormResult {
   type: string;
   direction: string;
@@ -177,6 +178,7 @@ export class OverviewComponent implements OnInit {
     if (!environment.production) {
       this.displaySearchElements = true;
     }
+
   }
 
   ngOnInit(): void {
@@ -201,6 +203,8 @@ export class OverviewComponent implements OnInit {
     this.sortForm.valueChanges.subscribe((value) => this.onSortFormValueChange(value));
 
     this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
+
+
 
     // Following two oberservables can be used in the feature to implement category & tags searching
     // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {

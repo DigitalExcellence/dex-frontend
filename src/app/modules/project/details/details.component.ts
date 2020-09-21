@@ -36,6 +36,7 @@ import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-hig
 import { Highlight } from 'src/app/models/domain/hightlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
+import { Meta, MetaDefinition } from '@angular/platform-browser';
 
 
 /**
@@ -79,7 +80,8 @@ export class DetailsComponent implements OnInit {
     private modalService: BsModalService,
     private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService,
-    private router: Router
+    private router: Router,
+    private metaService: Meta
   ) { }
 
   ngOnInit(): void {
@@ -110,6 +112,7 @@ export class DetailsComponent implements OnInit {
           this.determineDisplayDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
+          this.createOrUpdateProjectDescription();
         }
       );
 
@@ -319,5 +322,16 @@ export class DetailsComponent implements OnInit {
     const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' + ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
     const timeZone = 'GMT';
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
+  }
+
+  private createOrUpdateProjectDescription(){
+    let tag = this.metaService.getTag('description');
+    let shortDesc = this.project.shortDescription
+    let desc = (shortDesc) ? shortDesc : this.project.description
+    if(tag){
+      this.metaService.updateTag({ name:'description',content: desc})
+    } else {
+      this.metaService.addTag( { name:'description',content: this.project.description});
+    }
   }
 }
