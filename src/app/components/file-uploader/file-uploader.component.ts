@@ -4,7 +4,10 @@ import { uploadFile } from 'src/app/models/domain/uploadFile';
 import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
-import { of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
+import { AlertConfig } from '../../models/internal/alert-config';
+import { AlertType } from '../../models/internal/alert-type';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-file-uploader',
@@ -53,6 +56,16 @@ export class FileUploaderComponent {
         this.generatePreview(file);
         this.formatBytes(file)
         this.files.push(file)
+      }
+      else {
+        const alertConfig: AlertConfig = {
+          type: AlertType.danger,
+          preMessage: 'This file type is not allowed',
+          mainMessage: `File ${file.name} is of type that is not allowed please pick one of these ${this.acceptedTypes.join(', ')}`,
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
       }
     }
   }
