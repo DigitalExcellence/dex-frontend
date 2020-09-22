@@ -44,6 +44,7 @@ export class FileUploaderComponent {
    */
   deleteFile(index: number) {
     this.files.splice(index, 1);
+    this.fileInput.nativeElement.value = "";
   }
 
   prepareFilesList(files: Array<uploadFile>) {
