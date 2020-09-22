@@ -155,6 +155,7 @@ export class DetailsComponent implements OnInit {
           const highlightAddResource: HighlightAdd = {
             projectId: this.project.id,
             startDate: highlightFormResult.startDate,
+            description: highlightFormResult.description,
             endDate: highlightFormResult.endDate
           };
 
