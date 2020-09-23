@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -27,6 +27,7 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
+import { FileUploaderComponent } from '../../../components/file-uploader/file-uploader.component';
 
 /**
  * Component for editting adding a project.
@@ -68,6 +69,13 @@ export class EditComponent implements OnInit {
    * Property to indicate whether the project is loading.
    */
   public projectLoading = true;
+
+  /**
+   * Configuration for file-picker
+   */
+  public acceptedTypes: Array<string> = ["image/png", "image/jpg", "image/jpeg"];
+  public acceptMultiple: Boolean = false;
+  @ViewChild(FileUploaderComponent) fileUploader:FileUploaderComponent;
 
   constructor(
     private router: Router,
@@ -130,23 +138,40 @@ export class EditComponent implements OnInit {
     const edittedProject: ProjectUpdate = this.editProjectForm.value;
     edittedProject.collaborators = this.collaborators;
 
-    this.projectService
-      .put(this.project.id, edittedProject)
-      .pipe(
-        finalize(() => {
-          this.submitEnabled = false;
-        })
-      )
-      .subscribe(() => {
+    this.fileUploader.uploadFiles().subscribe(uploadedFiles => {
+      if(uploadedFiles[0]) {
+        edittedProject.fileId = uploadedFiles[0].id
+        this.editProject(edittedProject);
+      } else {
         const alertConfig: AlertConfig = {
-          type: AlertType.success,
-          mainMessage: 'Project was succesfully updated',
+          type: AlertType.danger,
+          mainMessage: 'Something went wrong saving your files, please try again',
           dismissible: true,
           timeout: this.alertService.defaultTimeout
         };
         this.alertService.pushAlert(alertConfig);
-        this.router.navigate([`/project/overview`]);
-      });
+      }
+    });
+  }
+
+  private editProject(edittedProject) {
+    this.projectService
+        .put(this.project.id, edittedProject)
+        .pipe(
+            finalize(() => {
+              this.submitEnabled = false;
+            })
+        )
+        .subscribe(() => {
+          const alertConfig: AlertConfig = {
+            type: AlertType.success,
+            mainMessage: 'Project was succesfully updated',
+            dismissible: true,
+            timeout: this.alertService.defaultTimeout
+          };
+          this.alertService.pushAlert(alertConfig);
+          this.router.navigate([`/project/overview`]);
+        });
   }
 
   /**

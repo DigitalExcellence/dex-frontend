@@ -30,6 +30,8 @@ import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-hig
 import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
 import { SharedModule } from './../shared/shared.module';
 import { QuillModule } from 'ngx-quill';
+import { ManualComponent } from './add/manual/manual.component';
+import { FileUploaderComponent } from '../../components/file-uploader/file-uploader.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { QuillModule } from 'ngx-quill';
     EmbedButtonComponent,
     EmbedComponent,
     ModalHighlightDeleteComponent,
-    ModalHighlightComponent
+    ModalHighlightComponent,
+    FileUploaderComponent
   ],
   imports: [
     CommonModule,
@@ -52,5 +55,8 @@ import { QuillModule } from 'ngx-quill';
     BsDropdownModule.forRoot(),
     QuillModule
   ],
+  exports: [
+      FileUploaderComponent
+  ]
 })
 export class ProjectModule { }

@@ -22,19 +22,20 @@ import { AddRoutingModule } from './add-routing.module';
 import { ManualComponent } from './manual/manual.component';
 import { SourceComponent } from './source/source.component';
 import { QuillModule } from 'ngx-quill';
-import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component'
+import { FileUploaderComponent } from '../../../components/file-uploader/file-uploader.component';
+import { ProjectModule } from '../project.module';
 
 @NgModule({
   declarations: [
     SourceComponent,
-    ManualComponent,
-    FileUploaderComponent
+    ManualComponent
   ],
   imports: [
     CommonModule,
     AddRoutingModule,
     ReactiveFormsModule,
-    QuillModule
+    QuillModule,
+    ProjectModule
   ],
 })
 export class AddModule { }

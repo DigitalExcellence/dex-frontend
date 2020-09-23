@@ -17,6 +17,7 @@
 
 import { User } from './user';
 import { Collaborator } from './collaborator';
+import { uploadFile } from './uploadFile';
 
 export interface Project {
   id: number;

@@ -27,14 +27,14 @@ export class FileUploaderComponent {
   /**
    * on file drop handler
    */
-  onFileDropped(event) {
+  private onFileDropped(event) {
     this.prepareFilesList(event);
   }
 
   /**
    * handle file from browsing
    */
-  fileBrowseHandler(files) {
+  private fileBrowseHandler(files) {
     this.prepareFilesList(files.files);
   }
 
@@ -42,12 +42,12 @@ export class FileUploaderComponent {
    * Delete file from files list
    * @param index (File index)
    */
-  deleteFile(index: number) {
+  private deleteFile(index: number) {
     this.files.splice(index, 1);
     this.fileInput.nativeElement.value = "";
   }
 
-  prepareFilesList(files: Array<uploadFile>) {
+  private prepareFilesList(files: Array<uploadFile>) {
     // If the user can only select 1 image we want to reset the array
     if ( !this.acceptMultiple) {
       this.files = [];
@@ -95,7 +95,7 @@ export class FileUploaderComponent {
     file.readableSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  uploadFiles(): Observable<Array<uploadFile>> {
+  public uploadFiles(): Observable<Array<uploadFile>> {
     const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
         .pipe(map(event => {
           switch (event.type) {
@@ -115,5 +115,9 @@ export class FileUploaderComponent {
         )
     );
     return forkJoin(fileUploads)
+  }
+
+  public setFiles(files:Array<uploadFile>) {
+    this.files = files;
   }
 }

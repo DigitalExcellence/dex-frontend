@@ -27,7 +27,6 @@
     <ng-template #projectLoaded>
       <ng-container *ngIf="project; else noProject">
         <form [formGroup]="editProjectForm" class="project-form">
-
           <div class="row">
             <div class="col-6">
               <div>
@@ -69,6 +68,15 @@
                 <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
                   formControlName="description" placeholder="" [ngModel]="project?.description">
                 </quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="project-icon-picker">
+                <h3>Project icon</h3>
+                <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes">
+                </app-file-uploader>
               </div>
             </div>
           </div>

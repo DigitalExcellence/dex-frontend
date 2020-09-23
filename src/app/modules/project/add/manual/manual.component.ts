@@ -41,8 +41,6 @@ import * as showdown from 'showdown';
   styleUrls: ['./manual.component.scss']
 })
 export class ManualComponent implements OnInit {
-  @ViewChild(FileUploaderComponent) fileUploader:FileUploaderComponent;
-
   /**
    * Formgroup for entering project details.
    */
@@ -69,6 +67,7 @@ export class ManualComponent implements OnInit {
    */
   public acceptedTypes: Array<string> = ["image/png", "image/jpg", "image/jpeg"];
   public acceptMultiple: Boolean = false;
+  @ViewChild(FileUploaderComponent) fileUploader:FileUploaderComponent;
 
   constructor(
     private router: Router,
@@ -132,7 +131,6 @@ export class ManualComponent implements OnInit {
       if(uploadedFiles[0]) {
         newProject.fileId = uploadedFiles[0].id
         this.createProject(newProject)
-
       } else {
         const alertConfig: AlertConfig = {
           type: AlertType.danger,
