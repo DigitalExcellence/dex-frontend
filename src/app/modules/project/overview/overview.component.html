@@ -144,7 +144,24 @@
     <ng-template #noProjects>There are no projects available.</ng-template>
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
       <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage"
-        (pageChanged)="pageChanged($event)" class="pagination-footer"></pagination>
+        [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate" (pageChanged)="pageChanged($event)" class="pagination-footer">
+      </pagination>
+      <ng-template #nextTemplate [customPreviousTemplate]="prevTemplate" let-disabled="disabled" let-currentPage="currentPage">
+        <ng-container *ngIf="!disabled">
+          <img src="assets/images/chevron-down-solid.svg" class="chevron-right"/>
+        </ng-container>
+        <ng-container *ngIf="disabled">
+          <img src="assets/images/chevron-down-solid.svg" class="chevron-right"/>
+        </ng-container>
+      </ng-template>
+      <ng-template #prevTemplate let-disabled="disabled" let-currentPage="currentPage">
+        <ng-container *ngIf="!disabled">
+          <img src="assets/images/chevron-down-solid.svg" class="chevron-left"/>
+        </ng-container>
+        <ng-container *ngIf="disabled">
+          <img src="assets/images/chevron-down-solid.svg" class="chevron-left"/>
+        </ng-container>
+      </ng-template>
     </div>
   </div>
 </div>

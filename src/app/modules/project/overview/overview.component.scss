@@ -33,6 +33,19 @@
   color: #ffffff;
 }
 
+
+.pagination-footer{
+    img{
+        width: 100%;
+    }
+    .chevron-right{
+        transform: rotateZ(270deg);
+    }
+    .chevron-left{
+        transform: rotateZ(90deg);
+    }
+}
+
 .paginationDropDown {
   width: 80px;
 }
