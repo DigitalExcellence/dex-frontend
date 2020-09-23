@@ -47,7 +47,13 @@ p {
     padding-top: 100%;
   }
 }
-
+.source-content:hover{
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  img{
+    opacity: 0.8;
+  }
+}
 .source {
   position: absolute;
   top: 0;
@@ -81,6 +87,7 @@ p {
   img {
     height: calc(100% - 44px);
     width: auto;
+    opacity: 0.6;
   }
 }
 
