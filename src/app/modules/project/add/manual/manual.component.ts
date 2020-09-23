@@ -130,7 +130,7 @@ export class ManualComponent implements OnInit {
     // Start uploading files
     this.fileUploader.uploadFiles().subscribe(uploadedFiles => {
       if(uploadedFiles[0]) {
-        newProject.FileId = uploadedFiles[0].id
+        newProject.fileId = uploadedFiles[0].id
         this.createProject(newProject)
 
       } else {

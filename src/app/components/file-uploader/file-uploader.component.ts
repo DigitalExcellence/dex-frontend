@@ -49,16 +49,15 @@ export class FileUploaderComponent {
 
   prepareFilesList(files: Array<uploadFile>) {
     // If the user can only select 1 image we want to reset the array
-    if (!this.acceptMultiple) {
+    if ( !this.acceptMultiple) {
       this.files = [];
     }
     for (const file of files) {
       if (this.acceptedTypes.includes(file.type)) {
         this.generatePreview(file);
-        this.formatBytes(file)
-        this.files.push(file)
-      }
-      else {
+        this.formatBytes(file);
+        this.files.push(file);
+      } else {
         const alertConfig: AlertConfig = {
           type: AlertType.danger,
           preMessage: 'This file type is not allowed',
@@ -75,15 +74,17 @@ export class FileUploaderComponent {
     // We can use a FileReader to generate a base64 string based on the image
     const fileReader: FileReader = new FileReader();
     // Convert the file to base64
-    fileReader.readAsDataURL(file)
+    fileReader.readAsDataURL(file);
     fileReader.onload = event => {
       file.preview = event.target.result as string;
-    }
+    };
   }
 
   private formatBytes(file: uploadFile, decimals = 2) {
     let bytes: number = file.size;
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) {
+      return '0 Bytes';
+    }
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
@@ -114,46 +115,5 @@ export class FileUploaderComponent {
         )
     );
     return forkJoin(fileUploads)
-  }
-
-  /**
-   * Upload the file
-   */
-  private uploadFile(file, cb) {
-    const formData: FormData = this.buildFormData(file);
-    // Call the service to upload the file
-    this.uploadService.uploadFile(formData)
-      .pipe
-      (map(event => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            // divide the (uploaded bytes * 100) by the total bytes to calculate the progess in percentage
-            file.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-          case HttpEventType.Response:
-            return event;
-        }
-      }),
-        catchError((error: HttpErrorResponse) => {
-          // If the upload errors, notify the user
-          return of(`${file.name} upload failed.`);
-        })
-      )
-      .subscribe
-      ((event: any) => {
-        if (typeof (event) === 'object') {
-          // File uploaded successfully
-          console.log(`DATA: ${event.body.data}`);
-            cb(event.body.data.fileName)
-          }
-        }
-      );
-  }
-
-  private buildFormData(file): FormData {
-    // Build a formdata object and add the fileData
-    const formData = new FormData();
-    formData.append('File', file);
-    return formData;
   }
 }
