@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpErrorResponse, HttpEventType } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { API_CONFIG } from '../config/api-config';
+import { uploadFile } from '../models/domain/uploadFile';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,24 @@ export class FileUploaderService {
   constructor(
     private http: HttpClient) { }
 
-  public uploadFile(formdata: FormData): Observable<any> {
-    return this.http.post<string>(this.url, formdata, {
+  public uploadFile(file: uploadFile): Observable<any> {
+    const formData: FormData = FileUploaderService.buildFormData(file);
+    return this.http.post(this.url, formData, {
       reportProgress: true,
       observe: 'events'
-    })
+    }).pipe
+    (
+        catchError((error: HttpErrorResponse) => {
+          // If the upload errors, notify the user
+          return of(`${file.name} upload failed.`);
+        })
+    )
+  }
+
+  private static buildFormData(file): FormData {
+    // Build a formdata object and add the fileData
+    const formData = new FormData();
+    formData.append('File', file);
+    return formData;
   }
 }

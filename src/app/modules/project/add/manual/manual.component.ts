@@ -65,9 +65,10 @@ export class ManualComponent implements OnInit {
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
   /**
-   * Accepted fileTypes for file-picker
+   * Configuration for file-picker
    */
   public acceptedTypes: Array<string> = ["image/png", "image/jpg", "image/jpeg"];
+  public acceptMultiple: Boolean = false;
 
   constructor(
     private router: Router,
@@ -127,23 +128,36 @@ export class ManualComponent implements OnInit {
     const newProject: ProjectAdd = this.newProjectForm.value;
     newProject.collaborators = this.collaborators;
     // Start uploading files
-    this.fileUploader.uploadFiles((files) => {
-      newProject.fileId = files[0].id;
-    });
+    this.fileUploader.uploadFiles().subscribe(uploadedFiles => {
+      if(uploadedFiles[0]) {
+        newProject.FileId = uploadedFiles[0].id
+        this.createProject(newProject)
 
-    this.projectService
-      .post(newProject)
-      .pipe(finalize(() => (this.submitEnabled = false)))
-      .subscribe(() => {
+      } else {
         const alertConfig: AlertConfig = {
-          type: AlertType.success,
-          mainMessage: 'Project was succesfully saved',
+          type: AlertType.danger,
+          mainMessage: 'Something went wrong saving your files, please try again',
           dismissible: true,
           timeout: this.alertService.defaultTimeout
         };
         this.alertService.pushAlert(alertConfig);
-        this.router.navigate([`/project/overview`]);
-      });
+      }
+    });
+  }
+  private createProject(newProject):void {
+    this.projectService
+        .post(newProject)
+        .pipe(finalize(() => (this.submitEnabled = false)))
+        .subscribe(() => {
+          const alertConfig: AlertConfig = {
+            type: AlertType.success,
+            mainMessage: 'Project was succesfully saved',
+            dismissible: true,
+            timeout: this.alertService.defaultTimeout
+          };
+          this.alertService.pushAlert(alertConfig);
+          this.router.navigate([`/project/overview`]);
+        });
   }
 
   /**

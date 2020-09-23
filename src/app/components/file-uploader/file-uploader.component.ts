@@ -1,5 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { ReadVarExpr } from '@angular/compiler';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { uploadFile } from 'src/app/models/domain/uploadFile';
 import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import { catchError, map } from 'rxjs/operators';
@@ -18,24 +17,25 @@ export class FileUploaderComponent {
 
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
-  @Output() fileUploaded = new EventEmitter<string>();
+  @ViewChild('fileDropRef') fileInput: ElementRef;
 
-  constructor(private uploadService: FileUploaderService) { }
+  constructor(private uploadService: FileUploaderService,
+              private alertService: AlertService) { }
 
   files: Array<uploadFile> = [];
 
   /**
-    * on file drop handler
-    */
-  onFileDropped($event) {
-    this.prepareFilesList($event);
+   * on file drop handler
+   */
+  onFileDropped(event) {
+    this.prepareFilesList(event);
   }
 
   /**
    * handle file from browsing
    */
   fileBrowseHandler(files) {
-    this.prepareFilesList(files);
+    this.prepareFilesList(files.files);
   }
 
   /**
@@ -94,15 +94,26 @@ export class FileUploaderComponent {
     file.readableSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  uploadFiles(cb) {
-    let files = [];
-    this.files.forEach(file => {
-      this.uploadFile(file, (file) => {
-        console.log(file)
-        files.push(file);
-      });
-    });
-      cb(files);
+  uploadFiles(): Observable<Array<uploadFile>> {
+    const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
+        .pipe(map(event => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              // divide the (uploaded bytes * 100) by the total bytes to calculate the progress in percentage
+                console.log(event.loaded, event.total)
+              this.files.find(value => value.name === file.name).progress = Math.round(event.loaded * 100 / event.total);
+              console.log('progress', file.progress)
+              break;
+            case HttpEventType.Response:
+              return event.body;
+          }}),
+            catchError((err: HttpErrorResponse) => {
+              console.log(err)
+              return of('Failed to upload files');
+            })
+        )
+    );
+    return forkJoin(fileUploads)
   }
 
   /**
