@@ -250,9 +250,10 @@
     margin-top: 10px;
 
     .card-header {
-      background: url("~src/assets/images/caret-down.svg") no-repeat center right;
+      background: url("~src/assets/images/chevron-down-solid-orange.svg") no-repeat center right;
       padding: 0;
       border: none;
+      background-size: 13px;
 
       button {
         padding: 0;
@@ -267,7 +268,7 @@
 
     .card-body {
       margin-top: 10px;
-      background: #e9e9e9;
+      background: #F4F6F8;
       border-radius: 6px;
       padding: 5px 10px;
     }
