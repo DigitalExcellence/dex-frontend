@@ -171,8 +171,9 @@
   }
 
   .option-select {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     width: 100%;
+    color: rgba(#323232, 0.7) ;
   }
 
   form {
@@ -184,7 +185,13 @@
         vertical-align: middle;
         position: relative;
         padding-left: 20px;
-
+        margin: 0.25rem 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        span{
+          margin-right: 4px;
+        }
         &::before,
         &::after {
           content: "";
@@ -237,7 +244,7 @@
   select {
     padding: 4px;
     border-radius: 3px;
-    border: 1px solid #c1c1c1;
+    border: 0px solid #c1c1c1;
   }
 
   select, option {
