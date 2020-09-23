@@ -17,7 +17,7 @@
 
 import { User } from './user';
 import { Collaborator } from './collaborator';
-import { uploadFile } from './uploadFile';
+import { UploadFile } from './uploadFile';
 
 export interface Project {
   id: number;
@@ -29,5 +29,5 @@ export interface Project {
   updated: Date;
   uri?: string;
   collaborators?: Collaborator[];
-  projectIcon: uploadFile;
+  projectIcon: UploadFile;
 }

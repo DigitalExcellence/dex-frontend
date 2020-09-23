@@ -73,9 +73,9 @@ export class EditComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
-  public acceptedTypes: Array<string> = ["image/png", "image/jpg", "image/jpeg"];
+  public acceptedTypes: Array<string> = ['image/png', 'image/jpg', 'image/jpeg'];
   public acceptMultiple: Boolean = false;
-  @ViewChild('fileUploader') fileUploader:FileUploaderComponent;
+  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
 
   constructor(
     private router: Router,
@@ -139,8 +139,8 @@ export class EditComponent implements OnInit {
     edittedProject.collaborators = this.collaborators;
 
     this.fileUploader.uploadFiles().subscribe(uploadedFiles => {
-      if(uploadedFiles[0]) {
-        edittedProject.fileId = uploadedFiles[0].id
+      if (uploadedFiles[0]) {
+        edittedProject.fileId = uploadedFiles[0].id;
         this.editProject(edittedProject);
       } else {
         const alertConfig: AlertConfig = {

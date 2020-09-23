@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { uploadFile } from 'src/app/models/domain/uploadFile';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import { catchError, map } from 'rxjs/operators';
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
@@ -17,19 +17,19 @@ export class FileUploaderComponent implements OnInit {
 
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
-  @Input() editFiles: Array<uploadFile>;
+  @Input() editFiles: Array<UploadFile>;
   @ViewChild('fileDropRef') fileInput: ElementRef;
 
   constructor(private uploadService: FileUploaderService,
               private alertService: AlertService) { }
-  files: Array<uploadFile> = [];
+  files: Array<UploadFile> = [];
 
   ngOnInit() {
-    if(this.editFiles) {
+    if (this.editFiles) {
       this.editFiles.forEach(editFile => {
         // Preview has to be changed when the infrastructure for showing the icons is in place.
-        this.files.push({...editFile, preview: "https://www.laurenillumination.com/wp-content/uploads/woocommerce-placeholder.png"})
-      })
+        this.files.push({...editFile, preview: 'https://www.laurenillumination.com/wp-content/uploads/woocommerce-placeholder.png'});
+      });
     }
   }
 
@@ -53,10 +53,10 @@ export class FileUploaderComponent implements OnInit {
    */
   deleteFile(index: number) {
     this.files.splice(index, 1);
-    this.fileInput.nativeElement.value = "";
+    this.fileInput.nativeElement.value = '';
   }
 
-  private prepareFilesList(files: Array<uploadFile>) {
+  private prepareFilesList(files: Array<UploadFile>) {
     // If the user can only select 1 image we want to reset the array
     if ( !this.acceptMultiple) {
       this.files = [];
@@ -79,7 +79,7 @@ export class FileUploaderComponent implements OnInit {
     }
   }
 
-  private generatePreview(file: uploadFile) {
+  private generatePreview(file: UploadFile) {
     // We can use a FileReader to generate a base64 string based on the image
     const fileReader: FileReader = new FileReader();
     // Convert the file to base64
@@ -89,8 +89,8 @@ export class FileUploaderComponent implements OnInit {
     };
   }
 
-  private formatBytes(file: uploadFile, decimals = 2) {
-    let bytes: number = file.size;
+  private formatBytes(file: UploadFile, decimals = 2) {
+    const bytes: number = file.size;
     if (bytes === 0) {
       return '0 Bytes';
     }
@@ -104,30 +104,26 @@ export class FileUploaderComponent implements OnInit {
     file.readableSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
-  public uploadFiles(): Observable<Array<uploadFile>> {
+  public uploadFiles(): Observable<Array<UploadFile>> {
     const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
         .pipe(map(event => {
           switch (event.type) {
             case HttpEventType.UploadProgress:
               // divide the (uploaded bytes * 100) by the total bytes to calculate the progress in percentage
-                console.log(event.loaded, event.total)
               this.files.find(value => value.name === file.name).progress = Math.round(event.loaded * 100 / event.total);
-              console.log('progress', file.progress)
               break;
             case HttpEventType.Response:
               return event.body;
           }}),
-            catchError((err: HttpErrorResponse) => {
-              console.log(err)
+            catchError(() => {
               return of('Failed to upload files');
             })
         )
     );
-    return forkJoin(fileUploads)
+    return forkJoin(fileUploads);
   }
 
-  public setFiles(files:Array<uploadFile>) {
-    console.log('setting files', files)
+  public setFiles(files: Array<UploadFile>) {
     this.files = files;
     this.prepareFilesList(files);
   }

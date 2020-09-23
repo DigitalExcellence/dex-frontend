@@ -24,6 +24,6 @@ export interface ProjectUpdate {
   name: string;
   shortDescription: string;
   description: string;
-  fileId: string,
+  fileId: string;
   url: string;
 }
