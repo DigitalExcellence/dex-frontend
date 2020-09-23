@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { uploadFile } from 'src/app/models/domain/uploadFile';
 import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import { catchError, map } from 'rxjs/operators';
@@ -13,28 +13,37 @@ import { AlertService } from '../../services/alert.service';
   templateUrl: './file-uploader.component.html',
   styleUrls: ['./file-uploader.component.scss']
 })
-export class FileUploaderComponent {
+export class FileUploaderComponent implements OnInit {
 
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
+  @Input() editFiles: Array<uploadFile>;
   @ViewChild('fileDropRef') fileInput: ElementRef;
 
   constructor(private uploadService: FileUploaderService,
               private alertService: AlertService) { }
-
   files: Array<uploadFile> = [];
+
+  ngOnInit() {
+    if(this.editFiles) {
+      this.editFiles.map(editFile => {
+        // Preview has to be changed when the infrastructure for showing the icons is in place.
+        this.files.push({...editFile, preview: "https://www.laurenillumination.com/wp-content/uploads/woocommerce-placeholder.png"})
+      })
+    }
+  }
 
   /**
    * on file drop handler
    */
-  private onFileDropped(event) {
+  onFileDropped(event) {
     this.prepareFilesList(event);
   }
 
   /**
    * handle file from browsing
    */
-  private fileBrowseHandler(files) {
+  fileBrowseHandler(files) {
     this.prepareFilesList(files.files);
   }
 
@@ -42,7 +51,7 @@ export class FileUploaderComponent {
    * Delete file from files list
    * @param index (File index)
    */
-  private deleteFile(index: number) {
+  deleteFile(index: number) {
     this.files.splice(index, 1);
     this.fileInput.nativeElement.value = "";
   }
@@ -118,6 +127,8 @@ export class FileUploaderComponent {
   }
 
   public setFiles(files:Array<uploadFile>) {
+    console.log('setting files', files)
     this.files = files;
+    this.prepareFilesList(files);
   }
 }

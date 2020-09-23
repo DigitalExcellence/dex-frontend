@@ -29,4 +29,5 @@ export interface Project {
   updated: Date;
   uri?: string;
   collaborators?: Collaborator[];
+  projectIcon: uploadFile;
 }

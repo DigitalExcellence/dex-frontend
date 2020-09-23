@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -75,7 +75,7 @@ export class EditComponent implements OnInit {
    */
   public acceptedTypes: Array<string> = ["image/png", "image/jpg", "image/jpeg"];
   public acceptMultiple: Boolean = false;
-  @ViewChild(FileUploaderComponent) fileUploader:FileUploaderComponent;
+  @ViewChild('fileUploader') fileUploader:FileUploaderComponent;
 
   constructor(
     private router: Router,
