@@ -37,7 +37,7 @@ import { Highlight } from 'src/app/models/domain/hightlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
 import { Meta, MetaDefinition } from '@angular/platform-browser';
-
+import { SEOService } from 'src/app/services/seo.service';
 
 /**
  * Overview of a single project
@@ -81,7 +81,7 @@ export class DetailsComponent implements OnInit {
     private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService,
     private router: Router,
-    private metaService: Meta
+    private seoService: SEOService
   ) { }
 
   ngOnInit(): void {
@@ -107,12 +107,13 @@ export class DetailsComponent implements OnInit {
       .subscribe(
         (result) => {
           this.project = result;
+          let desc = (this.project.description) ? this.project.description : this.project.shortDescription
 
           this.determineDisplayEditProjectButton();
           this.determineDisplayDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
-          this.createOrUpdateProjectDescription();
+          this.seoService.updateDescription(desc)
         }
       );
 
@@ -325,14 +326,5 @@ export class DetailsComponent implements OnInit {
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
 
-  private createOrUpdateProjectDescription(){
-    let tag = this.metaService.getTag('description');
-    let shortDesc = this.project.shortDescription
-    let desc = (shortDesc) ? shortDesc : this.project.description
-    if(tag){
-      this.metaService.updateTag({ name:'description',content: desc})
-    } else {
-      this.metaService.addTag( { name:'description',content: this.project.description});
-    }
-  }
+
 }
