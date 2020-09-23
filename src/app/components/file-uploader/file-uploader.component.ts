@@ -26,7 +26,7 @@ export class FileUploaderComponent implements OnInit {
 
   ngOnInit() {
     if(this.editFiles) {
-      this.editFiles.map(editFile => {
+      this.editFiles.forEach(editFile => {
         // Preview has to be changed when the infrastructure for showing the icons is in place.
         this.files.push({...editFile, preview: "https://www.laurenillumination.com/wp-content/uploads/woocommerce-placeholder.png"})
       })
