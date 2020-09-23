@@ -19,12 +19,18 @@
 @import "assets/styles/variables";
 
 .pagination-div {
+  margin-top: 20px;
   margin-left: 35%;
 }
 
 .pagination-footer::ng-deep .page-link {
   z-index: 1;
   color: #323232;
+  height: 35px;
+  width: 35px;
+
+  display: flex;
+  align-items: center;
 }
 
 .pagination-footer::ng-deep .page-item.active .page-link {
@@ -35,14 +41,27 @@
 
 
 .pagination-footer{
+  li{
+    height: 35px;
+    width: 35px;
+  }
+ a{
+    height: 35px;
+    width: 35px;
+  }
     img{
         width: 100%;
     }
     .chevron-right{
+        margin-top: 1px;
         transform: rotateZ(270deg);
     }
     .chevron-left{
+      margin-top: 1px;
         transform: rotateZ(90deg);
+    }
+    .disabled{
+      opacity: 0.3;
     }
 }
 
