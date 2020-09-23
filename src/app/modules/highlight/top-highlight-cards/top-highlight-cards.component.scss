@@ -56,6 +56,8 @@
 
       h3 {
         margin: auto 5px;
+        max-width: calc(100% - 50px);
+        hyphens: auto;
       }
     }
 
