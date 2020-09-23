@@ -76,9 +76,15 @@ h1 {
 .share {
   margin: 180px 0;
 
-  img {
-    width: 100%;
-    max-width: 580px;
+  .image-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 100%;
+      max-width: 580px;
+      max-height: 300px;
+    }
   }
 
   .share-text {

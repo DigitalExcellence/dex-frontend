@@ -21,14 +21,13 @@
 .login {
   margin: 100px 0;
 
-  .illustration img {
-    max-width: 500px;
-  }
-
-  // illustration will be invisible on smaller screens
-  @include media-breakpoint-down(lg) {
-    .illustration {
-      display: none;
+  .illustration{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    img{
+      max-width: 500px;
+      max-height: 350px;
     }
   }
 
@@ -46,6 +45,10 @@
   .institutions {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    h4{
+      white-space: nowrap;
+    }
   }
 
   .school {
