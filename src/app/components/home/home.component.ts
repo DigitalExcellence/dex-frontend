@@ -19,6 +19,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SEOService } from 'src/app/services/seo.service';
 
 /**
  * Component which functions as the landing page of the application.
@@ -31,12 +32,17 @@ import { Router } from '@angular/router';
 
 export class HomeComponent {
 
+  private description: string = 
+  "DeX provides a platform for students, teachers and employees to share and work on projects and ideas. Find, create, share and work on projects and ideas on DeX";
+  
   public searchControl: FormControl;
 
   constructor(
-    private router: Router) {
+    private router: Router,
+    private seoService: SEOService) {
     this.searchControl = new FormControl('');
-
+    seoService.updateDescription(this.description)
+    seoService.updateTitle("Home")
   }
 
   /**

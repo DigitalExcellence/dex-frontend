@@ -28,7 +28,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
-
+import { SEOService } from 'src/app/services/seo.service';
 
 
 interface SortFormResult {
@@ -149,7 +149,8 @@ export class OverviewComponent implements OnInit {
     private paginationService: PaginationService,
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private seoService: SEOService
   ) {
     this.searchControl = new FormControl('');
 
@@ -204,6 +205,7 @@ export class OverviewComponent implements OnInit {
 
     this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
+    this.seoService.updateTitle("Project overview")
 
 
     // Following two oberservables can be used in the feature to implement category & tags searching

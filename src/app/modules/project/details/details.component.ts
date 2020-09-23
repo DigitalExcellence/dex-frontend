@@ -36,7 +36,6 @@ import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-hig
 import { Highlight } from 'src/app/models/domain/hightlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
-import { Meta, MetaDefinition } from '@angular/platform-browser';
 import { SEOService } from 'src/app/services/seo.service';
 
 /**
@@ -107,13 +106,13 @@ export class DetailsComponent implements OnInit {
       .subscribe(
         (result) => {
           this.project = result;
-          let desc = (this.project.description) ? this.project.description : this.project.shortDescription
-
+          let desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
           this.determineDisplayEditProjectButton();
           this.determineDisplayDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
-          this.seoService.updateDescription(desc)
+          this.seoService.updateDescription(desc);
+          this.seoService.updateTitle(this.project.name)
         }
       );
 

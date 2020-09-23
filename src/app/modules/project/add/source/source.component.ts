@@ -24,6 +24,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AuthService } from 'src/app/services/auth.service';
+import { SEOService } from 'src/app/services/seo.service';
 
 /**
  * Component to import projects from external sources
@@ -46,7 +47,8 @@ export class SourceComponent implements OnInit {
     private wizardService: WizardService,
     private router: Router,
     private alertService: AlertService,
-    private authService: AuthService
+    private authService: AuthService,
+    private seoService: SEOService
     ) {}
 
   ngOnInit(): void {
@@ -85,6 +87,8 @@ export class SourceComponent implements OnInit {
         image: 'assets/images/dropbox-logo.png',
       }
     );
+    this.seoService.updateDescription("Create a new project - DeX")
+    this.seoService.updateTitle("Add new project")
   }
 
   /**
