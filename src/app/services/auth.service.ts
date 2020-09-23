@@ -17,13 +17,13 @@
  *
  */
 
-import { Injectable } from '@angular/core';
-import { User, UserManager, UserManagerSettings } from 'oidc-client';
-import { User as BackendUser } from 'src/app/models/domain/user';
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { environment } from 'src/environments/environment';
-import { UserService } from './user.service';
+import {Injectable} from '@angular/core';
+import {User, UserManager, UserManagerSettings} from 'oidc-client';
+import {Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs/internal/BehaviorSubject';
+import {User as BackendUser} from 'src/app/models/domain/user';
+import {environment} from 'src/environments/environment';
+import {UserService} from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -166,8 +166,8 @@ export function getClientSettings(): UserManagerSettings {
     client_id: environment.identityClientId,
     redirect_uri: environment.identityRedirectUri,
     post_logout_redirect_uri: environment.identityLogoutRedirectUri,
-    response_type: 'id_token token',
-    scope: 'openid profile email dex-api',
+    response_type: 'code',
+    scope: 'openid profile email dex-api offline_access',
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,
