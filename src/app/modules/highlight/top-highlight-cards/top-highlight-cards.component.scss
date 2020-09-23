@@ -35,6 +35,9 @@
     border-radius: 6px;
     border: none;
     cursor: pointer;
+    @include media-breakpoint-up(sm){
+        height: 230px;
+    }
 
     .card-title {
       display: flex;
@@ -86,7 +89,9 @@
       flex-direction: column;
       overflow: hidden;
       text-overflow: ellipsis;
-      height: 110px;
+      @include media-breakpoint-down(sm){
+        height: 110px;
+      }
     }
   }
 }
