@@ -90,7 +90,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       @include media-breakpoint-down(sm){
-        height: 110px;
+        max-height: 110px;
       }
     }
   }
