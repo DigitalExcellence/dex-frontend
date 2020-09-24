@@ -97,6 +97,8 @@ export class ManualComponent implements OnInit {
       }
       this.fillFormWithProject(project);
     });
+
+    //Updates meta and title tags
     this.seoService.updateTitle("Add new project")
     this.seoService.updateDescription("Create a new project - DeX")
   }
