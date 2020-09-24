@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api-config';
 import { UploadFile } from '../models/domain/uploadFile';
+import { Error } from 'tslint/lib/error';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +26,6 @@ export class FileUploaderService {
     return this.http.post(this.url, formData, {
       reportProgress: true,
       observe: 'events'
-    }).pipe
-    (
-        catchError((error: HttpErrorResponse) => {
-          // If the upload errors, notify the user
-          return of(`${file.name} upload failed.`);
-        })
-    );
+    });
   }
 }

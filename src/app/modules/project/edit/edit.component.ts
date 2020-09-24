@@ -15,10 +15,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { AfterViewInit, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/domain/project';
@@ -30,14 +30,14 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
 import { FileUploaderComponent } from '../../../components/file-uploader/file-uploader.component';
 
 /**
- * Component for editting adding a project.
+ * Component for editing adding a project.
  */
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit  {
   /**
    * Formgroup for entering project details.
    */
@@ -75,7 +75,7 @@ export class EditComponent implements OnInit {
    */
   public acceptedTypes: Array<string> = ['image/png', 'image/jpg', 'image/jpeg'];
   public acceptMultiple: Boolean = false;
-  @ViewChild('fileUploader') fileUploader: FileUploaderComponent;
+  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
   constructor(
     private router: Router,
@@ -116,6 +116,7 @@ export class EditComponent implements OnInit {
         (result) => {
           this.project = result;
           this.collaborators = this.project.collaborators;
+          this.fileUploader.setFiles([this.project.projectIcon]);
         }
       );
   }
@@ -138,20 +139,23 @@ export class EditComponent implements OnInit {
     const edittedProject: ProjectUpdate = this.editProjectForm.value;
     edittedProject.collaborators = this.collaborators;
 
-    this.fileUploader.uploadFiles().subscribe(uploadedFiles => {
-      if (uploadedFiles[0]) {
-        edittedProject.fileId = uploadedFiles[0].id;
-        this.editProject(edittedProject);
-      } else {
-        const alertConfig: AlertConfig = {
-          type: AlertType.danger,
-          mainMessage: 'Something went wrong saving your files, please try again',
-          dismissible: true,
-          timeout: this.alertService.defaultTimeout
-        };
-        this.alertService.pushAlert(alertConfig);
-      }
-    });
+    this.fileUploader.uploadFiles()
+      .subscribe(uploadedFiles => {
+        if (uploadedFiles) {
+          if (uploadedFiles[0]) {
+            // Project icon was set and uploaded
+            edittedProject.fileId = uploadedFiles[0].id;
+            this.editProject(edittedProject);
+          }
+          // Project icon was set but not uploaded successfully, the component will show the error
+        } else {
+          // There was no project icon
+          if (this.project.projectIcon) {
+            // TODO: Remove the icon from the project if it is deleted
+          }
+          this.editProject(edittedProject);
+        }
+      });
   }
 
   private editProject(edittedProject) {

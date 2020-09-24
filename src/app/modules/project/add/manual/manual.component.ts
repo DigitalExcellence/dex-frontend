@@ -38,7 +38,7 @@ import * as showdown from 'showdown';
 @Component({
   selector: 'app-manual',
   templateUrl: './manual.component.html',
-  styleUrls: ['./manual.component.scss']
+  styleUrls: [ './manual.component.scss' ]
 })
 export class ManualComponent implements OnInit {
   /**
@@ -65,26 +65,26 @@ export class ManualComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
-  public acceptedTypes: Array<string> = ['image/png', 'image/jpg', 'image/jpeg'];
+  public acceptedTypes: Array<string> = [ 'image/png', 'image/jpg', 'image/jpeg' ];
   public acceptMultiple: Boolean = false;
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
   constructor(
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private projectService: ProjectService,
-    private wizardService: WizardService,
-    private alertService: AlertService) {
+      private router: Router,
+      private formBuilder: FormBuilder,
+      private projectService: ProjectService,
+      private wizardService: WizardService,
+      private alertService: AlertService) {
     this.newProjectForm = this.formBuilder.group({
-      name: [null, Validators.required],
-      uri: [null, Validators.required],
-      shortDescription: [null, Validators.required],
-      description: [null],
+      name: [ null, Validators.required ],
+      uri: [ null, Validators.required ],
+      shortDescription: [ null, Validators.required ],
+      description: [ null ],
     });
 
     this.newCollaboratorForm = this.formBuilder.group({
-      fullName: [null, Validators.required],
-      role: [null, Validators.required],
+      fullName: [ null, Validators.required ],
+      role: [ null, Validators.required ],
     });
   }
 
@@ -96,9 +96,9 @@ export class ManualComponent implements OnInit {
 
       if (project.description != null && project.description.length > 0) {
         const converter = new showdown.Converter(
-          {
-            literalMidWordUnderscores: true
-          }
+            {
+              literalMidWordUnderscores: true
+            }
         );
         project.description = converter.makeHtml(project.description);
       }
@@ -127,21 +127,25 @@ export class ManualComponent implements OnInit {
     const newProject: ProjectAdd = this.newProjectForm.value;
     newProject.collaborators = this.collaborators;
     // Start uploading files
-    this.fileUploader.uploadFiles().subscribe(uploadedFiles => {
-      if (uploadedFiles[0]) {
-        newProject.fileId = uploadedFiles[0].id;
-        this.createProject(newProject);
-      } else {
-        const alertConfig: AlertConfig = {
-          type: AlertType.danger,
-          mainMessage: 'Something went wrong saving your files, please try again',
-          dismissible: true,
-          timeout: this.alertService.defaultTimeout
-        };
-        this.alertService.pushAlert(alertConfig);
-      }
-    });
+    this.fileUploader.uploadFiles()
+        .subscribe(uploadedFiles => {
+          if (uploadedFiles) {
+            if (uploadedFiles[0]) {
+              // Project icon was set and uploaded
+              newProject.fileId = uploadedFiles[0].id;
+              this.createProject(newProject);
+            }
+            // Project icon was set but not uploaded successfully, the component will show the error
+          } else {
+            // There was no project icon
+            this.createProject(newProject);
+          }
+
+        });
+
+
   }
+
   private createProject(newProject): void {
     this.projectService
         .post(newProject)
@@ -154,7 +158,7 @@ export class ManualComponent implements OnInit {
             timeout: this.alertService.defaultTimeout
           };
           this.alertService.pushAlert(alertConfig);
-          this.router.navigate([`/project/overview`]);
+          this.router.navigate([ `/project/overview` ]);
         });
   }
 

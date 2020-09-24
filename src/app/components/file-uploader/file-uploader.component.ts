@@ -1,8 +1,8 @@
 import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { FileUploaderService } from 'src/app/services/file-uploader.service';
-import { catchError, map } from 'rxjs/operators';
-import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { HttpEventType } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { AlertConfig } from '../../models/internal/alert-config';
 import { AlertType } from '../../models/internal/alert-type';
@@ -13,25 +13,16 @@ import { AlertService } from '../../services/alert.service';
   templateUrl: './file-uploader.component.html',
   styleUrls: ['./file-uploader.component.scss']
 })
-export class FileUploaderComponent implements OnInit {
+export class FileUploaderComponent {
 
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
-  @Input() editFiles: Array<UploadFile>;
   @ViewChild('fileDropRef') fileInput: ElementRef;
 
   constructor(private uploadService: FileUploaderService,
               private alertService: AlertService) { }
-  files: Array<UploadFile> = [];
 
-  ngOnInit() {
-    if (this.editFiles) {
-      this.editFiles.forEach(editFile => {
-        // Preview has to be changed when the infrastructure for showing the icons is in place.
-        this.files.push({...editFile, preview: 'https://www.laurenillumination.com/wp-content/uploads/woocommerce-placeholder.png'});
-      });
-    }
-  }
+  files: Array<UploadFile> = new Array<UploadFile>();
 
   /**
    * on file drop handler
@@ -44,7 +35,9 @@ export class FileUploaderComponent implements OnInit {
    * handle file from browsing
    */
   fileBrowseHandler(files) {
-    this.prepareFilesList(files.files);
+     if (files.files !== this.files) {
+      this.prepareFilesList(files.files);
+     }
   }
 
   /**
@@ -75,6 +68,7 @@ export class FileUploaderComponent implements OnInit {
           timeout: this.alertService.defaultTimeout
         };
         this.alertService.pushAlert(alertConfig);
+        this.deleteFile(this.files.indexOf(file));
       }
     }
   }
@@ -105,26 +99,42 @@ export class FileUploaderComponent implements OnInit {
   }
 
   public uploadFiles(): Observable<Array<UploadFile>> {
-    const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
-        .pipe(map(event => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              // divide the (uploaded bytes * 100) by the total bytes to calculate the progress in percentage
-              this.files.find(value => value.name === file.name).progress = Math.round(event.loaded * 100 / event.total);
-              break;
-            case HttpEventType.Response:
-              return event.body;
-          }}),
-            catchError(() => {
-              return of('Failed to upload files');
-            })
-        )
-    );
-    return forkJoin(fileUploads);
+    if (this.fileInput.nativeElement.value !== '') {
+       const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
+          .pipe(
+              map(event => {
+                switch (event.type) {
+                  case HttpEventType.UploadProgress:
+                    // divide the (uploaded bytes * 100) by the total bytes to calculate the progress in percentage
+                    this.files.find(value => value.name === file.name).progress = Math.round(event.loaded * 100 / event.total);
+                    break;
+                  case HttpEventType.Response:
+                    return event.body;
+                  default:
+                    return;
+                }})
+          )
+      );
+       return forkJoin(fileUploads);
+    }
+    // If no files were updated return original list
+
+    // If there are any files left in the list
+    if (this.files.length) {
+      // Return the original list
+      return of(this.files);
+    } else {
+      // If there are no files in the list return undefined
+      return of(undefined);
+    }
   }
 
-  public setFiles(files: Array<UploadFile>) {
-    this.files = files;
-    this.prepareFilesList(files);
+  public setFiles(editFiles: Array<UploadFile>) {
+    editFiles.forEach(editFile => {
+      // Preview has to be changed when the infrastructure for showing the icons is in place.
+      this.files.push({
+        ...editFile,
+        preview: 'https://www.laurenillumination.com/wp-content/uploads/woocommerce-placeholder.png'});
+    });
   }
 }
