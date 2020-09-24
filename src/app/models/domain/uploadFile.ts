@@ -1,5 +1,5 @@
 export interface UploadFile extends File {
-    id: string;
+    id: number;
     path: string;
     preview: string;
     progress: number;

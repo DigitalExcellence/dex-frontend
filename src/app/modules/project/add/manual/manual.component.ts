@@ -138,6 +138,7 @@ export class ManualComponent implements OnInit {
             // Project icon was set but not uploaded successfully, the component will show the error
           } else {
             // There was no project icon
+            newProject.fileId = 0;
             this.createProject(newProject);
           }
 

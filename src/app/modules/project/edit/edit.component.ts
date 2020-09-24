@@ -151,7 +151,7 @@ export class EditComponent implements OnInit  {
         } else {
           // There was no project icon
           if (this.project.projectIcon) {
-            // TODO: Remove the icon from the project if it is deleted
+            edittedProject.fileId = 0;
           }
           this.editProject(edittedProject);
         }
