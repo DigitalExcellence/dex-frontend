@@ -206,6 +206,7 @@ export class OverviewComponent implements OnInit {
     this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
     this.seoService.updateTitle("Project overview")
+    this.seoService.updateDescription("Browse or search for specific projects within DeX")
 
 
     // Following two oberservables can be used in the feature to implement category & tags searching
