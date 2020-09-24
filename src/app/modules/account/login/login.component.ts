@@ -35,6 +35,7 @@ export class LoginComponent {
     private seoService: SEOService
   ) { 
     seoService.updateTitle("Login")
+    seoService.updateDescription("Log in to DeX with your institution ID")
   }
   public readonly title = 'Sign in';
 

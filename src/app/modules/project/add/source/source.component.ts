@@ -88,7 +88,7 @@ export class SourceComponent implements OnInit {
       }
     );
     //Updates meta and title tags
-    this.seoService.updateDescription("Create a new project - DeX")
+    this.seoService.updateDescription("Create a new project in DeX")
     this.seoService.updateTitle("Add new project")
   }
 
