@@ -27,7 +27,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardService } from 'src/app/services/wizard.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
-import { SEOService} from 'src/app/services/seo.service'
+import { SEOService} from 'src/app/services/seo.service';
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
 
@@ -98,9 +98,9 @@ export class ManualComponent implements OnInit {
       this.fillFormWithProject(project);
     });
 
-    //Updates meta and title tags
-    this.seoService.updateTitle("Add new project")
-    this.seoService.updateDescription("Create a new project in DeX")
+    // Updates meta and title tags
+    this.seoService.updateTitle('Add new project');
+    this.seoService.updateDescription('Create a new project in DeX');
   }
 
   /**

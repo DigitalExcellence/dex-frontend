@@ -33,10 +33,11 @@ export class LoginComponent {
     private authService: AuthService,
     private modalService: BsModalService,
     private seoService: SEOService
-  ) { 
-    seoService.updateTitle("Login")
-    seoService.updateDescription("Log in to DeX with your institution ID")
+  ) {
+    seoService.updateTitle('Login');
+    seoService.updateDescription('Log in to DeX with your institution ID');
   }
+
   public readonly title = 'Sign in';
 
   /**

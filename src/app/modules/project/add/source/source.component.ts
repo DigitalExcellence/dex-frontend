@@ -87,9 +87,9 @@ export class SourceComponent implements OnInit {
         image: 'assets/images/dropbox-logo.png',
       }
     );
-    //Updates meta and title tags
-    this.seoService.updateDescription("Create a new project in DeX")
-    this.seoService.updateTitle("Add new project")
+    // Updates meta and title tags
+    this.seoService.updateDescription('Create a new project in DeX');
+    this.seoService.updateTitle('Add new project');
   }
 
   /**

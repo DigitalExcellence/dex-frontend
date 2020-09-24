@@ -189,15 +189,15 @@ export class OverviewComponent implements OnInit {
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
-    .pipe(
-      debounceTime(500)
+      .pipe(
+        debounceTime(500)
       )
       .subscribe((result) => {
-      if (result == null) {
-        return;
-      }
-      this.onInternalQueryChange();
-    });
+        if (result == null) {
+          return;
+        }
+        this.onInternalQueryChange();
+      });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
 
@@ -205,9 +205,9 @@ export class OverviewComponent implements OnInit {
 
     this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
-    //Updates meta and title tags
-    this.seoService.updateTitle("Project overview")
-    this.seoService.updateDescription("Browse or search for specific projects within DeX")
+    // Updates meta and title tags
+    this.seoService.updateTitle('Project overview');
+    this.seoService.updateDescription('Browse or search for specific projects within DeX');
 
 
     // Following two oberservables can be used in the feature to implement category & tags searching

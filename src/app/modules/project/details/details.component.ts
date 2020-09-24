@@ -106,15 +106,15 @@ export class DetailsComponent implements OnInit {
       .subscribe(
         (result) => {
           this.project = result;
-          let desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
+          const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
           this.determineDisplayEditProjectButton();
           this.determineDisplayDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
 
-          //Updates meta and title tags
+          // Updates meta and title tags
           this.seoService.updateDescription(desc);
-          this.seoService.updateTitle(this.project.name)
+          this.seoService.updateTitle(this.project.name);
         }
       );
 
