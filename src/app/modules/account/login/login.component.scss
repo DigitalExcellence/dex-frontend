@@ -30,6 +30,12 @@
       max-height: 350px;
     }
   }
+   // illustration will be invisible on smaller screens
+   @include media-breakpoint-down(lg) {
+    .illustration {
+      display: none;
+    }
+   }
 
   .login-section {
     display: flex;
