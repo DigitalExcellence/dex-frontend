@@ -58,12 +58,12 @@
   }
 
   .school {
-    margin: 15px 0;
+    margin: 15px 4px;
     background: white;
     box-shadow: 0 3px 6px #00000029;
     border-radius: 6px;
     border: none;
-    min-width: 150px;
+    min-width: 180px;
     width: 30%;
     height: 40px;
     padding: 12px;
@@ -89,6 +89,8 @@
     clear: both;
     overflow: hidden;
     width: 100%;
+    width: calc(100% - 8px);
+    margin: 15px 4px 5px 4px;
 
     &::before {
       right: 0.5em;
@@ -120,8 +122,8 @@ span {
 }
 
 button {
-  margin: 30px 0;
-  width: 100%;
+  margin: 30px 4px 0 4px;
+  width: calc(100% - 8px);
 
   &:focus {
     border: none;
@@ -131,7 +133,7 @@ button {
 
 // Styling for temporary disabled message, can be removed when sign in method is implemented
 .temporarly-disabled-text {
-  margin: 15px 0 10px 0;
+  margin: 15px 0 10px 4px;
 }
 
 .btn-school-id {
