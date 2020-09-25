@@ -174,7 +174,7 @@ export class EditComponent implements OnInit  {
             timeout: this.alertService.defaultTimeout
           };
           this.alertService.pushAlert(alertConfig);
-          this.router.navigate([`/project/overview`]);
+          this.router.navigate([`project/details/${this.project.id}`]);
         });
   }
 
