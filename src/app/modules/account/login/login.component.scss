@@ -31,7 +31,7 @@
     }
   }
    // illustration will be invisible on smaller screens
-   @include media-breakpoint-down(lg) {
+   @include media-breakpoint-down(md) {
     .illustration {
       display: none;
     }
