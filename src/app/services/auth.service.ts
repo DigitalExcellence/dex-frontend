@@ -51,7 +51,7 @@ export class AuthService {
       this.user = user;
 
       // Only fetch the user details when the manager knows the user and the user is not expired.
-      if (this.user != null && !this.user.expired) {
+      if (this.isAuthenticated()) {
         this.getBackendUser().then((backendUser) => {
           this.backenduser = backendUser;
           this.$user.next(backendUser);
