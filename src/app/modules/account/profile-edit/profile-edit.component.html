@@ -1,14 +1,20 @@
 <div class="row">
     <div class="col-12">
-        <label for="name">Name</label>
-        <input id="name" required placeholder="John Doe">
+        <form [formGroup]="editProfileForm">
+            <label for="name">Name</label>
+            <input id="name" required placeholder="John Doe" formControlName="name">
+            <!-- <ng-container *ngIf="expression"></ng-container> -->
 
-        <label for="mail">Email</label>
-        <input id="mail" type="email" required placeholder="john.doe@mail.com">
+            <label for="mail">Email</label>
+            <input id="mail" type="email" required placeholder="john.doe@mail.com" formControlName="email">
 
-        <label for="profile_url">Profile Url</label>
-        <input id="profile_url" type="url" required>
+            <label for="profile_url">Profile Url</label>
+            <input id="profile_url" type="url" formControlName="profileUrl">
 
-        <button type="submit" class="btn btn-primary">Edit profile details</button>
+            <button type="submit" class="btn btn-primary" (click)="onClickSubmit()">
+                <i class="fa fa-edit"></i>
+                Edit profile
+            </button>
+        </form>
     </div>
 </div>

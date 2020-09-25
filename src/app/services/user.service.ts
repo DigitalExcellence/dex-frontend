@@ -20,13 +20,14 @@ import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api-config';
 import { User } from '../models/domain/user';
 import { UserAdd } from '../models/resources/user-add';
+import { UserEditResource } from './../models/resources/user-edit';
 import { HttpBaseService } from './http-base.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserService extends HttpBaseService<User, UserAdd, User> {
+export class UserService extends HttpBaseService<User, UserAdd, UserEditResource> {
 
   constructor(http: HttpClient) {
     super(http, API_CONFIG.url + API_CONFIG.userRoute);

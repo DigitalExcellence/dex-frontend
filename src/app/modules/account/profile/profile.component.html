@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="row justify-content-center profile-row">
     <div class="col-6">
         <ng-container *ngIf="userLoading else userLoaded">
             <p>User is loading...</p>
@@ -7,17 +7,17 @@
             <ng-container *ngIf="user; else noUser">
 
                 <tabset type="pills">
-                    <tab heading="User info" class="tab">
-                        <app-profile-edit></app-profile-edit>
+                    <tab heading="User info" class="tab" customClass="dexTab">
+                        <app-profile-edit [user]="user"></app-profile-edit>
                     </tab>
-                    <tab heading="Settings" class="tab">
+                    <tab heading="Settings" class="tab" customClass="dexTab">
                         <app-settings></app-settings>
                     </tab>
                 </tabset>
 
             </ng-container>
             <ng-template #noUser>
-                <p>User could not be loaded</p>
+                <p>User could not be loaded, profile unavailable.</p>
             </ng-template>
         </ng-template>
     </div>
