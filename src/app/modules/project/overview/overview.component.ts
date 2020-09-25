@@ -207,7 +207,7 @@ export class OverviewComponent implements OnInit {
 
     // Updates meta and title tags
     this.seoService.updateTitle('Project overview');
-    this.seoService.updateDescription('Browse or search for specific projects within DeX');
+    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
 
 
     // Following two oberservables can be used in the feature to implement category & tags searching
