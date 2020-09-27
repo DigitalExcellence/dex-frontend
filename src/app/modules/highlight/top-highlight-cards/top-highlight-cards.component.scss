@@ -35,6 +35,7 @@
     border-radius: 6px;
     border: none;
     cursor: pointer;
+    
     @include media-breakpoint-up(sm){
         height: 230px;
     }
@@ -88,6 +89,7 @@
       flex-direction: column;
       overflow: hidden;
       hyphens: auto;
+
       @include media-breakpoint-down(sm){
         max-height: 110px;
       }
