@@ -21,6 +21,7 @@ import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalAcceptGenericComponent } from 'src/app/components/modals/modal-accept-generic/modal-accept-generic.component';
 import { LocalStorageUtils } from 'src/app/utils/localstorage.utils';
 import { LocalStorageOptions } from 'src/app/utils/localstorage.utils';
+import { SEOService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,12 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private modalService: BsModalService,
-  ) { }
+    private seoService: SEOService
+  ) {
+    seoService.updateTitle('Login');
+    seoService.updateDescription('Log in to DeX with your institution ID');
+  }
+
   public readonly title = 'Sign in';
 
   /**
