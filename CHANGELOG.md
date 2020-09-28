@@ -9,11 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added basic SEO for better google discoverability - [#283](https://github.com/DigitalExcellence/dex-frontend/issues/283)
 
 ### Changed
 
 - Changed all file line endings from CRLF to LF and added the .gitattributes to enforce it - [#163](https://github.com/DigitalExcellence/dex-backend/issues/163)
-- Changed footer styling to be responsive on small screens - [#163] (https://github.com/DigitalExcellence/dex-frontend/issues/163) 
+- Highlight now shows highlight description instead of project description. - [#273](https://github.com/DigitalExcellence/dex-frontend/issues/273)
+- Changed footer styling to be responsive on small screens - [#163](https://github.com/DigitalExcellence/dex-frontend/issues/163)
+
 
 ### Deprecated
 
@@ -21,8 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed issue project overview page not beeing responsive on smaller viewports -
-[#296](https://github.com/DigitalExcellence/dex-frontend/issues/296)
+- Fixed issue where the project overview page was not responsive on smaller viewports - [#296](https://github.com/DigitalExcellence/dex-frontend/issues/296)
+- Fixed issue where the feedback button would block the footer content on smaller screens - [#289](https://github.com/DigitalExcellence/dex-frontend/issues/289)
+- Fixed redirect to the project detail page after editing a project - [#256](https://github.com/DigitalExcellence/dex-frontend/issues/256)
 
 ### Security
 

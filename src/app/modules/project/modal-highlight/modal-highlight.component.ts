@@ -23,6 +23,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export interface HighlightFormResult {
   startDate?: Date;
   endDate?: Date;
+  description?: string;
   indeterminate: boolean;
 }
 
@@ -40,7 +41,7 @@ export class ModalHighlightComponent {
 
   public highlightProjectForm: FormGroup;
   public dateFieldsEnabled = true;
-  public dateErrorMessage: string = null;
+  public validationErrorMessage: string = null;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -49,6 +50,7 @@ export class ModalHighlightComponent {
     this.highlightProjectForm = this.formBuilder.group({
       startDate: [null],
       endDate: [null],
+      description: [null],
       indeterminate: [false],
     });
 
@@ -78,15 +80,24 @@ export class ModalHighlightComponent {
    */
   public onClickConfirm(): void {
     const highlightFormResult: HighlightFormResult = this.highlightProjectForm.value;
+
     if ((highlightFormResult.startDate == null || highlightFormResult.endDate == null) &&
       highlightFormResult.indeterminate === false) {
-      this.dateErrorMessage = 'Error: Fill in a start and end date or choose never ending';
+      this.validationErrorMessage = 'Error: Fill in a start and end date or choose never ending';
       return;
     }
     if (highlightFormResult.startDate > highlightFormResult.endDate || highlightFormResult.endDate < highlightFormResult.startDate) {
-      this.dateErrorMessage = 'Error: Start date can\'t be later than end date';
+      this.validationErrorMessage = 'Error: Start date can\'t be later than end date';
       return;
     }
+    if (highlightFormResult.description === null) {
+      this.validationErrorMessage = 'Error: Please enter a description';
+      return;
+    } else if (highlightFormResult.description.length < 75 || highlightFormResult.description.length > 155) {
+      this.validationErrorMessage = 'Error: Description must be between 75 and 155 characters long';
+      return;
+    }
+
     this.confirm.emit(this.highlightProjectForm.value);
     this.bsModalRef.hide();
   }
