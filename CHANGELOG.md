@@ -18,7 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed footer styling to be responsive on small screens - [#163](https://github.com/DigitalExcellence/dex-frontend/issues/163) 
 - Changed header styling to be responsive on small screens - [#258](https://github.com/DigitalExcellence/dex-frontend/issues/258)
 - Highlight now shows highlight description instead of project description. - [#273](https://github.com/DigitalExcellence/dex-frontend/issues/273)
-- Changed footer styling to be responsive on small screens - [#163](https://github.com/DigitalExcellence/dex-frontend/issues/163) 
 - Changed images on the login and home page to new copyright-free images from unDraw - [#97](https://github.com/DigitalExcellence/dex-frontend/issues/97)
 
 ### Deprecated
