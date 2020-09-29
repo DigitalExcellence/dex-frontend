@@ -254,7 +254,7 @@ export class OverviewComponent implements OnInit {
    * @param name project name
    */
   public onClickProject(id: number, name: string): void {
-    name = name.split(" ").join("-");
+    name = name.split(' ').join('-');
     this.router.navigate([`/project/details/${id}-${name}`]);
   }
 
