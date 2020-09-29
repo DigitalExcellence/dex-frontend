@@ -28,6 +28,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
+import { SEOService } from 'src/app/services/seo.service';
 
 
 interface SortFormResult {
@@ -148,7 +149,8 @@ export class OverviewComponent implements OnInit {
     private paginationService: PaginationService,
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private seoService: SEOService
   ) {
     this.searchControl = new FormControl('');
 
@@ -177,6 +179,7 @@ export class OverviewComponent implements OnInit {
     if (!environment.production) {
       this.displaySearchElements = true;
     }
+
   }
 
   ngOnInit(): void {
@@ -186,21 +189,26 @@ export class OverviewComponent implements OnInit {
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
-    .pipe(
-      debounceTime(500)
+      .pipe(
+        debounceTime(500)
       )
       .subscribe((result) => {
-      if (result == null) {
-        return;
-      }
-      this.onInternalQueryChange();
-    });
+        if (result == null) {
+          return;
+        }
+        this.onInternalQueryChange();
+      });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
 
     this.sortForm.valueChanges.subscribe((value) => this.onSortFormValueChange(value));
 
     this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
+
+    // Updates meta and title tags
+    this.seoService.updateTitle('Project overview');
+    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
+
 
     // Following two oberservables can be used in the feature to implement category & tags searching
     // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {
