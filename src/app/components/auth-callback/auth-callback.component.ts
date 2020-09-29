@@ -15,9 +15,9 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth-callback',
@@ -30,13 +30,13 @@ export class AuthCallbackComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // check for error
-    if (this.route.snapshot.fragment.indexOf('error') >= 0) {
+  // check for error
+  if (this.route.snapshot.queryParamMap.get('error')) {
       this.error = true;
       return;
     }
 
-    this.authService.completeAuthentication();
-    this.router.navigate(['/home']);
+  this.authService.completeAuthentication();
+  this.router.navigate(['/home']);
   }
 }
