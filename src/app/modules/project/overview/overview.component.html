@@ -121,7 +121,7 @@
           <td colspan="3">Loading...</td>
         </tr>
         <tr *ngFor="let project of projectsToDisplay">
-          <td class="title" (click)="onClickProject(project.id)">
+          <td class="title" (click)="onClickProject(project.id, project.name)">
             <div class="icon-placeholder">
               <img alt="project-image" src="assets/images/placeholder.svg" loading="lazy">
             </div>
