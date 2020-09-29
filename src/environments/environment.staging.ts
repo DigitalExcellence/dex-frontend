@@ -24,7 +24,7 @@ export const environment = {
   identityClientId: 'dex-frontend',
   identityRedirectUri: 'https://identity.staging.dex.software/auth-callback',
   identityLogoutRedirectUri: 'https://staging.dex.software/',
-  identitySilentRedirectUri: 'https://staging.dex.software/silent-refresh.html',
+  identitySilentRedirectUri: 'https://staging.dex.software/auth-callback',
   // This should be empty because it will only be used in production.
   sentryDsnUrl: ''
 };
