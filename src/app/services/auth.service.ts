@@ -19,9 +19,9 @@
 
 import { Injectable } from '@angular/core';
 import { User, UserManager, UserManagerSettings } from 'oidc-client';
-import { User as BackendUser } from 'src/app/models/domain/user';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { User as BackendUser } from 'src/app/models/domain/user';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
 
@@ -49,13 +49,15 @@ export class AuthService {
 
     this.manager.getUser().then((user) => {
       this.user = user;
-      if (this.user == null) {
-        return;
+
+      // Only fetch the user details when the manager knows the user and the user is not expired.
+      if (this.isAuthenticated()) {
+        this.getBackendUser().then((backendUser) => {
+          this.backenduser = backendUser;
+          this.$user.next(backendUser);
+        });
       }
-      this.getBackendUser().then((backendUser) => {
-        this.backenduser = backendUser;
-        this.$user.next(backendUser);
-      });
+
       this._authNavStatusSource.next(this.isAuthenticated());
     });
   }
@@ -100,8 +102,8 @@ export class AuthService {
   public getCurrentBackendUser(): BackendUser {
     if (this.backenduser == null) {
       this.getBackendUser().then(result => {
-          this.backenduser = result;
-          return this.backenduser;
+        this.backenduser = result;
+        return this.backenduser;
       });
     }
     return this.backenduser;
@@ -111,7 +113,7 @@ export class AuthService {
    * Checks if the current user has the given scope.
    * @Returns true if user has the scope.
    */
-  public currentBackendUserHasScope(scope: string ): boolean {
+  public currentBackendUserHasScope(scope: string): boolean {
     const user = this.getCurrentBackendUser();
     if (user?.role === undefined) {
       return false;
@@ -166,8 +168,8 @@ export function getClientSettings(): UserManagerSettings {
     client_id: environment.identityClientId,
     redirect_uri: environment.identityRedirectUri,
     post_logout_redirect_uri: environment.identityLogoutRedirectUri,
-    response_type: 'id_token token',
-    scope: 'openid profile email dex-api',
+    response_type: 'code',
+    scope: 'openid profile email dex-api offline_access',
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,

@@ -32,6 +32,18 @@
 
   .header-nav {
     display: flex;
+
+    .nav-text {
+      text-align: left;
+    }
+
+    /*
+    In the burger menu, the elements of the navigation
+    will be shows below each other
+    */
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
   }
 
   .branding {
@@ -43,7 +55,16 @@
       cursor: pointer;
       margin: 0 0 -4px 3px;
     }
+
+     /*
+    For extreme scenarios, the margin right from the Dex-logo
+    is decreased. So in these (extreme) scenarios, the burger menu
+    can still be rendered besides the logo
+    */
+    @include media-breakpoint-down(sm) {
+      margin-right: 15px;
   }
+}
 
   a {
     font-family: "Montserrat", sans-serif;
@@ -109,7 +130,7 @@
 
   .account {
     display: flex;
-    align-items: center;
+    align-items: left;
     margin-left: auto;
   }
 
@@ -126,6 +147,16 @@
     .profile-picture {
       width: 30px;
       border-radius: 50%;
+    }
+  }
+
+  /*
+  In burger menu show the profile navigation items
+  below each other
+  */
+  .profile-dropdown{
+    @include media-breakpoint-down(sm){
+      flex-direction: column;
     }
   }
 }
@@ -245,6 +276,10 @@
   a {
     cursor: pointer;
   }
+
+  @include media-breakpoint-down(sm){
+    position: initial;
+  }
 }
 
 .btn {
@@ -253,6 +288,11 @@
     font-weight: 700;
     color: $light-mode-title-color;
     font-size: 14px;
+    padding: 8px 16px;
+
+    @include media-breakpoint-down(sm){
+      font-size: 16px;
+    }
 
     .caret {
       margin-left: 5px;

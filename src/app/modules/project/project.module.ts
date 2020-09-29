@@ -33,6 +33,7 @@ import { QuillModule } from 'ngx-quill';
 import { ManualComponent } from './add/manual/manual.component';
 import { FileUploaderComponent } from '../../components/file-uploader/file-uploader.component';
 import { DndDirective } from '../../components/file-uploader/drag-and-drop.directive';
+import { Meta } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { DndDirective } from '../../components/file-uploader/drag-and-drop.direc
   ],
   exports: [
       FileUploaderComponent
-  ]
+  ],
+  providers: [Meta]
 })
 export class ProjectModule { }
