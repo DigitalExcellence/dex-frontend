@@ -25,7 +25,7 @@
  
  .pagination-footer::ng-deep .page-link {
     z-index: 1;
-    color: #323232;
+    color: $light-mode-title-color;
     height: 35px;
     width: 35px;
 
@@ -34,8 +34,8 @@
  }
  
  .pagination-footer::ng-deep .page-item.active .page-link {
-   border-color: #e85b3f;
-   background-color: #e85b3f !important;
+   border-color: $accent-color-primary;
+   background-color: $accent-color-primary !important;
    color: #ffffff;
  }
  
@@ -54,15 +54,15 @@
      padding: 8px 20px;
      font-size: 18px;
      height: 60px;
-     color: #707175;
+     color: $light-mode-text-color;
      border: none;
      background: $light-mode-component-color;
-     box-shadow: 0 3px 6px #0000001a;
+     box-shadow: $box-shadow;
      border-radius: 6px;
      font-family: lato, sans-serif;
  
      &::placeholder {
-       color: #707175;
+       color: $light-mode-text-color;
      }
  
      &:focus {
@@ -98,7 +98,7 @@
    border-spacing: 0 15px;
  
    tr {
-     box-shadow: 0 3px 6px #0000001a;
+     box-shadow: $box-shadow;
      cursor: pointer;
  
      td {
@@ -156,7 +156,7 @@
  
        svg {
          height: 18px;
-         fill: red;
+         fill: $accent-color-primary;
        }
  
        img {
@@ -170,7 +170,7 @@
  .projects-filter-wrapper{
    min-width: 250px;
    .projects-filter {
-     box-shadow: 0 3px 6px #0000001a;
+     box-shadow: $box-shadow;
      background: $light-mode-component-color;
      padding: 20px 25px;
      border-radius: 6px;

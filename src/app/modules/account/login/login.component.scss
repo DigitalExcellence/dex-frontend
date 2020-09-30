@@ -60,7 +60,7 @@
   .school {
     margin: 15px 4px;
     background: white;
-    box-shadow: 0 3px 6px #00000029;
+    box-shadow: $box-shadow;
     border-radius: 6px;
     border: none;
     min-width: 180px;
@@ -105,7 +105,7 @@
       content: "";
       position: relative;
       width: 50%;
-      background-color: #707175;
+      background-color: $light-mode-text-color;
       display: inline-block;
       height: 1px;
       vertical-align: middle;
@@ -115,7 +115,7 @@
 
 span {
   font-family: "Lato", sans-serif;
-  color: #707175;
+  color: $light-mode-text-color;
   font-size: 14px;
 }
 
@@ -139,10 +139,10 @@ button {
 }
 
 button:disabled {
-  background-color: #707175;
+  background-color: $light-mode-text-color;
 }
 // End of temporary styling
 
 a {
-  color: #e85b3f;
+  color: $accent-color-primary;
 }
