@@ -39,7 +39,7 @@ button {
     }
     
     &.cancel {
-        background: #8E8E8E;
+        background: $light-mode-grey-primary;
         box-shadow: $box-shadow;
         border-radius: 6px;
         opacity: 1;
