@@ -20,7 +20,7 @@
 
 button {
     &.primary {
-        background: $accent-color-primary;
+        background: $accent-color-red-primary;
         box-shadow: $box-shadow;
         border-radius: 6px;
         opacity: 1;
@@ -32,7 +32,7 @@ button {
         padding: 12px 30px;
 
       &:focus, &:active{
-        background: #bb4b34;
+        background: $accent-color-red-secondary;
         border:none;
         outline:none;
       }

@@ -25,7 +25,7 @@ p {
 }
 
 a {
-  color: $accent-color-primary;
+  color: $accent-color-red-primary;
 }
 
 p {
@@ -109,7 +109,7 @@ p {
     padding: 8px 20px;
     font-size: 18px;
     height: 60px;
-    color: $light-mode-text-color;
+    color: $light-mode-grey-primary;
     border: none;
     background: #ffffff 0 0 no-repeat padding-box;
     box-shadow: $box-shadow;
@@ -118,7 +118,7 @@ p {
     font-family: lato, sans-serif;
 
     &::placeholder {
-      color: $light-mode-text-color;
+      color: $light-mode-grey-primary;
     }
 
     &:focus {
@@ -146,12 +146,12 @@ p {
 }
 
 h3 a {
-  border-bottom: 3px solid $accent-color-primary;
+  border-bottom: 3px solid $accent-color-red-primary;
   cursor: pointer;
 
   &:hover {
-    border-bottom: 3px solid $accent-color-secondary;
-    color: $accent-color-secondary;
+    border-bottom: 3px solid $accent-color-red-secondary;
+    color: $accent-color-red-secondary;
   }
 }
 

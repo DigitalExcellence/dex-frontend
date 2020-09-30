@@ -38,7 +38,7 @@ h1 {
     padding: 8px 20px;
     font-size: 18px;
     height: 60px;
-    color: $light-mode-text-color;
+    color: $light-mode-grey-primary;
     border: none;
     background: #ffffff 0 0 no-repeat padding-box;
     box-shadow: $box-shadow;
@@ -47,7 +47,7 @@ h1 {
     font-family: lato, sans-serif;
 
     &::placeholder {
-      color: $light-mode-text-color;
+      color: $light-mode-grey-primary;
     }
 
     &:focus {

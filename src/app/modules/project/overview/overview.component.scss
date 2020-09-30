@@ -25,7 +25,7 @@
  
  .pagination-footer::ng-deep .page-link {
     z-index: 1;
-    color: $light-mode-title-color;
+    color: $light-mode-black;
     height: 35px;
     width: 35px;
 
@@ -34,8 +34,8 @@
  }
  
  .pagination-footer::ng-deep .page-item.active .page-link {
-   border-color: $accent-color-primary;
-   background-color: $accent-color-primary !important;
+   border-color: $accent-color-red-primary;
+   background-color: $accent-color-red-primary !important;
    color: #ffffff;
  }
  
@@ -49,20 +49,21 @@
    justify-content: center;
  
    input[type="search"] {
+     margin-bottom: 10px;
      position: relative;
      width: 100%;
      padding: 8px 20px;
      font-size: 18px;
      height: 60px;
-     color: $light-mode-text-color;
+     color: $light-mode-grey-primary;
      border: none;
-     background: $light-mode-component-color;
+     background: $white;
      box-shadow: $box-shadow;
      border-radius: 6px;
      font-family: lato, sans-serif;
  
      &::placeholder {
-       color: $light-mode-text-color;
+       color: $light-mode-grey-primary;
      }
  
      &:focus {
@@ -102,7 +103,7 @@
      cursor: pointer;
  
      td {
-       background: $light-mode-component-color;
+       background: $white;
      }
  
      td:first-child {
@@ -139,7 +140,7 @@
          min-width: 55px;
          margin: 10px 20px;
          border-radius: 30px;
-         background-color: $accent-color-primary;
+         background-color: $accent-color-red-primary;
          display: flex;
          align-items: center;
          justify-content: center;
@@ -156,7 +157,7 @@
  
        svg {
          height: 18px;
-         fill: $accent-color-primary;
+         fill: $accent-color-red-primary;
        }
  
        img {
@@ -171,7 +172,7 @@
    min-width: 250px;
    .projects-filter {
      box-shadow: $box-shadow;
-     background: $light-mode-component-color;
+     background: $white;
      padding: 20px 25px;
      border-radius: 6px;
      margin-bottom: 20px;
@@ -182,7 +183,7 @@
      .option-select {
        margin-bottom: 10px;
        width: 100%;
-       color: rgba($light-mode-title-color, 0.7) ;
+       color: rgba($light-mode-black, 0.7) ;
      }
  
      form {
@@ -190,7 +191,7 @@
          display: none;
  
          + label {
-           color: $light-mode-text-color;
+           color: $light-mode-grey-primary;
            vertical-align: middle;
            position: relative;
            padding-left: 20px;
@@ -213,8 +214,8 @@
            &::before {
              width: 15px;
              height: 15px;
-             border: 1px $light-mode-border-color solid;
-             background: $light-mode-component-color;
+             border: 1px $light-mode-grey-secondary solid;
+             background: $white;
              left: 0;
              top: calc(50% - 15px / 2);
            }
@@ -225,7 +226,7 @@
              &::after {
                width: 9px;
                height: 9px;
-               background: $accent-color-primary;
+               background: $accent-color-red-primary;
                position: absolute;
                top: calc(50% - 9px / 2);
                left: 3px;
@@ -238,7 +239,7 @@
          display: inline-flex;
          place-content: center;
          border-radius: 50%;
-         background-color: $accent-color-primary;
+         background-color: $accent-color-red-primary;
          vertical-align: middle;
          height: 15px;
          width: 15px;
@@ -275,7 +276,7 @@
  
         button {
           padding: 0;
-          color: $light-mode-text-color;
+          color: $light-mode-grey-primary;
           font-size: 18px;
        }
      }
@@ -286,7 +287,7 @@
  
      .card-body {
        margin-top: 10px;
-       background: $light-mode-background-color;
+       background: $light-mode-grey-quaternary;
        border-radius: 6px;
        padding: 5px 10px;
      }

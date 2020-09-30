@@ -33,7 +33,7 @@
   outline: none;
   box-shadow: $box-shadow;
   padding: 15px;
-  color: $light-mode-text-color;
+  color: $light-mode-grey-primary;
   button.close{
     border: none;
     background: none;
@@ -58,12 +58,12 @@
     padding: 0 15px;
     &:focus {
       outline: none;
-      border: 1px solid $light-mode-text-color;
+      border: 1px solid $light-mode-grey-primary;
     }
   }
 
   p.date-error-message {
-    color: $accent-color-primary;
+    color: $accent-color-red-primary;
   }
 
   &__checkbox {
@@ -71,7 +71,7 @@
     align-items: center;
     margin-top: 10px;
     input[type="checkbox"] {
-      border: solid 1px $light-mode-text-color;
+      border: solid 1px $light-mode-grey-primary;
       margin-right: 15px;
     }
 

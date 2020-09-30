@@ -105,7 +105,7 @@
       content: "";
       position: relative;
       width: 50%;
-      background-color: $light-mode-text-color;
+      background-color: $light-mode-grey-primary;
       display: inline-block;
       height: 1px;
       vertical-align: middle;
@@ -115,7 +115,7 @@
 
 span {
   font-family: "Lato", sans-serif;
-  color: $light-mode-text-color;
+  color: $light-mode-grey-primary;
   font-size: 14px;
 }
 
@@ -139,10 +139,10 @@ button {
 }
 
 button:disabled {
-  background-color: $light-mode-text-color;
+  background-color: $light-mode-grey-primary;
 }
 // End of temporary styling
 
 a {
-  color: $accent-color-primary;
+  color: $accent-color-red-primary;
 }
