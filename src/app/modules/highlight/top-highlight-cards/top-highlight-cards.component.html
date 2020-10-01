@@ -33,10 +33,10 @@
 
   <div class="row">
     <div *ngFor="let highlight of highlights" class="col-md-12 col-lg-4">
-      <div class="card"  (click)="onClickHighlightedProject(highlight.projectId, highlight.project.name)">
+      <div class="card" (click)="onClickHighlightedProject(highlight.projectId, highlight.projectName)">
         <div class="card-title">
           <div class="icon"><img src="assets/images/code.svg" alt="" loading="lazy"></div>
-          <h3>{{highlight.project.name}}</h3>
+          <h3>{{highlight.projectName}}</h3>
         </div>
         <p class="large">{{highlight.description | striphtml}}</p>
       </div>
