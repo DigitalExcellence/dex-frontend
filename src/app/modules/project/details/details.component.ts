@@ -84,7 +84,7 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const routeId = this.activedRoute.snapshot.paramMap.get('id');
+    const routeId = this.activedRoute.snapshot.params.id.split('-')[0];
     if (!routeId) {
       return;
     }
