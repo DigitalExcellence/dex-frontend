@@ -125,6 +125,7 @@
       width: auto;
       display: flex;
       align-items: center;
+      padding: 0 20px 0 0;
 
       .icon-placeholder {
         height: 55px;
@@ -160,88 +161,91 @@
   }
 }
 
-.projects-filter {
-  box-shadow: 0 3px 6px #0000001a;
-  background: $light-mode-component-color;
-  padding: 20px 25px;
-  border-radius: 6px;
+.projects-filter-wrapper{
+  min-width: 250px;
+  .projects-filter {
+    box-shadow: 0 3px 6px #0000001a;
+    background: $light-mode-component-color;
+    padding: 20px 25px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    h3 {
+      margin: 0;
+    }
 
-  h3 {
-    margin: 0;
-  }
+    .option-select {
+      margin-bottom: 15px;
+      width: 100%;
+    }
 
-  .option-select {
-    margin-bottom: 15px;
-    width: 100%;
-  }
+    form {
+      input[type="checkbox"] {
+        display: none;
 
-  form {
-    input[type="checkbox"] {
-      display: none;
-
-      + label {
-        color: $light-mode-text-color;
-        vertical-align: middle;
-        position: relative;
-        padding-left: 20px;
-
-        &::before,
-        &::after {
-          content: "";
-          display: inline-block;
-          border-radius: 2px;
-          position: absolute;
-        }
-
-        &::before {
-          width: 15px;
-          height: 15px;
-          border: 1px $light-mode-border-color solid;
-          background: $light-mode-component-color;
-          left: 0;
-          top: calc(50% - 15px / 2);
-        }
-      }
-
-      &:checked {
         + label {
+          color: $light-mode-text-color;
+          vertical-align: middle;
+          position: relative;
+          padding-left: 20px;
+
+          &::before,
           &::after {
-            width: 9px;
-            height: 9px;
-            background: $accent-color-primary;
+            content: "";
+            display: inline-block;
+            border-radius: 2px;
             position: absolute;
-            top: calc(50% - 9px / 2);
-            left: 3px;
+          }
+
+          &::before {
+            width: 15px;
+            height: 15px;
+            border: 1px $light-mode-border-color solid;
+            background: $light-mode-component-color;
+            left: 0;
+            top: calc(50% - 15px / 2);
+          }
+        }
+
+        &:checked {
+          + label {
+            &::after {
+              width: 9px;
+              height: 9px;
+              background: $accent-color-primary;
+              position: absolute;
+              top: calc(50% - 9px / 2);
+              left: 3px;
+            }
           }
         }
       }
-    }
 
-    .icon {
-      display: inline-flex;
-      place-content: center;
-      border-radius: 50%;
-      background-color: $accent-color-primary;
-      vertical-align: middle;
-      height: 15px;
-      width: 15px;
-      padding: 2px;
+      .icon {
+        display: inline-flex;
+        place-content: center;
+        border-radius: 50%;
+        background-color: $accent-color-primary;
+        vertical-align: middle;
+        height: 15px;
+        width: 15px;
+        padding: 2px;
 
-      img {
-        height: auto;
-        width: 100%;
+        img {
+          height: auto;
+          width: 100%;
+        }
       }
     }
-  }
 
-  select {
-    padding: 4px;
-    border-radius: 3px;
-    border: 1px solid #c1c1c1;
-  }
+    select {
+      padding: 4px;
+      border-radius: 3px;
+      border: 0px solid transparent;
+    }
 
-  select, option {
-    outline: 0;
+    select, option {
+      outline: 0;
+    }
   }
 }
 

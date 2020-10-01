@@ -28,13 +28,12 @@
       <ng-template #noHighlights>
         <p class="large">Currently there are no highlighted projects</p>
       </ng-template>
-
     </div>
   </div>
 
   <div class="row">
     <div *ngFor="let highlight of highlights" class="col-md-12 col-lg-4">
-      <div class="card" routerLink="/project/details/{{highlight.projectId}}">
+      <div class="card"  (click)="onClickHighlightedProject(highlight.projectId, highlight.project.name)">
         <div class="card-title">
           <div class="icon"><img src="assets/images/code.svg" alt="" loading="lazy"></div>
           <h3>{{highlight.project.name}}</h3>

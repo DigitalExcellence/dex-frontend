@@ -17,6 +17,8 @@
  *
  */
 
+@import "assets/styles/variables";
+
 //header
 h1 {
   text-align: center;
@@ -75,10 +77,23 @@ h1 {
 //share
 .share {
   margin: 180px 0;
+  
+   // add margin bottom on mobile
+   @include media-breakpoint-down(lg) {
+    .image-wrapper {
+      margin-bottom: 50px;
+    }
+   }
 
-  img {
-    width: 100%;
-    max-width: 580px;
+  .image-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 100%;
+      max-width: 580px;
+      max-height: 300px;
+    }
   }
 
   .share-text {
