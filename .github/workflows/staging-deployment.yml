@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build docker image
         run:  docker build -t digitalexcellence/stagingfrontend .
+      - name: Create .env file
+        run:  touch .env && echo ${{ secrets.SENTRY_DSN_URL }} >> .env
       - name: Docker login
         run:  docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Push images to Dockerhub 
