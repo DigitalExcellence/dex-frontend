@@ -17,6 +17,8 @@
  *
  */
 
+@import "assets/styles/variables";
+
 //header
 h1 {
   text-align: center;
@@ -36,16 +38,16 @@ h1 {
     padding: 8px 20px;
     font-size: 18px;
     height: 60px;
-    color: #707175;
+    color: $light-mode-grey-primary;
     border: none;
     background: #ffffff 0 0 no-repeat padding-box;
-    box-shadow: 0 3px 6px #1a1a1a1a;
+    box-shadow: $box-shadow;
     border-radius: 6px;
     opacity: 1;
     font-family: lato, sans-serif;
 
     &::placeholder {
-      color: #707175;
+      color: $light-mode-grey-primary;
     }
 
     &:focus {
@@ -75,10 +77,23 @@ h1 {
 //share
 .share {
   margin: 180px 0;
+  
+   // add margin bottom on mobile
+   @include media-breakpoint-down(lg) {
+    .image-wrapper {
+      margin-bottom: 50px;
+    }
+   }
 
-  img {
-    width: 100%;
-    max-width: 580px;
+  .image-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 100%;
+      max-width: 580px;
+      max-height: 300px;
+    }
   }
 
   .share-text {

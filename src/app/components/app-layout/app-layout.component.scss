@@ -18,6 +18,7 @@
  */
 
 @import "assets/styles/variables";
+
 .content-container {
   min-height: calc(100vh - 324px);
 }
@@ -25,12 +26,24 @@
 .header {
   display: flex;
   align-items: center;
-  box-shadow: 0 3px 6px #0000001a;
+  box-shadow: $box-shadow;
   background-color: #ffffff;
   padding: 10px 20px;
 
   .header-nav {
     display: flex;
+
+    .nav-text {
+      text-align: left;
+    }
+
+    /*
+    In the burger menu, the elements of the navigation
+    will be shows below each other
+    */
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
   }
 
   .branding {
@@ -42,19 +55,28 @@
       cursor: pointer;
       margin: 0 0 -4px 3px;
     }
+
+     /*
+    For extreme scenarios, the margin right from the Dex-logo
+    is decreased. So in these (extreme) scenarios, the burger menu
+    can still be rendered besides the logo
+    */
+    @include media-breakpoint-down(sm) {
+      margin-right: 15px;
   }
+}
 
   a {
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
     font-size: 16px;
     margin: 0;
-    color: $light-mode-text-color;
+    color: $light-mode-grey-primary;
 
     &:active,
     &:hover,
     &:focus {
-      color: $accent-color-primary;
+      color: $accent-color-red-primary;
     }
   }
 
@@ -71,15 +93,15 @@
       width: 266px;
       height: 28px;
       font-size: 12px;
-      background: #f2f2f2;
-      border: 1px solid #7070700d;
+      background: #fff;
+      border: 1px solid $light-mode-black;
       border-radius: 6px;
       opacity: 1;
       padding-left: 15px;
       position: relative;
 
       &::placeholder {
-        color: #707175;
+        color: $light-mode-grey-primary;
       }
 
       &:focus {
@@ -108,7 +130,7 @@
 
   .account {
     display: flex;
-    align-items: center;
+    align-items: left;
     margin-left: auto;
   }
 
@@ -127,6 +149,16 @@
       border-radius: 50%;
     }
   }
+
+  /*
+  In burger menu show the profile navigation items
+  below each other
+  */
+  .profile-dropdown{
+    @include media-breakpoint-down(sm){
+      flex-direction: column;
+    }
+  }
 }
 
 .modal-beta-container {
@@ -141,7 +173,7 @@
   z-index: 8;
 
   .modal-beta-content {
-    background-color: #323232;
+    background-color: $light-mode-black;
     padding: 10px 25px;
     max-width: 1200px;
     border-radius: 6px;
@@ -151,7 +183,7 @@
 
   p {
     display: inline-block;
-    color: #f8f8f8;
+    color: #fff;
   }
 
   * {
@@ -160,7 +192,7 @@
 
   .accent-text-color,
   a {
-    color: $accent-color-primary;
+    color: $accent-color-red-primary;
   }
 
   button {
@@ -168,7 +200,7 @@
     outline: none;
     border: none;
     background: none;
-    color: #f8f8f8;
+    color: #fff;
     font-size: 20px;
   }
 }
@@ -187,8 +219,8 @@
   }
 
   .feedback-button {
-    background: #aeaeae 0% 0% no-repeat padding-box;
-    box-shadow: 0px 3px 6px #00000029;
+    background: $light-mode-grey-secondary 0% 0% no-repeat padding-box;
+    box-shadow:$box-shadow;
     border-radius: 6px 6px 0px 0px;
 
     width: 188px;
@@ -197,8 +229,19 @@
     text-align: center;
     font-size: 18px;
     letter-spacing: 0px;
-    color: #f8f8f8;
+    color: #fff;
     text-transform: capitalize;
+  }
+
+  // Move button to the bottom left and make it vertical
+  @include media-breakpoint-down(md) {
+    bottom: 30%;
+    left: 0;
+
+    .feedback-button {
+      transform: rotate(90deg);
+      transform-origin: left bottom;
+    }
   }
 }
 
@@ -233,14 +276,23 @@
   a {
     cursor: pointer;
   }
+
+  @include media-breakpoint-down(sm){
+    position: initial;
+  }
 }
 
 .btn {
   &.dropdown-toggle {
     font-family: $font-family-headings;
     font-weight: 700;
-    color: $light-mode-title-color;
+    color: $light-mode-black;
     font-size: 14px;
+    padding: 8px 16px;
+
+    @include media-breakpoint-down(sm){
+      font-size: 16px;
+    }
 
     .caret {
       margin-left: 5px;

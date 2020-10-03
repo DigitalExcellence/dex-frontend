@@ -36,7 +36,7 @@ import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-hig
 import { Highlight } from 'src/app/models/domain/hightlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
-
+import { SEOService } from 'src/app/services/seo.service';
 
 /**
  * Overview of a single project
@@ -79,11 +79,12 @@ export class DetailsComponent implements OnInit {
     private modalService: BsModalService,
     private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService,
-    private router: Router
+    private router: Router,
+    private seoService: SEOService
   ) { }
 
   ngOnInit(): void {
-    const routeId = this.activedRoute.snapshot.paramMap.get('id');
+    const routeId = this.activedRoute.snapshot.params.id.split('-')[0];
     if (!routeId) {
       return;
     }
@@ -105,11 +106,15 @@ export class DetailsComponent implements OnInit {
       .subscribe(
         (result) => {
           this.project = result;
-
+          const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
           this.determineDisplayEditProjectButton();
           this.determineDisplayDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
+
+          // Updates meta and title tags
+          this.seoService.updateDescription(desc);
+          this.seoService.updateTitle(this.project.name);
         }
       );
 
@@ -152,6 +157,7 @@ export class DetailsComponent implements OnInit {
           const highlightAddResource: HighlightAdd = {
             projectId: this.project.id,
             startDate: highlightFormResult.startDate,
+            description: highlightFormResult.description,
             endDate: highlightFormResult.endDate
           };
 
@@ -320,4 +326,6 @@ export class DetailsComponent implements OnInit {
     const timeZone = 'GMT';
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
+
+
 }

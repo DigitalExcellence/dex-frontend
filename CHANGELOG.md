@@ -9,14 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added basic SEO for better google discoverability - [#283](https://github.com/DigitalExcellence/dex-frontend/issues/283)
+- Added dynamic updates of meta tags for better discoverability - [#286](https://github.com/DigitalExcellence/dex-frontend/issues/286)
 
 ### Changed
 
+- Changed all file line endings from CRLF to LF and added the .gitattributes to enforce it - [#163](https://github.com/DigitalExcellence/dex-backend/issues/163)
+- Changed footer styling to be responsive on small screens - [#163](https://github.com/DigitalExcellence/dex-frontend/issues/163) 
+- Changed header styling to be responsive on small screens - [#258](https://github.com/DigitalExcellence/dex-frontend/issues/258)
+- Highlight now shows highlight description instead of project description. - [#273](https://github.com/DigitalExcellence/dex-frontend/issues/273)
+- Changed images on the login and home page to new copyright-free images from unDraw - [#97](https://github.com/DigitalExcellence/dex-frontend/issues/97)
+- Project detail URLs now show the project name instead of just a project ID - [#298](https://github.com/DigitalExcellence/dex-frontend/issues/298)
+- Updates some styling issues for more consistency in the platform - [#299](https://github.com/DigitalExcellence/dex-frontend/issues/299)
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+- Fixed issue where the project overview page was not responsive on smaller viewports - [#296](https://github.com/DigitalExcellence/dex-frontend/issues/296)
+- Fixed issue where the feedback button would block the footer content on smaller screens - [#289](https://github.com/DigitalExcellence/dex-frontend/issues/289)
+- Fixed redirect to the project detail page after editing a project - [#256](https://github.com/DigitalExcellence/dex-frontend/issues/256)
+- Fixed issue that caused users to log out because token did not get refreshed - [#253](https://github.com/DigitalExcellence/dex-frontend/issues/253)
 
 ### Security
 

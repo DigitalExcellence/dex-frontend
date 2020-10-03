@@ -16,6 +16,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
+@import "assets/styles/variables";
 
 //project highlights
 .highlights {
@@ -29,7 +30,7 @@
   .card {
     padding: 30px 45px;
     background: #ffffff;
-    box-shadow: 3px 3px 6px #00000015;
+    box-shadow: $box-shadow;
     border-radius: 6px;
     border: none;
     cursor: pointer;
@@ -46,7 +47,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: #e85b3f;
+        background-color: $accent-color-red-primary;
         margin-right: 10px;
 
         img {

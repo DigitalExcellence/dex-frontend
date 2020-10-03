@@ -30,6 +30,8 @@ import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-hig
 import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
 import { SharedModule } from './../shared/shared.module';
 import { QuillModule } from 'ngx-quill';
+import { Meta } from '@angular/platform-browser';
+
 
 @NgModule({
   declarations: [
@@ -51,5 +53,6 @@ import { QuillModule } from 'ngx-quill';
     BsDropdownModule.forRoot(),
     QuillModule
   ],
+  providers: [Meta]
 })
 export class ProjectModule { }
