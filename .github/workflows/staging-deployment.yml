@@ -11,16 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create .env file
-        run:  touch .env && echo ${{ secrets.SENTRY_DSN_URL }} >> .env
+        run:  touch .env && echo ${{ secrets.SENTRY_DSN_URL }} >> .env && echo ${{ secrets.STAGING_ID_SILENT_REDIRECT_URI }} >> .env && echo ${{ secrets.STAGING_ID_LOGOUT_REDIRECT_URI }} >> .env && echo ${{ secrets.STAGING_ID_REDIRECT_URI }} >> .env && echo ${{ secrets.STAGING_ID_CLIENT_ID }} >> .env && echo ${{ secrets.STAGING_IDS_URL }} >> .env && echo ${{ secrets.STAGING_ID_CALLBACK_URL }} >> .env && echo ${{ secrets.STAGING_FRONTEND_URL }} >> .env && echo ${{ secrets.STAGING_API_URL }} >> .env
       - name: Build docker image
         run:  docker build -t digitalexcellence/stagingfrontend .
       - name: Docker login
         run:  docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: Push images to Dockerhub 
+      - name: Push images to Dockerhub
         run: docker push digitalexcellence/stagingfrontend
       - name: Push to server
         uses: appleboy/ssh-action@master
-        with: 
+        with:
           host: ${{ secrets.STAGING_VPS_IP }}
           username: ${{ secrets.STAGING_VPS_USERNAME }}
           password: ${{ secrets.STAGING_VPS_PASSWORD }}
