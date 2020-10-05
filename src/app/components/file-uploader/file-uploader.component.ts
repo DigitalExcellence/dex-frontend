@@ -19,6 +19,8 @@ export class FileUploaderComponent {
   @Input() acceptedTypes: Array<String>;
   @ViewChild('fileDropRef') fileInput: ElementRef;
 
+  maxFileSize:number = 5242880;
+
   constructor(private uploadService: FileUploaderService,
               private alertService: AlertService) { }
 
@@ -55,21 +57,34 @@ export class FileUploaderComponent {
       this.files = [];
     }
     for (const file of files) {
-      if (this.acceptedTypes.includes(file.type)) {
-        this.generatePreview(file);
-        this.formatBytes(file);
-        this.files.push(file);
+      if (file.size < this.maxFileSize) {
+        if (this.acceptedTypes.includes(file.type)) {
+          this.generatePreview(file);
+          this.formatBytes(file);
+          this.files.push(file);
+        } else {
+          const alertConfig: AlertConfig = {
+            type: AlertType.danger,
+            preMessage: 'This file type is not allowed',
+            mainMessage: `File ${file.name} is of type that is not allowed please pick one of these ${this.acceptedTypes.join(', ')}`,
+            dismissible: true,
+            timeout: this.alertService.defaultTimeout
+          };
+          this.alertService.pushAlert(alertConfig);
+          this.deleteFile(this.files.indexOf(file));
+        }
       } else {
         const alertConfig: AlertConfig = {
           type: AlertType.danger,
-          preMessage: 'This file type is not allowed',
-          mainMessage: `File ${file.name} is of type that is not allowed please pick one of these ${this.acceptedTypes.join(', ')}`,
+          preMessage: 'This file is too big',
+          mainMessage: `File ${file.name} is too big, the max size is 5mb`,
           dismissible: true,
           timeout: this.alertService.defaultTimeout
         };
         this.alertService.pushAlert(alertConfig);
         this.deleteFile(this.files.indexOf(file));
       }
+
     }
   }
 
@@ -99,7 +114,9 @@ export class FileUploaderComponent {
   }
 
   public uploadFiles(): Observable<Array<UploadFile>> {
+    // Check if any files were uploaded
     if (this.fileInput.nativeElement.value !== '') {
+      // Map all the files to an observable
        const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
           .pipe(
               map(event => {
