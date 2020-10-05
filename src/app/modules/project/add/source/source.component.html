@@ -50,7 +50,7 @@
   <div class="col-6 col-sm-6 col-md-4 col-lg-2 source-box" *ngFor="let externalSource of mostUsedSources">
     <div class="source">
       <div class="source-content">
-        <img src="{{ externalSource?.image }}" alt="" loading="lazy">
+        <img src="{{ externalSource?.image }}" alt="Image of {{ externalSource?.name}}" loading="lazy">
         <h3>{{ externalSource?.name }}</h3>
       </div>
     </div>
