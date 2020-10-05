@@ -148,10 +148,10 @@ export class FileUploaderComponent {
 
   public setFiles(editFiles: Array<UploadFile>) {
     editFiles.forEach(editFile => {
-      // Preview has to be changed when the infrastructure for showing the icons is in place.
+      // TODO: Preview has to be changed when the infrastructure for showing the icons is in place.
       this.files.push({
         ...editFile,
-        preview: 'https://www.laurenillumination.com/wp-content/uploads/woocommerce-placeholder.png'});
+        preview: '/assets/images/project-icon-placeholder.png'});
     });
   }
 }
