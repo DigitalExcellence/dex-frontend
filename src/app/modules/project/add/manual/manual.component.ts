@@ -28,6 +28,7 @@ import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardService } from 'src/app/services/wizard.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
+import { SEOService} from 'src/app/services/seo.service';
 
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
@@ -70,11 +71,12 @@ export class ManualComponent implements OnInit {
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
   constructor(
-      private router: Router,
-      private formBuilder: FormBuilder,
-      private projectService: ProjectService,
-      private wizardService: WizardService,
-      private alertService: AlertService) {
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private projectService: ProjectService,
+    private wizardService: WizardService,
+    private alertService: AlertService,
+    private seoService: SEOService) {
     this.newProjectForm = this.formBuilder.group({
       name: [ null, Validators.required ],
       uri: [ null, Validators.required ],
@@ -104,6 +106,10 @@ export class ManualComponent implements OnInit {
       }
       this.fillFormWithProject(project);
     });
+
+    // Updates meta and title tags
+    this.seoService.updateTitle('Add new project');
+    this.seoService.updateDescription('Create a new project in DeX');
   }
 
   /**
