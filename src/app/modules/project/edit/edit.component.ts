@@ -129,8 +129,7 @@ export class EditComponent implements OnInit  {
         type: AlertType.danger,
         preMessage: 'The edit project form is invalid',
         mainMessage: 'The project could not be updated, please fill all required fields',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -199,8 +198,7 @@ export class EditComponent implements OnInit  {
         type: AlertType.danger,
         preMessage: 'The add collaborator form is invalid',
         mainMessage: 'Collaborator could not be added',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -221,8 +219,7 @@ export class EditComponent implements OnInit  {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
         mainMessage: 'Collaborator could not be removed',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;

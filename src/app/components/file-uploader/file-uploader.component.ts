@@ -83,9 +83,8 @@ export class FileUploaderComponent {
         const alertConfig: AlertConfig = {
           type: AlertType.danger,
           preMessage: 'This file is too big',
-          mainMessage: `File ${file.name} is too big, the max size is 5mb`,
-          dismissible: true,
-          timeout: this.alertService.defaultTimeout
+          mainMessage: `File ${file.name} is too big, the max size is 2mb`,
+          dismissible: true
         };
         this.alertService.pushAlert(alertConfig);
         this.deleteFile(this.files.indexOf(file));

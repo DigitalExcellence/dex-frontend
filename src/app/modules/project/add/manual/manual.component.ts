@@ -123,8 +123,7 @@ export class ManualComponent implements OnInit {
         type: AlertType.danger,
         preMessage: 'The add project form is invalid',
         mainMessage: 'The project could not be saved, please fill all required fields',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -161,8 +160,7 @@ export class ManualComponent implements OnInit {
           const alertConfig: AlertConfig = {
             type: AlertType.success,
             mainMessage: 'Project was succesfully saved',
-            dismissible: true,
-            timeout: this.alertService.defaultTimeout
+            dismissible: true
           };
           this.alertService.pushAlert(alertConfig);
           this.router.navigate([ `/project/overview` ]);
@@ -179,8 +177,7 @@ export class ManualComponent implements OnInit {
         type: AlertType.danger,
         preMessage: 'The add collaborator form is invalid',
         mainMessage: 'Collaborator could not be added',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -201,8 +198,7 @@ export class ManualComponent implements OnInit {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
         mainMessage: 'Collaborator could not be removed',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
