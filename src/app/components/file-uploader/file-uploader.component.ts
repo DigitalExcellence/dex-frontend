@@ -4,9 +4,12 @@ import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import { map } from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
-import { AlertConfig } from '../../models/internal/alert-config';
-import { AlertType } from '../../models/internal/alert-type';
-import { AlertService } from '../../services/alert.service';
+import { map } from 'rxjs/operators';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
+import { FileUploaderService } from 'src/app/services/file-uploader.service';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 @Component({
   selector: 'app-file-uploader',

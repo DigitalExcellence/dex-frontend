@@ -27,7 +27,7 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
-import { FileUploaderComponent } from '../../../components/file-uploader/file-uploader.component';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 
 /**
  * Component for editing adding a project.
