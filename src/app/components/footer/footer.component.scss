@@ -45,7 +45,7 @@ footer {
       text-decoration: none;
       margin: 8px 0;
       font-family: "Lato", sans-serif;
-      color: $light-mode-grey-primary;
+      color: $light-mode-text-color;
     }
 
     a:nth-child(1) {
@@ -67,7 +67,7 @@ footer {
     margin-top: 32px;
 
     a.github-link {
-      color: $accent-color-red-primary;
+      color: $accent-color-primary;
     }
   }
 }

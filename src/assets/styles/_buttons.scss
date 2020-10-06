@@ -16,12 +16,11 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
- @import "assets/styles/variables";
 
 button {
     &.primary {
-        background: $accent-color-red-primary;
-        box-shadow: $box-shadow;
+        background: #e85b3f;
+        box-shadow: 0 3px 6px #00000029;
         border-radius: 6px;
         opacity: 1;
         border: none;
@@ -32,15 +31,15 @@ button {
         padding: 12px 30px;
 
       &:focus, &:active{
-        background: $accent-color-red-secondary;
+        background: #bb4b34;
         border:none;
         outline:none;
       }
     }
     
     &.cancel {
-        background: $light-mode-grey-primary;
-        box-shadow: $box-shadow;
+        background: #8E8E8E;
+        box-shadow: 0 3px 6px #00000029;
         border-radius: 6px;
         opacity: 1;
         border: none;

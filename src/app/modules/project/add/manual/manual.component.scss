@@ -55,7 +55,7 @@
   }
 
   button {
-    background: $accent-color-red-primary;
+    background: $accent-color-primary;
     border-radius: 50px;
     width: 50px;
     height: 50px;
@@ -101,13 +101,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $accent-color-red-primary;
+    background-color: $accent-color-primary;
   }
 }
 
 .btn-success {
   color: #fff;
-  background-color: $accent-color-red-primary;
+  background-color: $accent-color-primary;
   border: none;
   padding: 12px 30px;
   border-radius: 6px;

@@ -31,9 +31,9 @@
   border-radius: 6px;
   border: none;
   outline: none;
-  box-shadow: $box-shadow;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   padding: 15px;
-  color: $light-mode-grey-primary;
+  color: #707175;
   button.close{
     border: none;
     background: none;
@@ -51,19 +51,19 @@
   input[type="date"] {
     border: none;
     border-radius: 6px;
-    box-shadow: $box-shadow;
+    box-shadow: 0 3px 6px #0000001a;
     height: 45px;
     width: 100%;
     margin-bottom: 25px;
     padding: 0 15px;
     &:focus {
       outline: none;
-      border: 1px solid $light-mode-grey-primary;
+      border: 1px solid #707070;
     }
   }
 
   p.date-error-message {
-    color: $accent-color-red-primary;
+    color: $accent-color-primary;
   }
 
   &__checkbox {
@@ -71,7 +71,7 @@
     align-items: center;
     margin-top: 10px;
     input[type="checkbox"] {
-      border: solid 1px $light-mode-grey-primary;
+      border: solid 1px #707070;
       margin-right: 15px;
     }
 

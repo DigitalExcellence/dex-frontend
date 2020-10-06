@@ -251,11 +251,9 @@ export class OverviewComponent implements OnInit {
   /**
    * Triggers on project click in the list.
    * @param id project id.
-   * @param name project name
    */
-  public onClickProject(id: number, name: string): void {
-    name = name.split(' ').join('-');
-    this.router.navigate([`/project/details/${id}-${name}`]);
+  public onClickProject(id: number): void {
+    this.router.navigate([`/project/details/${id}`]);
   }
 
   /**

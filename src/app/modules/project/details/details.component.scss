@@ -22,7 +22,7 @@
   display: flex;
   place-content: center;
   border-radius: 50%;
-  background-color: $accent-color-red-primary;
+  background-color: $accent-color-primary;
   margin-right: 10px;
   max-width: 180px;
 
@@ -46,13 +46,13 @@
     font-family: "Lato", sans-serif;
     width: inherit;
     &:link {
-      color: $light-mode-grey-primary;
+      color: $light-mode-text-color;
     }
   }
 
   ul {
     font-family: "Lato", sans-serif;
-    color: $light-mode-grey-primary;
+    color: $light-mode-text-color;
     padding: 0;
   }
 }
@@ -71,7 +71,7 @@
 
   .project-tags__tag {
     text-decoration: none;
-    background: $accent-color-red-primary;
+    background: $accent-color-primary;
     color: #fff;
     border-radius: 3px;
     padding: 3px 20px;

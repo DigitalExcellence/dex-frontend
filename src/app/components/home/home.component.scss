@@ -38,16 +38,16 @@ h1 {
     padding: 8px 20px;
     font-size: 18px;
     height: 60px;
-    color: $light-mode-grey-primary;
+    color: #707175;
     border: none;
     background: #ffffff 0 0 no-repeat padding-box;
-    box-shadow: $box-shadow;
+    box-shadow: 0 3px 6px #1a1a1a1a;
     border-radius: 6px;
     opacity: 1;
     font-family: lato, sans-serif;
 
     &::placeholder {
-      color: $light-mode-grey-primary;
+      color: #707175;
     }
 
     &:focus {

@@ -26,7 +26,7 @@
 .header {
   display: flex;
   align-items: center;
-  box-shadow: $box-shadow;
+  box-shadow: 0 3px 6px #0000001a;
   background-color: #ffffff;
   padding: 10px 20px;
 
@@ -71,12 +71,12 @@
     font-weight: 700;
     font-size: 16px;
     margin: 0;
-    color: $light-mode-grey-primary;
+    color: $light-mode-text-color;
 
     &:active,
     &:hover,
     &:focus {
-      color: $accent-color-red-primary;
+      color: $accent-color-primary;
     }
   }
 
@@ -93,15 +93,15 @@
       width: 266px;
       height: 28px;
       font-size: 12px;
-      background: #fff;
-      border: 1px solid $light-mode-black;
+      background: #f2f2f2;
+      border: 1px solid #7070700d;
       border-radius: 6px;
       opacity: 1;
       padding-left: 15px;
       position: relative;
 
       &::placeholder {
-        color: $light-mode-grey-primary;
+        color: #707175;
       }
 
       &:focus {
@@ -173,7 +173,7 @@
   z-index: 8;
 
   .modal-beta-content {
-    background-color: $light-mode-black;
+    background-color: #323232;
     padding: 10px 25px;
     max-width: 1200px;
     border-radius: 6px;
@@ -183,7 +183,7 @@
 
   p {
     display: inline-block;
-    color: #fff;
+    color: #f8f8f8;
   }
 
   * {
@@ -192,7 +192,7 @@
 
   .accent-text-color,
   a {
-    color: $accent-color-red-primary;
+    color: $accent-color-primary;
   }
 
   button {
@@ -200,7 +200,7 @@
     outline: none;
     border: none;
     background: none;
-    color: #fff;
+    color: #f8f8f8;
     font-size: 20px;
   }
 }
@@ -219,8 +219,8 @@
   }
 
   .feedback-button {
-    background: $light-mode-grey-secondary 0% 0% no-repeat padding-box;
-    box-shadow:$box-shadow;
+    background: #aeaeae 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
     border-radius: 6px 6px 0px 0px;
 
     width: 188px;
@@ -229,7 +229,7 @@
     text-align: center;
     font-size: 18px;
     letter-spacing: 0px;
-    color: #fff;
+    color: #f8f8f8;
     text-transform: capitalize;
   }
 
@@ -286,7 +286,7 @@
   &.dropdown-toggle {
     font-family: $font-family-headings;
     font-weight: 700;
-    color: $light-mode-black;
+    color: $light-mode-title-color;
     font-size: 14px;
     padding: 8px 16px;
 

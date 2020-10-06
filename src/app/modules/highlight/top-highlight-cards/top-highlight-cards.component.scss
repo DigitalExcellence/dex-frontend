@@ -16,7 +16,6 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-@import "assets/styles/variables";
 
  @import "assets/styles/variables";
 
@@ -29,32 +28,22 @@
     margin-top: 0;
   }
 
-
   .row {
     @include media-breakpoint-up(lg){
-      display: flex;  
+      display: flex;
     }
 
     .card {
       padding: 30px 45px;
       background: #ffffff;
-      box-shadow: $box-shadow;
+      box-shadow: 3px 3px 6px #00000015;
       border-radius: 6px;
       border: none;
       cursor: pointer;
-      height: 230px;
-      }
-    
+      height: 100%;
+
       .card-title {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: $accent-color-red-primary;
-        margin-right: 10px;
 
         @include media-breakpoint-down(sm) {
           flex-direction: column;

@@ -121,7 +121,7 @@
           <td colspan="3">Loading...</td>
         </tr>
         <tr *ngFor="let project of projectsToDisplay">
-          <td class="title" (click)="onClickProject(project.id, project.name)">
+          <td class="title" (click)="onClickProject(project.id)">
             <div class="icon-placeholder">
               <img alt="project-image" src="assets/images/placeholder.svg" loading="lazy">
             </div>
@@ -144,24 +144,7 @@
     <ng-template #noProjects>There are no projects available.</ng-template>
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
       <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage"
-        [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate" (pageChanged)="pageChanged($event)" class="pagination-footer">
-      </pagination>
-      <ng-template #nextTemplate [customPreviousTemplate]="prevTemplate" let-disabled="disabled" let-currentPage="currentPage">
-        <ng-container *ngIf="!disabled">
-          <img src="assets/images/chevron-down-solid.svg" alt="next" class="chevron-right"/>
-        </ng-container>
-        <ng-container *ngIf="disabled">
-          <img src="assets/images/chevron-down-solid.svg" alt="disabled" class="chevron-right disabled"/>
-        </ng-container>
-      </ng-template>
-      <ng-template #prevTemplate let-disabled="disabled" let-currentPage="currentPage">
-        <ng-container *ngIf="!disabled">
-          <img src="assets/images/chevron-down-solid.svg" alt="previous" class="chevron-left"/>
-        </ng-container>
-        <ng-container *ngIf="disabled">
-          <img src="assets/images/chevron-down-solid.svg" alt="disabled" class="chevron-left disabled"/>
-        </ng-container>
-      </ng-template>
+        (pageChanged)="pageChanged($event)" class="pagination-footer"></pagination>
     </div>
   </div>
 </div>

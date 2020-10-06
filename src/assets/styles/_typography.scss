@@ -22,7 +22,7 @@ body {
   font-size: $font-size-body;
 
   p {
-    color: $light-mode-grey-primary;
+    color: $light-mode-text-color;
   }
 
   p.large {
@@ -40,7 +40,7 @@ h3,
 h4 {
   font-family: $font-family-headings;
   font-weight: 700;
-  color: $light-mode-black;
+  color: $light-mode-title-color;
 }
 
 h1 {
