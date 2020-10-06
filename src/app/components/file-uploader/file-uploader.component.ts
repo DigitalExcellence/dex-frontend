@@ -11,6 +11,9 @@ import { AlertService } from 'src/app/services/alert.service';
 import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 
+/**
+ * Component that will function as a form to upload files of any type
+ */
 @Component({
   selector: 'app-file-uploader',
   templateUrl: './file-uploader.component.html',
