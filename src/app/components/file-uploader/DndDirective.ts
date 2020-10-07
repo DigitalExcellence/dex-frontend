@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[app-drag-and-drop]'
+  selector: '[app-DndDirective]'
 })
 export class DndDirective {
   @HostBinding('class.fileover') fileOver: boolean;
