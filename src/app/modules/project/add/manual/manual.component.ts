@@ -66,8 +66,8 @@ export class ManualComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
-  public acceptedTypes: Array<string> = [ 'image/png', 'image/jpg', 'image/jpeg' ];
-  public acceptMultiple: Boolean = false;
+  public acceptedTypes = [ 'image/png', 'image/jpg', 'image/jpeg' ];
+  public acceptMultiple = false;
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
   constructor(
@@ -146,24 +146,6 @@ export class ManualComponent implements OnInit {
             newProject.fileId = 0;
             this.createProject(newProject);
           }
-
-        });
-
-
-  }
-
-  private createProject(newProject): void {
-    this.projectService
-        .post(newProject)
-        .pipe(finalize(() => (this.submitEnabled = false)))
-        .subscribe(() => {
-          const alertConfig: AlertConfig = {
-            type: AlertType.success,
-            mainMessage: 'Project was succesfully saved',
-            dismissible: true
-          };
-          this.alertService.pushAlert(alertConfig);
-          this.router.navigate([ `/project/overview` ]);
         });
   }
 
@@ -206,6 +188,21 @@ export class ManualComponent implements OnInit {
     this.collaborators.splice(index, 1);
   }
 
+
+  private createProject(newProject): void {
+    this.projectService
+        .post(newProject)
+        .pipe(finalize(() => (this.submitEnabled = false)))
+        .subscribe(() => {
+          const alertConfig: AlertConfig = {
+            type: AlertType.success,
+            mainMessage: 'Project was succesfully saved',
+            dismissible: true
+          };
+          this.alertService.pushAlert(alertConfig);
+          this.router.navigate([ `/project/overview` ]);
+        });
+  }
 
   /**
    * Method to fill a form with the values of a mapped project.

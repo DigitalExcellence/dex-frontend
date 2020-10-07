@@ -21,9 +21,8 @@ export class FileUploaderComponent {
   @ViewChild('fileDropRef') fileInput: ElementRef;
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
-  @ViewChild('fileDropRef') fileInput: ElementRef;
 
-  maxFileSize = 5242880;
+  private maxFileSize = 2097152;
 
   constructor(private uploadService: FileUploaderService,
               private alertService: AlertService) { }
