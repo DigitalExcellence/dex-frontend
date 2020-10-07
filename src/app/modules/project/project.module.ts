@@ -28,11 +28,11 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
 import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { QuillModule } from 'ngx-quill';
 import { ManualComponent } from './add/manual/manual.component';
 import { FileUploaderComponent } from '../../components/file-uploader/file-uploader.component';
-import { DndDirective } from '../../components/file-uploader/drag-and-drop.directive';
+import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
 
 @NgModule({

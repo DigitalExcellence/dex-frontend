@@ -1,7 +1,4 @@
 import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { UploadFile } from 'src/app/models/domain/uploadFile';
-import { FileUploaderService } from 'src/app/services/file-uploader.service';
-import { map } from 'rxjs/operators';
 import { HttpEventType } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,6 +18,7 @@ import { UploadFile } from 'src/app/models/domain/uploadFile';
 })
 export class FileUploaderComponent {
 
+  @ViewChild('fileDropRef') fileInput: ElementRef;
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
   @ViewChild('fileDropRef') fileInput: ElementRef;

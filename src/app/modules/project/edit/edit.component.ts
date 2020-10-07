@@ -39,6 +39,13 @@ import { FileUploaderComponent } from 'src/app/components/file-uploader/file-upl
 })
 export class EditComponent implements OnInit  {
   /**
+   * Configuration for file-picker
+   */
+  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
+  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+  public acceptMultiple = false;
+
+  /**
    * Formgroup for entering project details.
    */
   public editProjectForm: FormGroup;
@@ -69,13 +76,6 @@ export class EditComponent implements OnInit  {
    * Property to indicate whether the project is loading.
    */
   public projectLoading = true;
-
-  /**
-   * Configuration for file-picker
-   */
-  public acceptedTypes: Array<string> = ['image/png', 'image/jpg', 'image/jpeg'];
-  public acceptMultiple: Boolean = false;
-  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
   constructor(
     private router: Router,
@@ -157,26 +157,6 @@ export class EditComponent implements OnInit  {
       });
   }
 
-  private editProject(edittedProject) {
-    this.projectService
-        .put(this.project.id, edittedProject)
-        .pipe(
-            finalize(() => {
-              this.submitEnabled = false;
-            })
-        )
-        .subscribe(() => {
-          const alertConfig: AlertConfig = {
-            type: AlertType.success,
-            mainMessage: 'Project was succesfully updated',
-            dismissible: true,
-            timeout: this.alertService.defaultTimeout
-          };
-          this.alertService.pushAlert(alertConfig);
-          this.router.navigate([`project/details/${this.project.id}`]);
-        });
-  }
-
   /**
    * Method  which triggers when the cancel button is pressed.
    * Redirects the user back to the project or the overview.
@@ -225,5 +205,27 @@ export class EditComponent implements OnInit  {
       return;
     }
     this.collaborators.splice(index, 1);
+  }
+
+  /**
+   * Method which will send the requests to the API to edit the project
+   */
+  private editProject(edittedProject) {
+    this.projectService
+        .put(this.project.id, edittedProject)
+        .pipe(
+            finalize(() => {
+              this.submitEnabled = false;
+            })
+        )
+        .subscribe(() => {
+          const alertConfig: AlertConfig = {
+            type: AlertType.success,
+            mainMessage: 'Project was succesfully updated',
+            dismissible: true
+          };
+          this.alertService.pushAlert(alertConfig);
+          this.router.navigate([`project/details/${this.project.id}`]);
+        });
   }
 }
