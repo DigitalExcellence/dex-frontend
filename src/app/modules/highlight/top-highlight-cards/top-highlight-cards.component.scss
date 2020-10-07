@@ -16,9 +16,8 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-@import "assets/styles/variables";
 
- @import "assets/styles/variables";
+@import "assets/styles/variables";
 
 //project highlights
 .highlights {
@@ -29,10 +28,9 @@
     margin-top: 0;
   }
 
-
   .row {
-    @include media-breakpoint-up(lg){
-      display: flex;  
+    @include media-breakpoint-up(lg) {
+      display: flex;
     }
 
     .card {
@@ -42,10 +40,17 @@
       border-radius: 6px;
       border: none;
       cursor: pointer;
-      height: 230px;
+      height: 100%;
+    }
+
+    .card-title {
+      display: flex;
+
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
       }
-    
-      .card-title {
+
+      .icon {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -57,52 +62,36 @@
         margin-right: 10px;
 
         @include media-breakpoint-down(sm) {
-          flex-direction: column;
+          margin: auto;
+          margin-bottom: 10px;
         }
 
-        .icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background-color: #e85b3f;
-          margin-right: 10px;
-
-          @include media-breakpoint-down(sm) {
-            margin: auto;
-            margin-bottom: 10px;
-          }
-
-          img {
-            width: 28px;
-          }
-        }
-
-        h3 {
-          margin: auto 5px;
-          max-width: calc(100% - 50px);
-          hyphens: auto;
-
-          @include media-breakpoint-down(sm) {
-            margin: auto;
-            text-align: center;
-            max-width: 100%;
-          }
+        img {
+          width: 28px;
         }
       }
 
-      p {
-        line-height: 1.5;
-        display: flex;
-        margin-top: 20px;
-        max-width: 100%;
-        flex-direction: column;
-        overflow: hidden;
+      h3 {
+        margin: auto 5px;
+        max-width: calc(100% - 50px);
         hyphens: auto;
+
+        @include media-breakpoint-down(sm) {
+          margin: auto;
+          text-align: center;
+          max-width: 100%;
+        }
       }
+    }
+
+    p {
+      line-height: 1.5;
+      display: flex;
+      margin-top: 20px;
+      max-width: 100%;
+      flex-direction: column;
+      overflow: hidden;
+      hyphens: auto;
     }
   }
 }
