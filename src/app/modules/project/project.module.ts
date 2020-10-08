@@ -31,7 +31,7 @@ import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { QuillModule } from 'ngx-quill';
 import { ManualComponent } from './add/manual/manual.component';
-import { FileUploaderComponent } from '../../components/file-uploader/file-uploader.component';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
 
