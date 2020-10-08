@@ -8,11 +8,7 @@
   border: dashed 1px #979797;
   position: relative;
   margin: 0 auto 20px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  color: $light-mode-grey-primary;
+
 
   input {
     opacity: 0;
@@ -28,7 +24,6 @@
     max-width: 80%;
     text-overflow: ellipsis;
     white-space: nowrap;
-    cursor: pointer;
     display: inline-block;
     overflow: hidden;
     font-size: 1.2rem;
@@ -60,7 +55,6 @@
 
     div.file-info {
       display: flex;
-      align-content: space-between;
       align-items: center;
       margin-bottom: 10px;
 
@@ -72,14 +66,13 @@
       }
 
       .file-name {
-        vertical-align: center;
-        margin-left: 5%;
-        font-size: 1rem
+        font-size: 1rem;
+        margin: 0 auto 0 5%;
       }
 
       .file-size {
-        margin: 1rem 0 0 5px;
         color: gray;
+        margin: 0 auto 0 auto;
       }
 
       .delete {
