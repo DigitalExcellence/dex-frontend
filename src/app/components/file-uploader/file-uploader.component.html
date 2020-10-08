@@ -1,4 +1,4 @@
-<div class="container" app-DndDirective>
+<div class="container" DndDirective>
     <input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target)"
         [multiple]="acceptMultiple" [accept]="acceptedTypes.join(',')" />
     <img src="assets/images/file-dnd.svg" alt="file-dnd-icon">
