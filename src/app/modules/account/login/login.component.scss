@@ -1,0 +1,148 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+@import "assets/styles/variables";
+
+.login {
+  margin: 100px 0;
+
+  .illustration{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    img{
+      max-width: 500px;
+      max-height: 350px;
+    }
+  }
+   // illustration will be invisible on smaller screens
+   @include media-breakpoint-down(md) {
+    .illustration {
+      display: none;
+    }
+   }
+
+  .login-section {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+
+  h2 {
+    margin-bottom: 50px;
+  }
+
+  .institutions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    h4{
+      white-space: nowrap;
+    }
+  }
+
+  .school {
+    margin: 15px 4px;
+    background: white;
+    box-shadow: $box-shadow;
+    border-radius: 6px;
+    border: none;
+    min-width: 180px;
+    width: 30%;
+    height: 40px;
+    padding: 12px;
+    flex-grow: 1;
+
+    &:nth-child(2) {
+      img {
+        margin-top: 3px;
+      }
+    }
+
+    img {
+      width: 30px;
+      float: left;
+      margin-left: 10px;
+    }
+  }
+
+  .hr {
+    text-align: center;
+    clear: both;
+    overflow: hidden;
+    width: 100%;
+    width: calc(100% - 8px);
+    margin: 15px 4px 5px 4px;
+
+    &::before {
+      right: 0.5em;
+      margin-left: -50%;
+    }
+
+    &::after {
+      left: 0.5em;
+      margin-right: -50%;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: relative;
+      width: 50%;
+      background-color: $light-mode-grey-primary;
+      display: inline-block;
+      height: 1px;
+      vertical-align: middle;
+    }
+  }
+}
+
+span {
+  font-family: "Lato", sans-serif;
+  color: $light-mode-grey-primary;
+  font-size: 14px;
+}
+
+button {
+  margin: 30px 4px 0 4px;
+  width: calc(100% - 8px);
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+
+// Styling for temporary disabled message, can be removed when sign in method is implemented
+.temporarly-disabled-text {
+  margin: 15px 0 10px 4px;
+}
+
+.btn-school-id {
+  margin-top: 0;
+}
+
+button:disabled {
+  background-color: $light-mode-grey-primary;
+}
+// End of temporary styling
+
+a {
+  color: $accent-color-red-primary;
+}

@@ -1,0 +1,57 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits & Menks
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+
+ <div *ngIf="project">
+  <div class="row">
+    <div class="col-sm-3 order-last order-sm-first project-metadata">
+      <div class="project-icon"><img alt="Code project" src="assets/images/code.svg" loading="lazy"></div>
+      <div *ngIf="project.uri" class="project-metadata__item">
+        <h3>External Link</h3>
+        <p>
+          <a href="{{ project.uri }}" rel="noreferrer">{{ project.uri }}</a>
+        </p>
+      </div>
+      <div class="project-metadata__item">
+        <h3>Upload Date</h3>
+        <p>
+          {{ project.created | date:'longDate' }}
+        </p>
+      </div>
+      <div class="project-metadata__item">
+        <h3>Uploader</h3>
+        <p>
+          {{ project.user.name }}
+        </p>
+      </div>
+      <div class="project-metadata__item">
+        <h3>Contributors</h3>
+        <ul class="project-metadata__item__contributors">
+          <li *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} -
+            {{ collaborator.role}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <h1 class="project-title">{{ project.name }}</h1>
+      <p class="project-description large">
+        {{ project.description }}
+      </p>
+    </div>
+  </div>
+</div>

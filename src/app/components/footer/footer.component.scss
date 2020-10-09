@@ -1,0 +1,73 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+@import "assets/styles/variables";
+
+footer {
+  margin-top: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  line-height: normal;
+  padding: 45px 0 0 0;
+  color: #fff;
+  box-shadow: 0px -3px 6px #00000029;
+  background-color: #ffffff;
+
+  .title {
+    img {
+      width: 100%;
+      max-width: 100px;
+    }
+  }
+
+  .menu-items {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+
+    a {
+      text-decoration: none;
+      margin: 8px 0;
+      font-family: "Lato", sans-serif;
+      color: $light-mode-grey-primary;
+    }
+
+    a:nth-child(1) {
+      margin-top: 0;
+    }
+
+    @include media-breakpoint-down(md) {
+        text-align: center;
+    }
+  }
+
+  h4{
+      @include media-breakpoint-down(md) {
+        text-align: center;
+      }
+  }
+
+  .copyright {
+    margin-top: 32px;
+
+    a.github-link {
+      color: $accent-color-red-primary;
+    }
+  }
+}

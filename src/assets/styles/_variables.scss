@@ -1,0 +1,31 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+
+$accent-color-red-primary: #e85b3f;
+$accent-color-red-secondary: #AC2B12;
+$accent-color-blue: #0156FF;
+
+// title color
+$light-mode-black: #323232;
+
+// text color
+$light-mode-grey-primary: #707175;
+// form placeholder text color | cancel button color | light mode border color
+$light-mode-grey-secondary: #AEAEAE;
+// greyed out form color
+$light-mode-grey-thertiary: #EBECEE ;
+// light mode background-color
+$light-mode-grey-quaternary: #f4f6f8;
+
+// light mode component color
+$white: #ffffff;
+
+
+$font-family-base: "Lato", sans-serif;
+$font-family-headings: "Montserrat", sans-serif;
+$font-size-body: 14px;
+
+// box shadow color
+$box-shadow: 0 3px 6px #0000001a;
