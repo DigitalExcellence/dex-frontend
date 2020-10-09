@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed images on the login and home page to new copyright-free images from unDraw - [#97](https://github.com/DigitalExcellence/dex-frontend/issues/97)
 - Project detail URLs now show the project name instead of just a project ID - [#298](https://github.com/DigitalExcellence/dex-frontend/issues/298)
 - Updates some styling issues for more consistency in the platform - [#299](https://github.com/DigitalExcellence/dex-frontend/issues/299)
+- Updated alt tags for text-only website readers [#313](https://github.com/DigitalExcellence/dex-frontend/issues/313)
 ### Deprecated
 
 ### Removed
