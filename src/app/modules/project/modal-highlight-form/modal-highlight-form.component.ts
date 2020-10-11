@@ -49,8 +49,8 @@ export class ModalHighlightFormComponent implements OnInit {
 
   ngOnInit() {
     this.highlightProjectForm = this.formBuilder.group({
-      startDate: [this.highlight?.startDate ? moment(this.highlight?.startDate).format("YYYY-MM-DD") : null],
-      endDate: [this.highlight?.endDate ? moment(this.highlight?.endDate).format("YYYY-MM-DD") : null],
+      startDate: [this.highlight?.startDate ? moment(this.highlight?.startDate).format('YYYY-MM-DD') : null],
+      endDate: [this.highlight?.endDate ? moment(this.highlight?.endDate).format('YYYY-MM-DD') : null],
       description: [this.highlight?.description],
       indeterminate: [this.highlight?.startDate === null && this.highlight?.endDate === null],
     });
