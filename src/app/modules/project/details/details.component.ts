@@ -24,7 +24,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ModalHighlightComponent, HighlightFormResult } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
+import { ModalHighlightFormComponent, HighlightFormResult } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
@@ -37,6 +37,8 @@ import { Highlight } from 'src/app/models/domain/highlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
+import { ModalHighlightEditComponent } from 'src/app/modules/project/modal-highlight-edit/modal-highlight-edit.component';
+import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
 
 /**
  * Overview of a single project
@@ -148,7 +150,7 @@ export class DetailsComponent implements OnInit {
       this.alertService.pushAlert(alertConfig);
       return;
     }
-    const modalRef = this.modalService.show(ModalHighlightComponent);
+    const modalRef = this.modalService.show(ModalHighlightFormComponent);
 
     modalRef.content.confirm
       .pipe(
@@ -185,27 +187,55 @@ export class DetailsComponent implements OnInit {
    * Method to delete a highlight.
    */
   public onClickDeleteHighlightButton(): void {
-    if (this.project == null || this.project.id === 0) {
-      return;
-    }
-    this.highlightByProjectIdService.getHighlightsByProjectId(this.project.id).subscribe(
-      (results: Highlight[]) => {
-        if (results == null) {
-          return;
-        }
-        results.forEach(highlight => {
-          if (highlight.startDate != null && highlight.endDate != null) {
-            highlight.startDate = this.formatTimestamps(highlight.startDate);
-            highlight.endDate = this.formatTimestamps(highlight.endDate);
-          } else {
-            highlight.startDate = 'Never Ending';
-            highlight.endDate = 'Never Ending';
-          }
+    this.highlightByProjectIdService
+    .getHighlightsByProjectId(this.project.id)
+    .subscribe((results: Highlight[]) => {
+      const options = { initialState: { highlights: results }, class: "modal-lg" };
+      this.modalService.show(ModalHighlightDeleteComponent, options);
+    });
+  }
+
+  /**
+   * Method to first open a modal to select project highlight to edit and then the highlight modal form
+   */
+  public onClickEditHighlightButton(): void {
+    this.highlightByProjectIdService
+      .getHighlightsByProjectId(this.project.id)
+      .subscribe((results: Highlight[]) => {
+        const options = { initialState: { highlights: results }, class: "modal-lg" };
+        const modalHighlightEditRef = this.modalService.show(ModalHighlightEditComponent, options);
+
+        return modalHighlightEditRef.content.selectHighlightToEdit.subscribe(highlight => {
+          const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight } });
+          
+          formModalRef.content.confirm.pipe(
+            switchMap((highlightFormResult: HighlightFormResult) => {
+              const highlightAddResource: HighlightUpdate = {
+                projectId: this.project.id,
+                startDate: highlightFormResult.startDate,
+                description: highlightFormResult.description,
+                endDate: highlightFormResult.endDate
+              };
+    
+              if (highlightFormResult.indeterminate) {
+                highlightAddResource.startDate = null;
+                highlightAddResource.endDate = null;
+              }
+    
+              return this.highlightService.put(highlight.id, highlightAddResource);
+            })
+          ).subscribe(() => {
+            const alertConfig: AlertConfig = {
+              type: AlertType.success,
+              mainMessage: 'Highlight was successfully updated',
+              dismissible: true,
+              timeout: this.alertService.defaultTimeout
+            };
+            this.alertService.pushAlert(alertConfig);
+            this.isProjectHighlighted = true;
+          });
         });
-        const initialState = { highlights: results };
-        this.modalService.show(ModalHighlightDeleteComponent, { initialState });
-      }
-    );
+      });
   }
 
   /**
@@ -316,16 +346,4 @@ export class DetailsComponent implements OnInit {
     }
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
   }
-
-  private formatTimestamps(highlightTimestamp: string): string {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const dayOfTheWeek = days[new Date(highlightTimestamp).getDay()];
-    const dateStamp = new Date(highlightTimestamp).getUTCDate() + '-' + (new Date(highlightTimestamp).getUTCMonth() + 1)
-      + '-' + new Date(highlightTimestamp).getUTCFullYear();
-    const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' + ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
-    const timeZone = 'GMT';
-    return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
-  }
-
-
 }

@@ -55,7 +55,7 @@
           </ul>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-9">
         <div id="title-wrapper">
           <h1 class="project-title">{{ project.name }}</h1>
 
@@ -101,12 +101,19 @@
 
         <div id="project-share-buttons">
           <ng-container *ngIf="displayHighlightButton">
-            <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
+            <div class="project-highlighted-div">
+              <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
+            </div>
+
+            <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
+              <button class="primary ml-2" (click)="onClickEditHighlightButton()">Edit Highlight</button>
+            </div>
 
             <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
               <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
             </div>
           </ng-container>
+          
           <ng-container *ngIf="displayEmbedButton">
             <app-embed-button></app-embed-button>
           </ng-container>

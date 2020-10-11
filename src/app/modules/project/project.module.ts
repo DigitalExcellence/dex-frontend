@@ -27,11 +27,12 @@ import { EmbedComponent } from './embed/embed.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
-import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
+import { ModalHighlightFormComponent } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { SharedModule } from './../shared/shared.module';
 import { QuillModule } from 'ngx-quill';
 import { Meta } from '@angular/platform-browser';
-
+import { ModalHighlightEditComponent } from './modal-highlight-edit/modal-highlight-edit.component';
+import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,10 @@ import { Meta } from '@angular/platform-browser';
     EmbedButtonComponent,
     EmbedComponent,
     ModalHighlightDeleteComponent,
-    ModalHighlightComponent],
+    ModalHighlightFormComponent,
+    ModalHighlightEditComponent,
+    FormatDatePipe
+  ],
   imports: [
     CommonModule,
     FormsModule,

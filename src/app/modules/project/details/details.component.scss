@@ -91,11 +91,8 @@
   max-width: 800px;
 }
 
-.project-highlighted-div {
-  float: left;
-}
-
 #project-share-buttons {
+  display: flex;
   margin-top: 60px;
 
   button:first-child {

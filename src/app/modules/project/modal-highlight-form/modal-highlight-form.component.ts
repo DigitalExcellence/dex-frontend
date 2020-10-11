@@ -16,9 +16,11 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Highlight } from 'src/app/models/domain/hightlight';
+import * as moment from 'moment';
 
 export interface HighlightFormResult {
   startDate?: Date;
@@ -31,32 +33,36 @@ export interface HighlightFormResult {
  * Pop-up modal with duration settings for highlighting a project.
  */
 @Component({
-  selector: 'app-modal-highlight',
-  templateUrl: './modal-highlight.component.html',
-  styleUrls: ['./modal-highlight.component.scss']
+  selector: 'app-modal-highlight-form',
+  templateUrl: './modal-highlight-form.component.html',
+  styleUrls: ['./modal-highlight-form.component.scss']
 })
-export class ModalHighlightComponent {
-
+export class ModalHighlightFormComponent implements OnInit {
+  @Input() highlight: Highlight;
   @Output() confirm = new EventEmitter();
 
   public highlightProjectForm: FormGroup;
   public dateFieldsEnabled = true;
   public validationErrorMessage: string = null;
 
-  constructor(
-    public bsModalRef: BsModalRef,
-    private formBuilder: FormBuilder,
-  ) {
+  constructor(public bsModalRef: BsModalRef, private formBuilder: FormBuilder) { }
+
+  ngOnInit() {
     this.highlightProjectForm = this.formBuilder.group({
-      startDate: [null],
-      endDate: [null],
-      description: [null],
-      indeterminate: [false],
+      startDate: [this.highlight?.startDate ? moment(this.highlight?.startDate).format("YYYY-MM-DD") : null],
+      endDate: [this.highlight?.endDate ? moment(this.highlight?.endDate).format("YYYY-MM-DD") : null],
+      description: [this.highlight?.description],
+      indeterminate: [this.highlight?.startDate === null && this.highlight?.endDate === null],
     });
 
     this.highlightProjectForm.get('indeterminate').valueChanges.subscribe(value => {
       this.onChangeCheckbox(value);
     });
+
+    if (this.highlightProjectForm.get('indeterminate').value === true) {
+      this.highlightProjectForm.get('startDate').disable();
+      this.highlightProjectForm.get('endDate').disable();
+    }
   }
 
   /**

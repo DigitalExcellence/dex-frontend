@@ -17,7 +17,7 @@
 
 @import "assets/styles/variables";
 
-.modal-body{
+.modal-body {
   position: unset;
 
   h2 {
@@ -27,21 +27,21 @@
 
 .modal-delete-container {
   background: #f8f8f8;
-  width: 700px;
   border-radius: 6px;
   border: none;
   outline: none;
   box-shadow: $box-shadow;
   padding: 15px;
   color: $light-mode-grey-primary;
-  button.close{
+  button.close {
     border: none;
     background: none;
     display: flex;
     float: right;
-    &:focus, &:active{
-      border:none;
-      outline:none;
+    &:focus,
+    &:active {
+      border: none;
+      outline: none;
     }
   }
 }
@@ -70,15 +70,16 @@
     display: flex;
     align-items: center;
     margin-top: 10px;
-    input[type="checkbox"] {
-      border: solid 1px $light-mode-grey-primary;
-      margin-right: 15px;
-    }
-
-    h4 {
-      margin: 0;
-    }
   }
+ 
+  h4 {
+    margin: 0;
+  }
+}
+
+input[type="checkbox"] {
+  border: solid 1px $light-mode-grey-primary;
+  margin-right: 15px;
 }
 
 .modal-buttons {
@@ -95,7 +96,8 @@
   align-items: center;
   margin-bottom: 10px;
 
-  #neverEndingCheckbox, #checkbox {
+  #neverEndingCheckbox,
+  #checkbox {
     width: 16px;
     height: 16px;
     margin-right: 10px;
