@@ -190,7 +190,7 @@ export class DetailsComponent implements OnInit {
     this.highlightByProjectIdService
     .getHighlightsByProjectId(this.project.id)
     .subscribe((results: Highlight[]) => {
-      const options = { initialState: { highlights: results }, class: "modal-lg" };
+      const options = { initialState: { highlights: results }, class: 'modal-lg' };
       this.modalService.show(ModalHighlightDeleteComponent, options);
     });
   }
@@ -202,12 +202,12 @@ export class DetailsComponent implements OnInit {
     this.highlightByProjectIdService
       .getHighlightsByProjectId(this.project.id)
       .subscribe((results: Highlight[]) => {
-        const options = { initialState: { highlights: results }, class: "modal-lg" };
+        const options = { initialState: { highlights: results }, class: 'modal-lg' };
         const modalHighlightEditRef = this.modalService.show(ModalHighlightEditComponent, options);
 
         return modalHighlightEditRef.content.selectHighlightToEdit.subscribe(highlight => {
           const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight } });
-          
+
           formModalRef.content.confirm.pipe(
             switchMap((highlightFormResult: HighlightFormResult) => {
               const highlightAddResource: HighlightUpdate = {
@@ -216,12 +216,12 @@ export class DetailsComponent implements OnInit {
                 description: highlightFormResult.description,
                 endDate: highlightFormResult.endDate
               };
-    
+
               if (highlightFormResult.indeterminate) {
                 highlightAddResource.startDate = null;
                 highlightAddResource.endDate = null;
               }
-    
+
               return this.highlightService.put(highlight.id, highlightAddResource);
             })
           ).subscribe(() => {
