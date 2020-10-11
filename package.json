@@ -27,6 +27,7 @@
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "bootstrap": "^4.4.1",
     "dotenv": "^5.0.0",
+    "moment": "^2.29.1",
     "ngx-bootstrap": "^5.6.1",
     "ngx-quill": "^11.0.0",
     "oidc-client": "^1.10.1",

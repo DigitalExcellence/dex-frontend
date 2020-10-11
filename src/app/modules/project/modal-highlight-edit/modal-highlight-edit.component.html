@@ -1,0 +1,15 @@
+<div class="modal-highlight-edit-container">
+  <h2 class="text-center m-3">Select a highlight to edit</h2>
+  <div class="list-group">
+    <div *ngFor="let highlight of highlights">
+        <div class="highlight-wrapper">
+          <div class="list-group-item list-group-item-action" (click)="selectHighlight(highlight)">
+            <div class="row no-gutters">
+              <div class="col-6"><strong>Start date:</strong><span class="date">{{highlight.startDate | formatDate}}</span></div>
+              <div class="col-6"><strong>End date:</strong><span class="date">{{highlight.endDate | formatDate}}</span></div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
