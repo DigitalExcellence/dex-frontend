@@ -28,11 +28,16 @@
   <div *ngIf="project; else noProject">
     <div class="row">
       <div class="col-3 project-metadata">
-        <div class="project-icon"><img alt="Code project" src="assets/images/code.svg" loading="lazy"></div>
-        <div *ngIf="project.uri" class="project-metadata__item">
+        <div class="project-icon"><img alt="Code project"
+               src="assets/images/code.svg"
+               loading="lazy"></div>
+        <div *ngIf="project.uri"
+             class="project-metadata__item">
           <h3>External Link</h3>
 
-          <a href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
+          <a href="{{ project.uri }}"
+             rel="noreferrer noopener"
+             target="_blank">{{ project.uri }}</a>
 
         </div>
         <div class="project-metadata__item">
@@ -61,50 +66,87 @@
 
           <div id="project-edit-buttons">
             <ng-container *ngIf="displayEditButton">
-              <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
-                  src="assets/images/edit.svg" loading="lazy"></button>
+              <button class="primary"
+                      routerLink="/project/edit/{{ project?.id }}"><img alt=""
+                     src="assets/images/edit.svg"
+                     loading="lazy"></button>
             </ng-container>
             <ng-container *ngIf="displayDeleteProjectButton">
-              <button class="primary" (click)="onClickRemoveProject()"><img alt=""
-                  src="assets/images/trash.svg" loading="lazy"></button>
+              <button class="primary"
+                      (click)="onClickRemoveProject()"><img alt=""
+                     src="assets/images/trash.svg"
+                     loading="lazy"></button>
             </ng-container>
           </div>
         </div>
 
-        <div class="project-tags" [hidden]="!displayTags()">
-          <a class="project-tags__tag" href="javascript:void(0)">
+        <div class="project-tags"
+             [hidden]="!displayTags()">
+          <a class="project-tags__tag"
+             href="javascript:void(0)">
             Game
           </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
+          <a class="project-tags__tag"
+             href="javascript:void(0)">
             JavaScript
           </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
+          <a class="project-tags__tag"
+             href="javascript:void(0)">
             HTML
           </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
+          <a class="project-tags__tag"
+             href="javascript:void(0)">
             CSS
           </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
+          <a class="project-tags__tag"
+             href="javascript:void(0)">
             UX
           </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
+          <a class="project-tags__tag"
+             href="javascript:void(0)">
             Interaction
           </a>
-          <a class="project-tags__see-more-link" href="javascript:void(0)">
+          <a class="project-tags__see-more-link"
+             href="javascript:void(0)">
             see more tags&hellip;
           </a>
         </div>
 
-        <p class="project-description large">
-          <quill-view class="dex-quill-viewer" [content]="project.description" format="html"></quill-view>
-        </p>
+        <div class="project-description large">
+          <h1>Original</h1>
+          <quill-view class="dex-quill-viewer"
+                      [content]="project.description"
+                      format="text"></quill-view>
+
+          <h1>HTML</h1>
+          <quill-view class="dex-quill-viewer"
+                      [content]="project.description"
+                      format="html"></quill-view>
+
+          <h1>HTML + Sanitize Angular</h1>
+          <quill-view class="dex-quill-viewer"
+                      [content]="project.description"
+                      sanitize="true"></quill-view>
+
+          <h1>Ghetto way</h1>
+          <div class="ql-container ql-snow"
+               style="border-width: 0;">
+            <div class="ql-editor"
+                 [innerHTML]="project.description">
+            </div>
+          </div>
+
+        </div>
 
         <div id="project-share-buttons">
           <ng-container *ngIf="displayHighlightButton">
-            <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
+            <button class="primary ml-2"
+                    (click)="onClickHighlightButton()">Highlight Project</button>
 
-            <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
-              <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
+            <div *ngIf="isProjectHighlighted"
+                 class="project-highlighted-div">
+              <button class="primary ml-2"
+                      (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
             </div>
           </ng-container>
           <ng-container *ngIf="displayEmbedButton">
