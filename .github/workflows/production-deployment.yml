@@ -10,6 +10,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Create .env file
+        run:  touch .env && echo ${{ secrets.SENTRY_DSN_URL }} >> .env && echo ${{ secrets.PRODUCTION_ID_SILENT_REDIRECT_URI }} >> .env && echo ${{ secrets.PRODUCTION_ID_LOGOUT_REDIRECT_URI }} >> .env && echo ${{ secrets.PRODUCTION_ID_REDIRECT_URI }} >> .env && echo ${{ secrets.PRODUCTION_ID_CLIENT_ID }} >> .env && echo ${{ secrets.PRODUCTION_IDS_URL }} >> .env && echo ${{ secrets.PRODUCTION_ID_CALLBACK_URL }} >> .env && echo ${{ secrets.PRODUCTION_FRONTEND_URL }} >> .env && echo ${{ secrets.PRODUCTION_API_URL }} >> .env
       - name: Build docker image
         run:  docker build -t digitalexcellence/frontend .
       - name: Docker login
