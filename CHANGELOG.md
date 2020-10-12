@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+
+
+## Release v.0.7.0-beta - 09-10-2020
+
+### Added
+
 - Added basic SEO for better google discoverability - [#283](https://github.com/DigitalExcellence/dex-frontend/issues/283)
 - Added functionality to upload an project icon when creating a project - [#266](https://github.com/DigitalExcellence/dex-frontend/issues/266)
 - Added dynamic updates of meta tags for better discoverability - [#286](https://github.com/DigitalExcellence/dex-frontend/issues/286)
@@ -24,9 +40,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project detail URLs now show the project name instead of just a project ID - [#298](https://github.com/DigitalExcellence/dex-frontend/issues/298)
 - Updates some styling issues for more consistency in the platform - [#299](https://github.com/DigitalExcellence/dex-frontend/issues/299)
 
-### Deprecated
-
-### Removed
 
 ### Fixed
 
@@ -34,8 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where the feedback button would block the footer content on smaller screens - [#289](https://github.com/DigitalExcellence/dex-frontend/issues/289)
 - Fixed redirect to the project detail page after editing a project - [#256](https://github.com/DigitalExcellence/dex-frontend/issues/256)
 - Fixed issue that caused users to log out because token did not get refreshed - [#253](https://github.com/DigitalExcellence/dex-frontend/issues/253)
-
-### Security
 
 
 
