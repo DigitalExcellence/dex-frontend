@@ -1,4 +1,4 @@
-FROM node:latest AS compile-image
+FROM node:12 AS compile-image
 
 WORKDIR /opt/ng
 
