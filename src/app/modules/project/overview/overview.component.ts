@@ -29,7 +29,8 @@ import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
-
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { RESOURCE_CONFIG } from '../../../config/resource-config';
 
 interface SortFormResult {
   type: string;
@@ -150,7 +151,8 @@ export class OverviewComponent implements OnInit {
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private sanitizer: DomSanitizer
   ) {
     this.searchControl = new FormControl('');
 
@@ -279,6 +281,19 @@ export class OverviewComponent implements OnInit {
       this.currentPage = 1;
     }
     this.onInternalQueryChange();
+  }
+
+    /**
+   * Method to get the url of the icon of the project. This urls can be the local
+   * image for a default or a specified icon stored on the server.
+   */
+  public getIconUrl(id: number): SafeUrl {
+    let selectedProject: Project = this.projects.find(project => project.id == id);
+    if (selectedProject.projectIcon != null) {
+    return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + selectedProject.projectIcon.path);
+    } else {
+    return 'assets/images/code.svg';
+    }
   }
 
   /**
