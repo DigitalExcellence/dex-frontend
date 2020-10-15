@@ -256,11 +256,11 @@ export class DetailsComponent implements OnInit {
   }
 
   public getIconUrl(): SafeUrl {
-      if (this.project.projectIcon === null) {
-          return 'assets/images/code.svg';
+      if (this.project.projectIcon != null) {
+        return this.sanitizer.bypassSecurityTrustUrl('https://localhost:5001/resources/' + this.project.projectIcon.path);
+      } else {
+        return 'assets/images/code.svg';
       }
-
-      return this.sanitizer.bypassSecurityTrustUrl('https://localhost:5001/resources/' + this.project.projectIcon.path);
   }
 
   /**
