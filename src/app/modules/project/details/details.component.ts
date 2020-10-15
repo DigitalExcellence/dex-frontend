@@ -37,6 +37,7 @@ import { Highlight } from 'src/app/models/domain/hightlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
+import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Overview of a single project
@@ -80,7 +81,8 @@ export class DetailsComponent implements OnInit {
     private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService,
     private router: Router,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -251,6 +253,14 @@ export class DetailsComponent implements OnInit {
       });
       this.router.navigate(['project/overview']);
     });
+  }
+
+  public getIconUrl(): SafeUrl {
+      if (this.project.projectIcon === null) {
+          return 'assets/images/code.svg';
+      }
+
+      return this.sanitizer.bypassSecurityTrustUrl('https://localhost:5001/resources/' + this.project.projectIcon.path);
   }
 
   /**
