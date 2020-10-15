@@ -38,6 +38,7 @@ import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-del
 import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { RESOURCE_CONFIG } from '../../../config/resource-config';
 
 /**
  * Overview of a single project
@@ -255,12 +256,16 @@ export class DetailsComponent implements OnInit {
     });
   }
 
+  /**
+   * Method to get the url of the icon of the project. This urls can be the local
+   * image for a default or a specified icon stored on the server.
+   */
   public getIconUrl(): SafeUrl {
-      if (this.project.projectIcon != null) {
-        return this.sanitizer.bypassSecurityTrustUrl('https://localhost:5001/resources/' + this.project.projectIcon.path);
-      } else {
-        return 'assets/images/code.svg';
-      }
+    if (this.project.projectIcon != null) {
+    return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + this.project.projectIcon.path);
+    } else {
+    return 'assets/images/code.svg';
+    }
   }
 
   /**
