@@ -19,7 +19,7 @@ import { AlertService } from './../../../services/alert.service';
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Highlight } from 'src/app/models/domain/hightlight';
+import { Highlight } from 'src/app/models/domain/highlight';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
