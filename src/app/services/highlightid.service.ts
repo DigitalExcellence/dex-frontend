@@ -18,7 +18,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_CONFIG } from '../config/api-config';
-import { Highlight } from '../models/domain/hightlight';
+import { Highlight } from '../models/domain/highlight';
 import { Observable } from 'rxjs';
 
 @Injectable({
