@@ -291,9 +291,8 @@ export class OverviewComponent implements OnInit {
     let selectedProject: Project = this.projects.find(project => project.id == id);
     if (selectedProject.projectIcon != null) {
     return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + selectedProject.projectIcon.path);
-    } else {
-    return 'assets/images/code.svg';
     }
+    return 'assets/images/code.svg';
   }
 
   /**

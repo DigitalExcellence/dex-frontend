@@ -263,9 +263,8 @@ export class DetailsComponent implements OnInit {
   public getIconUrl(): SafeUrl {
     if (this.project.projectIcon != null) {
     return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + this.project.projectIcon.path);
-    } else {
-    return 'assets/images/code.svg';
     }
+    return 'assets/images/code.svg';
   }
 
   /**

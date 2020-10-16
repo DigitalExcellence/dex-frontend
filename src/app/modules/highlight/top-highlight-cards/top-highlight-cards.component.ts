@@ -136,8 +136,7 @@ export class TopHighlightCardsComponent implements OnInit {
     let selectedProject: Project = this.highlights.find(highlight => highlight.projectId == id).project;
     if (selectedProject.projectIcon != null) {
       return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + selectedProject.projectIcon.path);
-    } else {
-      return 'assets/images/code.svg';
     }
+    return 'assets/images/code.svg';
   }
 }
