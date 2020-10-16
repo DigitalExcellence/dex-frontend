@@ -19,7 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
-import { Highlight } from 'src/app/models/domain/hightlight';
+import { Highlight } from 'src/app/models/domain/highlight';
 import { HighlightService } from 'src/app/services/highlight.service';
 
 @Component({
