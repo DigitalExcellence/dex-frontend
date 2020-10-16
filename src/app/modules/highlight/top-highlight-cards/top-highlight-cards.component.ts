@@ -17,10 +17,13 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { Highlight } from 'src/app/models/domain/hightlight';
+import { Project } from 'src/app/models/domain/project';
 import { HighlightService } from 'src/app/services/highlight.service';
+import { RESOURCE_CONFIG } from '../../../config/resource-config';
 
 @Component({
   selector: 'app-top-highlight-cards',
@@ -37,7 +40,9 @@ export class TopHighlightCardsComponent implements OnInit {
    * Boolean to determine whether the component is loading the information from the api.
    */
   public highlightsLoading = true;
-  constructor(private router: Router, private projectService: HighlightService) { }
+  constructor(private router: Router,
+    private projectService: HighlightService,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.projectService
@@ -47,6 +52,7 @@ export class TopHighlightCardsComponent implements OnInit {
         this.highlights = this.generateSampleSizeOf(result, 3);
       });
   }
+
   private generateSampleSizeOf(population: string | any[], k: number) {
     /*
         Chooses k unique random elements from a population sequence or set.
@@ -122,4 +128,17 @@ export class TopHighlightCardsComponent implements OnInit {
     this.router.navigate([`/project/details/${id}-${name}`]);
   }
 
+  /**
+   * Method to get the url of the icon of the project. This urls can be the local
+   * image for a default or a specified icon stored on the server.
+   */
+  public getIconUrl(id: number): SafeUrl {
+    let selectedProject: Project = this.highlights.find(highlight => highlight.projectId == id).project;
+    console.log(selectedProject);
+    if (selectedProject.projectIcon != null) {
+      return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + selectedProject.projectIcon.path);
+    } else {
+      return 'assets/images/code.svg';
+    }
+  }
 }
