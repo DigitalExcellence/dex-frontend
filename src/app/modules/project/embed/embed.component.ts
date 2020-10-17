@@ -18,6 +18,8 @@ import { EmbedService } from 'src/app/services/embed.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
+import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { RESOURCE_CONFIG } from '../../../config/resource-config';
 
 /**
  * Overview of a single project
@@ -36,7 +38,8 @@ export class EmbedComponent implements OnInit {
 
   constructor(
     private activedRoute: ActivatedRoute,
-    private embedService: EmbedService) { }
+    private embedService: EmbedService,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get('id');
@@ -54,6 +57,16 @@ export class EmbedComponent implements OnInit {
         this.project = result;
       }
     );
+  }
 
+    /**
+   * Method to get the url of the icon of the project. This urls can be the local
+   * image for a default or a specified icon stored on the server.
+   */
+  public getIconUrl(): SafeUrl {
+    if (this.project.projectIcon != null) {
+    return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + this.project.projectIcon.path);
+    }
+    return 'assets/images/code.svg';
   }
 }
