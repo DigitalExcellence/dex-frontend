@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Display uploaded project icons - [#311](https://github.com/DigitalExcellence/dex-frontend/issues/311)
+
 ### Deprecated
 
 ### Removed
