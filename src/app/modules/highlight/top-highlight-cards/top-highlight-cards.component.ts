@@ -23,7 +23,7 @@ import { finalize } from 'rxjs/internal/operators/finalize';
 import { Highlight } from 'src/app/models/domain/hightlight';
 import { Project } from 'src/app/models/domain/project';
 import { HighlightService } from 'src/app/services/highlight.service';
-import { RESOURCE_CONFIG } from '../../../config/resource-config';
+import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
 
 @Component({
   selector: 'app-top-highlight-cards',

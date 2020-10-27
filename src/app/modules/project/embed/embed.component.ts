@@ -19,7 +19,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
-import { RESOURCE_CONFIG } from '../../../config/resource-config';
+import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
 
 /**
  * Overview of a single project

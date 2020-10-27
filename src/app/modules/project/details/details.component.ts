@@ -38,7 +38,7 @@ import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-del
 import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
-import { RESOURCE_CONFIG } from '../../../config/resource-config';
+import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
 
 /**
  * Overview of a single project

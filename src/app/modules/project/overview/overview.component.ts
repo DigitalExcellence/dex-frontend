@@ -30,7 +30,7 @@ import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { RESOURCE_CONFIG } from '../../../config/resource-config';
+import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
 
 interface SortFormResult {
   type: string;
