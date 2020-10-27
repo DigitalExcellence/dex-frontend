@@ -29,8 +29,8 @@ import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
+import { SafeUrl } from '@angular/platform-browser';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 interface SortFormResult {
   type: string;
@@ -152,7 +152,7 @@ export class OverviewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private seoService: SEOService,
-    private sanitizer: DomSanitizer
+    private fileRetrieverService: FileRetrieverService
   ) {
     this.searchControl = new FormControl('');
 
@@ -284,15 +284,12 @@ export class OverviewComponent implements OnInit {
   }
 
     /**
-   * Method to get the url of the icon of the project. This urls can be the local
-   * image for a default or a specified icon stored on the server.
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
    */
   public getIconUrl(id: number): SafeUrl {
-    let selectedProject: Project = this.projects.find(project => project.id == id);
-    if (selectedProject.projectIcon != null) {
-    return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + selectedProject.projectIcon.path);
-    }
-    return 'assets/images/code.svg';
+    let foundProject: Project = this.projects.find(project => project.id == id);
+    return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 
   /**

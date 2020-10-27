@@ -17,13 +17,13 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { Highlight } from 'src/app/models/domain/hightlight';
 import { Project } from 'src/app/models/domain/project';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightService } from 'src/app/services/highlight.service';
-import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
 
 @Component({
   selector: 'app-top-highlight-cards',
@@ -42,7 +42,7 @@ export class TopHighlightCardsComponent implements OnInit {
   public highlightsLoading = true;
   constructor(private router: Router,
     private projectService: HighlightService,
-    private sanitizer: DomSanitizer) { }
+    private fileRetrieverService: FileRetrieverService) { }
 
   ngOnInit(): void {
     this.projectService
@@ -129,14 +129,11 @@ export class TopHighlightCardsComponent implements OnInit {
   }
 
   /**
-   * Method to get the url of the icon of the project. This urls can be the local
-   * image for a default or a specified icon stored on the server.
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
    */
   public getIconUrl(id: number): SafeUrl {
-    let selectedProject: Project = this.highlights.find(highlight => highlight.projectId == id).project;
-    if (selectedProject.projectIcon != null) {
-      return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + selectedProject.projectIcon.path);
-    }
-    return 'assets/images/code.svg';
+    let foundProject: Project = this.highlights.find(highlight => highlight.projectId == id).project;
+    return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 }
