@@ -33,7 +33,7 @@ import { User } from 'src/app/models/domain/user';
 import { Observable, EMPTY } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
 import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
-import { Highlight } from 'src/app/models/domain/hightlight';
+import { Highlight } from 'src/app/models/domain/highlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
