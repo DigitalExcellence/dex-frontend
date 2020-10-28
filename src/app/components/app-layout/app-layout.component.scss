@@ -17,297 +17,297 @@
  *
  */
 
-@import "assets/styles/variables";
+ @import "assets/styles/variables";
 
-.content-container {
-  min-height: calc(100vh - 324px);
-}
+ .content-container {
+   min-height: calc(100vh - 324px);
+ }
 
-.header {
-  display: flex;
-  align-items: center;
-  box-shadow: $box-shadow;
-  background-color: #ffffff;
-  padding: 10px 20px;
+ .header {
+   display: flex;
+   align-items: center;
+   box-shadow: $box-shadow;
+   background-color: #ffffff;
+   padding: 10px 20px;
 
-  .header-nav {
-    display: flex;
+   .header-nav {
+     display: flex;
 
-    .nav-text {
-      text-align: left;
-    }
-
-    /*
-    In the burger menu, the elements of the navigation
-    will be shows below each other
-    */
-    @include media-breakpoint-down(sm) {
-      flex-direction: column;
-    }
-  }
-
-  .branding {
-    display: flex;
-    align-items: flex-end;
-    margin-right: 64px;
-
-    .beta-text {
-      cursor: pointer;
-      margin: 0 0 -4px 3px;
-    }
+     .nav-text {
+       text-align: left;
+     }
 
      /*
-    For extreme scenarios, the margin right from the Dex-logo
-    is decreased. So in these (extreme) scenarios, the burger menu
-    can still be rendered besides the logo
-    */
-    @include media-breakpoint-down(sm) {
-      margin-right: 15px;
-  }
-}
+     In the burger menu, the elements of the navigation
+     will be shows below each other
+     */
+     @include media-breakpoint-down(sm) {
+       flex-direction: column;
+     }
+   }
 
-  a {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    margin: 0;
-    color: $light-mode-grey-primary;
+   .branding {
+     display: flex;
+     align-items: flex-end;
+     margin-right: 64px;
 
-    &:active,
-    &:hover,
-    &:focus {
-      color: $accent-color-red-primary;
-    }
-  }
+     .beta-text {
+       cursor: pointer;
+       margin: 0 0 -4px 3px;
+     }
 
-  .title {
-    img {
-      width: 90px;
-    }
-  }
+      /*
+     For extreme scenarios, the margin right from the Dex-logo
+     is decreased. So in these (extreme) scenarios, the burger menu
+     can still be rendered besides the logo
+     */
+     @include media-breakpoint-down(sm) {
+       margin-right: 15px;
+   }
+ }
 
-  .search-bar {
-    margin-left: 30px;
+   a {
+     font-family: "Montserrat", sans-serif;
+     font-weight: 700;
+     font-size: 16px;
+     margin: 0;
+     color: $light-mode-grey-primary;
 
-    input[type="search"] {
-      width: 266px;
-      height: 28px;
-      font-size: 12px;
-      background: #fff;
-      border: 1px solid $light-mode-black;
-      border-radius: 6px;
-      opacity: 1;
-      padding-left: 15px;
-      position: relative;
+     &:active,
+     &:hover,
+     &:focus {
+       color: $accent-color-red-primary;
+     }
+   }
 
-      &::placeholder {
-        color: $light-mode-grey-primary;
-      }
+   .title {
+     img {
+       width: 90px;
+     }
+   }
 
-      &:focus {
-        border: none;
-        outline: none;
-      }
-    }
+   .search-bar {
+     margin-left: 30px;
 
-    button {
-      position: relative;
-      top: -2px;
-      right: 36px;
-      cursor: pointer;
-      background: none;
-      border: none;
+     input[type="search"] {
+       width: 266px;
+       height: 28px;
+       font-size: 12px;
+       background: #fff;
+       border: 1px solid $light-mode-black;
+       border-radius: 6px;
+       opacity: 1;
+       padding-left: 15px;
+       position: relative;
 
-      &:focus {
-        outline: none;
-      }
+       &::placeholder {
+         color: $light-mode-grey-primary;
+       }
 
-      img {
-        width: 20px;
-      }
-    }
-  }
+       &:focus {
+         border: none;
+         outline: none;
+       }
+     }
 
-  .account {
-    display: flex;
-    align-items: left;
-    margin-left: auto;
-  }
+     button {
+       position: relative;
+       top: -2px;
+       right: 36px;
+       cursor: pointer;
+       background: none;
+       border: none;
 
-  .profile {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: 24px;
+       &:focus {
+         outline: none;
+       }
 
-    h4 {
-      margin: 0 15px 0 0;
-    }
+       img {
+         width: 20px;
+       }
+     }
+   }
 
-    .profile-picture {
-      width: 30px;
-      border-radius: 50%;
-    }
-  }
+   .account {
+     display: flex;
+     align-items: left;
+     margin-left: auto;
+   }
 
-  /*
-  In burger menu show the profile navigation items
-  below each other
-  */
-  .profile-dropdown{
-    @include media-breakpoint-down(sm){
-      flex-direction: column;
-    }
-  }
-}
+   .profile {
+     display: flex;
+     align-items: center;
+     margin-left: auto;
+     margin-right: 24px;
 
-.modal-beta-container {
-  width: 100%;
-  padding: 5px 20px;
-  position: absolute;
-  top: 80px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 8;
+     h4 {
+       margin: 0 15px 0 0;
+     }
 
-  .modal-beta-content {
-    background-color: $light-mode-black;
-    padding: 10px 25px;
-    max-width: 1200px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-  }
+     .profile-picture {
+       width: 30px;
+       border-radius: 50%;
+     }
+   }
 
-  p {
-    display: inline-block;
-    color: #fff;
-  }
+   /*
+   In burger menu show the profile navigation items
+   below each other
+   */
+   .profile-dropdown{
+     @include media-breakpoint-down(sm){
+       flex-direction: column;
+     }
+   }
+ }
 
-  * {
-    margin: 0;
-  }
+ .modal-beta-container {
+   width: 100%;
+   padding: 5px 20px;
+   position: absolute;
+   top: 80px;
+   text-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 8;
 
-  .accent-text-color,
-  a {
-    color: $accent-color-red-primary;
-  }
+   .modal-beta-content {
+     background-color: $light-mode-black;
+     padding: 10px 25px;
+     max-width: 1200px;
+     border-radius: 6px;
+     display: flex;
+     align-items: center;
+   }
 
-  button {
-    width: 40px;
-    outline: none;
-    border: none;
-    background: none;
-    color: #fff;
-    font-size: 20px;
-  }
-}
+   p {
+     display: inline-block;
+     color: #fff;
+   }
 
-.feedback-button-container {
-  position: fixed;
-  bottom: 0;
-  z-index: 3;
-  right: 15%;
+   * {
+     margin: 0;
+   }
 
-  .feedback-button,
-  .feedback-button:active,
-  .feedback-button:visited {
-    border: 0;
-    outline: none;
-  }
+   .accent-text-color,
+   a {
+     color: $accent-color-red-primary;
+   }
 
-  .feedback-button {
-    background: $light-mode-grey-secondary 0% 0% no-repeat padding-box;
-    box-shadow:$box-shadow;
-    border-radius: 6px 6px 0px 0px;
+   button {
+     width: 40px;
+     outline: none;
+     border: none;
+     background: none;
+     color: #fff;
+     font-size: 20px;
+   }
+ }
 
-    width: 188px;
-    height: 49px;
+ .feedback-button-container {
+   position: fixed;
+   bottom: 0;
+   z-index: 3;
+   right: 15%;
 
-    text-align: center;
-    font-size: 18px;
-    letter-spacing: 0px;
-    color: #fff;
-    text-transform: capitalize;
-  }
+   .feedback-button,
+   .feedback-button:active,
+   .feedback-button:visited {
+     border: 0;
+     outline: none;
+   }
 
-  // Move button to the bottom left and make it vertical
-  @include media-breakpoint-down(md) {
-    bottom: 30%;
-    left: 0;
+   .feedback-button {
+     background: $light-mode-grey-secondary 0% 0% no-repeat padding-box;
+     box-shadow:$box-shadow;
+     border-radius: 6px 6px 0px 0px;
 
-    .feedback-button {
-      transform: rotate(90deg);
-      transform-origin: left bottom;
-    }
-  }
-}
+     width: 188px;
+     height: 49px;
 
-.content-container {
-  padding: 24px;
-  display: flex;
-  justify-content: center;
+     text-align: center;
+     font-size: 18px;
+     letter-spacing: 0px;
+     color: #fff;
+     text-transform: capitalize;
+   }
 
-  .container {
-    max-width: 1640px;
-    width: 100%;
-  }
-}
+   // Move button to the bottom left and make it vertical
+   @include media-breakpoint-down(md) {
+     bottom: 30%;
+     left: 0;
 
-.alert-container {
-  position: fixed;
-  top: 65px;
-  left: 0;
-  right: 0;
-  padding: 39px;
-  max-width: 1000px;
-  min-width: 600px;
-  margin-right: auto;
-  margin-left: auto;
-  z-index: 10;
-}
+     .feedback-button {
+       transform: rotate(90deg);
+       transform-origin: left bottom;
+     }
+   }
+ }
 
-.dropdown-menu {
-  left: auto !important;
-  right: 0 !important;
+ .content-container {
+   padding: 24px;
+   display: flex;
+   justify-content: center;
+
+   .container {
+     max-width: 1640px;
+     width: 100%;
+   }
+ }
+
+ .alert-container {
+   position: fixed;
+   top: 65px;
+   left: 0;
+   right: 0;
+   padding: 39px;
+   max-width: 1000px;
+   min-width: 600px;
+   margin-right: auto;
+   margin-left: auto;
+   z-index: 10;
+ }
+
+ .dropdown-menu {
+   left: auto !important;
+   right: 0 !important;
 
   a {
     cursor: pointer;
     font-size: 14px;
 
     &:active {
-      background-color: $accent-color-primary;
+      background-color: $accent-color-red-primary;
       color: white;
     }
   }
 
   @include media-breakpoint-down(sm){
     position: initial;
-  }
-}
+   }
+ }
 
-.btn {
-  &.dropdown-toggle {
-    font-family: $font-family-headings;
-    font-weight: 700;
-    color: $light-mode-black;
-    font-size: 14px;
-    padding: 8px 16px;
+ .btn {
+   &.dropdown-toggle {
+     font-family: $font-family-headings;
+     font-weight: 700;
+     color: $light-mode-black;
+     font-size: 14px;
+     padding: 8px 16px;
 
-    @include media-breakpoint-down(sm){
-      font-size: 16px;
-    }
+     @include media-breakpoint-down(sm){
+       font-size: 16px;
+     }
 
-    .caret {
-      margin-left: 5px;
-    }
+     .caret {
+       margin-left: 5px;
+     }
   }
 }
 
 .btn:hover {
-  color: $accent-color-primary;
+  color: $accent-color-red-primary;
 }
 
 img.profile-picture {
