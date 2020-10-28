@@ -17,6 +17,8 @@
  *
  */
 
+@import "assets/styles/variables";
+
 //project highlights
 .highlights {
   margin-top: 220px;
@@ -26,17 +28,27 @@
     margin-top: 0;
   }
 
-  .card {
-    padding: 30px 45px;
-    background: #ffffff;
-    box-shadow: 3px 3px 6px #00000015;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    height: 230px;
+  .row {
+    @include media-breakpoint-up(lg) {
+      display: flex;
+    }
+
+    .card {
+      padding: 30px 45px;
+      background: #ffffff;
+      box-shadow: $box-shadow;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      height: 100%;
+    }
 
     .card-title {
       display: flex;
+
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
+      }
 
       .icon {
         display: flex;
@@ -46,8 +58,13 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background-color: #e85b3f;
+        background-color: $accent-color-red-primary;
         margin-right: 10px;
+
+        @include media-breakpoint-down(sm) {
+          margin: auto;
+          margin-bottom: 10px;
+        }
 
         img {
           width: 28px;
@@ -56,6 +73,14 @@
 
       h3 {
         margin: auto 5px;
+        max-width: calc(100% - 50px);
+        hyphens: auto;
+
+        @include media-breakpoint-down(sm) {
+          margin: auto;
+          text-align: center;
+          max-width: 100%;
+        }
       }
     }
 
@@ -64,10 +89,9 @@
       display: flex;
       margin-top: 20px;
       max-width: 100%;
-      -webkit-line-clamp: 3;
       flex-direction: column;
       overflow: hidden;
-      text-overflow: ellipsis;
+      hyphens: auto;
     }
   }
 }

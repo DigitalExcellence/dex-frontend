@@ -18,9 +18,9 @@
  -->
 
 <div class="main-container">
-  <header *ngIf="!displayContentWithoutLayout" class="header header-6">
+  <header *ngIf="!displayContentWithoutLayout" class="header header-6 navbar navbar-expand-md navbar-light">
     <div class="branding">
-      <span class="title"><a routerLink=""><img alt="" src="assets/images/dex-logo-dark-orange.png"></a></span>
+      <span class="title"><a routerLink=""><img alt="" src="assets/images/dex-logo-dark-orange.png" loading="lazy"></a></span>
       <p (click)="onClickHeaderBetaText()" class="beta-text">Beta</p>
     </div>
 
@@ -47,6 +47,31 @@
               out</a>
           </li>
         </ul>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+      <div class="header-nav">
+        <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
+        <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
+      </div>
+      <div class="header-nav account">
+        <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active" class="nav-link nav-text">Sign
+          in</a>
+        <a class="dropdown-item" routerLink="account/profile">Your profile</a>
+      </div>
+      <div *ngIf="isAuthenticated" class="profile" >
+        <div class="btn-group profile-dropdown w-100" dropdown>
+          <button class="btn dropdown-toggle profile-dropdown" dropdownToggle id="button-basic" type="button" aria-controls="dropdown-basic">
+            {{ name }} <img alt="" class="profile-picture" src="assets/images/profile-placeholder.png" loading="lazy"> <span class="caret"></span>
+          </button>
+          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem"><a class="dropdown-item" (click)="onClickSignout()" routerLinkActive="active">Sign
+                Out</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 

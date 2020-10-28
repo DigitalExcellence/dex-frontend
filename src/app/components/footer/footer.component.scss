@@ -32,6 +32,7 @@ footer {
   .title {
     img {
       width: 100%;
+      max-width: 100px;
     }
   }
 
@@ -44,19 +45,29 @@ footer {
       text-decoration: none;
       margin: 8px 0;
       font-family: "Lato", sans-serif;
-      color: $light-mode-text-color;
+      color: $light-mode-grey-primary;
     }
 
     a:nth-child(1) {
       margin-top: 0;
     }
+
+    @include media-breakpoint-down(md) {
+        text-align: center;
+    }
+  }
+
+  h4{
+      @include media-breakpoint-down(md) {
+        text-align: center;
+      }
   }
 
   .copyright {
-    margin-top: 48px;
-    
+    margin-top: 32px;
+
     a.github-link {
-      color: $accent-color-primary;
+      color: $accent-color-red-primary;
     }
   }
 }

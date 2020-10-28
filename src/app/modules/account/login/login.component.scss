@@ -21,16 +21,21 @@
 .login {
   margin: 100px 0;
 
-  .illustration img {
-    max-width: 500px;
+  .illustration{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    img{
+      max-width: 500px;
+      max-height: 350px;
+    }
   }
-
-  // illustration will be invisible on smaller screens
-  @include media-breakpoint-down(lg) {
+   // illustration will be invisible on smaller screens
+   @include media-breakpoint-down(md) {
     .illustration {
       display: none;
     }
-  }
+   }
 
   .login-section {
     display: flex;
@@ -46,15 +51,19 @@
   .institutions {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    h4{
+      white-space: nowrap;
+    }
   }
 
   .school {
-    margin: 15px 0;
+    margin: 15px 4px;
     background: white;
-    box-shadow: 0 3px 6px #00000029;
+    box-shadow: $box-shadow;
     border-radius: 6px;
     border: none;
-    min-width: 150px;
+    min-width: 180px;
     width: 30%;
     height: 40px;
     padding: 12px;
@@ -74,12 +83,12 @@
   }
 
   .hr {
-    margin-top: 15px;
-    margin-bottom: 5px;
     text-align: center;
     clear: both;
     overflow: hidden;
     width: 100%;
+    width: calc(100% - 8px);
+    margin: 15px 4px 5px 4px;
 
     &::before {
       right: 0.5em;
@@ -96,7 +105,7 @@
       content: "";
       position: relative;
       width: 50%;
-      background-color: #707175;
+      background-color: $light-mode-grey-primary;
       display: inline-block;
       height: 1px;
       vertical-align: middle;
@@ -106,13 +115,13 @@
 
 span {
   font-family: "Lato", sans-serif;
-  color: #707175;
+  color: $light-mode-grey-primary;
   font-size: 14px;
 }
 
 button {
-  margin: 30px 0;
-  width: 100%;
+  margin: 30px 4px 0 4px;
+  width: calc(100% - 8px);
 
   &:focus {
     border: none;
@@ -122,7 +131,7 @@ button {
 
 // Styling for temporary disabled message, can be removed when sign in method is implemented
 .temporarly-disabled-text {
-  margin: 15px 0 10px 0;
+  margin: 15px 0 10px 4px;
 }
 
 .btn-school-id {
@@ -130,10 +139,10 @@ button {
 }
 
 button:disabled {
-  background-color: #707175;
+  background-color: $light-mode-grey-primary;
 }
 // End of temporary styling
 
 a {
-  color: #e85b3f;
+  color: $accent-color-red-primary;
 }

@@ -30,7 +30,7 @@ $theme-colors: (
 }
 
 body {
-  background-color: $light-mode-background-color;
+  background-color: $light-mode-grey-quaternary;
 }
 
 .main-container {
@@ -70,7 +70,7 @@ input[type="search"]::-webkit-search-cancel-button {
     border-bottom-right-radius: 6px;
     font-family: $font-family-base;
     font-size: $font-size-body;
-    color: $light-mode-text-color;
+    color: $light-mode-grey-primary;
   }
 
   .ql-toolbar {

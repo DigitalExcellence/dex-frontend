@@ -28,7 +28,7 @@
   <div *ngIf="project; else noProject">
     <div class="row">
       <div class="col-3 project-metadata">
-        <div class="project-icon"><img alt="Code project" src="assets/images/code.svg"></div>
+        <div class="project-icon"><img alt="Code project" src="assets/images/code.svg" loading="lazy"></div>
         <div *ngIf="project.uri" class="project-metadata__item">
           <h3>External Link</h3>
 
@@ -62,11 +62,11 @@
           <div id="project-edit-buttons">
             <ng-container *ngIf="displayEditButton">
               <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
-                  src="assets/images/edit.svg"></button>
+                  src="assets/images/edit.svg" loading="lazy"></button>
             </ng-container>
             <ng-container *ngIf="displayDeleteProjectButton">
               <button class="primary" (click)="onClickRemoveProject()"><img alt=""
-                  src="assets/images/trash.svg"></button>
+                  src="assets/images/trash.svg" loading="lazy"></button>
             </ng-container>
           </div>
         </div>
@@ -96,7 +96,7 @@
         </div>
 
         <p class="project-description large">
-          <quill-view class="dex-quill-viewer" [content]="project.description" format="text"></quill-view>
+          <quill-view class="dex-quill-viewer" [content]="project.description" format="html"></quill-view>
         </p>
 
         <div id="project-share-buttons">

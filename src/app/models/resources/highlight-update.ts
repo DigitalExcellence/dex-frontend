@@ -19,4 +19,5 @@ export interface HighlightUpdate {
   projectId: number;
   startDate: Date;
   endDate: Date;
+  description: string;
 }

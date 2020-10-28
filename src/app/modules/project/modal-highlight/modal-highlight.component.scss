@@ -46,7 +46,9 @@
 
 .highlight-form {
   margin-top: 20px;
-  input[type="date"] {
+    
+    input[type="text"],
+    input[type="date"] {
     border: none;
     border-radius: 6px;
     box-shadow: 0 3px 6px #0000001a;
@@ -60,8 +62,8 @@
     }
   }
 
-  p.date-error-message {
-    color: $accent-color-primary;
+  p.validation-error-message {
+    color: $accent-color-red-primary;
   }
 
   &__checkbox {
