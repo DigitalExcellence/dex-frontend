@@ -4,7 +4,7 @@ on:
     branches: [ develop ]
 jobs:
   lighthouse:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout
     - name: Audit URLs using Lighthouse
       uses: treosh/lighthouse/ci-action@v3
       with:
