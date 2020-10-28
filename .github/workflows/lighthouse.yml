@@ -10,7 +10,7 @@ jobs:
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v3
         with:
-          urls: |
+          urls:
             https://dex.software/home
             https://dex.software/project/overview
             https://dex.software/project/add/source
