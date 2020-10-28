@@ -27,22 +27,22 @@
           <form [formGroup]="categoryForm">
             <div>
               <input formControlName="code" id="code" name="code" type="checkbox" value="Code">
-              <label for="code"><span class="icon"><img alt="Code icon with open and closing tags" src="assets/images/code.svg" loading="lazy"></span> Code</label>
+              <label for="code"><span class="icon"><img alt="" src="assets/images/code.svg" loading="lazy"></span> Code</label>
             </div>
             <div>
               <input formControlName="video" id="video" name="video" type="checkbox" value="Video">
-              <label for="video"><span class="icon"><img alt="Video icon" src="assets/images/video.svg" loading="lazy"></span> Video</label>
+              <label for="video"><span class="icon"><img alt="" src="assets/images/video.svg" loading="lazy"></span> Video</label>
             </div>
             <div>
               <input formControlName="research_paper" id="research-paper" name="researchPaper" type="checkbox"
                 value="Research paper">
-              <label for="research-paper"><span class="icon"><img alt="Research paper icon" src="assets/images/theses.svg" loading="lazy"></span> Research
+              <label for="research-paper"><span class="icon"><img alt="" src="assets/images/theses.svg" loading="lazy"></span> Research
                 paper</label>
             </div>
             <div>
               <input formControlName="survey_results" id="survey-results" name="surveyResults" type="checkbox"
                 value="Survey results">
-              <label for="survey-results"><span class="icon"><img alt="Survey icon" src="assets/images/usertest.svg" loading="lazy"></span> Survey
+              <label for="survey-results"><span class="icon"><img alt="" src="assets/images/usertest.svg" loading="lazy"></span> Survey
                 results</label>
             </div>
           </form>
@@ -112,7 +112,7 @@
   <div class="col-md">
     <div class="search">
       <input type="search" placeholder="search project" [formControl]="searchControl">
-      <button><img alt="Search" src="assets/images/research.svg" loading="lazy"></button>
+      <button><img alt="" src="assets/images/research.svg" loading="lazy"></button>
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
@@ -123,7 +123,7 @@
         <tr *ngFor="let project of projectsToDisplay">
           <td class="title" (click)="onClickProject(project.id, project.name)">
             <div class="icon-placeholder">
-              <img alt="project-image" src="assets/images/placeholder.svg" loading="lazy">
+              <img alt="project image" src="assets/images/placeholder.svg" loading="lazy">
             </div>
             <span>
               <h3>{{ project.name }}</h3>
