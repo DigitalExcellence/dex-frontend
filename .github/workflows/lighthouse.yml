@@ -1,7 +1,7 @@
 name: Lightouse CI
 on:
-  push:
-    branches: [ feature/285-lighthouse-CD ]
+  pull_request :
+    branches: [ develop ]
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
