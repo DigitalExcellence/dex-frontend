@@ -30,6 +30,7 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
 import { SEOService} from 'src/app/services/seo.service';
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
+import { CallToAction } from 'src/app/models/domain/call-to-action';
 
 /**
  * Component for manually adding a project.
@@ -67,6 +68,8 @@ export class ManualComponent implements OnInit {
    */
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
+  public callToActions: CallToAction[] = [];
+
   selectChangeHandler (event: any) {
     // Allow the frontend to check if it needs to activate the link input
     this.selectedCallToAction = event.target.value;
@@ -79,6 +82,18 @@ export class ManualComponent implements OnInit {
     private wizardService: WizardService,
     private alertService: AlertService,
     private seoService: SEOService) {
+    this.callToActions.push({
+        id: 1,
+        name: 'testname',
+        redirectUrl: 'google.nl',
+    });
+
+    this.callToActions.push({
+        id: 2,
+        name: 'testname2',
+        redirectUrl: 'google.be',
+    })
+
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
       uri: [null, Validators.required],
