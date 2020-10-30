@@ -68,6 +68,32 @@
       </div>
     </form>
 
+    <form [formGroup]="newCallToActionForm" class="project-form">
+
+      <div class="row">
+        <div class="col-12">
+          <h3>Call to action</h3>
+        </div>
+        <div class="col-6">
+          <div>
+            <h3>Text</h3>
+            <select ng-model='nrSelect' class='form-control' (change)="selectChangeHandler($event)">                                                                
+              <option value='None'>None</option>
+              <option value='Test'>Test</option>
+            </select>
+            <p><span>You selected: </span><b>{{selectedCallToAction}}</b></p>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div>
+            <h3>Link</h3>
+            <input [disabled]="true" placeholder="Link to your contact info" formControlName="uri" />
+          </div>
+        </div>
+      </div>
+    </form>
+
     <form [formGroup]="newCollaboratorForm" class="project-form">
       <div class="row">
         <div class="col-12">

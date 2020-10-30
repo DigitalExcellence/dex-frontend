@@ -44,7 +44,13 @@ export class ManualComponent implements OnInit {
    * Formgroup for entering project details.
    */
   public newProjectForm: FormGroup;
+  public newCallToActionForm: FormGroup;
   public newCollaboratorForm: FormGroup;
+
+  /**
+   * Projects selected call to action
+   */
+  public selectedCallToAction = 'None';
 
   /**
    * Project's collaborators.
@@ -61,6 +67,11 @@ export class ManualComponent implements OnInit {
    */
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
+  selectChangeHandler (event: any) {
+    // Allow the frontend to check if it needs to activate the link input
+    this.selectedCallToAction = event.target.value;
+  }
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -73,6 +84,11 @@ export class ManualComponent implements OnInit {
       uri: [null, Validators.required],
       shortDescription: [null, Validators.required],
       description: [null],
+    });
+
+    this.newCallToActionForm = this.formBuilder.group({
+      name: [null, Validators.required],
+      redirectUrl: [null, Validators.required],
     });
 
     this.newCollaboratorForm = this.formBuilder.group({
@@ -102,6 +118,8 @@ export class ManualComponent implements OnInit {
     this.seoService.updateTitle('Add new project');
     this.seoService.updateDescription('Create a new project in DeX');
   }
+
+
 
   /**
    * Method which triggers when the submit button is pressed.
