@@ -150,11 +150,13 @@ export class FileUploaderComponent {
 
   public setFiles(editFiles: Array<UploadFile>) {
     editFiles.forEach(editFile => {
-      // TODO: Preview has to be changed when the infrastructure for showing the icons is in place.
-      // See https://github.com/DigitalExcellence/dex-frontend/issues/311
-      this.files.push({
-        ...editFile,
-        preview: '/assets/images/project-icon-placeholder.png'});
+      if(editFile) {
+        // TODO: Preview has to be changed when the infrastructure for showing the icons is in place.
+        // See https://github.com/DigitalExcellence/dex-frontend/issues/311
+        this.files.push({
+          ...editFile,
+          preview: '/assets/images/project-icon-placeholder.png'});
+      }
     });
   }
 }

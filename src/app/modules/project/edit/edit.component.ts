@@ -116,6 +116,7 @@ export class EditComponent implements OnInit  {
         (result) => {
           this.project = result;
           this.collaborators = this.project.collaborators;
+          console.log([this.project.projectIcon])
           this.fileUploader.setFiles([this.project.projectIcon]);
         }
       );
