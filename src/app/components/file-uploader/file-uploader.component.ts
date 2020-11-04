@@ -7,6 +7,7 @@ import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { FileUploaderService } from 'src/app/services/file-uploader.service';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 /**
  * Component that will function as a form to upload files of any type
@@ -24,8 +25,10 @@ export class FileUploaderComponent {
 
   private maxFileSize = 2097152;
 
+
   constructor(private uploadService: FileUploaderService,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private fileRetrieverService: FileRetrieverService) { }
 
   files: Array<UploadFile> = new Array<UploadFile>();
 
@@ -151,12 +154,10 @@ export class FileUploaderComponent {
   public setFiles(editFiles: Array<UploadFile>) {
     editFiles.forEach(editFile => {
       if (editFile) {
-        // TODO: Preview has to be changed when the infrastructure for showing the icons is in place.
-        // See https://github.com/DigitalExcellence/dex-frontend/issues/311
         this.files.push({
           ...editFile,
-          preview: '/assets/images/project-icon-placeholder.png'});
-      }
-    });
+          preview: this.fileRetrieverService.getIconUrl(editFile)
+      })
+    }});
   }
 }
