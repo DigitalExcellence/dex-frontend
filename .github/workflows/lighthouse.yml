@@ -1,7 +1,7 @@
-name: Build project and run Lighthouse CI
+name: Lighthouse CI
 on:
   push :
-    branches: [ 285-lighthouse-CD ]
+    branches: [ feature/285-lighthouse-CD ]
 jobs:
   lhci:
     name: Lighthouse CI
