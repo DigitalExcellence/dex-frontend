@@ -29,7 +29,8 @@ import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
-
+import { SafeUrl } from '@angular/platform-browser';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 interface SortFormResult {
   type: string;
@@ -150,7 +151,8 @@ export class OverviewComponent implements OnInit {
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private fileRetrieverService: FileRetrieverService
   ) {
     this.searchControl = new FormControl('');
 
@@ -279,6 +281,15 @@ export class OverviewComponent implements OnInit {
       this.currentPage = 1;
     }
     this.onInternalQueryChange();
+  }
+
+    /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
+   */
+  public getIconUrl(id: number): SafeUrl {
+    let foundProject: Project = this.projects.find(project => project.id == id);
+    return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 
   /**
