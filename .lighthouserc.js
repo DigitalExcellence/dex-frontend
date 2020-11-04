@@ -2,7 +2,7 @@ module.exports = {
     ci: {
      // Static site example
         collect: {
-            startServerCommand: 'npm run -start',
+            startServerCommand: 'npm start',
             url: ['http://localhost:4200'],
             numberOfRuns: 9
         },
