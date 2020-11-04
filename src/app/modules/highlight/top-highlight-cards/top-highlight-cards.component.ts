@@ -20,7 +20,7 @@ import { Component, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
-import { Highlight } from 'src/app/models/domain/hightlight';
+import { Highlight } from 'src/app/models/domain/highlight';
 import { Project } from 'src/app/models/domain/project';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightService } from 'src/app/services/highlight.service';
