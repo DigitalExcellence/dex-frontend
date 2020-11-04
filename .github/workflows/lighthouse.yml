@@ -1,20 +1,21 @@
-name: Lightouse CI
+name: Build project and run Lighthouse CI
 on:
-  pull_request :
-    branches: [ develop ]
+  push :
+    branches: [ 285-lighthouse-CD ]
 jobs:
-  lighthouse:
+  lhci:
+    name: Lighthouse CI
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v3
+      - uses: actions/checkout@v1
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v1
         with:
-          urls:
-            https://dex.software/home
-            https://dex.software/project/overview
-            https://dex.software/project/add/source
-            https://dex.software/account/login
-          budgetPath: ./budget.json # test performance budgets
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          node-version: 10.x
+      - name: npm install
+        run: |
+          npm install
+      - name: run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.3.x
+          lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
