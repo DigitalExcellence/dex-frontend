@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added functionality to upload an project icon when creating a project - [#266](https://github.com/DigitalExcellence/dex-frontend/issues/266)
+
 ### Changed
 
 - Display uploaded project icons - [#311](https://github.com/DigitalExcellence/dex-frontend/issues/311)
@@ -28,13 +30,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added basic SEO for better google discoverability - [#283](https://github.com/DigitalExcellence/dex-frontend/issues/283)
-- Added functionality to upload an project icon when creating a project - [#266](https://github.com/DigitalExcellence/dex-frontend/issues/266)
 - Added dynamic updates of meta tags for better discoverability - [#286](https://github.com/DigitalExcellence/dex-frontend/issues/286)
 
 ### Changed
 
 - Changed all file line endings from CRLF to LF and added the .gitattributes to enforce it - [#163](https://github.com/DigitalExcellence/dex-backend/issues/163)
-- Changed footer styling to be responsive on small screens - [#163](https://github.com/DigitalExcellence/dex-frontend/issues/163) 
+- Changed footer styling to be responsive on small screens - [#163](https://github.com/DigitalExcellence/dex-frontend/issues/163)
 - Changed header styling to be responsive on small screens - [#258](https://github.com/DigitalExcellence/dex-frontend/issues/258)
 - Highlight now shows highlight description instead of project description. - [#273](https://github.com/DigitalExcellence/dex-frontend/issues/273)
 - Changed images on the login and home page to new copyright-free images from unDraw - [#97](https://github.com/DigitalExcellence/dex-frontend/issues/97)
