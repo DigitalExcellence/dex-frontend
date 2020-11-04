@@ -246,10 +246,14 @@
 }
 
 .background {
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 0vw;
+  left: 0vw;
   z-index: -1;
   opacity: .1;
+  margin-top: -30vw;
+  height: 100vw;
+  width: 100vw;
 
   polygon{
     transform: rotate(15deg);
