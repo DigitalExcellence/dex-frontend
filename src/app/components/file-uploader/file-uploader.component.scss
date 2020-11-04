@@ -59,9 +59,9 @@
       margin-bottom: 10px;
 
       .file-icon {
-        width: 128px;
+        max-width: 128px;
         height: 128px;
-        background-position: center;
+        object-fit: cover;
         border-radius: 50%;
       }
 
