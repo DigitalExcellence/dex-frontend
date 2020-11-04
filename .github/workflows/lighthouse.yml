@@ -19,3 +19,4 @@ jobs:
         run: |
           npm install -g @lhci/cli@0.3.x
           lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
+          echo "apparently done with lighthosue"
