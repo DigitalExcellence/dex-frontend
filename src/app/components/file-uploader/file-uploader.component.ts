@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -157,7 +157,7 @@ export class FileUploaderComponent {
         this.files.push({
           ...editFile,
           preview: this.fileRetrieverService.getIconUrl(editFile)
-      })
+      });
     }});
   }
 }

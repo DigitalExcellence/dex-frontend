@@ -15,16 +15,15 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { finalize, debounceTime } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
@@ -288,7 +287,7 @@ export class OverviewComponent implements OnInit {
    * from the file retriever service
    */
   public getIconUrl(id: number): SafeUrl {
-    let foundProject: Project = this.projects.find(project => project.id == id);
+    const foundProject: Project = this.projects.find(project => project.id === id);
     return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 

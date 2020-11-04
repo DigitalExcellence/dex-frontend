@@ -15,7 +15,6 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -41,8 +40,8 @@ export class TopHighlightCardsComponent implements OnInit {
    */
   public highlightsLoading = true;
   constructor(private router: Router,
-    private projectService: HighlightService,
-    private fileRetrieverService: FileRetrieverService) { }
+              private projectService: HighlightService,
+              private fileRetrieverService: FileRetrieverService) { }
 
   ngOnInit(): void {
     this.projectService
@@ -133,7 +132,7 @@ export class TopHighlightCardsComponent implements OnInit {
    * from the file retriever service
    */
   public getIconUrl(id: number): SafeUrl {
-    let foundProject: Project = this.highlights.find(highlight => highlight.projectId == id).project;
+    const foundProject: Project = this.highlights.find(highlight => highlight.projectId === id).project;
     return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 }

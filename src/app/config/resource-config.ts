@@ -6,4 +6,4 @@ export interface ResourceConfig {
 
 export const RESOURCE_CONFIG: ResourceConfig = {
     url: `${environment.apiUrl}/resources/`
-}
+};

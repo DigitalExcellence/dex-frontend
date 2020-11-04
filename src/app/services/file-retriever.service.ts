@@ -10,14 +10,14 @@ export class FileRetrieverService {
 
     constructor(
         private sanitizer: DomSanitizer
-    ){}
+    ) {}
 
    /**
    * Method to get the url of the icon of the project. This urls can be the local
    * image for a default or a specified icon stored on the server.
    * @param file retrieving the icon url of the specified file.
    */
-  public getIconUrl(file: UploadFile): SafeUrl {
+    public getIconUrl(file: UploadFile): SafeUrl {
     if (file != null) {
       return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + file.path);
     }
