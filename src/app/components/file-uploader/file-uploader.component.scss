@@ -5,7 +5,7 @@
   height: 200px;
   padding: 2rem;
   text-align: center;
-  border: dashed 1px #979797;
+  border: dashed 1px $light-mode-grey-primary;
   position: relative;
   margin: 0 auto 20px auto;
 
@@ -46,7 +46,7 @@
   border-radius: 6px;
 
   div.single-file:not(:last-child) {
-    border-bottom: 3px solid rgb(165, 165, 165);
+    border-bottom: 3px solid $light-mode-grey-primary;
     border-radius: 2px;
   }
 
