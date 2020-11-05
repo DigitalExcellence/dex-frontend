@@ -52,7 +52,11 @@ export class ManualComponent implements OnInit {
   /**
    * Projects selected call to action
    */
-  public selectedCallToAction = 0;
+  public selectedCallToAction: CallToAction = {
+    id: 0,
+    name: 'None',
+    redirectUrl: '',
+  };
 
   /**
    * Project's collaborators.
@@ -70,12 +74,6 @@ export class ManualComponent implements OnInit {
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
   public callToActions: CallToAction[] = [];
-
-  selectChangeHandler (event: any) {
-    // Allow the frontend to check if it needs to activate the link input
-    this.selectedCallToAction = event.target.selectedIndex;
-    console.log(event.target);
-  }
 
   public callToActionsLoading = true;
 
@@ -123,26 +121,25 @@ export class ManualComponent implements OnInit {
       this.fillFormWithProject(project);
     });
 
-    // Retrieve the available call to actions
-    // this.callToActionService
-    // .getAll()
-    // .pipe(finalize(() => (this.callToActionsLoading = false)))
-    // .subscribe((result) => {
-    //     this.callToActions = result;
-    // });
+    /**
+     * Retrieve the available call to actions
+     */
+    this.callToActionService
+    .getAll()
+    .pipe(finalize(() => (this.callToActionsLoading = false)))
+    .subscribe((result) => {
+        this.callToActions = result;
+    });
 
-    this.callToActions.push({
-      id: 2,
-      name: 'testname2',
-      redirectUrl: 'google.be',
-      });
+    /**
+     * Add the none option to the dropdown
+     */
+    this.callToActions.unshift(this.selectedCallToAction);
 
     // Updates meta and title tags
     this.seoService.updateTitle('Add new project');
     this.seoService.updateDescription('Create a new project in DeX');
   }
-
-
 
   /**
    * Method which triggers when the submit button is pressed.
@@ -164,6 +161,14 @@ export class ManualComponent implements OnInit {
 
     const newProject: ProjectAdd = this.newProjectForm.value;
     newProject.collaborators = this.collaborators;
+
+    /*
+    * Whenever a call to action is selected, this value
+    * should be sent to to the API.
+     */
+    if(this.selectedCallToAction.id > 0){
+      newProject.callToAction = this.selectedCallToAction;
+    }
 
     this.projectService
       .post(newProject)

@@ -77,8 +77,7 @@
         <div class="col-6">
           <div>
             <h3>Text</h3>
-            <select class='form-control' (change)="selectChangeHandler($event)">
-              <option value='None'>None</option>
+            <select [(ngModel)]="selectedCallToAction" class='form-control' [ngModelOptions]="{standalone: true}">
               <option *ngFor="let action of callToActions" [ngValue]="action">{{action.name}}</option>
             </select>
           </div>
@@ -87,7 +86,7 @@
         <div class="col-6">
           <div>
             <h3>Link</h3>
-            <input [disabled]="selectedCallToAction === 0" placeholder="Link to your contact info"/>
+            <input [(ngModel)]="selectedCallToAction.redirectUrl" [ngModelOptions]="{standalone: true}" [disabled]="selectedCallToAction.id <= 0" placeholder="Link to your contact info"/>
           </div>
         </div>
       </div>
