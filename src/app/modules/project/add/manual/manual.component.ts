@@ -31,6 +31,7 @@ import { SEOService} from 'src/app/services/seo.service';
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
 import { CallToAction } from 'src/app/models/domain/call-to-action';
+import { CallToActionService } from 'src/app/services/call-to-action.service';
 
 /**
  * Component for manually adding a project.
@@ -75,24 +76,16 @@ export class ManualComponent implements OnInit {
     this.selectedCallToAction = event.target.selectedIndex;
   }
 
+  public callToActionsLoading = true;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
     private wizardService: WizardService,
     private alertService: AlertService,
-    private seoService: SEOService) {
-    this.callToActions.push({
-        id: 1,
-        name: 'testname',
-        redirectUrl: 'google.nl',
-    });
-
-    this.callToActions.push({
-        id: 2,
-        name: 'testname2',
-        redirectUrl: 'google.be',
-    });
+    private seoService: SEOService,
+    private callToActionService: CallToActionService) {
 
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
@@ -127,6 +120,14 @@ export class ManualComponent implements OnInit {
         project.description = converter.makeHtml(project.description);
       }
       this.fillFormWithProject(project);
+    });
+
+    // Retrieve the available call to actions
+    this.callToActionService
+    .getAll()
+    .pipe(finalize(() => (this.callToActionsLoading = false)))
+    .subscribe((result) => {
+        this.callToActions = result;
     });
 
     // Updates meta and title tags
