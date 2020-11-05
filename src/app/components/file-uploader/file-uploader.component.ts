@@ -78,7 +78,7 @@ export class FileUploaderComponent {
       if (file.size < this.maxFileSize) {
         if (this.acceptedTypes.includes(file.type)) {
           this.generatePreview(file);
-          this.formatBytes(file);
+          file.readableSize = this.formatBytes(file.size);
           this.files.push(file);
         } else {
           const alertConfig: AlertConfig = {
@@ -95,8 +95,9 @@ export class FileUploaderComponent {
         const alertConfig: AlertConfig = {
           type: AlertType.danger,
           preMessage: 'This file is too big',
-          mainMessage: `File ${file.name} is too big, the max size is 2mb`,
-          dismissible: true
+          mainMessage: `File ${file.name} is too big, the max size is ${this.maxFileSizeReadable}`,
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
         };
         this.alertService.pushAlert(alertConfig);
         this.deleteFile(this.files.indexOf(file));
@@ -119,10 +120,14 @@ export class FileUploaderComponent {
     };
   }
 
-  private formatBytes(file: UploadFile, decimals = 2) {
-    const bytes: number = file.size;
+  /**
+   * Converts the bytes to a user-readable format
+   * @param bytes The bytes to convert
+   * @param decimals The amount of decimals to display
+   */
+  private formatBytes(bytes: number, decimals = 2): string {
     if (bytes === 0) {
-      return '0 Bytes';
+      return '0 bytes';
     }
 
     const k = 1024;
@@ -131,7 +136,7 @@ export class FileUploaderComponent {
 
     const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-    file.readableSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
 
