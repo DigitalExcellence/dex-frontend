@@ -178,12 +178,17 @@ export class FileUploaderComponent {
     }
   }
 
-  public setFiles(editFiles: Array<UploadFile>) {
-    editFiles.forEach(editFile => {
-      if (editFile) {
+
+  /**
+   * Populates the fileList
+   * @param files files that have been uploaded
+   */
+  public setFiles(uploadedFiles: Array<UploadFile>): void {
+    uploadedFiles.forEach(uploadedFile => {
+      if (uploadedFile) {
         this.files.push({
-          ...editFile,
-          preview: this.fileRetrieverService.getIconUrl(editFile)
+          ...uploadedFile,
+          preview: this.fileRetrieverService.getIconUrl(uploadedFile)
       });
     }});
   }
