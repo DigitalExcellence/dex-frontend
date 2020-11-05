@@ -51,7 +51,7 @@ export class ManualComponent implements OnInit {
   /**
    * Projects selected call to action
    */
-  public selectedCallToAction = 'None';
+  public selectedCallToAction = 0;
 
   /**
    * Project's collaborators.
@@ -72,7 +72,7 @@ export class ManualComponent implements OnInit {
 
   selectChangeHandler (event: any) {
     // Allow the frontend to check if it needs to activate the link input
-    this.selectedCallToAction = event.target.value;
+    this.selectedCallToAction = event.target.selectedIndex;
   }
 
   constructor(
@@ -92,7 +92,7 @@ export class ManualComponent implements OnInit {
         id: 2,
         name: 'testname2',
         redirectUrl: 'google.be',
-    })
+    });
 
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
