@@ -49,7 +49,7 @@ export class AlertService {
 
     this.$activeAlerts.next(this.activeAlerts);
 
-    // Dismissable alerts with no timeout will not be automaticcaly removed.
+    // Dismissible alerts with no timeout will not be automatically removed.
     if (alertConfig.dismissible && (alertConfig.timeout == null || alertConfig.timeout <= 0)) {
       return;
     }
