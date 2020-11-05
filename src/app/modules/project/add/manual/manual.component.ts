@@ -74,6 +74,7 @@ export class ManualComponent implements OnInit {
   selectChangeHandler (event: any) {
     // Allow the frontend to check if it needs to activate the link input
     this.selectedCallToAction = event.target.selectedIndex;
+    console.log(event.target);
   }
 
   public callToActionsLoading = true;
@@ -123,12 +124,18 @@ export class ManualComponent implements OnInit {
     });
 
     // Retrieve the available call to actions
-    this.callToActionService
-    .getAll()
-    .pipe(finalize(() => (this.callToActionsLoading = false)))
-    .subscribe((result) => {
-        this.callToActions = result;
-    });
+    // this.callToActionService
+    // .getAll()
+    // .pipe(finalize(() => (this.callToActionsLoading = false)))
+    // .subscribe((result) => {
+    //     this.callToActions = result;
+    // });
+
+    this.callToActions.push({
+      id: 2,
+      name: 'testname2',
+      redirectUrl: 'google.be',
+      });
 
     // Updates meta and title tags
     this.seoService.updateTitle('Add new project');

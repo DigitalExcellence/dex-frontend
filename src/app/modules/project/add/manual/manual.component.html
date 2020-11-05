@@ -77,9 +77,9 @@
         <div class="col-6">
           <div>
             <h3>Text</h3>
-            <select ng-model='nrSelect' class='form-control' (change)="selectChangeHandler($event)">
+            <select class='form-control' (change)="selectChangeHandler($event)">
               <option value='None'>None</option>
-              <option *ngFor="let action of callToActions" [ngValue]="action.id">{{action.name}}</option>
+              <option *ngFor="let action of callToActions" [ngValue]="action">{{action.name}}</option>
             </select>
           </div>
         </div>
