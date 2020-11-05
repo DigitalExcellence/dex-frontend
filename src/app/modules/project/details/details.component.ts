@@ -37,6 +37,8 @@ import { Highlight } from 'src/app/models/domain/highlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
+import { SafeUrl } from '@angular/platform-browser';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 /**
  * Overview of a single project
@@ -80,7 +82,8 @@ export class DetailsComponent implements OnInit {
     private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService,
     private router: Router,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private fileRetrieverService: FileRetrieverService
   ) { }
 
   ngOnInit(): void {
@@ -251,6 +254,14 @@ export class DetailsComponent implements OnInit {
       });
       this.router.navigate(['project/overview']);
     });
+  }
+
+  /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service.
+   */
+  public getIconUrl(): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(this.project.projectIcon);
   }
 
   /**

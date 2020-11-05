@@ -25,4 +25,5 @@ export interface ProjectUpdate {
   shortDescription: string;
   description: string;
   url: string;
+  fileId?: number;
 }

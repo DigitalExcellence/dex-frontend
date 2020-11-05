@@ -9,9 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added functionality to upload an project icon when creating a project - [#266](https://github.com/DigitalExcellence/dex-frontend/issues/266)
 - Added an image to the background - [#320](https://github.com/DigitalExcellence/dex-frontend/issues/320)
 
 ### Changed
+
+- Display uploaded project icons - [#311](https://github.com/DigitalExcellence/dex-frontend/issues/311)
 
 ### Deprecated
 

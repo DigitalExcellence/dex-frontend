@@ -21,11 +21,11 @@
   <div class="offset-2 col-8">
     <h1>Edit project</h1>
 
-    <ng-container *ngIf="projectLoading; else projectLoaded">
+    <ng-container *ngIf="projectLoading">
       <p>Project is being loaded</p>
     </ng-container>
-    <ng-template #projectLoaded>
-      <ng-container *ngIf="project; else noProject">
+    <div [hidden]="projectLoading">
+      <div [hidden]="!project">
         <form [formGroup]="editProjectForm" class="project-form">
 
           <div class="row">
@@ -69,6 +69,22 @@
                 <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
                   formControlName="description" placeholder="" [ngModel]="project?.description">
                 </quill-editor>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="project-icon-picker">
+                <h3>Project icon</h3>
+                <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes">
+                </app-file-uploader>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <p class="form-footnote">The recommended dimensions for an icon are atleast 512x512</p>
               </div>
             </div>
           </div>
@@ -132,15 +148,10 @@
             <button class="btn btn-cancel" (click)="onClickCancel()">Cancel</button>
           </div>
         </div>
-      </ng-container>
-      <ng-template #noProject>
+      </div>
+      <div [hidden]="project">
         <p>No project could be found with id: {{invalidId}}</p>
-      </ng-template>
-    </ng-template>
-
-
-
-
-
+      </div>
+    </div>
   </div>
 </div>
