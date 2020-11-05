@@ -23,8 +23,15 @@ export class FileUploaderComponent {
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
 
+  /**
+   * The maximum size of a file in bytes
+   */
   private maxFileSize = 2097152;
 
+  /**
+   * The maximum size of a file in a readable format
+   */
+  private maxFileSizeReadable: string = this.formatBytes(this.maxFileSize, 0);
 
   constructor(private uploadService: FileUploaderService,
               private alertService: AlertService,
@@ -33,16 +40,16 @@ export class FileUploaderComponent {
   files: Array<UploadFile> = new Array<UploadFile>();
 
   /**
-   * on file drop handler
+   * handle onFileDrop event
    */
-  onFileDropped(event) {
+  public onFileDropped(event): void {
     this.prepareFilesList(event);
   }
 
   /**
-   * handle file from browsing
+   * handle file from the file explorer
    */
-  fileBrowseHandler(files) {
+  private fileBrowseHandler(files): void {
      if (files.files !== this.files) {
       this.prepareFilesList(files.files);
      }
@@ -50,14 +57,19 @@ export class FileUploaderComponent {
 
   /**
    * Delete file from files list
-   * @param index (File index)
+   * @param index The index of the file to delete
    */
-  deleteFile(index: number) {
+  private deleteFile(index: number): void {
     this.files.splice(index, 1);
     this.fileInput.nativeElement.value = '';
   }
 
-  private prepareFilesList(files: Array<UploadFile>) {
+
+  /**
+   * This will finalize the data from the uploadForm and do some filetype and -size checks.
+   * @param files The uploaded files from the uploadForm
+   */
+  private prepareFilesList(files: Array<UploadFile>): void {
     // If the user can only select 1 image we want to reset the array
     if ( !this.acceptMultiple) {
       this.files = [];
@@ -93,6 +105,10 @@ export class FileUploaderComponent {
     }
   }
 
+  /**
+   * Converts the image to a base64 string
+   * @param file The file to convert
+   */
   private generatePreview(file: UploadFile) {
     // We can use a FileReader to generate a base64 string based on the image
     const fileReader: FileReader = new FileReader();
@@ -118,6 +134,11 @@ export class FileUploaderComponent {
     file.readableSize = parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
+
+  /**
+   * Send the selected files to the API and return the id's
+   * @return Observable<Array<UploadFile>>
+   */
   public uploadFiles(): Observable<Array<UploadFile>> {
     // Check if any files were uploaded
     if (this.fileInput.nativeElement.value !== '') {
@@ -137,6 +158,7 @@ export class FileUploaderComponent {
                 }})
           )
       );
+       // forkJoin the observables so they can be uploaded at the same time
        return forkJoin(fileUploads);
     }
     // If no files were updated return original list
