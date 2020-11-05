@@ -21,6 +21,6 @@ export class FileRetrieverService {
     if (file != null) {
       return this.sanitizer.bypassSecurityTrustUrl(RESOURCE_CONFIG.url + file.path);
     }
-    return 'assets/images/code.svg';
+    return 'assets/images/placeholder.svg';
   }
 }
