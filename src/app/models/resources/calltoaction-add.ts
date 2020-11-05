@@ -16,5 +16,6 @@
  */
 
 export interface CallToActionAdd {
-
+    name: string;
+    redirectUrl: string;
 }

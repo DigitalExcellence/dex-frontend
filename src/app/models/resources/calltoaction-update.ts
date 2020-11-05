@@ -16,5 +16,7 @@
  */
 
 export interface CallToActionUpdate {
-
+    id: number;
+    name: string;
+    redirectUrl: string;
 }
