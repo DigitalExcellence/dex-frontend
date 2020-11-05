@@ -17,6 +17,7 @@
 
 import { User } from './user';
 import { Collaborator } from './collaborator';
+import { CallToAction } from './call-to-action';
 
 export interface Project {
   id: number;
@@ -28,4 +29,5 @@ export interface Project {
   updated: Date;
   uri?: string;
   collaborators?: Collaborator[];
+  callToAction?: CallToAction;
 }
