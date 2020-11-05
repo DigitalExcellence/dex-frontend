@@ -49,7 +49,7 @@ export class FileUploaderComponent {
   /**
    * handle file from the file explorer
    */
-  private fileBrowseHandler(files): void {
+  public fileBrowseHandler(files): void {
      if (files.files !== this.files) {
       this.prepareFilesList(files.files);
      }
@@ -59,7 +59,7 @@ export class FileUploaderComponent {
    * Delete file from files list
    * @param index The index of the file to delete
    */
-  private deleteFile(index: number): void {
+  public deleteFile(index: number): void {
     this.files.splice(index, 1);
     this.fileInput.nativeElement.value = '';
   }

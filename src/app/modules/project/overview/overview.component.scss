@@ -135,22 +135,22 @@
        padding: 0 20px 0 0;
 
        .icon-placeholder {
-         height: 55px;
-         width: 55px;
+         height: 70px;
+         width: 70px;
          min-width: 55px;
          margin: 10px 20px;
-         border-radius: 30px;
-         background-color: $accent-color-red-primary;
          display: flex;
          align-items: center;
          justify-content: center;
          overflow: hidden;
+         text-align: center;
        }
 
        img {
          height: 100%;
          max-width: 100%;
          object-fit: cover;
+         margin: auto;
        }
      }
 
