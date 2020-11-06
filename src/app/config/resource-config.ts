@@ -5,5 +5,5 @@ export interface ResourceConfig {
 }
 
 export const RESOURCE_CONFIG: ResourceConfig = {
-    url: `${environment.apiUrl}/Resources/`
+    url: `${environment.apiUrl}/Uploads/Images/`
 };
