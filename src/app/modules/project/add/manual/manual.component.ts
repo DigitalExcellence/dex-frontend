@@ -166,7 +166,7 @@ export class ManualComponent implements OnInit {
     * Whenever a call to action is selected, this value
     * should be sent to to the API.
      */
-    if(this.selectedCallToAction.id > 0){
+    if (this.selectedCallToAction.id > 0) {
       newProject.callToAction = this.selectedCallToAction;
     }
 

@@ -99,6 +99,10 @@
           <quill-view class="dex-quill-viewer" [content]="project.description" format="html"></quill-view>
         </p>
 
+        <ng-container *ngIf="displayCallToActionButton">
+          <button class="primary ml-2" (click)="onClickCallToActionButton()">{{project.callToAction.name}}</button>
+        </ng-container>
+
         <div id="project-share-buttons">
           <ng-container *ngIf="displayHighlightButton">
             <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>

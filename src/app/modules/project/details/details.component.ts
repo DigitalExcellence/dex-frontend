@@ -56,6 +56,7 @@ export class DetailsComponent implements OnInit {
 
   public displayEditButton = false;
   public displayDeleteProjectButton = false;
+  public displayCallToActionButton = false;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
 
@@ -109,6 +110,7 @@ export class DetailsComponent implements OnInit {
           const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
           this.determineDisplayEditProjectButton();
           this.determineDisplayDeleteProjectButton();
+          this.determineDisplayCallToActionButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
 
@@ -129,6 +131,10 @@ export class DetailsComponent implements OnInit {
           }
         });
     }
+  }
+
+  public onClickCallToActionButton(): void {
+    window.open(this.project.callToAction.redirectUrl, '_blank');
   }
 
   /**
@@ -285,6 +291,19 @@ export class DetailsComponent implements OnInit {
       return;
     }
     this.displayDeleteProjectButton = this.project.user.id === this.currentUser.id;
+  }
+
+  /**
+   * Method to display the project's call to action button based on whether or not the project has a set call to action.
+   */
+  private determineDisplayCallToActionButton(): void {
+    if (this.project != null && this.project.callToAction != null) {
+      this.displayCallToActionButton = true;
+      return;
+    } else {
+      this.displayCallToActionButton = false;
+      return;
+    }
   }
 
   /**
