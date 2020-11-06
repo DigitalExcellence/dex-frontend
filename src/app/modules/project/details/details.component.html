@@ -28,7 +28,9 @@
   <div *ngIf="project; else noProject">
     <div class="row">
       <div class="col-3 project-metadata">
-        <div class="project-icon"><img alt="Code project" src="assets/images/code.svg" loading="lazy"></div>
+        <div class="project-icon" style="background-color: unset">
+          <img alt="Code project" [src]="getIconUrl()" loading="lazy">
+        </div>
         <div *ngIf="project.uri" class="project-metadata__item">
           <h3>External Link</h3>
 
@@ -108,7 +110,7 @@
             </div>
           </ng-container>
           <ng-container *ngIf="displayEmbedButton">
-            <app-embed-button></app-embed-button>
+            <app-embed-button [projectId]=project.id></app-embed-button>
           </ng-container>
         </div>
       </div>

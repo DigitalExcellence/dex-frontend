@@ -15,11 +15,13 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
-import { Highlight } from 'src/app/models/domain/hightlight';
+import { Highlight } from 'src/app/models/domain/highlight';
+import { Project } from 'src/app/models/domain/project';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 
 @Component({
@@ -37,7 +39,9 @@ export class TopHighlightCardsComponent implements OnInit {
    * Boolean to determine whether the component is loading the information from the api.
    */
   public highlightsLoading = true;
-  constructor(private router: Router, private projectService: HighlightService) { }
+  constructor(private router: Router,
+              private projectService: HighlightService,
+              private fileRetrieverService: FileRetrieverService) { }
 
   ngOnInit(): void {
     this.projectService
@@ -47,6 +51,7 @@ export class TopHighlightCardsComponent implements OnInit {
         this.highlights = this.generateSampleSizeOf(result, 3);
       });
   }
+
   private generateSampleSizeOf(population: string | any[], k: number) {
     /*
         Chooses k unique random elements from a population sequence or set.
@@ -122,4 +127,12 @@ export class TopHighlightCardsComponent implements OnInit {
     this.router.navigate([`/project/details/${id}-${name}`]);
   }
 
+  /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
+   */
+  public getIconUrl(id: number): SafeUrl {
+    const foundProject: Project = this.highlights.find(highlight => highlight.projectId === id).project;
+    return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
+  }
 }

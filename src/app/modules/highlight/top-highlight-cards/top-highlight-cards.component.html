@@ -33,7 +33,7 @@
     <div *ngFor="let highlight of highlights" class="col-md-12 col-lg-4 mb-4">
       <div class="card" (click)="onClickHighlightedProject(highlight.projectId, highlight.project.name)">
         <div class="card-title">
-          <div class="icon"><img src="assets/images/code.svg" alt="" loading="lazy"></div>
+          <div class="icon"><img [src]="getIconUrl(highlight.projectId)" alt="" loading="lazy"></div>
           <h3>{{highlight.project.name}}</h3>
         </div>
         <p class="large">{{highlight.description | striphtml}}</p>

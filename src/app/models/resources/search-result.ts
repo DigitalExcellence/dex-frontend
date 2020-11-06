@@ -16,10 +16,13 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
+import { UploadFile } from '../domain/uploadFile';
+
 export interface SearchResultResource {
     id: number;
     name: string;
     shortDescription: string;
     created: Date;
     updated: Date;
+    projectIcon: UploadFile;
 }
