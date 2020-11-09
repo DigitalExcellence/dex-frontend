@@ -15,10 +15,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/domain/project';
@@ -27,16 +27,24 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 
 /**
- * Component for editting adding a project.
+ * Component for editing adding a project.
  */
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit  {
+  /**
+   * Configuration for file-picker
+   */
+  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
+  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+  public acceptMultiple = false;
+
   /**
    * Formgroup for entering project details.
    */
@@ -108,6 +116,7 @@ export class EditComponent implements OnInit {
         (result) => {
           this.project = result;
           this.collaborators = this.project.collaborators;
+          this.fileUploader.setFiles([this.project.projectIcon]);
         }
       );
   }
@@ -120,8 +129,7 @@ export class EditComponent implements OnInit {
         type: AlertType.danger,
         preMessage: 'The edit project form is invalid',
         mainMessage: 'The project could not be updated, please fill all required fields',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -130,22 +138,22 @@ export class EditComponent implements OnInit {
     const edittedProject: ProjectUpdate = this.editProjectForm.value;
     edittedProject.collaborators = this.collaborators;
 
-    this.projectService
-      .put(this.project.id, edittedProject)
-      .pipe(
-        finalize(() => {
-          this.submitEnabled = false;
-        })
-      )
-      .subscribe(() => {
-        const alertConfig: AlertConfig = {
-          type: AlertType.success,
-          mainMessage: 'Project was succesfully updated',
-          dismissible: true,
-          timeout: this.alertService.defaultTimeout
-        };
-        this.alertService.pushAlert(alertConfig);
-        this.router.navigate([`project/details/${this.project.id}`]);
+    this.fileUploader.uploadFiles()
+      .subscribe(uploadedFiles => {
+        if (uploadedFiles) {
+          if (uploadedFiles[0]) {
+            // Project icon was set and uploaded
+            edittedProject.fileId = uploadedFiles[0].id;
+            this.editProject(edittedProject);
+          }
+          // Project icon was set but not uploaded successfully, the component will show the error
+        } else {
+          // There was no project icon
+          if (this.project.projectIcon) {
+            edittedProject.fileId = 0;
+          }
+          this.editProject(edittedProject);
+        }
       });
   }
 
@@ -170,8 +178,7 @@ export class EditComponent implements OnInit {
         type: AlertType.danger,
         preMessage: 'The add collaborator form is invalid',
         mainMessage: 'Collaborator could not be added',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -192,12 +199,33 @@ export class EditComponent implements OnInit {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
         mainMessage: 'Collaborator could not be removed',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
     }
     this.collaborators.splice(index, 1);
+  }
+
+  /**
+   * Method which will send the requests to the API to edit the project
+   */
+  private editProject(edittedProject) {
+    this.projectService
+        .put(this.project.id, edittedProject)
+        .pipe(
+            finalize(() => {
+              this.submitEnabled = false;
+            })
+        )
+        .subscribe(() => {
+          const alertConfig: AlertConfig = {
+            type: AlertType.success,
+            mainMessage: 'Project was succesfully updated',
+            dismissible: true
+          };
+          this.alertService.pushAlert(alertConfig);
+          this.router.navigate([`project/details/${this.project.id}`]);
+        });
   }
 }

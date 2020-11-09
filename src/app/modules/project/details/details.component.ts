@@ -1,4 +1,3 @@
-import { finalize } from 'rxjs/operators';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -15,28 +14,30 @@ import { finalize } from 'rxjs/operators';
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { environment } from 'src/environments/environment';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Project } from 'src/app/models/domain/project';
-import { ProjectService } from 'src/app/services/project.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { HighlightService } from 'src/app/services/highlight.service';
-import { HighlightAdd } from 'src/app/models/resources/highlight-add';
-import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ModalHighlightComponent, HighlightFormResult } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
-import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { AlertType } from 'src/app/models/internal/alert-type';
-import { AlertService } from 'src/app/services/alert.service';
-import { switchMap } from 'rxjs/operators';
-import { User } from 'src/app/models/domain/user';
-import { Observable, EMPTY } from 'rxjs';
-import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
-import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
-import { Highlight } from 'src/app/models/domain/highlight';
-import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
-import { scopes } from 'src/app/models/domain/scopes';
-import { SEOService } from 'src/app/services/seo.service';
+import {Component, OnInit} from '@angular/core';
+import {SafeUrl} from '@angular/platform-browser';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
+import {EMPTY, Observable} from 'rxjs';
+import {finalize, switchMap} from 'rxjs/operators';
+import {ModalDeleteGenericComponent} from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import {Highlight} from 'src/app/models/domain/highlight';
+import {Project} from 'src/app/models/domain/project';
+import {scopes} from 'src/app/models/domain/scopes';
+import {User} from 'src/app/models/domain/user';
+import {AlertConfig} from 'src/app/models/internal/alert-config';
+import {AlertType} from 'src/app/models/internal/alert-type';
+import {HighlightAdd} from 'src/app/models/resources/highlight-add';
+import {ModalHighlightDeleteComponent} from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
+import {HighlightFormResult, ModalHighlightComponent} from 'src/app/modules/project/modal-highlight/modal-highlight.component';
+import {AlertService} from 'src/app/services/alert.service';
+import {AuthService} from 'src/app/services/auth.service';
+import {FileRetrieverService} from 'src/app/services/file-retriever.service';
+import {HighlightService} from 'src/app/services/highlight.service';
+import {HighlightByProjectIdService} from 'src/app/services/highlightid.service';
+import {ProjectService} from 'src/app/services/project.service';
+import {SEOService} from 'src/app/services/seo.service';
+import {environment} from 'src/environments/environment';
 
 /**
  * Overview of a single project
@@ -80,7 +81,8 @@ export class DetailsComponent implements OnInit {
     private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService,
     private router: Router,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private fileRetrieverService: FileRetrieverService
   ) { }
 
   ngOnInit(): void {
@@ -251,6 +253,14 @@ export class DetailsComponent implements OnInit {
       });
       this.router.navigate(['project/overview']);
     });
+  }
+
+  /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service.
+   */
+  public getIconUrl(): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(this.project.projectIcon);
   }
 
   /**
