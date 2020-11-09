@@ -15,21 +15,21 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { finalize, debounceTime } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
-
+import { SafeUrl } from '@angular/platform-browser';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 interface SortFormResult {
   type: string;
@@ -150,7 +150,8 @@ export class OverviewComponent implements OnInit {
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private fileRetrieverService: FileRetrieverService
   ) {
     this.searchControl = new FormControl('');
 
@@ -279,6 +280,15 @@ export class OverviewComponent implements OnInit {
       this.currentPage = 1;
     }
     this.onInternalQueryChange();
+  }
+
+    /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
+   */
+  public getIconUrl(id: number): SafeUrl {
+    const foundProject: Project = this.projects.find(project => project.id === id);
+    return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 
   /**
