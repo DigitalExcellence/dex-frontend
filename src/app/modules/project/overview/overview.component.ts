@@ -239,6 +239,7 @@ export class OverviewComponent implements OnInit {
     }
 
     this.currentSearchInput = value;
+    this.currentPage = null;
     this.searchSubject.next(value);
   }
 
