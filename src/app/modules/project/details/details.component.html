@@ -29,7 +29,7 @@
     <div class="row">
       <div class="col-3 project-metadata">
         <div class="project-icon" style="background-color: unset">
-          <img alt="Code project" [src]="getIconUrl()" loading="lazy">
+          <img alt="Code project" [src]="getIconUrl()" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">
         </div>
         <div *ngIf="project.uri" class="project-metadata__item">
           <h3>External Link</h3>
