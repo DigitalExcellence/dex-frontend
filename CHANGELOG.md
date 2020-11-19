@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed issue where the project icons would shrink if the description or title was too long - [#349](https://github.com/DigitalExcellence/dex-frontend/issues/349)
+- Fixed alert box blocking project edit/-delete buttons - [#352](https://github.com/DigitalExcellence/dex-frontend/issues/352)
 
 ### Security
 
