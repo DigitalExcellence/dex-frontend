@@ -10,7 +10,7 @@ jobs:
       - name: Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@master
         with:
-          urls:
+          urls: |
             https://staging.dex.software/home
             https://staging.dex.software/project/overview
             https://staging.dex.software/project/add/source
