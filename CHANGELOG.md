@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Added performance check when pushing new code to the main branch [#335](https://github.com/DigitalExcellence/dex-frontend/pull/335)
+
+- Added SEO & performance check when pushing new code to develop branch [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
 
 
 ### Changed
