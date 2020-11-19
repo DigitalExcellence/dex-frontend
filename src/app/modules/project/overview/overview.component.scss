@@ -137,7 +137,7 @@
        .icon-placeholder {
          height: 70px;
          width: 70px;
-         min-width: 55px;
+         min-width: 70px;
          margin: 10px 20px;
          display: flex;
          align-items: center;
@@ -148,7 +148,7 @@
 
        img {
          height: 100%;
-         max-width: 100%;
+         width: 100%;
          object-fit: cover;
          margin: auto;
        }
