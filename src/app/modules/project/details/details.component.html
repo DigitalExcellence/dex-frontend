@@ -97,6 +97,9 @@
           </a>
         </div>
 
+        <div class="project-description large">
+          <div class="dex-quill-viewer" [innerHTML]="project.description"></div>
+        </div>
         <p class="project-description large">
           <quill-view class="dex-quill-viewer" [content]="project.description" format="html"></quill-view>
         </p>
