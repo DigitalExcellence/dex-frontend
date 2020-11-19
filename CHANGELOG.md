@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed alert box blocking project edit/-delete buttons - [#352](https://github.com/DigitalExcellence/dex-frontend/issues/352)
+
 ### Security
 
 ## Release v.0.8.0-beta - 06-11-2020
