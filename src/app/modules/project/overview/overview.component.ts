@@ -239,6 +239,8 @@ export class OverviewComponent implements OnInit {
     }
 
     this.currentSearchInput = value;
+    // Reset the current page so we are sure we retrieve all the projects in the database and not
+    // Just the ones on the current page
     this.currentPage = null;
     this.searchSubject.next(value);
   }
