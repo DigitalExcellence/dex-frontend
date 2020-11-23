@@ -243,7 +243,7 @@ export class OverviewComponent implements OnInit {
     // Reset the current page so we are sure we retrieve all the projects in the database and not
     // Just the ones on the current page. If the query is empty we should search for the projects
     // On the first page only
-    this.currentPage = value.trim() === '' ? 1 : null
+    this.currentPage = value.trim() === '' ? 1 : null;
     this.searchSubject.next(value);
   }
 
