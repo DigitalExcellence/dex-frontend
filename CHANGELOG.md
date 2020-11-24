@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added SEO & performance check when pushing new code to develop branch [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
+
+
 ### Changed
 
 ### Deprecated
@@ -16,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+
+- Fixed issue where the project icons would shrink if the description or title was too long - [#349](https://github.com/DigitalExcellence/dex-frontend/issues/349)
+- Fixed alert box blocking project edit/-delete buttons - [#352](https://github.com/DigitalExcellence/dex-frontend/issues/352)
+- Fixed images showing alt when image could not be loaded, it now shows placeholder image instead - [#339](https://github.com/DigitalExcellence/dex-frontend/issues/339)
 
 ### Security
 

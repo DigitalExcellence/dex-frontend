@@ -21,7 +21,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { EditComponent } from './edit/edit.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
@@ -30,7 +30,7 @@ import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-hig
 import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { QuillModule } from 'ngx-quill';
-import { ManualComponent } from './add/manual/manual.component';
+import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
@@ -45,7 +45,8 @@ import { Meta } from '@angular/platform-browser';
     ModalHighlightDeleteComponent,
     ModalHighlightComponent,
     FileUploaderComponent,
-    DndDirective
+    DndDirective,
+    SafeHtmlPipe
   ],
   imports: [
     CommonModule,

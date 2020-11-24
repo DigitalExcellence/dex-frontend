@@ -29,7 +29,7 @@
     <div class="row">
       <div class="col-3 project-metadata">
         <div class="project-icon" style="background-color: unset">
-          <img alt="Code project" [src]="getIconUrl()" loading="lazy">
+          <img alt="Code project" [src]="getIconUrl()" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">
         </div>
         <div *ngIf="project.uri" class="project-metadata__item">
           <h3>External Link</h3>
@@ -97,9 +97,9 @@
           </a>
         </div>
 
-        <p class="project-description large">
-          <quill-view class="dex-quill-viewer" [content]="project.description" format="html"></quill-view>
-        </p>
+        <div class="project-description large">
+          <div class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></div>
+        </div>
 
         <div id="project-share-buttons">
           <ng-container *ngIf="displayHighlightButton">
