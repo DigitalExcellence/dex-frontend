@@ -130,7 +130,7 @@
 
   .account {
     display: flex;
-    align-items: left;
+    align-items: flex-start;
     margin-left: auto;
   }
 
@@ -245,6 +245,20 @@
   }
 }
 
+.background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  opacity: .075;
+  width: 100vw;
+  height: 100vh;
+
+  polygon{
+    transform: rotate(16deg) translate(-10vw, -25vh) scale(1.9);
+  }
+}
+
 .content-container {
   padding: 24px;
   display: flex;
@@ -267,6 +281,7 @@
   margin-right: auto;
   margin-left: auto;
   z-index: 10;
+  pointer-events: none;
 }
 
 .dropdown-menu {

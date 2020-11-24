@@ -1,4 +1,3 @@
-import { finalize } from 'rxjs/operators';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -28,7 +27,6 @@ import { ModalHighlightFormComponent, HighlightFormResult } from 'src/app/module
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
-import { switchMap } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
 import { Observable, EMPTY } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
@@ -39,6 +37,9 @@ import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
 import { ModalHighlightEditComponent } from 'src/app/modules/project/modal-highlight-edit/modal-highlight-edit.component';
 import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
+import { SafeUrl } from '@angular/platform-browser';
+import { finalize, switchMap } from 'rxjs/operators';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 /**
  * Overview of a single project
@@ -82,7 +83,8 @@ export class DetailsComponent implements OnInit {
     private alertService: AlertService,
     private highlightByProjectIdService: HighlightByProjectIdService,
     private router: Router,
-    private seoService: SEOService
+    private seoService: SEOService,
+    private fileRetrieverService: FileRetrieverService
   ) { }
 
   ngOnInit(): void {
@@ -188,11 +190,11 @@ export class DetailsComponent implements OnInit {
    */
   public onClickDeleteHighlightButton(): void {
     this.highlightByProjectIdService
-    .getHighlightsByProjectId(this.project.id)
-    .subscribe((results: Highlight[]) => {
-      const options = { initialState: { highlights: results }, class: 'modal-lg' };
-      this.modalService.show(ModalHighlightDeleteComponent, options);
-    });
+      .getHighlightsByProjectId(this.project.id)
+      .subscribe((results: Highlight[]) => {
+        const options = { initialState: { highlights: results }, class: 'modal-lg' };
+        this.modalService.show(ModalHighlightDeleteComponent, options);
+      });
   }
 
   /**
@@ -281,6 +283,14 @@ export class DetailsComponent implements OnInit {
       });
       this.router.navigate(['project/overview']);
     });
+  }
+
+  /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service.
+   */
+  public getIconUrl(): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(this.project.projectIcon);
   }
 
   /**

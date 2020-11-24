@@ -22,7 +22,7 @@
    margin-top: 20px;
    margin-left: 35%;
  }
- 
+
  .pagination-footer::ng-deep .page-link {
     z-index: 1;
     color: $light-mode-black;
@@ -32,22 +32,22 @@
     display: flex;
     align-items: center;
  }
- 
+
  .pagination-footer::ng-deep .page-item.active .page-link {
    border-color: $accent-color-red-primary;
    background-color: $accent-color-red-primary !important;
    color: #ffffff;
  }
- 
+
  .paginationDropDown {
    width: 80px;
  }
- 
+
  .search {
    display: flex;
    align-items: center;
    justify-content: center;
- 
+
    input[type="search"] {
      margin-bottom: 10px;
      position: relative;
@@ -61,17 +61,17 @@
      box-shadow: $box-shadow;
      border-radius: 6px;
      font-family: lato, sans-serif;
- 
+
      &::placeholder {
        color: $light-mode-grey-primary;
      }
- 
+
      &:focus {
        border: none;
        outline: none;
      }
    }
- 
+
    button {
      position: relative;
      right: 55px;
@@ -81,41 +81,41 @@
      border: none;
      width: 0;
      padding: 0;
- 
+
      &:focus {
        outline: none;
      }
- 
+
      img {
        width: 25px;
      }
    }
  }
- 
+
  .projects-table {
    width: 100%;
    table-layout: fixed;
    border-collapse: separate;
    border-spacing: 0 15px;
- 
+
    tr {
      box-shadow: $box-shadow;
      cursor: pointer;
- 
+
      td {
        background: $white;
      }
- 
+
      td:first-child {
        border-top-left-radius: 6px;
        border-bottom-left-radius: 6px;
      }
- 
+
      td:last-child {
        border-bottom-right-radius: 6px;
        border-top-right-radius: 6px;
      }
- 
+
      td,
      span,
      h3,
@@ -127,39 +127,41 @@
        text-overflow: ellipsis;
        white-space: nowrap;
      }
- 
+
      td.title {
        width: auto;
        display: flex;
        align-items: center;
        padding: 0 20px 0 0;
- 
+
        .icon-placeholder {
-         height: 55px;
-         width: 55px;
-         min-width: 55px;
+         height: 70px;
+         width: 70px;
+         min-width: 70px;
          margin: 10px 20px;
-         border-radius: 30px;
-         background-color: $accent-color-red-primary;
          display: flex;
          align-items: center;
          justify-content: center;
+         overflow: hidden;
+         text-align: center;
        }
- 
+
        img {
-         height: 30px;
-         max-width: 30px;
+         height: 100%;
+         width: 100%;
+         object-fit: cover;
+         margin: auto;
        }
      }
- 
+
      td.icon {
        width: 20%;
- 
+
        svg {
          height: 18px;
          fill: $accent-color-red-primary;
        }
- 
+
        img {
          height: 18px;
          margin: 13px;
@@ -167,7 +169,7 @@
      }
    }
  }
- 
+
  .projects-filter-wrapper{
    min-width: 250px;
    .projects-filter {
@@ -179,17 +181,17 @@
      h3 {
        margin: 0;
      }
- 
+
      .option-select {
        margin-bottom: 10px;
        width: 100%;
        color: rgba($light-mode-black, 0.7) ;
      }
- 
+
      form {
        input[type="checkbox"] {
          display: none;
- 
+
          + label {
            color: $light-mode-grey-primary;
            vertical-align: middle;
@@ -202,7 +204,7 @@
             span{
               margin-right: 4px;
             }
- 
+
            &::before,
            &::after {
              content: "";
@@ -210,7 +212,7 @@
              border-radius: 2px;
              position: absolute;
            }
- 
+
            &::before {
              width: 15px;
              height: 15px;
@@ -220,7 +222,7 @@
              top: calc(50% - 15px / 2);
            }
          }
- 
+
          &:checked {
            + label {
              &::after {
@@ -234,7 +236,7 @@
            }
          }
        }
- 
+
        .icon {
          display: inline-flex;
          place-content: center;
@@ -244,47 +246,47 @@
          height: 15px;
          width: 15px;
          padding: 2px;
- 
+
          img {
            height: auto;
            width: 100%;
          }
        }
      }
- 
+
      select {
        padding: 4px;
        border-radius: 3px;
        border: 0px solid transparent;
      }
- 
+
      select, option {
        outline: 0;
      }
    }
  }
- 
+
  :host {
    ::ng-deep accordion-group {
      margin-top: 10px;
- 
+
      .card-header {
         background: url("~src/assets/images/chevron-down-solid-orange.svg") no-repeat center right;
         padding: 0;
         border: none;
         background-size: 13px;
- 
+
         button {
           padding: 0;
           color: $light-mode-grey-primary;
           font-size: 18px;
        }
      }
- 
+
      .card {
        border: none;
      }
- 
+
      .card-body {
        margin-top: 10px;
        background: $light-mode-grey-quaternary;
@@ -293,7 +295,7 @@
      }
    }
  }
- 
+
 
 
  .pagination-footer{

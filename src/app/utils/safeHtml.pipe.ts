@@ -1,5 +1,4 @@
 /*
- *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -14,10 +13,18 @@
  *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
- *
  */
-::ng-deep .alert {
-    margin: 0 0 10px 0;
-    box-shadow: 0 3px 6px #0000001a;
-    pointer-events: all;
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+
+
+/**
+ * Sanitize the html to prevent Cross Site Scripting (XSS)
+ */
+@Pipe({ name: 'safeHtml'})
+export class SafeHtmlPipe implements PipeTransform  {
+  constructor(private sanitized: DomSanitizer) {}
+  transform(value) {
+    return this.sanitized.sanitize(1, value);
+  }
 }

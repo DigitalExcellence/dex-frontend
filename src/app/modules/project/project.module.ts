@@ -21,7 +21,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { EditComponent } from './edit/edit.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
@@ -30,6 +30,9 @@ import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-hig
 import { ModalHighlightFormComponent } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { SharedModule } from './../shared/shared.module';
 import { QuillModule } from 'ngx-quill';
+import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
+import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
 import { ModalHighlightEditComponent } from './modal-highlight-edit/modal-highlight-edit.component';
 import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
@@ -56,6 +59,9 @@ import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
     QuillModule
+  ],
+  exports: [
+      FileUploaderComponent
   ],
   providers: [Meta]
 })
