@@ -28,11 +28,4 @@ export class SEOService {
     }
     this.meta.updateTag({ name: 'description', content: desc });
   }
-  
-  public updateOpenGraphTags(title: string, description: string, url: string, image?: string){
-    this.meta.updateTag({name: 'og:title', content: title})
-    this.meta.updateTag({name: 'og:description', content: description})
-    this.meta.updateTag({name: 'og:image', content: image})
-    this.meta.updateTag({name: 'og:url', content: url})
-  }
 }
