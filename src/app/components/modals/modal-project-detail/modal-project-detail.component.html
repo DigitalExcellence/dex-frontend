@@ -16,20 +16,25 @@
    If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
 
  -->
-
+<!-- <ng-container *ngIf="projectLoading; else projectLoaded">
+  <div class="row">
+    <div class="offset-2 col-8">
+      <p>Project is being loaded</p>
+    </div>
+  </div>
+</ng-container>-->
 <div class="modal-accept-container">
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-        <span aria-hidden="true">&times;</span>
+    <span aria-hidden="true">&times;</span>
     </button>
     <div class="modal-body">
-        <h2>{{titleText}}</h2>
-        <p [innerHTML]="mainText"></p>
-        <div class="row">
-            <div class="col-12 modal-buttons">
-                <button type="button" class="cancel" (click)="bsModalRef.hide()">Cancel</button>
-                <button type="button" class="primary" (click)="onClickAccept()">Accept</button>
-            </div>
+    <h2>{{titleText}}</h2>
+    <p [innerHTML]="mainText"></p>
+    <div class="row">
+        <div class="col-12 modal-buttons">
+        <button type="button" class="cancel" (click)="bsModalRef.hide()">Cancel</button>
+        <button type="button" class="primary" (click)="onClickAccept()">Accept</button>
         </div>
-
+    </div>
     </div>
 </div>

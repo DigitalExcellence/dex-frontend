@@ -32,6 +32,10 @@ import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalProjectDetail } from 'src/app/components/modals/modal-project-detail/modal-project-detail.component';
+import {ProjectService} from 'src/app/services/project.service';
+
+
+
 interface SortFormResult {
   type: string;
   direction: string;
@@ -145,6 +149,16 @@ export class OverviewComponent implements OnInit {
 
   private currentPage = 1;
 
+  /**
+   * Project parameter gets updated per project detail modal
+   */
+  public currentProject: Project = null;
+
+  /**
+   * Property to indicate whether the project is loading.
+   */
+  private projectLoading = true;
+
   constructor(
     private router: Router,
     private paginationService: PaginationService,
@@ -154,7 +168,8 @@ export class OverviewComponent implements OnInit {
     private seoService: SEOService,
     private fileRetrieverService: FileRetrieverService,
     private modalService: BsModalService,
-    
+    private projectService: ProjectService,
+
   ) {
     this.searchControl = new FormControl('');
 
@@ -258,13 +273,30 @@ export class OverviewComponent implements OnInit {
    * @param name project name
    */
   public onClickProject(id: number, name: string): void {
-    const modalOptions: ModalOptions = {
-      initialState: {
-        titleText: 'This is a test',
-        mainText: `This is still a test`,
-      }
-    };
-    const modalRef = this.modalService.show(ModalProjectDetail, modalOptions);
+   
+    //Calls the ProjectService and sets the this.currentProject to the clicked project
+    this.projectService.get(id)
+      .pipe(
+        finalize(() => this.projectLoading = false)
+      )
+      .subscribe(
+        (result) => {
+          this.currentProject = result;
+          // UPDATE MODAL VALUES IN HERE!
+        }
+      );
+      //TODO this can updated to conditional values in the angular conditional tags
+
+      // Default modal values
+      const modalOptions: ModalOptions = {
+        initialState: {
+          titleText: "Loading..",
+          mainText: "Project is loading.. Please wait",
+        }
+      };
+
+      const modalRef = this.modalService.show(ModalProjectDetail, modalOptions);
+      
   }
 
   /**
