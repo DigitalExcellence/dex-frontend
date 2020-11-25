@@ -30,7 +30,8 @@ import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { ModalProjectDetail } from 'src/app/components/modals/modal-project-detail/modal-project-detail.component';
 interface SortFormResult {
   type: string;
   direction: string;
@@ -151,7 +152,9 @@ export class OverviewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private seoService: SEOService,
-    private fileRetrieverService: FileRetrieverService
+    private fileRetrieverService: FileRetrieverService,
+    private modalService: BsModalService,
+    
   ) {
     this.searchControl = new FormControl('');
 
@@ -255,8 +258,13 @@ export class OverviewComponent implements OnInit {
    * @param name project name
    */
   public onClickProject(id: number, name: string): void {
-    name = name.split(' ').join('-');
-    this.router.navigate([`/project/details/${id}-${name}`]);
+    const modalOptions: ModalOptions = {
+      initialState: {
+        titleText: 'This is a test',
+        mainText: `This is still a test`,
+      }
+    };
+    const modalRef = this.modalService.show(ModalProjectDetail, modalOptions);
   }
 
   /**
