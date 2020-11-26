@@ -52,6 +52,13 @@ export class OverviewComponent implements OnInit {
   public projectsToDisplay: Project[] = [];
   public projectsTotal: Project[] = [];
 
+
+  /**
+   * Determine whether we need to render a list or cart view
+   */
+  public showListView = true;
+
+
   /**
    * Stores the response with the paginated projects etc. from the api.
    */

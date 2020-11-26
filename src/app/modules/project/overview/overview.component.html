@@ -114,6 +114,16 @@
       <input type="search" placeholder="search project" [formControl]="searchControl">
       <button><img alt="" src="assets/images/research.svg" loading="lazy"></button>
     </div>
+    <div class="row list-view-toggle">
+      <label class="container">
+        <input type="radio" checked="checked" name="list-view" [(ngModel)]="showListView" [value]="true">
+        <span class="checkmark"></span>List
+      </label>
+      <label class="container">
+        <input type="radio" name="list-view" [(ngModel)]="showListView" [value]="false">
+        <span class="checkmark"></span>Grid
+      </label>
+    </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
       <table class="projects-table" role="presentation">
