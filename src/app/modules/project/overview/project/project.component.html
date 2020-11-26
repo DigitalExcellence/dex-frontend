@@ -1,11 +1,15 @@
 <div class="project" [ngClass]="this.showListView ? 'list' : 'grid'">
-  <img class="project-icon" src="../../../../../assets/images/placeholder.svg">
+  <img class="project-icon"
+       align="middle"
+       alt="project-image"
+       [src]="getIconUrl(project)"
+       onerror="this.src='/assets/images/placeholder.svg';"
+       loading="lazy">
   <div class="project-info">
-    <p class="project-name">{{project.name}}</p>
+    <h3 class="project-name">{{project.name}}</h3>
     <p class="project-short-description">{{project.shortDescription}}</p>
   </div>
   <div class="project-likes">0</div>
   <div class="project-created-date">{{project.created | date: 'longDate'}}</div>
   <div class="project-user-name">{{project.user.name}}</div>
-
 </div>
