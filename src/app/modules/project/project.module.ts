@@ -34,7 +34,7 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
-import { ProjectComponent } from 'src/app/components/project/project.component';
+import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
 
 @NgModule({
   declarations: [
