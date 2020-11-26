@@ -126,31 +126,38 @@
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
-      <table class="projects-table" role="presentation">
-        <tr *ngIf="projectsLoading">
-          <td colspan="3">Loading...</td>
-        </tr>
-        <tr *ngFor="let project of projectsToDisplay">
-          <td class="title" (click)="onClickProject(project.id, project.name)">
-            <div class="icon-placeholder">
-              <img align="middle" alt="project-image" [src]="getIconUrl(project.id)" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">
-            </div>
-            <span>
-              <h3>{{ project.name }}</h3>
-              <p>{{ project.shortDescription }}</p>
-            </span>
-          </td>
-          <td class="icon d-none d-xl-table-cell">
-            <p class="large"><img alt="clock" class="icon"
-                src="assets/images/clock.svg" loading="lazy">{{ project.created | date:'longDate' }}</p>
-          </td>
-          <td class="icon d-none d-xl-table-cell">
-            <p class="large"><img alt="user" class="icon"
-                src="assets/images/user.svg" loading="lazy">{{ project.user.name }}</p>
-          </td>
-        </tr>
-      </table>
+      <project-list-wrapper [ngClass]="this.showListView ? 'list' : 'grid'">
+        <h2 *ngIf="projectsLoading">Projects loading...</h2>
+          <app-project *ngFor="let project of projectsToDisplay"
+                       [showListView]="this.showListView"
+                       [project]="project"></app-project>
+      </project-list-wrapper>
     </ng-container>
+
+<!--      <table class="projects-table" role="presentation">-->
+<!--        <tr *ngIf="projectsLoading">-->
+<!--          <td colspan="3">Loading...</td>-->
+<!--        </tr>-->
+<!--        <tr *ngFor="let project of projectsToDisplay">-->
+<!--          <td class="title" (click)="onClickProject(project.id, project.name)">-->
+<!--            <div class="icon-placeholder">-->
+<!--              <img align="middle" alt="project-image" [src]="getIconUrl(project.id)" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">-->
+<!--            </div>-->
+<!--            <span>-->
+<!--              <h3>{{ project.name }}</h3>-->
+<!--              <p>{{ project.shortDescription }}</p>-->
+<!--            </span>-->
+<!--          </td>-->
+<!--          <td class="icon d-none d-xl-table-cell">-->
+<!--            <p class="large"><img alt="clock" class="icon"-->
+<!--                src="assets/images/clock.svg" loading="lazy">{{ project.created | date:'longDate' }}</p>-->
+<!--          </td>-->
+<!--          <td class="icon d-none d-xl-table-cell">-->
+<!--            <p class="large"><img alt="user" class="icon"-->
+<!--                src="assets/images/user.svg" loading="lazy">{{ project.user.name }}</p>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      </table>-->
     <ng-template #noProjects>There are no projects available.</ng-template>
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
       <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage"
