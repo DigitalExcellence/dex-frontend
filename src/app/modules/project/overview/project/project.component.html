@@ -1,18 +1,20 @@
 <ng-container *ngIf="showListView">
   <div class="project list">
-    <img class="project-icon"
-        align="middle"
-        alt="project-image"
-        [src]="getIconUrl(project)"
-        onerror="this.src='/assets/images/placeholder.svg';"
-        loading="lazy">
+    <div class='circle'>
+      <img class="project-icon"
+          align="middle"
+          alt="project-image"
+          [src]="getIconUrl(project)"
+          onerror="this.src='/assets/images/placeholder.svg';"
+          loading="lazy">
+    </div>
     <div class="project-info">
       <h3 class="project-name">{{project.name}}</h3>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
-    <div class="project-likes">0</div>
-    <div class="project-created-date">{{project.created | date: 'longDate'}}</div>
-    <div class="project-user-name">{{project.user.name}}</div>
+    <div class="item project-likes"><i class='far fa-heart'></i> 0 Likes</div>
+    <div class="item disabled project-created-date"><i class='far fa-clock'></i> {{project.created | date: 'longDate'}}</div>
+    <div class="item project-user-name"><i class='fas fa-user'></i> {{project.user.name}}</div>
   </div>
 </ng-container>
 
@@ -32,8 +34,26 @@
       </div>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
-    <div class="project-likes">0</div>
-    <div class="project-created-date">{{project.created | date: 'longDate'}}</div>
-    <div class="project-user-name">{{project.user.name}}</div>
+    <div class='tags'>
+      <div class='tag'>tagie 1</div>
+      <div class='tag'>tagie 121</div>
+      <div class='tag'>tagie 1231</div>
+      <div class='tag'>tagie 1231</div>
+      <div class='tag'>+ 3</div>
+    </div>
+    <div class='bottom-wrapper'>
+      <div class='item'>
+        <i class='far fa-heart'></i>
+        <div class="project-likes">0 Likes</div>
+      </div>
+      <div class='item'>
+        <i class='far fa-clock'></i>
+        <div class="project-created-date">{{project.created | date: 'longDate'}}</div>
+      </div>
+      <div class='item'>
+        <i class='fa fa-user'></i>
+        <div class="project-user-name">{{project.user.name}}</div>
+      </div>
+    </div>
   </div>
 </ng-container>
