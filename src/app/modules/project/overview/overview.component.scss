@@ -63,16 +63,17 @@
       width: 40px;
       padding: 10px;
       border-radius: 5px;
-      background-color: $light-mode-grey-quaternary;
+      background-color: $white;
       color: $accent-color-red-primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       svg {
         size: inherit;
         width: 100%;
         height: 100%;
         margin: 0;
-        top: 0;
-        left: 0;
       }
     }
   }
