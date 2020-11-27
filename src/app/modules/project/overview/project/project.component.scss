@@ -42,14 +42,31 @@
   &.grid {
     height: 100%;
     flex-direction: column;
+    padding: 15px;
 
     .project-info {
-      order: -1;
+      .top-wrapper{
+        display: flex;
+        justify-content: space-between;
+        .circle{
+          background-color: $accent-color-red-primary;
+          border-radius: 999px;
+          width: 35px;
+          height: 35px;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img{
+            height: 100%;
+            width: auto;
+            margin-right: 0;
+          }
+        }
+      }
     }
 
     .project-icon {
-      top: 0;
-      right: 0;
     }
 
   }
