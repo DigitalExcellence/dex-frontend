@@ -142,7 +142,7 @@ export class OverviewComponent implements OnInit {
 
   public currentOnlyHighlightedProjects: boolean = null;
 
-  private currentPage = 1;
+  public currentPage = 1;
 
   constructor(
     private router: Router,
@@ -240,10 +240,6 @@ export class OverviewComponent implements OnInit {
 
     this.currentSearchInput = value;
 
-    // Reset the current page so we are sure we retrieve all the projects in the database and not
-    // Just the ones on the current page. If the query is empty we should search for the projects
-    // On the first page only
-    this.currentPage = value.trim() === '' ? 1 : null;
     this.searchSubject.next(value);
   }
 
@@ -331,12 +327,15 @@ export class OverviewComponent implements OnInit {
   private onInternalQueryChange(): void {
     const internalSearchQuery: InternalSearchQuery = {
       query: this.currentSearchInput === '' ? null : this.currentSearchInput,
-      page: this.currentPage,
+      // If there is a search query, search on all pages
+      page: !this.currentSearchInput ? this.currentPage : null,
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,
       highlighted: this.currentOnlyHighlightedProjects,
     };
+
+    console.log(internalSearchQuery);
 
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.

@@ -143,8 +143,12 @@
     </ng-container>
     <ng-template #noProjects>There are no projects available.</ng-template>
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
-      <pagination [(totalItems)]="totalNrOfProjects" [(itemsPerPage)]="amountOfProjectsOnSinglePage"
-        [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate" (pageChanged)="pageChanged($event)" class="pagination-footer">
+      <pagination [(totalItems)]="totalNrOfProjects"
+                  [(itemsPerPage)]="amountOfProjectsOnSinglePage"
+                  [customNextTemplate]="nextTemplate"
+                  [customPreviousTemplate]="prevTemplate"
+                  [ngModel]="currentPage"
+                  (pageChanged)="pageChanged($event)" class="pagination-footer">
       </pagination>
       <ng-template #nextTemplate [customPreviousTemplate]="prevTemplate" let-disabled="disabled" let-currentPage="currentPage">
         <ng-container *ngIf="!disabled">
