@@ -145,10 +145,11 @@ project-list-wrapper {
   width: 100%;
   display: grid;
   gap: 15px;
+  margin-bottom: 35px;
 
   &.grid {
     gap: 25px;
-    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
 }
