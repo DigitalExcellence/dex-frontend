@@ -30,19 +30,24 @@
   }
 
   .list-view-toggle {
-    display: inline;
+    display: flex;
     margin: auto 0 auto 0;
-    height: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-left: 20px;
 
     .container {
       display: inline;
       position: relative;
-      padding-left: 35px;
       cursor: pointer;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
-      user-select: none;
+      user-select: none;    
+      padding: 0;
+      width: fit-content;
+      margin: 0;
+      height: fit-content;
     }
 
     // Hide the default radio button
@@ -56,9 +61,6 @@
 
     // Create custom radio button
     .checkmark {
-      position: absolute;
-      top: 0;
-      left: 0;
       height: 40px;
       width: 40px;
       padding: 10px;
