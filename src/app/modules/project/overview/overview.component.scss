@@ -28,7 +28,6 @@
   h1 {
     display: inline;
   }
-
   .list-view-toggle {
     display: flex;
     margin: auto 0 auto 0;
@@ -78,6 +77,11 @@
         height: 100%;
         margin: 0;
       }
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .list-view-toggle {
+      display: none;
     }
   }
 
