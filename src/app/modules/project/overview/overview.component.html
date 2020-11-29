@@ -137,9 +137,12 @@
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
       <project-list-wrapper [ngClass]="this.showListView ? 'list' : 'grid'">
         <h2 *ngIf="projectsLoading">Projects loading...</h2>
-        <app-project *ngFor="let project of projectsToDisplay"
-                     [project]="project"
-                     [showListView]="this.showListView"></app-project>
+        <app-project
+            *ngFor="let project of projectsToDisplay"
+            [project]="project"
+            [showListView]="this.showListView"
+            (projectClicked)="onClickProject(project.id, project.name)">
+        </app-project>
       </project-list-wrapper>
     </ng-container>
 

@@ -13,13 +13,13 @@ export class ProjectComponent implements OnInit {
 
   @Input() showListView: boolean;
   @Input() project: Project;
+  @Output() projectClicked = new EventEmitter<Project>();
 
   constructor(
       private fileRetrieverService: FileRetrieverService) {
   }
 
   ngOnInit(): void {
-    console.log(this.project)
   }
 
   /**
@@ -30,5 +30,8 @@ export class ProjectComponent implements OnInit {
     return this.fileRetrieverService.getIconUrl(project.projectIcon);
   }
 
+  public onProjectClick(project) {
+    this.projectClicked.emit(project);
+  }
 
 }
