@@ -11,11 +11,27 @@
   .tooltip-inner {
     background-color: white;
     color: black;
-
-    box-shadow: $box-shadow;
+    border-color: white;
   }
+  .tooltip{
+    filter: drop-shadow($box-shadow);
+  }
+  .tooltip.bs-tooltip-right .arrow:before {
+      border-right-color: #fff !important;
+  }
+  .tooltip.bs-tooltip-left .arrow:before {
+      border-left-color: #fff !important;
+  }
+  .tooltip.bs-tooltip-bottom .arrow:before {
+      border-bottom-color: #fff !important;
+  }
+  .tooltip.bs-tooltip-top .arrow:before {
+      border-top-color: #fff !important;
+  }
+  
 
   &.list {
+    cursor: pointer;
     width: 100%;
     display: grid;
     grid-template-columns: auto 3fr 0.75fr 1fr 1fr;
@@ -91,6 +107,7 @@
   }
 
   &.grid {
+    cursor: pointer;
     height: 100%;
     flex-direction: column;
     padding: 20px;
@@ -146,7 +163,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 18px;
       .tag{
         background-color: $accent-color-red-primary;
         color: white;
