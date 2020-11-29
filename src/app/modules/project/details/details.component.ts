@@ -14,30 +14,30 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import {Component, OnInit} from '@angular/core';
-import {SafeUrl} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {EMPTY, Observable} from 'rxjs';
-import {finalize, switchMap} from 'rxjs/operators';
-import {ModalDeleteGenericComponent} from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
-import {Highlight} from 'src/app/models/domain/highlight';
-import {Project} from 'src/app/models/domain/project';
-import {scopes} from 'src/app/models/domain/scopes';
-import {User} from 'src/app/models/domain/user';
-import {AlertConfig} from 'src/app/models/internal/alert-config';
-import {AlertType} from 'src/app/models/internal/alert-type';
-import {HighlightAdd} from 'src/app/models/resources/highlight-add';
-import {ModalHighlightDeleteComponent} from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
-import {HighlightFormResult, ModalHighlightComponent} from 'src/app/modules/project/modal-highlight/modal-highlight.component';
-import {AlertService} from 'src/app/services/alert.service';
-import {AuthService} from 'src/app/services/auth.service';
-import {FileRetrieverService} from 'src/app/services/file-retriever.service';
-import {HighlightService} from 'src/app/services/highlight.service';
-import {HighlightByProjectIdService} from 'src/app/services/highlightid.service';
-import {ProjectService} from 'src/app/services/project.service';
-import {SEOService} from 'src/app/services/seo.service';
-import {environment} from 'src/environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { EMPTY, Observable } from 'rxjs';
+import { finalize, switchMap } from 'rxjs/operators';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { Highlight } from 'src/app/models/domain/highlight';
+import { Project } from 'src/app/models/domain/project';
+import { scopes } from 'src/app/models/domain/scopes';
+import { User } from 'src/app/models/domain/user';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { HighlightAdd } from 'src/app/models/resources/highlight-add';
+import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
+import { HighlightFormResult, ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { HighlightService } from 'src/app/services/highlight.service';
+import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { SEOService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Overview of a single project
@@ -114,6 +114,7 @@ export class DetailsComponent implements OnInit {
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
 
+          console.log(this.project);
           // Updates meta and title tags
           this.seoService.updateDescription(desc);
           this.seoService.updateTitle(this.project.name);

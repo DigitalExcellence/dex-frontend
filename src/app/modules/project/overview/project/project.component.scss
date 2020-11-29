@@ -13,8 +13,13 @@
     color: black;
     border-color: white;
   }
+
   .tooltip{
     filter: drop-shadow($box-shadow);
+
+    ul li {
+      text-align: left;
+    }
   }
   .tooltip.bs-tooltip-right .arrow:before {
       border-right-color: #fff !important;
@@ -28,7 +33,7 @@
   .tooltip.bs-tooltip-top .arrow:before {
       border-top-color: #fff !important;
   }
-  
+
 
   &.list {
     cursor: pointer;

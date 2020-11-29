@@ -58,18 +58,19 @@
       </div>
       <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
         <ng-template #projectCollaborators>
-          <ul>
-            <li *ngFor="let collaborator of project.collaborators">
-              {{collaborator.fullName}}
-            </li>
-          </ul>
+            <ul>
+              <li *ngFor="let collaborator of project.collaborators">
+                {{collaborator.fullName}}
+              </li>
+            </ul>
         </ng-template>
         <i class='fas fa-users'></i>
         <div class="project-collaborators">{{project.collaborators ? project.collaborators.length : 0}} collaborators</div>
       </div>
       <div [tooltip]="projectUpdated" class='item'>
         <ng-template #projectUpdated>
-          Updated: {{project.updated | date: 'mediumDate'}}
+          Updated: {{project.updated | date: 'mediumDate'}}<br>
+          Created: {{project.created | date: 'mediumDate'}}
         </ng-template>
         <i class='far fa-clock'></i>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
