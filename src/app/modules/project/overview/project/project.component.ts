@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Project } from 'src/app/models/domain/project';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
@@ -7,7 +7,8 @@ import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  styleUrls: ['./project.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProjectComponent implements OnInit {
 

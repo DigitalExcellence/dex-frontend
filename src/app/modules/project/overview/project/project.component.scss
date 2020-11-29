@@ -8,11 +8,19 @@
   border-radius: 5px;
   box-shadow: $box-shadow;
 
+  .tooltip-inner {
+    background-color: white;
+    color: black;
+
+    box-shadow: $box-shadow;
+  }
+
   &.list {
     width: 100%;
     display: grid;
     grid-template-columns: auto 3fr 0.75fr 1fr 1fr;
     gap: 20px;
+
     .project-info{
       h3{
         max-width: 100%;
@@ -180,5 +188,4 @@
     }
 
   }
-
 }
