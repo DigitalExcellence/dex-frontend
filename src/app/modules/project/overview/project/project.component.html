@@ -2,15 +2,15 @@
 <ng-container *ngIf="showListView">
   <div class="project list">
     <div class='circle'>
-      <img class="project-icon"
-          align="middle"
-          alt="project-image"
-          [src]="getIconUrl(project)"
-          onerror="this.src='/assets/images/placeholder.svg';"
-          loading="lazy">
+      <img [src]="getIconUrl(project)"
+           align="middle"
+           alt="project-image"
+           class="project-icon"
+           loading="lazy"
+           onerror="this.src='/assets/images/placeholder.svg';">
     </div>
     <div class="project-info">
-      <h3 class="project-name" (click)="onProjectClick(project)">{{project.name}}</h3>
+      <h3 (click)="onProjectClick(project)" class="project-name">{{project.name}}</h3>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
     <div class="item project-likes"><i class='far fa-heart'></i> 0 Likes</div>
@@ -20,18 +20,18 @@
 </ng-container>
 
 <!-- Grid Project-->
-<ng-container *ngIf="!showListView" >
+<ng-container *ngIf="!showListView">
   <div class="project grid">
     <div class="project-info">
       <div class='top-wrapper'>
-        <h3 class="project-name" (click)="onProjectClick(project)">{{project.name}}</h3>
+        <h3 (click)="onProjectClick(project)" class="project-name">{{project.name}}</h3>
         <div class='circle'>
-          <img class="project-icon"
-              align="middle"
-              alt="project-image"
-              [src]="getIconUrl(project)"
-              onerror="this.src='/assets/images/placeholder.png';"
-              loading="lazy">
+          <img [src]="getIconUrl(project)"
+               align="middle"
+               alt="project-image"
+               class="project-icon"
+               loading="lazy"
+               onerror="this.src='/assets/images/placeholder.png';">
         </div>
       </div>
       <p class="project-short-description">{{project.shortDescription}}</p>
@@ -50,19 +50,25 @@
         <i class='far fa-heart'></i>
         <div class="project-likes">0 Likes</div>
       </div>
-      <div class='item'>
+      <div [tooltip]="project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
+        <ng-template #projectCollaborators>
+          <ul>
+            <li *ngFor="let collaborator of project.collaborators">
+              {{collaborator.fullName}}
+            </li>
+          </ul>
+        </ng-template>
+        <i class='fas fa-users'></i>
+        <div class="project-collaborators">{{project.collaborators.length}} collaborators</div>
+      </div>
+      <div [tooltip]="projectUpdated" class='item'>
+        <ng-template #projectUpdated>
+          Updated: {{project.updated | date: 'mediumDate'}}
+        </ng-template>
         <i class='far fa-clock'></i>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
       </div>
-      <ng-template #projectCollaborators>
-        {{project.name}} collabs
-<!--        <ul>-->
-<!--          <li *ngFor="let collaborator of project.collaborators">-->
-<!--            {{collaborator.fullName}}-->
-<!--          </li>-->
-<!--        </ul>-->
-      </ng-template>
-      <div class='item' [tooltip]="projectCollaborators">
+      <div class='item'>
         <i class='fa fa-user'></i>
         <div class="project-user-name">{{project.user.name}}</div>
       </div>
