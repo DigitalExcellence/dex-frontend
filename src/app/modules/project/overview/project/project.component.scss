@@ -185,11 +185,13 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       .item{
-        display: flex;
         gap: 10px;
         align-items: center;
         cursor: pointer;
+        display: grid;
+        grid-template-columns: 20px auto;
         i{
+          justify-self: center;
           color: $light-mode-black;
         }
         &:hover{
