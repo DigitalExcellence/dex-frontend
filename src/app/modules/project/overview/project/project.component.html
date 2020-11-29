@@ -56,7 +56,7 @@
         <i class='far fa-heart'></i>
         <div class="project-likes">0 Likes</div>
       </div>
-      <div [tooltip]="project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
+      <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
         <ng-template #projectCollaborators>
           <ul>
             <li *ngFor="let collaborator of project.collaborators">
@@ -65,7 +65,7 @@
           </ul>
         </ng-template>
         <i class='fas fa-users'></i>
-        <div class="project-collaborators">{{project.collaborators.length}} collaborators</div>
+        <div class="project-collaborators">{{project.collaborators?.length}} collaborators</div>
       </div>
       <div [tooltip]="projectUpdated" class='item'>
         <ng-template #projectUpdated>
