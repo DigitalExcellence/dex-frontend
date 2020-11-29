@@ -1,3 +1,4 @@
+<!-- List project -->
 <ng-container *ngIf="showListView">
   <div class="project list">
     <div class='circle'>
@@ -18,6 +19,7 @@
   </div>
 </ng-container>
 
+<!-- Grid Project-->
 <ng-container *ngIf="!showListView" >
   <div class="project grid">
     <div class="project-info">
@@ -52,7 +54,15 @@
         <i class='far fa-clock'></i>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
       </div>
-      <div class='item'>
+      <ng-template #projectCollaborators>
+        {{project.name}} collabs
+<!--        <ul>-->
+<!--          <li *ngFor="let collaborator of project.collaborators">-->
+<!--            {{collaborator.fullName}}-->
+<!--          </li>-->
+<!--        </ul>-->
+      </ng-template>
+      <div class='item' [tooltip]="projectCollaborators">
         <i class='fa fa-user'></i>
         <div class="project-user-name">{{project.user.name}}</div>
       </div>

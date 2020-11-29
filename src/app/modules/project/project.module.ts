@@ -20,6 +20,7 @@ import { DetailsComponent } from './details/details.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EditComponent } from './edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
@@ -59,6 +60,7 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project/proje
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
     QuillModule
   ],
   exports: [
