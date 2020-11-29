@@ -65,7 +65,7 @@
           </ul>
         </ng-template>
         <i class='fas fa-users'></i>
-        <div class="project-collaborators">{{project.collaborators?.length}} collaborators</div>
+        <div class="project-collaborators">{{project.collaborators ? project.collaborators.length : 0}} collaborators</div>
       </div>
       <div [tooltip]="projectUpdated" class='item'>
         <ng-template #projectUpdated>
