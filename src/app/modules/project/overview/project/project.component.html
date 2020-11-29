@@ -1,13 +1,7 @@
 <!-- List project -->
 <ng-container *ngIf="showListView">
   <div class="project list">
-    <div class='circle'>
-      <img [src]="getIconUrl(project)"
-           align="middle"
-           alt="project-image"
-           class="project-icon"
-           loading="lazy"
-           onerror="this.src='/assets/images/placeholder.svg';">
+    <div class='circle' [ngStyle]="{'background-image': 'url(' + getIconUrl(project) + ')'}">
     </div>
     <div class="project-info">
       <h3 (click)="onProjectClick(project)" class="project-name">{{project.name}}</h3>
@@ -31,13 +25,7 @@
     <div class="project-info">
       <div class='top-wrapper'>
         <h3 (click)="onProjectClick(project)" class="project-name">{{project.name}}</h3>
-        <div class='circle'>
-          <img [src]="getIconUrl(project)"
-               align="middle"
-               alt="project-image"
-               class="project-icon"
-               loading="lazy"
-               onerror="this.src='/assets/images/placeholder.png';">
+        <div class='circle' [ngStyle]="{'background-image': 'url(' + getIconUrl(project) + ')'}">
         </div>
       </div>
       <p class="project-short-description">{{project.shortDescription}}</p>
@@ -69,8 +57,8 @@
       </div>
       <div [tooltip]="projectUpdated" class='item'>
         <ng-template #projectUpdated>
-          Updated: {{project.updated | date: 'mediumDate'}}<br>
-          Created: {{project.created | date: 'mediumDate'}}
+          Created: {{project.created | date: 'mediumDate'}}<br>
+          Updated: {{project.updated | date: 'mediumDate'}}
         </ng-template>
         <i class='far fa-clock'></i>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>

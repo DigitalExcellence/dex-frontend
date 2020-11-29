@@ -20,6 +20,9 @@
     ul li {
       text-align: left;
     }
+    &.show{
+      opacity: 1;
+    }
   }
   .tooltip.bs-tooltip-right .arrow:before {
       border-right-color: #fff !important;
@@ -58,6 +61,8 @@
       }
     }
     .circle{
+      background-size: cover;
+      background-position: center;
       height: 60px;
       width: 60px;
       background-color: $accent-color-red-primary;
@@ -137,6 +142,8 @@
           text-overflow: ellipsis;
         }
         .circle{
+          background-size: cover;
+          background-position: center;
           background-color: $accent-color-red-primary;
           border-radius: 999px;
           width: 35px;
