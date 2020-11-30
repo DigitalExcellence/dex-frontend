@@ -31,8 +31,8 @@
       <em class='far fa-clock'></em>
       {{project.created | date: 'longDate'}}
       <ng-template #projectUpdated>
-        Created: {{project.created | date: 'mediumDate'}}<br>
-        Updated: {{project.updated | date: 'mediumDate'}}
+        <p>Created: {{project.created | date: 'mediumDate'}}</p>
+        <p>Updated: {{project.updated | date: 'mediumDate'}}</p>
       </ng-template>
     </div>
     <div class="item project-user-name"><em class='fas fa-user'></em> {{project.user.name}}</div>
@@ -66,19 +66,17 @@
       </div>
       <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
         <ng-template #projectCollaborators>
-            <ul>
-              <li *ngFor="let collaborator of project.collaborators">
-                {{collaborator.fullName}}
-              </li>
-            </ul>
+              <p *ngFor="let collaborator of project.collaborators">
+                {{collaborator.fullName}} - {{collaborator.role}}
+              </p>
         </ng-template>
         <em class='fas fa-users'></em>
         <div class="project-collaborators">{{project.collaborators ? project.collaborators.length : 0}} collaborators</div>
       </div>
       <div [tooltip]="projectUpdated" class='item'>
         <ng-template #projectUpdated>
-          Created: {{project.created | date: 'mediumDate'}}<br>
-          Updated: {{project.updated | date: 'mediumDate'}}
+          <p>Created: {{project.created | date: 'mediumDate'}}</p>
+          <p>Updated: {{project.updated | date: 'mediumDate'}}</p>
         </ng-template>
         <em class='far fa-clock'></em>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
