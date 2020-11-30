@@ -16,14 +16,14 @@
  */
 @import "src/assets/styles/variables";
 
-.project {
+.project{
   display: flex;
   background-color: $white;
   padding: 10px;
   margin: 0;
   border-radius: 5px;
   box-shadow: $box-shadow;
-  .tooltip-inner {
+  .tooltip-inner{
     background-color: white;
     color: black;
     border-color: white;
@@ -31,27 +31,27 @@
   }
   .tooltip{
     filter: drop-shadow($box-shadow);
-    ul li {
+    ul li{
       text-align: left;
     }
     &.show{
       opacity: 1;
     }
   }
-  .tooltip.bs-tooltip-right .arrow:before {
+  .tooltip.bs-tooltip-right .arrow:before{
     border-right-color: #fff !important;
   }
-  .tooltip.bs-tooltip-left .arrow:before {
+  .tooltip.bs-tooltip-left .arrow:before{
     border-left-color: #fff !important;
   }
-  .tooltip.bs-tooltip-bottom .arrow:before {
+  .tooltip.bs-tooltip-bottom .arrow:before{
     border-bottom-color: #fff !important;
   }
-  .tooltip.bs-tooltip-top .arrow:before {
+  .tooltip.bs-tooltip-top .arrow:before{
     border-top-color: #fff !important;
   }
-  
-  &.list {
+
+  &.list{
     cursor: pointer;
     width: 100%;
     display: grid;
@@ -80,7 +80,7 @@
       background-color: white;
       box-shadow: 0 0px 4px #0000001a;
       border-radius: 999px;
-      .project-icon {
+      .project-icon{
         width: 100%;
         height: auto;
       }
@@ -108,11 +108,11 @@
         }
       }
     }
-    div {
+    div{
       text-align: center;
       margin: auto 0;
     }
-    .project-info {
+    .project-info{
       text-align: left;
 
       overflow: hidden;
@@ -126,7 +126,7 @@
     }
   }
 
-  &.grid {
+  &.grid{
     cursor: pointer;
     height: 100%;
     flex-direction: column;
