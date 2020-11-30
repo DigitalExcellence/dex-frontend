@@ -106,9 +106,6 @@
               <div (click)="setActiveTab('description')" class='item active'>
                 Description
               </div>
-              <div (click)="setActiveTab('images')" class='item'>
-                Images
-              </div>
               <div (click)="setActiveTab('contact')" class='item'>
                 Contact
               </div>
@@ -119,8 +116,16 @@
 
             <p>cog</p>
           </div>
-          <div class="project-description large">
-            <div class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></div>
+          <div>
+            <div *ngIf=" this.activeTab == 'description' " class="project-description large">
+              <div class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></div>
+            </div>
+            <div *ngIf=" this.activeTab == 'contact' ">
+              <p>contact</p>
+            </div>
+            <div *ngIf=" this.activeTab == 'collaborators' ">
+                <p>collaborators</p>
+            </div>
           </div>
         </div>
 
