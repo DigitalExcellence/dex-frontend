@@ -14,8 +14,9 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { debounceTime, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -30,10 +31,9 @@ import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ModalProjectDetail } from 'src/app/components/modals/modal-project-detail/modal-project-detail.component';
-import {ProjectService} from 'src/app/services/project.service';
-
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { DetailsComponent } from 'src/app/modules/project/details/details.component';
+import { Subscription } from 'rxjs';
 
 
 interface SortFormResult {
@@ -49,7 +49,7 @@ interface SortFormResult {
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, AfterContentInit {
   /**
    * Array to receive and store the projects from the api.
    */
@@ -159,6 +159,10 @@ export class OverviewComponent implements OnInit {
    */
   private projectLoading = true;
 
+
+  private modalRef:BsModalRef;
+  private modalSubscriptions: Subscription[] = [];
+
   constructor(
     private router: Router,
     private paginationService: PaginationService,
@@ -168,7 +172,7 @@ export class OverviewComponent implements OnInit {
     private seoService: SEOService,
     private fileRetrieverService: FileRetrieverService,
     private modalService: BsModalService,
-    private projectService: ProjectService,
+    private location: Location
 
   ) {
     this.searchControl = new FormControl('');
@@ -239,6 +243,23 @@ export class OverviewComponent implements OnInit {
     // });
   }
 
+  ngAfterContentInit() {
+    this.activatedRoute.params.subscribe(params => {
+      const projectId = params.id?.split('-')[0];
+      if(projectId) {
+        this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: params.id.split('-')[0]}})
+      }
+    })
+
+    // Go back to home page after the modal is closed
+    this.modalSubscriptions.push(
+        this.modalService.onHide.subscribe((reason: string | any) => {
+          this.location.replaceState('/project/overview');
+        }, reason => {
+          this.location.replaceState('/project/overview');
+        }))
+  }
+
   /**
    * Method which triggers when the serach input receives a key up.
    * Updates the search subject with the query.
@@ -273,30 +294,10 @@ export class OverviewComponent implements OnInit {
    * @param name project name
    */
   public onClickProject(id: number, name: string): void {
-   
-    //Calls the ProjectService and sets the this.currentProject to the clicked project
-    this.projectService.get(id)
-      .pipe(
-        finalize(() => this.projectLoading = false)
-      )
-      .subscribe(
-        (result) => {
-          this.currentProject = result;
-          // UPDATE MODAL VALUES IN HERE!
-        }
-      );
-      //TODO this can updated to conditional values in the angular conditional tags
+    name = name.split(' ').join('-');
 
-      // Default modal values
-      const modalOptions: ModalOptions = {
-        initialState: {
-          titleText: "Loading..",
-          mainText: "Project is loading.. Please wait",
-        }
-      };
+    this.router.navigate([`/project/overview/${id}-${name}`])
 
-      const modalRef = this.modalService.show(ModalProjectDetail, modalOptions);
-      
   }
 
   /**

@@ -20,6 +20,7 @@ import { DetailsComponent } from './details/details.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { EditComponent } from './edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
@@ -57,7 +58,11 @@ import { Meta } from '@angular/platform-browser';
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     QuillModule
+  ],
+  entryComponents: [
+    DetailsComponent
   ],
   exports: [
       FileUploaderComponent
