@@ -15,8 +15,8 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-export interface CallToActionUpdate {
+export interface CallToActionOptionUpdate {
     id: number;
-    name: string;
-    redirectUrl: string;
+    type: string;
+    value: string;
 }

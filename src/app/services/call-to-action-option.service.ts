@@ -19,14 +19,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api-config';
 import { CallToActionOption } from '../models/domain/call-to-action-option';
-import { CallToActionAdd } from '../models/resources/calltoaction-add';
-import { CallToActionUpdate } from '../models/resources/calltoaction-update';
+import { CallToActionOptionAdd } from '../models/resources/calltoaction-add';
+import { CallToActionOptionUpdate } from '../models/resources/calltoaction-update';
 import { HttpBaseService } from './http-base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CallToActionOptionService extends HttpBaseService<CallToActionOption, CallToActionAdd, CallToActionUpdate> {
+export class CallToActionOptionService extends HttpBaseService<CallToActionOption, CallToActionOptionAdd, CallToActionOptionUpdate> {
     constructor(http: HttpClient) {
       super(http, API_CONFIG.url + API_CONFIG.callToActionOptionRoute);
     }
