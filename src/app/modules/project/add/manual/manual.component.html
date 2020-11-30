@@ -17,7 +17,6 @@
 
  -->
 
-
 <div class="row">
   <div class="offset-2 col-8">
     <h1>Add new project</h1>
@@ -77,8 +76,8 @@
         <div class="col-6">
           <div>
             <h3>Text</h3>
-            <select [(ngModel)]="selectedCallToAction" class='form-control' [ngModelOptions]="{standalone: true}">
-              <option *ngFor="let action of callToActions" [ngValue]="action">{{action.name}}</option>
+            <select [(ngModel)]="selectedCallToActionOption" class='form-control' [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let action of callToActionOptions" [ngValue]="action">{{action.value}}</option>
             </select>
           </div>
         </div>
@@ -86,7 +85,7 @@
         <div class="col-6">
           <div>
             <h3>Link</h3>
-            <input [(ngModel)]="selectedCallToAction.redirectUrl" [ngModelOptions]="{standalone: true}" [disabled]="selectedCallToAction.id <= 0" placeholder="Link to your contact info"/>
+            <input [disabled]="selectedCallToActionOption.id <= 0" placeholder="Link to your contact info"/>
           </div>
         </div>
       </div>

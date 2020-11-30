@@ -26,7 +26,7 @@ export interface ApiConfig {
   internalSearchRoute: string;
   externalSearchRoute: string;
   wizardRoute: string;
-  callToActionRoute: string;
+  callToActionOptionRoute: string;
 }
 
 export const API_CONFIG: ApiConfig = {
@@ -38,5 +38,5 @@ export const API_CONFIG: ApiConfig = {
   externalSearchRoute: 'search/external',
   embeddedProjectRoute: 'embed',
   wizardRoute: 'wizard',
-  callToActionRoute: 'callToAction'
+  callToActionOptionRoute: 'callToActionOption'
 };

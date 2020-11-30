@@ -14,6 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertService } from 'src/app/services/alert.service';
@@ -31,7 +32,8 @@ import { SEOService} from 'src/app/services/seo.service';
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
 import { CallToAction } from 'src/app/models/domain/call-to-action';
-import { CallToActionService } from 'src/app/services/call-to-action.service';
+import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
+import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
 
 /**
  * Component for manually adding a project.
@@ -52,10 +54,10 @@ export class ManualComponent implements OnInit {
   /**
    * Projects selected call to action
    */
-  public selectedCallToAction: CallToAction = {
+  public selectedCallToActionOption: CallToActionOption = {
     id: 0,
-    name: 'None',
-    redirectUrl: '',
+    type: 'title',
+    value: 'None',
   };
 
   /**
@@ -74,6 +76,8 @@ export class ManualComponent implements OnInit {
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
   public callToActions: CallToAction[] = [];
+  public callToActionOptions: CallToActionOption[] = [];
+
 
   public callToActionsLoading = true;
 
@@ -84,7 +88,7 @@ export class ManualComponent implements OnInit {
     private wizardService: WizardService,
     private alertService: AlertService,
     private seoService: SEOService,
-    private callToActionService: CallToActionService) {
+    private callToActionOptionService: CallToActionOptionService) {
 
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
@@ -94,8 +98,8 @@ export class ManualComponent implements OnInit {
     });
 
     this.newCallToActionForm = this.formBuilder.group({
-      name: [null, Validators.required],
-      redirectUrl: [null, Validators.required],
+      type: [null, Validators.required],
+      value: [null, Validators.required],
     });
 
     this.newCollaboratorForm = this.formBuilder.group({
@@ -124,17 +128,17 @@ export class ManualComponent implements OnInit {
     /**
      * Retrieve the available call to actions
      */
-    this.callToActionService
+    this.callToActionOptionService
     .getAll()
     .pipe(finalize(() => (this.callToActionsLoading = false)))
     .subscribe((result) => {
-        this.callToActions = result;
-    });
+        this.callToActionOptions = result;
 
-    /**
-     * Add the none option to the dropdown
-     */
-    this.callToActions.unshift(this.selectedCallToAction);
+        /**
+         * Add the none option to the dropdown
+         */
+        this.callToActionOptions.unshift(this.selectedCallToActionOption);
+    });
 
     // Updates meta and title tags
     this.seoService.updateTitle('Add new project');
@@ -166,8 +170,8 @@ export class ManualComponent implements OnInit {
     * Whenever a call to action is selected, this value
     * should be sent to to the API.
      */
-    if (this.selectedCallToAction.id > 0) {
-      newProject.callToAction = this.selectedCallToAction;
+    if (this.selectedCallToActionOption.id > 0) {
+    //   newProject.callToAction = this.selectedCallToAction;
     }
 
     this.projectService
