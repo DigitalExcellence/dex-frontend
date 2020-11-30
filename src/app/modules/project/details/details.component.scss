@@ -18,10 +18,10 @@
  */
 @import "assets/styles/variables";
 
-.row{
+.row {
   margin: 0;
 }
-img{
+img {
   width: 100%;
   height: auto;
 }
@@ -38,7 +38,7 @@ img{
     grid-template-columns: 1fr auto;
     justify-content: space-between;
     gap: 20px;
-    h2{
+    h2 {
       margin: 0;
       display: block;
       display: -webkit-box;
@@ -69,7 +69,7 @@ img{
       margin-left: 15px;
     }
   } 
-  .project-metadata{
+  .project-metadata {
     display: grid; 
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
@@ -112,7 +112,6 @@ img{
   .project-title {
     margin-top: 0;
   }
-  
   .project-tags {
     display: flex;
     flex-wrap: wrap;
@@ -135,44 +134,45 @@ img{
     }
   }
   
-  hr{
+  hr {
     margin: 0;
     width: 100%;
     border-top: 0.5px solid rgba(0,0,0,0.1);
   }
-  .bottom{
+
+  .bottom {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    .menu-wrapper{
+    .menu-wrapper {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 30px;
-      .menu{
+      .menu {
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
-        .item{
+        .item {
           height: fit-content;
           font-weight: bold;
           padding-bottom: 4px;
           cursor: pointer;
-          &.active{
+          &.active {
             border-bottom: 3px solid $accent-color-red-primary;
           }
-          &:hover{
+          &:hover {
             color: $accent-color-red-primary;
             opacity: 0.75;
           }
         }
       }
-      p{
+      p {
         margin: 0;
       }
     }
-    .tab-content{
-      p{
+    .tab-content {
+      p {
         margin: 0;
       }
     }
