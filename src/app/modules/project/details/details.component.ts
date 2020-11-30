@@ -64,6 +64,11 @@ export class DetailsComponent implements OnInit {
   public displayEmbedButton = false;
 
   /**
+   * Property to indicate which tab is selected
+   */
+  public activeTab = 'description';
+
+  /**
    * Property to indicate whether the project is loading.
    */
   public projectLoading = true;
@@ -259,6 +264,14 @@ export class DetailsComponent implements OnInit {
    */
   public getIconUrl(): SafeUrl {
     return this.fileRetrieverService.getIconUrl(this.project.projectIcon);
+  }
+
+  /**
+   * Method to set the tab to the active tab from the params
+   */
+  public setActiveTab(newActiveTab): void {
+    this.activeTab = newActiveTab;
+    console.log(this.activeTab, newActiveTab)
   }
 
   /**

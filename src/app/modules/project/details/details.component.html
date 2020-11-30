@@ -103,16 +103,16 @@
         <div class='bottom'>
           <div class='menu-wrapper'>
             <div class='menu'>
-              <div class='item active'>
+              <div (click)="setActiveTab('description')" class='item active'>
                 Description
               </div>
-              <div class='item'>
+              <div (click)="setActiveTab('images')" class='item'>
                 Images
               </div>
-              <div class='item'>
+              <div (click)="setActiveTab('contact')" class='item'>
                 Contact
               </div>
-              <div class='item'>
+              <div (click)="setActiveTab('collaborators')" class='item'>
                 Collaborators
               </div>
             </div>
@@ -129,7 +129,7 @@
             <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
 
             <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
-              <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
+              <button class="primary ml-2"c>Delete Highlight</button>
             </div>
           </ng-container>
           <ng-container *ngIf="displayEmbedButton">
