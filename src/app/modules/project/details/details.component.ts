@@ -114,7 +114,6 @@ export class DetailsComponent implements OnInit {
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
 
-          console.log(this.project);
           // Updates meta and title tags
           this.seoService.updateDescription(desc);
           this.seoService.updateTitle(this.project.name);
