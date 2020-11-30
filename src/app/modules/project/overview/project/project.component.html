@@ -27,7 +27,7 @@
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
     <div class="item project-likes"><em class='far fa-heart'></em> 0 Likes</div>
-    <div class="item disabled project-created-date" [tooltip]="projectUpdated">
+    <div class="item project-created-date" [tooltip]="projectUpdated">
       <em class='far fa-clock'></em>
       {{project.created | date: 'longDate'}}
       <ng-template #projectUpdated>

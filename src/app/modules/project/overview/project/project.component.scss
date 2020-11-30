@@ -57,6 +57,16 @@
     display: grid;
     grid-template-columns: auto 3fr 0.75fr 1fr 1fr;
     gap: 20px;
+    //media querry to hide less important info on smaller screens
+    @media only screen and (max-width: 1000px){
+      grid-template-columns: auto 3fr 0.75fr;
+      .project-created-date{
+        display: none!important;
+      }
+      .project-user-name{
+        display: none!important;
+      }
+    }
     .project-info{
       h3{
         max-width: 100%;
@@ -123,6 +133,9 @@
     .project-created-date,
     .project-user-name {
       width: auto;
+    }
+    .project-likes{
+      white-space: nowrap;
     }
   }
 
