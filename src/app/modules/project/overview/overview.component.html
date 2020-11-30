@@ -141,7 +141,7 @@
             *ngFor="let project of projectsToDisplay"
             [project]="project"
             [showListView]="this.showListView"
-            (projectClicked)="onClickProject(project.id, project.name)">
+            (click)="onClickProject(project.id, project.name)">
         </app-project>
       </project-list-wrapper>
     </ng-container>

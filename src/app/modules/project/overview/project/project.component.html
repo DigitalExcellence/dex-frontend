@@ -4,7 +4,7 @@
     <div class='circle' [ngStyle]="{'background-image': 'url(' + getIconUrl(project) + ')'}">
     </div>
     <div class="project-info">
-      <h3 (click)="onProjectClick(project)" class="project-name">{{project.name}}</h3>
+      <h3 class="project-name">{{project.name}}</h3>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
     <div class="item project-likes"><i class='far fa-heart'></i> 0 Likes</div>
@@ -25,20 +25,20 @@
   <div class="project grid">
     <div class="project-info">
       <div class='top-wrapper'>
-        <h3 (click)="onProjectClick(project)" class="project-name">{{project.name}}</h3>
+        <h3 class="project-name">{{project.name}}</h3>
         <div class='circle' [ngStyle]="{'background-image': 'url(' + getIconUrl(project) + ')'}">
         </div>
       </div>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
     <div class='tags'>
-      <div class='tag'>UX</div>
-      <div class='tag'>UI</div>
-      <div class='tag'>Development</div>
-      <div class='tag'>Creatief</div>
-      <div class='tag'>Arduino</div>
-      <div class='tag'>HTML</div>
-      <div class='tag plus'>+ 3</div>
+      <div class='tag' (click)="tagClicked($event)">UX</div>
+      <div class='tag' (click)="tagClicked($event)">UI</div>
+      <div class='tag' (click)="tagClicked($event)">Development</div>
+      <div class='tag' (click)="tagClicked($event)">Creatief</div>
+      <div class='tag' (click)="tagClicked($event)">Arduino</div>
+      <div class='tag' (click)="tagClicked($event)">HTML</div>
+      <div class='tag plus' (click)="tagClicked($event)">+ 3</div>
     </div>
     <div class='bottom-wrapper'>
       <div class='item'>
@@ -64,7 +64,7 @@
         <i class='far fa-clock'></i>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
       </div>
-      <div class='item'>
+      <div class='item' (click)="userClicked($event)">
         <i class='fa fa-user'></i>
         <div class="project-user-name">{{project.user.name}}</div>
       </div>
