@@ -134,34 +134,38 @@ img{
   }
   .bottom{
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
-    .menu{
+    flex-direction: column;
+    gap: 18px;
+    .menu-wrapper{
       display: flex;
+      justify-content: space-between;
       flex-wrap: wrap;
-      gap: 15px;
-      .item{
-        height: fit-content;
-        font-weight: bold;
-        padding-bottom: 4px;
-        cursor: pointer;
-        &.active{
-          border-bottom: 3px solid $accent-color-red-primary;
-        }
-        &:hover{
-          color: $accent-color-red-primary;
-          opacity: 0.75;
+      gap: 30px;
+      .menu{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        .item{
+          height: fit-content;
+          font-weight: bold;
+          padding-bottom: 4px;
+          cursor: pointer;
+          &.active{
+            border-bottom: 3px solid $accent-color-red-primary;
+          }
+          &:hover{
+            color: $accent-color-red-primary;
+            opacity: 0.75;
+          }
         }
       }
+      p{
+        margin: 0;
+      }
     }
-    p{
-      margin: 0;
+    .project-description {
+      max-width: 800px;
     }
-  }
-
-  .project-description {
-    max-width: 800px;
   }
   
   .project-highlighted-div {

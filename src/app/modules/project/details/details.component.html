@@ -101,25 +101,27 @@
 
         <hr>
         <div class='bottom'>
-          <div class='menu'>
-            <div class='item active'>
-              Description
+          <div class='menu-wrapper'>
+            <div class='menu'>
+              <div class='item active'>
+                Description
+              </div>
+              <div class='item'>
+                Images
+              </div>
+              <div class='item'>
+                Contact
+              </div>
+              <div class='item'>
+                Collaborators
+              </div>
             </div>
-            <div class='item'>
-              Images
-            </div>
-            <div class='item'>
-              Contact
-            </div>
-            <div class='item'>
-              Collaborators
-            </div>
-          </div>
-          <p>cog</p>
-        </div>
 
-        <div class="project-description large">
-          <div class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></div>
+            <p>cog</p>
+          </div>
+          <div class="project-description large">
+            <div class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></div>
+          </div>
         </div>
 
         <!-- <div id="project-share-buttons">
