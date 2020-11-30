@@ -26,16 +26,16 @@
       <h3 class="project-name">{{project.name}}</h3>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
-    <div class="item project-likes"><i class='far fa-heart'></i> 0 Likes</div>
+    <div class="item project-likes"><em class='far fa-heart'></em> 0 Likes</div>
     <div class="item disabled project-created-date" [tooltip]="projectUpdated">
-      <i class='far fa-clock'></i>
+      <em class='far fa-clock'></em>
       {{project.created | date: 'longDate'}}
       <ng-template #projectUpdated>
         Created: {{project.created | date: 'mediumDate'}}<br>
         Updated: {{project.updated | date: 'mediumDate'}}
       </ng-template>
     </div>
-    <div class="item project-user-name"><i class='fas fa-user'></i> {{project.user.name}}</div>
+    <div class="item project-user-name"><em class='fas fa-user'></em> {{project.user.name}}</div>
   </div>
 </ng-container>
 
@@ -61,7 +61,7 @@
     </div>
     <div class='bottom-wrapper'>
       <div class='item'>
-        <i class='far fa-heart'></i>
+        <em class='far fa-heart'></em>
         <div class="project-likes">0 Likes</div>
       </div>
       <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
@@ -72,7 +72,7 @@
               </li>
             </ul>
         </ng-template>
-        <i class='fas fa-users'></i>
+        <em class='fas fa-users'></em>
         <div class="project-collaborators">{{project.collaborators ? project.collaborators.length : 0}} collaborators</div>
       </div>
       <div [tooltip]="projectUpdated" class='item'>
@@ -80,11 +80,11 @@
           Created: {{project.created | date: 'mediumDate'}}<br>
           Updated: {{project.updated | date: 'mediumDate'}}
         </ng-template>
-        <i class='far fa-clock'></i>
+        <em class='far fa-clock'></em>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
       </div>
       <div class='item' (click)="userClicked($event)">
-        <i class='fa fa-user'></i>
+        <em class='fa fa-user'></em>
         <div class="project-user-name">{{project.user.name}}</div>
       </div>
     </div>
