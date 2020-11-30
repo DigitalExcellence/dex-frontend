@@ -23,17 +23,14 @@
   margin: 0;
   border-radius: 5px;
   box-shadow: $box-shadow;
-
   .tooltip-inner {
     background-color: white;
     color: black;
     border-color: white;
     padding: 10px 12px;
   }
-
   .tooltip{
     filter: drop-shadow($box-shadow);
-
     ul li {
       text-align: left;
     }
@@ -42,26 +39,24 @@
     }
   }
   .tooltip.bs-tooltip-right .arrow:before {
-      border-right-color: #fff !important;
+    border-right-color: #fff !important;
   }
   .tooltip.bs-tooltip-left .arrow:before {
-      border-left-color: #fff !important;
+    border-left-color: #fff !important;
   }
   .tooltip.bs-tooltip-bottom .arrow:before {
-      border-bottom-color: #fff !important;
+    border-bottom-color: #fff !important;
   }
   .tooltip.bs-tooltip-top .arrow:before {
-      border-top-color: #fff !important;
+    border-top-color: #fff !important;
   }
-
-
+  
   &.list {
     cursor: pointer;
     width: 100%;
     display: grid;
     grid-template-columns: auto 3fr 0.75fr 1fr 1fr;
     gap: 20px;
-
     .project-info{
       h3{
         max-width: 100%;
@@ -117,7 +112,6 @@
       text-align: center;
       margin: auto 0;
     }
-
     .project-info {
       text-align: left;
 
@@ -125,13 +119,11 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
     .project-likes,
     .project-created-date,
     .project-user-name {
       width: auto;
     }
-
   }
 
   &.grid {
@@ -140,7 +132,6 @@
     flex-direction: column;
     padding: 20px;
     justify-content: space-between;
-
     .project-info {
       .top-wrapper{
         display: flex;
@@ -210,7 +201,6 @@
         }
       }
     }
-
     .bottom-wrapper{
       display: grid;
       grid-template-columns: 1fr 1fr;
