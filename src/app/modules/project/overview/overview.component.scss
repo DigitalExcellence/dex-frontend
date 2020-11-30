@@ -43,7 +43,7 @@
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
-      user-select: none;    
+      user-select: none;
       padding: 0;
       width: fit-content;
       margin: 0;
@@ -141,7 +141,7 @@
   }
 }
 
-project-list-wrapper {
+.project-list-wrapper {
   width: 100%;
   display: grid;
   gap: 15px;

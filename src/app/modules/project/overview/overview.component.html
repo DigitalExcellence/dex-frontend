@@ -135,7 +135,7 @@
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
-      <project-list-wrapper [ngClass]="this.showListView ? 'list' : 'grid'">
+      <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <h2 *ngIf="projectsLoading">Projects loading...</h2>
         <app-project
             *ngFor="let project of projectsToDisplay"
@@ -143,7 +143,7 @@
             [showListView]="this.showListView"
             (click)="onClickProject(project.id, project.name)">
         </app-project>
-      </project-list-wrapper>
+      </div>
     </ng-container>
 
     <ng-template #noProjects>There are no projects available.</ng-template>
