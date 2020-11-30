@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Project } from 'src/app/models/domain/project';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
@@ -26,17 +26,13 @@ import { FileRetrieverService } from 'src/app/services/file-retriever.service';
   styleUrls: ['./project.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent {
 
   @Input() showListView: boolean;
   @Input() project: Project;
 
   constructor(
       private fileRetrieverService: FileRetrieverService) {
-  }
-
-  ngOnInit(): void {
-    console.log(this.project);
   }
 
   /**
