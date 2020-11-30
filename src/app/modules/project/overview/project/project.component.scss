@@ -60,6 +60,7 @@
     //media querry to hide less important info on smaller screens
     @media only screen and (max-width: 1000px) {
       grid-template-columns: auto 3fr 0.75fr;
+      gap: 12px;
       .project-created-date {
         display: none!important;
       }
