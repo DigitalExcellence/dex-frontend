@@ -14,30 +14,30 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import {Component, OnInit} from '@angular/core';
-import {SafeUrl} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {EMPTY, Observable} from 'rxjs';
-import {finalize, switchMap} from 'rxjs/operators';
-import {ModalDeleteGenericComponent} from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
-import {Highlight} from 'src/app/models/domain/highlight';
-import {Project} from 'src/app/models/domain/project';
-import {scopes} from 'src/app/models/domain/scopes';
-import {User} from 'src/app/models/domain/user';
-import {AlertConfig} from 'src/app/models/internal/alert-config';
-import {AlertType} from 'src/app/models/internal/alert-type';
-import {HighlightAdd} from 'src/app/models/resources/highlight-add';
-import {ModalHighlightDeleteComponent} from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
-import {HighlightFormResult, ModalHighlightComponent} from 'src/app/modules/project/modal-highlight/modal-highlight.component';
-import {AlertService} from 'src/app/services/alert.service';
-import {AuthService} from 'src/app/services/auth.service';
-import {FileRetrieverService} from 'src/app/services/file-retriever.service';
-import {HighlightService} from 'src/app/services/highlight.service';
-import {HighlightByProjectIdService} from 'src/app/services/highlightid.service';
-import {ProjectService} from 'src/app/services/project.service';
-import {SEOService} from 'src/app/services/seo.service';
-import {environment} from 'src/environments/environment';
+import { Component, Input, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { EMPTY, Observable } from 'rxjs';
+import { finalize, switchMap } from 'rxjs/operators';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { Highlight } from 'src/app/models/domain/highlight';
+import { Project } from 'src/app/models/domain/project';
+import { scopes } from 'src/app/models/domain/scopes';
+import { User } from 'src/app/models/domain/user';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { HighlightAdd } from 'src/app/models/resources/highlight-add';
+import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
+import { HighlightFormResult, ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { HighlightService } from 'src/app/services/highlight.service';
+import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { SEOService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Overview of a single project
@@ -48,6 +48,9 @@ import {environment} from 'src/environments/environment';
   styleUrls: ['./details.component.scss'],
 })
 export class DetailsComponent implements OnInit {
+
+  @Input() projectId: number;
+
   /**
    * Variable to store the project which is retrieved from the api
    */
@@ -86,52 +89,47 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const routeId = this.activedRoute.snapshot.params.id.split('-')[0];
-    if (!routeId) {
-      return;
+      if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
+        this.invalidId = this.projectId.toString();
+        return;
+      }
+
+      this.authService.authNavStatus$.subscribe((status) => {
+        this.isAuthenticated = status;
+      });
+      this.currentUser = this.authService.getCurrentBackendUser();
+
+      this.projectService.get(this.projectId)
+          .pipe(
+              finalize(() => this.projectLoading = false)
+          )
+          .subscribe(
+              (result) => {
+                this.project = result;
+                const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
+                this.determineDisplayEditProjectButton();
+                this.determineDisplayDeleteProjectButton();
+                this.determineDisplayEmbedButton();
+                this.determineDisplayHighlightButton();
+
+                // Updates meta and title tags
+                this.seoService.updateDescription(desc);
+                this.seoService.updateTitle(this.project.name);
+              }
+          );
+
+      if (this.authService.currentBackendUserHasScope(scopes.HighlightRead)) {
+        this.highlightByProjectIdService.getHighlightsByProjectId(this.projectId)
+            .subscribe(highlights => {
+              if (highlights == null) {
+                return;
+              }
+              if (highlights.length > 0) {
+                this.isProjectHighlighted = true;
+              }
+            });
+      }
     }
-    const id = Number(routeId);
-    if (id == null || Number.isNaN(id) || id < 1) {
-      this.invalidId = routeId;
-      return;
-    }
-
-    this.authService.authNavStatus$.subscribe((status) => {
-      this.isAuthenticated = status;
-    });
-    this.currentUser = this.authService.getCurrentBackendUser();
-
-    this.projectService.get(id)
-      .pipe(
-        finalize(() => this.projectLoading = false)
-      )
-      .subscribe(
-        (result) => {
-          this.project = result;
-          const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
-          this.determineDisplayEditProjectButton();
-          this.determineDisplayDeleteProjectButton();
-          this.determineDisplayEmbedButton();
-          this.determineDisplayHighlightButton();
-
-          // Updates meta and title tags
-          this.seoService.updateDescription(desc);
-          this.seoService.updateTitle(this.project.name);
-        }
-      );
-
-    if (this.authService.currentBackendUserHasScope(scopes.HighlightRead)) {
-      this.highlightByProjectIdService.getHighlightsByProjectId(id)
-        .subscribe(highlights => {
-          if (highlights == null) {
-            return;
-          }
-          if (highlights.length > 0) {
-            this.isProjectHighlighted = true;
-          }
-        });
-    }
-  }
 
   /**
    * Highlight a project by calling the API

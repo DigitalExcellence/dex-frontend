@@ -160,7 +160,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private projectLoading = true;
 
 
-  private modalRef:BsModalRef;
+  private modalRef: BsModalRef;
   private modalSubscriptions: Subscription[] = [];
 
   constructor(
@@ -246,10 +246,10 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     this.activatedRoute.params.subscribe(params => {
       const projectId = params.id?.split('-')[0];
-      if(projectId) {
-        this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: params.id.split('-')[0]}})
+      if (projectId) {
+        this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: params.id.split('-')[0]}});
       }
-    })
+    });
 
     // Go back to home page after the modal is closed
     this.modalSubscriptions.push(
@@ -257,7 +257,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
           this.location.replaceState('/project/overview');
         }, reason => {
           this.location.replaceState('/project/overview');
-        }))
+        }));
   }
 
   /**
@@ -296,8 +296,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   public onClickProject(id: number, name: string): void {
     name = name.split(' ').join('-');
 
-    this.router.navigate([`/project/overview/${id}-${name}`])
-
+    this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: id}});
+    this.location.replaceState(`/project/overview/${id}-${name}`)
   }
 
   /**
