@@ -116,9 +116,9 @@
 
             <p>cog</p>
           </div>
-          <div>
+          <div class='tab-content'>
             <div *ngIf=" this.activeTab == 'description' " class="project-description large">
-              <div class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></div>
+              <p class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></p>
             </div>
             <div *ngIf=" this.activeTab == 'contact' ">
               <p>contact</p>
