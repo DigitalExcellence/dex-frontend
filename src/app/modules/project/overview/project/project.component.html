@@ -12,7 +12,8 @@
       <i class='far fa-clock'></i>
       {{project.created | date: 'longDate'}}
       <ng-template #projectUpdated>
-      Updated: {{project.updated | date: 'mediumDate'}}
+        Created: {{project.created | date: 'mediumDate'}}<br>
+        Updated: {{project.updated | date: 'mediumDate'}}
       </ng-template>
     </div>
     <div class="item project-user-name"><i class='fas fa-user'></i> {{project.user.name}}</div>
