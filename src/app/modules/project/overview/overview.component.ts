@@ -74,7 +74,7 @@ export class OverviewComponent implements OnInit {
   /**
    * The amount of projects that will be displayed on a single page.
    */
-  public amountOfProjectsOnSinglePage = 10;
+  public amountOfProjectsOnSinglePage = 12;
 
   /**
    * The number of projects that are on the platform
@@ -86,7 +86,7 @@ export class OverviewComponent implements OnInit {
    */
   public defaultPaginationOption = {
     id: 0,
-    amountOnPage: 10
+    amountOnPage: 12
   };
 
   public showPaginationFooter = true;
@@ -95,9 +95,9 @@ export class OverviewComponent implements OnInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    { id: 0, amountOnPage: 10 },
-    { id: 1, amountOnPage: 20 },
-    { id: 2, amountOnPage: 30 },
+    { id: 0, amountOnPage: 12 },
+    { id: 1, amountOnPage: 24 },
+    { id: 2, amountOnPage: 36 },
   ];
 
   /**
