@@ -17,6 +17,6 @@
 
 export interface CallToAction {
     id: number;
-    name: string;
-    redirectUrl: string;
+    optionValue: string;
+    value: string;
 }

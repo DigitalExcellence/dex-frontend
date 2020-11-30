@@ -134,7 +134,7 @@ export class DetailsComponent implements OnInit {
   }
 
   public onClickCallToActionButton(): void {
-    window.open(this.project.callToAction.redirectUrl, '_blank');
+    window.open(this.project.callToAction.value, '_blank');
   }
 
   /**

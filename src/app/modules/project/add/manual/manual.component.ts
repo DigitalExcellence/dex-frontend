@@ -31,9 +31,9 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
 import { SEOService} from 'src/app/services/seo.service';
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
-import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
 import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
+import { CallToAction } from 'src/app/models/domain/call-to-action';
 
 /**
  * Component for manually adding a project.
@@ -61,6 +61,11 @@ export class ManualComponent implements OnInit {
   };
 
   /**
+   * The specified redirect url from the call to action
+   */
+  public callToActionRedirectUrl: string;
+
+  /**
    * Project's collaborators.
    */
   public collaborators: CollaboratorAdd[] = [];
@@ -75,9 +80,10 @@ export class ManualComponent implements OnInit {
    */
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
-  public callToActions: CallToAction[] = [];
+  /**
+   * The available call to action options to select from
+   */
   public callToActionOptions: CallToActionOption[] = [];
-
 
   public callToActionsLoading = true;
 
@@ -138,6 +144,8 @@ export class ManualComponent implements OnInit {
          * Add the none option to the dropdown
          */
         this.callToActionOptions.unshift(this.selectedCallToActionOption);
+
+        this.callToActionOptions.map(o => o.value = o.value.charAt(0).toUpperCase() + o.value.slice(1));
     });
 
     // Updates meta and title tags
@@ -171,7 +179,8 @@ export class ManualComponent implements OnInit {
     * should be sent to to the API.
      */
     if (this.selectedCallToActionOption.id > 0) {
-    //   newProject.callToAction = this.selectedCallToAction;
+       let callToActionToSubmit = { optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl } as CallToAction;
+       newProject.callToAction = callToActionToSubmit;
     }
 
     this.projectService
