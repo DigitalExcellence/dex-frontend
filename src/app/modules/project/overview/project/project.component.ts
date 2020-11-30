@@ -50,4 +50,8 @@ export class ProjectComponent {
   public userClicked(event) {
     event.stopPropagation();
   }
+
+  public likeClicked(event) {
+    event.stopPropagation();
+  }
 }
