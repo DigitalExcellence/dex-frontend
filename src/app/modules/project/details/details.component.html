@@ -103,13 +103,13 @@
         <div class='bottom'>
           <div class='menu-wrapper'>
             <div class='menu'>
-              <div (click)="setActiveTab('description')" class='item active'>
+              <div (click)="setActiveTab('description')" [ngClass]="{'active': this.activeTab == 'description' }" class='item'>
                 Description
               </div>
-              <div (click)="setActiveTab('contact')" class='item'>
+              <div (click)="setActiveTab('contact')" [ngClass]="{'active': this.activeTab == 'contact' }" class='item'>
                 Contact
               </div>
-              <div (click)="setActiveTab('collaborators')" class='item'>
+              <div (click)="setActiveTab('collaborators')" [ngClass]="{'active': this.activeTab == 'collaborators' }" class='item'>
                 Collaborators
               </div>
             </div>
