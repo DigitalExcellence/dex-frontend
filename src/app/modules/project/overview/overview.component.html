@@ -43,7 +43,7 @@
     <div class="projects-filter">
       <h3>Filter</h3>
       <accordion>
-        <accordion-group [hidden]="!displaySearchElements" heading="Category" isOpen="true">
+        <accordion-group [hidden]="!displaySearchElements" heading="Category">
           <form [formGroup]="categoryForm">
             <div>
               <input formControlName="code" id="code" name="code" type="checkbox" value="Code">
@@ -67,7 +67,7 @@
             </div>
           </form>
         </accordion-group>
-        <accordion-group [hidden]="!displaySearchElements" heading="Tags" isOpen="true">
+        <accordion-group [hidden]="!displaySearchElements" heading="Tags">
           <form [formGroup]="tagsForm">
             <div>
               <input formControlName="learning" id="learning" type="checkbox">
@@ -87,7 +87,7 @@
             </div>
           </form>
         </accordion-group>
-        <accordion-group heading="Sort options" isOpen="true">
+        <accordion-group heading="Sort options">
 
           <form [formGroup]="sortForm" class="sort-options-form">
             <label for="sort-type">Sort type</label>
@@ -108,7 +108,7 @@
 
         </accordion-group>
 
-        <accordion-group heading="Highlighted" isOpen="true">
+        <accordion-group heading="Highlighted">
           <label for="asc-desc">Filter options</label>
           <select [formControl]="highlightFormControl" class='option-select' id="sort-type">
             <option *ngFor="let highlightOption of highlightSelectOptions; let i = index" [value]="i">
@@ -149,10 +149,10 @@
     <ng-template #noProjects>There are no projects available.</ng-template>
 
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
-      <pagination (pageChanged)="pageChanged($event)" [(itemsPerPage)]="amountOfProjectsOnSinglePage"
-                  [(totalItems)]="totalNrOfProjects" [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate" class="pagination-footer">
+      <pagination (pageChanged)="pageChanged($event)" [itemsPerPage]="amountOfProjectsOnSinglePage"
+                  [totalItems]="totalNrOfProjects" [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate" class="pagination-footer">
       </pagination>
-      <ng-template #nextTemplate [customPreviousTemplate]="prevTemplate" let-currentPage="currentPage" let-disabled="disabled">
+      <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
         <ng-container *ngIf="!disabled">
           <img alt="next" class="chevron-right" src="assets/images/chevron-down-solid.svg"/>
         </ng-container>
