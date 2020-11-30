@@ -138,7 +138,7 @@ export class ManualComponent implements OnInit {
     .getAll()
     .pipe(finalize(() => (this.callToActionsLoading = false)))
     .subscribe((result) => {
-        this.callToActionOptions = result;
+        this.callToActionOptions = result.filter(o => o.type === 'title');
 
         /**
          * Add the none option to the dropdown
