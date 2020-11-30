@@ -27,41 +27,15 @@
 <ng-template #projectLoaded>
   <div *ngIf="project; else noProject">
     <div class="row">
-      <div class="col-3 project-metadata">
-        <div class="project-icon" style="background-color: unset">
-          <img alt="Code project" [src]="getIconUrl()" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">
-        </div>
-        <div *ngIf="project.uri" class="project-metadata__item">
-          <h3>External Link</h3>
-
-          <a href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
-
-        </div>
-        <div class="project-metadata__item">
-          <h3>Upload Date</h3>
-          <p>
-            {{ project.created | date:'longDate' }}
-          </p>
-        </div>
-        <div class="project-metadata__item">
-          <h3>Uploader</h3>
-          <p>
-            {{ project.user.name }}
-          </p>
-        </div>
-        <div class="project-metadata__item">
-          <h3>Collaborators</h3>
-          <ul class="project-metadata__item__collaborators">
-            <li *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} -
-              {{ collaborator.role}}</li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-6">
+        <img src="https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1177074_1920-960x540.jpg" alt="project-detail-image">
+        <div class='modal-content'>
         <div id="title-wrapper">
-          <h1 class="project-title">{{ project.name }}</h1>
+          <h2 class="project-title">{{ project.name }}</h2>
+          <div class="circle" style="background-color: unset">
+            <img alt="Code project" [src]="getIconUrl()" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">
+          </div>
 
-          <div id="project-edit-buttons">
+          <!-- <div id="project-edit-buttons">
             <ng-container *ngIf="displayEditButton">
               <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
                   src="assets/images/edit.svg" loading="lazy"></button>
@@ -70,6 +44,34 @@
               <button class="primary" (click)="onClickRemoveProject()"><img alt=""
                   src="assets/images/trash.svg" loading="lazy"></button>
             </ng-container>
+          </div> -->
+        </div>
+        <div class=" project-metadata">
+          <div *ngIf="project.uri" class="project-metadata__item">
+            <p class='title'>Uploader</p>
+            <p>
+              {{ project.user.name }}
+          </div>
+          <div class="project-metadata__item">
+            <p class='title'>External Link</p>
+  
+            <a href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
+  
+          </div>
+          <div class="project-metadata__item">
+            <p class='title'>Likes</p>
+            <ul class="project-metadata__item__collaborators">
+              <li>
+                <!-- *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} -
+                {{ collaborator.role}} -->
+                120
+              </li>
+            </ul>
+          </div>
+          <div class="project-metadata__item">
+            <p class='title'>Upload Date</p>
+            <p>
+              {{ project.created | date:'longDate' }}
           </div>
         </div>
 
@@ -97,11 +99,30 @@
           </a>
         </div>
 
+        <hr>
+        <div class='bottom'>
+          <div class='menu'>
+            <div class='item active'>
+              Description
+            </div>
+            <div class='item'>
+              Images
+            </div>
+            <div class='item'>
+              Contact
+            </div>
+            <div class='item'>
+              Collaborators
+            </div>
+          </div>
+          <p>cog</p>
+        </div>
+
         <div class="project-description large">
           <div class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></div>
         </div>
 
-        <div id="project-share-buttons">
+        <!-- <div id="project-share-buttons">
           <ng-container *ngIf="displayHighlightButton">
             <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
 
@@ -112,8 +133,8 @@
           <ng-container *ngIf="displayEmbedButton">
             <app-embed-button [projectId]=project.id></app-embed-button>
           </ng-container>
-        </div>
-      </div>
+        </div> -->
+      </div> 
     </div>
   </div>
 
