@@ -34,6 +34,7 @@
     gap: 12px;
     flex-wrap: wrap;
     margin-left: 20px;
+    justify-content: flex-end;
 
     .container {
       box-shadow: $box-shadow;
@@ -151,33 +152,27 @@
     gap: 25px;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
-
 }
 
 .projects-filter-wrapper {
   min-width: 250px;
-
   .projects-filter {
     box-shadow: $box-shadow;
     background: $white;
     padding: 20px 25px;
     border-radius: 6px;
     margin-bottom: 20px;
-
     h3 {
       margin: 0;
     }
-
     .option-select {
       margin-bottom: 10px;
       width: 100%;
       color: rgba($light-mode-black, 0.7);
     }
-
     form {
       input[type="checkbox"] {
         display: none;
-
         + label {
           color: $light-mode-grey-primary;
           vertical-align: middle;
@@ -187,11 +182,9 @@
           cursor: pointer;
           display: flex;
           align-items: center;
-
           span {
             margin-right: 4px;
           }
-
           &::before,
           &::after {
             content: "";
@@ -199,7 +192,6 @@
             border-radius: 2px;
             position: absolute;
           }
-
           &::before {
             width: 15px;
             height: 15px;
@@ -209,7 +201,6 @@
             top: calc(50% - 15px / 2);
           }
         }
-
         &:checked {
           + label {
             &::after {
@@ -223,7 +214,6 @@
           }
         }
       }
-
       .icon {
         display: inline-flex;
         place-content: center;
@@ -233,20 +223,17 @@
         height: 15px;
         width: 15px;
         padding: 2px;
-
         img {
           height: auto;
           width: 100%;
         }
       }
     }
-
     select {
       padding: 4px;
       border-radius: 3px;
       border: 0px solid transparent;
     }
-
     select, option {
       outline: 0;
     }
@@ -256,24 +243,20 @@
 :host {
   ::ng-deep accordion-group {
     margin-top: 10px;
-
     .card-header {
       background: url("~src/assets/images/chevron-down-solid-orange.svg") no-repeat center right;
       padding: 0;
       border: none;
       background-size: 13px;
-
       button {
         padding: 0;
         color: $light-mode-grey-primary;
         font-size: 18px;
       }
     }
-
     .card {
       border: none;
     }
-
     .card-body {
       margin-top: 10px;
       background: $light-mode-grey-quaternary;
@@ -293,7 +276,6 @@
   color: $light-mode-black;
   height: 35px;
   width: 35px;
-
   display: flex;
   align-items: center;
 }
@@ -313,26 +295,21 @@
     height: 35px;
     width: 35px;
   }
-
   a {
     height: 35px;
     width: 35px;
   }
-
   img {
     width: 100%;
   }
-
   .chevron-right {
     margin-top: 1px;
     transform: rotateZ(270deg);
   }
-
   .chevron-left {
     margin-top: 1px;
     transform: rotateZ(90deg);
   }
-
   .disabled {
     opacity: 0.3;
   }
