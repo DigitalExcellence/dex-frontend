@@ -268,7 +268,8 @@
 
 .pagination-div {
   margin-top: 20px;
-  margin-left: 35%;
+  display: flex;
+  justify-content: center;
 }
 
 .pagination-footer::ng-deep .page-link {
