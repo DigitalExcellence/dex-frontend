@@ -231,7 +231,7 @@
     letter-spacing: 0px;
     color: #fff;
     text-transform: capitalize;
-    transition: .3s ease-in;
+    transition: height .3s ease-in, padding .3s ease-in;
 
     &:hover{
       height: 64px;
