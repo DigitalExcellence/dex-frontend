@@ -14,12 +14,12 @@
           <div class="col-md-2 col-5 py-2" (click)=selectHighlight(highlight)><span
               class="date">{{highlight.endDate | formatDate}}</span></div>
           <div class="col-2 py-2 d-sm-none delete">
-            <fa-icon [icon]=faTrash (click)="deleteHighlight(highlight)"></fa-icon>
+            <fa-icon class='trash-icon' [icon]=faTrash (click)="deleteHighlight(highlight)"></fa-icon>
           </div>
           <div class="col-md-6 d-sm-flex py-2 text-truncate" (click)=selectHighlight(highlight)>
             {{highlight.description}}</div>
           <div class="col-md-2 py-2 pr-3 d-none d-sm-inline-block text-right delete">
-            <fa-icon [icon]=faTrash  (click)="deleteHighlight(highlight)" ></fa-icon>
+            <fa-icon class='trash-icon' [icon]=faTrash  (click)="deleteHighlight(highlight)" ></fa-icon>
           </div>
         </div>
       </div>

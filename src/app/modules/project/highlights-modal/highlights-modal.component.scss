@@ -1,8 +1,17 @@
+@import "assets/styles/variables";
+
 .highligts-modal-container {
   padding: 35px;
 
   .heading-row {
     padding: 0.75rem 0;
+  }
+  .highlight-wrapper{
+    .row{
+      height: 54px;
+      display: flex;
+      align-items: center;
+    }
   }
 
   .highlight-wrapper:hover {
@@ -21,9 +30,19 @@
   }
 
   .add-button {
+    display: flex!important;
+    justify-content: center;
+    align-items: center;
     span {
       vertical-align: bottom;
       line-height: 30px;
     }
+    img{
+      height: 25px;
+      width: auto;
+    }
+  }
+  .trash-icon{
+    color: $light-mode-grey-secondary;
   }
 }
