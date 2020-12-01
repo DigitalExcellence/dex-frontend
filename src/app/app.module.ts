@@ -38,6 +38,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
 import { StripHtmlPipe } from './utils/striptags.pipe';
 import { QuillModule } from 'ngx-quill';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { QuillModule } from 'ngx-quill';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    FontAwesomeModule
   ],
   providers: [
     {

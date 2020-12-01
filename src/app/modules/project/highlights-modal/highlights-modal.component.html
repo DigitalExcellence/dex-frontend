@@ -1,0 +1,36 @@
+<div class="highligts-modal-container">
+  <h2 class="text-center mb-4">Project highlights</h2>
+  <div class="row no-gutters heading-row">
+    <div class="col-md-2 col-5"><strong>Start date</strong></div>
+    <div class="col-md-2 col-5"><strong>End date</strong></div>
+    <div class="col-md-8 d-none d-sm-flex"><strong>Description</strong></div>
+  </div>
+  <div class="list-group">
+    <div *ngFor="let highlight of highlights">
+      <div class="highlight-wrapper">
+        <div class="row no-gutters border-top border-bottom">
+          <div class="col-md-2 col-5 py-2" (click)=selectHighlight(highlight)><span
+              class="date">{{highlight.startDate | formatDate}}</span></div>
+          <div class="col-md-2 col-5 py-2" (click)=selectHighlight(highlight)><span
+              class="date">{{highlight.endDate | formatDate}}</span></div>
+          <div class="col-2 py-2 d-sm-none delete">
+            <img src="assets/images/dark-trash.svg" loading="lazy" (click)="deleteHighlight(highlight)">
+          </div>
+          <div class="col-md-6 d-sm-flex py-2 text-truncate" (click)=selectHighlight(highlight)>
+            {{highlight.description}}</div>
+          <div class="col-md-2 py-2 pr-3 d-none d-sm-inline-block text-right delete">
+            <img alt="Delete highlight" src="assets/images/dark-trash.svg" loading="lazy"
+              (click)="deleteHighlight(highlight)">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="add-project-highlight text-center border-top-0 list-group-item list-group-item-action"
+      (click)=addHighlight()>
+      <div class="add-button d-inline-block">
+        <img alt="Add highlight" src="assets/images/plus-button.png" loading="lazy">
+        <span class="ml-3">Add highlight</span>
+      </div>
+    </div>
+  </div>
+</div>

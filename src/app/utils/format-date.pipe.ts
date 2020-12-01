@@ -6,6 +6,6 @@ import * as moment from 'moment';
 })
 export class FormatDatePipe implements PipeTransform {
   public transform(date: string): string {
-    return date ? moment(date).format('dddd, DD-MM-YYYY') : 'Never ending';
+    return date ? moment(date).format('DD-MM-YYYY') : 'Never ending';
   }
 }

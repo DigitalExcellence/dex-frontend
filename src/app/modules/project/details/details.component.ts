@@ -30,16 +30,15 @@ import { AlertService } from 'src/app/services/alert.service';
 import { User } from 'src/app/models/domain/user';
 import { Observable, EMPTY } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
-import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
 import { Highlight } from 'src/app/models/domain/highlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
-import { ModalHighlightEditComponent } from 'src/app/modules/project/modal-highlight-edit/modal-highlight-edit.component';
 import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
 import { SafeUrl } from '@angular/platform-browser';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { HighlightsModalComponent } from '../highlights-modal/highlights-modal.component';
 
 /**
  * Overview of a single project
@@ -183,18 +182,10 @@ export class DetailsComponent implements OnInit {
         this.alertService.pushAlert(alertConfig);
         this.isProjectHighlighted = true;
       });
-  }
 
-  /**
-   * Method to delete a highlight.
-   */
-  public onClickDeleteHighlightButton(): void {
-    this.highlightByProjectIdService
-      .getHighlightsByProjectId(this.project.id)
-      .subscribe((results: Highlight[]) => {
-        const options = { initialState: { highlights: results }, class: 'modal-lg' };
-        this.modalService.show(ModalHighlightDeleteComponent, options);
-      });
+    modalRef.content.goBack.subscribe(() => {
+      this.onClickEditHighlightButton();
+    });
   }
 
   /**
@@ -205,9 +196,9 @@ export class DetailsComponent implements OnInit {
       .getHighlightsByProjectId(this.project.id)
       .subscribe((results: Highlight[]) => {
         const options = { initialState: { highlights: results }, class: 'modal-lg' };
-        const modalHighlightEditRef = this.modalService.show(ModalHighlightEditComponent, options);
+        const highlightsModalComponentRef = this.modalService.show(HighlightsModalComponent, options);
 
-        return modalHighlightEditRef.content.selectHighlightToEdit.subscribe(highlight => {
+        highlightsModalComponentRef.content.selectHighlightToEdit.subscribe(highlight => {
           const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight } });
 
           formModalRef.content.confirm.pipe(
@@ -236,6 +227,14 @@ export class DetailsComponent implements OnInit {
             this.alertService.pushAlert(alertConfig);
             this.isProjectHighlighted = true;
           });
+
+          formModalRef.content.goBack.subscribe(() => {
+            this.onClickEditHighlightButton();
+          });
+        });
+
+        highlightsModalComponentRef.content.selectAddHighlight.subscribe(() => {
+          this.onClickHighlightButton();
         });
       });
   }

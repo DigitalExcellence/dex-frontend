@@ -42,13 +42,18 @@
       outline: none;
     }
   }
+  
+  @include media-breakpoint-down(md) {
+    width: 100%;
+  }
 }
 
 .highlight-form {
   margin-top: 20px;
-    
-    input[type="text"],
-    input[type="date"] {
+
+  textarea.description,
+  input[type="text"],
+  input[type="date"] {
     border: none;
     border-radius: 6px;
     box-shadow: 0 3px 6px #0000001a;
@@ -61,6 +66,12 @@
       border: 1px solid #707070;
     }
   }
+  textarea.description {
+    resize: none;
+    height: 90px;
+    padding: 5px 15px;
+  }
+  
 
   p.validation-error-message {
     color: $accent-color-red-primary;
@@ -88,4 +99,9 @@
   button:nth-child(1) {
     margin-right: 15px;
   }
+}
+
+.back-button {
+  color: $accent-color-red-primary;
+  cursor: pointer;
 }

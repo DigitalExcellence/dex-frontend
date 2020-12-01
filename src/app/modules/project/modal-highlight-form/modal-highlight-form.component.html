@@ -22,7 +22,10 @@
     <span aria-hidden="true">&times;</span>
   </button>
   <div class="modal-body">
-    <h2>Highlight project</h2>
+    <h2>
+      <fa-icon [icon]=faChevronLeft class="back-button" (click)=onClickBack()></fa-icon>
+      Highlight project
+    </h2>
     <form [formGroup]="highlightProjectForm" class="highlight-form">
       <div class="row">
         <div class="col-6">
@@ -40,7 +43,8 @@
         <div class="col-12">
           <div>
             <h3>Highlight description</h3>
-            <input type="text" placeholder="Highlight description" formControlName="description">
+            <textarea type="text" placeholder="Highlight description" formControlName="description" class="description">
+            </textarea>
           </div>
         </div>
         <div class="col-12" *ngIf="validationErrorMessage != null">
@@ -57,12 +61,20 @@
         </div>
       </div>
     </form>
-    <div class="row">
-      <div class="col-12 modal-buttons">
-        <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
-        <button type="button" class="primary" (click)="onClickConfirm()">Save</button>
+    <div class="row mt-3">
+      <div class="col-sm-5 d-none d-sm-flex">
+        <button *ngIf="canDelete" type="button" class="cancel" (click)="onClickDelete()">
+          Delete highlight
+          <fa-icon [icon]=faTrashAlt></fa-icon>
+        </button>
+      </div>
+      <div class="col-2 d-sm-none">
+        <fa-icon *ngIf="canDelete" [icon]=faTrash (click)="onClickDelete()" size="2x" [classes]="['mobile-trash']"></fa-icon>
+      </div>
+      <div class="col-10 col-sm-7 text-right">
+        <button type="button" class="cancel mr-3" (click)="onClickDeny()">Cancel</button>
+        <button type="button" class="primary" (click)="onClickConfirm()">Save <fa-icon [icon]=faSave></fa-icon></button>
       </div>
     </div>
-
   </div>
 </div>

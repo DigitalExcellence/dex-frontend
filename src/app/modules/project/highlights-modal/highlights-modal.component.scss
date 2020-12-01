@@ -1,0 +1,29 @@
+.highligts-modal-container {
+  padding: 35px;
+
+  .heading-row {
+    padding: 0.75rem 0;
+  }
+
+  .highlight-wrapper:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+  }
+
+  .list-group-item {
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+  }
+
+  .delete img:hover {
+    opacity: 0.7;
+  }
+
+  .add-button {
+    span {
+      vertical-align: bottom;
+      line-height: 30px;
+    }
+  }
+}

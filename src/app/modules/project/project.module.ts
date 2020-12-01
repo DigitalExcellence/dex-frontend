@@ -26,7 +26,6 @@ import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
 import { ModalHighlightFormComponent } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { SharedModule } from './../shared/shared.module';
 import { QuillModule } from 'ngx-quill';
@@ -34,8 +33,9 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
-import { ModalHighlightEditComponent } from './modal-highlight-edit/modal-highlight-edit.component';
 import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
+import { HighlightsModalComponent } from './highlights-modal/highlights-modal.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -44,10 +44,12 @@ import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
     EditComponent,
     EmbedButtonComponent,
     EmbedComponent,
-    ModalHighlightDeleteComponent,
     ModalHighlightFormComponent,
-    ModalHighlightEditComponent,
-    FormatDatePipe
+    FormatDatePipe,
+    DndDirective,
+    FileUploaderComponent,
+    SafeHtmlPipe,
+    HighlightsModalComponent
   ],
   imports: [
     CommonModule,
@@ -58,10 +60,11 @@ import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
-    QuillModule
+    QuillModule,
+    FontAwesomeModule
   ],
   exports: [
-      FileUploaderComponent
+    FileUploaderComponent
   ],
   providers: [Meta]
 })
