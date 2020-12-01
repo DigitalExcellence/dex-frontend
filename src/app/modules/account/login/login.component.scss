@@ -122,10 +122,14 @@ span {
 button {
   margin: 30px 4px 0 4px;
   width: calc(100% - 8px);
+  transition: .3s ease;
 
   &:focus {
     border: none;
     outline: none;
+  }
+  &:hover{
+    transform: scale(0.95)
   }
 }
 
@@ -140,6 +144,9 @@ button {
 
 button:disabled {
   background-color: $light-mode-grey-primary;
+  &:hover{
+    transform: none;
+  }
 }
 // End of temporary styling
 
