@@ -35,6 +35,7 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -49,18 +50,20 @@ import { Meta } from '@angular/platform-browser';
     DndDirective,
     SafeHtmlPipe
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ProjectRoutingModule,
-    SharedModule,
-    AccordionModule.forRoot(),
-    PaginationModule.forRoot(),
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    QuillModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ProjectRoutingModule,
+        SharedModule,
+        AccordionModule.forRoot(),
+        PaginationModule.forRoot(),
+        BsDropdownModule.forRoot(),
+        ModalModule.forRoot(),
+        TooltipModule.forRoot(),
+        QuillModule,
+        TooltipModule
+    ],
   entryComponents: [
     DetailsComponent
   ],

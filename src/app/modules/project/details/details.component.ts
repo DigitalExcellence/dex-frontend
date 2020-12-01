@@ -14,10 +14,11 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EMPTY, Observable } from 'rxjs';
 import { finalize, switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
@@ -46,6 +47,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DetailsComponent implements OnInit {
 
@@ -58,10 +60,10 @@ export class DetailsComponent implements OnInit {
   public isAuthenticated: boolean;
   public isProjectHighlighted = false;
 
-  public displayEditButton = false;
-  public displayDeleteProjectButton = false;
-  public displayHighlightButton = false;
-  public displayEmbedButton = false;
+  public displayEditButton = true;
+  public displayDeleteProjectButton = true;
+  public displayHighlightButton = true;
+  public displayEmbedButton = true;
 
   /**
    * Property to indicate which tab is selected
