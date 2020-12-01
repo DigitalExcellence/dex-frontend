@@ -44,6 +44,7 @@ export interface HighlightFormResult {
 })
 export class ModalHighlightFormComponent implements OnInit {
   @Input() highlight: Highlight;
+  @Input() canGoBack: Boolean;
   @Output() confirm = new EventEmitter();
   @Output() goBack = new EventEmitter();
 
@@ -133,11 +134,17 @@ export class ModalHighlightFormComponent implements OnInit {
     this.bsModalRef.hide();
   }
 
+    /**
+   * Method which triggers when the back button is clicked.
+   */
   public onClickBack(): void {
     this.goBack.emit();
     this.bsModalRef.hide();
   }
 
+    /**
+   * Method which triggers when the delete button is clicked.
+   */
   public onClickDelete(): void {
     if (!this.canDelete) {
       return;

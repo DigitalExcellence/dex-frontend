@@ -140,7 +140,7 @@ export class DetailsComponent implements OnInit {
    * When Indeterminate checkbox is checked start date and end date fields are disabled and will be null,
    * resulting in an infinite highlight.
    */
-  public onClickHighlightButton(): void {
+  public onClickHighlightButton(canGoBack?: Boolean): void {
     if (this.project == null || this.project.id === 0) {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
@@ -152,7 +152,8 @@ export class DetailsComponent implements OnInit {
       this.alertService.pushAlert(alertConfig);
       return;
     }
-    const modalRef = this.modalService.show(ModalHighlightFormComponent);
+
+    const modalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { canGoBack } });
 
     modalRef.content.confirm
       .pipe(
@@ -195,49 +196,14 @@ export class DetailsComponent implements OnInit {
   public onClickEditHighlightButton(): void {
     this.highlightByProjectIdService
       .getHighlightsByProjectId(this.project.id)
-      .subscribe((results: Highlight[]) => {
-        const options = { initialState: { highlights: results }, class: 'modal-lg highlight-modal' };
-        const highlightsModalComponentRef = this.modalService.show(HighlightsModalComponent, options);
-
-        highlightsModalComponentRef.content.selectHighlightToEdit.subscribe(highlight => {
-          const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight } });
-          formModalRef.setClass('highlight-form-modal');
-          formModalRef.content.confirm.pipe(
-            switchMap((highlightFormResult: HighlightFormResult) => {
-              const highlightAddResource: HighlightUpdate = {
-                projectId: this.project.id,
-                startDate: highlightFormResult.startDate,
-                description: highlightFormResult.description,
-                endDate: highlightFormResult.endDate
-              };
-
-              if (highlightFormResult.indeterminate) {
-                highlightAddResource.startDate = null;
-                highlightAddResource.endDate = null;
-              }
-
-              return this.highlightService.put(highlight.id, highlightAddResource);
-            })
-          ).subscribe(() => {
-            const alertConfig: AlertConfig = {
-              type: AlertType.success,
-              mainMessage: 'Highlight was successfully updated',
-              dismissible: true,
-              timeout: this.alertService.defaultTimeout
-            };
-            this.alertService.pushAlert(alertConfig);
-            this.isProjectHighlighted = true;
-          });
-
-          formModalRef.content.goBack.subscribe(() => {
-            this.onClickEditHighlightButton();
-          });
-        });
-
-        highlightsModalComponentRef.content.selectAddHighlight.subscribe(() => {
-          this.onClickHighlightButton();
-        });
-      });
+      .subscribe(
+        highlights => this.handleHighlightResponse(highlights),
+        err => {
+          if (err.status === 404) {
+            this.onClickHighlightButton(false);
+          }
+        }
+      );
   }
 
   /**
@@ -355,5 +321,54 @@ export class DetailsComponent implements OnInit {
       return;
     }
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
+  }
+
+  /**
+   * Method for opening the highlight-modal-form
+   * @param highlights the array of highlights to be displayed in the modals
+   */
+  private handleHighlightResponse(highlights: Highlight[]) {
+    const options = { initialState: { highlights }, class: 'modal-lg highlight-modal' };
+    const highlightsModalComponentRef = this.modalService.show(HighlightsModalComponent, options);
+
+    highlightsModalComponentRef.content.selectHighlightToEdit.subscribe(highlight => {
+      const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight, canGoBack: true } });
+
+      formModalRef.setClass('highlight-form-modal');
+      formModalRef.content.confirm.pipe(
+        switchMap((highlightFormResult: HighlightFormResult) => {
+          const highlightAddResource: HighlightUpdate = {
+            projectId: this.project.id,
+            startDate: highlightFormResult.startDate,
+            description: highlightFormResult.description,
+            endDate: highlightFormResult.endDate
+          };
+
+          if (highlightFormResult.indeterminate) {
+            highlightAddResource.startDate = null;
+            highlightAddResource.endDate = null;
+          }
+
+          return this.highlightService.put(highlight.id, highlightAddResource);
+        })
+      ).subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'Highlight was successfully updated',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
+        this.isProjectHighlighted = true;
+      });
+
+      formModalRef.content.goBack.subscribe(() => {
+        this.onClickEditHighlightButton();
+      });
+    });
+
+    highlightsModalComponentRef.content.selectAddHighlight.subscribe(() => {
+      this.onClickHighlightButton(true);
+    });
   }
 }

@@ -25,12 +25,19 @@ export class HighlightsModalComponent {
     private alertService: AlertService
   ) { }
 
-  selectHighlight(selectedHighlight: Highlight) {
+  /**
+   * Method which is triggered when a highlight is clicked
+   */
+  onSelectHighlight(selectedHighlight: Highlight) {
     this.selectHighlightToEdit.emit(selectedHighlight);
     this.bsModalRef.hide();
   }
 
-  deleteHighlight(selectedHighlight: Highlight) {
+
+  /**
+   * Method which is triggered when the delete button of a highlight is clicked
+   */
+  onDeleteHighlight(selectedHighlight: Highlight) {
     this.highlightService.delete(selectedHighlight.id)
       .subscribe(() => {
         const alertConfig: AlertConfig = {
@@ -45,7 +52,10 @@ export class HighlightsModalComponent {
       });
   }
 
-  addHighlight() {
+  /**
+   * Method which is triggered when the add button is clicked
+   */
+  onAddHighlight() {
     this.selectAddHighlight.emit();
     this.bsModalRef.hide();
   }

@@ -20,7 +20,7 @@
 <div class="modal-highlight-container">
   <div class="modal-body">
     <h2>
-      <fa-icon [icon]=faChevronLeft class="back-button" (click)=onClickBack()></fa-icon>
+      <fa-icon *ngIf="canGoBack" [icon]=faChevronLeft class="back-button" (click)=onClickBack()></fa-icon>
       Highlight project
     </h2>
     <form [formGroup]="highlightProjectForm" class="highlight-form">
