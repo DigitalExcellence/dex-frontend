@@ -246,9 +246,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     this.activatedRoute.params.subscribe(params => {
       const projectId = params.id?.split('-')[0];
-      if (projectId) {
-        this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: params.id.split('-')[0]}});
-      }
+      this.createProjectModal(projectId);
     });
 
     // Go back to home page after the modal is closed
@@ -296,7 +294,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   public onClickProject(id: number, name: string): void {
     name = name.split(' ').join('-');
 
-    this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: id}});
+    this.createProjectModal(id)
     this.location.replaceState(`/project/overview/${id}-${name}`)
   }
 
@@ -402,6 +400,13 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       this.showPaginationFooter = false;
     } else {
       this.showPaginationFooter = true;
+    }
+  }
+
+  private createProjectModal(projectId:number) {
+    if (projectId) {
+      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
+      this.modalRef.setClass('project-modal')
     }
   }
 }
