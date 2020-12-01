@@ -5,6 +5,7 @@ import { HighlightService } from 'src/app/services/highlight.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-highlights-modal',
@@ -15,6 +16,8 @@ export class HighlightsModalComponent {
   @Input() highlights: Highlight[];
   @Output() selectHighlightToEdit = new EventEmitter();
   @Output() selectAddHighlight = new EventEmitter();
+
+  public faTrash = faTrash;
 
   constructor(
     private bsModalRef: BsModalRef,
