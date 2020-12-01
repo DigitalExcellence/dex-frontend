@@ -150,6 +150,7 @@
 
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
       <pagination (pageChanged)="pageChanged($event)" [itemsPerPage]="amountOfProjectsOnSinglePage"
+                  [maxSize]="6"
                   [totalItems]="totalNrOfProjects" [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate" class="pagination-footer">
       </pagination>
       <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">

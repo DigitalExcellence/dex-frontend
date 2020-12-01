@@ -272,11 +272,20 @@
   justify-content: center;
 }
 
+.pagination-footer::ng-deep {
+  flex-wrap: wrap;
+
+  .pagination-next,
+  .pagination-prev {
+    max-width: 35px;
+    overflow: hidden;
+  }
+}
+
 .pagination-footer::ng-deep .page-link {
   z-index: 1;
   color: $light-mode-black;
   height: 35px;
-  width: 35px;
   display: flex;
   align-items: center;
 }
