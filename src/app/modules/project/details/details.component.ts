@@ -201,7 +201,7 @@ export class DetailsComponent implements OnInit {
 
         highlightsModalComponentRef.content.selectHighlightToEdit.subscribe(highlight => {
           const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight } });
-          formModalRef.setClass('highlight-form-modal')
+          formModalRef.setClass('highlight-form-modal');
           formModalRef.content.confirm.pipe(
             switchMap((highlightFormResult: HighlightFormResult) => {
               const highlightAddResource: HighlightUpdate = {
