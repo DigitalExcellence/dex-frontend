@@ -19,16 +19,17 @@
 @import "assets/styles/variables";
 
 .highlight-form-modal {
-  max-width: 600px;
-  margin-top: 60px;
-  margin-bottom: 30px;
+  max-width: 90vw;
+  width: 600px;
+  margin: 60px auto 30px auto;
   .modal-content {
     border: none;
   }
 }
 .highlight-modal {
-  margin-top: 60px;
-  margin-bottom: 30px;
+  max-width: 90vw;
+  width: 800px;
+  margin: 60px auto 30px auto;
   .modal-content {
     border: none;
   }
