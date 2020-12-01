@@ -335,8 +335,6 @@ export class OverviewComponent implements OnInit {
       highlighted: this.currentOnlyHighlightedProjects,
     };
 
-    console.log(internalSearchQuery);
-
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
       this.paginationService
