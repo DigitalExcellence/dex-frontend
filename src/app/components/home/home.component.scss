@@ -45,6 +45,7 @@ h1 {
     border-radius: 6px;
     opacity: 1;
     font-family: lato, sans-serif;
+    transition: .3s ease-in;
 
     &::placeholder {
       color: $light-mode-grey-primary;
@@ -53,6 +54,7 @@ h1 {
     &:focus {
       border: none;
       outline: none;
+      transform: scale(1.05);
     }
   }
 
@@ -70,6 +72,10 @@ h1 {
 
     img {
       width: 25px;
+      transition: 0.7s ease-out;
+      &:hover {
+        transform: rotate(-270deg);
+      }
     }
   }
 }
@@ -77,15 +83,15 @@ h1 {
 //share
 .share {
   margin: 180px 0;
-  
-   // add margin bottom on mobile
-   @include media-breakpoint-down(lg) {
+
+  // add margin bottom on mobile
+  @include media-breakpoint-down(lg) {
     .image-wrapper {
       margin-bottom: 50px;
     }
-   }
+  }
 
-  .image-wrapper{
+  .image-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,10 +117,15 @@ h1 {
 
   button {
     margin-top: 20px;
+    transition: 0.3s ease;
 
     &:focus {
       border: none;
       outline: none;
+    }
+
+    &:hover {
+      transform: scale(1.05);
     }
   }
 }

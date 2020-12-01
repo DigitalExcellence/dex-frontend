@@ -41,6 +41,11 @@
       border: none;
       cursor: pointer;
       height: 100%;
+      transition: .3s ease;
+
+      &:hover{
+        transform: scale(1.05);
+      }
     }
 
     .card-title {

@@ -88,6 +88,10 @@
 
      img {
        width: 25px;
+       transition: .7s ease;
+       &:hover{
+         transform: rotate(-270deg)
+       }
      }
    }
  }
