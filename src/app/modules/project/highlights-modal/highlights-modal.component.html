@@ -14,7 +14,7 @@
           <div class="col-md-2 col-5 py-2" (click)=selectHighlight(highlight)><span
               class="date">{{highlight.endDate | formatDate}}</span></div>
           <div class="col-2 py-2 d-sm-none delete">
-            <img src="assets/images/dark-trash.svg" loading="lazy" (click)="deleteHighlight(highlight)">
+            <img alt="Delete highlight" src="assets/images/dark-trash.svg" loading="lazy" (click)="deleteHighlight(highlight)">
           </div>
           <div class="col-md-6 d-sm-flex py-2 text-truncate" (click)=selectHighlight(highlight)>
             {{highlight.description}}</div>
