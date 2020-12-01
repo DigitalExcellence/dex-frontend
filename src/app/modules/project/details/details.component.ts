@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { environment } from 'src/environments/environment';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
 import { ProjectService } from 'src/app/services/project.service';
@@ -47,6 +47,7 @@ import { HighlightsModalComponent } from '../highlights-modal/highlights-modal.c
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DetailsComponent implements OnInit {
   /**
@@ -200,7 +201,7 @@ export class DetailsComponent implements OnInit {
 
         highlightsModalComponentRef.content.selectHighlightToEdit.subscribe(highlight => {
           const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight } });
-
+          formModalRef.setClass('highlight-form-modal')
           formModalRef.content.confirm.pipe(
             switchMap((highlightFormResult: HighlightFormResult) => {
               const highlightAddResource: HighlightUpdate = {

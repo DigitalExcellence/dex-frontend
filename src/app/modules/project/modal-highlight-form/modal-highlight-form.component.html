@@ -18,9 +18,6 @@
  -->
 
 <div class="modal-highlight-container">
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-  </button>
   <div class="modal-body">
     <h2>
       <fa-icon [icon]=faChevronLeft class="back-button" (click)=onClickBack()></fa-icon>
@@ -28,13 +25,13 @@
     </h2>
     <form [formGroup]="highlightProjectForm" class="highlight-form">
       <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
           <div>
             <h3>Start Date</h3>
             <input type="date" formControlName="startDate" [disabled]="dateFieldsEnabled" />
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <div>
             <h3>End Date</h3>
             <input type="date" formControlName="endDate" [disabled]="dateFieldsEnabled" />
@@ -55,8 +52,10 @@
       <div class="row">
         <div class="col-12">
           <div class="highlight-form__checkbox">
-            <input type="checkbox" formControlName="indeterminate" />
-            <h4>Never-ending</h4>
+            <label>
+              <input type="checkbox" formControlName="indeterminate" />
+              <p>Never-ending</p>
+            </label>
           </div>
         </div>
       </div>
@@ -68,11 +67,11 @@
           <fa-icon [icon]=faTrashAlt></fa-icon>
         </button>
       </div>
-      <div class="col-2 d-sm-none">
+      <div class="col-2 d-sm-none trash-icon">
         <fa-icon *ngIf="canDelete" [icon]=faTrash (click)="onClickDelete()" size="2x" [classes]="['mobile-trash']"></fa-icon>
       </div>
-      <div class="col-10 col-sm-7 text-right">
-        <button type="button" class="cancel mr-3" (click)="onClickDeny()">Cancel</button>
+      <div class="col-10 buttons-bottom col-sm-7 text-right">
+        <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
         <button type="button" class="primary" (click)="onClickConfirm()">Save <fa-icon [icon]=faSave></fa-icon></button>
       </div>
     </div>
