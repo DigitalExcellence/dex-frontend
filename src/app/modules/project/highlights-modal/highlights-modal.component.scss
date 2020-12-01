@@ -6,9 +6,9 @@
   .heading-row {
     padding: 0.75rem 0;
   }
-  .highlight-wrapper{
-    .row{
-      height: 54px;
+  .highlight-wrapper {
+    .row {
+      min-height: 54px;
       display: flex;
       align-items: center;
     }
@@ -25,6 +25,11 @@
     cursor: pointer;
   }
 
+  .delete {
+    padding-right: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
   .delete img:hover {
     opacity: 0.7;
   }
