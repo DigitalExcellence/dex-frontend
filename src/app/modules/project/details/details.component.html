@@ -28,7 +28,7 @@
   <div *ngIf="project; else noProject">
     <div class="row">
         <img src="https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1177074_1920-960x540.jpg" alt="project-detail-image">
-        <div class='modal-content'>
+        <div class='project-modal-content '>
         <div id="title-wrapper">
           <h2 class="project-title">{{ project.name }}</h2>
           <div class="circle" style="background-color: unset">
@@ -54,9 +54,9 @@
           </div>
           <div class="project-metadata__item">
             <p class='title'>External Link</p>
-  
+
             <a href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
-  
+
           </div>
           <div class="project-metadata__item">
             <p class='title'>Likes</p>

@@ -26,13 +26,28 @@ img {
   height: auto;
 }
 
-.modal-content {
+.modal-dialog{
+  width: 800px;
+  max-width: 90vw;
+  margin: 40px auto 0 auto;
+  border: none;
+
+  .modal-content {
+    border: none;
+  }
+
+  @media (min-width: 576px) {
+    max-width: 80%;
+  }
+}
+
+.project-modal-content {
   border: none;
   padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 30px;
-  
+
   #title-wrapper {
     display: grid;
     grid-template-columns: 1fr auto;
