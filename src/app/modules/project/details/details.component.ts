@@ -196,7 +196,7 @@ export class DetailsComponent implements OnInit {
     this.highlightByProjectIdService
       .getHighlightsByProjectId(this.project.id)
       .subscribe((results: Highlight[]) => {
-        const options = { initialState: { highlights: results }, class: 'modal-lg' };
+        const options = { initialState: { highlights: results }, class: 'modal-lg highlight-modal' };
         const highlightsModalComponentRef = this.modalService.show(HighlightsModalComponent, options);
 
         highlightsModalComponentRef.content.selectHighlightToEdit.subscribe(highlight => {
