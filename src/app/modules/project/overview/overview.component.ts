@@ -142,7 +142,7 @@ export class OverviewComponent implements OnInit {
 
   public currentOnlyHighlightedProjects: boolean = null;
 
-  private currentPage = 1;
+  public currentPage = 1;
 
   constructor(
     private router: Router,
@@ -239,6 +239,7 @@ export class OverviewComponent implements OnInit {
     }
 
     this.currentSearchInput = value;
+
     this.searchSubject.next(value);
   }
 
@@ -326,7 +327,8 @@ export class OverviewComponent implements OnInit {
   private onInternalQueryChange(): void {
     const internalSearchQuery: InternalSearchQuery = {
       query: this.currentSearchInput === '' ? null : this.currentSearchInput,
-      page: this.currentPage,
+      // If there is a search query, search on all pages
+      page: !this.currentSearchInput ? this.currentPage : null,
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,
