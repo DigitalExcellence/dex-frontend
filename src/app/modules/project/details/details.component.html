@@ -29,7 +29,7 @@
     <div class="row">
       <div class="col-3 project-metadata">
         <div class="project-icon" style="background-color: unset">
-          <img alt="Code project" [src]="getIconUrl()" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">
+          <img [src]="getIconUrl()" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';">
         </div>
         <div *ngIf="project.uri" class="project-metadata__item">
           <h3>External Link</h3>
@@ -63,50 +63,50 @@
 
           <div id="project-edit-buttons">
             <ng-container *ngIf="displayEditButton">
-              <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
-                  src="assets/images/edit.svg" loading="lazy"></button>
+              <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt="" loading="lazy" src="assets/images/edit.svg"></button>
             </ng-container>
             <ng-container *ngIf="displayDeleteProjectButton">
-              <button class="primary" (click)="onClickRemoveProject()"><img alt=""
-                  src="assets/images/trash.svg" loading="lazy"></button>
+              <button (click)="onClickRemoveProject()" class="primary"><img alt="" loading="lazy" src="assets/images/trash.svg"></button>
             </ng-container>
           </div>
         </div>
 
-        <div class="project-tags" [hidden]="!displayTags()">
-          <a class="project-tags__tag" href="javascript:void(0)">
-            Game
-          </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
-            JavaScript
-          </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
-            HTML
-          </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
-            CSS
-          </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
-            UX
-          </a>
-          <a class="project-tags__tag" href="javascript:void(0)">
-            Interaction
-          </a>
-          <a class="project-tags__see-more-link" href="javascript:void(0)">
-            see more tags&hellip;
-          </a>
-        </div>
+        <ng-container *ngIf="displayTags()">
+          <div class="project-tags">
+            <a class="project-tags__tag" href="javascript:void(0)">
+              Game
+            </a>
+            <a class="project-tags__tag" href="javascript:void(0)">
+              JavaScript
+            </a>
+            <a class="project-tags__tag" href="javascript:void(0)">
+              HTML
+            </a>
+            <a class="project-tags__tag" href="javascript:void(0)">
+              CSS
+            </a>
+            <a class="project-tags__tag" href="javascript:void(0)">
+              UX
+            </a>
+            <a class="project-tags__tag" href="javascript:void(0)">
+              Interaction
+            </a>
+            <a class="project-tags__see-more-link" href="javascript:void(0)">
+              see more tags&hellip;
+            </a>
+          </div>
+        </ng-container>
 
         <div class="project-description large">
-          <div class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></div>
+          <div [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></div>
         </div>
 
         <div id="project-share-buttons">
           <ng-container *ngIf="displayHighlightButton">
-            <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
+            <button (click)="onClickHighlightButton()" class="primary ml-2">Highlight Project</button>
 
             <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
-              <button class="primary ml-2" (click)="onClickDeleteHighlightButton()">Delete Highlight</button>
+              <button (click)="onClickDeleteHighlightButton()" class="primary ml-2">Delete Highlight</button>
             </div>
           </ng-container>
           <ng-container *ngIf="displayEmbedButton">
