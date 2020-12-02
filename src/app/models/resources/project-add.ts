@@ -25,4 +25,5 @@ export interface ProjectAdd {
   description?: string;
   url: string;
   callToAction: CallToAction;
+  fileId?: number;
 }

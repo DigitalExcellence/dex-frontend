@@ -20,7 +20,7 @@
  <div *ngIf="project">
   <div class="row">
     <div class="col-sm-3 order-last order-sm-first project-metadata">
-      <div class="project-icon"><img alt="Code project" src="assets/images/code.svg" loading="lazy"></div>
+      <div class="project-icon"><img alt="Code project" [src]="getIconUrl()" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy"></div>
       <div *ngIf="project.uri" class="project-metadata__item">
         <h3>External Link</h3>
         <p>

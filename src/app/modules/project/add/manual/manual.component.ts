@@ -18,7 +18,7 @@
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertService } from 'src/app/services/alert.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -28,7 +28,9 @@ import { ProjectService } from 'src/app/services/project.service';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { WizardService } from 'src/app/services/wizard.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
-import { SEOService} from 'src/app/services/seo.service';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
+import { SEOService } from 'src/app/services/seo.service';
+
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
 import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
@@ -41,7 +43,7 @@ import { CallToAction } from 'src/app/models/domain/call-to-action';
 @Component({
   selector: 'app-manual',
   templateUrl: './manual.component.html',
-  styleUrls: ['./manual.component.scss'],
+  styleUrls: [ './manual.component.scss' ]
 })
 export class ManualComponent implements OnInit {
   /**
@@ -87,6 +89,13 @@ export class ManualComponent implements OnInit {
 
   public callToActionsLoading = true;
 
+  /**
+   * Configuration for file-picker
+   */
+  public acceptedTypes = [ 'image/png', 'image/jpg', 'image/jpeg' ];
+  public acceptMultiple = false;
+  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -97,10 +106,10 @@ export class ManualComponent implements OnInit {
     private callToActionOptionService: CallToActionOptionService) {
 
     this.newProjectForm = this.formBuilder.group({
-      name: [null, Validators.required],
-      uri: [null, Validators.required],
-      shortDescription: [null, Validators.required],
-      description: [null],
+      name: [ null, Validators.required ],
+      uri: [ null, Validators.required ],
+      shortDescription: [ null, Validators.required ],
+      description: [ null ],
     });
 
     this.newCallToActionForm = this.formBuilder.group({
@@ -109,8 +118,8 @@ export class ManualComponent implements OnInit {
     });
 
     this.newCollaboratorForm = this.formBuilder.group({
-      fullName: [null, Validators.required],
-      role: [null, Validators.required],
+      fullName: [ null, Validators.required ],
+      role: [ null, Validators.required ],
     });
   }
 
@@ -122,9 +131,9 @@ export class ManualComponent implements OnInit {
 
       if (project.description != null && project.description.length > 0) {
         const converter = new showdown.Converter(
-          {
-            literalMidWordUnderscores: true
-          }
+            {
+              literalMidWordUnderscores: true
+            }
         );
         project.description = converter.makeHtml(project.description);
       }
@@ -207,6 +216,23 @@ export class ManualComponent implements OnInit {
         this.alertService.pushAlert(alertConfig);
         this.router.navigate([`/project/overview`]);
       });
+
+    // Start uploading files
+    this.fileUploader.uploadFiles()
+        .subscribe(uploadedFiles => {
+          if (uploadedFiles) {
+            if (uploadedFiles[0]) {
+              // Project icon was set and uploaded
+              newProject.fileId = uploadedFiles[0].id;
+              this.createProject(newProject);
+            }
+            // Project icon was set but not uploaded successfully, the component will show the error
+          } else {
+            // There was no project icon
+            newProject.fileId = 0;
+            this.createProject(newProject);
+          }
+        });
   }
 
   /**
@@ -219,8 +245,7 @@ export class ManualComponent implements OnInit {
         type: AlertType.danger,
         preMessage: 'The add collaborator form is invalid',
         mainMessage: 'Collaborator could not be added',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -241,13 +266,28 @@ export class ManualComponent implements OnInit {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
         mainMessage: 'Collaborator could not be removed',
-        dismissible: true,
-        timeout: this.alertService.defaultTimeout
+        dismissible: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
     }
     this.collaborators.splice(index, 1);
+  }
+
+
+  private createProject(newProject): void {
+    this.projectService
+        .post(newProject)
+        .pipe(finalize(() => (this.submitEnabled = false)))
+        .subscribe(() => {
+          const alertConfig: AlertConfig = {
+            type: AlertType.success,
+            mainMessage: 'Project was succesfully saved',
+            dismissible: true
+          };
+          this.alertService.pushAlert(alertConfig);
+          this.router.navigate([ `/project/overview` ]);
+        });
   }
 
   /**

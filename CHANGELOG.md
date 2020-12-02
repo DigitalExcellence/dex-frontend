@@ -9,9 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added SEO & performance check when pushing new code to develop branch [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
+
+- Added a DeX preview with title, description and image for more user friendliness [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
+
 - Added the option to add a Call-To-Action button to a project - [#267](https://github.com/DigitalExcellence/dex-frontend/issues/267)
 
 ### Changed
+
+- Redesigned project overview page [#365](https://github.com/DigitalExcellence/dex-frontend/issues/365)
 
 ### Deprecated
 
@@ -19,7 +25,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed issue where the project icons would shrink if the description or title was too long - [#349](https://github.com/DigitalExcellence/dex-frontend/issues/349)
+- Fixed alert box blocking project edit/-delete buttons - [#352](https://github.com/DigitalExcellence/dex-frontend/issues/352)
+- Fixed issue where the pagination parameter was not getting reset on a new search - [#302](https://github.com/DigitalExcellence/dex-frontend/issues/302)
+- Fixed images showing alt when image could not be loaded, it now shows placeholder image instead - [#339](https://github.com/DigitalExcellence/dex-frontend/issues/339)
+
 ### Security
+
+## Release v.0.8.0-beta - 06-11-2020
+
+### Added
+
+- Added functionality to upload an project icon when creating a project - [#266](https://github.com/DigitalExcellence/dex-frontend/issues/266)
+- Added an image to the background - [#320](https://github.com/DigitalExcellence/dex-frontend/issues/320)
+
+### Changed
+
+- Display uploaded project icons - [#311](https://github.com/DigitalExcellence/dex-frontend/issues/311)
+
+
 
 
 
@@ -33,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Changed all file line endings from CRLF to LF and added the .gitattributes to enforce it - [#163](https://github.com/DigitalExcellence/dex-backend/issues/163)
-- Changed footer styling to be responsive on small screens - [#163](https://github.com/DigitalExcellence/dex-frontend/issues/163) 
+- Changed footer styling to be responsive on small screens - [#163](https://github.com/DigitalExcellence/dex-frontend/issues/163)
 - Changed header styling to be responsive on small screens - [#258](https://github.com/DigitalExcellence/dex-frontend/issues/258)
 - Highlight now shows highlight description instead of project description. - [#273](https://github.com/DigitalExcellence/dex-frontend/issues/273)
 - Changed images on the login and home page to new copyright-free images from unDraw - [#97](https://github.com/DigitalExcellence/dex-frontend/issues/97)

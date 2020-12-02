@@ -14,22 +14,17 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { User } from './user';
-import { Collaborator } from './collaborator';
-import { CallToAction } from './call-to-action';
-import { UploadFile } from './uploadFile';
 
-export interface Project {
-  id: number;
-  user?: User;
-  name: string;
-  description?: string;
-  shortDescription?: string;
-  created: Date;
-  updated: Date;
-  uri?: string;
-  collaborators?: Collaborator[];
-  callToAction?: CallToAction;
-  projectIcon?: UploadFile;
+/**
+ * Sanitize the html to prevent Cross Site Scripting (XSS)
+ */
+@Pipe({ name: 'safeHtml'})
+export class SafeHtmlPipe implements PipeTransform  {
+  constructor(private sanitized: DomSanitizer) {}
+  transform(value) {
+    return this.sanitized.sanitize(1, value);
+  }
 }

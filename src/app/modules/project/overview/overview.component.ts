@@ -15,21 +15,19 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { finalize, debounceTime } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
-
 
 interface SortFormResult {
   type: string;
@@ -52,6 +50,12 @@ export class OverviewComponent implements OnInit {
   public projectsToDisplay: Project[] = [];
   public projectsTotal: Project[] = [];
 
+
+  /**
+   * Determine whether we need to render a list or cart view
+   */
+  public showListView = false;
+
   /**
    * Stores the response with the paginated projects etc. from the api.
    */
@@ -70,7 +74,7 @@ export class OverviewComponent implements OnInit {
   /**
    * The amount of projects that will be displayed on a single page.
    */
-  public amountOfProjectsOnSinglePage = 10;
+  public amountOfProjectsOnSinglePage = 12;
 
   /**
    * The number of projects that are on the platform
@@ -82,7 +86,7 @@ export class OverviewComponent implements OnInit {
    */
   public defaultPaginationOption = {
     id: 0,
-    amountOnPage: 10
+    amountOnPage: 12
   };
 
   public showPaginationFooter = true;
@@ -91,9 +95,9 @@ export class OverviewComponent implements OnInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    { id: 0, amountOnPage: 10 },
-    { id: 1, amountOnPage: 20 },
-    { id: 2, amountOnPage: 30 },
+    { id: 0, amountOnPage: 12 },
+    { id: 1, amountOnPage: 24 },
+    { id: 2, amountOnPage: 36 },
   ];
 
   /**
@@ -142,7 +146,7 @@ export class OverviewComponent implements OnInit {
 
   public currentOnlyHighlightedProjects: boolean = null;
 
-  private currentPage = 1;
+  public currentPage = 1;
 
   constructor(
     private router: Router,
@@ -150,8 +154,7 @@ export class OverviewComponent implements OnInit {
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private seoService: SEOService
-  ) {
+    private seoService: SEOService) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -238,6 +241,7 @@ export class OverviewComponent implements OnInit {
     }
 
     this.currentSearchInput = value;
+
     this.searchSubject.next(value);
   }
 
@@ -316,7 +320,8 @@ export class OverviewComponent implements OnInit {
   private onInternalQueryChange(): void {
     const internalSearchQuery: InternalSearchQuery = {
       query: this.currentSearchInput === '' ? null : this.currentSearchInput,
-      page: this.currentPage,
+      // If there is a search query, search on all pages
+      page: !this.currentSearchInput ? this.currentPage : null,
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,
