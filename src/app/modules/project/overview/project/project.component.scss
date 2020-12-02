@@ -87,6 +87,7 @@
       }
     }
     .circle {
+      overflow: hidden;
       background-size: cover;
       background-position: center;
       height: 60px;
@@ -94,9 +95,11 @@
       background-color: white;
       box-shadow: 0 0px 4px #0000001a;
       border-radius: 999px;
-      .project-icon {
+      img {
         width: 100%;
         height: auto;
+        height: 100%;
+        object-fit: cover;
       }
     }
     .item {
@@ -179,11 +182,12 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          box-shadow: 0 0px 4px #0000001a;;
+          box-shadow: 0 0px 4px #0000001a;
           img {
+            width: 100%;
+            height: auto;
             height: 100%;
-            width: auto;
-            margin-right: 0;
+            object-fit: cover;
           }
         }
       }

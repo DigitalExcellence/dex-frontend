@@ -20,7 +20,8 @@
 <!-- List project -->
 <ng-container *ngIf="showListView">
   <div class="project list">
-    <div class='circle' [ngStyle]="{'background-image': 'url(' + getIconUrl(project) + ')'}">
+    <div class='circle'>
+      <img [src]="getIconUrl(project)" onerror="this.src='/assets/images/placeholder.png';" alt="projec-icon" loading="lazy">
     </div>
     <div class="project-info">
       <h3 class="project-name">{{project.name}}</h3>
@@ -45,7 +46,8 @@
     <div class="project-info">
       <div class='top-wrapper'>
         <h3 class="project-name">{{project.name}}</h3>
-        <div class='circle' [ngStyle]="{'background-image': 'url(' + getIconUrl(project) + ')'}">
+        <div class='circle'>
+          <img [src]="getIconUrl(project)" onerror="this.src='/assets/images/placeholder.png';" alt="projec-icon" loading="lazy">
         </div>
       </div>
       <p class="project-short-description">{{project.shortDescription}}</p>
