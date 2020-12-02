@@ -20,6 +20,7 @@ import { DetailsComponent } from './details/details.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EditComponent } from './edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
@@ -34,6 +35,7 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
+import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { Meta } from '@angular/platform-browser';
     ModalHighlightComponent,
     FileUploaderComponent,
     DndDirective,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ProjectComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +60,7 @@ import { Meta } from '@angular/platform-browser';
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
     QuillModule
   ],
   exports: [

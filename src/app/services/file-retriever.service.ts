@@ -21,6 +21,6 @@ export class FileRetrieverService {
     if (file != null) {
       return this.sanitizer.sanitize(4, RESOURCE_CONFIG.url + file.path);
     }
-    return 'assets/images/placeholder.svg';
+    return 'assets/images/placeholder.png';
   }
 }
