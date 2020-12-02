@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Redesigned project overview page [#365](https://github.com/DigitalExcellence/dex-frontend/issues/365)
-- Redesigned project details apge [#362](https://github.com/DigitalExcellence/dex-frontend/issues/362)
+- Implemented redesigned project details page [#362](https://github.com/DigitalExcellence/dex-frontend/issues/362)
 
 ### Deprecated
 
