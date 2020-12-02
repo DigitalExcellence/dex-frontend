@@ -215,7 +215,7 @@
       .popover{
         border: none;
         filter: drop-shadow($box-shadow);
-        .arrow::before{
+        .arrow::before {
           display: none!important;
         }
       }
