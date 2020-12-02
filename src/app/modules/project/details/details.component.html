@@ -47,28 +47,28 @@
         </div>
         <div class=" project-metadata">
           <div *ngIf="project.uri" class="project-metadata__item">
-            <p class='title'>Uploader</p>
-            <p>
+            <p class='title'>Uploader <em class="fas fa-user"></em></p> 
+            <p class='hover'>
               {{ project.user.name }}
           </div>
           <div class="project-metadata__item">
-            <p class='title'>External Link</p>
+            <p class='title'>External Link <em class="fas fa-external-link-alt"></em></p>
 
-            <a href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
+            <a class='hover' href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
 
           </div>
           <div class="project-metadata__item">
-            <p class='title'>Likes</p>
+            <p class='title'>Likes <em class="fas fa-heart"></em></p>
             <ul class="project-metadata__item__collaborators">
-              <li>
+              <li class='hover'>
                 <!-- *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} -
                 {{ collaborator.role}} -->
-                120
+                <em class="far fa-heart"></em> 120
               </li>
             </ul>
           </div>
           <div class="project-metadata__item">
-            <p class='title'>Upload Date</p>
+            <p class='title'>Upload Date <em class="fas fa-calendar"></em></p>
             <p>
               {{ project.created | date:'longDate' }}
           </div>
