@@ -29,8 +29,6 @@ import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
-import { SafeUrl } from '@angular/platform-browser';
-import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { Subscription } from 'rxjs';
@@ -232,9 +230,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
     this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
-    // Updates meta and title tags
-    this.seoService.updateTitle('Project overview');
-    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
+    this.updateSEOTags();
 
 
     // Following two oberservables can be used in the feature to implement category & tags searching
@@ -252,14 +248,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       const projectId = params.id?.split('-')[0];
       this.createProjectModal(projectId);
     });
-
-    // Go back to home page after the modal is closed
-    this.modalSubscriptions.push(
-        this.modalService.onHide.subscribe((reason: string | any) => {
-          this.location.replaceState('/project/overview');
-        }, reason => {
-          this.location.replaceState('/project/overview');
-        }));
   }
 
   /**
@@ -299,7 +287,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     name = name.split(' ').join('-');
 
     this.createProjectModal(id)
-    this.location.replaceState(`/project/overview/${id}-${name}`)
+    this.location.replaceState(`/project/details/${id}-${name}`)
   }
 
   /**
@@ -402,7 +390,23 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private createProjectModal(projectId:number) {
     if (projectId) {
       this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
-      this.modalRef.setClass('project-modal')
+      this.modalRef.setClass('project-modal');
+
+      // Go back to home page after the modal is closed
+      this.modalSubscriptions.push(
+          this.modalService.onHide.subscribe((reason: string | any) => {
+            this.location.replaceState('/project/overview');
+            this.updateSEOTags();
+          }, reason => {
+            this.location.replaceState('/project/overview');
+            this.updateSEOTags();
+          }));
     }
+  }
+
+  private updateSEOTags() {
+    // Updates meta and title tags
+    this.seoService.updateTitle('Project overview');
+    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
   }
 }

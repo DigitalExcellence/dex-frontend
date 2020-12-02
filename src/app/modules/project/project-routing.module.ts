@@ -22,7 +22,7 @@ import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   { path: 'overview', component: OverviewComponent },
-  { path: 'overview/:id', component: OverviewComponent},
+  { path: 'details/:id', component: OverviewComponent},
   { path: 'edit/:id', component: EditComponent },
   { path: 'embed/:id', component: EmbedComponent},
   { path: 'add', loadChildren: () => import('./add/add.module').then((m) => m.AddModule) },
