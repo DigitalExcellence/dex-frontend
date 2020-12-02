@@ -55,26 +55,27 @@ import { CollaboratorComponent } from './collaborator/collaborator.component';
     CollaboratorComponent,
     ProjectComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        ProjectRoutingModule,
-        SharedModule,
-        AccordionModule.forRoot(),
-        PaginationModule.forRoot(),
-        BsDropdownModule.forRoot(),
-        ModalModule.forRoot(),
-        TooltipModule.forRoot(),
-        PopoverModule.forRoot(),
-        QuillModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ProjectRoutingModule,
+    SharedModule,
+    AccordionModule.forRoot(),
+    PaginationModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
+    TooltipModule.forRoot(),
+    PopoverModule.forRoot(),
+    QuillModule
+  ],
   entryComponents: [
     DetailsComponent
   ],
   exports: [
-      FileUploaderComponent
+    FileUploaderComponent
   ],
   providers: [Meta]
 })
-export class ProjectModule { }
+export class ProjectModule {
+}
