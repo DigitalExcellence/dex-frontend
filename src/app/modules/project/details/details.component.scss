@@ -91,6 +91,14 @@
   max-width: 800px;
 }
 
+#call-to-action-button {
+  text-transform: lowercase;
+}
+
+#call-to-action-button::first-letter {
+  text-transform: uppercase;
+}
+
 .project-highlighted-div {
   float: left;
 }

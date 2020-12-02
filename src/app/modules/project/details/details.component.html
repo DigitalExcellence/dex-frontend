@@ -100,7 +100,7 @@
         </p>
 
         <ng-container *ngIf="displayCallToActionButton">
-          <button class="primary ml-2" (click)="onClickCallToActionButton(project.callToAction.value)">{{project.callToAction.optionValue}}</button>
+          <button id="call-to-action-button" class="primary ml-2" (click)="onClickCallToActionButton(project.callToAction.value)">{{project.callToAction.optionValue}}</button>
         </ng-container>
 
         <div id="project-share-buttons">

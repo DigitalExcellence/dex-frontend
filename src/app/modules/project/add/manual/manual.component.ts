@@ -144,8 +144,6 @@ export class ManualComponent implements OnInit {
          * Add the none option to the dropdown
          */
         this.callToActionOptions.unshift(this.selectedCallToActionOption);
-
-        this.callToActionOptions.map(o => o.value = o.value.charAt(0).toUpperCase() + o.value.slice(1));
     });
 
     // Updates meta and title tags
@@ -179,8 +177,21 @@ export class ManualComponent implements OnInit {
     * should be sent to to the API.
      */
     if (this.selectedCallToActionOption.id > 0) {
-       let callToActionToSubmit = { optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl } as CallToAction;
-       newProject.callToAction = callToActionToSubmit;
+      if (this.callToActionRedirectUrl == null) {
+        const alertConfig: AlertConfig = {
+          type: AlertType.danger,
+          preMessage: 'The call to action form is invalid',
+          mainMessage: 'Please add a link to your selected call to action (or set it to "None")',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
+        return;
+      }
+
+      const callToActionToSubmit =
+      { optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl } as CallToAction;
+      newProject.callToAction = callToActionToSubmit;
     }
 
     this.projectService

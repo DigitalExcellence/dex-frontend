@@ -131,28 +131,6 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    this.projectService.get(id)
-      .pipe(
-        finalize(() => this.projectLoading = false)
-      )
-      .subscribe(
-        (result) => {
-          this.project = result;
-          this.collaborators = this.project.collaborators;
-
-          if (this.project.callToAction != null) {
-            for (let i = 0; i < this.callToActionOptions.length; i++) {
-              const element = this.callToActionOptions[i];
-              if (element.value.toLowerCase() === this.project.callToAction.optionValue) {
-                this.selectedCallToActionOption = this.callToActionOptions[i];
-              }
-            }
-
-            this.callToActionRedirectUrl = this.project.callToAction.value;
-          }
-        }
-      );
-
     /**
      * Retrieve the available call to actions
      */
@@ -167,7 +145,27 @@ export class EditComponent implements OnInit {
          */
         this.callToActionOptions.unshift(this.selectedCallToActionOption);
 
-        this.callToActionOptions.map(o => o.value = o.value.charAt(0).toUpperCase() + o.value.slice(1));
+        this.projectService.get(id)
+          .pipe(
+            finalize(() => this.projectLoading = false)
+          )
+          .subscribe(
+            (projectResult) => {
+              this.project = projectResult;
+              this.collaborators = this.project.collaborators;
+
+              if (this.project.callToAction != null) {
+                for (let i = 0; i < this.callToActionOptions.length; i++) {
+                  const element = this.callToActionOptions[i];
+                  if (element.value.toLowerCase() === this.project.callToAction.optionValue) {
+                    this.selectedCallToActionOption = this.callToActionOptions[i];
+                  }
+                }
+
+                this.callToActionRedirectUrl = this.project.callToAction.value;
+              }
+            }
+          );
     });
   }
 
@@ -186,23 +184,34 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    const edittedProject: ProjectUpdate = this.editProjectForm.value;
-    edittedProject.collaborators = this.collaborators;
-
+    const editedProject: ProjectUpdate = this.editProjectForm.value;
+    editedProject.collaborators = this.collaborators;
 
     /*
     * Whenever a call to action is selected, this value
     * should be sent to to the API.
      */
     if (this.selectedCallToActionOption.id > 0) {
+      if (this.callToActionRedirectUrl == null) {
+        const alertConfig: AlertConfig = {
+          type: AlertType.danger,
+          preMessage: 'The call to action form is invalid',
+          mainMessage: 'Please add a link to your selected call to action (or set it to "None")',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
+        return;
+      }
+
       const callToActionToSubmit =
       { optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl } as CallToAction;
 
-      edittedProject.callToAction = callToActionToSubmit;
+      editedProject.callToAction = callToActionToSubmit;
    }
 
     this.projectService
-      .put(this.project.id, edittedProject)
+      .put(this.project.id, editedProject)
       .pipe(
         finalize(() => {
           this.submitEnabled = false;
