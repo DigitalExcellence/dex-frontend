@@ -74,6 +74,29 @@
           </div>
         </form>
 
+        <form [formGroup]="newCallToActionForm" class="project-form">
+
+          <div class="row">
+            <div class="col-12">
+              <h3>Call to action</h3>
+            </div>
+            <div class="col-6">
+              <div>
+                <h3>Text</h3>
+                <select [(ngModel)]="selectedCallToActionOption" class='form-control' [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let action of callToActionOptions" [ngValue]="action">{{action.value}}</option>
+                </select>
+              </div>
+            </div>
+    
+            <div class="col-6">
+              <div>
+                <h3>Link</h3>
+                <input [(ngModel)]="callToActionRedirectUrl" [ngModelOptions]="{standalone: true}" [disabled]="selectedCallToActionOption.id <= 0"/>
+              </div>
+            </div>
+          </div>
+        </form>
 
         <form [formGroup]="editCollaboratorForm" class="project-form">
           <div class="row">

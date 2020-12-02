@@ -133,8 +133,12 @@ export class DetailsComponent implements OnInit {
     }
   }
 
-  public onClickCallToActionButton(): void {
-    window.open(this.project.callToAction.value, '_blank');
+  public onClickCallToActionButton(url: string) {
+    if (!url.match(/^https?:\/\//i)) {
+      url = 'http://' + url;
+    }
+
+    window.open(url, '_blank');
   }
 
   /**
