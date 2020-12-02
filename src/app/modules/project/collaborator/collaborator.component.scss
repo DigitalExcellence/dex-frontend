@@ -27,10 +27,11 @@
   margin-bottom: 2px;
   align-items: center;
   .role {
-    padding: 0 20px;
+    padding: 0 15px;
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: $accent-color-red-primary;
     white-space: nowrap;
   }
 
@@ -38,7 +39,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 32px;
+    height: 28px;
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -47,7 +48,7 @@
     color: white;
     border-radius: 999px;
     .name {
-      padding: 0 20px;
+      padding: 0 15px;
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
