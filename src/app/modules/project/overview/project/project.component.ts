@@ -18,7 +18,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Project } from 'src/app/models/domain/project';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { environment } from '../../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
