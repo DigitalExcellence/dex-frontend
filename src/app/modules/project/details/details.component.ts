@@ -216,9 +216,9 @@ export class DetailsComponent implements OnInit {
 
   /**
    * Method to display the tags based on the environment variable.
-   * Tags should be hidden in production for now untill futher implementation is finished.
+   * Tags should be hidden in production for now until further implementation is finished.
    */
-  public displayTags(): boolean {
+  public isProduction(): boolean {
     return !environment.production;
   }
 

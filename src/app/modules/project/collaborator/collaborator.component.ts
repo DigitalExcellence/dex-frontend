@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Collaborator } from '../../../models/domain/collaborator';
+import { Collaborator } from 'src/app/models/domain/collaborator';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-collaborator',
@@ -17,6 +18,10 @@ export class CollaboratorComponent implements OnInit {
 
   public onFollowClick(projectId:number) {
 
+  }
+
+  public isProduction(): boolean {
+    return !environment.production;
   }
 
 }
