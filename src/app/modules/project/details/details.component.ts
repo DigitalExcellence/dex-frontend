@@ -18,7 +18,6 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EMPTY, Observable } from 'rxjs';
 import { finalize, switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
@@ -273,7 +272,6 @@ export class DetailsComponent implements OnInit {
    */
   public setActiveTab(newActiveTab): void {
     this.activeTab = newActiveTab;
-    console.log(this.activeTab, newActiveTab)
   }
 
   /**

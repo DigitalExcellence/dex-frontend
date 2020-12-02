@@ -34,7 +34,6 @@
           <div class="circle" style="background-color: unset">
             <img alt="Code project" [src]="getIconUrl()" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">
           </div>
-
           <!-- <div id="project-edit-buttons">
             <ng-container *ngIf="displayEditButton">
               <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt=""
@@ -100,6 +99,7 @@
         </div>
 
         <hr>
+
         <div class='bottom'>
           <div class='menu-wrapper'>
             <div class='menu'>
@@ -112,7 +112,7 @@
               <div (click)="setActiveTab('collaborators')" [ngClass]="{'active': this.activeTab == 'collaborators' }" class='item'>
                 Collaborators
               </div>
-              <div class="item" [tooltip]="cogTooltip" triggers="click">
+              <div class="item cog" [popover]="cogTooltip" tooltipPlacement="bottom" triggers="click">
                 COG
               </div>
               <ng-template #cogTooltip class="cog-tooltip">
@@ -128,34 +128,33 @@
               </ng-template>
             </div>
           </div>
+
           <div class='tab-content'>
-            <div *ngIf=" this.activeTab == 'description' " class="project-description large">
+            <ng-container *ngIf=" this.activeTab == 'description' " class="project-description large">
               <p class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></p>
-            </div>
-            <div *ngIf=" this.activeTab == 'contact' ">
+            </ng-container>
+            <ng-container *ngIf=" this.activeTab == 'contact' ">
               <p>contact</p>
-            </div>
-            <div *ngIf=" this.activeTab == 'collaborators' ">
+            </ng-container>
+            <ng-container *ngIf=" this.activeTab == 'collaborators' ">
                 <p>collaborators</p>
-            </div>
+            </ng-container>
           </div>
         </div>
 
-        <!-- <div id="project-share-buttons">
-          <ng-container *ngIf="displayHighlightButton">
-            <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>
+<!--         <div id="project-share-buttons">-->
+<!--          <ng-container *ngIf="displayHighlightButton">-->
+<!--            <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>-->
 
             <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
               <button class="primary ml-2"c>Delete Highlight</button>
             </div>
-          </ng-container>
           <ng-container *ngIf="displayEmbedButton">
             <app-embed-button [projectId]=project.id></app-embed-button>
           </ng-container>
         </div> -->
       </div>
     </div>
-  </div>
 
   <ng-template #noProject>
     <div class="row">

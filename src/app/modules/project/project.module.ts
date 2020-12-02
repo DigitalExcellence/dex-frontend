@@ -35,7 +35,7 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 @NgModule({
   declarations: [
@@ -60,9 +60,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
         PaginationModule.forRoot(),
         BsDropdownModule.forRoot(),
         ModalModule.forRoot(),
-        TooltipModule.forRoot(),
-        QuillModule,
-        TooltipModule
+        PopoverModule.forRoot(),
+        QuillModule
     ],
   entryComponents: [
     DetailsComponent

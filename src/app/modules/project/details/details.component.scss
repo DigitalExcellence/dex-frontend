@@ -48,17 +48,6 @@ img {
   flex-direction: column;
   gap: 30px;
 
-  .tooltip-inner {
-    background: white;
-    filter: $box-shadow;
-  }
-
-  .cog-tooltip-item {
-    display: block;
-    color: black;
-    text-align: left;
-  }
-
   #title-wrapper {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -170,20 +159,39 @@ img {
     display: flex;
     flex-direction: column;
     gap: 18px;
+
     .menu-wrapper {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 30px;
+
       .menu {
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
+
+        .cog {
+          margin-left: auto;
+        }
+        .cog-tooltip-item {
+          display: block;
+          color: black;
+          text-align: left;
+
+          &:hover {
+            color: $accent-color-red-primary !important;
+            opacity: .75;
+            text-decoration: none;
+          }
+        }
+
         .item {
           height: fit-content;
           font-weight: bold;
           padding-bottom: 4px;
           cursor: pointer;
+
           &.active {
             border-bottom: 3px solid $accent-color-red-primary;
           }
