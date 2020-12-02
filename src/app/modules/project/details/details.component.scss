@@ -51,6 +51,7 @@
     grid-template-columns: 1fr auto;
     justify-content: space-between;
     gap: 20px;
+    min-height: 70px;
     h2 {
       margin: 0;
       display: block;
@@ -206,6 +207,7 @@
         margin-left: auto;
         opacity: 0.8;
         cursor: pointer;
+        font-size: 15px;
         &:hover{
           opacity: 1;
         }
