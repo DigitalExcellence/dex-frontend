@@ -171,21 +171,6 @@ img {
         flex-wrap: wrap;
         gap: 15px;
 
-        .cog {
-          margin-left: auto;
-        }
-        .cog-tooltip-item {
-          display: block;
-          color: black;
-          text-align: left;
-
-          &:hover {
-            color: $accent-color-red-primary !important;
-            opacity: .75;
-            text-decoration: none;
-          }
-        }
-
         .item {
           height: fit-content;
           font-weight: bold;
@@ -199,6 +184,25 @@ img {
             color: $accent-color-red-primary;
             opacity: 0.75;
           }
+        }
+      }
+      .cog {
+        margin-left: auto;
+        opacity: 0.6;
+        cursor: pointer;
+        &:hover{
+          opacity: 1;
+        }
+      }
+      .cog-tooltip-item {
+        display: block;
+        color: black;
+        text-align: left;
+
+        &:hover {
+          color: $accent-color-red-primary !important;
+          opacity: .75;
+          text-decoration: none;
         }
       }
       p {
