@@ -36,6 +36,7 @@ import { FileUploaderComponent } from 'src/app/components/file-uploader/file-upl
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CollaboratorComponent } from './collaborator/collaborator.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
     ModalHighlightComponent,
     FileUploaderComponent,
     DndDirective,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    CollaboratorComponent
   ],
     imports: [
         CommonModule,

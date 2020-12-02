@@ -27,12 +27,12 @@
 <ng-template #projectLoaded>
   <div *ngIf="project; else noProject">
     <div class="row">
-        <img src="https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1177074_1920-960x540.jpg" alt="project-detail-image">
-        <div class='project-modal-content '>
+      <img alt="project-detail-image" src="https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1177074_1920-960x540.jpg">
+      <div class='project-modal-content '>
         <div id="title-wrapper">
           <h2 class="project-title">{{ project.name }}</h2>
           <div class="circle" style="background-color: unset">
-            <img alt="Code project" [src]="getIconUrl()" onerror="this.src='/assets/images/placeholder.svg';" loading="lazy">
+            <img [src]="getIconUrl()" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';">
           </div>
           <!-- <div id="project-edit-buttons">
             <ng-container *ngIf="displayEditButton">
@@ -74,7 +74,7 @@
           </div>
         </div>
 
-        <div class="project-tags" [hidden]="!displayTags()">
+        <div [hidden]="!displayTags()" class="project-tags">
           <a class="project-tags__tag" href="javascript:void(0)">
             Game
           </a>
@@ -113,12 +113,12 @@
                 Collaborators
               </div>
             </div>
-            <div class="cog" [popover]="cogTooltip" placement="bottom" triggers="click">
+            <div [popover]="cogTooltip" class="cog" placement="bottom" triggers="click">
               COG
             </div>
             <ng-template #cogTooltip class="cog-tooltip">
               <ng-container *ngIf="displayHighlightButton">
-                <a class="cog-tooltip-item" (click)="onClickHighlightButton()"><em class="fas fa-edit"></em>Hightlight settings</a>
+                <a (click)="onClickHighlightButton()" class="cog-tooltip-item"><em class="fas fa-edit"></em>Hightlight settings</a>
               </ng-container>
               <ng-container *ngIf="displayEditButton">
                 <a class="cog-tooltip-item" routerLink="/project/edit/{{project?.id}}"><em class="fas fa-highlighter"></em>Edit project</a>
@@ -131,30 +131,26 @@
 
           <div class='tab-content'>
             <ng-container *ngIf=" this.activeTab == 'description' " class="project-description large">
-              <p class="dex-quill-viewer" [innerHTML]="project.description | safeHtml"></p>
+              <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
             </ng-container>
             <ng-container *ngIf=" this.activeTab == 'contact' ">
               <p>contact</p>
             </ng-container>
             <ng-container *ngIf=" this.activeTab == 'collaborators' ">
-                <p>collaborators</p>
+              <app-collaborator *ngFor="let collaborator of project.collaborators" [collaborator]="collaborator"></app-collaborator>
             </ng-container>
           </div>
         </div>
 
-<!--         <div id="project-share-buttons">-->
-<!--          <ng-container *ngIf="displayHighlightButton">-->
-<!--            <button class="primary ml-2" (click)="onClickHighlightButton()">Highlight Project</button>-->
-
-            <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
-              <button class="primary ml-2"c>Delete Highlight</button>
-            </div>
-          <ng-container *ngIf="displayEmbedButton">
-            <app-embed-button [projectId]=project.id></app-embed-button>
-          </ng-container>
+        <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
+          <button c class="primary ml-2">Delete Highlight</button>
         </div>
+        <ng-container *ngIf="displayEmbedButton">
+          <app-embed-button [projectId]=project.id></app-embed-button>
+        </ng-container>
       </div>
     </div>
+  </div>
 
   <ng-template #noProject>
     <div class="row">
