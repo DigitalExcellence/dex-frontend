@@ -19,33 +19,59 @@
 @import "assets/styles/variables";
 
 .collaborator-wrapper {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
   align-content: stretch;
   border-radius: 999px;
-  border: 2px solid $light-mode-grey-secondary;
+  border: 2px solid $accent-color-red-primary;
   margin-bottom: 2px;
+  align-items: center;
+  .role {
+    padding: 0 15px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $accent-color-red-primary;
+    white-space: nowrap;
+  }
 
   .orange {
     display: flex;
     justify-content: space-between;
-    align-content: stretch;
-    height: 32px;
-    width: 50%;
-    padding: .5rem;
+    align-items: center;
+    height: 28px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 
     background-color: $accent-color-red-primary;
     color: white;
     border-radius: 999px;
+    .name {
+      padding: 0 15px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     .follow {
       display: flex;
+      align-items: center;
       justify-content: center;
-      align-content: center;
+      font-size: 28px;
       color: white;
-      font-size: 32px;
-      min-width: 50px;
+      min-width: 38px;
       border-left: 1px solid white;
+      background-color: $accent-color-red-primary;
+      border-top-right-radius: 999px;
+      border-bottom-right-radius: 999px;
+      max-height: 100%;
+      height: 100%;
+      &:hover{
+        background-color: $accent-color-red-secondary;
+        cursor: pointer;
+      }
     }
 
   }
