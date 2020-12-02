@@ -26,7 +26,12 @@
       <h3 class="project-name">{{project.name}}</h3>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
-    <div (click)="likeClicked($event)" class="item project-likes"><em class='far fa-heart'></em> 0 Likes</div>
+    <ng-container *ngIf="displayTags(); else noLikes">
+      <div (click)="likeClicked($event)" class="item project-likes"><em class='far fa-heart'></em> 0 Likes</div>
+    </ng-container>
+    <ng-template #noLikes>
+      <div></div>
+    </ng-template>
     <div [tooltip]="projectUpdated" class="item project-created-date">
       <em class='far fa-clock'></em>
       {{project.created | date: 'longDate'}}
@@ -62,10 +67,12 @@
       </div>
     </ng-container>
     <div class='bottom-wrapper'>
-      <div (click)="likeClicked($event)" class='item'>
-        <em class='far fa-heart'></em>
-        <div class="project-likes">0 Likes</div>
-      </div>
+      <ng-container *ngIf="displayTags()">
+        <div (click)="likeClicked($event)" class='item'>
+          <em class='far fa-heart'></em>
+            <div class="project-likes">0 Likes</div>
+        </div>
+      </ng-container>
       <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
         <ng-template #projectCollaborators>
           <p *ngFor="let collaborator of project.collaborators">
