@@ -1,6 +1,35 @@
-pre code {
-    background-color: #eee;
-    border: 1px solid #999;
-    display: block;
-    padding: 10px;
+
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+ @import "assets/styles/variables";
+ .wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  button{
+    width: fit-content;
   }
+  code {
+    border-radius: $border-radius;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    display: block;
+    padding: 8px;
+    color: black;
+  }
+}
