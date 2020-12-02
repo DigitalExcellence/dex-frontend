@@ -34,6 +34,8 @@ img {
 
   .modal-content {
     border: none;
+    width: fit-content;
+    margin: 0 auto;
   }
 
   @media (min-width: 576px) {
@@ -199,6 +201,7 @@ img {
         display: block;
         color: black;
         text-align: left;
+        cursor: pointer;
 
         &:hover {
           color: $accent-color-red-primary !important;
