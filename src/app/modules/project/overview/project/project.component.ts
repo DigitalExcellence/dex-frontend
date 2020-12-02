@@ -18,6 +18,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Project } from 'src/app/models/domain/project';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { environment } from '../../../../../environments/environment';
 
 
 @Component({
@@ -53,5 +54,13 @@ export class ProjectComponent {
 
   public likeClicked(event) {
     event.stopPropagation();
+  }
+
+  /**
+   * Method to display the tags based on the environment variable.
+   * Tags should be hidden in production for now until further implementation is finished.
+   */
+  public displayTags(): boolean {
+    return !environment.production;
   }
 }
