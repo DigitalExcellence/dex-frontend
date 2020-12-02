@@ -21,6 +21,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EditComponent } from './edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
@@ -35,6 +36,7 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
+import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
 
@@ -50,7 +52,8 @@ import { CollaboratorComponent } from './collaborator/collaborator.component';
     FileUploaderComponent,
     DndDirective,
     SafeHtmlPipe,
-    CollaboratorComponent
+    CollaboratorComponent,
+    ProjectComponent
   ],
     imports: [
         CommonModule,
@@ -62,6 +65,7 @@ import { CollaboratorComponent } from './collaborator/collaborator.component';
         PaginationModule.forRoot(),
         BsDropdownModule.forRoot(),
         ModalModule.forRoot(),
+        TooltipModule.forRoot(),
         PopoverModule.forRoot(),
         QuillModule
     ],

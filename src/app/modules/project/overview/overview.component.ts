@@ -57,6 +57,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   public projectsToDisplay: Project[] = [];
   public projectsTotal: Project[] = [];
 
+
+  /**
+   * Determine whether we need to render a list or cart view
+   */
+  public showListView = false;
+
   /**
    * Stores the response with the paginated projects etc. from the api.
    */
@@ -75,7 +81,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   /**
    * The amount of projects that will be displayed on a single page.
    */
-  public amountOfProjectsOnSinglePage = 10;
+  public amountOfProjectsOnSinglePage = 12;
 
   /**
    * The number of projects that are on the platform
@@ -87,7 +93,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    */
   public defaultPaginationOption = {
     id: 0,
-    amountOnPage: 10
+    amountOnPage: 12
   };
 
   public showPaginationFooter = true;
@@ -96,9 +102,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    { id: 0, amountOnPage: 10 },
-    { id: 1, amountOnPage: 20 },
-    { id: 2, amountOnPage: 30 },
+    { id: 0, amountOnPage: 12 },
+    { id: 1, amountOnPage: 24 },
+    { id: 2, amountOnPage: 36 },
   ];
 
   /**
@@ -147,7 +153,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
   public currentOnlyHighlightedProjects: boolean = null;
 
-  private currentPage = 1;
+  public currentPage = 1;
 
   /**
    * Project parameter gets updated per project detail modal
@@ -170,11 +176,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private seoService: SEOService,
-    private fileRetrieverService: FileRetrieverService,
     private modalService: BsModalService,
-    private location: Location
+    private location: Location) {
 
-  ) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -321,15 +325,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     this.onInternalQueryChange();
   }
 
-    /**
-   * Method to get the url of the icon of the project. This is retrieved
-   * from the file retriever service
-   */
-  public getIconUrl(id: number): SafeUrl {
-    const foundProject: Project = this.projects.find(project => project.id === id);
-    return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
-  }
-
   /**
    * Method to handle value changes of the sort form.
    * @param value the value of the form.
@@ -365,7 +360,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private onInternalQueryChange(): void {
     const internalSearchQuery: InternalSearchQuery = {
       query: this.currentSearchInput === '' ? null : this.currentSearchInput,
-      page: this.currentPage,
+      // If there is a search query, search on all pages
+      page: !this.currentSearchInput ? this.currentPage : null,
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,

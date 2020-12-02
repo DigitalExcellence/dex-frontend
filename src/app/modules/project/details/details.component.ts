@@ -59,10 +59,10 @@ export class DetailsComponent implements OnInit {
   public isAuthenticated: boolean;
   public isProjectHighlighted = false;
 
-  public displayEditButton = true;
-  public displayDeleteProjectButton = true;
-  public displayHighlightButton = true;
-  public displayEmbedButton = true;
+  public displayEditButton = false;
+  public displayDeleteProjectButton = false;
+  public displayHighlightButton = false;
+  public displayEmbedButton = false;
 
   /**
    * Property to indicate which tab is selected
