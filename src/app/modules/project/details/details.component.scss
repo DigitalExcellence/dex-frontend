@@ -190,19 +190,32 @@ img {
         }
       }
       .cog {
+        color: $light-mode-black;
         margin-left: auto;
-        opacity: 0.6;
+        opacity: 0.8;
         cursor: pointer;
         &:hover{
           opacity: 1;
         }
       }
+      .popover{
+        border: none;
+        filter: drop-shadow($box-shadow);
+        .arrow::before{
+          display: none!important;
+        }
+      }
       .cog-tooltip-item {
-        display: block;
-        color: black;
+        color: $light-mode-black;
         text-align: left;
         cursor: pointer;
-
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 8px;
+        em{
+          color: $accent-color-red-primary;
+        }
         &:hover {
           color: $accent-color-red-primary !important;
           opacity: .75;
@@ -214,6 +227,9 @@ img {
       }
     }
     .tab-content {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
       p {
         margin: 0;
       }
