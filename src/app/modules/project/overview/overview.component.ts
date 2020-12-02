@@ -286,8 +286,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   public onClickProject(id: number, name: string): void {
     name = name.split(' ').join('-');
 
-    this.createProjectModal(id)
-    this.location.replaceState(`/project/details/${id}-${name}`)
+    this.createProjectModal(id);
+    this.location.replaceState(`/project/details/${id}-${name}`);
   }
 
   /**
@@ -387,7 +387,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     }
   }
 
-  private createProjectModal(projectId:number) {
+  private createProjectModal(projectId: number) {
     if (projectId) {
       this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
       this.modalRef.setClass('project-modal');

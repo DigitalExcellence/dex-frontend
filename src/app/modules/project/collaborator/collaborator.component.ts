@@ -9,14 +9,14 @@ import { environment } from 'src/environments/environment';
 })
 export class CollaboratorComponent implements OnInit {
 
-  @Input() collaborator:Collaborator
+  @Input() collaborator: Collaborator;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  public onFollowClick(projectId:number) {
+  public onFollowClick(projectId: number) {
 
   }
 
