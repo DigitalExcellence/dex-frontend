@@ -117,12 +117,6 @@
           color: $accent-color-red-primary;
         }
       }
-      &.disabled {
-        :hover {
-          opacity: 1;
-          color: $light-mode-black;
-        }
-      }
     }
     div {
       text-align: center;
@@ -244,4 +238,8 @@
       }
     }
   }
+  .disabled {
+    pointer-events: none;
+  }
+
 }
