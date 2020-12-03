@@ -203,20 +203,6 @@ export class ManualComponent implements OnInit {
       newProject.callToAction = callToActionToSubmit;
     }
 
-    this.projectService
-      .post(newProject)
-      .pipe(finalize(() => (this.submitEnabled = false)))
-      .subscribe(() => {
-        const alertConfig: AlertConfig = {
-          type: AlertType.success,
-          mainMessage: 'Project was succesfully saved',
-          dismissible: true,
-          timeout: this.alertService.defaultTimeout
-        };
-        this.alertService.pushAlert(alertConfig);
-        this.router.navigate([`/project/overview`]);
-      });
-
     // Start uploading files
     this.fileUploader.uploadFiles()
         .subscribe(uploadedFiles => {
@@ -283,7 +269,8 @@ export class ManualComponent implements OnInit {
           const alertConfig: AlertConfig = {
             type: AlertType.success,
             mainMessage: 'Project was succesfully saved',
-            dismissible: true
+            dismissible: true,
+            timeout: this.alertService.defaultTimeout
           };
           this.alertService.pushAlert(alertConfig);
           this.router.navigate([ `/project/overview` ]);

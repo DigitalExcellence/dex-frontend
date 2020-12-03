@@ -52,7 +52,7 @@ export class EditComponent implements OnInit  {
    * Formgroup for entering project details.
    */
   public editProjectForm: FormGroup;
-  public newCallToActionForm: FormGroup;
+  public editCallToActionForm: FormGroup;
   public editCollaboratorForm: FormGroup;
   public project: Project;
 
@@ -117,7 +117,7 @@ export class EditComponent implements OnInit  {
       description: [null],
     });
 
-    this.newCallToActionForm = this.formBuilder.group({
+    this.editCallToActionForm = this.formBuilder.group({
       type: [null, Validators.required],
       value: [null, Validators.required],
     });
@@ -218,24 +218,6 @@ export class EditComponent implements OnInit  {
       editedProject.callToAction = callToActionToSubmit;
    }
 
-    this.projectService
-      .put(this.project.id, editedProject)
-      .pipe(
-        finalize(() => {
-          this.submitEnabled = false;
-        })
-      )
-      .subscribe(() => {
-        const alertConfig: AlertConfig = {
-          type: AlertType.success,
-          mainMessage: 'Project was succesfully updated',
-          dismissible: true,
-          timeout: this.alertService.defaultTimeout
-        };
-        this.alertService.pushAlert(alertConfig);
-        this.router.navigate([`project/details/${this.project.id}`]);
-    });
-
     this.fileUploader.uploadFiles()
       .subscribe(uploadedFiles => {
         if (uploadedFiles) {
@@ -320,7 +302,8 @@ export class EditComponent implements OnInit  {
           const alertConfig: AlertConfig = {
             type: AlertType.success,
             mainMessage: 'Project was succesfully updated',
-            dismissible: true
+            dismissible: true,
+            timeout: this.alertService.defaultTimeout
           };
           this.alertService.pushAlert(alertConfig);
           this.router.navigate([`project/details/${this.project.id}`]);
