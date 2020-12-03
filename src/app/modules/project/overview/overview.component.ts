@@ -387,6 +387,11 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     }
   }
 
+
+  /**
+   * Method to open the modal for a projects detail
+   * @param projectId the id of the project that should be shown.
+   */
   private createProjectModal(projectId: number) {
     if (projectId) {
       this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
@@ -404,6 +409,10 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     }
   }
 
+
+  /**
+   * Methods to update the title and description through the SEO service
+   */
   private updateSEOTags() {
     // Updates meta and title tags
     this.seoService.updateTitle('Project overview');
