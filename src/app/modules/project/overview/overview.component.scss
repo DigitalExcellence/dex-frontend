@@ -80,11 +80,6 @@
       }
     }
   }
-  @media only screen and (max-width: 600px) {
-    .list-view-toggle {
-      display: none;
-    }
-  }
 
   // If the sibling input is checked
   .container input[type="radio"]:checked ~ .checkmark {
