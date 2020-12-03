@@ -138,6 +138,37 @@
     .project-metadata__item__collaborators {
       list-style: none;
     }
+
+    .tooltip-inner {
+      background-color: white;
+      color: black;
+      border-color: white;
+      padding: 8px 12px;
+    }
+    .tooltip {
+      filter: drop-shadow($box-shadow);
+
+      p {
+        margin: 2px 0;
+        text-align: left;
+      }
+
+      &.show{
+        opacity: 1;
+      }
+    }
+    .tooltip.bs-tooltip-right .arrow:before {
+      border-right-color: #fff !important;
+    }
+    .tooltip.bs-tooltip-left .arrow:before {
+      border-left-color: #fff !important;
+    }
+    .tooltip.bs-tooltip-bottom .arrow:before {
+      border-bottom-color: #fff !important;
+    }
+    .tooltip.bs-tooltip-top .arrow:before {
+      border-top-color: #fff !important;
+    }
   }
 
   .project-title {

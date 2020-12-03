@@ -55,10 +55,13 @@
               <p><em class="far fa-heart"></em> 120</p>
             </div>
           </ng-container>
-          <div class="project-metadata__item">
+          <div class="project-metadata__item" [tooltip]="projectUpdated">
             <p class='title'>Upload Date <em class="fas fa-calendar"></em></p>
-            <p>
-              {{ project.created | date:'longDate' }}
+            <p>{{ project.created | date:'longDate' }}</p>
+            <ng-template #projectUpdated>
+              <p>Created: {{project.created | date: 'mediumDate'}}</p>
+              <p>Updated: {{project.updated | date: 'mediumDate'}}</p>
+            </ng-template>
           </div>
         </div>
 
