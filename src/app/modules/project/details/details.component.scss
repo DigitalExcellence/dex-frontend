@@ -23,6 +23,10 @@
   max-width: 100%;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .modal-dialog {
   width: 800px;
   max-width: 90vw;
@@ -94,7 +98,7 @@
     .project-metadata__item {
       overflow: hidden;
       text-overflow: ellipsis;
-      ul{
+      ul {
         margin: 0;
       }
       .title {
@@ -103,7 +107,7 @@
         margin-bottom: 5px;
         display: flex;
         align-items: center;
-        em{
+        em {
           margin-left: 4px;
           font-size: 13px;
         }
@@ -153,7 +157,7 @@
         text-align: left;
       }
 
-      &.show{
+      &.show {
         opacity: 1;
       }
     }
@@ -199,7 +203,7 @@
   hr {
     margin: 0;
     width: 100%;
-    border-top: 0.5px solid rgba(0,0,0,0.1);
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
   }
 
   .bottom {
@@ -239,7 +243,7 @@
         opacity: 0.8;
         cursor: pointer;
         font-size: 15px;
-        &:hover{
+        &:hover {
           opacity: 1;
         }
       }
@@ -247,7 +251,7 @@
         border: none;
         filter: drop-shadow($box-shadow);
         .arrow::before {
-          display: none!important;
+          display: none !important;
         }
       }
       .cog-tooltip-item {
@@ -258,12 +262,12 @@
         grid-template-columns: auto 1fr;
         align-items: center;
         gap: 8px;
-        em{
+        em {
           color: $accent-color-red-primary;
         }
         &:hover {
           color: $accent-color-red-primary !important;
-          opacity: .75;
+          opacity: 0.75;
           text-decoration: none;
         }
       }
@@ -272,9 +276,9 @@
       }
     }
     .tab-content {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
       p {
         margin: 0;
       }

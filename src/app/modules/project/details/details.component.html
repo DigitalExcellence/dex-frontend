@@ -56,8 +56,8 @@
             </div>
           </ng-container>
           <div class="project-metadata__item" [tooltip]="projectUpdated">
-            <p class='title'>Upload Date <em class="fas fa-calendar"></em></p>
-            <p>{{ project.created | date:'longDate' }}</p>
+            <p class='title cursor-pointer'>Upload Date <em class="fas fa-calendar"></em></p>
+            <p class='hover'>{{ project.created | date:'longDate' }}</p>
             <ng-template #projectUpdated>
               <p>Created: {{project.created | date: 'mediumDate'}}</p>
               <p>Updated: {{project.updated | date: 'mediumDate'}}</p>
