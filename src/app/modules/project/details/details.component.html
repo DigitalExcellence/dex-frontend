@@ -108,7 +108,7 @@
               </div>
             </div>
             <ng-container *ngIf="displayHighlightButton || displayEditButton || displayDeleteProjectButton">
-              <em [popover]="cogPopOver" class="fas fa-cog cog" placement="bottom" triggers="click">
+              <em [popover]="cogPopOver"  class="fas fa-cog cog" placement="bottom" triggers="click" [outsideClick]="true">
               </em>
               <ng-template #cogPopOver class="cog-tooltip">
                 <ng-container *ngIf="displayHighlightButton">
