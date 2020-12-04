@@ -38,6 +38,7 @@ import { HighlightByProjectIdService } from 'src/app/services/highlightid.servic
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
+import { LikeService } from 'src/app/services/like.service';
 
 /**
  * Overview of a single project
@@ -82,7 +83,8 @@ export class DetailsComponent implements OnInit {
     private highlightByProjectIdService: HighlightByProjectIdService,
     private router: Router,
     private seoService: SEOService,
-    private fileRetrieverService: FileRetrieverService
+    private fileRetrieverService: FileRetrieverService,
+    private likeService: LikeService
   ) { }
 
   ngOnInit(): void {
@@ -325,6 +327,16 @@ export class DetailsComponent implements OnInit {
       return;
     }
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
+  }
+
+  public likeClicked(event) {
+    event.stopPropagation();
+    if(this.project.userHasLikedProject) {
+      this.likeService.likeProject(this.project.id);
+    } else {
+      this.likeService.removeLike(this.project.id);
+    }
+    this.project.userHasLikedProject = !this.project.userHasLikedProject;
   }
 
   private formatTimestamps(highlightTimestamp: string): string {
