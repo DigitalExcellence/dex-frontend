@@ -14,6 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+
 import { environment } from 'src/environments/environment';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,6 +40,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightsModalComponent } from '../highlights-modal/highlights-modal.component';
+
 
 /**
  * Overview of a single project
