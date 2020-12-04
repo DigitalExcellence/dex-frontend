@@ -28,8 +28,6 @@ import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
-import { SafeUrl } from '@angular/platform-browser';
-import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 interface SortFormResult {
   type: string;
@@ -52,6 +50,12 @@ export class OverviewComponent implements OnInit {
   public projectsToDisplay: Project[] = [];
   public projectsTotal: Project[] = [];
 
+
+  /**
+   * Determine whether we need to render a list or cart view
+   */
+  public showListView = false;
+
   /**
    * Stores the response with the paginated projects etc. from the api.
    */
@@ -70,7 +74,7 @@ export class OverviewComponent implements OnInit {
   /**
    * The amount of projects that will be displayed on a single page.
    */
-  public amountOfProjectsOnSinglePage = 10;
+  public amountOfProjectsOnSinglePage = 12;
 
   /**
    * The number of projects that are on the platform
@@ -82,7 +86,7 @@ export class OverviewComponent implements OnInit {
    */
   public defaultPaginationOption = {
     id: 0,
-    amountOnPage: 10
+    amountOnPage: 12
   };
 
   public showPaginationFooter = true;
@@ -91,9 +95,9 @@ export class OverviewComponent implements OnInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    { id: 0, amountOnPage: 10 },
-    { id: 1, amountOnPage: 20 },
-    { id: 2, amountOnPage: 30 },
+    { id: 0, amountOnPage: 12 },
+    { id: 1, amountOnPage: 24 },
+    { id: 2, amountOnPage: 36 },
   ];
 
   /**
@@ -150,9 +154,7 @@ export class OverviewComponent implements OnInit {
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private seoService: SEOService,
-    private fileRetrieverService: FileRetrieverService
-  ) {
+    private seoService: SEOService) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -281,15 +283,6 @@ export class OverviewComponent implements OnInit {
       this.currentPage = 1;
     }
     this.onInternalQueryChange();
-  }
-
-    /**
-   * Method to get the url of the icon of the project. This is retrieved
-   * from the file retriever service
-   */
-  public getIconUrl(id: number): SafeUrl {
-    const foundProject: Project = this.projects.find(project => project.id === id);
-    return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 
   /**
