@@ -36,7 +36,6 @@ import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
 import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
 import { HighlightsModalComponent } from './highlights-modal/highlights-modal.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
 
 @NgModule({

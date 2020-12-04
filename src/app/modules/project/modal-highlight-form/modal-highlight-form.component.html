@@ -1,7 +1,7 @@
 <!--
 
   Digital Excellence Copyright (C) 2020 Brend Smits
-
+`
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published
    by the Free Software Foundation version 3 of the License.
@@ -20,7 +20,7 @@
 <div class="modal-highlight-container">
   <div class="modal-body">
     <h2>
-      <fa-icon *ngIf="canGoBack" [icon]=faChevronLeft class="back-button" (click)=onClickBack()></fa-icon>
+      <span *ngIf="canGoBack" class="fas fa-chevron-left back-button" (click)=onClickBack()></span>
       Highlight project
     </h2>
     <form [formGroup]="highlightProjectForm" class="highlight-form">
@@ -64,15 +64,17 @@
       <div class="col-sm-5 d-none d-sm-flex">
         <button *ngIf="canDelete" type="button" class="cancel" (click)="onClickDelete()">
           Delete highlight
-          <fa-icon [icon]=faTrashAlt></fa-icon>
+          <span class="fas fa-trash-alt"></span>
         </button>
       </div>
       <div class="col-2 d-sm-none trash-icon">
-        <fa-icon *ngIf="canDelete" [icon]=faTrash (click)="onClickDelete()" size="2x" [classes]="['mobile-trash']"></fa-icon>
+        <span *ngIf="canDelete" (click)="onClickDelete()" class='fas fa-trash mobile-trash'></span>
       </div>
-      <div class="col-10 buttons-bottom col-sm-7 text-right">
-        <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
-        <button type="button" class="primary" (click)="onClickConfirm()">Save <fa-icon [icon]=faSave></fa-icon></button>
+      <div class=" col-10 buttons-bottom col-sm-7 text-right">
+          <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
+          <button type="button" class="primary" (click)="onClickConfirm()">
+            Save <span class="fas fa-save"></span>
+          </button>
       </div>
     </div>
   </div>

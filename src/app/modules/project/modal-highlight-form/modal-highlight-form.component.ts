@@ -22,7 +22,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Highlight } from '../../../models/domain/highlight';
 import { HighlightService } from 'src/app/services/highlight.service';
 import * as moment from 'moment';
-import { faSave, faTrash, faTrashAlt, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertService } from 'src/app/services/alert.service';
 import { AlertType } from 'src/app/models/internal/alert-type';
@@ -51,10 +50,6 @@ export class ModalHighlightFormComponent implements OnInit {
   public highlightProjectForm: FormGroup;
   public dateFieldsEnabled = true;
   public validationErrorMessage: string = null;
-  public faSave = faSave;
-  public faTrash = faTrash;
-  public faTrashAlt = faTrashAlt;
-  public faChevronLeft = faChevronLeft;
   public canDelete = false;
 
   constructor(
