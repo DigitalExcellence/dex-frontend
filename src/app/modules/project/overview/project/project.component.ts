@@ -19,6 +19,7 @@ import { Project } from 'src/app/models/domain/project';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { environment } from 'src/environments/environment';
+import { LikeService } from 'src/app/services/like.service';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class ProjectComponent {
   @Input() project: Project;
 
   constructor(
-      private fileRetrieverService: FileRetrieverService) {
+      private fileRetrieverService: FileRetrieverService,
+      private likeService: LikeService) {
   }
 
   /**
@@ -54,6 +56,12 @@ export class ProjectComponent {
 
   public likeClicked(event) {
     event.stopPropagation();
+    if(this.project.userHasLikedProject) {
+      this.likeService.likeProject(this.project.id);
+    } else {
+      this.likeService.removeLike(this.project.id);
+    }
+    this.project.userHasLikedProject = !this.project.userHasLikedProject;
   }
 
   /**

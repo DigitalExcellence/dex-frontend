@@ -28,7 +28,10 @@
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
     <ng-container *ngIf="displayTags(); else noLikes">
-      <div (click)="likeClicked($event)" class="item project-likes"><em class='far fa-heart'></em> 0 Likes</div>
+      <div (click)="likeClicked($event)" class="item project-likes">
+        <em [ngClass]="project.userHasLikedProject ? 'fas' : 'far'" class='far fa-heart'></em>
+        {{project.likeCount}} Likes
+      </div>
     </ng-container>
     <ng-template #noLikes>
       <div></div>
@@ -71,8 +74,8 @@
     <div class='bottom-wrapper'>
       <ng-container *ngIf="displayTags()">
         <div (click)="likeClicked($event)" class='item'>
-          <em class='far fa-heart'></em>
-            <div class="project-likes">0 Likes</div>
+          <em [ngClass]="project.userHasLikedProject ? 'fas' : 'far'" class='fa-heart'></em>
+            <div class="project-likes" (click)="likeClicked($event)">{{project.likeCount}} Likes</div>
         </div>
       </ng-container>
       <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
