@@ -133,9 +133,9 @@
  
      img {
        width: 25px;
-       transition: transform $transition-short;
+       transition: transform $transition-long;
        &:hover{
-         transform: $transformation-rotate;
+         transform: $transform-rotate;
        }
      }
    }
