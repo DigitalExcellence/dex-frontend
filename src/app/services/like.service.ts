@@ -15,30 +15,25 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { API_CONFIG } from 'src/app/config/api-config';
 
-export interface ApiConfig {
-  embeddedProjectRoute: string;
-  url: string;
-  userRoute: string;
-  projectRoute: string;
-  highlightRoute: string;
-  internalSearchRoute: string;
-  externalSearchRoute: string;
-  wizardRoute: string;
-  uploadFileRoute: string;
-  projectLikes: string;
+@Injectable({
+  providedIn: 'root'
+})
+export class LikeService {
+
+  protected readonly url = API_CONFIG.url + API_CONFIG.projectLikes;
+
+  constructor(
+      private http: HttpClient) { }
+
+  public likeProject(projectId: number): void {
+    this.http.post(this.url, {projectId: projectId})
+  }
+
+  public removeLike(projectId: number): void {
+    this.http.delete(this.url+projectId)
+  }
 }
-
-export const API_CONFIG: ApiConfig = {
-  url: `${environment.apiUrl}/api/`,
-  userRoute: 'user',
-  projectRoute: 'project',
-  highlightRoute: 'highlight',
-  internalSearchRoute: 'search/internal',
-  externalSearchRoute: 'search/external',
-  embeddedProjectRoute: 'embed',
-  wizardRoute: 'wizard',
-  uploadFileRoute: 'file',
-  projectLikes: 'project/like'
-};
