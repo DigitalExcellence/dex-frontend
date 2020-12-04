@@ -321,6 +321,15 @@ export class DetailsComponent implements OnInit {
   }
 
   /**
+   * Method to close the modal and redirect to a different page
+   * @param url the url to redirect to
+   */
+  public closeModalAndRedirect(url: string) {
+    this.modalService.hide(1);
+    this.router.navigateByUrl(url);
+  }
+
+  /**
    * Method to display the embed button based on the current user and the project user.
    * If the user either has the EmbedWrite scope or is the creator of the project
    * @param project The project to check if the current user is the owner.
