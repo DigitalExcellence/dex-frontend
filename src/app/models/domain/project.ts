@@ -30,4 +30,6 @@ export interface Project {
   uri?: string;
   collaborators?: Collaborator[];
   projectIcon?: UploadFile;
+  userHasLikedProject: boolean;
+  likeCount: number;
 }
