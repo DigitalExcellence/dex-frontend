@@ -22,6 +22,7 @@ import { API_CONFIG } from 'src/app/config/api-config';
 @Injectable({
   providedIn: 'root'
 })
+
 export class LikeService {
 
   protected readonly url = API_CONFIG.url + API_CONFIG.projectLikes;

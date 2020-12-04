@@ -25,4 +25,6 @@ export interface SearchResultResource {
     created: Date;
     updated: Date;
     projectIcon: UploadFile;
+    userHasLikedProject: boolean;
+    likeCount: number;
 }
