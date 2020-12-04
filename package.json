@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~9.1.12",
     "@angular/router": "~9.1.12",
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "@ngx-lite/debounce-click": "^0.2.3",
     "@sentry/browser": "^5.24.2",
     "@webcomponents/webcomponentsjs": "^2.4.4",
     "bootstrap": "^4.5.2",

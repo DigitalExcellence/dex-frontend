@@ -37,6 +37,7 @@ import { Meta } from '@angular/platform-browser';
 import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
 import { HighlightsModalComponent } from './highlights-modal/highlights-modal.component';
 import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
+import { NgxDebounceClickModule } from '@ngx-lite/debounce-click';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project/proje
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     QuillModule,
+    NgxDebounceClickModule
   ],
   exports: [
     FileUploaderComponent

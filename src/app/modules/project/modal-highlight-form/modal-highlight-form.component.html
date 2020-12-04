@@ -62,17 +62,17 @@
     </form>
     <div class="row mt-3">
       <div class="col-sm-5 d-none d-sm-flex">
-        <button *ngIf="canDelete" type="button" class="cancel" (click)="onClickDelete()">
+        <button *ngIf="canDelete" type="button" class="cancel" ngxDebounceClick (debouncedClick)="onClickDelete()">
           Delete highlight
           <span class="fas fa-trash-alt"></span>
         </button>
       </div>
       <div class="col-2 d-sm-none trash-icon">
-        <span *ngIf="canDelete" (click)="onClickDelete()" class='fas fa-trash mobile-trash'></span>
+        <span *ngIf="canDelete" ngxDebounceClick (debouncedClick)="onClickDelete()" class='fas fa-trash mobile-trash'></span>
       </div>
       <div class=" col-10 buttons-bottom col-sm-7 text-right">
           <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
-          <button type="button" class="primary" (click)="onClickConfirm()">
+          <button type="button" class="primary" ngxDebounceClick (debouncedClick)="onClickConfirm()">
             Save <span class="fas fa-save"></span>
           </button>
       </div>
