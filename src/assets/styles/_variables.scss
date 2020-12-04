@@ -29,3 +29,11 @@ $font-size-body: 14px;
 
 // box shadow color
 $box-shadow: 0 3px 6px #0000001a;
+
+// transform
+$transform-rotate: rotate(-270deg);
+$transform-scale-grow: scale(1.05);
+$transform-scale-shrink: scale(0.95);
+
+$transition-long: .7s ease-in-out;
+$transition-short: .3s ease-in-out;

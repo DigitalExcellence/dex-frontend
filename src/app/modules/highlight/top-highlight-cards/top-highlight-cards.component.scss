@@ -41,10 +41,10 @@
       border: none;
       cursor: pointer;
       height: 100%;
-      transition: transform .3s ease;
+      transition: transform $transition-short;
 
       &:hover{
-        transform: scale(1.05);
+        transform: $transform-scale-grow;
       }
     }
 

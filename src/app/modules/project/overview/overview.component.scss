@@ -88,9 +88,9 @@
 
      img {
        width: 25px;
-       transition: transform .7s ease;
+       transition: transform $transition-long;
        &:hover{
-         transform: rotate(-270deg)
+         transform: $transform-rotate;
        }
      }
    }

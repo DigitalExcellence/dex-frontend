@@ -122,14 +122,14 @@ span {
 button {
   margin: 30px 4px 0 4px;
   width: calc(100% - 8px);
-  transition: transform .3s ease;
+  transition: transform $transition-short;
 
   &:focus {
     border: none;
     outline: none;
   }
   &:hover{
-    transform: scale(0.95)
+    transform: $transform-scale-shrink;
   }
 }
 
