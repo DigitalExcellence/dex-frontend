@@ -1,0 +1,81 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+@import "assets/styles/variables";
+
+.collaborator-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  align-content: stretch;
+  border-radius: 999px;
+  border: 2px solid $accent-color-red-primary;
+  margin-bottom: 2px;
+  align-items: center;
+  line-height: 1;
+  .role {
+    padding: 0 15px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $accent-color-red-primary;
+    white-space: nowrap;
+  }
+
+  .orange {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 28px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+
+    background-color: $accent-color-red-primary;
+    color: white;
+    border-radius: 999px;
+    .name {
+      padding: 0 15px;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .follow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: white;
+      min-width: 38px;
+      border-left: 1px solid white;
+      background-color: $accent-color-red-primary;
+      max-height: 100%;
+      height: 100%;
+      &:hover{
+        background-color: $accent-color-red-secondary;
+        cursor: pointer;
+      }
+    }
+
+  }
+
+  div {
+    display: inline-block;
+  }
+}
