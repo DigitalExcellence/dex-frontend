@@ -14,8 +14,9 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { debounceTime, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -28,7 +29,10 @@ import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
-import { AuthService } from '../../../services/auth.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { DetailsComponent } from 'src/app/modules/project/details/details.component';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface SortFormResult {
   type: string;
@@ -41,9 +45,9 @@ interface SortFormResult {
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss'],
+  styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, AfterContentInit {
   /**
    * Array to receive and store the projects from the api.
    */
@@ -149,6 +153,20 @@ export class OverviewComponent implements OnInit {
 
   public currentPage = 1;
 
+  /**
+   * Project parameter gets updated per project detail modal
+   */
+  public currentProject: Project = null;
+
+  /**
+   * Property to indicate whether the project is loading.
+   */
+  private projectLoading = true;
+
+
+  private modalRef: BsModalRef;
+  private modalSubscriptions: Subscription[] = [];
+
   constructor(
     private router: Router,
     private paginationService: PaginationService,
@@ -156,6 +174,8 @@ export class OverviewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private seoService: SEOService,
+    private modalService: BsModalService,
+    private location: Location,
     private authService: AuthService) {
     this.searchControl = new FormControl('');
 
@@ -210,9 +230,7 @@ export class OverviewComponent implements OnInit {
 
     this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
-    // Updates meta and title tags
-    this.seoService.updateTitle('Project overview');
-    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
+    this.updateSEOTags();
 
 
     // Following two oberservables can be used in the feature to implement category & tags searching
@@ -223,6 +241,13 @@ export class OverviewComponent implements OnInit {
     // this.tagsForm.valueChanges.subscribe((tagFormResult: TagFormResult) => {
     //   console.log(tagFormResult);
     // });
+  }
+
+  ngAfterContentInit() {
+    this.activatedRoute.params.subscribe(params => {
+      const projectId = params.id?.split('-')[0];
+      this.createProjectModal(projectId);
+    });
   }
 
   /**
@@ -243,7 +268,6 @@ export class OverviewComponent implements OnInit {
     }
 
     this.currentSearchInput = value;
-
     this.searchSubject.next(value);
   }
 
@@ -261,7 +285,9 @@ export class OverviewComponent implements OnInit {
    */
   public onClickProject(id: number, name: string): void {
     name = name.split(' ').join('-');
-    this.router.navigate([`/project/details/${id}-${name}`]);
+
+    this.createProjectModal(id);
+    this.location.replaceState(`/project/details/${id}-${name}`);
   }
 
   /**
@@ -348,10 +374,8 @@ export class OverviewComponent implements OnInit {
   /**
    * Method to handle the response of the call to the project or search service.
    */
-  private async handleSearchAndProjectResponse(response: SearchResultsResource): Promise<void> {
+  private handleSearchAndProjectResponse(response: SearchResultsResource): Promise<void> {
     this.paginationResponse = response;
-
-    console.log(response)
 
     this.projects = response.results;
     this.projectsToDisplay = response.results;
@@ -362,5 +386,37 @@ export class OverviewComponent implements OnInit {
     } else {
       this.showPaginationFooter = true;
     }
+  }
+
+
+  /**
+   * Method to open the modal for a projects detail
+   * @param projectId the id of the project that should be shown.
+   */
+  private createProjectModal(projectId: number) {
+    if (projectId) {
+      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
+      this.modalRef.setClass('project-modal');
+
+      // Go back to home page after the modal is closed
+      this.modalSubscriptions.push(
+          this.modalService.onHide.subscribe((reason: string | any) => {
+            this.location.replaceState('/project/overview');
+            this.updateSEOTags();
+          }, reason => {
+            this.location.replaceState('/project/overview');
+            this.updateSEOTags();
+          }));
+    }
+  }
+
+
+  /**
+   * Methods to update the title and description through the SEO service
+   */
+  private updateSEOTags() {
+    // Updates meta and title tags
+    this.seoService.updateTitle('Project overview');
+    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
   }
 }

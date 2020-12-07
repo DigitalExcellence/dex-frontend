@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
@@ -47,8 +47,12 @@ import { LikeService } from 'src/app/services/like.service';
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DetailsComponent implements OnInit {
+
+  @Input() projectId: number;
+
   /**
    * Variable to store the project which is retrieved from the api
    */
@@ -60,6 +64,11 @@ export class DetailsComponent implements OnInit {
   public displayDeleteProjectButton = false;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
+
+  /**
+   * Property to indicate which tab is selected
+   */
+  public activeTab = 'description';
 
   /**
    * Property to indicate whether the project is loading.
@@ -88,53 +97,47 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const routeId = this.activedRoute.snapshot.params.id.split('-')[0];
-    if (!routeId) {
-      return;
+      if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
+        this.invalidId = this.projectId.toString();
+        return;
+      }
+
+      this.authService.authNavStatus$.subscribe((status) => {
+        this.isAuthenticated = status;
+      });
+      this.currentUser = this.authService.getCurrentBackendUser();
+
+      this.projectService.get(this.projectId)
+          .pipe(
+              finalize(() => this.projectLoading = false)
+          )
+          .subscribe(
+              (result) => {
+                this.project = result;
+                const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
+                this.determineDisplayEditProjectButton();
+                this.determineDisplayDeleteProjectButton();
+                this.determineDisplayEmbedButton();
+                this.determineDisplayHighlightButton();
+
+                // Updates meta and title tags
+                this.seoService.updateDescription(desc);
+                this.seoService.updateTitle(this.project.name);
+              }
+          );
+
+      if (this.authService.currentBackendUserHasScope(scopes.HighlightRead)) {
+        this.highlightByProjectIdService.getHighlightsByProjectId(this.projectId)
+            .subscribe(highlights => {
+              if (highlights == null) {
+                return;
+              }
+              if (highlights.length > 0) {
+                this.isProjectHighlighted = true;
+              }
+            });
+      }
     }
-    const id = Number(routeId);
-    if (id == null || Number.isNaN(id) || id < 1) {
-      this.invalidId = routeId;
-      return;
-    }
-
-    this.authService.authNavStatus$.subscribe((status) => {
-      this.isAuthenticated = status;
-    });
-    this.currentUser = this.authService.getCurrentBackendUser();
-
-    this.projectService.get(id)
-      .pipe(
-        finalize(() => this.projectLoading = false)
-      )
-      .subscribe(
-        (result) => {
-          console.log(result)
-          this.project = result;
-          const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
-          this.determineDisplayEditProjectButton();
-          this.determineDisplayDeleteProjectButton();
-          this.determineDisplayEmbedButton();
-          this.determineDisplayHighlightButton();
-
-          // Updates meta and title tags
-          this.seoService.updateDescription(desc);
-          this.seoService.updateTitle(this.project.name);
-        }
-      );
-
-    if (this.authService.currentBackendUserHasScope(scopes.HighlightRead)) {
-      this.highlightByProjectIdService.getHighlightsByProjectId(id)
-        .subscribe(highlights => {
-          if (highlights == null) {
-            return;
-          }
-          if (highlights.length > 0) {
-            this.isProjectHighlighted = true;
-          }
-        });
-    }
-  }
 
   /**
    * Highlight a project by calling the API
@@ -215,9 +218,9 @@ export class DetailsComponent implements OnInit {
 
   /**
    * Method to display the tags based on the environment variable.
-   * Tags should be hidden in production for now untill futher implementation is finished.
+   * Tags should be hidden in production for now until further implementation is finished.
    */
-  public displayTags(): boolean {
+  public isProduction(): boolean {
     return !environment.production;
   }
 
@@ -267,6 +270,13 @@ export class DetailsComponent implements OnInit {
   }
 
   /**
+   * Method to set the tab to the active tab from the params
+   */
+  public setActiveTab(newActiveTab): void {
+    this.activeTab = newActiveTab;
+  }
+
+  /**
    * Method to display the edit project button based on the current user and the project user.
    * If the user either has the ProjectWrite scope or is the creator of the project
    */
@@ -310,6 +320,15 @@ export class DetailsComponent implements OnInit {
       return;
     }
     this.displayHighlightButton = false;
+  }
+
+  /**
+   * Method to close the modal and redirect to a different page
+   * @param url the url to redirect to
+   */
+  public closeModalAndRedirect(url: string) {
+    this.modalService.hide(1);
+    this.router.navigateByUrl(url);
   }
 
   /**
