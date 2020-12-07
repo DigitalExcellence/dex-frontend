@@ -374,7 +374,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   /**
    * Method to handle the response of the call to the project or search service.
    */
-  private handleSearchAndProjectResponse(response: SearchResultsResource): Promise<void> {
+  private handleSearchAndProjectResponse(response: SearchResultsResource): void {
     this.paginationResponse = response;
 
     this.projects = response.results;
@@ -401,9 +401,13 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       // Go back to home page after the modal is closed
       this.modalSubscriptions.push(
           this.modalService.onHide.subscribe((reason: string | any) => {
+            // Update project data
+            this.onInternalQueryChange()
             this.location.replaceState('/project/overview');
             this.updateSEOTags();
           }, reason => {
+            // Update project data
+            this.onInternalQueryChange()
             this.location.replaceState('/project/overview');
             this.updateSEOTags();
           }));
