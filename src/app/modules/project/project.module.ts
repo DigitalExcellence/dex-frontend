@@ -20,6 +20,7 @@ import { DetailsComponent } from './details/details.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EditComponent } from './edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,6 +39,8 @@ import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
 import { HighlightsModalComponent } from './highlights-modal/highlights-modal.component';
 import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
 import { NgxDebounceClickModule } from '@ngx-lite/debounce-click';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CollaboratorComponent } from './collaborator/collaborator.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,8 @@ import { NgxDebounceClickModule } from '@ngx-lite/debounce-click';
     SafeHtmlPipe,
     HighlightsModalComponent,
     ProjectComponent,
+    CollaboratorComponent,
+    ProjectComponent
   ],
   imports: [
     CommonModule,
@@ -63,13 +68,20 @@ import { NgxDebounceClickModule } from '@ngx-lite/debounce-click';
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     TooltipModule.forRoot(),
     QuillModule,
-    NgxDebounceClickModule
+    NgxDebounceClickModule,
+    PopoverModule.forRoot(),
+    QuillModule
+  ],
+  entryComponents: [
+    DetailsComponent
   ],
   exports: [
     FileUploaderComponent
   ],
   providers: [Meta]
 })
-export class ProjectModule { }
+export class ProjectModule {
+}
