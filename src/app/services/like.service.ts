@@ -31,12 +31,12 @@ export class LikeService {
       private http: HttpClient) { }
 
   public likeProject(projectId: number): void {
-    this.http.post(this.url+projectId, {projectId: projectId})
-        .subscribe()
+    this.http.post(this.url + projectId, {projectId: projectId})
+        .subscribe();
   }
 
   public removeLike(projectId: number): void {
-    this.http.delete(this.url+projectId)
-        .subscribe()
+    this.http.delete(this.url + projectId)
+        .subscribe();
   }
 }

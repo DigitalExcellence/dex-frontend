@@ -402,12 +402,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       this.modalSubscriptions.push(
           this.modalService.onHide.subscribe((reason: string | any) => {
             // Update project data
-            this.onInternalQueryChange()
+            this.onInternalQueryChange();
             this.location.replaceState('/project/overview');
             this.updateSEOTags();
           }, reason => {
             // Update project data
-            this.onInternalQueryChange()
+            this.onInternalQueryChange();
             this.location.replaceState('/project/overview');
             this.updateSEOTags();
           }));

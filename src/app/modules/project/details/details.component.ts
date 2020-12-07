@@ -354,7 +354,7 @@ export class DetailsComponent implements OnInit {
    * It will either like or unlike the project
    */
   public likeClicked() {
-    if(!this.project.userHasLikedProject) {
+    if (!this.project.userHasLikedProject) {
       this.likeService.likeProject(this.project.id);
       this.project.likeCount++;
     } else {
