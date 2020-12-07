@@ -326,7 +326,7 @@ export class DetailsComponent implements OnInit {
    */
   public closeModalAndRedirect(url: string) {
     this.modalService.hide(1);
-    document.getElementsByTagName('body')[0].classList.remove("modal-open")
+    document.getElementsByTagName('body')[0].classList.remove('modal-open');
     this.router.navigate([url]);
   }
 

@@ -400,12 +400,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       // Go back to home page after the modal is closed
       this.modalSubscriptions.push(
           this.modalService.onHide.subscribe((reason: string | any) => {
-            if(this.location.path().startsWith('/project/details')) {
+            if (this.location.path().startsWith('/project/details')) {
               this.location.replaceState('/project/overview');
               this.updateSEOTags();
             }
           }, reason => {
-            if(this.location.path().startsWith('/project/details')) {
+            if (this.location.path().startsWith('/project/details')) {
               this.location.replaceState('/project/overview');
               this.updateSEOTags();
             }
