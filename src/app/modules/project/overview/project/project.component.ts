@@ -54,12 +54,19 @@ export class ProjectComponent {
     event.stopPropagation();
   }
 
+
+  /**
+   * Method to handle the click of the like button
+   * It will either like or unlike the project
+   */
   public likeClicked(event) {
     event.stopPropagation();
     if(!this.project.userHasLikedProject) {
       this.likeService.likeProject(this.project.id);
+      this.project.likeCount++;
     } else {
       this.likeService.removeLike(this.project.id);
+      this.project.likeCount--;
     }
     this.project.userHasLikedProject = !this.project.userHasLikedProject;
   }
