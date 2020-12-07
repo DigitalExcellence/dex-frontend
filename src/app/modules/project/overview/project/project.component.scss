@@ -62,7 +62,7 @@
     gap: 20px;
     transition: transform $transition-short;
     &:hover{
-      transform: scale(1.015) // exception on the variables
+      transform: $transform-grow-small // exception on the variables
     }
     //media query to hide less important info on smaller screens
     @media only screen and (max-width: 1000px) {
