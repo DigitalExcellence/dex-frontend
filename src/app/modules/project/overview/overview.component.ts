@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
+import { AuthService } from '../../../services/auth.service';
 
 interface SortFormResult {
   type: string;
@@ -154,7 +155,8 @@ export class OverviewComponent implements OnInit {
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private seoService: SEOService) {
+    private seoService: SEOService,
+    private authService: AuthService) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -346,8 +348,11 @@ export class OverviewComponent implements OnInit {
   /**
    * Method to handle the response of the call to the project or search service.
    */
-  private handleSearchAndProjectResponse(response: SearchResultsResource): void {
+  private async handleSearchAndProjectResponse(response: SearchResultsResource): Promise<void> {
     this.paginationResponse = response;
+
+    console.log(response)
+
     this.projects = response.results;
     this.projectsToDisplay = response.results;
     this.totalNrOfProjects = response.totalCount;

@@ -56,7 +56,7 @@ export class ProjectComponent {
 
   public likeClicked(event) {
     event.stopPropagation();
-    if(this.project.userHasLikedProject) {
+    if(!this.project.userHasLikedProject) {
       this.likeService.likeProject(this.project.id);
     } else {
       this.likeService.removeLike(this.project.id);
