@@ -18,6 +18,7 @@
 import { User } from './user';
 import { Collaborator } from './collaborator';
 import { UploadFile } from './uploadFile';
+import { ProjectLike } from './projectLike';
 
 export interface Project {
   id: number;
@@ -30,6 +31,7 @@ export interface Project {
   uri?: string;
   collaborators?: Collaborator[];
   projectIcon?: UploadFile;
+  likes?: Array<ProjectLike>;
   userHasLikedProject: boolean;
   likeCount: number;
 }

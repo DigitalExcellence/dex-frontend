@@ -17,8 +17,10 @@
  *
  */
 import { UploadFile } from '../domain/uploadFile';
+import { ProjectLike } from '../domain/projectLike';
 
 export interface SearchResultResource {
+    likes: Array<ProjectLike>;
     id: number;
     name: string;
     shortDescription: string;
