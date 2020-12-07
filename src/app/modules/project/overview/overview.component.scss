@@ -71,10 +71,10 @@
        display: flex;
        justify-content: center;
        align-items: center;
-       transition: background-color $transition-long, transform $transition-short;
+       transition: transform $transition-short;
 
        &:hover{
-         transform: $transform-scale-grow;
+         transform: $transform-grow-big;
        }
        svg {
          size: inherit;

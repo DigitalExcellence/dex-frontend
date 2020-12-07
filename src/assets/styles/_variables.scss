@@ -32,8 +32,12 @@ $box-shadow: 0 3px 6px #0000001a;
 
 // transform
 $transform-rotate: rotate(-270deg);
-$transform-scale-grow: scale(1.05);
+
+$transform-grow-small: scale(1.015);
+$transform-grow: scale(1.04);
+$transform-grow-big: scale(1.06);
+
 $transform-scale-shrink: scale(0.95);
 
-$transition-long: .8s ease-in-out;
-$transition-short: .4s ease-in-out;
+$transition-long: .5s ease-in-out;
+$transition-short: .25s ease-in-out;

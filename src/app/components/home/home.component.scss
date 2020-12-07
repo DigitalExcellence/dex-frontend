@@ -54,7 +54,7 @@ h1 {
     &:focus {
       border: none;
       outline: none;
-      transform: $transform-scale-grow;
+      transform: $transform-grow;
     }
   }
 
@@ -125,7 +125,7 @@ h1 {
     }
 
     &:hover {
-      transform: $transform-scale-grow;
+      transform: $transform-grow;
     }
   }
 }
