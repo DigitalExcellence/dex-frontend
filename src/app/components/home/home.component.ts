@@ -32,7 +32,7 @@ import { SEOService } from 'src/app/services/seo.service';
 
 export class HomeComponent {
 
-  private description = 'DeX provides a platform for students, teachers and employees to share and work on projects and ideas. Find, create, share and work on projects and ideas on DeX';
+  private description = 'DeX (Digital Excellence) provides a platform for students, teachers and employees to share and work on projects and ideas. Find, create, share and work on projects & ideas with DeX!';
   public searchControl: FormControl;
 
   constructor(
@@ -40,7 +40,7 @@ export class HomeComponent {
     private seoService: SEOService) {
     this.searchControl = new FormControl('');
     seoService.updateDescription(this.description);
-    seoService.updateTitle('Home');
+    seoService.updateTitle('Home', "Your new project starts here!");
   }
 
   /**

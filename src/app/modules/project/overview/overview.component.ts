@@ -167,6 +167,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private modalRef: BsModalRef;
   private modalSubscriptions: Subscription[] = [];
 
+
+  private description = 'Browse or search for specific projects or ideas within DeX! Create a new project on DeX! DeX (Digital Excellence) provides a platform for students, teachers and employees to share and work on projects and ideas. Find, create, share and work on projects & ideas with DeX!';
+
   constructor(
     private router: Router,
     private paginationService: PaginationService,
@@ -416,6 +419,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private updateSEOTags() {
     // Updates meta and title tags
     this.seoService.updateTitle('Project overview');
-    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
+    this.seoService.updateDescription(this.description);
   }
 }

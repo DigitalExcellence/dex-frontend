@@ -43,6 +43,8 @@ export class SourceComponent implements OnInit {
   public sourceUriInput: FormControl = new FormControl('');
   public isAuthenticated: boolean;
 
+  private description = 'Create a new project on DeX! DeX (Digital Excellence) provides a platform for students, teachers and employees to share and work on projects and ideas. Find, create, share and work on projects & ideas with DeX!';
+
   constructor(
     private wizardService: WizardService,
     private router: Router,
@@ -88,8 +90,8 @@ export class SourceComponent implements OnInit {
       }
     );
     // Updates meta and title tags
-    this.seoService.updateDescription('Create a new project in DeX');
-    this.seoService.updateTitle('Add new project');
+    this.seoService.updateDescription(this.description);
+    this.seoService.updateTitle('Create project', 'Import or create your new project');
   }
 
   /**
