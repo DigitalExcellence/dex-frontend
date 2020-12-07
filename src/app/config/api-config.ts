@@ -40,5 +40,5 @@ export const API_CONFIG: ApiConfig = {
   embeddedProjectRoute: 'embed',
   wizardRoute: 'wizard',
   uploadFileRoute: 'file',
-  projectLikes: 'project/like'
+  projectLikes: 'project/like/'
 };

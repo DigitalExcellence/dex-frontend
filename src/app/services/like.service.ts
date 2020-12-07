@@ -18,6 +18,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_CONFIG } from 'src/app/config/api-config';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +31,11 @@ export class LikeService {
   constructor(
       private http: HttpClient) { }
 
-  public likeProject(projectId: number): void {
-    this.http.post(this.url, {projectId: projectId})
+  public likeProject(projectId: number): Observable<any> {
+    return this.http.post(this.url+projectId, {})
   }
 
-  public removeLike(projectId: number): void {
-    this.http.delete(this.url+projectId)
+  public removeLike(projectId: number): Observable<any> {
+    return this.http.delete(this.url+projectId)
   }
 }

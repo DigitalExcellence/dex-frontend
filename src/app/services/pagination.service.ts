@@ -2,8 +2,10 @@ import { InternalSearchQuery } from 'src/app/models/resources/internal-search-qu
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api-config';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { SearchResultsResource } from '../models/resources/search-results';
+import { AuthService } from './auth.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class PaginationService {
   protected http: HttpClient;
   protected readonly url: string = API_CONFIG.url + API_CONFIG.projectRoute;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private authService: AuthService) {
     this.http = http;
   }
 
@@ -39,6 +41,24 @@ export class PaginationService {
     if (params !== '') {
       url += `?${params}`;
     }
-    return this.http.get<SearchResultsResource>(url);
+
+    return this.http.get<SearchResultsResource>(url)
+        .pipe(
+            mergeMap(result => from(
+                this.addLikes(result)
+            ))
+        );
+  }
+
+  private addLikes(searchResult): Promise<SearchResultsResource> {
+    return this.authService.getBackendUser()
+        .then(currentUser => {
+          searchResult.results.map(project => {
+            project.likeCount = project.likes.length ? project.likes.length : 0;
+            project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser.id).length > 0;
+            return project;
+          })
+          return searchResult
+        });
   }
 }
