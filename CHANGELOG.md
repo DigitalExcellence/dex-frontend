@@ -10,8 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added SEO & performance check when pushing new code to develop branch [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
-
-- Added a DeX preview with title, description and image for more user friendliness [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
+- Added a DeX preview with title, description and image for more user-friendliness [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
+- Added functionality to like projects [#389](https://github.com/DigitalExcellence/dex-frontend/issues/389)
 
 ### Changed
 
