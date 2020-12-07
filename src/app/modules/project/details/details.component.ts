@@ -38,7 +38,7 @@ import { HighlightByProjectIdService } from 'src/app/services/highlightid.servic
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
-import { LikeService } from 'src/app/services/like.service';
+import { LikeService } from '../../../services/like.service';
 
 /**
  * Overview of a single project
@@ -349,12 +349,17 @@ export class DetailsComponent implements OnInit {
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
   }
 
-  public likeClicked(event) {
-    event.stopPropagation();
-    if(this.project.userHasLikedProject) {
+  /**
+   * Method to handle the click of the like button
+   * It will either like or unlike the project
+   */
+  public likeClicked() {
+    if(!this.project.userHasLikedProject) {
       this.likeService.likeProject(this.project.id);
+      this.project.likeCount++;
     } else {
       this.likeService.removeLike(this.project.id);
+      this.project.likeCount--;
     }
     this.project.userHasLikedProject = !this.project.userHasLikedProject;
   }

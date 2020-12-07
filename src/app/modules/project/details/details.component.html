@@ -52,7 +52,10 @@
           <ng-container *ngIf="isProduction()">
             <div class="project-metadata__item">
               <p class='title'>Likes <em class="fas fa-heart"></em></p>
-              <p><em class="far fa-heart"></em> 120</p>
+              <p (click)="likeClicked()">
+                <em [ngClass]="project.userHasLikedProject ? 'fas' : 'far'" class='fa-heart'></em>
+                {{project.likeCount}}
+              </p>
             </div>
           </ng-container>
           <div class="project-metadata__item" [tooltip]="projectUpdated">
