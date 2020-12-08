@@ -168,7 +168,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private modalSubscriptions: Subscription[] = [];
 
 
-  private description = 'Browse or search for specific projects or ideas within DeX! Create a new project on DeX! DeX (Digital Excellence) provides a platform for students, teachers and employees to share and work on projects and ideas. Find, create, share and work on projects & ideas with DeX!';
+  private description = 'Browse our constantly growing project library and find your next project!';
 
   constructor(
     private router: Router,
