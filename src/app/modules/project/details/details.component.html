@@ -27,51 +27,45 @@
 <ng-template #projectLoaded>
   <div *ngIf="project; else noProject">
     <div class="row">
-      <div class="col-3 project-metadata">
-        <div class="project-icon" style="background-color: unset">
-          <img [src]="getIconUrl()" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';">
-        </div>
-        <div *ngIf="project.uri" class="project-metadata__item">
-          <h3>External Link</h3>
-
-          <a href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
-
-        </div>
-        <div class="project-metadata__item">
-          <h3>Upload Date</h3>
-          <p>
-            {{ project.created | date:'longDate' }}
-          </p>
-        </div>
-        <div class="project-metadata__item">
-          <h3>Uploader</h3>
-          <p>
-            {{ project.user.name }}
-          </p>
-        </div>
-        <div class="project-metadata__item">
-          <h3>Collaborators</h3>
-          <ul class="project-metadata__item__collaborators">
-            <li *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} -
-              {{ collaborator.role}}</li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-6">
+      <!-- on this spot should be an image or a bootstrap carrousel after the wizard is finished
+      <img src="https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1177074_1920-960x540.jpg" alt="project-detail-image"> -->
+      <div class='project-modal-content '>
         <div id="title-wrapper">
-          <h1 class="project-title">{{ project.name }}</h1>
+          <h2 class="project-title">{{ project.name }}</h2>
+          <div class="circle" style="background-color: unset">
+            <img [src]="getIconUrl()" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';">
+          </div>
 
-          <div id="project-edit-buttons">
-            <ng-container *ngIf="displayEditButton">
-              <button class="primary" routerLink="/project/edit/{{ project?.id }}"><img alt="" loading="lazy" src="assets/images/edit.svg"></button>
-            </ng-container>
-            <ng-container *ngIf="displayDeleteProjectButton">
-              <button (click)="onClickRemoveProject()" class="primary"><img alt="" loading="lazy" src="assets/images/trash.svg"></button>
-            </ng-container>
+        </div>
+        <div class=" project-metadata">
+          <div *ngIf="project.uri" class="project-metadata__item">
+            <p class='title'>Uploader <em class="fas fa-user"></em></p>
+            <p>
+              {{ project.user.name }}
+          </div>
+          <div class="project-metadata__item">
+            <p class='title'>External Link <em class="fas fa-external-link-alt"></em></p>
+
+            <a class='hover' href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
+
+          </div>
+          <ng-container *ngIf="isProduction()">
+            <div class="project-metadata__item">
+              <p class='title'>Likes <em class="fas fa-heart"></em></p>
+              <p><em class="far fa-heart"></em> 120</p>
+            </div>
+          </ng-container>
+          <div class="project-metadata__item" [tooltip]="projectUpdated">
+            <p class='title cursor-pointer'>Upload Date <em class="fas fa-calendar"></em></p>
+            <p class='hover'>{{ project.created | date:'longDate' }}</p>
+            <ng-template #projectUpdated>
+              <p>Created: {{project.created | date: 'mediumDate'}}</p>
+              <p>Updated: {{project.updated | date: 'mediumDate'}}</p>
+            </ng-template>
           </div>
         </div>
 
-        <ng-container *ngIf="displayTags()">
+        <ng-container *ngIf="isProduction()">
           <div class="project-tags">
             <a class="project-tags__tag" href="javascript:void(0)">
               Game
@@ -96,22 +90,56 @@
             </a>
           </div>
         </ng-container>
+        <hr>
 
-        <div class="project-description large">
-          <div [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></div>
-        </div>
-
-        <div id="project-share-buttons">
-          <ng-container *ngIf="displayHighlightButton">
-            <button (click)="onClickHighlightButton()" class="primary ml-2">Highlight Project</button>
-
-            <div *ngIf="isProjectHighlighted" class="project-highlighted-div">
-              <button (click)="onClickDeleteHighlightButton()" class="primary ml-2">Delete Highlight</button>
+        <div class='bottom'>
+          <div class='menu-wrapper'>
+            <div class='menu'>
+              <div (click)="setActiveTab('description')" [ngClass]="{'active': this.activeTab == 'description' }" class='item'>
+                Description
+              </div>
+              <ng-container *ngIf="isProduction()">
+                <div (click)="setActiveTab('contact')" [ngClass]="{'active': this.activeTab == 'contact' }" class='item'>
+                  Contact
+                </div>
+              </ng-container>
+              <div (click)="setActiveTab('collaborators')" [ngClass]="{'active': this.activeTab == 'collaborators' }" class='item'>
+                Collaborators
+              </div>
             </div>
-          </ng-container>
-          <ng-container *ngIf="displayEmbedButton">
-            <app-embed-button [projectId]=project.id></app-embed-button>
-          </ng-container>
+            <ng-container *ngIf="displayHighlightButton || displayEditButton || displayDeleteProjectButton">
+              <em [popover]="cogPopOver"  class="fas fa-cog cog" placement="bottom" triggers="click" [outsideClick]="true">
+              </em>
+              <ng-template #cogPopOver class="cog-tooltip">
+                <ng-container *ngIf="displayHighlightButton">
+                  <a (click)="onClickHighlightButton()" class="cog-tooltip-item"><em class="fas fa-highlighter"></em>Hightlight settings</a>
+                </ng-container>
+                <ng-container *ngIf="displayEditButton">
+                  <a class="cog-tooltip-item" (click)="closeModalAndRedirect('project/edit/'+ project?.id)"><em class="fas fa-edit"></em>Edit project</a>
+                </ng-container>
+                <ng-container *ngIf="displayDeleteProjectButton">
+                  <a class="cog-tooltip-item" (click)="closeModalAndRedirect('project/delete/'+ project?.id)"><em class="fas fa-trash"></em>Delete project</a>
+                </ng-container>
+              </ng-template>
+            </ng-container>
+          </div>
+
+          <div class='tab-content'>
+            <ng-container *ngIf=" this.activeTab == 'description' " class="project-description large">
+              <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
+              <ng-container *ngIf="displayEmbedButton">
+                <app-embed-button [projectId]=project.id></app-embed-button>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf=" this.activeTab == 'contact' ">
+              <p>contact</p>
+            </ng-container>
+            <ng-container *ngIf=" this.activeTab == 'collaborators' ">
+              <div class='collaborators'>
+                <app-collaborator *ngFor="let collaborator of project.collaborators" [collaborator]="collaborator"></app-collaborator>
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>
