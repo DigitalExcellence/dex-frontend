@@ -43,4 +43,14 @@ export class SEOService {
     }
     this.meta.updateTag({ name: 'description', content: desc });
   }
+
+  /**
+   *  Updates the meta keywords tag 
+   * @param keywords - List with keywords to be added as tags
+   */
+  public updateKeywords(keywords: string[]){
+    let list = keywords.join(", ")
+    console.log(list)
+    this.meta.updateTag({ name: 'keywords', content: list });
+  }
 }
