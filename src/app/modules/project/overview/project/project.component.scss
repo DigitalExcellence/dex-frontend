@@ -224,6 +224,12 @@
         cursor: pointer;
         display: grid;
         grid-template-columns: 20px auto;
+        .project-collaborators{
+          max-width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
         i {
           justify-self: center;
           color: $light-mode-black;
