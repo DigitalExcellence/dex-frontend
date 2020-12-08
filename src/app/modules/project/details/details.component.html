@@ -18,11 +18,7 @@
  -->
 
 <ng-container *ngIf="projectLoading; else projectLoaded">
-  <div class="row">
-    <div class="offset-2 col-8">
-      <p>Project is being loaded</p>
-    </div>
-  </div>
+      <h2 class="fas fa-spinner fa-pulse loading-circle" *ngIf="projectLoading"></h2>
 </ng-container>
 <ng-template #projectLoaded>
   <div *ngIf="project; else noProject">

@@ -135,8 +135,8 @@
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
+      <h2 class="fas fa-spinner fa-pulse loading-circle" *ngIf="projectsLoading"></h2>
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
-        <h2 *ngIf="projectsLoading">Projects loading...</h2>
         <app-project
             *ngFor="let project of projectsToDisplay"
             [project]="project"
