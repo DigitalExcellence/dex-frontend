@@ -20,7 +20,7 @@ import {environment} from 'src/environments/environment';
 
 Sentry.init({
     dsn: environment.sentryDsnUrl,
-    release: process.env.npm_package_name + "@" + process.env.npm_package_version
+    release: 'dex-frontend@0.9.0-beta'
 });
 
 /**
