@@ -20,8 +20,10 @@ import { DetailsComponent } from './details/details.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EditComponent } from './edit/edit.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
@@ -30,10 +32,13 @@ import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-hig
 import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { QuillModule } from 'ngx-quill';
-import { ManualComponent } from './add/manual/manual.component';
+import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
+import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CollaboratorComponent } from './collaborator/collaborator.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +50,10 @@ import { Meta } from '@angular/platform-browser';
     ModalHighlightDeleteComponent,
     ModalHighlightComponent,
     FileUploaderComponent,
-    DndDirective
+    DndDirective,
+    SafeHtmlPipe,
+    CollaboratorComponent,
+    ProjectComponent
   ],
   imports: [
     CommonModule,
@@ -56,11 +64,18 @@ import { Meta } from '@angular/platform-browser';
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
+    TooltipModule.forRoot(),
+    PopoverModule.forRoot(),
     QuillModule
   ],
+  entryComponents: [
+    DetailsComponent
+  ],
   exports: [
-      FileUploaderComponent
+    FileUploaderComponent
   ],
   providers: [Meta]
 })
-export class ProjectModule { }
+export class ProjectModule {
+}

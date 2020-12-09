@@ -59,16 +59,14 @@
         height: 40px;
         margin-right: 10px;
         overflow: hidden;
+        border-radius: 999px;
+        background-size: cover;
+        background-position: center;
+        box-shadow: 0 0px 4px #0000001a;
 
         @include media-breakpoint-down(sm) {
           margin: auto;
           margin-bottom: 10px;
-        }
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
         }
       }
 

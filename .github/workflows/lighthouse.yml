@@ -1,0 +1,20 @@
+name: Lightouse CI
+on:
+  push:
+    branches: [ develop ]
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@master
+        with:
+          urls: |
+            https://staging.dex.software/home
+            https://staging.dex.software/project/overview
+            https://staging.dex.software/project/add/source
+            https://staging.dex.software/account/login
+          budgetPath: ./budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage

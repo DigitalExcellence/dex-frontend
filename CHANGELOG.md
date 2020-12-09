@@ -7,17 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
 ### Added
+
 
 ### Changed
 
+
 ### Deprecated
+
 
 ### Removed
 
+
 ### Fixed
 
+
 ### Security
+
+
+
+## Release v.0.9.0-beta - 09-12-2020
+
+### Added
+
+- Added SEO & performance check when pushing new code to develop branch [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
+- Added a DeX preview when linking DeX in social media with a title, description and image for more user friendliness [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
+
+### Changed
+
+- Redesigned project overview page [#365](https://github.com/DigitalExcellence/dex-frontend/issues/365)
+- Implemented redesigned project details page [#362](https://github.com/DigitalExcellence/dex-frontend/issues/362)
+
+### Fixed
+
+- Fixed issue where the project icons would shrink if the description or title was too long - [#349](https://github.com/DigitalExcellence/dex-frontend/issues/349)
+- Fixed alert box blocking project edit/-delete buttons - [#352](https://github.com/DigitalExcellence/dex-frontend/issues/352)
+- Fixed issue where the pagination parameter was not getting reset on a new search - [#302](https://github.com/DigitalExcellence/dex-frontend/issues/302)
+- Fixed images showing alt when image could not be loaded, it now shows placeholder image instead - [#339](https://github.com/DigitalExcellence/dex-frontend/issues/339)
+- Fixed issue where tags were not hidden in production - [#373](https://github.com/DigitalExcellence/dex-frontend/issues/373)
+- Fixed issue where images were not being lazy loaded - [#374](https://github.com/DigitalExcellence/dex-frontend/issues/374)
+- Fixed low accessibility score within Lighthouse tests on home and project overview page [#366](https://github.com/DigitalExcellence/dex-frontend/issues/366)
+
 
 ## Release v.0.8.0-beta - 06-11-2020
 
