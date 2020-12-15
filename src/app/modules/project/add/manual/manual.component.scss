@@ -17,6 +17,7 @@
  *
  */
 @import "assets/styles/variables";
+@import '~bs-stepper/dist/css/bs-stepper.min.css';
 
 .project-form {
   input,
@@ -116,4 +117,104 @@
   padding: 12px 30px;
   border-radius: 6px;
   font-size: 18px;
+}
+
+// .wizard-wrapper {
+//   display: none;
+// }
+
+.wizard {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 5%;
+
+  z-index: 1000;
+
+  overflow: auto;
+}
+
+.wizard-body{
+  padding: 20px;
+  background: #F4F6F8;
+  margin: 20px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.wizard-background{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #000;
+  // background-color: #e85b3f;
+  opacity: 0.75;
+  z-index: 900;
+}
+
+body.wizard-open {
+  overflow: hidden;
+}
+
+.text {
+  margin-left: 8vw;
+  margin-top: 4vw;
+}
+
+.step h2 {
+  color: #9A9696;
+}
+
+.title h2 {
+  color: #000;
+}
+
+.under-title h4 {
+  color: #AEAEAE;
+}
+
+.inputfield {
+  margin-top: 3vw;
+}
+
+.inputfield button {
+  margin-left: 40%;
+  font-size: 95%;
+}
+
+.inputfield input {
+  width: 185%;
+}
+
+.inputfield2 input {
+  width: 100%;
+}
+
+.image img {
+  margin: 20px;
+  width: 60%;
+  height: auto;
+}
+
+.imageRight img {
+  margin: 20px;
+  width: 40%;
+  height: auto;
+}
+
+.active .bs-stepper-circle
+{
+  background-color: #e85b3f;
+}
+
+ .bs-stepper-circle
+{
+  font-family: "Montserrat", sans-serif;
 }

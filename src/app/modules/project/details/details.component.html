@@ -33,7 +33,8 @@
         <div id="title-wrapper">
           <h2 class="project-title">{{ project.name }}</h2>
           <div class="circle" style="background-color: unset">
-            <img [src]="getIconUrl()" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';">
+            <img [src]="getIconUrl()" alt="Code project" loading="lazy"
+              onerror="this.src='/assets/images/placeholder.svg';">
           </div>
 
         </div>
@@ -95,15 +96,18 @@
         <div class='bottom'>
           <div class='menu-wrapper'>
             <div class='menu'>
-              <div (click)="setActiveTab('description')" [ngClass]="{'active': this.activeTab == 'description' }" class='item'>
+              <div (click)="setActiveTab('description')" [ngClass]="{'active': this.activeTab == 'description' }"
+                class='item'>
                 Description
               </div>
               <ng-container *ngIf="isProduction()">
-                <div (click)="setActiveTab('contact')" [ngClass]="{'active': this.activeTab == 'contact' }" class='item'>
+                <div (click)="setActiveTab('contact')" [ngClass]="{'active': this.activeTab == 'contact' }"
+                  class='item'>
                   Contact
                 </div>
               </ng-container>
-              <div (click)="setActiveTab('collaborators')" [ngClass]="{'active': this.activeTab == 'collaborators' }" class='item'>
+              <div (click)="setActiveTab('collaborators')" [ngClass]="{'active': this.activeTab == 'collaborators' }"
+                class='item'>
                 Collaborators
               </div>
             </div>
@@ -112,13 +116,16 @@
               </em>
               <ng-template #cogPopOver class="cog-tooltip">
                 <ng-container *ngIf="displayHighlightButton">
-                  <a (click)="onClickHighlightButton()" class="cog-tooltip-item"><em class="fas fa-highlighter"></em>Hightlight settings</a>
+                  <a (click)="onClickHighlightButton()" class="cog-tooltip-item"><em
+                      class="fas fa-highlighter"></em>Hightlight settings</a>
                 </ng-container>
                 <ng-container *ngIf="displayEditButton">
-                  <a class="cog-tooltip-item" routerLink="/project/edit/{{project?.id}}"><em class="fas fa-edit"></em>Edit project</a>
+                  <a class="cog-tooltip-item" routerLink="/project/edit/{{project?.id}}"><em
+                      class="fas fa-edit"></em>Edit project</a>
                 </ng-container>
                 <ng-container *ngIf="displayDeleteProjectButton">
-                  <a class="cog-tooltip-item" routerLink="/project/delete/{{project?.id}}"><em class="fas fa-trash"></em>Delete project</a>
+                  <a class="cog-tooltip-item" routerLink="/project/delete/{{project?.id}}"><em
+                      class="fas fa-trash"></em>Delete project</a>
                 </ng-container>
               </ng-template>
             </ng-container>
@@ -136,7 +143,8 @@
             </ng-container>
             <ng-container *ngIf=" this.activeTab == 'collaborators' ">
               <div class='collaborators'>
-                <app-collaborator *ngFor="let collaborator of project.collaborators" [collaborator]="collaborator"></app-collaborator>
+                <app-collaborator *ngFor="let collaborator of project.collaborators" [collaborator]="collaborator">
+                </app-collaborator>
               </div>
             </ng-container>
           </div>

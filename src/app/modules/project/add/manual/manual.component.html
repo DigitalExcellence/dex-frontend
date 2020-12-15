@@ -18,32 +18,187 @@
  -->
 
 
+<!-- Modal -->
+
+<div class="wizard-wrapper" id="wizard-modal">
+  <div class="wizard">
+    <div class="wizard-body">
+
+
+      <div id="stepper4" class="bs-stepper vertical linear">
+        <div class="bs-stepper-header" role="tablist">
+          <div class="step active" data-target="#test-vl-1">
+            <button type="button" class="step-trigger" role="tab" id="stepper4trigger1" aria-controls="test-vl-1"
+              aria-selected="true">
+              <span class="bs-stepper-circle">1</span>
+            </button>
+          </div>
+
+          <div class="bs-stepper-line"></div>
+          <div class="step" data-target="#test-vl-2">
+            <button type="button" class="step-trigger" role="tab" id="stepper4trigger2" aria-controls="test-vl-2"
+              aria-selected="false" disabled="disabled">
+              <span class="bs-stepper-circle">2</span>
+            </button>
+          </div>
+
+          <div class="bs-stepper-line"></div>
+          <div class="step" data-target="#test-vl-3">
+            <button type="button" class="step-trigger" role="tab" id="stepper4trigger3" aria-controls="test-vl-3"
+              aria-selected="false" disabled="disabled">
+              <span class="bs-stepper-circle">3</span>
+            </button>
+          </div>
+
+          <div class="bs-stepper-line"></div>
+          <div class="step" data-target="#test-vl-4">
+            <button type="button" class="step-trigger" role="tab" id="stepper4trigger4" aria-controls="test-vl-4"
+              aria-selected="false" disabled="disabled">
+              <span class="bs-stepper-circle">4</span>
+            </button>
+          </div>
+
+          <div class="bs-stepper-line"></div>
+          <div class="step" data-target="#test-vl-5">
+            <button type="button" class="step-trigger" role="tab" id="stepper4trigger5" aria-controls="test-vl-5"
+              aria-selected="false" disabled="disabled">
+              <span class="bs-stepper-circle">5</span>
+            </button>
+          </div>
+
+          <div class="bs-stepper-line"></div>
+          <div class="step" data-target="#test-vl-6">
+            <button type="button" class="step-trigger" role="tab" id="stepper4trigger6" aria-controls="test-vl-6"
+              aria-selected="false" disabled="disabled">
+              <span class="bs-stepper-circle">6</span>
+            </button>
+          </div>
+
+
+
+
+
+        </div>
+        <div class="bs-stepper-content">
+          <div id="test-vl-1" role="tabpanel" class="bs-stepper-pane fade active dstepper-block"
+            aria-labelledby="stepper4trigger1">
+            <div class="form-group">
+
+              <div class="Wizard-1">
+                <div class="text">
+                  <div class="step">
+                    <h2>Step 1</h2>
+                  </div>
+                  <div class="title">
+                    <h2> What is the name of the project? </h2>
+                  </div>
+                  <div class="under-title">
+                    <h4> A project name is important to identify your project! </h4>
+                  </div>
+                </div>
+                <div class="inputfield">
+                  <div class="row justify-content-center">
+                    <div class="col-3 source-box">
+                      <div class="source-content ">
+                        <div>
+                          <form [formGroup]="newProjectForm" class="project-form">
+                            <input placeholder="Name of your project" formControlName="name" required />
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-5">
+                      <div>
+                        <button class="btn btn-success" type="submit" (click)="onClickSubmit()">Next</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="image">
+                  <div class="source-content">
+                    <div class="row justify-content-center">
+                      <img src="assets/images/wizard/name.svg" alt="" loading="lazy">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- <button class="btn btn-primary" onclick="stepper4.next()">Next</button> -->
+          </div>
+          <div id="test-vl-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepper4trigger2">
+            <div class="form-group">
+
+
+
+
+            </div>
+            <button class="btn btn-primary" onclick="stepper4.previous()">Previous</button>
+            <button class="btn btn-primary" onclick="stepper4.next()">Next</button>
+          </div>
+          <div id="test-vl-3" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepper4trigger3">
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <!-- steps location -->
+
+
+
+    </div>
+  </div>
+  <div class="wizard-background"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Project Overview -->
+
 <div class="row">
   <div class="offset-2 col-8">
-    <h1>Add new project</h1>
+    <h1 class="text-center">Add project overview</h1>
+    <br> <br>
+
+    <div class="row justify-content-center">
+      <div class="col-7 text-center info-box-add">
+        <p> <button class="btn btn-success" onclick="openWizard()">Open Wizard</button> </p>
+      </div>
+    </div>
+
     <form [formGroup]="newProjectForm" class="project-form">
 
+      <br> <br> <br>
+
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
           <div>
             <h3>Project name*</h3>
             <input placeholder="Name of your project" formControlName="name" required />
           </div>
         </div>
-
-        <div class="col-6">
-          <div>
-            <h3>Project link*</h3>
-            <input placeholder="Link to your project, https://github.com/fontys/projectname" formControlName="uri" required />
-          </div>
-        </div>
       </div>
+
 
       <div class="row">
         <div class="col-12">
           <div>
             <h3>Short description*</h3>
-            <input placeholder="Fill in a short description of your project" formControlName="shortDescription" required />
+            <input placeholder="Fill in a short description of your project" formControlName="shortDescription"
+              required />
           </div>
         </div>
       </div>
@@ -66,7 +221,31 @@
           </div>
         </div>
       </div>
+      <br> <br> <br> <br> <br>
+
+      <div class="col-20 source-box justify-content-center"></div>
+      <h3>Project source link*</h3> <br>
       <div class="row">
+        <div class="col-1 source-box">
+          <div class="source-content ">
+            <div>
+              <div class="source-content">
+                <img style="height: 50px; margin-left: 25%; " src="assets/images/github-logo.svg" alt="" loading="lazy">
+                <!-- To recieve image from components will problably add to page when source is selected--->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-11">
+          <div>
+            <input placeholder="Link to your project, https://github.com/fontys/projectname" formControlName="uri"
+              required />
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row">
         <div class="col-12">
           <div class="project-icon-picker">
             <h3>Project icon</h3>
@@ -81,8 +260,11 @@
             <p class="form-footnote">The recommended dimensions for an icon are atleast 512x512</p>
           </div>
         </div>
-      </div>
+      </div> -->
     </form>
+
+
+    <br> <br> <br> <br> <br>
 
     <form [formGroup]="newCollaboratorForm" class="project-form">
       <div class="row">
@@ -90,7 +272,7 @@
           <h3 class="title-spacing">Add project collaborators</h3>
           <div class="row">
 
-            <div class="col-5">
+            <div class="col-5" style="padding-left: 3%">
               <div>
                 <h3>Collaborator full name</h3>
                 <input placeholder="Name of the collaborator" formControlName="fullName" required />
@@ -111,7 +293,7 @@
               </button>
             </div>
 
-            <div class="offset-5 col-5">
+            <div class="offset-5 col-6">
               <p class="form-footnote">e.g.: developer, designer, etc...</p>
             </div>
 
@@ -120,7 +302,7 @@
       </div>
     </form>
 
-    <div class="row collaborator-overview" *ngIf="collaborators.length > 0">
+    <div class="row collaborator-overview" *ngIf="collaborators.length > 0" style="padding-left: 3%">
 
       <div class="col-12">
         <h3>Collaborators</h3>
@@ -136,11 +318,28 @@
       </div>
     </div>
 
+    <br> <br> <br> <br> <br>
+
     <div class="row">
-      <div class="col-12">
-        <button class="btn btn-success" type="submit" (click)="onClickSubmit()">Add
-          project</button>
+      <div class="col-12 text-center">
+        <button class="btn btn-success" type="submit" (click)="onClickSubmit()">Add project</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+<!-- <script>
+  function openWizard() {
+    document.getElementById('wizard-modal').style.display = 'block';
+    document.body.classList.add('wizard-open');
+  }
+
+  function closeWizard() {
+    document.getElementById('wizard-modal').style.display = 'none';
+    document.body.classList.remove('wizard-open');
+  }
+</script> -->

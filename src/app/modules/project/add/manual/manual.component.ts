@@ -1,3 +1,4 @@
+import { FileUploaderService } from 'src/app/services/file-uploader.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -29,6 +30,14 @@ import { WizardService } from 'src/app/services/wizard.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { SEOService } from 'src/app/services/seo.service';
+import Stepper from 'bs-stepper';
+
+import { ProjectNameComponent } from "src/app/modules/project/add/manual/wizardmodules/name/wizardname.component";
+import { DescriptionComponent } from "src/app/modules/project/add/manual/wizardmodules/description/wizarddescription.component";
+import { ColabComponent } from "src/app/modules/project/add/manual/wizardmodules/colab/wizardcolab.component";
+import { LinkComponent } from "src/app/modules/project/add/manual/wizardmodules/link/wizardlink.component";
+import { FinalComponent } from "src/app/modules/project/add/manual/wizardmodules/final/wizardfinal.component";
+
 
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
@@ -39,7 +48,7 @@ import * as showdown from 'showdown';
 @Component({
   selector: 'app-manual',
   templateUrl: './manual.component.html',
-  styleUrls: [ './manual.component.scss' ]
+  styleUrls: ['./manual.component.scss']
 })
 export class ManualComponent implements OnInit {
   /**
@@ -47,6 +56,7 @@ export class ManualComponent implements OnInit {
    */
   public newProjectForm: FormGroup;
   public newCollaboratorForm: FormGroup;
+  private stepper: Stepper;
 
   /**
    * Project's collaborators.
@@ -66,7 +76,7 @@ export class ManualComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
-  public acceptedTypes = [ 'image/png', 'image/jpg', 'image/jpeg' ];
+  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
   public acceptMultiple = false;
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
@@ -78,17 +88,18 @@ export class ManualComponent implements OnInit {
     private alertService: AlertService,
     private seoService: SEOService) {
     this.newProjectForm = this.formBuilder.group({
-      name: [ null, Validators.required ],
-      uri: [ null, Validators.required ],
-      shortDescription: [ null, Validators.required ],
-      description: [ null ],
+      name: [null, Validators.required],
+      uri: [null, Validators.required],
+      shortDescription: [null, Validators.required],
+      description: [null],
     });
 
     this.newCollaboratorForm = this.formBuilder.group({
-      fullName: [ null, Validators.required ],
-      role: [ null, Validators.required ],
+      fullName: [null, Validators.required],
+      role: [null, Validators.required],
     });
   }
+
 
   ngOnInit(): void {
     this.wizardService.fetchedProject.subscribe(project => {
@@ -98,9 +109,9 @@ export class ManualComponent implements OnInit {
 
       if (project.description != null && project.description.length > 0) {
         const converter = new showdown.Converter(
-            {
-              literalMidWordUnderscores: true
-            }
+          {
+            literalMidWordUnderscores: true
+          }
         );
         project.description = converter.makeHtml(project.description);
       }
@@ -111,6 +122,28 @@ export class ManualComponent implements OnInit {
     this.seoService.updateTitle('Add new project');
     this.seoService.updateDescription('Create a new project in DeX');
   }
+
+  // showW1: boolean = false
+  // showW2: boolean = false
+  // showW5: boolean = false
+  // showW6: boolean = false
+  // showW7: boolean = false
+  // toggleWiz1() {
+  //   this.showW1 = !this.showW1
+  // }
+  // toggleWiz2() {
+  //   this.showW2 = !this.showW2
+  // }
+  // toggleWiz5() {
+  //   this.showW5 = !this.showW5
+  // }
+  // toggleWiz6() {
+  //   this.showW6 = !this.showW6
+  // }
+  // toggleWiz7() {
+  //   this.showW7 = !this.showW7
+  // }
+
 
   /**
    * Method which triggers when the submit button is pressed.
@@ -134,20 +167,20 @@ export class ManualComponent implements OnInit {
     newProject.collaborators = this.collaborators;
     // Start uploading files
     this.fileUploader.uploadFiles()
-        .subscribe(uploadedFiles => {
-          if (uploadedFiles) {
-            if (uploadedFiles[0]) {
-              // Project icon was set and uploaded
-              newProject.fileId = uploadedFiles[0].id;
-              this.createProject(newProject);
-            }
-            // Project icon was set but not uploaded successfully, the component will show the error
-          } else {
-            // There was no project icon
-            newProject.fileId = 0;
+      .subscribe(uploadedFiles => {
+        if (uploadedFiles) {
+          if (uploadedFiles[0]) {
+            // Project icon was set and uploaded
+            newProject.fileId = uploadedFiles[0].id;
             this.createProject(newProject);
           }
-        });
+          // Project icon was set but not uploaded successfully, the component will show the error
+        } else {
+          // There was no project icon
+          newProject.fileId = 0;
+          this.createProject(newProject);
+        }
+      });
   }
 
   /**
@@ -192,17 +225,17 @@ export class ManualComponent implements OnInit {
 
   private createProject(newProject): void {
     this.projectService
-        .post(newProject)
-        .pipe(finalize(() => (this.submitEnabled = false)))
-        .subscribe(() => {
-          const alertConfig: AlertConfig = {
-            type: AlertType.success,
-            mainMessage: 'Project was succesfully saved',
-            dismissible: true
-          };
-          this.alertService.pushAlert(alertConfig);
-          this.router.navigate([ `/project/overview` ]);
-        });
+      .post(newProject)
+      .pipe(finalize(() => (this.submitEnabled = false)))
+      .subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'Project was succesfully saved',
+          dismissible: true
+        };
+        this.alertService.pushAlert(alertConfig);
+        this.router.navigate([`/project/overview`]);
+      });
   }
 
   /**
@@ -215,4 +248,18 @@ export class ManualComponent implements OnInit {
     this.newProjectForm.get('description').setValue(project.description);
     this.collaborators = project.collaborators;
   }
+
+  next() {
+    this.stepper.next();
+  }
+
+  onSubmit() {
+    return false;
+  }
+
+
 }
+
+// export class WizardComponent {
+
+// }

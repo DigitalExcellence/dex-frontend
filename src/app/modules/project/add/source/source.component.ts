@@ -25,6 +25,7 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AuthService } from 'src/app/services/auth.service';
 import { SEOService } from 'src/app/services/seo.service';
+// import { NameComponent } from './../manual/wizardmodules/name/wizardname.component';
 
 /**
  * Component to import projects from external sources
@@ -49,7 +50,7 @@ export class SourceComponent implements OnInit {
     private alertService: AlertService,
     private authService: AuthService,
     private seoService: SEOService
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.authNavStatus$.subscribe((status) => {
@@ -68,23 +69,33 @@ export class SourceComponent implements OnInit {
       },
       {
         id: 3,
-        name: 'Codepen',
-        image: 'assets/images/codepen-logo.png',
+        name: 'FHICT Git',
+        image: 'assets/images/gitlabfhict-logo.png',
       },
       {
         id: 4,
-        name: 'HBO Kennisbank',
-        image: 'assets/images/hbokennisbank-logo.png',
+        name: 'BitBucket',
+        image: 'assets/images/bitbucket-logo.png',
       },
       {
         id: 5,
+        name: 'JS Fiddle',
+        image: 'assets/images/jsfiddle-logo.png',
+      },
+      {
+        id: 6,
         name: 'Google Drive',
         image: 'assets/images/googledrive-logo.png',
       },
       {
-        id: 6,
-        name: 'Dropbox',
-        image: 'assets/images/dropbox-logo.png',
+        id: 7,
+        name: 'Canvas',
+        image: 'assets/images/canvas-logo.png',
+      },
+      {
+        id: 8,
+        name: 'No Source Link',
+        image: 'assets/images/nosource-image.svg',
       }
     );
     // Updates meta and title tags
@@ -131,16 +142,16 @@ export class SourceComponent implements OnInit {
    * Check if the user is logged in, if not, return alert
    */
   private checkIfLoggedInAndReturnAlert(): boolean {
-        if (!this.isAuthenticated) {
-          const alertConfig: AlertConfig = {
-            type: AlertType.danger,
-            preMessage: 'You\'re not logged in!',
-            mainMessage: 'You can only add a project when you\'re logged in.',
-            dismissible: true,
-            timeout: this.alertService.defaultTimeout,
-          };
-          this.alertService.pushAlert(alertConfig);
-        }
-        return this.isAuthenticated;
+    if (!this.isAuthenticated) {
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: 'You\'re not logged in!',
+        mainMessage: 'You can only add a project when you\'re logged in.',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout,
+      };
+      this.alertService.pushAlert(alertConfig);
+    }
+    return this.isAuthenticated;
   }
 }

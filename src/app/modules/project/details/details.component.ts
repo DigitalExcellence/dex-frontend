@@ -95,47 +95,47 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-      if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
-        this.invalidId = this.projectId.toString();
-        return;
-      }
-
-      this.authService.authNavStatus$.subscribe((status) => {
-        this.isAuthenticated = status;
-      });
-      this.currentUser = this.authService.getCurrentBackendUser();
-
-      this.projectService.get(this.projectId)
-          .pipe(
-              finalize(() => this.projectLoading = false)
-          )
-          .subscribe(
-              (result) => {
-                this.project = result;
-                const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
-                this.determineDisplayEditProjectButton();
-                this.determineDisplayDeleteProjectButton();
-                this.determineDisplayEmbedButton();
-                this.determineDisplayHighlightButton();
-
-                // Updates meta and title tags
-                this.seoService.updateDescription(desc);
-                this.seoService.updateTitle(this.project.name);
-              }
-          );
-
-      if (this.authService.currentBackendUserHasScope(scopes.HighlightRead)) {
-        this.highlightByProjectIdService.getHighlightsByProjectId(this.projectId)
-            .subscribe(highlights => {
-              if (highlights == null) {
-                return;
-              }
-              if (highlights.length > 0) {
-                this.isProjectHighlighted = true;
-              }
-            });
-      }
+    if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
+      this.invalidId = this.projectId.toString();
+      return;
     }
+
+    this.authService.authNavStatus$.subscribe((status) => {
+      this.isAuthenticated = status;
+    });
+    this.currentUser = this.authService.getCurrentBackendUser();
+
+    this.projectService.get(this.projectId)
+      .pipe(
+        finalize(() => this.projectLoading = false)
+      )
+      .subscribe(
+        (result) => {
+          this.project = result;
+          const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
+          this.determineDisplayEditProjectButton();
+          this.determineDisplayDeleteProjectButton();
+          this.determineDisplayEmbedButton();
+          this.determineDisplayHighlightButton();
+
+          // Updates meta and title tags
+          this.seoService.updateDescription(desc);
+          this.seoService.updateTitle(this.project.name);
+        }
+      );
+
+    if (this.authService.currentBackendUserHasScope(scopes.HighlightRead)) {
+      this.highlightByProjectIdService.getHighlightsByProjectId(this.projectId)
+        .subscribe(highlights => {
+          if (highlights == null) {
+            return;
+          }
+          if (highlights.length > 0) {
+            this.isProjectHighlighted = true;
+          }
+        });
+    }
+  }
 
   /**
    * Highlight a project by calling the API
