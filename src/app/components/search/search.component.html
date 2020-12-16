@@ -1,0 +1,6 @@
+<div class="search">
+    <input type="search" placeholder="search project" [formControl]="searchControl" (keyup)="onChangeFunction($event)"
+        aria-label="Search project">
+    <button (click)="onClickSearch()"><img src="assets/images/research.svg" alt="" loading="lazy"
+            aria-label="Search project"></button>
+</div>
