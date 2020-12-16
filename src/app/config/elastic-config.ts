@@ -22,6 +22,6 @@ export interface ElasticConfig {
 }
 
 export const ELASTIC_CONFIG: ElasticConfig = {
-    url: `${environment.elasticUrl}/api/`,
+    url: `${environment.elasticUrl}`,
 };
 

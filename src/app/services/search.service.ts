@@ -61,7 +61,7 @@ export class SearchService {
         }
 
         this.previousRequest = this.http.post(this.elasticUrl + "projectkeywords5/_search", body, options).subscribe(response => {
-            console.log(response)
+            console.log(response);
         })
     }
 

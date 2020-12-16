@@ -29,7 +29,7 @@ export const environment = {
   identityLogoutRedirectUri: 'http://localhost:4200/',
   identitySilentRedirectUri: 'http://localhost:4200/silent-refresh.html',
   frontendUrl: 'http://localhost:4200',
-  elasticUrl: 'https://localhost:9200',
+  elasticUrl: 'http://localhost:9200',
   // This should be empty because it will only be used in production.
   sentryDsnUrl: ''
 };
