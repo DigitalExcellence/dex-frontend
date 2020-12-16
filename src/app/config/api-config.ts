@@ -40,3 +40,4 @@ export const API_CONFIG: ApiConfig = {
   wizardRoute: 'wizard',
   uploadFileRoute: 'file',
 };
+

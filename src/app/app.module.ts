@@ -38,6 +38,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
 import { StripHtmlPipe } from './utils/striptags.pipe';
 import { QuillModule } from 'ngx-quill';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { QuillModule } from 'ngx-quill';
     PrivacyPolicyComponent,
     NotFoundComponent,
     ModalDeleteGenericComponent,
-    StripHtmlPipe
+    StripHtmlPipe,
+    SearchComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -81,5 +83,6 @@ import { QuillModule } from 'ngx-quill';
     }
   ],
   bootstrap: [AppComponent],
+  exports: [SearchComponent]
 })
 export class AppModule { }

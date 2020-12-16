@@ -23,18 +23,19 @@
     <label class="container">
       <input [(ngModel)]="showListView" [value]="false" name="list-view" type="radio" aria-label="Switch to grid view">
       <span class="checkmark grid">
-            <svg>
-              <use xlink:href='assets/images/grid-icon.svg#img'></use>
-            </svg>
-          </span>
+        <svg>
+          <use xlink:href='assets/images/grid-icon.svg#img'></use>
+        </svg>
+      </span>
     </label>
     <label class="container">
-      <input [(ngModel)]="showListView" [value]="true" checked="checked" name="list-view" type="radio" aria-label="Switch to list view">
+      <input [(ngModel)]="showListView" [value]="true" checked="checked" name="list-view" type="radio"
+        aria-label="Switch to list view">
       <span class="checkmark list">
-            <svg>
-              <use xlink:href='assets/images/list-icon.svg#img'></use>
-            </svg>
-          </span>
+        <svg>
+          <use xlink:href='assets/images/list-icon.svg#img'></use>
+        </svg>
+      </span>
     </label>
   </div>
 </div>
@@ -47,23 +48,27 @@
           <form [formGroup]="categoryForm">
             <div>
               <input formControlName="code" id="code" name="code" type="checkbox" value="Code">
-              <label for="code"><span class="icon"><img alt="" loading="lazy" src="assets/images/code.svg"></span> Code</label>
+              <label for="code"><span class="icon"><img alt="" loading="lazy" src="assets/images/code.svg"></span>
+                Code</label>
             </div>
             <div>
               <input formControlName="video" id="video" name="video" type="checkbox" value="Video">
-              <label for="video"><span class="icon"><img alt="" loading="lazy" src="assets/images/video.svg"></span> Video</label>
+              <label for="video"><span class="icon"><img alt="" loading="lazy" src="assets/images/video.svg"></span>
+                Video</label>
             </div>
             <div>
               <input formControlName="research_paper" id="research-paper" name="researchPaper" type="checkbox"
-                     value="Research paper">
-              <label for="research-paper"><span class="icon"><img alt="" loading="lazy" src="assets/images/theses.svg"></span> Research
-                                                                                                                               paper</label>
+                value="Research paper">
+              <label for="research-paper"><span class="icon"><img alt="" loading="lazy"
+                    src="assets/images/theses.svg"></span> Research
+                paper</label>
             </div>
             <div>
               <input formControlName="survey_results" id="survey-results" name="surveyResults" type="checkbox"
-                     value="Survey results">
-              <label for="survey-results"><span class="icon"><img alt="" loading="lazy" src="assets/images/usertest.svg"></span> Survey
-                                                                                                                                 results</label>
+                value="Survey results">
+              <label for="survey-results"><span class="icon"><img alt="" loading="lazy"
+                    src="assets/images/usertest.svg"></span> Survey
+                results</label>
             </div>
           </form>
         </accordion-group>
@@ -100,7 +105,7 @@
             <label for="asc-desc">Sort direction</label>
             <select class='option-select' formControlName="direction" id="asc-desc">
               <option *ngFor="let sortDirectionOption of sortDirectionSelectOptions"
-                      [value]="sortDirectionOption.value">
+                [value]="sortDirectionOption.value">
                 {{sortDirectionOption.viewValue}}
               </option>
             </select>
@@ -119,9 +124,10 @@
 
         <accordion-group heading="Pagination">
           <label>Projects per page </label>
-          <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]=defaultPaginationOption.id class='option-select'>
+          <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]=defaultPaginationOption.id
+            class='option-select'>
             <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption.id"
-                    class="paginationDropDown">{{paginationOption.amountOnPage}}</option>
+              class="paginationDropDown">{{paginationOption.amountOnPage}}</option>
           </select>
         </accordion-group>
       </accordion>
@@ -137,11 +143,8 @@
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <h2 *ngIf="projectsLoading">Projects loading...</h2>
-        <app-project
-            *ngFor="let project of projectsToDisplay"
-            [project]="project"
-            [showListView]="this.showListView"
-            (click)="onClickProject(project.id, project.name)">
+        <app-project *ngFor="let project of projectsToDisplay" [project]="project" [showListView]="this.showListView"
+          (click)="onClickProject(project.id, project.name)">
         </app-project>
       </div>
     </ng-container>
@@ -149,24 +152,24 @@
     <ng-template #noProjects>There are no projects available.</ng-template>
 
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
-      <pagination (pageChanged)="pageChanged($event)" [itemsPerPage]="amountOfProjectsOnSinglePage"
-                  [maxSize]="6"
-                  [totalItems]="totalNrOfProjects" [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate" class="pagination-footer">
+      <pagination (pageChanged)="pageChanged($event)" [itemsPerPage]="amountOfProjectsOnSinglePage" [maxSize]="6"
+        [totalItems]="totalNrOfProjects" [customNextTemplate]="nextTemplate" [customPreviousTemplate]="prevTemplate"
+        class="pagination-footer">
       </pagination>
       <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
         <ng-container *ngIf="!disabled">
-          <img alt="next" class="chevron-right" src="assets/images/chevron-down-solid.svg"/>
+          <img alt="next" class="chevron-right" src="assets/images/chevron-down-solid.svg" />
         </ng-container>
         <ng-container *ngIf="disabled">
-          <img alt="disabled" class="chevron-right disabled" src="assets/images/chevron-down-solid.svg"/>
+          <img alt="disabled" class="chevron-right disabled" src="assets/images/chevron-down-solid.svg" />
         </ng-container>
       </ng-template>
       <ng-template #prevTemplate let-currentPage="currentPage" let-disabled="disabled">
         <ng-container *ngIf="!disabled">
-          <img alt="previous" class="chevron-left" src="assets/images/chevron-down-solid.svg"/>
+          <img alt="previous" class="chevron-left" src="assets/images/chevron-down-solid.svg" />
         </ng-container>
         <ng-container *ngIf="disabled">
-          <img alt="disabled" class="chevron-left disabled" src="assets/images/chevron-down-solid.svg"/>
+          <img alt="disabled" class="chevron-left disabled" src="assets/images/chevron-down-solid.svg" />
         </ng-container>
       </ng-template>
     </div>

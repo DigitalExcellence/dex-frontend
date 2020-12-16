@@ -394,22 +394,22 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    */
   private createProjectModal(projectId: number) {
     if (projectId) {
-      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
+      this.modalRef = this.modalService.show(DetailsComponent, { animated: true, initialState: { projectId: projectId } });
       this.modalRef.setClass('project-modal');
 
       // Go back to home page after the modal is closed
       this.modalSubscriptions.push(
-          this.modalService.onHide.subscribe((reason: string | any) => {
-            if (this.location.path().startsWith('/project/details')) {
-              this.location.replaceState('/project/overview');
-              this.updateSEOTags();
-            }
-          }, reason => {
-            if (this.location.path().startsWith('/project/details')) {
-              this.location.replaceState('/project/overview');
-              this.updateSEOTags();
-            }
-          }));
+        this.modalService.onHide.subscribe((reason: string | any) => {
+          if (this.location.path().startsWith('/project/details')) {
+            this.location.replaceState('/project/overview');
+            this.updateSEOTags();
+          }
+        }, reason => {
+          if (this.location.path().startsWith('/project/details')) {
+            this.location.replaceState('/project/overview');
+            this.updateSEOTags();
+          }
+        }));
     }
   }
 
