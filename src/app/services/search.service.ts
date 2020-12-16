@@ -19,6 +19,7 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { resolve } from 'dns';
 import { API_CONFIG } from '../config/api-config';
+import { ELASTIC_CONFIG } from '../config/elastic-config';
 
 /**
  * Service to communicate with ElasticSearch.
@@ -28,7 +29,7 @@ import { API_CONFIG } from '../config/api-config';
 })
 export class SearchService {
 
-    private readonly elasticUrl = "http://localhost:9200";
+    private readonly elasticUrl = `${ELASTIC_CONFIG.url}/`;
     private readonly apiUrl = `${API_CONFIG.url}${API_CONFIG.internalSearchRoute}/`;
     private previousRequest;
 
@@ -59,7 +60,7 @@ export class SearchService {
             }
         }
 
-        this.previousRequest = this.http.post(this.elasticUrl + "/projectkeywords5/_search", body, options).subscribe(response => {
+        this.previousRequest = this.http.post(this.elasticUrl + "projectkeywords5/_search", body, options).subscribe(response => {
             console.log(response)
         })
     }
