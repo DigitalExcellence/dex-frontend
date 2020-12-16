@@ -19,9 +19,15 @@ import { environment } from 'src/environments/environment';
 
 export interface ElasticConfig {
     url: string;
+    username: string;
+    password: string;
+    searchurl: string;
 }
 
 export const ELASTIC_CONFIG: ElasticConfig = {
     url: `${environment.elasticUrl}`,
+    username: "elastic",
+    password: "changeme",
+    searchurl: "projectkeywords5/_search"
 };
 

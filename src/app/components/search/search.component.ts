@@ -25,8 +25,8 @@ export class SearchComponent implements OnInit {
    * Method that checks if the enter key is pressed
    * @param event event that contains the key that's pressed
    */
-  public onChangeFunction(event): void {
-    this.searchService.getAutocompletedSearchResults(event.target.value);
+  public async onChangeFunction(event): Promise<void> {
+    console.log(await this.searchService.getAutocompletedSearchResults(event.target.value));
 
     if (event.code === 'Enter') {
       this.onClickSearch();

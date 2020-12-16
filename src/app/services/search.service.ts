@@ -15,11 +15,11 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { resolve } from 'dns';
 import { API_CONFIG } from '../config/api-config';
 import { ELASTIC_CONFIG } from '../config/elastic-config';
+import { ElasticSearchResults } from './../models/resources/elasticsearch-results';
 
 /**
  * Service to communicate with ElasticSearch.
@@ -37,9 +37,9 @@ export class SearchService {
 
     }
 
-    private credentials = btoa("elastic:changeme");
+    private credentials = btoa(`${ELASTIC_CONFIG.username}:${ELASTIC_CONFIG.password}`);
 
-    getAutocompletedSearchResults(searchQuery) {
+    async getAutocompletedSearchResults(searchQuery) {
         if (this.previousRequest != null) {
             this.previousRequest.unsubscribe();
         }
@@ -60,9 +60,21 @@ export class SearchService {
             }
         }
 
-        this.previousRequest = this.http.post(this.elasticUrl + "projectkeywords5/_search", body, options).subscribe(response => {
-            console.log(response);
+        var tempresults: ElasticSearchResults[] = [];
+
+        this.previousRequest = this.http.post(this.elasticUrl + ELASTIC_CONFIG.searchurl, body, options).subscribe(response => {
+            response["hits"]["hits"].forEach(element => {
+                console.log()
+                tempresults.push({
+                    id: element._id,
+                    projectName: element._source.ProjectName,
+                    description: element._source.Description,
+                    created: element._source.Created
+                })
+            });
         })
+        await this.previousRequest;
+        return tempresults;
     }
 
     getAllSearchResults() {
