@@ -29,12 +29,18 @@ h3 {
 
 .modal-highlight-container {
   background: #fff;
-  width: 600px;
   border-radius: 6px;
   border: none;
   outline: none;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   padding: 15px;
+  position: relative;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  max-width: 100%;
+  z-index: 1151;
 
   button.close {
     border: none;
@@ -134,4 +140,18 @@ input, textarea {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+}
+
+#overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 1150;
+  cursor: pointer;
+  transition: opacity .5s ease-in;
 }

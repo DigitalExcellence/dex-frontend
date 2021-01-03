@@ -27,7 +27,7 @@ export class HighlightsModalComponent {
    */
   onSelectHighlight(selectedHighlight: Highlight) {
     this.selectHighlightToEdit.emit(selectedHighlight);
-    this.bsModalRef.hide();
+    this.hide();
   }
 
 
@@ -45,7 +45,7 @@ export class HighlightsModalComponent {
         };
 
         this.alertService.pushAlert(alertConfig);
-        this.bsModalRef.hide();
+        this.hide();
       });
   }
 
@@ -54,6 +54,13 @@ export class HighlightsModalComponent {
    */
   onAddHighlight() {
     this.selectAddHighlight.emit();
+    this.hide();
+  }
+
+    /**
+   * Method to hide the modal
+   */
+  hide() {
     this.bsModalRef.hide();
   }
 }
