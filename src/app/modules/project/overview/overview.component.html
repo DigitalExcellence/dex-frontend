@@ -21,7 +21,7 @@
   <h1 class="">Project overview</h1>
   <div class="list-view-toggle">
     <label class="container">
-      <input [(ngModel)]="showListView" [value]="false" name="list-view" type="radio">
+      <input [(ngModel)]="showListView" [value]="false" name="list-view" type="radio" aria-label="Switch to grid view">
       <span class="checkmark grid">
             <svg>
               <use xlink:href='assets/images/grid-icon.svg#img'></use>
@@ -29,7 +29,7 @@
           </span>
     </label>
     <label class="container">
-      <input [(ngModel)]="showListView" [value]="true" checked="checked" name="list-view" type="radio">
+      <input [(ngModel)]="showListView" [value]="true" checked="checked" name="list-view" type="radio" aria-label="Switch to list view">
       <span class="checkmark list">
             <svg>
               <use xlink:href='assets/images/list-icon.svg#img'></use>
@@ -109,8 +109,8 @@
         </accordion-group>
 
         <accordion-group heading="Highlighted">
-          <label for="asc-desc">Filter options</label>
-          <select [formControl]="highlightFormControl" class='option-select' id="sort-type">
+          <label for="highlight-asc-desc">Filter options</label>
+          <select [formControl]="highlightFormControl" class='option-select' id="highlight-asc-desc">
             <option *ngFor="let highlightOption of highlightSelectOptions; let i = index" [value]="i">
               {{highlightOption.viewValue}}
             </option>
@@ -130,8 +130,8 @@
 
   <div class="col-md">
     <div class="search">
-      <input [formControl]="searchControl" placeholder="search project" type="search">
-      <button><img alt="" loading="lazy" src="assets/images/research.svg"></button>
+      <input [formControl]="searchControl" placeholder="search project" type="search" aria-label="Search project">
+      <button><img alt="" loading="lazy" src="assets/images/research.svg" aria-label="Search project"></button>
     </div>
 
     <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
