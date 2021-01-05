@@ -71,7 +71,7 @@
        display: flex;
        justify-content: center;
        align-items: center;
-       transition: background-color $transition-short, transform $transition-short;
+       transition: transform $transition-short;
 
        &:hover{
          transform: $transform-grow-big;
