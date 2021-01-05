@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Changed the open graph tags in order to show a more appealing website preview [#405](https://github.com/DigitalExcellence/dex-frontend/issues/405)
 
 ### Deprecated
 
