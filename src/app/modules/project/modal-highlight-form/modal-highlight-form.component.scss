@@ -1,4 +1,5 @@
 /*
+ *
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -13,69 +14,100 @@
  *   You can find a copy of the GNU Lesser General Public License
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
  */
-
 @import "assets/styles/variables";
 
-.modal-body{
+.modal-body {
   position: unset;
-
-  h2 {
-    margin-bottom: 20px;
-  }
+}
+h3 {
+  margin-top: 20px;
+  margin-bottom: 12px;
 }
 
-.modal-delete-container {
-  background: #f8f8f8;
-  width: 700px;
+
+.modal-highlight-container {
+  background: #fff;
   border-radius: 6px;
   border: none;
   outline: none;
-  box-shadow: $box-shadow;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   padding: 15px;
-  color: $light-mode-grey-primary;
-  button.close{
+  position: relative;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  max-width: 100%;
+  z-index: 1151;
+
+  button.close {
     border: none;
     background: none;
     display: flex;
     float: right;
-    &:focus, &:active{
-      border:none;
-      outline:none;
+    &:focus,
+    &:active {
+      border: none;
+      outline: none;
     }
   }
+  
+  @include media-breakpoint-down(md) {
+    width: 100%;
+  }
+}
+input, textarea {
+  background-color: $light-mode-grey-quaternary;
+  border: none!important;
 }
 
-.delete-form {
+.highlight-form {
   margin-top: 20px;
+  label{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  textarea.description,
+  input[type="text"],
   input[type="date"] {
     border: none;
     border-radius: 6px;
-    box-shadow: $box-shadow;
     height: 45px;
     width: 100%;
-    margin-bottom: 25px;
-    padding: 0 15px;
+    margin-bottom: 10px;
+    padding: 0 20px;
     &:focus {
       outline: none;
-      border: 1px solid $light-mode-grey-primary;
+      border: 1px solid #707070;
     }
   }
+  textarea.description {
+    resize: vertical;
+    max-height: 300px;
+    min-height: 90px;
+    height: 90px;
+    padding: 10px 15px;
+  }
+  
 
-  p.date-error-message {
+  p.validation-error-message {
     color: $accent-color-red-primary;
   }
 
   &__checkbox {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    margin-bottom: 15px;
+
     input[type="checkbox"] {
-      border: solid 1px $light-mode-grey-primary;
+      border: solid 1px #707070;
       margin-right: 15px;
     }
 
-    h4 {
+    p {
       margin: 0;
     }
   }
@@ -90,27 +122,36 @@
   }
 }
 
-.highlight-wrapper {
+.back-button {
+  color: $accent-color-red-primary;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.trash-icon{
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  color: $light-mode-grey-secondary;
+  cursor: pointer;
+}
 
-  #neverEndingCheckbox, #checkbox {
-    width: 16px;
-    height: 16px;
-    margin-right: 10px;
-  }
+.buttons-bottom{
+  gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
 
-  label {
-    margin-bottom: 0px;
-    width: 100%;
-  }
-
-  .date-spacing {
-    margin-left: 15px;
-  }
-
-  strong {
-    margin-right: 10px;
-  }
+#overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 1150;
+  cursor: pointer;
+  transition: opacity .5s ease-in;
 }
