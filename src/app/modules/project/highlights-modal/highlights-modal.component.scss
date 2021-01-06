@@ -56,6 +56,10 @@
   }
   .trash-icon{
     color: $light-mode-grey-secondary;
+    
+    &:hover {
+      color: $accent-color-red-secondary;
+    }
   }
 }
 
