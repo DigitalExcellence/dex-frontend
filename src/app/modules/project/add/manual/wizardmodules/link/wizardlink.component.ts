@@ -1,35 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-// import { ManualComponent } from './../../manual.component';
-import { DataService } from "../../../data.service";
-import { Subscription } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {Project} from 'src/app/models/domain/project';
+import {DataService} from "../../../data.service";
 
 
 @Component({
     selector: 'app-link',
-    template: '(done)="collectData($event)',
     templateUrl: './wizardlink.component.html',
-    // styleUrls: ['../../manual.component.scss']
-    styleUrls: ['../../wizardmodules/link/wizardlink.component.scss'],
+    styleUrls: ['./wizardlink.component.scss']
 })
 
 export class LinkComponent implements OnInit {
 
-    // message: string;
-    // subscription: Subscription;
+    project: Project;
+    subscription: Subscription;
+    linkForm: FormControl;
 
-    constructor(private dataService: DataService) { }
-    // constructor() { }
-
-    ngOnInit() {
-        // this.subscription = this.data.currentMessage.subscribe(message => this.message = message)
+    constructor(private dataService: DataService) {
+      this.linkForm = new FormControl('');
     }
 
-    // ngOnDestroy() {
-    //     this.subscription.unsubscribe();
-    // }
+    ngOnInit() {
+        this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
+          this.project = message;
+          this.linkForm.patchValue(message.uri);
+        })
+    }
 
-    collectData(data: any): void {
-        this.dataService.replaceLink(data);
+    onClickNextButton() {
+      this.project.uri = this.linkForm.value;
+      this.dataService.updateProject(this.project);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
 }

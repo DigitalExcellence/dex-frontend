@@ -15,16 +15,16 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from '@angular/core';
-import { ExternalSource } from 'src/app/models/domain/external-source';
-import { WizardService } from 'src/app/services/wizard.service';
-import { Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { AlertService } from 'src/app/services/alert.service';
-import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { AlertType } from 'src/app/models/internal/alert-type';
-import { AuthService } from 'src/app/services/auth.service';
-import { SEOService } from 'src/app/services/seo.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
+import {ExternalSource} from 'src/app/models/domain/external-source';
+import {AlertConfig} from 'src/app/models/internal/alert-config';
+import {AlertType} from 'src/app/models/internal/alert-type';
+import {AlertService} from 'src/app/services/alert.service';
+import {AuthService} from 'src/app/services/auth.service';
+import {SEOService} from 'src/app/services/seo.service';
+import {WizardService} from 'src/app/services/wizard.service';
 // import { NameComponent } from './../manual/wizardmodules/name/wizardname.component';
 
 /**
@@ -43,6 +43,9 @@ export class SourceComponent implements OnInit {
 
   public sourceUriInput: FormControl = new FormControl('');
   public isAuthenticated: boolean;
+  private authenticatedPageRangeType: string[] = [];
+  private unauthenticatedPageRangeType: string[] = [];
+  private manualPageRangeType: string[] = [];
 
   constructor(
     private wizardService: WizardService,
@@ -53,6 +56,10 @@ export class SourceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authenticatedPageRangeType.push('link', 'description', 'final');
+    this.unauthenticatedPageRangeType.push('description', 'link', 'final');
+    this.manualPageRangeType.push('link', 'description', 'final');
+
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
     });
@@ -61,41 +68,49 @@ export class SourceComponent implements OnInit {
         id: 1,
         name: 'GitHub',
         image: 'assets/images/github-logo.svg',
+        pageRange: this.authenticatedPageRangeType,
       },
       {
         id: 2,
         name: 'GitLab',
         image: 'assets/images/gitlab-logo.png',
+        pageRange: this.authenticatedPageRangeType,
       },
       {
         id: 3,
         name: 'FHICT Git',
         image: 'assets/images/gitlabfhict-logo.png',
+        pageRange: this.authenticatedPageRangeType,
       },
       {
         id: 4,
         name: 'BitBucket',
         image: 'assets/images/bitbucket-logo.png',
+        pageRange: this.authenticatedPageRangeType,
       },
       {
         id: 5,
         name: 'JS Fiddle',
         image: 'assets/images/jsfiddle-logo.png',
+        pageRange: this.unauthenticatedPageRangeType,
       },
       {
         id: 6,
         name: 'Google Drive',
         image: 'assets/images/googledrive-logo.png',
+        pageRange: this.authenticatedPageRangeType,
       },
       {
         id: 7,
         name: 'Canvas',
         image: 'assets/images/canvas-logo.png',
+        pageRange: this.authenticatedPageRangeType,
       },
       {
         id: 8,
         name: 'No Source Link',
         image: 'assets/images/nosource-image.svg',
+        pageRange: this.manualPageRangeType,
       }
     );
     // Updates meta and title tags

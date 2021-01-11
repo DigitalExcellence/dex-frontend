@@ -34,17 +34,16 @@
             <div class="col-4 source-box">
                 <div class="source-content ">
                     <div>
-                        <form class="project-form" style="width: 105%">
-                            <input (done)="collectData($event)" placeholder="https://github.com/fontys/projectname"
-                                formControlName="uri" required />
-                        </form>
+                        <div class="project-form" style="width: 105%" >
+                            <input type="text" name="uri" placeholder="https://github.com/fontys/projectname" required [formControl]="linkForm">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-5">
-                <div>
-                    <button class="btn btn-success" (click)="assignComponent('name')" type="submit">Next</button>
-                </div>
+                <!-- <div>
+                    <button class="btn btn-success" (click)="onClickNextButton()" type="submit">Next</button>
+                </div> -->
             </div>
         </div>
     </div>

@@ -15,11 +15,11 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { User } from './user';
-import { Collaborator } from './collaborator';
-import { UploadFile } from './uploadFile';
+import {Collaborator} from './collaborator';
+import {UploadFile} from './uploadFile';
+import {User} from './user';
 
-export interface Project {
+export class Project {
   id: number;
   user?: User;
   name: string;

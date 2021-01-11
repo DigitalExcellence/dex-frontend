@@ -78,35 +78,17 @@
         <div class="bs-stepper-content">
           <div id="test-vl-1" role="tabpanel" class="bs-stepper-pane fade active dstepper-block"
             aria-labelledby="stepper4trigger1">
-            <div class="form-group">
+              <!-- <ng-container *ngComponentOutlet="dummyComponent"></ng-container> -->
+              <ng-container *ngIf="component === 'link'">
+                <app-link></app-link>
+              </ng-container>
+              <ng-container *ngIf="component === 'final'">
+                <app-final></app-final>
+              </ng-container>
 
-              <ng-container *ngComponentOutlet="dummyComponent"></ng-container>
-
-
-              <div style="margin-left: 25%; font-size: 5%; display: none">
-                <button mat-raised-button color="primary" (click)="assignComponent('name')">
-                  Name
-                </button>
-                <button mat-raised-button color="primary" (click)="assignComponent('description')">
-                  Description
-                </button>
-                <button mat-raised-button color="primary" (click)="assignComponent('colab')">
-                  Collaborators
-                </button>
-                <button mat-raised-button color="primary" (click)="assignComponent('link')">
-                  Link
-                </button>
-                <button mat-raised-button color="primary" (click)="assignComponent('final')">
-                  Final
-                </button>
-              </div>
+              <div class="row justify-content-center">
+                <button (click)="next('final')" class="btn btn-success" style="margin-bottom: 5%" type="submit">Next</button>
             </div>
-          </div>
-          <div id="test-vl-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepper4trigger2">
-            <div class="form-group">
-            </div>
-          </div>
-          <div id="test-vl-3" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepper4trigger3">
           </div>
         </div>
       </div>
