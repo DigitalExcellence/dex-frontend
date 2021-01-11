@@ -355,14 +355,16 @@ export class DetailsComponent implements OnInit {
    * It will either like or unlike the project
    */
   public likeClicked() {
-    if (!this.project.userHasLikedProject) {
-      this.likeService.likeProject(this.project.id);
-      this.project.likeCount++;
-    } else {
-      this.likeService.removeLike(this.project.id);
-      this.project.likeCount--;
+    if (this.authService.isAuthenticated()) {
+      if (!this.project.userHasLikedProject) {
+        this.likeService.likeProject(this.project.id);
+        this.project.likeCount++;
+      } else {
+        this.likeService.removeLike(this.project.id);
+        this.project.likeCount--;
+      }
+      this.project.userHasLikedProject = !this.project.userHasLikedProject;
     }
-    this.project.userHasLikedProject = !this.project.userHasLikedProject;
   }
 
   private formatTimestamps(highlightTimestamp: string): string {
