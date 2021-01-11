@@ -115,7 +115,7 @@
               </em>
               <ng-template #cogPopOver class="cog-tooltip">
                 <ng-container *ngIf="displayHighlightButton">
-                  <a (click)="onClickHighlightButton()" class="cog-tooltip-item"><em class="fas fa-highlighter"></em>Hightlight settings</a>
+                  <a (click)="onClickEditHighlightButton()" class="cog-tooltip-item"><em class="fas fa-highlighter"></em>Hightlight settings</a>
                 </ng-container>
                 <ng-container *ngIf="displayEditButton">
                   <a class="cog-tooltip-item" (click)="closeModalAndRedirect('project/edit/'+ project?.id)"><em class="fas fa-edit"></em>Edit project</a>

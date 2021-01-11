@@ -18,6 +18,39 @@
  */
 @import "assets/styles/variables";
 
+.highlight-form-modal {
+  max-width: 90vw;
+  width: 600px;
+  margin: 60px auto 30px auto;
+  .modal-content {
+    border: none;
+  }
+}
+.highlight-modal {
+  max-width: 90vw;
+  width: 800px;
+  margin: 60px auto 30px auto;
+  .modal-content {
+    border: none;
+  }
+}
+
+.project-icon {
+  display: flex;
+  place-content: center;
+  background-color: $accent-color-red-primary;
+  margin-right: 10px;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
 .row {
   margin: 0;
   max-width: 100%;
@@ -279,6 +312,14 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
+
+      .dex-quill-viewer {
+        img {
+          margin: 20px 0;
+          max-width: 100%;
+        }
+      }
+
       p {
         margin: 0;
       }
@@ -295,6 +336,7 @@
   }
 
   #project-share-buttons {
+    display: flex;
     margin-top: 60px;
 
     button:first-child {
