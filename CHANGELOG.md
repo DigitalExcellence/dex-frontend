@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added a DeX preview with title, description and image for more user friendliness [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
 
+- Added animations on clickable items and while project pages are loading [#321](https://github.com/DigitalExcellence/dex-frontend/issues/321)
+
 ### Changed
 
 - Redesigned project overview page [#365](https://github.com/DigitalExcellence/dex-frontend/issues/365)
