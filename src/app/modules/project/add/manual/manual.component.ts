@@ -1,4 +1,3 @@
-import { FileUploaderService } from 'src/app/services/file-uploader.service';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -31,6 +30,10 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { SEOService } from 'src/app/services/seo.service';
 import Stepper from 'bs-stepper';
+import { DataService } from '../data.service'
+import { FileUploaderService } from 'src/app/services/file-uploader.service';
+import { Subscription } from 'rxjs';
+
 
 import { ProjectNameComponent } from "src/app/modules/project/add/manual/wizardmodules/name/wizardname.component";
 import { DescriptionComponent } from "src/app/modules/project/add/manual/wizardmodules/description/wizarddescription.component";
@@ -42,20 +45,41 @@ import { FinalComponent } from "src/app/modules/project/add/manual/wizardmodules
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
 
+
+
+
+interface Data {
+  link: string,
+  name: string,
+  shDe: string,
+  loDe: string,
+  collab: []
+}
+
 /**
  * Component for manually adding a project.
  */
 @Component({
   selector: 'app-manual',
+  template: `{{message}}`,
   templateUrl: './manual.component.html',
   styleUrls: ['./manual.component.scss']
 })
+
 export class ManualComponent implements OnInit {
+
+  // message: string;
+  // subscription: Subscription;
+
   /**
    * Formgroup for entering project details.
    */
   public newProjectForm: FormGroup;
   public newCollaboratorForm: FormGroup;
+
+  /**
+   * Project stepper.
+   */
   private stepper: Stepper;
 
   /**
@@ -81,12 +105,13 @@ export class ManualComponent implements OnInit {
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
   constructor(
+    private dataService: DataService,
     private router: Router,
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
     private wizardService: WizardService,
     private alertService: AlertService,
-    private seoService: SEOService) {
+    private seoService: SEOService, ) {
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
       uri: [null, Validators.required],
@@ -100,8 +125,8 @@ export class ManualComponent implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
+    // this.subscription = this.data.currentMessage.subscribe(message => this.message = message)
     this.wizardService.fetchedProject.subscribe(project => {
       if (project == null) {
         return;
@@ -123,25 +148,9 @@ export class ManualComponent implements OnInit {
     this.seoService.updateDescription('Create a new project in DeX');
   }
 
-  // showW1: boolean = false
-  // showW2: boolean = false
-  // showW5: boolean = false
-  // showW6: boolean = false
-  // showW7: boolean = false
-  // toggleWiz1() {
-  //   this.showW1 = !this.showW1
-  // }
-  // toggleWiz2() {
-  //   this.showW2 = !this.showW2
-  // }
-  // toggleWiz5() {
-  //   this.showW5 = !this.showW5
-  // }
-  // toggleWiz6() {
-  //   this.showW6 = !this.showW6
-  // }
-  // toggleWiz7() {
-  //   this.showW7 = !this.showW7
+
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
   // }
 
 
@@ -249,17 +258,77 @@ export class ManualComponent implements OnInit {
     this.collaborators = project.collaborators;
   }
 
-  next() {
+  next(page) {
+    Component == page;
     this.stepper.next();
+    if (component === "final") this.dummyComponent = FinalComponent;
+    else if (component === "link") this.dummyComponent = LinkComponent;
+    else if (component === "colab") this.dummyComponent = ColabComponent;
+    else if (component === "description") this.dummyComponent = DescriptionComponent;
+    else if (component === "name") this.dummyComponent = ProjectNameComponent;
   }
 
   onSubmit() {
     return false;
   }
 
+  // dummyComponent = LinkComponent;
+  // dummyComponent = ProjectNameComponent;
+  // dummyComponent = DescriptionComponent;
+  dummyComponent = ColabComponent;
+  // dummyComponent = FinalComponent;
+
+  assignComponent(component) {
+    if (component === "final") this.dummyComponent = FinalComponent;
+    else if (component === "link") this.dummyComponent = LinkComponent;
+    else if (component === "colab") this.dummyComponent = ColabComponent;
+    else if (component === "description") this.dummyComponent = DescriptionComponent;
+    else if (component === "name") this.dummyComponent = ProjectNameComponent;
+  }
+
+
+  // public wizardData = [];
+
+
+  // public getDataFromWizard() {
+  //   // get data from components
+
+  //   // link - string => check of we data voor project kunnen pullen (zo ja volgende stappen invullen)
+
+  //   // check of data opgehaald kan worden
+
+  //   // name - string
+  //   // short Description - string
+  //   // long description - string
+  //   // collaborators [string, string]
+
+
+  //   // Export array to form fields
+
+  // }
+
+
+  private data: Data = {
+    link: undefined,
+    name: undefined,
+    shDe: undefined,
+    loDe: undefined,
+    collab: undefined
+  }
+
+  collectData(data: any): void {
+    this.data.link = data.link;
+    this.data.name = data.name;
+    this.data.shDe = data.shDe;
+    this.data.loDe = data.loDe;
+    this.data.collab = data.collab;
+    this.emitData();
+  }
+
+  private emitData(): void {
+    this.done.emit(this.data);
+  }
 
 }
 
-// export class WizardComponent {
 
-// }

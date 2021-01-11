@@ -130,9 +130,8 @@
   left: 0;
   right: 0;
 
-  width: 60%;
-  margin-left: 20%;
-  margin-top: 5%;
+  margin-left: 25vw;
+  margin-top: 6vw;
 
   z-index: 1000;
 
@@ -145,6 +144,7 @@
   margin: 20px;
   height: auto;
   border-radius: 5px;
+  width: 45vw;
 }
 
 .wizard-background{
@@ -217,4 +217,12 @@ body.wizard-open {
  .bs-stepper-circle
 {
   font-family: "Montserrat", sans-serif;
+}
+
+.stepper-box {
+  height: 20%;
+}
+
+.bs-stepper-content{
+  margin-left: -5%;
 }

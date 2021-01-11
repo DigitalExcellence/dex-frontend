@@ -24,6 +24,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
  * Modal to remove items.
  * Emits true via remove property if the removable was confirmed.
  */
+
 @Component({
   selector: 'app-modal-accept-generic',
   templateUrl: './modal-accept-generic.component.html',

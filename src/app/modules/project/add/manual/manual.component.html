@@ -24,7 +24,7 @@
   <div class="wizard">
     <div class="wizard-body">
 
-
+      <div class="stepper-box"></div>
       <div id="stepper4" class="bs-stepper vertical linear">
         <div class="bs-stepper-header" role="tablist">
           <div class="step active" data-target="#test-vl-1">
@@ -74,84 +74,42 @@
             </button>
           </div>
 
-
-
-
-
         </div>
         <div class="bs-stepper-content">
           <div id="test-vl-1" role="tabpanel" class="bs-stepper-pane fade active dstepper-block"
             aria-labelledby="stepper4trigger1">
             <div class="form-group">
 
-              <div class="Wizard-1">
-                <div class="text">
-                  <div class="step">
-                    <h2>Step 1</h2>
-                  </div>
-                  <div class="title">
-                    <h2> What is the name of the project? </h2>
-                  </div>
-                  <div class="under-title">
-                    <h4> A project name is important to identify your project! </h4>
-                  </div>
-                </div>
-                <div class="inputfield">
-                  <div class="row justify-content-center">
-                    <div class="col-3 source-box">
-                      <div class="source-content ">
-                        <div>
-                          <form [formGroup]="newProjectForm" class="project-form">
-                            <input placeholder="Name of your project" formControlName="name" required />
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-5">
-                      <div>
-                        <button class="btn btn-success" type="submit" (click)="onClickSubmit()">Next</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="image">
-                  <div class="source-content">
-                    <div class="row justify-content-center">
-                      <img src="assets/images/wizard/name.svg" alt="" loading="lazy">
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ng-container *ngComponentOutlet="dummyComponent"></ng-container>
 
+
+              <div style="margin-left: 25%; font-size: 5%; display: none">
+                <button mat-raised-button color="primary" (click)="assignComponent('name')">
+                  Name
+                </button>
+                <button mat-raised-button color="primary" (click)="assignComponent('description')">
+                  Description
+                </button>
+                <button mat-raised-button color="primary" (click)="assignComponent('colab')">
+                  Collaborators
+                </button>
+                <button mat-raised-button color="primary" (click)="assignComponent('link')">
+                  Link
+                </button>
+                <button mat-raised-button color="primary" (click)="assignComponent('final')">
+                  Final
+                </button>
+              </div>
             </div>
-            <!-- <button class="btn btn-primary" onclick="stepper4.next()">Next</button> -->
           </div>
           <div id="test-vl-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepper4trigger2">
             <div class="form-group">
-
-
-
-
             </div>
-            <button class="btn btn-primary" onclick="stepper4.previous()">Previous</button>
-            <button class="btn btn-primary" onclick="stepper4.next()">Next</button>
           </div>
           <div id="test-vl-3" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepper4trigger3">
-
-
-
           </div>
         </div>
       </div>
-
-
-
-
-
-      <!-- steps location -->
-
-
-
     </div>
   </div>
   <div class="wizard-background"></div>

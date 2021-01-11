@@ -21,7 +21,7 @@
 <div class="Wizard-1">
     <div class="text">
         <div class="step">
-            <h2>Step 1</h2>
+            <h2>Step 2</h2>
         </div>
         <div class="title">
             <h2> What is the name of the project? </h2>
@@ -31,19 +31,19 @@
         </div>
     </div>
     <div class="inputfield">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-3 source-box">
                 <div class="source-content ">
                     <div>
-                        <form [formGroup]="newProjectForm" class="project-form">
-                            <input placeholder="Name of your project" formControlName="name" required />
+                        <form class="project-form" style="width: 105%">
+                            <input id="name" placeholder="Name of your project" formControlName="name" required />
                         </form>
                     </div>
                 </div>
             </div>
             <div class="col-5">
                 <div>
-                    <button class="btn btn-success" type="submit" (click)="onClickSubmit()">Next</button>
+                    <button class="btn btn-success" type="submit">Next</button>
                 </div>
             </div>
         </div>
