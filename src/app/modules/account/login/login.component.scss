@@ -129,7 +129,7 @@ button {
     outline: none;
   }
   &:hover{
-    transform: $transform-scale-shrink;
+    transform: $transform-grow-small;
   }
 }
 
