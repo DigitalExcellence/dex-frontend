@@ -16,8 +16,8 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { UploadFile } from '../domain/uploadFile';
-import { ProjectLike } from '../domain/projectLike';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { ProjectLike } from 'src/app/models/domain/projectLike';
 
 export interface SearchResultResource {
     likes: Array<ProjectLike>;

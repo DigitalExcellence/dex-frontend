@@ -354,7 +354,7 @@ export class DetailsComponent implements OnInit {
    * Method to handle the click of the like button
    * It will either like or unlike the project
    */
-  public likeClicked() {
+  public likeClicked(): void {
     if (this.authService.isAuthenticated()) {
       if (!this.project.userHasLikedProject) {
         this.likeService.likeProject(this.project.id);

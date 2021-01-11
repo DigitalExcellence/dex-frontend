@@ -20,7 +20,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { environment } from 'src/environments/environment';
 import { LikeService } from 'src/app/services/like.service';
-import { AuthService } from '../../../../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -59,9 +59,9 @@ export class ProjectComponent {
 
   /**
    * Method to handle the click of the like button
-   * It will either like or unlike the project
+   * It will either like or unlike the project.
    */
-  public likeClicked(event) {
+  public likeClicked(event): void {
     event.stopPropagation();
     if (this.authService.isAuthenticated()) {
       if (!this.project.userHasLikedProject) {
