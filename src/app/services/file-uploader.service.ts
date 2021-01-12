@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { API_CONFIG } from '../config/api-config';
-import { UploadFile } from '../models/domain/uploadFile';
-import { Error } from 'tslint/lib/error';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 @Injectable({
   providedIn: 'root'

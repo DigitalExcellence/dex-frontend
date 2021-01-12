@@ -1,4 +1,4 @@
-import { API_CONFIG } from './../config/api-config';
+import { API_CONFIG } from 'src/app/config/api-config';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -15,9 +15,9 @@ import { API_CONFIG } from './../config/api-config';
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { HttpRequest, HttpInterceptor, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import * as Sentry from '@sentry/browser';
 import { environment } from 'src/environments/environment';

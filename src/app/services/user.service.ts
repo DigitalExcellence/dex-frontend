@@ -17,9 +17,9 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
-import { User } from '../models/domain/user';
-import { UserAdd } from '../models/resources/user-add';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { User } from 'src/app/models/domain/user';
+import { UserAdd } from 'src/app/models/resources/user-add';
 import { HttpBaseService } from './http-base.service';
 import { Observable } from 'rxjs';
 
