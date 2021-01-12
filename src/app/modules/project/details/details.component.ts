@@ -31,7 +31,7 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { User } from 'src/app/models/domain/user';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
 import { Highlight } from 'src/app/models/domain/highlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
@@ -86,6 +86,11 @@ export class DetailsComponent implements OnInit {
 
   private currentUser: User;
 
+  /**
+   * Return whether the project was liked or not to the overview page
+   */
+  public onLike: Subject<boolean>;
+
   constructor(
     private activedRoute: ActivatedRoute,
     private projectService: ProjectService,
@@ -98,7 +103,9 @@ export class DetailsComponent implements OnInit {
     private seoService: SEOService,
     private fileRetrieverService: FileRetrieverService,
     private likeService: LikeService
-  ) { }
+  ) {
+    this.onLike = new Subject<boolean>();
+  }
 
   ngOnInit(): void {
       if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
@@ -357,9 +364,13 @@ export class DetailsComponent implements OnInit {
       if (!this.project.userHasLikedProject) {
         this.likeService.likeProject(this.project.id);
         this.project.likeCount++;
+        // We add this so we can update the overview page when the modal is closed
+        this.onLike.next(true);
       } else {
         this.likeService.removeLike(this.project.id);
         this.project.likeCount--;
+        // We add this so we can update the overview page when the modal is closed
+        this.onLike.next(false);
       }
       this.project.userHasLikedProject = !this.project.userHasLikedProject;
     }

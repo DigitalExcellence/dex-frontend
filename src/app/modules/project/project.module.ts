@@ -29,7 +29,7 @@ import { EmbedComponent } from './embed/embed.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalHighlightFormComponent } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { QuillModule } from 'ngx-quill';
 import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
