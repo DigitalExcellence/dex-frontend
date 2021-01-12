@@ -72,7 +72,7 @@
        justify-content: center;
        align-items: center;
        transition: transform $transition-short;
-
+       
        &:hover{
          transform: $transform-grow-big;
        }

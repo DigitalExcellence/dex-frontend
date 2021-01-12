@@ -22,8 +22,8 @@
   display: grid;
   grid-template-columns: 1fr 1.25fr;
   align-content: stretch;
-  border-radius: 999px;
-  border: 2px solid $accent-color-red-primary;
+  border-radius: 999px;   
+  box-shadow: inset 0 0 0 2px $accent-color-red-primary;
   margin-bottom: 2px;
   align-items: center;
   line-height: 1;

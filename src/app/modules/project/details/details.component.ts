@@ -15,29 +15,31 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { SafeUrl } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { EMPTY, Observable } from 'rxjs';
-import { finalize, switchMap } from 'rxjs/operators';
-import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
-import { Highlight } from 'src/app/models/domain/highlight';
 import { Project } from 'src/app/models/domain/project';
-import { scopes } from 'src/app/models/domain/scopes';
-import { User } from 'src/app/models/domain/user';
+import { ProjectService } from 'src/app/services/project.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { HighlightService } from 'src/app/services/highlight.service';
+import { HighlightAdd } from 'src/app/models/resources/highlight-add';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { ModalHighlightFormComponent, HighlightFormResult } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
-import { HighlightAdd } from 'src/app/models/resources/highlight-add';
-import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
-import { HighlightFormResult, ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
 import { AlertService } from 'src/app/services/alert.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { HighlightService } from 'src/app/services/highlight.service';
+import { User } from 'src/app/models/domain/user';
+import { Observable, EMPTY } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
-import { ProjectService } from 'src/app/services/project.service';
+import { Highlight } from 'src/app/models/domain/highlight';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
-import { environment } from 'src/environments/environment';
+import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
+import { SafeUrl } from '@angular/platform-browser';
+import { finalize, switchMap } from 'rxjs/operators';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { HighlightsModalComponent } from '../highlights-modal/highlights-modal.component';
+
 
 /**
  * Overview of a single project
@@ -142,7 +144,7 @@ export class DetailsComponent implements OnInit {
    * When Indeterminate checkbox is checked start date and end date fields are disabled and will be null,
    * resulting in an infinite highlight.
    */
-  public onClickHighlightButton(): void {
+  public onClickHighlightButton(canGoBack?: Boolean): void {
     if (this.project == null || this.project.id === 0) {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
@@ -154,7 +156,8 @@ export class DetailsComponent implements OnInit {
       this.alertService.pushAlert(alertConfig);
       return;
     }
-    const modalRef = this.modalService.show(ModalHighlightComponent);
+
+    const modalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { canGoBack } });
 
     modalRef.content.confirm
       .pipe(
@@ -185,33 +188,26 @@ export class DetailsComponent implements OnInit {
         this.alertService.pushAlert(alertConfig);
         this.isProjectHighlighted = true;
       });
+
+    modalRef.content.goBack.subscribe(() => {
+      this.onClickEditHighlightButton();
+    });
   }
 
   /**
-   * Method to delete a highlight.
+   * Method to first open a modal to select project highlight to edit and then the highlight modal form
    */
-  public onClickDeleteHighlightButton(): void {
-    if (this.project == null || this.project.id === 0) {
-      return;
-    }
-    this.highlightByProjectIdService.getHighlightsByProjectId(this.project.id).subscribe(
-      (results: Highlight[]) => {
-        if (results == null) {
-          return;
-        }
-        results.forEach(highlight => {
-          if (highlight.startDate != null && highlight.endDate != null) {
-            highlight.startDate = this.formatTimestamps(highlight.startDate);
-            highlight.endDate = this.formatTimestamps(highlight.endDate);
-          } else {
-            highlight.startDate = 'Never Ending';
-            highlight.endDate = 'Never Ending';
+  public onClickEditHighlightButton(): void {
+    this.highlightByProjectIdService
+      .getHighlightsByProjectId(this.project.id)
+      .subscribe(
+        highlights => this.handleHighlightResponse(highlights),
+        err => {
+          if (err.status === 404) {
+            this.onClickHighlightButton(false);
           }
-        });
-        const initialState = { highlights: results };
-        this.modalService.show(ModalHighlightDeleteComponent, { initialState });
-      }
-    );
+        }
+      );
   }
 
   /**
@@ -326,7 +322,8 @@ export class DetailsComponent implements OnInit {
    */
   public closeModalAndRedirect(url: string) {
     this.modalService.hide(1);
-    this.router.navigateByUrl(url);
+    document.getElementsByTagName('body')[0].classList.remove('modal-open');
+    this.router.navigate([url]);
   }
 
   /**
@@ -347,15 +344,52 @@ export class DetailsComponent implements OnInit {
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
   }
 
-  private formatTimestamps(highlightTimestamp: string): string {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const dayOfTheWeek = days[new Date(highlightTimestamp).getDay()];
-    const dateStamp = new Date(highlightTimestamp).getUTCDate() + '-' + (new Date(highlightTimestamp).getUTCMonth() + 1)
-      + '-' + new Date(highlightTimestamp).getUTCFullYear();
-    const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' + ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
-    const timeZone = 'GMT';
-    return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
+  /**
+   * Method for opening the highlight-modal-form
+   * @param highlights the array of highlights to be displayed in the modals
+   */
+  private handleHighlightResponse(highlights: Highlight[]) {
+    const options = { initialState: { highlights }, class: 'modal-lg highlight-modal' };
+    const highlightsModalComponentRef = this.modalService.show(HighlightsModalComponent, options);
+
+    highlightsModalComponentRef.content.selectHighlightToEdit.subscribe(highlight => {
+      const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight, canGoBack: true } });
+
+      formModalRef.setClass('highlight-form-modal');
+      formModalRef.content.confirm.pipe(
+        switchMap((highlightFormResult: HighlightFormResult) => {
+          const highlightAddResource: HighlightUpdate = {
+            projectId: this.project.id,
+            startDate: highlightFormResult.startDate,
+            description: highlightFormResult.description,
+            endDate: highlightFormResult.endDate
+          };
+
+          if (highlightFormResult.indeterminate) {
+            highlightAddResource.startDate = null;
+            highlightAddResource.endDate = null;
+          }
+
+          return this.highlightService.put(highlight.id, highlightAddResource);
+        })
+      ).subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'Highlight was successfully updated',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
+        this.isProjectHighlighted = true;
+      });
+
+      formModalRef.content.goBack.subscribe(() => {
+        this.onClickEditHighlightButton();
+      });
+    });
+
+    highlightsModalComponentRef.content.selectAddHighlight.subscribe(() => {
+      this.onClickHighlightButton(true);
+    });
   }
-
-
 }

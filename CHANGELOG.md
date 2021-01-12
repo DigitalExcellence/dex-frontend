@@ -7,22 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
 ### Added
-
-- Added SEO & performance check when pushing new code to develop branch [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
-
-- Added a DeX preview with title, description and image for more user friendliness [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
+- Added update highlight functionality - [#294](https://github.com/DigitalExcellence/dex-frontend/issues/294)
 
 - Added animations on clickable items and while project pages are loading [#321](https://github.com/DigitalExcellence/dex-frontend/issues/321)
 
 ### Changed
 
-- Redesigned project overview page [#365](https://github.com/DigitalExcellence/dex-frontend/issues/365)
-- Implemented redesigned project details page [#362](https://github.com/DigitalExcellence/dex-frontend/issues/362)
+- Changed the open graph tags in order to show a more appealing website preview [#405](https://github.com/DigitalExcellence/dex-frontend/issues/405)
 
 ### Deprecated
 
+
 ### Removed
+
+
+### Fixed
+
+- Fixed issue where images in the project-details view would go outside the page - [#397](https://github.com/DigitalExcellence/dex-frontend/issues/397)
+
+### Security
+
+
+
+## Release v.0.9.0-beta - 09-12-2020
+
+### Added
+
+- Added SEO & performance check when pushing new code to develop branch [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
+- Added a DeX preview when linking DeX in social media with a title, description and image for more user friendliness [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
+
+### Changed
+
+- Redesigned project overview page [#365](https://github.com/DigitalExcellence/dex-frontend/issues/365)
+- Implemented redesigned project details page [#362](https://github.com/DigitalExcellence/dex-frontend/issues/362)
 
 ### Fixed
 
@@ -31,9 +50,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where the pagination parameter was not getting reset on a new search - [#302](https://github.com/DigitalExcellence/dex-frontend/issues/302)
 - Fixed images showing alt when image could not be loaded, it now shows placeholder image instead - [#339](https://github.com/DigitalExcellence/dex-frontend/issues/339)
 - Fixed issue where tags were not hidden in production - [#373](https://github.com/DigitalExcellence/dex-frontend/issues/373)
-- Fixed 404 error and lazyloading images - [#374](https://github.com/DigitalExcellence/dex-frontend/issues/374)
+- Fixed issue where images were not being lazy loaded - [#374](https://github.com/DigitalExcellence/dex-frontend/issues/374)
+- Fixed low accessibility score within Lighthouse tests on home and project overview page [#366](https://github.com/DigitalExcellence/dex-frontend/issues/366)
 
-### Security
 
 ## Release v.0.8.0-beta - 06-11-2020
 
