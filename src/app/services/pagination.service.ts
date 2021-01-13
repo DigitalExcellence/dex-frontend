@@ -1,9 +1,9 @@
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
+import { API_CONFIG } from 'src/app/config/api-config';
 import { Observable } from 'rxjs';
-import { SearchResultsResource } from '../models/resources/search-results';
+import { SearchResultsResource } from 'src/app/models/resources/search-results';
 
 @Injectable({
   providedIn: 'root'

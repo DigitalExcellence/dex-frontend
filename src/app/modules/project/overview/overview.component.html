@@ -134,9 +134,8 @@
       <button><img alt="" loading="lazy" src="assets/images/research.svg" aria-label="Search project"></button>
     </div>
 
-    <ng-container *ngIf="!projectsEmpty() && !projectsLoading; else noProjects">
+    <ng-container *ngIf="!projectsEmpty(); else noProjects">
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
-        <h2 *ngIf="projectsLoading">Projects loading...</h2>
         <app-project
             *ngFor="let project of projectsToDisplay"
             [project]="project"
@@ -146,7 +145,10 @@
       </div>
     </ng-container>
 
-    <ng-template #noProjects>There are no projects available.</ng-template>
+    <ng-template #noProjects>
+      <h2 class="fas fa-spinner fa-pulse loading-circle" *ngIf="projectsLoading"></h2>
+      <p *ngIf="!projectsLoading">There are no projects available.</p>
+    </ng-template>
 
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
       <pagination (pageChanged)="pageChanged($event)" [itemsPerPage]="amountOfProjectsOnSinglePage"

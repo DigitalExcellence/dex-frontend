@@ -17,10 +17,10 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
-import { Project } from '../models/domain/project';
-import { ProjectAdd } from '../models/resources/project-add';
-import { ProjectUpdate } from '../models/resources/project-update';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { Project } from 'src/app/models/domain/project';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { ProjectUpdate } from 'src/app/models/resources/project-update';
 import { HttpBaseService } from './http-base.service';
 
 @Injectable({
