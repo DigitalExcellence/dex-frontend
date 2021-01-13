@@ -14,28 +14,36 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import Stepper from 'bs-stepper';
-import {Subscription} from 'rxjs';
-import {finalize} from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
-import {FileUploaderComponent} from 'src/app/components/file-uploader/file-uploader.component';
-import {Project} from 'src/app/models/domain/project';
-import {AlertConfig} from 'src/app/models/internal/alert-config';
-import {AlertType} from 'src/app/models/internal/alert-type';
-import {MappedProject} from 'src/app/models/internal/mapped-project';
-import {CollaboratorAdd} from 'src/app/models/resources/collaborator-add';
-import {ProjectAdd} from 'src/app/models/resources/project-add';
-import {LinkComponent} from "src/app/modules/project/add/manual/wizardmodules/link/wizardlink.component";
-import {AlertService} from 'src/app/services/alert.service';
-import {ProjectService} from 'src/app/services/project.service';
-import {SEOService} from 'src/app/services/seo.service';
-import {WizardService} from 'src/app/services/wizard.service';
-import {QuillUtils} from 'src/app/utils/quill.utils';
-import {DataService} from '../data.service';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
+import { Project } from 'src/app/models/domain/project';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
+import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+
+import { LinkComponent } from "src/app/modules/project/add/manual/wizardmodules/link/wizardlink.component";
+import { FinalComponent } from 'src/app/modules/project/add/manual/wizardmodules/final/wizardfinal.component';
+import { ProjectNameComponent } from 'src/app/modules/project/add/manual/wizardmodules/name/wizardname.component';
+import { DescriptionComponent } from 'src/app/modules/project/add/manual/wizardmodules/description/wizarddescription.component';
+import { ColabComponent } from 'src/app/modules/project/add/manual/wizardmodules/colab/wizardcolab.component';
+
+
+import { AlertService } from 'src/app/services/alert.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { SEOService } from 'src/app/services/seo.service';
+import { WizardService } from 'src/app/services/wizard.service';
+import { QuillUtils } from 'src/app/utils/quill.utils';
+import { DataService } from '../data.service';
+
 
 /**
  * Component for manually adding a project.
@@ -46,8 +54,7 @@ import {DataService} from '../data.service';
   styleUrls: ['./manual.component.scss']
 })
 
-export class ManualComponent implements OnInit
-{
+export class ManualComponent implements OnInit {
   @Input() pageRange: string[];
   component = 'link';
   projectMessage: Project;
@@ -93,8 +100,7 @@ export class ManualComponent implements OnInit
     private projectService: ProjectService,
     private wizardService: WizardService,
     private alertService: AlertService,
-    private seoService: SEOService,)
-  {
+    private seoService: SEOService, ) {
     this.newProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
       uri: [null, Validators.required],
@@ -108,23 +114,18 @@ export class ManualComponent implements OnInit
     });
   }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     // Keep updated with incoming messages;
-    this.subscription = this.dataService.currentProject.subscribe((message: Project) =>
-    {
+    this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
       this.projectMessage = message;
     });
 
-    this.wizardService.fetchedProject.subscribe(project =>
-    {
-      if (project == null)
-      {
+    this.wizardService.fetchedProject.subscribe(project => {
+      if (project == null) {
         return;
       }
 
-      if (project.description != null && project.description.length > 0)
-      {
+      if (project.description != null && project.description.length > 0) {
         const converter = new showdown.Converter(
           {
             literalMidWordUnderscores: true
@@ -150,10 +151,8 @@ export class ManualComponent implements OnInit
    * Method which triggers when the submit button is pressed.
    * Creates a new project.
    */
-  public onClickSubmit(): void
-  {
-    if (!this.newProjectForm.valid)
-    {
+  public onClickSubmit(): void {
+    if (!this.newProjectForm.valid) {
       this.newProjectForm.markAllAsTouched();
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
@@ -170,19 +169,15 @@ export class ManualComponent implements OnInit
     newProject.collaborators = this.collaborators;
     // Start uploading files
     this.fileUploader.uploadFiles()
-      .subscribe(uploadedFiles =>
-      {
-        if (uploadedFiles)
-        {
-          if (uploadedFiles[0])
-          {
+      .subscribe(uploadedFiles => {
+        if (uploadedFiles) {
+          if (uploadedFiles[0]) {
             // Project icon was set and uploaded
             newProject.fileId = uploadedFiles[0].id;
             this.createProject(newProject);
           }
           // Project icon was set but not uploaded successfully, the component will show the error
-        } else
-        {
+        } else {
           // There was no project icon
           newProject.fileId = 0;
           this.createProject(newProject);
@@ -194,10 +189,8 @@ export class ManualComponent implements OnInit
    * Method which triggers when the add Collaborator button is pressed.
    * Adds submitted Collaborator to the collaborator array.
    */
-  public onClickAddCollaborator(): void
-  {
-    if (!this.newCollaboratorForm.valid)
-    {
+  public onClickAddCollaborator(): void {
+    if (!this.newCollaboratorForm.valid) {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
         preMessage: 'The add collaborator form is invalid',
@@ -217,11 +210,9 @@ export class ManualComponent implements OnInit
    * Method which triggers when the delete Collaborator button is pressed.
    * Removes the collaborators from the collaborator array.
    */
-  public onClickDeleteCollaborator(clickedCollaborator: CollaboratorAdd): void
-  {
+  public onClickDeleteCollaborator(clickedCollaborator: CollaboratorAdd): void {
     const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
-    if (index < 0)
-    {
+    if (index < 0) {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
         mainMessage: 'Collaborator could not be removed',
@@ -234,13 +225,11 @@ export class ManualComponent implements OnInit
   }
 
 
-  private createProject(newProject): void
-  {
+  private createProject(newProject): void {
     this.projectService
       .post(newProject)
       .pipe(finalize(() => (this.submitEnabled = false)))
-      .subscribe(() =>
-      {
+      .subscribe(() => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
           mainMessage: 'Project was succesfully saved',
@@ -254,8 +243,7 @@ export class ManualComponent implements OnInit
   /**
    * Method to fill a form with the values of a mapped project.
    */
-  private fillFormWithProject(project: MappedProject): void
-  {
+  private fillFormWithProject(project: MappedProject): void {
     this.newProjectForm.get('name').setValue(project.name);
     this.newProjectForm.get('uri').setValue(project.uri);
     this.newProjectForm.get('shortDescription').setValue(project.shortDescription);
@@ -263,43 +251,78 @@ export class ManualComponent implements OnInit
     this.collaborators = project.collaborators;
   }
 
-  next(page: string)
-  {
-    console.log('we arrived');
-    // Component == page;
-    this.stepper.next();
-    this.component = 'final';
-    console.log('component value is ' + this.component)
-    // if (component === "final") this.dummyComponent = FinalComponent;
-    // else if (component === "link") this.dummyComponent = LinkComponent;
-    // else if (component === "colab") this.dummyComponent = ColabComponent;
-    // else if (component === "description") this.dummyComponent = DescriptionComponent;
-    // else if (component === "name") this.dummyComponent = ProjectNameComponent;
+  next(page: string) {
+
+    if (this.component === 'link') {
+      // this.stepper.next();
+      this.component = 'name';
+      page = 'name';
+    }
+
+    else if (this.component === 'name') {
+      // this.stepper.next();
+      this.component = 'description';
+      page = 'description';
+    }
+
+    else if (this.component === 'description') {
+      // this.stepper.next();
+      this.component = 'colab';
+      page = 'colab';
+    }
+
+    else if (this.component === 'colab') {
+      // this.stepper.next();
+      this.component = 'final';
+    }
+
+    else if (this.component === 'link') {
+      // hide button on this page
+    }
+    console.log("Next")
   }
 
-  onSubmit()
-  {
+  back(page: string) {
+
+    if (this.component === 'link') {
+      // hide button on this page
+
+    }
+
+    else if (this.component === 'name') {
+      // this.stepper.next();
+      this.component = 'link';
+      page = 'link';
+    }
+
+    else if (this.component === 'description') {
+      // this.stepper.next();
+      this.component = 'name';
+      page = 'name';
+    }
+
+    else if (this.component === 'colab') {
+      // this.stepper.next();
+      this.component = 'description';
+      page = 'description';
+    }
+
+    else if (this.component === 'final') {
+      // this.stepper.next();
+      this.component = 'colab';
+    }
+    console.log("Back")
+
+  }
+
+  onSubmit() {
     return false;
-  }
-
-  dummyComponent = LinkComponent;
-  // dummyComponent = ProjectNameComponent;
-  // dummyComponent = DescriptionComponent;
-  // dummyComponent = ColabComponent;
-  // dummyComponent = FinalComponent;
-
-  assignComponent(component)
-  {
-    // if (component === "final") this.dummyComponent = FinalComponent;
-    if (component === "link") this.dummyComponent = LinkComponent;
-    // else if (component === "colab") this.dummyComponent = ColabComponent;
-    // else if (component === "description") this.dummyComponent = DescriptionComponent;
-    // else if (component === "name") this.dummyComponent = ProjectNameComponent;
   }
 
   public onClickNextButton() {
     console.log('something cool!')
   }
+
 }
 
 

@@ -15,22 +15,28 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {QuillModule} from 'ngx-quill';
-import {FinalComponent} from 'src/app/modules/project/add/manual/wizardmodules/final/wizardfinal.component';
-import {LinkComponent} from 'src/app/modules/project/add/manual/wizardmodules/link/wizardlink.component';
-import {ProjectModule} from '../project.module';
-import {AddRoutingModule} from './add-routing.module';
-import {ManualComponent} from './manual/manual.component';
-import {SourceComponent} from './source/source.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
+import { FinalComponent } from 'src/app/modules/project/add/manual/wizardmodules/final/wizardfinal.component';
+import { LinkComponent } from 'src/app/modules/project/add/manual/wizardmodules/link/wizardlink.component';
+import { ProjectNameComponent } from 'src/app/modules/project/add/manual/wizardmodules/name/wizardname.component';
+import { DescriptionComponent } from 'src/app/modules/project/add/manual/wizardmodules/description/wizarddescription.component';
+import { ColabComponent } from 'src/app/modules/project/add/manual/wizardmodules/colab/wizardcolab.component';
+import { ProjectModule } from '../project.module';
+import { AddRoutingModule } from './add-routing.module';
+import { ManualComponent } from './manual/manual.component';
+import { SourceComponent } from './source/source.component';
 
 @NgModule({
   declarations: [
     SourceComponent,
     ManualComponent,
     LinkComponent,
+    ProjectNameComponent,
+    DescriptionComponent,
+    ColabComponent,
     FinalComponent,
   ],
   imports: [

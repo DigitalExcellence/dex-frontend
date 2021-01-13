@@ -35,15 +35,16 @@
             <div class="col-3 source-box">
                 <div class="source-content ">
                     <div>
-                        <form class="project-form" style="width: 105%">
-                            <input id="name" placeholder="Name of your project" formControlName="name" required />
-                        </form>
+                        <div class="project-form" style="width: 105%">
+                            <input type="text" name="name" placeholder="Name of your project" required
+                                [formControl]="linkForm">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-5">
                 <div>
-                    <button class="btn btn-success" type="submit">Next</button>
+                    <button class="btn btn-success" (click)="onClickNextButton()" type="submit">ADD</button>
                 </div>
             </div>
         </div>

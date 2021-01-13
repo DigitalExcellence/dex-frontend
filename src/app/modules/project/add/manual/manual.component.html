@@ -78,17 +78,35 @@
         <div class="bs-stepper-content">
           <div id="test-vl-1" role="tabpanel" class="bs-stepper-pane fade active dstepper-block"
             aria-labelledby="stepper4trigger1">
-              <!-- <ng-container *ngComponentOutlet="dummyComponent"></ng-container> -->
-              <ng-container *ngIf="component === 'link'">
-                <app-link></app-link>
-              </ng-container>
-              <ng-container *ngIf="component === 'final'">
-                <app-final></app-final>
-              </ng-container>
+            <!-- <ng-container *ngComponentOutlet="dummyComponent"></ng-container> -->
+            <ng-container *ngIf="component === 'link'">
+              <app-link></app-link>
+            </ng-container>
 
-              <div class="row justify-content-center">
-                <button (click)="next('final')" class="btn btn-success" style="margin-bottom: 5%" type="submit">Next</button>
+            <ng-container *ngIf="component === 'name'">
+              <app-name></app-name>
+            </ng-container>
+
+            <ng-container *ngIf="component === 'description'">
+              <app-description></app-description>
+            </ng-container>
+
+            <ng-container *ngIf="component === 'colab'">
+              <app-colab></app-colab>
+            </ng-container>
+
+            <ng-container *ngIf="component === 'final'">
+              <app-final></app-final>
+            </ng-container>
+
+            <div class="row" style="margin-top: 1vw">
+              <button (click)="back('final')" class="btn btn-success" type="submit"
+                style="margin-left: 5vw">Back</button>
+
+              <button (click)="next('final')" class="btn btn-success" style="margin-left: 25vw"
+                type="submit">Next</button>
             </div>
+
           </div>
         </div>
       </div>

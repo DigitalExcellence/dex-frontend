@@ -80,69 +80,64 @@
 
                                                             </div>
                                                         </form> -->
-                                                        <form [formGroup]="newCollaboratorForm" class="project-form">
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <h3 class="title-spacing">Add project collaborators
-                                                                    </h3>
-                                                                    <div class="row">
+                                                        <!-- <form [formGroup]="newCollaboratorForm" class="project-form"> -->
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <h3 class="title-spacing">Add project collaborators
+                                                                </h3>
+                                                                <div class="row">
 
-                                                                        <div class="col-5" style="padding-left: 3%">
-                                                                            <div>
-                                                                                <h3>Collaborator full name</h3>
-                                                                                <input
-                                                                                    placeholder="Name of the collaborator"
-                                                                                    formControlName="fullName"
-                                                                                    required />
-                                                                            </div>
+                                                                    <div class="col-5" style="padding-left: 3%">
+                                                                        <div>
+                                                                            <h3 style="width: 110%;">Collaborator name
+                                                                            </h3>
+                                                                            <input
+                                                                                placeholder="Name of the collaborator"
+                                                                                formControlName="fullName" required />
                                                                         </div>
-
-                                                                        <div class="col-5">
-                                                                            <div>
-                                                                                <h3>Collaborator role</h3>
-                                                                                <input
-                                                                                    placeholder="Role of the collaborator"
-                                                                                    formControlName="role" required />
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-2 add-collaborator-col">
-                                                                            <button type="button"
-                                                                                class="btn btn-icon btn-primary add-collaborator-button"
-                                                                                aria-label="settings"
-                                                                                (click)="onClickAddCollaborator()">
-                                                                                +
-                                                                            </button>
-                                                                        </div>
-
-                                                                        <div class="offset-5 col-6">
-                                                                            <p class="form-footnote">e.g.: developer,
-                                                                                designer, etc...</p>
-                                                                        </div>
-
                                                                     </div>
+
+                                                                    <div class="col-5">
+                                                                        <div>
+                                                                            <h3>Collaborator role</h3>
+                                                                            <input
+                                                                                placeholder="Role of the collaborator"
+                                                                                formControlName="role" required />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-2 add-collaborator-col">
+                                                                        <button type="button"
+                                                                            class="btn btn-icon btn-primary add-collaborator-button"
+                                                                            aria-label="settings">
+                                                                            +
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <div class="offset-5 col-6">
+                                                                        <p class="form-footnote">e.g.: developer,
+                                                                            designer, etc...</p>
+                                                                    </div>
+
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                                        </div>
+                                                        <!-- </form> -->
 
                                                     </div>
 
-                                                    <div class="row collaborator-overview"
-                                                        *ngIf="collaborators.length > 0" style="padding-left: 3%">
+                                                    <div class="row collaborator-overview" style="padding-left: 3%">
                                                         <div class="col-15" style="margin-left: 33%">
                                                             <h3>Collaborators</h3>
                                                         </div>
-                                                        <div *ngFor="let collaborator of collaborators"
-                                                            class="col-8 collaborator-item" style="padding-left: 33%;">
+                                                        <div class="col-8 collaborator-item">
                                                             <button type="button" class="btn btn-icon btn-danger"
-                                                                aria-label="error"
-                                                                (click)="onClickDeleteCollaborator(collaborator)"><span
-                                                                    aria-hidden="true"> &times;
+                                                                aria-label="error"><span aria-hidden="true"> &times;
                                                                 </span>
                                                             </button>
                                                             <p class="collaborator-text large">
-                                                                <strong>{{collaborator?.fullName}}</strong>-
-                                                                {{collaborator?.role}}
+                                                                <!-- <strong>{{collaborator?.fullName}}</strong>-
+                                                                {{collaborator?.role}} -->
                                                             </p>
                                                             <hr class="dashed">
                                                         </div>
@@ -151,16 +146,15 @@
                                             </div>
                                             <div class="col-md-4 p-4">
                                                 <div class="sideContent">
+                                                    <div class="row justify-content-center">
+                                                        <button class="btn btn-success" type="submit">ADD
+                                                        </button>
+                                                    </div>
                                                     <div class="image">
                                                         <div class="source-content">
                                                             <div class="row justify-content-center">
-                                                                <img src="assets/images/wizard/colab.svg" alt=""
+                                                                <img src="assets/images/wizard/colab.svg"
                                                                     loading="lazy">
-                                                            </div>
-                                                            <div class="row justify-content-center">
-                                                                <button class="btn btn-success"
-                                                                    style="margin-bottom: 5%"
-                                                                    type="submit">Next</button>
                                                             </div>
                                                         </div>
                                                     </div>

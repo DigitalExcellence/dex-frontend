@@ -15,35 +15,47 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
-// import { DataService } from "../data.service";
+import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-// import { AlertType } from 'src/app/models/internal/alert-type';
-// import { AlertConfig } from 'src/app/models/internal/alert-config';
-// import { AlertService } from 'src/app/services/alert.service';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { Router } from '@angular/router';
-// import { finalize } from 'rxjs/operators';
-// import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
-// import { ProjectAdd } from 'src/app/models/resources/project-add';
-// import { ProjectService } from 'src/app/services/project.service';
-// import { MappedProject } from 'src/app/models/internal/mapped-project';
-// import { WizardService } from 'src/app/services/wizard.service';
-// import { QuillUtils } from 'src/app/utils/quill.utils';
-// import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
-// import { SEOService } from 'src/app/services/seo.service';
+import { Project } from 'src/app/models/domain/project';
+import { DataService } from "../../../data.service";
+
 
 @Component({
     selector: 'app-colab',
-
     templateUrl: './wizardcolab.component.html',
-    // styleUrls: ['../../manual.component.scss']
     styleUrls: ['../../wizardmodules/colab/wizardcolab.component.scss']
 })
 export class ColabComponent implements OnInit {
 
-    constructor() { }
+    project: Project;
+    subscription: Subscription;
+    linkForm: FormControl;
+
+    constructor(private dataService: DataService) {
+        this.linkForm = new FormControl('');
+    }
 
     ngOnInit() {
+        this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
+            this.project = message;
+            this.linkForm.patchValue(message.collaborators);
+            console.log("🧀 " + message.collaborators)
+        })
+    }
+
+    onClickNextButton() {
+        this.project.collaborators = this.linkForm.value;
+        this.dataService.updateProject(this.project);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+
+
+    onSubmit() {
+        return false;
     }
 
 }
