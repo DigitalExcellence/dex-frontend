@@ -23,12 +23,15 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ModalHighlightFormComponent, HighlightFormResult } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
+import {
+  HighlightFormResult,
+  ModalHighlightFormComponent
+} from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { User } from 'src/app/models/domain/user';
-import { Observable, EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
 import { Highlight } from 'src/app/models/domain/highlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
@@ -38,7 +41,7 @@ import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
 import { SafeUrl } from '@angular/platform-browser';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { HighlightsModalComponent } from '../highlights-modal/highlights-modal.component';
+import { HighlightsModalComponent } from 'src/app/modules/project/highlights-modal/highlights-modal.component';
 
 
 /**

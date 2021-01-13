@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Highlight } from '../../../models/domain/highlight';
+import { Highlight } from 'src/app/models/domain/highlight';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { AlertType } from 'src/app/models/internal/alert-type';
