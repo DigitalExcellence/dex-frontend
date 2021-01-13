@@ -16,11 +16,11 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { InternalSearchQuery } from './../models/resources/internal-search-query';
+import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { Injectable } from '@angular/core';
-import { SearchResultsResource } from '../models/resources/search-results';
-import { API_CONFIG } from '../config/api-config';
-import { from, Observable } from 'rxjs';
+import { SearchResultsResource } from 'src/app/models/resources/search-results';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { mergeMap } from 'rxjs/operators';

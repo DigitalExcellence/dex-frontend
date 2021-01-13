@@ -1,5 +1,12 @@
 {
+  "rulesDirectory": [
+    "tslint-microsoft-contrib"
+  ],
   "rules": {
+    "no-relative-imports": [
+      true,
+      "allow-siblings"
+    ],
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,

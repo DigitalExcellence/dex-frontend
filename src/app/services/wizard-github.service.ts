@@ -14,18 +14,17 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, of, throwError } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
-import { GitHubContributor } from '../models/resources/external/github/contributor';
-import { MappedCollaborator } from '../models/internal/mapped-collaborator';
-import { Collaborator } from '../models/domain/collaborator';
-import { GitHubRepo } from '../models/resources/external/github/repo';
+import { forkJoin, Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { GitHubContributor } from 'src/app/models/resources/external/github/contributor';
+import { MappedCollaborator } from 'src/app/models/internal/mapped-collaborator';
+import { Collaborator } from 'src/app/models/domain/collaborator';
+import { GitHubRepo } from 'src/app/models/resources/external/github/repo';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
-import { StringUtils } from '../utils/string.utils';
-import { HttpBackend } from '@angular/common/http';
+import { StringUtils } from 'src/app/utils/string.utils';
 
 /**
  * Service to fetch a repo and it's details from Github.

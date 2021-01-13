@@ -42,7 +42,7 @@ import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
 import { SafeUrl } from '@angular/platform-browser';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { HighlightsModalComponent } from '../highlights-modal/highlights-modal.component';
+import { HighlightsModalComponent } from 'src/app/modules/project/highlights-modal/highlights-modal.component';
 
 /**
  * Overview of a single project
