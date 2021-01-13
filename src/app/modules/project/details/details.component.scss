@@ -360,3 +360,13 @@
     }
   }
 }
+.loading-circle {
+  width: 20vw;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h2 {
+    color: $accent-color-red-primary;
+  }
+}
