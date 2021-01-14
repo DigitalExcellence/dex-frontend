@@ -76,15 +76,16 @@ export class ProjectComponent {
         this.project.likeCount--;
       }
       this.project.userHasLikedProject = !this.project.userHasLikedProject;
+    } else {
+      // User is not logged in
+      const alertConfig: AlertConfig = {
+        type: AlertType.warning,
+        mainMessage: 'You need to be logged in to like a project',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
     }
-    // User is not logged in
-    const alertConfig: AlertConfig = {
-      type: AlertType.warning,
-      mainMessage: 'You need to be logged in to like a project',
-      dismissible: true,
-      timeout: this.alertService.defaultTimeout
-    };
-    this.alertService.pushAlert(alertConfig);
   }
 
   /**
