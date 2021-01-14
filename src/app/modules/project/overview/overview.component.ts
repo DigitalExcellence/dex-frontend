@@ -391,15 +391,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       this.modalRef.setClass('project-modal');
 
       this.modalRef.content.onLike.subscribe(isLiked => {
-        let projectIndexToUpdate = this.projects.findIndex(project => project.id === projectId);
-        if(isLiked) {
+        const projectIndexToUpdate = this.projects.findIndex(project => project.id === projectId);
+        if (isLiked) {
           this.projects[projectIndexToUpdate].likeCount++;
           this.projects[projectIndexToUpdate].userHasLikedProject = true;
         } else {
           this.projects[projectIndexToUpdate].likeCount--;
           this.projects[projectIndexToUpdate].userHasLikedProject = false;
         }
-      })
+      });
 
       // Go back to home page after the modal is closed
       this.modalSubscriptions.push(
