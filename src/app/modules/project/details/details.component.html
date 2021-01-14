@@ -50,7 +50,6 @@
             <a class='hover' href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
 
           </div>
-          <ng-container *ngIf="isProduction()">
             <div class="project-metadata__item">
               <p class='title'>Likes <em class="fas fa-heart"></em></p>
               <p (click)="likeClicked()">
@@ -58,7 +57,6 @@
                 {{project.likeCount}}
               </p>
             </div>
-          </ng-container>
           <div class="project-metadata__item" [tooltip]="projectUpdated">
             <p class='title cursor-pointer'>Upload Date <em class="fas fa-calendar"></em></p>
             <p class='hover'>{{ project.created | date:'longDate' }}</p>
