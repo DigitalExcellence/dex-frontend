@@ -55,7 +55,7 @@ export class PaginationService {
         .then(currentUser => {
           searchResult.results.map(project => {
             project.likeCount = project.likes.length ? project.likes.length : 0;
-            project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser.id).length > 0;
+            project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
             return project;
           });
           return searchResult;

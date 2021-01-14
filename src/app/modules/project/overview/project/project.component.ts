@@ -21,6 +21,9 @@ import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { environment } from 'src/environments/environment';
 import { LikeService } from 'src/app/services/like.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
 
 
 @Component({
@@ -37,7 +40,8 @@ export class ProjectComponent {
   constructor(
       private fileRetrieverService: FileRetrieverService,
       private likeService: LikeService,
-      private authService: AuthService) {
+      private authService: AuthService,
+      private alertService: AlertService) {
   }
 
   /**
@@ -73,6 +77,14 @@ export class ProjectComponent {
       }
       this.project.userHasLikedProject = !this.project.userHasLikedProject;
     }
+    // User is not logged in
+    const alertConfig: AlertConfig = {
+      type: AlertType.warning,
+      mainMessage: 'You need to be logged in to like a project',
+      dismissible: true,
+      timeout: this.alertService.defaultTimeout
+    };
+    this.alertService.pushAlert(alertConfig);
   }
 
   /**

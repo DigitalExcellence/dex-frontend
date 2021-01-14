@@ -46,7 +46,7 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
     return this.authService.getBackendUser()
         .then(currentUser => {
             project.likeCount = project.likes?.length ? project.likes.length : 0;
-            project.userHasLikedProject = project.likes?.filter(like => like.userId === currentUser.id).length > 0;
+            project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
             return project;
           });
   }
