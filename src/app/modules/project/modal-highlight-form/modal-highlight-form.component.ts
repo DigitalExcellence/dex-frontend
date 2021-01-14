@@ -16,10 +16,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Highlight } from '../../../models/domain/highlight';
+import { Highlight } from 'src/app/models/domain/highlight';
 import { HighlightService } from 'src/app/services/highlight.service';
 import * as moment from 'moment';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
