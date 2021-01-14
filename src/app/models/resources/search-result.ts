@@ -17,12 +17,16 @@
  *
  */
 import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { ProjectLike } from 'src/app/models/domain/projectLike';
 
 export interface SearchResultResource {
+    likes: Array<ProjectLike>;
     id: number;
     name: string;
     shortDescription: string;
     created: Date;
     updated: Date;
     projectIcon: UploadFile;
+    userHasLikedProject: boolean;
+    likeCount: number;
 }

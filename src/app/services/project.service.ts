@@ -22,12 +22,32 @@ import { Project } from 'src/app/models/domain/project';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectUpdate } from 'src/app/models/resources/project-update';
 import { HttpBaseService } from './http-base.service';
+import { from, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService extends HttpBaseService<Project, ProjectAdd, ProjectUpdate> {
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private authService: AuthService) {
     super(http, API_CONFIG.url + API_CONFIG.projectRoute);
+  }
+
+  get(id: number): Observable<Project> {
+    return super.get(id)
+        .pipe(
+            mergeMap(project =>
+              from(this.addLikes(project))
+        ));
+  }
+
+  private addLikes(project): Promise<Project> {
+    return this.authService.getBackendUser()
+        .then(currentUser => {
+            project.likeCount = project.likes?.length ? project.likes.length : 0;
+            project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
+            return project;
+          });
   }
 }

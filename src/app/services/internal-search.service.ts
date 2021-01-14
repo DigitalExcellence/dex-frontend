@@ -20,8 +20,10 @@ import { InternalSearchQuery } from 'src/app/models/resources/internal-search-qu
 import { Injectable } from '@angular/core';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { API_CONFIG } from 'src/app/config/api-config';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { mergeMap } from 'rxjs/operators';
 
 /**
  * Service to communicate with the InteralSearchEndpoint of the API.
@@ -33,7 +35,7 @@ export class InternalSearchService {
 
   private readonly url = `${API_CONFIG.url}${API_CONFIG.internalSearchRoute}/`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
   getSearchResultsPaginated(internalSearchQuery: InternalSearchQuery): Observable<SearchResultsResource> {
@@ -55,6 +57,23 @@ export class InternalSearchService {
       url += `?${params}`;
     }
 
-    return this.http.get<SearchResultsResource>(url);
+    return this.http.get<SearchResultsResource>(url)
+        .pipe(
+            mergeMap(result => from(
+                this.addLikes(result)
+            ))
+        );
+  }
+
+  private addLikes(searchResult): Promise<SearchResultsResource> {
+    return this.authService.getBackendUser()
+        .then(currentUser => {
+          searchResult.results.map(project => {
+            project.likeCount = project.likes.length ? project.likes.length : 0;
+            project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
+            return project;
+          });
+          return searchResult;
+        });
   }
 }

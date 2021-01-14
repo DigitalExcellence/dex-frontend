@@ -19,6 +19,11 @@ import { Project } from 'src/app/models/domain/project';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { environment } from 'src/environments/environment';
+import { LikeService } from 'src/app/services/like.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
 
 
 @Component({
@@ -33,7 +38,10 @@ export class ProjectComponent {
   @Input() project: Project;
 
   constructor(
-      private fileRetrieverService: FileRetrieverService) {
+      private fileRetrieverService: FileRetrieverService,
+      private likeService: LikeService,
+      private authService: AuthService,
+      private alertService: AlertService) {
   }
 
   /**
@@ -52,8 +60,32 @@ export class ProjectComponent {
     event.stopPropagation();
   }
 
-  public likeClicked(event) {
+
+  /**
+   * Method to handle the click of the like button
+   * It will either like or unlike the project.
+   */
+  public likeClicked(event): void {
     event.stopPropagation();
+    if (this.authService.isAuthenticated()) {
+      if (!this.project.userHasLikedProject) {
+        this.likeService.likeProject(this.project.id);
+        this.project.likeCount++;
+      } else {
+        this.likeService.removeLike(this.project.id);
+        this.project.likeCount--;
+      }
+      this.project.userHasLikedProject = !this.project.userHasLikedProject;
+    } else {
+      // User is not logged in
+      const alertConfig: AlertConfig = {
+        type: AlertType.warning,
+        mainMessage: 'You need to be logged in to like a project',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
+    }
   }
 
   /**

@@ -31,18 +31,18 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { User } from 'src/app/models/domain/user';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
 import { Highlight } from 'src/app/models/domain/highlight';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { scopes } from 'src/app/models/domain/scopes';
 import { SEOService } from 'src/app/services/seo.service';
+import { LikeService } from 'src/app/services/like.service';
 import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
 import { SafeUrl } from '@angular/platform-browser';
 import { finalize, switchMap } from 'rxjs/operators';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightsModalComponent } from 'src/app/modules/project/highlights-modal/highlights-modal.component';
-
 
 /**
  * Overview of a single project
@@ -86,6 +86,11 @@ export class DetailsComponent implements OnInit {
 
   private currentUser: User;
 
+  /**
+   * Return whether the project was liked or not to the overview page
+   */
+  public onLike: Subject<boolean>;
+
   constructor(
     private activedRoute: ActivatedRoute,
     private projectService: ProjectService,
@@ -96,8 +101,11 @@ export class DetailsComponent implements OnInit {
     private highlightByProjectIdService: HighlightByProjectIdService,
     private router: Router,
     private seoService: SEOService,
-    private fileRetrieverService: FileRetrieverService
-  ) { }
+    private fileRetrieverService: FileRetrieverService,
+    private likeService: LikeService
+  ) {
+    this.onLike = new Subject<boolean>();
+  }
 
   ngOnInit(): void {
       if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
@@ -345,6 +353,46 @@ export class DetailsComponent implements OnInit {
       return;
     }
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
+  }
+
+  /**
+   * Method to handle the click of the like button
+   * It will either like or unlike the project
+   */
+  public likeClicked(): void {
+    if (this.authService.isAuthenticated()) {
+      if (!this.project.userHasLikedProject) {
+        this.likeService.likeProject(this.project.id);
+        this.project.likeCount++;
+        // We add this so we can update the overview page when the modal is closed
+        this.onLike.next(true);
+      } else {
+        this.likeService.removeLike(this.project.id);
+        this.project.likeCount--;
+        // We add this so we can update the overview page when the modal is closed
+        this.onLike.next(false);
+      }
+      this.project.userHasLikedProject = !this.project.userHasLikedProject;
+    } else {
+      // User is not logged in
+      const alertConfig: AlertConfig = {
+        type: AlertType.warning,
+        mainMessage: 'You need to be logged in to like a project',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
+    }
+  }
+
+  private formatTimestamps(highlightTimestamp: string): string {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayOfTheWeek = days[new Date(highlightTimestamp).getDay()];
+    const dateStamp = new Date(highlightTimestamp).getUTCDate() + '-' + (new Date(highlightTimestamp).getUTCMonth() + 1)
+      + '-' + new Date(highlightTimestamp).getUTCFullYear();
+    const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' + ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
+    const timeZone = 'GMT';
+    return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
 
   /**
