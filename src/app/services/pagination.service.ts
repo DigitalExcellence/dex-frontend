@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { mergeMap } from 'rxjs/operators';
 import { API_CONFIG } from 'src/app/config/api-config';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 
 @Injectable({
