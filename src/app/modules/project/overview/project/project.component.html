@@ -74,7 +74,7 @@
     <div class='bottom-wrapper'>
         <div (click)="likeClicked($event)" class='item'>
           <em [ngClass]="project.userHasLikedProject ? 'fas' : 'far'" class='fa-heart'></em>
-            <div class="project-likes" (click)="likeClicked($event)">{{project.likeCount}} Likes</div>
+            <div class="project-likes">{{project.likeCount}} Likes</div>
         </div>
       <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
         <ng-template #projectCollaborators>
