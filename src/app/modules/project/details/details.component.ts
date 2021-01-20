@@ -91,6 +91,11 @@ export class DetailsComponent implements OnInit {
    */
   public onLike: Subject<boolean>;
 
+  /**
+   * Boolean to trigger animation only after first click and not on page load. 
+   */
+  public animationTriggered = false;
+
   constructor(
     private activedRoute: ActivatedRoute,
     private projectService: ProjectService,
@@ -364,11 +369,13 @@ export class DetailsComponent implements OnInit {
       if (!this.project.userHasLikedProject) {
         this.likeService.likeProject(this.project.id);
         this.project.likeCount++;
+        this.animationTriggered = true;
         // We add this so we can update the overview page when the modal is closed
         this.onLike.next(true);
       } else {
         this.likeService.removeLike(this.project.id);
         this.project.likeCount--;
+        this.animationTriggered = true;
         // We add this so we can update the overview page when the modal is closed
         this.onLike.next(false);
       }
