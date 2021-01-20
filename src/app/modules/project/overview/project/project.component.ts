@@ -36,9 +36,9 @@ export class ProjectComponent {
 
   @Input() showListView: boolean;
   @Input() project: Project;
-  
+
   /**
-   * Boolean to trigger animation only after first click and not on page load. 
+   * Boolean to trigger animation only after first click and not on page load.
    */
   public animationTriggered = false;
 

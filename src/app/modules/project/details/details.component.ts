@@ -92,7 +92,7 @@ export class DetailsComponent implements OnInit {
   public onLike: Subject<boolean>;
 
   /**
-   * Boolean to trigger animation only after first click and not on page load. 
+   * Boolean to trigger animation only after first click and not on page load.
    */
   public animationTriggered = false;
 
