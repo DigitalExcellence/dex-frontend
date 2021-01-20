@@ -72,15 +72,15 @@
       </div>
     </ng-container>
     <div class='bottom-wrapper'>
-        <div (click)="likeClicked($event)" class='item'>
-          <em [ngClass]="project.userHasLikedProject ? 'fas' : 'far'" class='fa-heart'></em>
-            <div class="project-likes">{{project.likeCount}} Likes</div>
-        </div>
+      <div (click)="likeClicked($event)" class='item'>
+        <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class='fa-heart'></em>
+        <div class="project-likes">{{project.likeCount}} Likes</div>
+      </div>
       <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
         <ng-template #projectCollaborators>
-              <p *ngFor="let collaborator of project.collaborators">
-                {{collaborator.fullName}} - {{collaborator.role}}
-              </p>
+          <p *ngFor="let collaborator of project.collaborators">
+            {{collaborator.fullName}} - {{collaborator.role}}
+          </p>
         </ng-template>
         <em class='fas fa-users'></em>
         <div class="project-collaborators">{{project.collaborators ? project.collaborators.length : 0}} collaborators</div>

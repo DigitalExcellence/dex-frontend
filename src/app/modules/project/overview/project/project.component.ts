@@ -36,6 +36,7 @@ export class ProjectComponent {
 
   @Input() showListView: boolean;
   @Input() project: Project;
+  @Input() animationTriggered: boolean;
 
   constructor(
       private fileRetrieverService: FileRetrieverService,
@@ -71,9 +72,11 @@ export class ProjectComponent {
       if (!this.project.userHasLikedProject) {
         this.likeService.likeProject(this.project.id);
         this.project.likeCount++;
+        this.animationTriggered = true;
       } else {
         this.likeService.removeLike(this.project.id);
         this.project.likeCount--;
+        this.animationTriggered = true;
       }
       this.project.userHasLikedProject = !this.project.userHasLikedProject;
     } else {
