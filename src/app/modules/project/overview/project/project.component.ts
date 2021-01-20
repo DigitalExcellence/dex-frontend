@@ -36,7 +36,8 @@ export class ProjectComponent {
 
   @Input() showListView: boolean;
   @Input() project: Project;
-  @Input() animationTriggered: boolean;
+  
+  public animationTriggered = false;
 
   constructor(
       private fileRetrieverService: FileRetrieverService,
