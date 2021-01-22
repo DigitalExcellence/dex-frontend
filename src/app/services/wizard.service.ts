@@ -21,8 +21,8 @@ import { Router } from '@angular/router';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { WizardGithubService } from './wizard-github.service';
-import { AlertConfig } from '../models/internal/alert-config';
-import { AlertType } from '../models/internal/alert-type';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from './alert.service';
 
 /**

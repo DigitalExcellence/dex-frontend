@@ -1,7 +1,7 @@
 <!--
 
   Digital Excellence Copyright (C) 2020 Brend Smits
-
+`
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published
    by the Free Software Foundation version 3 of the License.
@@ -17,21 +17,23 @@
 
  -->
 
+<div id="overlay" (click)="onClickBack()"></div>
+
 <div class="modal-highlight-container">
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-  </button>
   <div class="modal-body">
-    <h2>Highlight project</h2>
+    <h2>
+      <span *ngIf="canGoBack" class="fas fa-chevron-left back-button" (click)=onClickBack()></span>
+      Highlight project
+    </h2>
     <form [formGroup]="highlightProjectForm" class="highlight-form">
       <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
           <div>
             <h3>Start Date</h3>
             <input type="date" formControlName="startDate" [disabled]="dateFieldsEnabled" />
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
           <div>
             <h3>End Date</h3>
             <input type="date" formControlName="endDate" [disabled]="dateFieldsEnabled" />
@@ -40,7 +42,8 @@
         <div class="col-12">
           <div>
             <h3>Highlight description</h3>
-            <input type="text" placeholder="Highlight description" formControlName="description">
+            <textarea type="text" placeholder="Highlight description" formControlName="description" class="description">
+            </textarea>
           </div>
         </div>
         <div class="col-12" *ngIf="validationErrorMessage != null">
@@ -51,18 +54,30 @@
       <div class="row">
         <div class="col-12">
           <div class="highlight-form__checkbox">
-            <input type="checkbox" formControlName="indeterminate" />
-            <h4>Never-ending</h4>
+            <label>
+              <input type="checkbox" formControlName="indeterminate" />
+              <p>Never-ending</p>
+            </label>
           </div>
         </div>
       </div>
     </form>
-    <div class="row">
-      <div class="col-12 modal-buttons">
-        <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
-        <button type="button" class="primary" (click)="onClickConfirm()">Save</button>
+    <div class="row mt-3">
+      <div class="col-sm-5 d-none d-sm-flex">
+        <button *ngIf="canDelete" type="button" class="cancel" ngxDebounceClick (debouncedClick)="onClickDelete()">
+          Delete highlight
+          <span class="fas fa-trash-alt"></span>
+        </button>
+      </div>
+      <div class="col-2 d-sm-none trash-icon">
+        <span *ngIf="canDelete" ngxDebounceClick (debouncedClick)="onClickDelete()" class='fas fa-trash mobile-trash'></span>
+      </div>
+      <div class=" col-10 buttons-bottom col-sm-7 text-right">
+          <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
+          <button type="button" class="primary" ngxDebounceClick (debouncedClick)="onClickConfirm()">
+            Save <span class="fas fa-save"></span>
+          </button>
       </div>
     </div>
-
   </div>
 </div>

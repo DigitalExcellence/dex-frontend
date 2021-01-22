@@ -28,6 +28,7 @@ export interface ApiConfig {
   wizardRoute: string;
   callToActionOptionRoute: string;
   uploadFileRoute: string;
+  projectLikes: string;
 }
 
 export const API_CONFIG: ApiConfig = {
@@ -40,5 +41,6 @@ export const API_CONFIG: ApiConfig = {
   embeddedProjectRoute: 'embed',
   wizardRoute: 'wizard',
   callToActionOptionRoute: 'callToActionOption',
-  uploadFileRoute: 'file'
+  uploadFileRoute: 'file',
+  projectLikes: 'project/like'
 };

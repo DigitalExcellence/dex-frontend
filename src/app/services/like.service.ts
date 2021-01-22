@@ -15,19 +15,28 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { API_CONFIG } from 'src/app/config/api-config';
-import { Highlight } from 'src/app/models/domain/highlight';
-import { HighlightAdd } from 'src/app/models/resources/highlight-add';
-import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
-import { HttpBaseService } from './http-base.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class HighlightService extends HttpBaseService<Highlight, HighlightAdd, HighlightUpdate> {
-  constructor(http: HttpClient) {
-    super(http, API_CONFIG.url + API_CONFIG.highlightRoute);
+
+export class LikeService {
+
+  protected readonly url = API_CONFIG.url + API_CONFIG.projectLikes;
+
+  constructor(
+      private http: HttpClient) { }
+
+  public likeProject(projectId: number): void {
+    this.http.post(`${this.url}/${projectId}`, {projectId: projectId})
+        .subscribe();
+  }
+
+  public removeLike(projectId: number): void {
+    this.http.delete(`${this.url}/${projectId}`)
+        .subscribe();
   }
 }

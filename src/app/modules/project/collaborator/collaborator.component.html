@@ -1,0 +1,11 @@
+<div class="collaborator-wrapper">
+  <div class="role">{{collaborator.role}}</div>
+  <div class="orange">
+    <div class="name">{{collaborator.fullName}}</div>
+    <ng-container *ngIf="isProduction()">
+      <div class="follow" (click)="onFollowClick(collaborator.id)">
+        <span>+</span>
+      </div>
+    </ng-container>
+  </div>
+</div>

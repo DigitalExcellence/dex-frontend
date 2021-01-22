@@ -14,8 +14,9 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { debounceTime, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -28,6 +29,10 @@ import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { DetailsComponent } from 'src/app/modules/project/details/details.component';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface SortFormResult {
   type: string;
@@ -40,9 +45,9 @@ interface SortFormResult {
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss'],
+  styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, AfterContentInit {
   /**
    * Array to receive and store the projects from the api.
    */
@@ -95,9 +100,9 @@ export class OverviewComponent implements OnInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    { id: 0, amountOnPage: 12 },
-    { id: 1, amountOnPage: 24 },
-    { id: 2, amountOnPage: 36 },
+    {id: 0, amountOnPage: 12},
+    {id: 1, amountOnPage: 24},
+    {id: 2, amountOnPage: 36},
   ];
 
   /**
@@ -115,46 +120,55 @@ export class OverviewComponent implements OnInit {
   public highlightFormControl: FormControl;
 
   public sortTypeSelectOptions: SelectFormOption[] = [
-    { value: 'updated', viewValue: 'Updated' },
-    { value: 'created', viewValue: 'Created' },
-    { value: 'name', viewValue: 'Name' }
+    {value: 'updated', viewValue: 'Updated'},
+    {value: 'created', viewValue: 'Created'},
+    {value: 'name', viewValue: 'Name'}
   ];
 
   public sortDirectionSelectOptions: SelectFormOption[] = [
-    { value: 'desc', viewValue: 'Descending' },
-    { value: 'asc', viewValue: 'Ascending' }
+    {value: 'desc', viewValue: 'Descending'},
+    {value: 'asc', viewValue: 'Ascending'}
   ];
 
   public highlightSelectOptions: SelectFormOption[] = [
-    { value: null, viewValue: 'All projects' },
-    { value: true, viewValue: 'Only highlighted' },
-    { value: false, viewValue: 'Only non highlighted' }
+    {value: null, viewValue: 'All projects'},
+    {value: true, viewValue: 'Only highlighted'},
+    {value: false, viewValue: 'Only non highlighted'}
   ];
 
   public displaySearchElements = false;
-
+  public currentOnlyHighlightedProjects: boolean = null;
+  public currentPage = 1;
+  /**
+   * Project parameter gets updated per project detail modal
+   */
+  public currentProject: Project = null;
   private searchSubject = new BehaviorSubject<string>(null);
-
   /**
    * Parameters for keeping track of the current internalSearch query values.
    */
   private currentSearchInput: string = null;
-
   private currentSortType: string = this.sortTypeSelectOptions[0].value;
-
   private currentSortDirection: string = this.sortDirectionSelectOptions[0].value;
+  /**
+   * Property to indicate whether the project is loading.
+   */
+  private projectLoading = true;
 
-  public currentOnlyHighlightedProjects: boolean = null;
 
-  public currentPage = 1;
+  private modalRef: BsModalRef;
+  private modalSubscriptions: Subscription[] = [];
 
   constructor(
-    private router: Router,
-    private paginationService: PaginationService,
-    private internalSearchService: InternalSearchService,
-    private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
-    private seoService: SEOService) {
+      private router: Router,
+      private paginationService: PaginationService,
+      private internalSearchService: InternalSearchService,
+      private formBuilder: FormBuilder,
+      private activatedRoute: ActivatedRoute,
+      private seoService: SEOService,
+      private modalService: BsModalService,
+      private location: Location,
+      private authService: AuthService) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -192,15 +206,15 @@ export class OverviewComponent implements OnInit {
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
-      .pipe(
-        debounceTime(500)
-      )
-      .subscribe((result) => {
-        if (result == null) {
-          return;
-        }
-        this.onInternalQueryChange();
-      });
+        .pipe(
+            debounceTime(500)
+        )
+        .subscribe((result) => {
+          if (result == null) {
+            return;
+          }
+          this.onInternalQueryChange();
+        });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
 
@@ -208,9 +222,7 @@ export class OverviewComponent implements OnInit {
 
     this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
-    // Updates meta and title tags
-    this.seoService.updateTitle('Project overview');
-    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
+    this.updateSEOTags();
 
 
     // Following two oberservables can be used in the feature to implement category & tags searching
@@ -221,6 +233,13 @@ export class OverviewComponent implements OnInit {
     // this.tagsForm.valueChanges.subscribe((tagFormResult: TagFormResult) => {
     //   console.log(tagFormResult);
     // });
+  }
+
+  ngAfterContentInit() {
+    this.activatedRoute.params.subscribe(params => {
+      const projectId = params.id?.split('-')[0];
+      this.createProjectModal(projectId);
+    });
   }
 
   /**
@@ -241,7 +260,6 @@ export class OverviewComponent implements OnInit {
     }
 
     this.currentSearchInput = value;
-
     this.searchSubject.next(value);
   }
 
@@ -259,7 +277,9 @@ export class OverviewComponent implements OnInit {
    */
   public onClickProject(id: number, name: string): void {
     name = name.split(' ').join('-');
-    this.router.navigate([`/project/details/${id}-${name}`]);
+
+    this.createProjectModal(id);
+    this.location.replaceState(`/project/details/${id}-${name}`);
   }
 
   /**
@@ -331,15 +351,15 @@ export class OverviewComponent implements OnInit {
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
       this.paginationService
-        .getProjectsPaginated(internalSearchQuery)
-        .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe((result) => this.handleSearchAndProjectResponse(result));
+          .getProjectsPaginated(internalSearchQuery)
+          .pipe(finalize(() => (this.projectsLoading = false)))
+          .subscribe((result) => this.handleSearchAndProjectResponse(result));
     } else {
       // Search query provided use searchService.
       this.internalSearchService
-        .getSearchResultsPaginated(internalSearchQuery)
-        .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe((result) => this.handleSearchAndProjectResponse(result));
+          .getSearchResultsPaginated(internalSearchQuery)
+          .pipe(finalize(() => (this.projectsLoading = false)))
+          .subscribe((result) => this.handleSearchAndProjectResponse(result));
     }
   }
 
@@ -348,6 +368,7 @@ export class OverviewComponent implements OnInit {
    */
   private handleSearchAndProjectResponse(response: SearchResultsResource): void {
     this.paginationResponse = response;
+
     this.projects = response.results;
     this.projectsToDisplay = response.results;
     this.totalNrOfProjects = response.totalCount;
@@ -357,5 +378,48 @@ export class OverviewComponent implements OnInit {
     } else {
       this.showPaginationFooter = true;
     }
+  }
+
+
+  /**
+   * Method to open the modal for a projects detail
+   * @param projectId the id of the project that should be shown.
+   */
+  private createProjectModal(projectId: number) {
+    if (projectId) {
+      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
+      this.modalRef.setClass('project-modal');
+
+      this.modalRef.content.onLike.subscribe(isLiked => {
+        const projectIndexToUpdate = this.projects.findIndex(project => project.id === projectId);
+        if (isLiked) {
+          this.projects[projectIndexToUpdate].likeCount++;
+          this.projects[projectIndexToUpdate].userHasLikedProject = true;
+        } else {
+          this.projects[projectIndexToUpdate].likeCount--;
+          this.projects[projectIndexToUpdate].userHasLikedProject = false;
+        }
+      });
+
+      // Go back to home page after the modal is closed
+      this.modalSubscriptions.push(
+          this.modalService.onHide.subscribe(() => {
+                if (this.location.path().startsWith('/project/details')) {
+                  this.location.replaceState('/project/overview');
+                  this.updateSEOTags();
+                }
+              }
+          ));
+    }
+  }
+
+
+  /**
+   * Methods to update the title and description through the SEO service
+   */
+  private updateSEOTags() {
+    // Updates meta and title tags
+    this.seoService.updateTitle('Project overview');
+    this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
   }
 }

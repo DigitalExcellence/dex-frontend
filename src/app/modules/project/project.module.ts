@@ -20,6 +20,7 @@ import { DetailsComponent } from './details/details.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { EditComponent } from './edit/edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,15 +28,19 @@ import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalHighlightDeleteComponent } from 'src/app/modules/project/modal-highlight-delete/modal-highlight-delete.component';
-import { ModalHighlightComponent } from 'src/app/modules/project/modal-highlight/modal-highlight.component';
+import { ModalHighlightFormComponent } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { QuillModule } from 'ngx-quill';
 import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { Meta } from '@angular/platform-browser';
+import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
+import { HighlightsModalComponent } from './highlights-modal/highlights-modal.component';
 import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
+import { NgxDebounceClickModule } from '@ngx-lite/debounce-click';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { CollaboratorComponent } from './collaborator/collaborator.component';
 
 @NgModule({
   declarations: [
@@ -44,11 +49,14 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project/proje
     EditComponent,
     EmbedButtonComponent,
     EmbedComponent,
-    ModalHighlightDeleteComponent,
-    ModalHighlightComponent,
-    FileUploaderComponent,
+    ModalHighlightFormComponent,
+    FormatDatePipe,
     DndDirective,
+    FileUploaderComponent,
     SafeHtmlPipe,
+    HighlightsModalComponent,
+    ProjectComponent,
+    CollaboratorComponent,
     ProjectComponent
   ],
   imports: [
@@ -60,12 +68,20 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project/proje
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     TooltipModule.forRoot(),
+    QuillModule,
+    NgxDebounceClickModule,
+    PopoverModule.forRoot(),
     QuillModule
   ],
+  entryComponents: [
+    DetailsComponent
+  ],
   exports: [
-      FileUploaderComponent
+    FileUploaderComponent
   ],
   providers: [Meta]
 })
-export class ProjectModule { }
+export class ProjectModule {
+}
