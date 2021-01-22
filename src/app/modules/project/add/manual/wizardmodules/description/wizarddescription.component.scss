@@ -19,17 +19,18 @@
  @import "assets/styles/variables";
  @import '~bs-stepper/dist/css/bs-stepper.min.css';
  
+ 
  .project-form {
    input,
    textarea {
      border: none;
      border-radius: 6px;
      box-shadow: 0px 3px 6px #0000001a;
-     height: 45px;
+     height: 38px;
      width: 100%;
-     margin-bottom: 25px;
      padding: 0px 15px;
    }
+   
  
    textarea {
      height: 250px;
@@ -171,23 +172,27 @@
  
  .step h2 {
    color: #9A9696;
+   font-size: 190%;
  }
  
  .title h2 {
    color: #000;
+   font-size: 180%;
  }
  
  .under-title h4 {
    color: #AEAEAE;
+   font-size: 70%;
  }
  
  .inputfield2 {
    margin-top: 3vw;
    margin-left: 7.5vw;
  }
+
  
- .inputfield button {
-   font-size: 95%;
+ .sideContent button {
+   font-size: 80%;
  }
 
  .inputfield input {

@@ -39,7 +39,6 @@ export class ProjectNameComponent implements OnInit {
         this.subscription.unsubscribe();
     }
 
-
     onSubmit() {
         return false;
     }

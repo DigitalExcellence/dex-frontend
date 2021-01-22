@@ -1,3 +1,4 @@
+import { Collaborator } from 'src/app/models/domain/collaborator';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -20,6 +21,11 @@ import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
 import { DataService } from "../../../data.service";
 
+import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
     selector: 'app-colab',
@@ -32,22 +38,30 @@ export class ColabComponent implements OnInit {
     subscription: Subscription;
     linkForm: FormControl;
 
-    constructor(private dataService: DataService) {
+
+    constructor(private dataService: DataService,
+        private formBuilder: FormBuilder,
+        private alertService: AlertService, ) {
+
         this.linkForm = new FormControl('');
+
+        this.newCollaboratorForm = this.formBuilder.group({
+            fullName: [null, Validators.required],
+            role: [null, Validators.required],
+        });
     }
 
     ngOnInit() {
         this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
             this.project = message;
             this.linkForm.patchValue(message.collaborators);
-            console.log("🧀 " + message.collaborators)
+            // console.log(message.collaborators)
         })
     }
 
-    onClickNextButton() {
-        this.project.collaborators = this.linkForm.value;
-        this.dataService.updateProject(this.project);
-    }
+    public newCollaboratorForm: FormGroup;
+    public collaborators: CollaboratorAdd[] = [];
+
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
@@ -57,5 +71,53 @@ export class ColabComponent implements OnInit {
     onSubmit() {
         return false;
     }
+
+    public onClickAddCollaborator(): void {
+        if (!this.newCollaboratorForm.valid) {
+            const alertConfig: AlertConfig = {
+                type: AlertType.danger,
+                preMessage: 'The add collaborator form is invalid',
+                mainMessage: 'Collaborator could not be added',
+                dismissible: true
+            };
+            this.alertService.pushAlert(alertConfig);
+            return;
+        }
+        const newCollaborator: CollaboratorAdd = this.newCollaboratorForm.value;
+        this.collaborators.push(newCollaborator);
+        // console.log(this.collaborators)
+        this.newCollaboratorForm.reset();
+    }
+
+    public onClickDeleteCollaborator(clickedCollaborator: CollaboratorAdd): void {
+        const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
+        if (index < 0) {
+            const alertConfig: AlertConfig = {
+                type: AlertType.danger,
+                mainMessage: 'Collaborator could not be removed',
+                dismissible: true
+            };
+            this.alertService.pushAlert(alertConfig);
+            return;
+        }
+        this.collaborators.splice(index, 1);
+    }
+
+    addIdToCollaborators() {
+        let i = 0;
+        this.collaborators.map(n => {
+            n['id'] = i;
+            i++;
+        })
+        this.onClickNextButton(this.collaborators);
+    }
+
+    onClickNextButton(collaborators) {
+        this.project.collaborators = collaborators;
+        this.dataService.updateProject(this.project);
+        console.log(collaborators);
+    }
+
+
 
 }

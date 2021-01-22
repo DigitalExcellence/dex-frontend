@@ -130,8 +130,8 @@
   left: 0;
   right: 0;
 
-  margin-left: 25vw;
-  margin-top: 6vw;
+  margin-left: 20vw;
+  margin-top: 3vw;
 
   z-index: 1000;
 
@@ -144,7 +144,8 @@
   margin: 20px;
   height: auto;
   border-radius: 5px;
-  width: 48vw;
+  width: 55vw;
+  // max-height: 45vw;
 }
 
 .wizard-background{
@@ -170,14 +171,17 @@ body.wizard-open {
 
 .step h2 {
   color: #9A9696;
+  font-size: 190%;
 }
 
 .title h2 {
   color: #000;
+  font-size: 180%;
 }
 
 .under-title h4 {
   color: #AEAEAE;
+  font-size: 70%;
 }
 
 .inputfield {
@@ -186,7 +190,7 @@ body.wizard-open {
 
 .inputfield button {
   margin-left: 40%;
-  font-size: 95%;
+  font-size: 80%;
 }
 
 .inputfield input {
@@ -226,3 +230,5 @@ body.wizard-open {
 .bs-stepper-content{
   margin-left: -5%;
 }
+
+

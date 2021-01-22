@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import Stepper from 'bs-stepper';
 import { Subscription } from 'rxjs';
@@ -35,7 +35,6 @@ import { FinalComponent } from 'src/app/modules/project/add/manual/wizardmodules
 import { ProjectNameComponent } from 'src/app/modules/project/add/manual/wizardmodules/name/wizardname.component';
 import { DescriptionComponent } from 'src/app/modules/project/add/manual/wizardmodules/description/wizarddescription.component';
 import { ColabComponent } from 'src/app/modules/project/add/manual/wizardmodules/colab/wizardcolab.component';
-
 
 import { AlertService } from 'src/app/services/alert.service';
 import { ProjectService } from 'src/app/services/project.service';
@@ -59,6 +58,30 @@ export class ManualComponent implements OnInit {
   component = 'link';
   projectMessage: Project;
   subscription: Subscription;
+
+
+  // uriForm: FormControl;
+  dataForm: FormControl;
+  // shortForm: FormControl;
+  // longForm: FormControl;
+  // collabForm: FormControl;
+
+
+  visibility = 'visible';
+  show = true;
+  hidden = false;
+
+  toggleShow() {
+    this.show = !this.show;
+  }
+
+  toggleHidden() {
+    this.hidden = !this.hidden;
+  }
+
+  toggleVisible() {
+    this.visibility = this.visibility == 'visible' ? 'hidden' : 'visible';
+  }
 
   /**
    * Formgroup for entering project details.
@@ -118,6 +141,16 @@ export class ManualComponent implements OnInit {
     // Keep updated with incoming messages;
     this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
       this.projectMessage = message;
+      console.log(message)
+
+      // this.uriForm.patchValue(message.uri);
+      this.dataForm.patchValue(message.name);
+      // this.shortForm.patchValue(message.shortDescription);
+      // this.longForm.patchValue(message.description);
+      // this.colabForm.patchValue(message.collaborators);
+
+
+      // this.subscription = this.data.currentMessage.subscribe(message => this.message = message)
     });
 
     this.wizardService.fetchedProject.subscribe(project => {
@@ -139,6 +172,11 @@ export class ManualComponent implements OnInit {
     // Updates meta and title tags
     this.seoService.updateTitle('Add new project');
     this.seoService.updateDescription('Create a new project in DeX');
+
+    // this.stepper = new Stepper(document.querySelector('#stepper'), {
+    //   linear: true,
+    //   animation: true
+    // })
   }
 
 
@@ -279,14 +317,13 @@ export class ManualComponent implements OnInit {
     else if (this.component === 'link') {
       // hide button on this page
     }
-    console.log("Next")
+    // this.stepper.next();
   }
 
   back(page: string) {
 
     if (this.component === 'link') {
       // hide button on this page
-
     }
 
     else if (this.component === 'name') {
@@ -311,8 +348,7 @@ export class ManualComponent implements OnInit {
       // this.stepper.next();
       this.component = 'colab';
     }
-    console.log("Back")
-
+    // this.stepper.back();
   }
 
   onSubmit() {

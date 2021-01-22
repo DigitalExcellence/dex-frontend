@@ -20,12 +20,12 @@
 
 <!-- Modal -->
 
-<div class="wizard-wrapper" id="wizard-modal">
+<div class="wizard-wrapper" id="wizard-modal" *ngIf="show" [hidden]="hidden" [style.visibility]="visibility">
   <div class="wizard">
-    <div class="wizard-body">
+    <div class=" wizard-body">
 
       <div class="stepper-box"></div>
-      <div id="stepper4" class="bs-stepper vertical linear">
+      <div id="stepper" class="bs-stepper vertical linear">
         <div class="bs-stepper-header" role="tablist">
           <div class="step active" data-target="#test-vl-1">
             <button type="button" class="step-trigger" role="tab" id="stepper4trigger1" aria-controls="test-vl-1"
@@ -77,36 +77,32 @@
         </div>
         <div class="bs-stepper-content">
           <div id="test-vl-1" role="tabpanel" class="bs-stepper-pane fade active dstepper-block"
-            aria-labelledby="stepper4trigger1">
-            <!-- <ng-container *ngComponentOutlet="dummyComponent"></ng-container> -->
+            aria-labelledby="stepper4trigger1" *ngIf="show" [hidden]="hidden" [style.visibility]="visibility">
             <ng-container *ngIf="component === 'link'">
               <app-link></app-link>
             </ng-container>
-
             <ng-container *ngIf="component === 'name'">
               <app-name></app-name>
             </ng-container>
-
             <ng-container *ngIf="component === 'description'">
               <app-description></app-description>
             </ng-container>
-
             <ng-container *ngIf="component === 'colab'">
               <app-colab></app-colab>
             </ng-container>
-
             <ng-container *ngIf="component === 'final'">
               <app-final></app-final>
             </ng-container>
-
             <div class="row" style="margin-top: 1vw">
               <button (click)="back('final')" class="btn btn-success" type="submit"
-                style="margin-left: 5vw">Back</button>
+                style="margin-left: 5vw; font-size: 80%;">Back</button>
 
-              <button (click)="next('final')" class="btn btn-success" style="margin-left: 25vw"
-                type="submit">Next</button>
+              <button (click)="toggleVisible()" class="btn btn-success" type="submit"
+                style="margin-left: 10vw; font-size: 80%;">Hide</button>
+
+              <button (click)="next('final')" class="btn btn-success" style="margin-left: 10vw;  font-size: 80%;"
+                type=" submit">Next</button>
             </div>
-
           </div>
         </div>
       </div>
@@ -133,7 +129,7 @@
 
     <div class="row justify-content-center">
       <div class="col-7 text-center info-box-add">
-        <p> <button class="btn btn-success" onclick="openWizard()">Open Wizard</button> </p>
+        <button class="btn btn-success" (click)="toggleVisible()">Open Wizard</button>
       </div>
     </div>
 
@@ -145,18 +141,19 @@
         <div class="col-12">
           <div>
             <h3>Project name*</h3>
-            <input placeholder="Name of your project" formControlName="name" required />
+            <input placeholder="Name of your project" formControlName="name" required [formControl]="dataForm"
+              value="{{projectMessage.name}}" />
           </div>
         </div>
       </div>
 
 
-      <div class="row">
+      <div class=" row">
         <div class="col-12">
           <div>
             <h3>Short description*</h3>
-            <input placeholder="Fill in a short description of your project" formControlName="shortDescription"
-              required />
+            <input placeholder="Fill in a short description of your project" formControlName="shortDescription" required
+              [formControl]="dataForm" value="{{projectMessage.shortDescription}}" />
           </div>
         </div>
       </div>
@@ -174,7 +171,7 @@
           <div class="long-description-editor">
             <h3>Description*</h3>
             <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
-              formControlName="description" placeholder="">
+              formControlName="description">
             </quill-editor>
           </div>
         </div>
@@ -198,7 +195,7 @@
         <div class="col-11">
           <div>
             <input placeholder="Link to your project, https://github.com/fontys/projectname" formControlName="uri"
-              required />
+              value="[[uri]]" required />
           </div>
         </div>
       </div>
