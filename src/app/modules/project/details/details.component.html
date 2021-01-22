@@ -135,6 +135,9 @@
           <div class='tab-content'>
             <ng-container *ngIf=" this.activeTab == 'description' " class="project-description large">
               <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
+              <ng-container *ngIf="displayCallToActionButton">
+                <button id="call-to-action-button" class="primary ml-2" (click)="onClickCallToActionButton(project.callToAction.value)">{{project.callToAction.optionValue}}</button>
+              </ng-container>
               <ng-container *ngIf="displayEmbedButton">
                 <app-embed-button [projectId]=project.id></app-embed-button>
               </ng-container>

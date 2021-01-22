@@ -17,10 +17,10 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
-import { CallToActionOption } from '../models/domain/call-to-action-option';
-import { CallToActionOptionAdd } from '../models/resources/calltoaction-add';
-import { CallToActionOptionUpdate } from '../models/resources/calltoaction-update';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
+import { CallToActionOptionAdd } from 'src/app/models/resources/calltoaction-add';
+import { CallToActionOptionUpdate } from 'src/app/models/resources/calltoaction-update';
 import { HttpBaseService } from './http-base.service';
 
 @Injectable({
