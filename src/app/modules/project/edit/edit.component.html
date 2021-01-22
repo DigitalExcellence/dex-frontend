@@ -90,29 +90,38 @@
           </div>
         </form>
 
-        <form [formGroup]="editCallToActionForm" class="project-form">
+        <ng-container *ngIf="callToActionOptions.length > 1">
+          <form [formGroup]="editCallToActionForm" class="project-form">
 
-          <div class="row">
-            <div class="col-12">
-              <h3>Call to action</h3>
-            </div>
-            <div class="col-6">
-              <div>
-                <h3>Text</h3>
-                <select [(ngModel)]="selectedCallToActionOption" class='form-control' [ngModelOptions]="{standalone: true}">
-                  <option *ngFor="let action of callToActionOptions" [ngValue]="action">{{action.value}}</option>
-                </select>
+            <div class="row">
+              <div class="col-12">
+                <h3 class="title-spacing">Call to action</h3>
+              </div>
+              <div class="col-6">
+                <div>
+                  <h3>Text</h3>
+                  <select [(ngModel)]="selectedCallToActionOption" class='form-control' [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let action of callToActionOptions" [ngValue]="action">{{action.value}}</option>
+                  </select>
+                </div>
+              </div>
+      
+              <div class="col-6">
+                <div>
+                  <h3>Link</h3>
+                  <input [(ngModel)]="callToActionRedirectUrl" [ngModelOptions]="{standalone: true}" [disabled]="selectedCallToActionOption.id <= 0"/>
+                </div>
               </div>
             </div>
-    
-            <div class="col-6">
-              <div>
-                <h3>Link</h3>
-                <input [(ngModel)]="callToActionRedirectUrl" [ngModelOptions]="{standalone: true}" [disabled]="selectedCallToActionOption.id <= 0"/>
+            <div class="row">
+              <div class="col-12">
+                <div>
+                  <p class="form-footnote">Select the type of call to action button you want for your project.</p>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </ng-container>
 
         <form [formGroup]="editCollaboratorForm" class="project-form">
           <div class="row">
