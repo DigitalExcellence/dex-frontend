@@ -249,6 +249,12 @@
             color: $accent-color-red-primary;
           }
         }
+        .fas.fa-heart.animated {
+          animation: heartbeat .4s linear 1;
+        }
+        .far.fa-heart.animated {
+          animation: fade-in .2s ease-in 1;
+        }
       }
     }
   }
