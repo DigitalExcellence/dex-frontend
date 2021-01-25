@@ -18,142 +18,213 @@
  */
 @import "assets/styles/variables";
 
-.project-list-header {
-  width: 100%;
-  margin: 5em 0 2em 0;
-  display: inline-flex;
-  justify-content: space-between;
-  align-content: center;
-
-  h1 {
-    display: inline;
-  }
-  .list-view-toggle {
-    display: flex;
-    margin: auto 0 auto 0;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-left: 20px;
-    justify-content: flex-end;
-
-    .container {
-      box-shadow: $box-shadow;
-      display: inline;
-      position: relative;
-      cursor: pointer;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      padding: 0;
-      width: fit-content;
-      margin: 0;
-      height: fit-content;
-    }
-
-    // Hide the default radio button
-    .container input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      height: 0;
-      width: 0;
-    }
-
-    // Create custom radio button
-    .checkmark {
-      height: 40px;
-      width: 40px;
-      padding: 10px;
-      border-radius: 5px;
-      background-color: $white;
-      color: $accent-color-red-primary;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform $transition-short;
-
-      &:hover {
-        transform: $transform-grow-big;
-      }
-      svg {
-        size: inherit;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-      }
-    }
-  }
-
-  // If the sibling input is checked
-  .container input[type="radio"]:checked ~ .checkmark {
-    color: $light-mode-grey-quaternary;
-    background: $accent-color-red-primary;
-  }
-}
-
-.search {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 25px;
-
-  input[type="search"] {
-    position: relative;
+.projects-overview-wrapper {
+  padding: 0 5vw;
+  
+  .project-list-header {
     width: 100%;
-    padding: 8px 20px;
-    font-size: 18px;
-    height: 60px;
-    color: $light-mode-grey-primary;
-    border: none;
-    background: $white;
-    box-shadow: $box-shadow;
-    border-radius: 6px;
-    font-family: lato, sans-serif;
+    margin: 2em 0;
+    display: inline-flex;
+    justify-content: space-between;
+    align-content: center;
 
-    &::placeholder {
-      color: $light-mode-grey-primary;
+    h1 {
+      display: inline;
+    }
+    .list-view-toggle {
+      display: flex;
+      margin: auto 0 auto 0;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-left: 20px;
+      justify-content: flex-end;
+
+      .container {
+        box-shadow: $box-shadow;
+        display: inline;
+        position: relative;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        padding: 0;
+        width: fit-content;
+        margin: 0;
+        height: fit-content;
+      }
+
+      // Hide the default radio button
+      .container input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      // Create custom radio button
+      .checkmark {
+        height: 40px;
+        width: 40px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: $white;
+        color: $accent-color-red-primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform $transition-short;
+
+        &:hover {
+          transform: $transform-grow-big;
+        }
+        svg {
+          size: inherit;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+        }
+      }
     }
 
-    &:focus {
-      border: none;
-      outline: none;
+    // If the sibling input is checked
+    .container input[type="radio"]:checked ~ .checkmark {
+      color: $light-mode-grey-quaternary;
+      background: $accent-color-red-primary;
     }
   }
 
-  button {
-    position: relative;
-    right: 55px;
-    height: auto;
-    cursor: pointer;
-    background: none;
-    border: none;
-    width: 0;
-    padding: 0;
+  .search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
 
-    &:focus {
-      outline: none;
+    input[type="search"] {
+      position: relative;
+      width: 100%;
+      padding: 8px 20px;
+      font-size: 18px;
+      height: 60px;
+      color: $light-mode-grey-primary;
+      border: none;
+      background: $white;
+      box-shadow: $box-shadow;
+      border-radius: 6px;
+      font-family: lato, sans-serif;
+
+      &::placeholder {
+        color: $light-mode-grey-primary;
+      }
+
+      &:focus {
+        border: none;
+        outline: none;
+      }
     }
 
-    img {
-      width: 25px;
-      transition: transform $transition-long;
-      &:hover {
-        transform: $transform-rotate;
+    button {
+      position: relative;
+      right: 55px;
+      height: auto;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 0;
+      padding: 0;
+
+      &:focus {
+        outline: none;
+      }
+
+      img {
+        width: 25px;
+        transition: transform $transition-long;
+        &:hover {
+          transform: $transform-rotate;
+        }
       }
     }
   }
-}
 
-.project-list-wrapper {
-  width: 100%;
-  display: grid;
-  gap: 15px;
-  margin-bottom: 35px;
+  .project-list-wrapper {
+    width: 100%;
+    display: grid;
+    gap: 15px;
+    margin-bottom: 35px;
 
-  &.grid {
-    gap: 25px;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    &.grid {
+      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+
+  .pagination-div {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination-footer::ng-deep {
+    flex-wrap: wrap;
+
+    .pagination-next,
+    .pagination-prev {
+      max-width: 35px;
+      overflow: hidden;
+    }
+  }
+
+  .pagination-footer::ng-deep .page-link {
+    z-index: 1;
+    color: $light-mode-black;
+    height: 35px;
+    display: flex;
+    align-items: center;
+  }
+
+  .pagination-footer::ng-deep .page-item.active .page-link {
+    border-color: $accent-color-red-primary;
+    background-color: $accent-color-red-primary !important;
+    color: #ffffff;
+  }
+
+  .paginationDropDown {
+    width: 80px;
+  }
+
+  .pagination-footer {
+    li {
+      height: 35px;
+      width: 35px;
+    }
+    a {
+      height: 35px;
+      width: 35px;
+    }
+    img {
+      width: 100%;
+    }
+    .chevron-right {
+      margin-top: 1px;
+      transform: rotateZ(270deg);
+    }
+    .chevron-left {
+      margin-top: 1px;
+      transform: rotateZ(90deg);
+    }
+    .disabled {
+      opacity: 0.3;
+    }
+  }
+
+  .paginationDropDown {
+    width: 80px;
+  }
+
+  .loading-circle {
+    color: $accent-color-red-primary;
   }
 }
 
@@ -208,97 +279,4 @@
       outline: 0;
     }
   }
-}
-
-:host {
-  ::ng-deep accordion-group {
-    margin-top: 10px;
-    .card-header {
-      background: url("~src/assets/images/chevron-down-solid-orange.svg") no-repeat center right;
-      padding: 0;
-      border: none;
-      background-size: 13px;
-      button {
-        padding: 0;
-        color: $light-mode-grey-primary;
-        font-size: 18px;
-      }
-    }
-    .card {
-      border: none;
-    }
-    .card-body {
-      margin-top: 10px;
-      background: $light-mode-grey-quaternary;
-      border-radius: 6px;
-      padding: 5px 10px;
-    }
-  }
-}
-
-.pagination-div {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.pagination-footer::ng-deep {
-  flex-wrap: wrap;
-
-  .pagination-next,
-  .pagination-prev {
-    max-width: 35px;
-    overflow: hidden;
-  }
-}
-
-.pagination-footer::ng-deep .page-link {
-  z-index: 1;
-  color: $light-mode-black;
-  height: 35px;
-  display: flex;
-  align-items: center;
-}
-
-.pagination-footer::ng-deep .page-item.active .page-link {
-  border-color: $accent-color-red-primary;
-  background-color: $accent-color-red-primary !important;
-  color: #ffffff;
-}
-
-.paginationDropDown {
-  width: 80px;
-}
-
-.pagination-footer {
-  li {
-    height: 35px;
-    width: 35px;
-  }
-  a {
-    height: 35px;
-    width: 35px;
-  }
-  img {
-    width: 100%;
-  }
-  .chevron-right {
-    margin-top: 1px;
-    transform: rotateZ(270deg);
-  }
-  .chevron-left {
-    margin-top: 1px;
-    transform: rotateZ(90deg);
-  }
-  .disabled {
-    opacity: 0.3;
-  }
-}
-
-.paginationDropDown {
-  width: 80px;
-}
-
-.loading-circle {
-  color: $accent-color-red-primary;
 }
