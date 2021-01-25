@@ -100,9 +100,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    {id: 0, amountOnPage: 12},
-    {id: 1, amountOnPage: 24},
-    {id: 2, amountOnPage: 36},
+    { id: 0, amountOnPage: 12 },
+    { id: 1, amountOnPage: 24 },
+    { id: 2, amountOnPage: 36 },
   ];
 
   /**
@@ -120,20 +120,20 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   public highlightFormControl: FormControl;
 
   public sortTypeSelectOptions: SelectFormOption[] = [
-    {value: 'updated', viewValue: 'Updated'},
-    {value: 'created', viewValue: 'Created'},
-    {value: 'name', viewValue: 'Name'}
+    { value: 'updated', viewValue: 'Updated' },
+    { value: 'created', viewValue: 'Created' },
+    { value: 'name', viewValue: 'Name' }
   ];
 
   public sortDirectionSelectOptions: SelectFormOption[] = [
-    {value: 'desc', viewValue: 'Descending'},
-    {value: 'asc', viewValue: 'Ascending'}
+    { value: 'desc', viewValue: 'Descending' },
+    { value: 'asc', viewValue: 'Ascending' }
   ];
 
   public highlightSelectOptions: SelectFormOption[] = [
-    {value: null, viewValue: 'All projects'},
-    {value: true, viewValue: 'Only highlighted'},
-    {value: false, viewValue: 'Only non highlighted'}
+    { value: null, viewValue: 'All projects' },
+    { value: true, viewValue: 'Only highlighted' },
+    { value: false, viewValue: 'Only non highlighted' }
   ];
 
   public displaySearchElements = false;
@@ -160,15 +160,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private modalSubscriptions: Subscription[] = [];
 
   constructor(
-      private router: Router,
-      private paginationService: PaginationService,
-      private internalSearchService: InternalSearchService,
-      private formBuilder: FormBuilder,
-      private activatedRoute: ActivatedRoute,
-      private seoService: SEOService,
-      private modalService: BsModalService,
-      private location: Location,
-      private authService: AuthService) {
+    private router: Router,
+    private paginationService: PaginationService,
+    private internalSearchService: InternalSearchService,
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private seoService: SEOService,
+    private modalService: BsModalService,
+    private location: Location,
+    private authService: AuthService) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -206,15 +206,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
-        .pipe(
-            debounceTime(500)
-        )
-        .subscribe((result) => {
-          if (result == null) {
-            return;
-          }
-          this.onInternalQueryChange();
-        });
+      .pipe(
+        debounceTime(500)
+      )
+      .subscribe((result) => {
+        if (result == null) {
+          return;
+        }
+        this.onInternalQueryChange();
+      });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
 
@@ -351,15 +351,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
       this.paginationService
-          .getProjectsPaginated(internalSearchQuery)
-          .pipe(finalize(() => (this.projectsLoading = false)))
-          .subscribe((result) => this.handleSearchAndProjectResponse(result));
+        .getProjectsPaginated(internalSearchQuery)
+        .pipe(finalize(() => (this.projectsLoading = false)))
+        .subscribe((result) => this.handleSearchAndProjectResponse(result));
     } else {
       // Search query provided use searchService.
       this.internalSearchService
-          .getSearchResultsPaginated(internalSearchQuery)
-          .pipe(finalize(() => (this.projectsLoading = false)))
-          .subscribe((result) => this.handleSearchAndProjectResponse(result));
+        .getSearchResultsPaginated(internalSearchQuery)
+        .pipe(finalize(() => (this.projectsLoading = false)))
+        .subscribe((result) => this.handleSearchAndProjectResponse(result));
     }
   }
 
@@ -387,7 +387,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    */
   private createProjectModal(projectId: number) {
     if (projectId) {
-      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
+      this.modalRef = this.modalService.show(DetailsComponent, { animated: true, initialState: { projectId: projectId } });
       this.modalRef.setClass('project-modal');
 
       this.modalRef.content.onLike.subscribe(isLiked => {
@@ -403,13 +403,13 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
       // Go back to home page after the modal is closed
       this.modalSubscriptions.push(
-          this.modalService.onHide.subscribe(() => {
-                if (this.location.path().startsWith('/project/details')) {
-                  this.location.replaceState('/project/overview');
-                  this.updateSEOTags();
-                }
-              }
-          ));
+        this.modalService.onHide.subscribe(() => {
+          if (this.location.path().startsWith('/project/details')) {
+            this.location.replaceState('/project/overview');
+            this.updateSEOTags();
+          }
+        }
+        ));
     }
   }
 
@@ -421,5 +421,22 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     // Updates meta and title tags
     this.seoService.updateTitle('Project overview');
     this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
+  }
+
+
+  public tagClicked(event) {
+    if (event.target.className === 'tag clicked') {
+      event.target.className = 'tag';
+    } else {
+      event.target.className = 'tag clicked';
+    }
+    event.stopPropagation();
+  }
+  /**
+ * Method to display the tags based on the environment variable.
+ * Tags should be hidden in production for now until further implementation is finished.
+ */
+  public displayTags(): boolean {
+    return !environment.production;
   }
 }

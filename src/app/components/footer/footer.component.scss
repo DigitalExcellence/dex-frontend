@@ -28,6 +28,8 @@ footer {
   color: #fff;
   box-shadow: 0px -3px 6px #00000029;
   background-color: #ffffff;
+  position: absolute; //needed to apply z-index
+  z-index: 1; //put footer on top
 
   .title {
     img {
