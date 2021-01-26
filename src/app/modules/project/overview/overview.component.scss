@@ -233,9 +233,6 @@
   margin: -24px 24px -64px -24px; // override padding from parent element & footer
   padding: 48px 24px;
   background-color: white;
-  .projects-filter {
-    position: sticky;
-  }
   .divider {
     border-bottom: 1px solid $light-mode-grey-thertiary;
   }
@@ -243,6 +240,7 @@
     padding: 24px 12px;
     display: flex;
     flex-direction: column;
+    color: $light-mode-grey-primary;
     h4 {
       color: $light-mode-grey-primary;
     }
@@ -270,9 +268,11 @@
     }
     select {
       padding: 4px;
+      margin-bottom: 8px;
       border-radius: 3px;
       background-color: $light-mode-grey-thertiary;
       border: 0px;
+      color: $light-mode-black;
     }
     select,
     option {

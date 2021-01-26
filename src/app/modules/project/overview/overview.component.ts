@@ -423,15 +423,18 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
   }
 
-
+  /**
+ * Method to make tags change appearance on clicking. 
+ * further implementation is still pending.
+ */
   public tagClicked(event) {
     if (event.target.className === 'tag clicked') {
       event.target.className = 'tag';
     } else {
       event.target.className = 'tag clicked';
     }
-    event.stopPropagation();
   }
+
   /**
  * Method to display the tags based on the environment variable.
  * Tags should be hidden in production for now until further implementation is finished.
