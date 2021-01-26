@@ -23,5 +23,6 @@ export interface AlertConfig {
     preMessage?: string;
     mainMessage: string;
     dismissible?: boolean;
+    autoDismiss?: boolean;
     timeout?: number;
 }

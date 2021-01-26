@@ -131,11 +131,23 @@
             <h3>Collaborators</h3>
           </div>
 
-          <div *ngFor="let collaborator of collaborators" class="col-5 collaborator-item">
+          <div *ngFor="let collaborator of collaborators; index as i" class="col-5 collaborator-item">
             <button type="button" class="btn btn-icon btn-danger" aria-label="error"
               (click)="onClickDeleteCollaborator(collaborator)"> <span aria-hidden="true"> &times; </span>
             </button>
-            <p class="collaborator-text large"><strong>{{collaborator?.fullName}}</strong>- {{collaborator?.role}}</p>
+            
+              <div class="collaborator-text-container w-100">
+
+                <div>
+                  <p class="collaborator-text large font-weight-bold" [tooltip]="collaborator?.fullName" delay="300">{{collaborator?.fullName}}</p>
+                </div>
+                <p class="collaborator-text large dash">-</p>
+                <div>
+                  <p class="collaborator-text large" [tooltip]="collaborator?.role" delay="300">{{collaborator?.role}}</p>
+                </div>     
+
+              </div>
+            
             <hr class="dashed">
           </div>
         </div>

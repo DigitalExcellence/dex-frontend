@@ -238,6 +238,11 @@
           white-space: nowrap;
           text-overflow: ellipsis;
         }
+        .project-user-name {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
         i {
           justify-self: center;
           color: $light-mode-black;
