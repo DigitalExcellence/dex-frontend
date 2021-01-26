@@ -37,6 +37,11 @@ export class ProjectComponent {
   @Input() showListView: boolean;
   @Input() project: Project;
 
+  /**
+   * Boolean to trigger animation only after first click and not on page load.
+   */
+  public animationTriggered = false;
+
   constructor(
       private fileRetrieverService: FileRetrieverService,
       private likeService: LikeService,
@@ -71,9 +76,11 @@ export class ProjectComponent {
       if (!this.project.userHasLikedProject) {
         this.likeService.likeProject(this.project.id);
         this.project.likeCount++;
+        this.animationTriggered = true;
       } else {
         this.likeService.removeLike(this.project.id);
         this.project.likeCount--;
+        this.animationTriggered = true;
       }
       this.project.userHasLikedProject = !this.project.userHasLikedProject;
     } else {

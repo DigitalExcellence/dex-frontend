@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added functionality to like projects [#389](https://github.com/DigitalExcellence/dex-frontend/issues/389)
 - Added update highlight functionality - [#294](https://github.com/DigitalExcellence/dex-frontend/issues/294)
 - Added animations on clickable items and while project pages are loading - [#321](https://github.com/DigitalExcellence/dex-frontend/issues/321)
+- Added animations when user likes (or unlikes) a project - [#414](https://github.com/DigitalExcellence/dex-frontend/issues/414)
 
 - Added the option to add a Call-To-Action button to a project - [#267](https://github.com/DigitalExcellence/dex-frontend/issues/267)
 
