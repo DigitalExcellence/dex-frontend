@@ -282,3 +282,14 @@
     }
   }
 }
+
+// simple styles for filters on smaller screens 
+@include media-breakpoint-down(sm) {
+  .projects-filter-wrapper{
+    width: 100vw;
+    margin: -24px;
+    height: auto;
+    position: relative;
+  }
+}
+
