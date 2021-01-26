@@ -20,7 +20,6 @@
 
 .projects-overview-wrapper {
   padding: 0 5vw;
-  
   .project-list-header {
     width: 100%;
     margin: 2em 0;
@@ -230,6 +229,9 @@
 
 .projects-filter-wrapper {
   min-width: 250px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
   margin: -24px 24px -64px -24px; // override padding from parent element & footer
   padding: 48px 24px;
   background-color: white;
