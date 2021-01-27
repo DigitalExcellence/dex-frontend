@@ -111,12 +111,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   public tagsForm: FormGroup;
 
   public sortSelectOptions: SelectFormOption[] = [
-    { value: 'updated,asc', viewValue: 'Updated Ascending' },
-    { value: 'updated,desc', viewValue: 'Updated Descending' },
-    { value: 'created,asc', viewValue: 'Created Ascending' },
-    { value: 'created,desc', viewValue: 'Created Descending' },
-    { value: 'name,asc', viewValue: 'Name Ascending' },
-    { value: 'name,desc', viewValue: 'Name Descending' }
+    { value: 'updated,desc', viewValue: 'Updated (new-old)' },
+    { value: 'updated,asc', viewValue: 'Updated (old-new)' },
+    { value: 'name,asc', viewValue: 'Name (a-z)' },
+    { value: 'name,desc', viewValue: 'Name (z-a)' },
+    { value: 'created,desc', viewValue: 'Created (new-old)' },
+    { value: 'created,asc', viewValue: 'Created (old-new)' },
   ];
 
   public displaySearchElements = false;
@@ -131,8 +131,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    */
   private currentSearchInput: string = null;
   private currentSortOptions: string = this.sortSelectOptions[0].value;
-  private currentSortType: string = this.currentSortOptions.split(",")[0];
-  private currentSortDirection: string = this.currentSortOptions.split(",")[1];
+  private currentSortType: string = this.currentSortOptions.split(',')[0];
+  private currentSortDirection: string = this.currentSortOptions.split(',')[1];
   /**
    * Property to indicate whether the project is loading.
    */

@@ -33,22 +33,15 @@
           <div (click)="tagClicked($event)" class='tag clicked'>HTML</div>
         </div>
       </div>
-      <div class="divider"*ngIf="displayTags()"></div>
+      <div class="divider" *ngIf="displayTags()"></div>
       <div class="filter-group">
         <h4>Sort Options</h4>
         <form class="sort-options-form">
-<!--          <label for="sort-type">Sort type</label>-->
-<!--          <select class='option-select' formControlName="type" id="sort-type">-->
-<!--            <option *ngFor="let sortTypeOption of sortTypeSelectOptions" [value]="sortTypeOption.value">-->
-<!--              {{sortTypeOption.viewValue}}-->
-<!--            </option>-->
-<!--          </select>-->
-
           <label for="asc-desc">Sort options</label>
           <select class='option-select' #sortForm id="asc-desc" (change)="onSortFormValueChange(sortForm.value)">
-              <option *ngFor="let sortOption of sortSelectOptions" [value]="sortOption.value">
-                {{sortOption.viewValue}}
-              </option>
+            <option *ngFor="let sortOption of sortSelectOptions" [value]="sortOption.value">
+              {{sortOption.viewValue}}
+            </option>
           </select>
         </form>
       </div>
