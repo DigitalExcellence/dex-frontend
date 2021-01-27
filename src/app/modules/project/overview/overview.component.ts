@@ -284,8 +284,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     if (value == null) {
       return;
     }
-    this.currentSortType = value.split(",")[0];
-    this.currentSortDirection = value.split(",")[1];
+    this.currentSortType = value.split(',')[0];
+    this.currentSortDirection = value.split(',')[1];
     console.log(`value.type: ${this.currentSortType}`);
     console.log(`value.direction: ${this.currentSortDirection}`);
     this.onInternalQueryChange();
