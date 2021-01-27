@@ -283,7 +283,7 @@
   }
 }
 
-// simple styles for filters on smaller screens 
+// simple styles for filter-bar on smaller screens 
 @include media-breakpoint-down(sm) {
   .projects-filter-wrapper{
     width: 100vw;

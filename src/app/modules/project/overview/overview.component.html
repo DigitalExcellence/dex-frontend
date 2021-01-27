@@ -33,7 +33,7 @@
           <div (click)="tagClicked($event)" class='tag clicked'>HTML</div>
         </div>
       </div>
-      <div class="divider"></div>
+      <div class="divider"*ngIf="displayTags()"></div>
       <div class="filter-group">
         <h4>Sort Options</h4>
         <form [formGroup]="sortForm" class="sort-options-form">
