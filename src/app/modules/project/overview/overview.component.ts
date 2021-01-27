@@ -34,11 +34,6 @@ import { DetailsComponent } from 'src/app/modules/project/details/details.compon
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
-interface SortFormResult {
-  type: string;
-  direction: string;
-}
-
 /**
  * Overview of all the projects
  */
@@ -115,29 +110,16 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    */
   public tagsForm: FormGroup;
 
-  public sortForm: FormGroup;
-
-  public highlightFormControl: FormControl;
-
-  public sortTypeSelectOptions: SelectFormOption[] = [
-    { value: 'updated', viewValue: 'Updated' },
-    { value: 'created', viewValue: 'Created' },
-    { value: 'name', viewValue: 'Name' }
-  ];
-
-  public sortDirectionSelectOptions: SelectFormOption[] = [
-    { value: 'desc', viewValue: 'Descending' },
-    { value: 'asc', viewValue: 'Ascending' }
-  ];
-
-  public highlightSelectOptions: SelectFormOption[] = [
-    { value: null, viewValue: 'All projects' },
-    { value: true, viewValue: 'Only highlighted' },
-    { value: false, viewValue: 'Only non highlighted' }
+  public sortSelectOptions: SelectFormOption[] = [
+    { value: 'updated,asc', viewValue: 'Updated Ascending' },
+    { value: 'updated,desc', viewValue: 'Updated Descending' },
+    { value: 'created,asc', viewValue: 'Created Ascending' },
+    { value: 'created,desc', viewValue: 'Created Descending' },
+    { value: 'name,asc', viewValue: 'Name Ascending' },
+    { value: 'name,desc', viewValue: 'Name Descending' }
   ];
 
   public displaySearchElements = false;
-  public currentOnlyHighlightedProjects: boolean = null;
   public currentPage = 1;
   /**
    * Project parameter gets updated per project detail modal
@@ -148,8 +130,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * Parameters for keeping track of the current internalSearch query values.
    */
   private currentSearchInput: string = null;
-  private currentSortType: string = this.sortTypeSelectOptions[0].value;
-  private currentSortDirection: string = this.sortDirectionSelectOptions[0].value;
+  private currentSortOptions: string = this.sortSelectOptions[0].value;
+  private currentSortType: string = this.currentSortOptions.split(",")[0];
+  private currentSortDirection: string = this.currentSortOptions.split(",")[1];
   /**
    * Property to indicate whether the project is loading.
    */
@@ -185,14 +168,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       ux: false
     });
 
-    this.sortForm = this.formBuilder.group({
-      type: this.sortTypeSelectOptions[0].value,
-      direction: this.sortDirectionSelectOptions[0].value
-    });
-
-    // Initialize with index value of 0 to by default select the first select option.
-    this.highlightFormControl = this.formBuilder.control(0);
-
     if (!environment.production) {
       this.displaySearchElements = true;
     }
@@ -217,10 +192,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
-
-    this.sortForm.valueChanges.subscribe((value) => this.onSortFormValueChange(value));
-
-    this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
     this.updateSEOTags();
 
@@ -309,27 +280,14 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * Method to handle value changes of the sort form.
    * @param value the value of the form.
    */
-  private onSortFormValueChange(value: SortFormResult): void {
-    if (value == null || value.type == null || value.type === 'null') {
+  private onSortFormValueChange(value: string): void {
+    if (value == null) {
       return;
     }
-    this.currentSortType = value.type;
-    this.currentSortDirection = value.direction;
-    this.onInternalQueryChange();
-  }
-
-  /**
-   * Method to handle the value changes of the highlight form.
-   * @param value the value of the highlight form.
-   */
-  private onHighlightFormValueChanges(value: number): void {
-    // Case the value since for some reason it is always returned as a string.
-    const convertedIndex = +value;
-    const foundOption = this.highlightSelectOptions[convertedIndex];
-    if (foundOption == null) {
-      return;
-    }
-    this.currentOnlyHighlightedProjects = foundOption.value;
+    this.currentSortType = value.split(",")[0];
+    this.currentSortDirection = value.split(",")[1];
+    console.log(`value.type: ${this.currentSortType}`);
+    console.log(`value.direction: ${this.currentSortDirection}`);
     this.onInternalQueryChange();
   }
 
@@ -345,7 +303,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,
-      highlighted: this.currentOnlyHighlightedProjects,
     };
 
     if (internalSearchQuery.query == null) {
@@ -424,7 +381,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   }
 
   /**
- * Method to make tags change appearance on clicking. 
+ * Method to make tags change appearance on clicking.
  * further implementation is still pending.
  */
   public tagClicked(event) {

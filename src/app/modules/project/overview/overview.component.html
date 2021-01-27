@@ -36,19 +36,19 @@
       <div class="divider"*ngIf="displayTags()"></div>
       <div class="filter-group">
         <h4>Sort Options</h4>
-        <form [formGroup]="sortForm" class="sort-options-form">
-          <label for="sort-type">Sort type</label>
-          <select class='option-select' formControlName="type" id="sort-type">
-            <option *ngFor="let sortTypeOption of sortTypeSelectOptions" [value]="sortTypeOption.value">
-              {{sortTypeOption.viewValue}}
-            </option>
-          </select>
+        <form class="sort-options-form">
+<!--          <label for="sort-type">Sort type</label>-->
+<!--          <select class='option-select' formControlName="type" id="sort-type">-->
+<!--            <option *ngFor="let sortTypeOption of sortTypeSelectOptions" [value]="sortTypeOption.value">-->
+<!--              {{sortTypeOption.viewValue}}-->
+<!--            </option>-->
+<!--          </select>-->
 
-          <label for="asc-desc">Sort direction</label>
-          <select class='option-select' formControlName="direction" id="asc-desc">
-            <option *ngFor="let sortDirectionOption of sortDirectionSelectOptions" [value]="sortDirectionOption.value">
-              {{sortDirectionOption.viewValue}}
-            </option>
+          <label for="asc-desc">Sort options</label>
+          <select class='option-select' #sortForm id="asc-desc" (change)="onSortFormValueChange(sortForm.value)">
+              <option *ngFor="let sortOption of sortSelectOptions" [value]="sortOption.value">
+                {{sortOption.viewValue}}
+              </option>
           </select>
         </form>
       </div>
