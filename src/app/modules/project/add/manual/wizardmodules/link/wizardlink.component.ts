@@ -25,7 +25,6 @@ export class LinkComponent implements OnInit {
     this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
       this.project = message;
       this.linkForm.patchValue(message.uri);
-      console.log(message.uri)
     })
   }
 

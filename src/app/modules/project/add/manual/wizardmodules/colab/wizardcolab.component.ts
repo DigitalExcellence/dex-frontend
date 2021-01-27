@@ -1,4 +1,3 @@
-import { Collaborator } from 'src/app/models/domain/collaborator';
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -55,7 +54,8 @@ export class ColabComponent implements OnInit {
         this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
             this.project = message;
             this.linkForm.patchValue(message.collaborators);
-            // console.log(message.collaborators)
+
+            if (message.collaborators.length > 1) { this.collaborators = message.collaborators; }
         })
     }
 
@@ -85,7 +85,6 @@ export class ColabComponent implements OnInit {
         }
         const newCollaborator: CollaboratorAdd = this.newCollaboratorForm.value;
         this.collaborators.push(newCollaborator);
-        // console.log(this.collaborators)
         this.newCollaboratorForm.reset();
     }
 
@@ -115,7 +114,6 @@ export class ColabComponent implements OnInit {
     onClickNextButton(collaborators) {
         this.project.collaborators = collaborators;
         this.dataService.updateProject(this.project);
-        console.log(collaborators);
     }
 
 

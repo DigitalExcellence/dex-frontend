@@ -25,54 +25,55 @@
     <div class=" wizard-body">
 
       <div class="stepper-box"></div>
-      <div id="stepper" class="bs-stepper vertical linear">
+
+
+      <div id="stepper1" class="bs-stepper vertical linear">
         <div class="bs-stepper-header" role="tablist">
-          <div class="step active" data-target="#test-vl-1">
-            <button type="button" class="step-trigger" role="tab" id="stepper4trigger1" aria-controls="test-vl-1"
-              aria-selected="true">
+          <div class="step active" id="step1">
+            <button type="button" class="step-trigger" role="tab" aria-selected="true">
               <span class="bs-stepper-circle">1</span>
             </button>
           </div>
 
           <div class="bs-stepper-line"></div>
-          <div class="step" data-target="#test-vl-2">
-            <button type="button" class="step-trigger" role="tab" id="stepper4trigger2" aria-controls="test-vl-2"
-              aria-selected="false" disabled="disabled">
+          <div class="step" id="step2">
+            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-2"
+              aria-selected="false">
               <span class="bs-stepper-circle">2</span>
             </button>
           </div>
 
           <div class="bs-stepper-line"></div>
-          <div class="step" data-target="#test-vl-3">
-            <button type="button" class="step-trigger" role="tab" id="stepper4trigger3" aria-controls="test-vl-3"
-              aria-selected="false" disabled="disabled">
+          <div class="step" id="step3">
+            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-3"
+              aria-selected="false">
               <span class="bs-stepper-circle">3</span>
             </button>
           </div>
 
           <div class="bs-stepper-line"></div>
-          <div class="step" data-target="#test-vl-4">
-            <button type="button" class="step-trigger" role="tab" id="stepper4trigger4" aria-controls="test-vl-4"
-              aria-selected="false" disabled="disabled">
+          <div class="step" id="step4">
+            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-4"
+              aria-selected="false">
               <span class="bs-stepper-circle">4</span>
             </button>
           </div>
 
           <div class="bs-stepper-line"></div>
-          <div class="step" data-target="#test-vl-5">
-            <button type="button" class="step-trigger" role="tab" id="stepper4trigger5" aria-controls="test-vl-5"
-              aria-selected="false" disabled="disabled">
+          <div class="step" id="step5">
+            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-5"
+              aria-selected="false">
               <span class="bs-stepper-circle">5</span>
             </button>
           </div>
 
-          <div class="bs-stepper-line"></div>
-          <div class="step" data-target="#test-vl-6">
-            <button type="button" class="step-trigger" role="tab" id="stepper4trigger6" aria-controls="test-vl-6"
-              aria-selected="false" disabled="disabled">
+          <!-- <div class="bs-stepper-line"></div>
+          <div class="step" id="step6">
+            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-6"
+              aria-selected="false">
               <span class="bs-stepper-circle">6</span>
             </button>
-          </div>
+          </div> -->
 
         </div>
         <div class="bs-stepper-content">
@@ -94,14 +95,14 @@
               <app-final></app-final>
             </ng-container>
             <div class="row" style="margin-top: 1vw">
-              <button (click)="back('final')" class="btn btn-success" type="submit"
-                style="margin-left: 5vw; font-size: 80%;">Back</button>
+              <button (click)="back('final')" class="btn btn-success" id="backButton" type="submit"
+                style="margin-left: 5vw; display: none;  font-size: 80%;">Back</button>
 
               <button (click)="toggleVisible()" class="btn btn-success" type="submit"
-                style="margin-left: 10vw; font-size: 80%;">Hide</button>
+                style="margin-left: 10vw; font-size: 80%;" id="hideButton">Hide</button>
 
               <button (click)="next('final')" class="btn btn-success" style="margin-left: 10vw;  font-size: 80%;"
-                type=" submit">Next</button>
+                id="nextButton" type=" submit">Next</button>
             </div>
           </div>
         </div>
@@ -170,9 +171,14 @@
         <div class="col-12">
           <div class="long-description-editor">
             <h3>Description*</h3>
-            <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
-              formControlName="description">
-            </quill-editor>
+            <!-- <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
+              placeholder="Fill in a more detailed description of your project" formControlName="description"
+              value="{{projectMessage.description}}">
+            </quill-editor> -->
+            <textarea name="description" style="height: 350px;" mdInput
+              placeholder="Fill in a more detailed description of your project" rows="2" type="text" required
+              value="{{projectMessage.description}}"></textarea>
+
           </div>
         </div>
       </div>
@@ -186,7 +192,6 @@
             <div>
               <div class="source-content">
                 <img style="height: 50px; margin-left: 25%; " src="assets/images/github-logo.svg" alt="" loading="lazy">
-                <!-- To recieve image from components will problably add to page when source is selected--->
               </div>
             </div>
           </div>
@@ -195,27 +200,10 @@
         <div class="col-11">
           <div>
             <input placeholder="Link to your project, https://github.com/fontys/projectname" formControlName="uri"
-              value="[[uri]]" required />
+              required value="{{projectMessage.uri}}" />
           </div>
         </div>
       </div>
-
-      <!-- <div class="row">
-        <div class="col-12">
-          <div class="project-icon-picker">
-            <h3>Project icon</h3>
-            <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes">
-            </app-file-uploader>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div>
-            <p class="form-footnote">The recommended dimensions for an icon are atleast 512x512</p>
-          </div>
-        </div>
-      </div> -->
     </form>
 
 
@@ -282,19 +270,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-<!-- <script>
-  function openWizard() {
-    document.getElementById('wizard-modal').style.display = 'block';
-    document.body.classList.add('wizard-open');
-  }
-
-  function closeWizard() {
-    document.getElementById('wizard-modal').style.display = 'none';
-    document.body.classList.remove('wizard-open');
-  }
-</script> -->

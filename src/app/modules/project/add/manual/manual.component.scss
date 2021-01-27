@@ -17,7 +17,9 @@
  *
  */
 @import "assets/styles/variables";
+@import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~bs-stepper/dist/css/bs-stepper.min.css';
+
 
 .project-form {
   input,

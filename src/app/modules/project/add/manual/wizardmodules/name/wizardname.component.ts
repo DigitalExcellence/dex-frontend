@@ -26,7 +26,6 @@ export class ProjectNameComponent implements OnInit {
         this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
             this.project = message;
             this.linkForm.patchValue(message.name);
-            console.log(message.name)
         })
     }
 

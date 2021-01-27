@@ -28,7 +28,6 @@ export class DescriptionComponent implements OnInit {
             this.project = message;
             this.linkForm.patchValue(message.shortDescription);
             this.linkForm2.patchValue(message.description);
-            console.log("Short: " + message.shortDescription + "    Long: " + message.description)
         })
     }
 

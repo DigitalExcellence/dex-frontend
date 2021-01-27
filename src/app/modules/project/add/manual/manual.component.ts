@@ -17,9 +17,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import Stepper from 'bs-stepper';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+
 // Import showdown for markdown to html conversion.
 import * as showdown from 'showdown';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
@@ -29,19 +29,19 @@ import { AlertType } from 'src/app/models/internal/alert-type';
 import { MappedProject } from 'src/app/models/internal/mapped-project';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
-
-import { LinkComponent } from "src/app/modules/project/add/manual/wizardmodules/link/wizardlink.component";
-import { FinalComponent } from 'src/app/modules/project/add/manual/wizardmodules/final/wizardfinal.component';
-import { ProjectNameComponent } from 'src/app/modules/project/add/manual/wizardmodules/name/wizardname.component';
-import { DescriptionComponent } from 'src/app/modules/project/add/manual/wizardmodules/description/wizarddescription.component';
-import { ColabComponent } from 'src/app/modules/project/add/manual/wizardmodules/colab/wizardcolab.component';
-
 import { AlertService } from 'src/app/services/alert.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { WizardService } from 'src/app/services/wizard.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
 import { DataService } from '../data.service';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+
+// import { LinkComponent } from "src/app/modules/project/add/manual/wizardmodules/link/wizardlink.component";
+// import { FinalComponent } from 'src/app/modules/project/add/manual/wizardmodules/final/wizardfinal.component';
+// import { ProjectNameComponent } from 'src/app/modules/project/add/manual/wizardmodules/name/wizardname.component';
+// import { DescriptionComponent } from 'src/app/modules/project/add/manual/wizardmodules/description/wizarddescription.component';
+// import { ColabComponent } from 'src/app/modules/project/add/manual/wizardmodules/colab/wizardcolab.component';
 
 
 /**
@@ -59,13 +59,7 @@ export class ManualComponent implements OnInit {
   projectMessage: Project;
   subscription: Subscription;
 
-
-  // uriForm: FormControl;
   dataForm: FormControl;
-  // shortForm: FormControl;
-  // longForm: FormControl;
-  // collabForm: FormControl;
-
 
   visibility = 'visible';
   show = true;
@@ -89,10 +83,6 @@ export class ManualComponent implements OnInit {
   public newProjectForm: FormGroup;
   public newCollaboratorForm: FormGroup;
 
-  /**
-   * Project stepper.
-   */
-  private stepper: Stepper;
 
   /**
    * Project's collaborators.
@@ -134,6 +124,7 @@ export class ManualComponent implements OnInit {
     this.newCollaboratorForm = this.formBuilder.group({
       fullName: [null, Validators.required],
       role: [null, Validators.required],
+      id: [null, Validators.required],
     });
   }
 
@@ -141,23 +132,17 @@ export class ManualComponent implements OnInit {
     // Keep updated with incoming messages;
     this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
       this.projectMessage = message;
-      console.log(message)
-
-      // this.uriForm.patchValue(message.uri);
-      this.dataForm.patchValue(message.name);
-      // this.shortForm.patchValue(message.shortDescription);
-      // this.longForm.patchValue(message.description);
-      // this.colabForm.patchValue(message.collaborators);
-
-
-      // this.subscription = this.data.currentMessage.subscribe(message => this.message = message)
+      console.log(message.uri)
+      console.log(message.name)
+      console.log(message.description)
+      console.log(message.shortDescription)
+      console.log(message.collaborators)
     });
 
     this.wizardService.fetchedProject.subscribe(project => {
       if (project == null) {
         return;
       }
-
       if (project.description != null && project.description.length > 0) {
         const converter = new showdown.Converter(
           {
@@ -172,13 +157,7 @@ export class ManualComponent implements OnInit {
     // Updates meta and title tags
     this.seoService.updateTitle('Add new project');
     this.seoService.updateDescription('Create a new project in DeX');
-
-    // this.stepper = new Stepper(document.querySelector('#stepper'), {
-    //   linear: true,
-    //   animation: true
-    // })
   }
-
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -214,7 +193,6 @@ export class ManualComponent implements OnInit {
             newProject.fileId = uploadedFiles[0].id;
             this.createProject(newProject);
           }
-          // Project icon was set but not uploaded successfully, the component will show the error
         } else {
           // There was no project icon
           newProject.fileId = 0;
@@ -222,6 +200,10 @@ export class ManualComponent implements OnInit {
         }
       });
   }
+
+
+
+
 
   /**
    * Method which triggers when the add Collaborator button is pressed.
@@ -244,10 +226,9 @@ export class ManualComponent implements OnInit {
     this.newCollaboratorForm.reset();
   }
 
-  /**
-   * Method which triggers when the delete Collaborator button is pressed.
-   * Removes the collaborators from the collaborator array.
-   */
+
+
+
   public onClickDeleteCollaborator(clickedCollaborator: CollaboratorAdd): void {
     const index = this.collaborators.findIndex((collaborator) => collaborator === clickedCollaborator);
     if (index < 0) {
@@ -261,6 +242,12 @@ export class ManualComponent implements OnInit {
     }
     this.collaborators.splice(index, 1);
   }
+
+
+
+
+
+
 
 
   private createProject(newProject): void {
@@ -286,70 +273,12 @@ export class ManualComponent implements OnInit {
     this.newProjectForm.get('uri').setValue(project.uri);
     this.newProjectForm.get('shortDescription').setValue(project.shortDescription);
     this.newProjectForm.get('description').setValue(project.description);
-    this.collaborators = project.collaborators;
+    this.newProjectForm.get('collaborators').setValue(project.collaborators);
+    console.log('fillformwithdata')
+    console.log(this.newProjectForm)
   }
 
-  next(page: string) {
 
-    if (this.component === 'link') {
-      // this.stepper.next();
-      this.component = 'name';
-      page = 'name';
-    }
-
-    else if (this.component === 'name') {
-      // this.stepper.next();
-      this.component = 'description';
-      page = 'description';
-    }
-
-    else if (this.component === 'description') {
-      // this.stepper.next();
-      this.component = 'colab';
-      page = 'colab';
-    }
-
-    else if (this.component === 'colab') {
-      // this.stepper.next();
-      this.component = 'final';
-    }
-
-    else if (this.component === 'link') {
-      // hide button on this page
-    }
-    // this.stepper.next();
-  }
-
-  back(page: string) {
-
-    if (this.component === 'link') {
-      // hide button on this page
-    }
-
-    else if (this.component === 'name') {
-      // this.stepper.next();
-      this.component = 'link';
-      page = 'link';
-    }
-
-    else if (this.component === 'description') {
-      // this.stepper.next();
-      this.component = 'name';
-      page = 'name';
-    }
-
-    else if (this.component === 'colab') {
-      // this.stepper.next();
-      this.component = 'description';
-      page = 'description';
-    }
-
-    else if (this.component === 'final') {
-      // this.stepper.next();
-      this.component = 'colab';
-    }
-    // this.stepper.back();
-  }
 
   onSubmit() {
     return false;
@@ -359,6 +288,81 @@ export class ManualComponent implements OnInit {
     console.log('something cool!')
   }
 
+
+
+
+
+
+
+
+
+
+  //Stepper and next/previous page
+
+  next(page: string) {
+    var stepTwo = document.getElementById('step2')
+    var stepThree = document.getElementById('step3')
+    var stepFour = document.getElementById('step4')
+    var stepFive = document.getElementById('step5')
+
+    if (this.component === 'link') {
+      this.component = 'name';
+      page = 'name';
+      stepTwo.className = "step active";
+      document.getElementById("backButton").style.display = "";
+    }
+    else if (this.component === 'name') {
+      this.component = 'description';
+      page = 'description';
+      stepThree.className = "step active";
+    }
+    else if (this.component === 'description') {
+      this.component = 'colab';
+      page = 'colab';
+      stepFour.className = "step active";
+    }
+    else if (this.component === 'colab') {
+      this.component = 'final';
+      stepFive.className = "step active";
+      document.getElementById("hideButton").innerText = "Finalize";
+      document.getElementById("nextButton").style.display = "none";
+    }
+    else if (this.component === 'link') {
+    }
+  }
+
+  back(page: string) {
+
+    var stepTwo = document.getElementById('step2')
+    var stepThree = document.getElementById('step3')
+    var stepFour = document.getElementById('step4')
+    var stepFive = document.getElementById('step5')
+
+    if (this.component === 'link') {
+      document.getElementById("backButton").style.display = "none";
+    }
+    else if (this.component === 'name') {
+      this.component = 'link';
+      page = 'link';
+      stepTwo.className = "step";
+    }
+    else if (this.component === 'description') {
+      this.component = 'name';
+      page = 'name';
+      stepThree.className = "step";
+    }
+    else if (this.component === 'colab') {
+      this.component = 'description';
+      page = 'description';
+      stepFour.className = "step";
+    }
+    else if (this.component === 'final') {
+      this.component = 'colab';
+      stepFive.className = "step";
+      document.getElementById("hideButton").innerText = "Hide";
+      document.getElementById("nextButton").style.display = "";
+    }
+  }
 }
 
 
