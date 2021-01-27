@@ -280,7 +280,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * Method to handle value changes of the sort form.
    * @param value the value of the form.
    */
-  private onSortFormValueChange(value: string): void {
+  public onSortFormValueChange(value: string): void {
     if (value == null) {
       return;
     }
