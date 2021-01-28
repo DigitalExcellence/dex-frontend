@@ -34,11 +34,6 @@ import { DetailsComponent } from 'src/app/modules/project/details/details.compon
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
-interface SortFormResult {
-  type: string;
-  direction: string;
-}
-
 /**
  * Overview of all the projects
  */
@@ -100,9 +95,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    {id: 0, amountOnPage: 12},
-    {id: 1, amountOnPage: 24},
-    {id: 2, amountOnPage: 36},
+    { id: 0, amountOnPage: 12 },
+    { id: 1, amountOnPage: 24 },
+    { id: 2, amountOnPage: 36 },
   ];
 
   /**
@@ -115,29 +110,16 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    */
   public tagsForm: FormGroup;
 
-  public sortForm: FormGroup;
-
-  public highlightFormControl: FormControl;
-
-  public sortTypeSelectOptions: SelectFormOption[] = [
-    {value: 'updated', viewValue: 'Updated'},
-    {value: 'created', viewValue: 'Created'},
-    {value: 'name', viewValue: 'Name'}
-  ];
-
-  public sortDirectionSelectOptions: SelectFormOption[] = [
-    {value: 'desc', viewValue: 'Descending'},
-    {value: 'asc', viewValue: 'Ascending'}
-  ];
-
-  public highlightSelectOptions: SelectFormOption[] = [
-    {value: null, viewValue: 'All projects'},
-    {value: true, viewValue: 'Only highlighted'},
-    {value: false, viewValue: 'Only non highlighted'}
+  public sortSelectOptions: SelectFormOption[] = [
+    { value: 'updated,desc', viewValue: 'Updated (new-old)' },
+    { value: 'updated,asc', viewValue: 'Updated (old-new)' },
+    { value: 'name,asc', viewValue: 'Name (a-z)' },
+    { value: 'name,desc', viewValue: 'Name (z-a)' },
+    { value: 'created,desc', viewValue: 'Created (new-old)' },
+    { value: 'created,asc', viewValue: 'Created (old-new)' },
   ];
 
   public displaySearchElements = false;
-  public currentOnlyHighlightedProjects: boolean = null;
   public currentPage = 1;
   /**
    * Project parameter gets updated per project detail modal
@@ -148,8 +130,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * Parameters for keeping track of the current internalSearch query values.
    */
   private currentSearchInput: string = null;
-  private currentSortType: string = this.sortTypeSelectOptions[0].value;
-  private currentSortDirection: string = this.sortDirectionSelectOptions[0].value;
+  private currentSortOptions: string = this.sortSelectOptions[0].value;
+  private currentSortType: string = this.currentSortOptions.split(',')[0];
+  private currentSortDirection: string = this.currentSortOptions.split(',')[1];
   /**
    * Property to indicate whether the project is loading.
    */
@@ -160,15 +143,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private modalSubscriptions: Subscription[] = [];
 
   constructor(
-      private router: Router,
-      private paginationService: PaginationService,
-      private internalSearchService: InternalSearchService,
-      private formBuilder: FormBuilder,
-      private activatedRoute: ActivatedRoute,
-      private seoService: SEOService,
-      private modalService: BsModalService,
-      private location: Location,
-      private authService: AuthService) {
+    private router: Router,
+    private paginationService: PaginationService,
+    private internalSearchService: InternalSearchService,
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private seoService: SEOService,
+    private modalService: BsModalService,
+    private location: Location,
+    private authService: AuthService) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -185,14 +168,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       ux: false
     });
 
-    this.sortForm = this.formBuilder.group({
-      type: this.sortTypeSelectOptions[0].value,
-      direction: this.sortDirectionSelectOptions[0].value
-    });
-
-    // Initialize with index value of 0 to by default select the first select option.
-    this.highlightFormControl = this.formBuilder.control(0);
-
     if (!environment.production) {
       this.displaySearchElements = true;
     }
@@ -206,21 +181,17 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
-        .pipe(
-            debounceTime(500)
-        )
-        .subscribe((result) => {
-          if (result == null) {
-            return;
-          }
-          this.onInternalQueryChange();
-        });
+      .pipe(
+        debounceTime(500)
+      )
+      .subscribe((result) => {
+        if (result == null) {
+          return;
+        }
+        this.onInternalQueryChange();
+      });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
-
-    this.sortForm.valueChanges.subscribe((value) => this.onSortFormValueChange(value));
-
-    this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
 
     this.updateSEOTags();
 
@@ -309,27 +280,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * Method to handle value changes of the sort form.
    * @param value the value of the form.
    */
-  private onSortFormValueChange(value: SortFormResult): void {
-    if (value == null || value.type == null || value.type === 'null') {
+  public onSortFormValueChange(value: string): void {
+    if (value == null) {
       return;
     }
-    this.currentSortType = value.type;
-    this.currentSortDirection = value.direction;
-    this.onInternalQueryChange();
-  }
-
-  /**
-   * Method to handle the value changes of the highlight form.
-   * @param value the value of the highlight form.
-   */
-  private onHighlightFormValueChanges(value: number): void {
-    // Case the value since for some reason it is always returned as a string.
-    const convertedIndex = +value;
-    const foundOption = this.highlightSelectOptions[convertedIndex];
-    if (foundOption == null) {
-      return;
-    }
-    this.currentOnlyHighlightedProjects = foundOption.value;
+    this.currentSortType = value.split(',')[0];
+    this.currentSortDirection = value.split(',')[1];
     this.onInternalQueryChange();
   }
 
@@ -345,21 +301,20 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,
-      highlighted: this.currentOnlyHighlightedProjects,
     };
 
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
       this.paginationService
-          .getProjectsPaginated(internalSearchQuery)
-          .pipe(finalize(() => (this.projectsLoading = false)))
-          .subscribe((result) => this.handleSearchAndProjectResponse(result));
+        .getProjectsPaginated(internalSearchQuery)
+        .pipe(finalize(() => (this.projectsLoading = false)))
+        .subscribe((result) => this.handleSearchAndProjectResponse(result));
     } else {
       // Search query provided use searchService.
       this.internalSearchService
-          .getSearchResultsPaginated(internalSearchQuery)
-          .pipe(finalize(() => (this.projectsLoading = false)))
-          .subscribe((result) => this.handleSearchAndProjectResponse(result));
+        .getSearchResultsPaginated(internalSearchQuery)
+        .pipe(finalize(() => (this.projectsLoading = false)))
+        .subscribe((result) => this.handleSearchAndProjectResponse(result));
     }
   }
 
@@ -387,7 +342,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    */
   private createProjectModal(projectId: number) {
     if (projectId) {
-      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
+      this.modalRef = this.modalService.show(DetailsComponent, { animated: true, initialState: { projectId: projectId } });
       this.modalRef.setClass('project-modal');
 
       this.modalRef.content.onLike.subscribe(isLiked => {
@@ -403,13 +358,13 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
       // Go back to home page after the modal is closed
       this.modalSubscriptions.push(
-          this.modalService.onHide.subscribe(() => {
-                if (this.location.path().startsWith('/project/details')) {
-                  this.location.replaceState('/project/overview');
-                  this.updateSEOTags();
-                }
-              }
-          ));
+        this.modalService.onHide.subscribe(() => {
+          if (this.location.path().startsWith('/project/details')) {
+            this.location.replaceState('/project/overview');
+            this.updateSEOTags();
+          }
+        }
+        ));
     }
   }
 
@@ -421,5 +376,25 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     // Updates meta and title tags
     this.seoService.updateTitle('Project overview');
     this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
+  }
+
+  /**
+ * Method to make tags change appearance on clicking.
+ * further implementation is still pending.
+ */
+  public tagClicked(event) {
+    if (event.target.className === 'tag clicked') {
+      event.target.className = 'tag';
+    } else {
+      event.target.className = 'tag clicked';
+    }
+  }
+
+  /**
+ * Method to display the tags based on the environment variable.
+ * Tags should be hidden in production for now until further implementation is finished.
+ */
+  public displayTags(): boolean {
+    return !environment.production;
   }
 }

@@ -29,6 +29,7 @@
   box-shadow: $box-shadow;
   background-color: #ffffff;
   padding: 10px 20px;
+  z-index: 1; // put header on top
 
   .header-nav {
     display: flex;
@@ -271,7 +272,7 @@
   justify-content: center;
 
   .container {
-    max-width: 1640px;
+    max-width: 100vw;
     width: 100%;
   }
 }
