@@ -18,7 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Changed the open graph tags in order to show a more appealing website preview [#405](https://github.com/DigitalExcellence/dex-frontend/issues/405)
+- Changed the open graph tags in order to show a more appealing website preview - [#405](https://github.com/DigitalExcellence/dex-frontend/issues/405)
+- Changed it so you can now clear query paramters like pagination or search by clicking on 'projects' again - [#401](https://github.com/DigitalExcellence/dex-frontend/issues/401)
+
 
 ### Deprecated
 
@@ -29,7 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed issue where images in the project-details view would go outside the page - [#397](https://github.com/DigitalExcellence/dex-frontend/issues/397)
-- Fixed issue where builds failed due to Lighthouse budgets not being high enough [#411](https://github.com/DigitalExcellence/dex-backend/issues/411)
+- Fixed issue where builds failed due to Lighthouse budgets not being high enough - [#411](https://github.com/DigitalExcellence/dex-backend/issues/411)
+- Fixed issue where long collaborator names would mess up styling - [#354](https://github.com/DigitalExcellence/dex-frontend/issues/354)
+- Fixed issue where in some cases the alert banner would not disapear automatically - [#392](https://github.com/DigitalExcellence/dex-frontend/issues/392)
+- Fixed issue where opening a modal or long usernames would cause the page to get unaligned - [#400](https://github.com/DigitalExcellence/dex-frontend/issues/400)
 
 ### Security
 
