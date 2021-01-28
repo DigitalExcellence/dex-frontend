@@ -93,9 +93,12 @@
         <em class='far fa-clock'></em>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
       </div>
-      <div (click)="userClicked($event)" class='item disabled'>
+      <div (click)="userClicked($event)" [tooltip]="projectUsername" class='item'>
         <em class='fa fa-user'></em>
         <div class="project-user-name">{{project.user.name}}</div>
+        <ng-template #projectUsername>
+          <p>{{project.user.name}}</p>
+        </ng-template>
       </div>
     </div>
   </div>

@@ -177,6 +177,7 @@ export class DetailsComponent implements OnInit {
         preMessage: 'Project could not be highlighted',
         mainMessage: 'Project id could not be found',
         dismissible: true,
+        autoDismiss: true,
         timeout: this.alertService.defaultTimeout
       };
       this.alertService.pushAlert(alertConfig);
@@ -209,6 +210,7 @@ export class DetailsComponent implements OnInit {
           type: AlertType.success,
           mainMessage: 'Project was successfully highlighted',
           dismissible: true,
+          autoDismiss: true,
           timeout: this.alertService.defaultTimeout
         };
         this.alertService.pushAlert(alertConfig);
@@ -275,6 +277,7 @@ export class DetailsComponent implements OnInit {
         mainMessage: 'Removal of project was successful',
         timeout: this.alertService.defaultTimeout,
         dismissible: true,
+        autoDismiss: true,
         type: AlertType.success
       });
       this.router.navigate(['project/overview']);
@@ -409,6 +412,7 @@ export class DetailsComponent implements OnInit {
         type: AlertType.warning,
         mainMessage: 'You need to be logged in to like a project',
         dismissible: true,
+        autoDismiss: true,
         timeout: this.alertService.defaultTimeout
       };
       this.alertService.pushAlert(alertConfig);
@@ -458,6 +462,7 @@ export class DetailsComponent implements OnInit {
           type: AlertType.success,
           mainMessage: 'Highlight was successfully updated',
           dismissible: true,
+          autoDismiss: true,
           timeout: this.alertService.defaultTimeout
         };
         this.alertService.pushAlert(alertConfig);

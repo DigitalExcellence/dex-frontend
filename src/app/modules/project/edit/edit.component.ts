@@ -15,10 +15,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { catchError, finalize } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/domain/project';
@@ -186,7 +186,8 @@ export class EditComponent implements OnInit  {
         type: AlertType.danger,
         preMessage: 'The edit project form is invalid',
         mainMessage: 'The project could not be updated, please fill all required fields',
-        dismissible: true
+        dismissible: true,
+        autoDismiss: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -258,7 +259,8 @@ export class EditComponent implements OnInit  {
         type: AlertType.danger,
         preMessage: 'The add collaborator form is invalid',
         mainMessage: 'Collaborator could not be added',
-        dismissible: true
+        dismissible: true,
+        autoDismiss: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -279,7 +281,8 @@ export class EditComponent implements OnInit  {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
         mainMessage: 'Collaborator could not be removed',
-        dismissible: true
+        dismissible: true,
+        autoDismiss: true
       };
       this.alertService.pushAlert(alertConfig);
       return;
@@ -303,7 +306,9 @@ export class EditComponent implements OnInit  {
             type: AlertType.success,
             mainMessage: 'Project was succesfully updated',
             dismissible: true,
+            autoDismiss: true,
             timeout: this.alertService.defaultTimeout
+
           };
           this.alertService.pushAlert(alertConfig);
           this.router.navigate([`project/details/${this.project.id}`]);

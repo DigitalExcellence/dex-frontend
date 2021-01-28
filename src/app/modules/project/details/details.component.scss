@@ -51,7 +51,7 @@
   }
 }
 
-.row {
+.not-found {
   margin: 0;
   max-width: 100%;
 }
@@ -71,6 +71,15 @@
     width: fit-content;
     margin: 0 auto;
     max-width: 100%;
+  }
+}
+
+.modal-open {
+  .feedback-button-container {
+    right: 15.77%!important;
+  }
+  .background {
+    width: 101.8vw;
   }
 }
 

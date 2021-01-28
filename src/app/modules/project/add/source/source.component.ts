@@ -105,6 +105,7 @@ export class SourceComponent implements OnInit {
           preMessage: 'Source uri/url was invalid',
           mainMessage: 'Source details could not be fetched',
           dismissible: true,
+          autoDismiss: true,
           timeout: this.alertService.defaultTimeout,
         };
         this.alertService.pushAlert(alertConfig);
@@ -137,6 +138,7 @@ export class SourceComponent implements OnInit {
             preMessage: 'You\'re not logged in!',
             mainMessage: 'You can only add a project when you\'re logged in.',
             dismissible: true,
+            autoDismiss: true,
             timeout: this.alertService.defaultTimeout,
           };
           this.alertService.pushAlert(alertConfig);
