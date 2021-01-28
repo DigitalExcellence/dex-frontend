@@ -261,7 +261,7 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-
+    
     .menu-wrapper {
       display: flex;
       justify-content: space-between;
@@ -349,6 +349,15 @@
     }
   }
 
+  #call-to-action-button {
+    text-transform: lowercase;
+    width: fit-content;
+  }
+
+  #call-to-action-button::first-letter {
+    text-transform: uppercase;
+  }
+  
   .project-highlighted-div {
     float: left;
   }

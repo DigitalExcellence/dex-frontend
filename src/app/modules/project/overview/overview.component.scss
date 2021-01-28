@@ -16,322 +16,285 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
- @import "assets/styles/variables";
+@import "assets/styles/variables";
 
- .project-list-header {
-   width: 100%;
-   margin: 5em 0 2em 0;
-   display: inline-flex;
-   justify-content: space-between;
-   align-content: center;
- 
-   h1 {
-     display: inline;
-   }
-   .list-view-toggle {
-     display: flex;
-     margin: auto 0 auto 0;
-     gap: 12px;
-     flex-wrap: wrap;
-     margin-left: 20px;
-     justify-content: flex-end;
- 
-     .container {
-       box-shadow: $box-shadow;
-       display: inline;
-       position: relative;
-       cursor: pointer;
-       -webkit-user-select: none;
-       -moz-user-select: none;
-       -ms-user-select: none;
-       user-select: none;
-       padding: 0;
-       width: fit-content;
-       margin: 0;
-       height: fit-content;
-     }
- 
-     // Hide the default radio button
-     .container input[type="radio"] {
-       position: absolute;
-       opacity: 0;
-       cursor: pointer;
-       height: 0;
-       width: 0;
-     }
- 
-     // Create custom radio button
-     .checkmark {
-       height: 40px;
-       width: 40px;
-       padding: 10px;
-       border-radius: 5px;
-       background-color: $white;
-       color: $accent-color-red-primary;
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       transition: transform $transition-short;
-       
-       &:hover{
-         transform: $transform-grow-big;
-       }
-       svg {
-         size: inherit;
-         width: 100%;
-         height: 100%;
-         margin: 0;
-       }
-     }
-   }
- 
-   // If the sibling input is checked
-   .container input[type="radio"]:checked ~ .checkmark {
-     color: $light-mode-grey-quaternary;
-     background: $accent-color-red-primary;
-   }
- }
- 
- .search {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   margin-bottom: 25px;
- 
-   input[type="search"] {
-     position: relative;
-     width: 100%;
-     padding: 8px 20px;
-     font-size: 18px;
-     height: 60px;
-     color: $light-mode-grey-primary;
-     border: none;
-     background: $white;
-     box-shadow: $box-shadow;
-     border-radius: 6px;
-     font-family: lato, sans-serif;
- 
-     &::placeholder {
-       color: $light-mode-grey-primary;
-     }
- 
-     &:focus {
-       border: none;
-       outline: none;
-     }
-   }
- 
-   button {
-     position: relative;
-     right: 55px;
-     height: auto;
-     cursor: pointer;
-     background: none;
-     border: none;
-     width: 0;
-     padding: 0;
- 
-     &:focus {
-       outline: none;
-     }
- 
-     img {
-       width: 25px;
-       transition: transform $transition-long;
-       &:hover{
-         transform: $transform-rotate;
-       }
-     }
-   }
- }
- 
- .project-list-wrapper {
-   width: 100%;
-   display: grid;
-   gap: 15px;
-   margin-bottom: 35px;
- 
-   &.grid {
-     gap: 25px;
-     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-   }
- }
- 
- .projects-filter-wrapper {
-   min-width: 250px;
-   .projects-filter {
-     box-shadow: $box-shadow;
-     background: $white;
-     padding: 20px 25px;
-     border-radius: 6px;
-     margin-bottom: 20px;
-     h3 {
-       margin: 0;
-     }
-     .option-select {
-       margin-bottom: 10px;
-       width: 100%;
-       color: rgba($light-mode-black, 0.7);
-     }
-     form {
-       input[type="checkbox"] {
-         display: none;
-         + label {
-           color: $light-mode-grey-primary;
-           vertical-align: middle;
-           position: relative;
-           padding-left: 20px;
-           margin: 0.25rem 0;
-           cursor: pointer;
-           display: flex;
-           align-items: center;
-           span {
-             margin-right: 4px;
-           }
-           &::before,
-           &::after {
-             content: "";
-             display: inline-block;
-             border-radius: 2px;
-             position: absolute;
-           }
-           &::before {
-             width: 15px;
-             height: 15px;
-             border: 1px $light-mode-grey-secondary solid;
-             background: $white;
-             left: 0;
-             top: calc(50% - 15px / 2);
-           }
-         }
-         &:checked {
-           + label {
-             &::after {
-               width: 9px;
-               height: 9px;
-               background: $accent-color-red-primary;
-               position: absolute;
-               top: calc(50% - 9px / 2);
-               left: 3px;
-             }
-           }
-         }
-       }
-       .icon {
-         display: inline-flex;
-         place-content: center;
-         border-radius: 50%;
-         background-color: $accent-color-red-primary;
-         vertical-align: middle;
-         height: 15px;
-         width: 15px;
-         padding: 2px;
-         img {
-           height: auto;
-           width: 100%;
-         }
-       }
-     }
-     select {
-       padding: 4px;
-       border-radius: 3px;
-       border: 0px solid transparent;
-     }
-     select, option {
-       outline: 0;
-     }
-   }
- }
- 
- :host {
-   ::ng-deep accordion-group {
-     margin-top: 10px;
-     .card-header {
-       background: url("~src/assets/images/chevron-down-solid-orange.svg") no-repeat center right;
-       padding: 0;
-       border: none;
-       background-size: 13px;
-       button {
-         padding: 0;
-         color: $light-mode-grey-primary;
-         font-size: 18px;
-       }
-     }
-     .card {
-       border: none;
-     }
-     .card-body {
-       margin-top: 10px;
-       background: $light-mode-grey-quaternary;
-       border-radius: 6px;
-       padding: 5px 10px;
-     }
-   }
- }
- 
- .pagination-div {
-   margin-top: 20px;
-   display: flex;
-   justify-content: center;
- }
- 
- .pagination-footer::ng-deep {
-   flex-wrap: wrap;
- 
-   .pagination-next,
-   .pagination-prev {
-     max-width: 35px;
-     overflow: hidden;
-   }
- }
- 
- .pagination-footer::ng-deep .page-link {
-   z-index: 1;
-   color: $light-mode-black;
-   height: 35px;
-   display: flex;
-   align-items: center;
- }
- 
- .pagination-footer::ng-deep .page-item.active .page-link {
-   border-color: $accent-color-red-primary;
-   background-color: $accent-color-red-primary !important;
-   color: #ffffff;
- }
- 
- .paginationDropDown {
-   width: 80px;
- }
- 
- .pagination-footer {
-   li {
-     height: 35px;
-     width: 35px;
-   }
-   a {
-     height: 35px;
-     width: 35px;
-   }
-   img {
-     width: 100%;
-   }
-   .chevron-right {
-     margin-top: 1px;
-     transform: rotateZ(270deg);
-   }
-   .chevron-left {
-     margin-top: 1px;
-     transform: rotateZ(90deg);
-   }
-   .disabled {
-     opacity: 0.3;
-   }
- }
- 
- .paginationDropDown {
-   width: 80px;
- }
- 
- .loading-circle {
-  color: $accent-color-red-primary;
+.projects-overview-wrapper {
+  padding: 0 5vw;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right:auto;
+  .project-list-header {
+    width: 100%;
+    margin: 2em 0;
+    display: inline-flex;
+    justify-content: space-between;
+    align-content: center;
+
+    h1 {
+      display: inline;
+    }
+    .list-view-toggle {
+      display: flex;
+      margin: auto 0 auto 0;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-left: 20px;
+      justify-content: flex-end;
+
+      .container {
+        box-shadow: $box-shadow;
+        display: inline;
+        position: relative;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        padding: 0;
+        width: fit-content;
+        margin: 0;
+        height: fit-content;
+      }
+
+      // Hide the default radio button
+      .container input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      // Create custom radio button
+      .checkmark {
+        height: 40px;
+        width: 40px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: $white;
+        color: $accent-color-red-primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform $transition-short;
+
+        &:hover {
+          transform: $transform-grow-big;
+        }
+        svg {
+          size: inherit;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+        }
+      }
+    }
+
+    // If the sibling input is checked
+    .container input[type="radio"]:checked ~ .checkmark {
+      color: $light-mode-grey-quaternary;
+      background: $accent-color-red-primary;
+    }
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+
+    input[type="search"] {
+      position: relative;
+      width: 100%;
+      padding: 8px 20px;
+      font-size: 18px;
+      height: 60px;
+      color: $light-mode-grey-primary;
+      border: none;
+      background: $white;
+      box-shadow: $box-shadow;
+      border-radius: 6px;
+      font-family: lato, sans-serif;
+
+      &::placeholder {
+        color: $light-mode-grey-primary;
+      }
+
+      &:focus {
+        border: none;
+        outline: none;
+      }
+    }
+
+    button {
+      position: relative;
+      right: 55px;
+      height: auto;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 0;
+      padding: 0;
+
+      &:focus {
+        outline: none;
+      }
+
+      img {
+        width: 25px;
+        transition: transform $transition-long;
+        &:hover {
+          transform: $transform-rotate;
+        }
+      }
+    }
+  }
+
+  .project-list-wrapper {
+    width: 100%;
+    display: grid;
+    gap: 15px;
+    margin-bottom: 35px;
+
+    &.grid {
+      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+
+  .pagination-div {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination-footer::ng-deep {
+    flex-wrap: wrap;
+
+    .pagination-next,
+    .pagination-prev {
+      max-width: 35px;
+      overflow: hidden;
+    }
+  }
+
+  .pagination-footer::ng-deep .page-link {
+    z-index: 1;
+    color: $light-mode-black;
+    height: 35px;
+    display: flex;
+    align-items: center;
+  }
+
+  .pagination-footer::ng-deep .page-item.active .page-link {
+    border-color: $accent-color-red-primary;
+    background-color: $accent-color-red-primary !important;
+    color: #ffffff;
+  }
+
+  .paginationDropDown {
+    width: 80px;
+  }
+
+  .pagination-footer {
+    li {
+      height: 35px;
+      width: 35px;
+    }
+    a {
+      height: 35px;
+      width: 35px;
+    }
+    img {
+      width: 100%;
+    }
+    .chevron-right {
+      margin-top: 1px;
+      transform: rotateZ(270deg);
+    }
+    .chevron-left {
+      margin-top: 1px;
+      transform: rotateZ(90deg);
+    }
+    .disabled {
+      opacity: 0.3;
+    }
+  }
+
+  .paginationDropDown {
+    width: 80px;
+  }
+
+  .loading-circle {
+    color: $accent-color-red-primary;
+  }
 }
+
+.projects-filter-wrapper {
+  min-width: 250px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  margin: -24px 24px -64px -24px; // override padding from parent element & footer
+  padding: 48px 36px;
+  background-color: white;
+  .divider {
+    border-bottom: 1px solid $light-mode-grey-thertiary;
+  }
+  .filter-group {
+    padding: 24px 0;
+    display: flex;
+    flex-direction: column;
+    color: $light-mode-grey-primary;
+    h4 {
+      color: $light-mode-grey-primary;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      .tag {
+        background-color: $light-mode-grey-thertiary;
+        color: $light-mode-black;
+        border-radius: 999px;
+        padding: 2px 10px;
+        font-size: 12px;
+        cursor: pointer;
+        user-select: none;
+        &.clicked {
+          background-color: $accent-color-red-primary;
+          color: white;
+        }
+      }
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    select {
+      padding: 4px;
+      margin-bottom: 8px;
+      border-radius: 3px;
+      border: 0px;
+      color: $light-mode-black;
+      appearance: none;
+      background: $light-mode-grey-thertiary url("src/assets/images/chevron-down-solid.svg") no-repeat 95% center;
+      background-size: 12px;
+    }
+    select,
+    option {
+      outline: 0;
+    }
+  }
+}
+
+// simple styles for filter-bar on smaller screens 
+@include media-breakpoint-down(sm) {
+  .projects-filter-wrapper{
+    width: 100vw;
+    margin: -24px;
+    height: auto;
+    position: relative;
+  }
+}
+

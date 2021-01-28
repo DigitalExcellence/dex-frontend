@@ -15,15 +15,19 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { CallToAction } from 'src/app/models/domain/call-to-action';
-import { CollaboratorAdd } from './collaborator-add';
-export interface ProjectAdd {
-  userId: number;
-  name: string;
-  collaborators: CollaboratorAdd[];
-  shortDescription: string;
-  description?: string;
-  url: string;
-  callToAction: CallToAction;
-  fileId?: number;
-}
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
+import { CallToActionOptionAdd } from 'src/app/models/resources/calltoaction-add';
+import { CallToActionOptionUpdate } from 'src/app/models/resources/calltoaction-update';
+import { HttpBaseService } from './http-base.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CallToActionOptionService extends HttpBaseService<CallToActionOption, CallToActionOptionAdd, CallToActionOptionUpdate> {
+    constructor(http: HttpClient) {
+      super(http, API_CONFIG.url + API_CONFIG.callToActionOptionRoute);
+    }
+  }
