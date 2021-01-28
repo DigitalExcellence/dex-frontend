@@ -101,12 +101,6 @@
                 class='item'>
                 Description
               </div>
-              <ng-container *ngIf="isProduction()">
-                <div (click)="setActiveTab('contact')" [ngClass]="{'active': this.activeTab == 'contact' }"
-                  class='item'>
-                  Contact
-                </div>
-              </ng-container>
               <div (click)="setActiveTab('collaborators')" [ngClass]="{'active': this.activeTab == 'collaborators' }"
                 class='item'>
                 Collaborators
@@ -135,12 +129,12 @@
           <div class='tab-content'>
             <ng-container *ngIf=" this.activeTab == 'description' " class="project-description large">
               <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
+              <ng-container *ngIf="displayCallToActionButton">
+                <button id="call-to-action-button" class="primary ml-2" (click)="onClickCallToActionButton(project.callToAction.value)">{{project.callToAction.optionValue}}</button>
+              </ng-container>
               <ng-container *ngIf="displayEmbedButton">
                 <app-embed-button [projectId]=project.id></app-embed-button>
               </ng-container>
-            </ng-container>
-            <ng-container *ngIf=" this.activeTab == 'contact' ">
-              <p>contact</p>
             </ng-container>
             <ng-container *ngIf=" this.activeTab == 'collaborators' ">
               <div class='collaborators'>

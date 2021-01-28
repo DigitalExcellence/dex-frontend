@@ -17,7 +17,7 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddRoutingModule } from './add-routing.module';
 import { ManualComponent } from './manual/manual.component';
 import { SourceComponent } from './source/source.component';
@@ -34,6 +34,7 @@ import { ProjectModule } from 'src/app/modules/project/project.module';
     AddRoutingModule,
     ReactiveFormsModule,
     QuillModule,
+    FormsModule,
     ProjectModule
   ],
 })
