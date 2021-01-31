@@ -30,11 +30,8 @@ import {AlertType} from 'src/app/models/internal/alert-type';
 import {HighlightAdd} from 'src/app/models/resources/highlight-add';
 import {HighlightUpdate} from 'src/app/models/resources/highlight-update';
 import {HighlightsModalComponent} from 'src/app/modules/project/highlights-modal/highlights-modal.component';
-import
-  {
-    HighlightFormResult,
-    ModalHighlightFormComponent
-  } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
+// tslint:disable-next-line: max-line-length
+import {HighlightFormResult, ModalHighlightFormComponent} from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import {AlertService} from 'src/app/services/alert.service';
 import {AuthService} from 'src/app/services/auth.service';
 import {FileRetrieverService} from 'src/app/services/file-retriever.service';
@@ -185,7 +182,7 @@ export class DetailsComponent implements OnInit {
       return;
     }
 
-    const modalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { canGoBack } });
+    const modalRef = this.modalService.show(ModalHighlightFormComponent, {initialState: {canGoBack}});
 
     modalRef.content.confirm
       .pipe(
@@ -436,11 +433,11 @@ export class DetailsComponent implements OnInit {
    * @param highlights the array of highlights to be displayed in the modals
    */
   private handleHighlightResponse(highlights: Highlight[]) {
-    const options = { initialState: { highlights }, class: 'modal-lg highlight-modal' };
+    const options = {initialState: {highlights}, class: 'modal-lg highlight-modal'};
     const highlightsModalComponentRef = this.modalService.show(HighlightsModalComponent, options);
 
     highlightsModalComponentRef.content.selectHighlightToEdit.subscribe(highlight => {
-      const formModalRef = this.modalService.show(ModalHighlightFormComponent, { initialState: { highlight, canGoBack: true } });
+      const formModalRef = this.modalService.show(ModalHighlightFormComponent, {initialState: {highlight, canGoBack: true}});
 
       formModalRef.setClass('highlight-form-modal');
       formModalRef.content.confirm.pipe(
