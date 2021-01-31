@@ -27,12 +27,10 @@
       <h3 class="project-name">{{project.name}}</h3>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
-    <ng-container *ngIf="displayTags(); else noLikes">
-      <div (click)="likeClicked($event)" class="item project-likes"><em class='far fa-heart'></em> 0 Likes</div>
-    </ng-container>
-    <ng-template #noLikes>
-      <div></div>
-    </ng-template>
+      <div (click)="likeClicked($event)" class="item project-likes">
+        <em [ngClass]="project.userHasLikedProject ? 'fas' : 'far'" class='far fa-heart'></em>
+        {{project.likeCount}} Likes
+      </div>
     <div [tooltip]="projectUpdated" class="item project-created-date">
       <em class='far fa-clock'></em>
       {{project.created | date: 'longDate'}}
@@ -69,17 +67,15 @@
       </div>
     </ng-container>
     <div class='bottom-wrapper'>
-      <ng-container *ngIf="displayTags()">
-        <div (click)="likeClicked($event)" class='item'>
-          <em class='far fa-heart'></em>
-            <div class="project-likes">0 Likes</div>
-        </div>
-      </ng-container>
+      <div (click)="likeClicked($event)" class='item'>
+        <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class='fa-heart'></em>
+        <div class="project-likes">{{project.likeCount}} Likes</div>
+      </div>
       <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
         <ng-template #projectCollaborators>
-              <p *ngFor="let collaborator of project.collaborators">
-                {{collaborator.fullName}} - {{collaborator.role}}
-              </p>
+          <p *ngFor="let collaborator of project.collaborators">
+            {{collaborator.fullName}} - {{collaborator.role}}
+          </p>
         </ng-template>
         <em class='fas fa-users'></em>
         <div class="project-collaborators">{{project.collaborators ? project.collaborators.length : 0}} collaborators</div>
@@ -92,9 +88,12 @@
         <em class='far fa-clock'></em>
         <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
       </div>
-      <div (click)="userClicked($event)" class='item disabled'>
+      <div (click)="userClicked($event)" [tooltip]="projectUsername" class='item'>
         <em class='fa fa-user'></em>
         <div class="project-user-name">{{project.user.name}}</div>
+        <ng-template #projectUsername>
+          <p>{{project.user.name}}</p>
+        </ng-template>
       </div>
     </div>
   </div>

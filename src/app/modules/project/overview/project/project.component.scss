@@ -60,6 +60,10 @@
     display: grid;
     grid-template-columns: auto 3fr 0.75fr 1fr 1fr;
     gap: 20px;
+    transition: transform $transition-short;
+    &:hover{
+      transform: $transform-grow-small // exception on the variables
+    }
     //media query to hide less important info on smaller screens
     @media only screen and (max-width: 1000px) {
       grid-template-columns: auto 3fr 0.75fr;
@@ -145,6 +149,10 @@
     flex-direction: column;
     padding: 20px;
     justify-content: space-between;
+    transition: transform $transition-short;
+    &:hover{
+      transform: $transform-grow;
+    }
     .project-info {
       .top-wrapper {
         display: flex;
@@ -230,6 +238,11 @@
           white-space: nowrap;
           text-overflow: ellipsis;
         }
+        .project-user-name {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
         i {
           justify-self: center;
           color: $light-mode-black;
@@ -240,6 +253,12 @@
           i {
             color: $accent-color-red-primary;
           }
+        }
+        .fas.fa-heart.animated {
+          animation: heartbeat .4s linear 1;
+        }
+        .far.fa-heart.animated {
+          animation: fade-in .2s ease-in 1;
         }
       }
     }

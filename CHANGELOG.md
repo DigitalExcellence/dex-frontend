@@ -7,12 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-
 ### Added
 
-
 ### Changed
-
 
 ### Deprecated
 
@@ -22,10 +19,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-
 ### Security
 
+## Release v.1.0.1-beta - 31-01-2021
 
+### Added
+
+- Added SEO & performance check when pushing new code to develop branch - [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
+- Added a DeX preview with title, description and image for more user-friendliness - [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
+- Added functionality to like projects - [#389](https://github.com/DigitalExcellence/dex-frontend/issues/389)
+- Added update highlight functionality - [#294](https://github.com/DigitalExcellence/dex-frontend/issues/294)
+- Added animations on clickable items and while project pages are loading - [#321](https://github.com/DigitalExcellence/dex-frontend/issues/321)
+- Added animations when user likes (or unlikes) a project - [#414](https://github.com/DigitalExcellence/dex-frontend/issues/414)
+- Added the option to add a Call-To-Action button to a project - [#267](https://github.com/DigitalExcellence/dex-frontend/issues/267)
+
+
+### Changed
+
+- Changed the open graph tags in order to show a more appealing website preview - [#405](https://github.com/DigitalExcellence/dex-frontend/issues/405)
+- Changed it so you can now clear query paramters like pagination or search by clicking on 'projects' again - [#401](https://github.com/DigitalExcellence/dex-frontend/issues/401)
+- Changed the design of the filtermenu on project overview page - [#287](https://github.com/DigitalExcellence/dex-frontend/issues/287)
+
+### Fixed
+
+- Fixed issue where images in the project-details view would go outside the page - [#397](https://github.com/DigitalExcellence/dex-frontend/issues/397)
+- Fixed issue where builds failed due to Lighthouse budgets not being high enough - [#411](https://github.com/DigitalExcellence/dex-backend/issues/411)
+- Fixed issue where long collaborator names would mess up styling - [#354](https://github.com/DigitalExcellence/dex-frontend/issues/354)
+- Fixed issue where in some cases the alert banner would not disapear automatically - [#392](https://github.com/DigitalExcellence/dex-frontend/issues/392)
+- Fixed issue where opening a modal or long usernames would cause the page to get unaligned - [#400](https://github.com/DigitalExcellence/dex-frontend/issues/400)
 
 ## Release v.0.9.0-beta - 09-12-2020
 

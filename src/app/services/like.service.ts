@@ -15,15 +15,28 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { CallToAction } from 'src/app/models/domain/call-to-action';
-import { CollaboratorAdd } from './collaborator-add';
-export interface ProjectAdd {
-  userId: number;
-  name: string;
-  collaborators: CollaboratorAdd[];
-  shortDescription: string;
-  description?: string;
-  url: string;
-  callToAction: CallToAction;
-  fileId?: number;
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { API_CONFIG } from 'src/app/config/api-config';
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class LikeService {
+
+  protected readonly url = API_CONFIG.url + API_CONFIG.projectLikes;
+
+  constructor(
+      private http: HttpClient) { }
+
+  public likeProject(projectId: number): void {
+    this.http.post(`${this.url}/${projectId}`, {projectId: projectId})
+        .subscribe();
+  }
+
+  public removeLike(projectId: number): void {
+    this.http.delete(`${this.url}/${projectId}`)
+        .subscribe();
+  }
 }

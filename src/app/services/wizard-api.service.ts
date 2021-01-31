@@ -17,9 +17,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { GenericWizard } from './interfaces/generic-wizard';
 import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
+import { API_CONFIG } from 'src/app/config/api-config';
 import { Observable } from 'rxjs';
-import { MappedProject } from '../models/internal/mapped-project';
+import { MappedProject } from 'src/app/models/internal/mapped-project';
 
 /**
  * Service to fetch a repo from api.

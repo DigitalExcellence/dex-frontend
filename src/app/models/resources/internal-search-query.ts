@@ -22,5 +22,4 @@ export interface InternalSearchQuery {
     amountOnPage: number;
     sortBy: string;
     sortDirection: string;
-    highlighted: boolean;
 }

@@ -18,7 +18,40 @@
  */
 @import "assets/styles/variables";
 
-.row {
+.highlight-form-modal {
+  max-width: 90vw;
+  width: 600px;
+  margin: 60px auto 30px auto;
+  .modal-content {
+    border: none;
+  }
+}
+.highlight-modal {
+  max-width: 90vw;
+  width: 800px;
+  margin: 60px auto 30px auto;
+  .modal-content {
+    border: none;
+  }
+}
+
+.project-icon {
+  display: flex;
+  place-content: center;
+  background-color: $accent-color-red-primary;
+  margin-right: 10px;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.not-found {
   margin: 0;
   max-width: 100%;
 }
@@ -38,6 +71,15 @@
     width: fit-content;
     margin: 0 auto;
     max-width: 100%;
+  }
+}
+
+.modal-open {
+  .feedback-button-container {
+    right: 15.77%!important;
+  }
+  .background {
+    width: 101.8vw;
   }
 }
 
@@ -131,6 +173,15 @@
         color: $light-mode-grey-primary;
         padding: 0;
       }
+      .fa-heart {
+        margin-left: 2px;
+      }
+      .fas.fa-heart.animated {
+        animation: heartbeat .4s linear 1;
+      }
+      .far.fa-heart.animated {
+        animation: fade-in .2s ease-in 1;
+      }
     }
     .hover {
       &:hover {
@@ -210,7 +261,7 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-
+    
     .menu-wrapper {
       display: flex;
       justify-content: space-between;
@@ -279,6 +330,14 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
+
+      .dex-quill-viewer {
+        img {
+          margin: 20px 0;
+          max-width: 100%;
+        }
+      }
+
       p {
         margin: 0;
       }
@@ -290,11 +349,21 @@
     }
   }
 
+  #call-to-action-button {
+    text-transform: lowercase;
+    width: fit-content;
+  }
+
+  #call-to-action-button::first-letter {
+    text-transform: uppercase;
+  }
+  
   .project-highlighted-div {
     float: left;
   }
 
   #project-share-buttons {
+    display: flex;
     margin-top: 60px;
 
     button:first-child {
@@ -316,5 +385,15 @@
       height: 36px;
       padding: 0;
     }
+  }
+}
+.loading-circle {
+  width: 20vw;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h2 {
+    color: $accent-color-red-primary;
   }
 }
