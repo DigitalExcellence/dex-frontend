@@ -52,7 +52,8 @@ export class FileUploaderComponent {
    */
   private maxFileSizeReadable: string = this.formatBytes(this.maxFileSize, 0);
 
-  constructor(private uploadService: FileUploaderService,
+  constructor(
+    private uploadService: FileUploaderService,
     private alertService: AlertService,
     private fileRetrieverService: FileRetrieverService) { }
 
