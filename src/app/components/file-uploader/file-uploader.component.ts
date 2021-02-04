@@ -1,3 +1,22 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { forkJoin, Observable, of } from 'rxjs';
@@ -33,9 +52,10 @@ export class FileUploaderComponent {
    */
   private maxFileSizeReadable: string = this.formatBytes(this.maxFileSize, 0);
 
-  constructor(private uploadService: FileUploaderService,
-              private alertService: AlertService,
-              private fileRetrieverService: FileRetrieverService) { }
+  constructor(
+    private uploadService: FileUploaderService,
+    private alertService: AlertService,
+    private fileRetrieverService: FileRetrieverService) { }
 
   files: Array<UploadFile> = new Array<UploadFile>();
 
@@ -50,9 +70,9 @@ export class FileUploaderComponent {
    * handle file from the file explorer
    */
   public fileBrowseHandler(files): void {
-     if (files.files !== this.files) {
+    if (files.files !== this.files) {
       this.prepareFilesList(files.files);
-     }
+    }
   }
 
   /**
@@ -71,7 +91,7 @@ export class FileUploaderComponent {
    */
   private prepareFilesList(files: Array<UploadFile>): void {
     // If the user can only select 1 image we want to reset the array
-    if ( !this.acceptMultiple) {
+    if (!this.acceptMultiple) {
       this.files = [];
     }
     for (const file of files) {
@@ -148,23 +168,24 @@ export class FileUploaderComponent {
     // Check if any files were uploaded
     if (this.fileInput.nativeElement.value !== '') {
       // Map all the files to an observable
-       const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
-          .pipe(
-              map(event => {
-                switch (event.type) {
-                  case HttpEventType.UploadProgress:
-                    // divide the (uploaded bytes * 100) by the total bytes to calculate the progress in percentage
-                    this.files.find(value => value.name === file.name).progress = Math.round(event.loaded * 100 / event.total);
-                    break;
-                  case HttpEventType.Response:
-                    return event.body;
-                  default:
-                    return;
-                }})
-          )
+      const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
+        .pipe(
+          map(event => {
+            switch (event.type) {
+              case HttpEventType.UploadProgress:
+                // divide the (uploaded bytes * 100) by the total bytes to calculate the progress in percentage
+                this.files.find(value => value.name === file.name).progress = Math.round(event.loaded * 100 / event.total);
+                break;
+              case HttpEventType.Response:
+                return event.body;
+              default:
+                return;
+            }
+          })
+        )
       );
-       // forkJoin the observables so they can be uploaded at the same time
-       return forkJoin(fileUploads);
+      // forkJoin the observables so they can be uploaded at the same time
+      return forkJoin(fileUploads);
     }
     // If no files were updated return original list
 
@@ -189,7 +210,8 @@ export class FileUploaderComponent {
         this.files.push({
           ...uploadedFile,
           preview: this.fileRetrieverService.getIconUrl(uploadedFile)
-      });
-    }});
+        });
+      }
+    });
   }
 }
