@@ -27,17 +27,17 @@ import { ColabComponent } from 'src/app/modules/project/add/manual/wizardmodules
 import { ProjectModule } from '../project.module';
 import { AddRoutingModule } from './add-routing.module';
 import { ManualComponent } from './manual/manual.component';
-import { SourceComponent } from './source/source.component';
+import { PickFlowPageComponent } from './external/external-source-pages/pick-flow-page/pick-flow-page.component';
 
 @NgModule({
   declarations: [
-    SourceComponent,
     ManualComponent,
     LinkComponent,
     ProjectNameComponent,
     DescriptionComponent,
     ColabComponent,
     FinalComponent,
+    PickFlowPageComponent,
   ],
   imports: [
     CommonModule,

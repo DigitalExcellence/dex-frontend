@@ -15,44 +15,47 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import {Component, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Router} from '@angular/router';
-import {ExternalSource} from 'src/app/models/domain/external-source';
-import {AlertConfig} from 'src/app/models/internal/alert-config';
-import {AlertType} from 'src/app/models/internal/alert-type';
-import {AlertService} from 'src/app/services/alert.service';
-import {AuthService} from 'src/app/services/auth.service';
-import {SEOService} from 'src/app/services/seo.service';
-import {WizardService} from 'src/app/services/wizard.service';
-// import { NameComponent } from './../manual/wizardmodules/name/wizardname.component';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { SEOService } from 'src/app/services/seo.service';
+import { WizardService } from 'src/app/services/wizard.service';
+import { ExternalSource } from 'src/app/models/domain/external-source';
+import { SafeUrl } from '@angular/platform-browser';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 /**
  * Component to import projects from external sources
  */
 @Component({
-  selector: 'app-source',
-  templateUrl: './source.component.html',
-  styleUrls: ['./source.component.scss'],
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
 })
-export class SourceComponent implements OnInit {
+export class MainComponent implements OnInit {
   /**
    * ExternalSources available to import your projects from
    */
-  public mostUsedSources: ExternalSource[] = [];
-
-  public sourceUriInput: FormControl = new FormControl('');
+  public sourceUriInput = new FormControl('');
+  public externalSources = new Array<ExternalSource>();
   public isAuthenticated: boolean;
+
   private authenticatedPageRangeType: string[] = [];
   private unauthenticatedPageRangeType: string[] = [];
+
   private manualPageRangeType: string[] = [];
 
   constructor(
-    private wizardService: WizardService,
-    private router: Router,
-    private alertService: AlertService,
-    private authService: AuthService,
-    private seoService: SEOService
+      private router: Router,
+      private alertService: AlertService,
+      private authService: AuthService,
+      private seoService: SEOService,
+      private wizardService: WizardService,
+      private fileRetrieverService: FileRetrieverService
   ) { }
 
   ngOnInit(): void {
@@ -63,56 +66,11 @@ export class SourceComponent implements OnInit {
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
     });
-    this.mostUsedSources.push(
-      {
-        id: 1,
-        name: 'GitHub',
-        image: 'assets/images/github-logo.svg',
-        pageRange: this.authenticatedPageRangeType,
-      },
-      {
-        id: 2,
-        name: 'GitLab',
-        image: 'assets/images/gitlab-logo.png',
-        pageRange: this.authenticatedPageRangeType,
-      },
-      {
-        id: 3,
-        name: 'FHICT Git',
-        image: 'assets/images/gitlabfhict-logo.png',
-        pageRange: this.authenticatedPageRangeType,
-      },
-      {
-        id: 4,
-        name: 'BitBucket',
-        image: 'assets/images/bitbucket-logo.png',
-        pageRange: this.authenticatedPageRangeType,
-      },
-      {
-        id: 5,
-        name: 'JS Fiddle',
-        image: 'assets/images/jsfiddle-logo.png',
-        pageRange: this.unauthenticatedPageRangeType,
-      },
-      {
-        id: 6,
-        name: 'Google Drive',
-        image: 'assets/images/googledrive-logo.png',
-        pageRange: this.authenticatedPageRangeType,
-      },
-      {
-        id: 7,
-        name: 'Canvas',
-        image: 'assets/images/canvas-logo.png',
-        pageRange: this.authenticatedPageRangeType,
-      },
-      {
-        id: 8,
-        name: 'No Source Link',
-        image: 'assets/images/nosource-image.svg',
-        pageRange: this.manualPageRangeType,
-      }
-    );
+
+    this.wizardService.fetchExternalSources().subscribe(externalSources => {
+      this.externalSources = externalSources;
+    });
+
     // Updates meta and title tags
     this.seoService.updateDescription('Create a new project in DeX');
     this.seoService.updateTitle('Add new project');
@@ -136,8 +94,6 @@ export class SourceComponent implements OnInit {
         this.alertService.pushAlert(alertConfig);
         return;
       }
-
-      this.wizardService.fetchProjectForSource(sourceUri);
     }
 
   }
@@ -148,11 +104,34 @@ export class SourceComponent implements OnInit {
    */
   public onClickAddProjectManual(): void {
     if (this.checkIfLoggedInAndReturnAlert()) {
-      this.wizardService.reset();
+      // this.wizardService.reset();
       this.router.navigate(['/project/add/manual']);
     }
 
   }
+
+  /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
+   */
+  public getIconUrl(project): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(project.projectIcon);
+  }
+
+  /**
+   * Handle the click when the user chooses an external source.
+   */
+  public externalSourceClick(event: MouseEvent, selectedSource: ExternalSource) {
+    console.log(selectedSource);
+    this.wizardService.selectExternalSource(selectedSource);
+    // Only public flows
+    // Input link
+    // Only private flow
+    // Redirect to login
+    // Both flows
+    // Let user decide
+  }
+
   /**
    * Check if the user is logged in, if not, return alert
    */

@@ -15,13 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 // Import showdown for markdown to html conversion.
-import * as showdown from 'showdown';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { Project } from 'src/app/models/domain/project';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
@@ -32,10 +31,8 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
-import { WizardService } from 'src/app/services/wizard.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
 import { DataService } from '../data.service';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 // import { LinkComponent } from "src/app/modules/project/add/manual/wizardmodules/link/wizardlink.component";
 // import { FinalComponent } from 'src/app/modules/project/add/manual/wizardmodules/final/wizardfinal.component';
@@ -111,7 +108,6 @@ export class ManualComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private projectService: ProjectService,
-    private wizardService: WizardService,
     private alertService: AlertService,
     private seoService: SEOService, ) {
     this.newProjectForm = this.formBuilder.group({
@@ -132,27 +128,27 @@ export class ManualComponent implements OnInit {
     // Keep updated with incoming messages;
     this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
       this.projectMessage = message;
-      console.log(message.uri)
-      console.log(message.name)
-      console.log(message.description)
-      console.log(message.shortDescription)
-      console.log(message.collaborators)
+      console.log(message.uri);
+      console.log(message.name);
+      console.log(message.description);
+      console.log(message.shortDescription);
+      console.log(message.collaborators);
     });
 
-    this.wizardService.fetchedProject.subscribe(project => {
-      if (project == null) {
-        return;
-      }
-      if (project.description != null && project.description.length > 0) {
-        const converter = new showdown.Converter(
-          {
-            literalMidWordUnderscores: true
-          }
-        );
-        project.description = converter.makeHtml(project.description);
-      }
-      this.fillFormWithProject(project);
-    });
+    // this.wizardService.fetchedProject.subscribe(project => {
+    //   if (project == null) {
+    //     return;
+    //   }
+    //   if (project.description != null && project.description.length > 0) {
+    //     const converter = new showdown.Converter(
+    //       {
+    //         literalMidWordUnderscores: true
+    //       }
+    //     );
+    //     project.description = converter.makeHtml(project.description);
+    //   }
+    //   this.fillFormWithProject(project);
+    // });
 
     // Updates meta and title tags
     this.seoService.updateTitle('Add new project');
