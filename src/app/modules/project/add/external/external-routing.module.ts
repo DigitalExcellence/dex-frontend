@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PickFlowPageComponent } from './external-source-pages/pick-flow-page/pick-flow-page.component';
-import { MainComponent } from '../main/main.component';
+import { EnterLinkPageComponent } from './external-source-pages/enter-link-page/enter-link-page.component';
+import { LoginPageComponent } from './external-source-pages/login-page/login-page.component';
 
 
 const routes: Routes = [
-
-  {path: '/', component: MainComponent, pathMatch: 'full'},
-  {path: '1/:flow-guid', component: PickFlowPageComponent},
+  {path: 'pickflow', component: PickFlowPageComponent},
+  {path: 'login', component: LoginPageComponent},
+  {path: 'link', component: EnterLinkPageComponent},
 ];
 
 @NgModule({

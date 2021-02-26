@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-pick-flow-page',
@@ -7,19 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PickFlowPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private wizardService: WizardService) { }
 
   ngOnInit(): void {
   }
 
   buttonClicked(event: MouseEvent, type) {
-    if (type === 'public') {
-      console.log('public flow');
-    } else if (type === 'private') {
-      console.log('private');
-    } else {
-      console.error('Unkown type');
-    }
+    this.wizardService.selectFlow(type);
   }
 
 }
