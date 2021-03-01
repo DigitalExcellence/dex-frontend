@@ -25,17 +25,12 @@
   </div>
 </div>
 
-
-<div class="row justify-content-center">
-  <div class="col-7 text-center info-box-add">
-    <div class="row enabled">
-      <div *ngFor="let externalSource of externalSources" class="col-lg-3 col-md-3 col-sm-1 source-box">
-        <div class="source">
-          <div (click)="externalSourceClick($event, externalSource)" class="source-content">
-            <img alt="" loading="lazy" src="{{ getIconUrl(externalSource.icon || 0) }}">
-            <h3>{{ externalSource?.title }}</h3>
-          </div>
-        </div>
+<div class="grid-wrapper">
+  <div class="source-grid">
+    <div *ngFor="let externalSource of externalSources" class="source">
+      <div (click)="externalSourceClick($event, externalSource)" class="source-content">
+        <img alt="" loading="lazy" src="{{ getIconUrl(externalSource.icon || 0) }}">
+        <h3>{{ externalSource?.title }}</h3>
       </div>
     </div>
   </div>
