@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
-import { DataService } from "../../../data.service";
+import { DataService } from '../../../data.service';
 
 @Component({
     selector: 'app-name',
@@ -23,10 +23,10 @@ export class ProjectNameComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
-            this.project = message;
-            this.linkForm.patchValue(message.name);
-        })
+      this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
+        this.project = message;
+        this.linkForm.patchValue(message.name);
+      });
     }
 
     onClickNextButton() {

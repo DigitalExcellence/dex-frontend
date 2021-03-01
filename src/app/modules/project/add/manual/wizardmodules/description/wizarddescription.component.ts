@@ -1,9 +1,8 @@
-import { QuillUtils } from 'src/app/utils/quill.utils';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
-import { DataService } from "../../../data.service";
+import { DataService } from '../../../data.service';
 
 @Component({
     selector: 'app-description',
@@ -24,11 +23,11 @@ export class DescriptionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
-            this.project = message;
-            this.linkForm.patchValue(message.shortDescription);
-            this.linkForm2.patchValue(message.description);
-        })
+      this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
+        this.project = message;
+        this.linkForm.patchValue(message.shortDescription);
+        this.linkForm2.patchValue(message.description);
+      });
     }
 
     onClickNextButton() {

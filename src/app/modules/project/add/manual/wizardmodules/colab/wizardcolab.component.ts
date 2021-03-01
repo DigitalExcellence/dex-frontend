@@ -15,52 +15,52 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
-import { DataService } from "../../../data.service";
+import { DataService } from '../../../data.service';
 
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
-    selector: 'app-colab',
-    templateUrl: './wizardcolab.component.html',
-    styleUrls: ['../../wizardmodules/colab/wizardcolab.component.scss']
+  selector: 'app-colab',
+  templateUrl: './wizardcolab.component.html',
+  styleUrls: ['../../wizardmodules/colab/wizardcolab.component.scss']
 })
 export class ColabComponent implements OnInit {
 
-    project: Project;
-    subscription: Subscription;
-    linkForm: FormControl;
 
+  project: Project;
+  subscription: Subscription;
+  linkForm: FormControl;
+  public newCollaboratorForm: FormGroup;
+  public collaborators: CollaboratorAdd[] = [];
 
-    constructor(private dataService: DataService,
-        private formBuilder: FormBuilder,
-        private alertService: AlertService, ) {
+  constructor(private dataService: DataService,
+              private formBuilder: FormBuilder,
+              private alertService: AlertService,) {
 
-        this.linkForm = new FormControl('');
+    this.linkForm = new FormControl('');
 
-        this.newCollaboratorForm = this.formBuilder.group({
-            fullName: [null, Validators.required],
-            role: [null, Validators.required],
-        });
-    }
+    this.newCollaboratorForm = this.formBuilder.group({
+      fullName: [null, Validators.required],
+      role: [null, Validators.required],
+    });
+  }
 
     ngOnInit() {
-        this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
-            this.project = message;
-            this.linkForm.patchValue(message.collaborators);
+      this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
+        this.project = message;
+        this.linkForm.patchValue(message.collaborators);
 
-            if (message.collaborators.length > 1) { this.collaborators = message.collaborators; }
-        })
+        if (message.collaborators.length > 1) {
+          this.collaborators = message.collaborators;
+        }
+      });
     }
-
-    public newCollaboratorForm: FormGroup;
-    public collaborators: CollaboratorAdd[] = [];
 
 
     ngOnDestroy() {
@@ -104,11 +104,11 @@ export class ColabComponent implements OnInit {
 
     addIdToCollaborators() {
         let i = 0;
-        this.collaborators.map(n => {
-            n['id'] = i;
-            i++;
-        })
-        this.onClickNextButton(this.collaborators);
+      this.collaborators.map(n => {
+        n['id'] = i;
+        i++;
+      });
+      this.onClickNextButton(this.collaborators);
     }
 
     onClickNextButton(collaborators) {

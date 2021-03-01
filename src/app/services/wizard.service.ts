@@ -91,7 +91,7 @@ export class WizardService {
   }
 
   private determineNextPage(): void {
-    let nextIndex = this.currentWizardPage?.orderIndex || 0;
+    const nextIndex = this.currentWizardPage?.orderIndex || 0;
     if (nextIndex <= this.selectedFlow.length) {
       this.currentWizardPage = this.selectedFlow[nextIndex];
       this.router.navigate(['project', 'add', 'external', this.currentWizardPage.name.toLowerCase()],);

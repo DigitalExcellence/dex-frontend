@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
-import { DataService } from "../../../data.service";
+import { DataService } from '../../../data.service';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class LinkComponent implements OnInit {
     this.subscription = this.dataService.currentProject.subscribe((message: Project) => {
       this.project = message;
       this.linkForm.patchValue(message.uri);
-    })
+    });
   }
 
   onClickNextButton() {

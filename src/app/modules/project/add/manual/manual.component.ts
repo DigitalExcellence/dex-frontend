@@ -52,6 +52,28 @@ import { DataService } from '../data.service';
 
 export class ManualComponent implements OnInit {
   @Input() pageRange: string[];
+
+  constructor(
+      private dataService: DataService,
+      private router: Router,
+      private formBuilder: FormBuilder,
+      private projectService: ProjectService,
+      private alertService: AlertService,
+      private seoService: SEOService,) {
+    this.newProjectForm = this.formBuilder.group({
+      name: [null, Validators.required],
+      uri: [null, Validators.required],
+      shortDescription: [null, Validators.required],
+      description: [null],
+    });
+
+    this.newCollaboratorForm = this.formBuilder.group({
+      fullName: [null, Validators.required],
+      role: [null, Validators.required],
+      id: [null, Validators.required],
+    });
+  }
+
   component = 'link';
   projectMessage: Project;
   subscription: Subscription;
@@ -61,18 +83,6 @@ export class ManualComponent implements OnInit {
   visibility = 'visible';
   show = true;
   hidden = false;
-
-  toggleShow() {
-    this.show = !this.show;
-  }
-
-  toggleHidden() {
-    this.hidden = !this.hidden;
-  }
-
-  toggleVisible() {
-    this.visibility = this.visibility == 'visible' ? 'hidden' : 'visible';
-  }
 
   /**
    * Formgroup for entering project details.
@@ -103,25 +113,16 @@ export class ManualComponent implements OnInit {
   public acceptMultiple = false;
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
-  constructor(
-    private dataService: DataService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private projectService: ProjectService,
-    private alertService: AlertService,
-    private seoService: SEOService, ) {
-    this.newProjectForm = this.formBuilder.group({
-      name: [null, Validators.required],
-      uri: [null, Validators.required],
-      shortDescription: [null, Validators.required],
-      description: [null],
-    });
+  toggleShow() {
+    this.show = !this.show;
+  }
 
-    this.newCollaboratorForm = this.formBuilder.group({
-      fullName: [null, Validators.required],
-      role: [null, Validators.required],
-      id: [null, Validators.required],
-    });
+  toggleHidden() {
+    this.hidden = !this.hidden;
+  }
+
+  toggleVisible() {
+    this.visibility = this.visibility == 'visible' ? 'hidden' : 'visible';
   }
 
   ngOnInit(): void {
@@ -261,6 +262,75 @@ export class ManualComponent implements OnInit {
       });
   }
 
+  public onClickNextButton() {
+    console.log('something cool!');
+  }
+
+
+  onSubmit() {
+    return false;
+  }
+
+  next(page: string) {
+    let stepTwo = document.getElementById('step2');
+    let stepThree = document.getElementById('step3');
+    let stepFour = document.getElementById('step4');
+    let stepFive = document.getElementById('step5');
+
+    if (this.component === 'link') {
+      this.component = 'name';
+      page = 'name';
+      stepTwo.className = 'step active';
+      document.getElementById('backButton').style.display = '';
+    } else if (this.component === 'name') {
+      this.component = 'description';
+      page = 'description';
+      stepThree.className = 'step active';
+    } else if (this.component === 'description') {
+      this.component = 'colab';
+      page = 'colab';
+      stepFour.className = 'step active';
+    } else if (this.component === 'colab') {
+      this.component = 'final';
+      stepFive.className = 'step active';
+      document.getElementById('hideButton').innerText = 'Finalize';
+      document.getElementById('nextButton').style.display = 'none';
+    } else if (this.component === 'link') {
+    }
+  }
+
+
+  // Stepper and next/previous page
+
+  back(page: string) {
+
+    let stepTwo = document.getElementById('step2');
+    let stepThree = document.getElementById('step3');
+    let stepFour = document.getElementById('step4');
+    let stepFive = document.getElementById('step5');
+
+    if (this.component === 'link') {
+      document.getElementById('backButton').style.display = 'none';
+    } else if (this.component === 'name') {
+      this.component = 'link';
+      page = 'link';
+      stepTwo.className = 'step';
+    } else if (this.component === 'description') {
+      this.component = 'name';
+      page = 'name';
+      stepThree.className = 'step';
+    } else if (this.component === 'colab') {
+      this.component = 'description';
+      page = 'description';
+      stepFour.className = 'step';
+    } else if (this.component === 'final') {
+      this.component = 'colab';
+      stepFive.className = 'step';
+      document.getElementById('hideButton').innerText = 'Hide';
+      document.getElementById('nextButton').style.display = '';
+    }
+  }
+
   /**
    * Method to fill a form with the values of a mapped project.
    */
@@ -270,94 +340,8 @@ export class ManualComponent implements OnInit {
     this.newProjectForm.get('shortDescription').setValue(project.shortDescription);
     this.newProjectForm.get('description').setValue(project.description);
     this.newProjectForm.get('collaborators').setValue(project.collaborators);
-    console.log('fillformwithdata')
-    console.log(this.newProjectForm)
-  }
-
-
-
-  onSubmit() {
-    return false;
-  }
-
-  public onClickNextButton() {
-    console.log('something cool!')
-  }
-
-
-
-
-
-
-
-
-
-
-  //Stepper and next/previous page
-
-  next(page: string) {
-    var stepTwo = document.getElementById('step2')
-    var stepThree = document.getElementById('step3')
-    var stepFour = document.getElementById('step4')
-    var stepFive = document.getElementById('step5')
-
-    if (this.component === 'link') {
-      this.component = 'name';
-      page = 'name';
-      stepTwo.className = "step active";
-      document.getElementById("backButton").style.display = "";
-    }
-    else if (this.component === 'name') {
-      this.component = 'description';
-      page = 'description';
-      stepThree.className = "step active";
-    }
-    else if (this.component === 'description') {
-      this.component = 'colab';
-      page = 'colab';
-      stepFour.className = "step active";
-    }
-    else if (this.component === 'colab') {
-      this.component = 'final';
-      stepFive.className = "step active";
-      document.getElementById("hideButton").innerText = "Finalize";
-      document.getElementById("nextButton").style.display = "none";
-    }
-    else if (this.component === 'link') {
-    }
-  }
-
-  back(page: string) {
-
-    var stepTwo = document.getElementById('step2')
-    var stepThree = document.getElementById('step3')
-    var stepFour = document.getElementById('step4')
-    var stepFive = document.getElementById('step5')
-
-    if (this.component === 'link') {
-      document.getElementById("backButton").style.display = "none";
-    }
-    else if (this.component === 'name') {
-      this.component = 'link';
-      page = 'link';
-      stepTwo.className = "step";
-    }
-    else if (this.component === 'description') {
-      this.component = 'name';
-      page = 'name';
-      stepThree.className = "step";
-    }
-    else if (this.component === 'colab') {
-      this.component = 'description';
-      page = 'description';
-      stepFour.className = "step";
-    }
-    else if (this.component === 'final') {
-      this.component = 'colab';
-      stepFive.className = "step";
-      document.getElementById("hideButton").innerText = "Hide";
-      document.getElementById("nextButton").style.display = "";
-    }
+    console.log('fillformwithdata');
+    console.log(this.newProjectForm);
   }
 }
 
