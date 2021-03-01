@@ -26,10 +26,25 @@
   justify-content: center;
 
   .source-grid {
-    width: 50%;
+    width: 100%;
+    max-width: 800px;
     display: grid;
+    gap: 15px;
 
     grid-template-columns: repeat(auto-fill, minmax(226px, 1fr));
+
+    &::before {
+      content: '';
+      width: 0;
+      padding-bottom: 100%;
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
+    }
+
+    *:first-child {
+      grid-row: 1 / 1;
+      grid-column: 1 / 1;
+    }
 
     .source {
       display: flex;
@@ -39,7 +54,6 @@
       background-color: $white;
       text-align: center;
       box-shadow: $box-shadow;
-      max-width: 226px;
 
       &:before {
         content: "";
