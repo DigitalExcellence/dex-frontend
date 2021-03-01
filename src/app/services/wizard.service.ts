@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api-config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ExternalSource } from '../models/domain/external-source';
 import { Observable } from 'rxjs';
 import { WizardPage } from '../models/domain/wizard-page';
 import { Router } from '@angular/router';
+import { Project } from '../models/domain/project';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WizardService {
-  protected readonly url = API_CONFIG.url + API_CONFIG.dataSourceRoute;
+  public allUserProjects: Array<Project>;
+  public selectedUserProject: Project;
 
   private selectedSource: ExternalSource;
   private publicFlow: Array<WizardPage>;
   private privateFlow: Array<WizardPage>;
   private selectedFlow: Array<WizardPage>;
   private currentWizardPage: WizardPage;
+  protected readonly datasourceUrl = API_CONFIG.url + API_CONFIG.dataSourceRoute;
+  protected readonly wizardUrl = API_CONFIG.url + API_CONFIG.wizardRoute;
 
   constructor(
       private http: HttpClient,
@@ -26,7 +30,7 @@ export class WizardService {
    * This function fetches all the available external sources
    */
   public fetchExternalSources(): Observable<Array<ExternalSource>> {
-    return this.http.get<Array<ExternalSource>>(this.url);
+    return this.http.get<Array<ExternalSource>>(this.datasourceUrl);
   }
 
   /**
@@ -37,6 +41,17 @@ export class WizardService {
     this.selectedSource = selectedSource;
     this.selectedFlow = undefined;
     this.goToNextStep();
+  }
+
+  public fetchProjectsFromExternalSource(token: string): Observable<Array<Project>> {
+    let params = new HttpParams();
+    params = params.append('dataSourceGuid', this.selectedSource.guid);
+    params = params.append('token', token);
+    params = params.append('needsAuth', this.selectedFlow[0].authFlow.toString());
+
+    return this.http.get<Array<Project>>(this.wizardUrl + '/projects', {
+      params: params
+    });
   }
 
   /**
