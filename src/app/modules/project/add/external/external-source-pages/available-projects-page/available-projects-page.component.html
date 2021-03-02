@@ -1,0 +1,13 @@
+<ng-container *ngIf="userProjects.length > 0">
+  <div class="project-list-wrapper" class='list'>
+    <div (click)="projectClicked(project)" *ngFor="let project of userProjects" class="project list">
+      <div class='circle'>
+        <img alt="projec-icon" loading="lazy" src='/assets/images/placeholder.png'>
+      </div>
+      <div class="project-info">
+        <h3 class="project-name">{{project.name}}</h3>
+        <p class="project-short-description">{{project.description}}</p>
+      </div>
+    </div>
+  </div>
+</ng-container>

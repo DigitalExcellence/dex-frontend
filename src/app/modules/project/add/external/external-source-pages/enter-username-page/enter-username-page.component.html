@@ -2,18 +2,4 @@
 <input [formControl]="usernameControl" id="username" name="username" type="text"/>
 <button (click)="fetchProjects()">Find projects!</button>
 
-
-<ng-container *ngIf="userProjects.length > 0">
-  <div class="project-list-wrapper" class='list'>
-    <div *ngFor="let project of userProjects" class="project list">
-      <div class='circle'>
-        <img alt="projec-icon" loading="lazy" src='/assets/images/placeholder.png'>
-      </div>
-      <div class="project-info">
-        <h3 class="project-name">{{project.name}}</h3>
-        <p class="project-short-description">{{project.description}}</p>
-      </div>
-      <em class='fas fa-user'></em> {{usernameControl.value}}</div>
-  </div>
-</ng-container>
-
+<app-available-projects-page *ngIf="userProjects" [userProjects]="userProjects"></app-available-projects-page>

@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { ExternalSource } from '../models/domain/external-source';
 import { Observable } from 'rxjs';
 import { WizardPage } from '../models/domain/wizard-page';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Project } from '../models/domain/project';
 
 @Injectable({
@@ -19,6 +19,7 @@ export class WizardService {
   private privateFlow: Array<WizardPage>;
   private selectedFlow: Array<WizardPage>;
   private currentWizardPage: WizardPage;
+  private userToken: string;
   protected readonly datasourceUrl = API_CONFIG.url + API_CONFIG.dataSourceRoute;
   protected readonly wizardUrl = API_CONFIG.url + API_CONFIG.wizardRoute;
 
@@ -43,15 +44,20 @@ export class WizardService {
     this.goToNextStep();
   }
 
-  public fetchProjectsFromExternalSource(token: string): Observable<Array<Project>> {
+  public fetchProjectsFromExternalSource(selectedSourceGuid: string, token: string): Observable<Array<Project>> {
     let params = new HttpParams();
-    params = params.append('dataSourceGuid', this.selectedSource.guid);
+    params = params.append('dataSourceGuid', selectedSourceGuid);
     params = params.append('token', token);
     params = params.append('needsAuth', this.selectedFlow[0].authFlow.toString());
 
     return this.http.get<Array<Project>>(this.wizardUrl + '/projects', {
       params: params
     });
+  }
+
+  public selectProject(project: Project): void {
+    this.selectedUserProject = project;
+    console.log('Selected project', this.selectedUserProject);
   }
 
   /**
@@ -109,7 +115,14 @@ export class WizardService {
     const nextIndex = this.currentWizardPage?.orderIndex || 0;
     if (nextIndex <= this.selectedFlow.length) {
       this.currentWizardPage = this.selectedFlow[nextIndex];
-      this.router.navigate(['project', 'add', 'external', this.currentWizardPage.name.toLowerCase()],);
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          'externalSource': this.selectedSource.guid,
+          'token': this.userToken
+        }
+      };
+
+      this.router.navigate(['project', 'add', 'external', this.currentWizardPage.name.toLowerCase()], navigationExtras);
     } else {
       console.info('No steps left');
     }
