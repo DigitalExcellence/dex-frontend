@@ -14,6 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import { PlatformLocation } from '@angular/common';
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {SafeUrl} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -96,7 +97,7 @@ export class DetailsComponent implements OnInit {
   public animationTriggered = false;
 
   constructor(
-    private activedRoute: ActivatedRoute,
+    private location: PlatformLocation,
     private projectService: ProjectService,
     private authService: AuthService,
     private highlightService: HighlightService,
@@ -109,6 +110,9 @@ export class DetailsComponent implements OnInit {
     private likeService: LikeService
   ) {
     this.onLike = new Subject<boolean>();
+
+    // Platform location should not be used directly
+    location.onPopState(() => this.modalService.hide(1));
   }
 
   ngOnInit(): void {
