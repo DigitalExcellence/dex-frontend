@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ### Fixed
+- Fixed list view animation bug which prevented like animation from playing - [#419](https://github.com/DigitalExcellence/dex-frontend/issues/419)
 
 ### Security
 
