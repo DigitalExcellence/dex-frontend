@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Auto dismiss the login warning when liking project if you're not logged in - [433](https://github.com/DigitalExcellence/dex-frontend/issues/433)
+
 ### Security
 
 ## Release v.1.0.1-beta - 31-01-2021

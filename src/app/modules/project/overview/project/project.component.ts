@@ -89,6 +89,7 @@ export class ProjectComponent {
         type: AlertType.warning,
         mainMessage: 'You need to be logged in to like a project',
         dismissible: true,
+        autoDismiss: true,
         timeout: this.alertService.defaultTimeout
       };
       this.alertService.pushAlert(alertConfig);
