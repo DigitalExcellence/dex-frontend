@@ -162,7 +162,7 @@ export class DetailsComponent implements OnInit {
    * changes while the user navigates the session history. Whenever
    * the user navigates to another route, this function will hide
    * the active modal.
-   * @param event
+   * @param event that will be received when history entry changes.
    */
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
