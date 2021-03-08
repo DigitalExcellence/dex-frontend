@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Auto dismiss the login warning when liking project if you're not logged in - [433](https://github.com/DigitalExcellence/dex-frontend/issues/433)
+- Hide the active modal when you navigate to another page via browser navigation arrows - [423](https://github.com/DigitalExcellence/dex-frontend/issues/423)
 
 ### Security
 
