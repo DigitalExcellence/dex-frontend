@@ -14,9 +14,10 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {SafeUrl} from '@angular/platform-browser';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
 import {EMPTY, Observable, Subject} from 'rxjs';
 import {finalize, switchMap} from 'rxjs/operators';
@@ -41,6 +42,7 @@ import {LikeService} from 'src/app/services/like.service';
 import {ProjectService} from 'src/app/services/project.service';
 import {SEOService} from 'src/app/services/seo.service';
 import {environment} from 'src/environments/environment';
+import { HostListener } from '@angular/core';
 
 /**
  * Overview of a single project
@@ -96,7 +98,6 @@ export class DetailsComponent implements OnInit {
   public animationTriggered = false;
 
   constructor(
-    private activedRoute: ActivatedRoute,
     private projectService: ProjectService,
     private authService: AuthService,
     private highlightService: HighlightService,
@@ -153,6 +154,18 @@ export class DetailsComponent implements OnInit {
           }
         });
     }
+  }
+
+  /**
+   * The pop state event is fired when the active history entry
+   * changes while the user navigates the session history. Whenever
+   * the user navigates to another route, this function will hide
+   * the active modal.
+   * @param event that will be received when history entry changes.
+   */
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+    this.hideModalAndRemoveClass();
   }
 
   public onClickCallToActionButton(url: string) {
@@ -362,9 +375,17 @@ export class DetailsComponent implements OnInit {
    * @param url the url to redirect to
    */
   public closeModalAndRedirect(url: string) {
+    this.hideModalAndRemoveClass();
+    this.router.navigate([url]);
+  }
+
+  /**
+   * This method will hide the active modal and remove the
+   * according class.
+   */
+  private hideModalAndRemoveClass(): void {
     this.modalService.hide(1);
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
-    this.router.navigate([url]);
   }
 
   /**
