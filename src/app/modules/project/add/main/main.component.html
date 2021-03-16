@@ -27,30 +27,6 @@
 
 <div class="grid-wrapper">
   <div class="source-grid">
-    <!--    <div class="source">-->
-    <!--      <div class="source-content">-->
-    <!--        <img alt="" loading="lazy" src="https://about.gitlab.com/images/press/logo/jpg/gitlab-icon-rgb.jpg">-->
-    <!--        <h3>Gitlab</h3>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="source">-->
-    <!--      <div class="source-content">-->
-    <!--        <img alt="" loading="lazy" src="https://about.gitlab.com/images/press/logo/jpg/gitlab-icon-rgb.jpg">-->
-    <!--        <h3>Gitlab</h3>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="source">-->
-    <!--      <div class="source-content">-->
-    <!--        <img alt="" loading="lazy" src="https://about.gitlab.com/images/press/logo/jpg/gitlab-icon-rgb.jpg">-->
-    <!--        <h3>Gitlab</h3>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="source">-->
-    <!--      <div class="source-content">-->
-    <!--        <img alt="" loading="lazy" src="https://about.gitlab.com/images/press/logo/jpg/gitlab-icon-rgb.jpg">-->
-    <!--        <h3>Gitlab</h3>-->
-    <!--      </div>-->
-    <!--    </div>-->
     <div *ngFor="let externalSource of externalSources" class="source">
       <div (click)="externalSourceClick($event, externalSource)" class="source-content">
         <img alt="" loading="lazy" src="{{ getIconUrl(externalSource.icon || 0) }}">

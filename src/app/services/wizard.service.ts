@@ -34,16 +34,6 @@ export class WizardService {
     return this.http.get<Array<ExternalSource>>(this.datasourceUrl);
   }
 
-  /**
-   * Can be used to pick an external source
-   * @param {ExternalSource} selectedSource - The selected source
-   */
-  public selectExternalSource(selectedSource: ExternalSource): void {
-    this.selectedSource = selectedSource;
-    this.selectedFlow = undefined;
-    this.goToNextStep();
-  }
-
   public fetchProjectsFromExternalSource(selectedSourceGuid: string, token: string): Observable<Array<Project>> {
     let params = new HttpParams();
     params = params.append('dataSourceGuid', selectedSourceGuid);

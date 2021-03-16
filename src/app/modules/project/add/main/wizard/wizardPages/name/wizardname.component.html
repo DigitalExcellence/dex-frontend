@@ -17,26 +17,27 @@
 
  -->
 
-<div class="Wizard-6">
+
+<div class="Wizard-1">
     <div class="text">
         <div class="step">
-            <h2>Step 1</h2>
+            <h2>Step 2</h2>
         </div>
         <div class="title">
-            <h2> Do you have a link for the project? </h2>
+            <h2> What is the name of the project? </h2>
         </div>
         <div class="under-title">
-            <h4> If your project has a link with a project page or another source you can link it here! </h4>
+            <h4> A project name is important to identify your project! </h4>
         </div>
     </div>
     <div class="inputfield">
         <div class="row">
-            <div class="col-4 source-box">
+            <div class="col-3 source-box">
                 <div class="source-content ">
                     <div>
-                        <div class="project-form" style="width: 105%">
-                            <input type="text" name="uri" placeholder="https://github.com/fontys/projectname" required
-                                [formControl]="linkForm" value="[[uri]]">
+                        <div class="project-form">
+                            <input type="text" name="name" placeholder="Name of your project" required
+                                [formControl]="linkForm" value="{{project.name}}">
                         </div>
                     </div>
                 </div>
@@ -51,7 +52,7 @@
     <div class="image">
         <div class="source-content">
             <div class="row justify-content-center">
-                <img src="assets/images/wizard/link.svg" alt="" loading="lazy">
+                <img alt="" loading="lazy" src="../../../../../../../../assets/images/wizard/name.svg">
             </div>
         </div>
     </div>

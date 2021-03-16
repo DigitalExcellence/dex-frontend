@@ -1,0 +1,16 @@
+<div #autoShownModal="bs-modal" (onHidden)="onHidden()" *ngIf="isModalShown" [config]="{ show: true }" aria-labelledby="dialog-auto-name"
+     bsModal class="modal fade" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--        <h4 class="modal-title pull-left">Import project from {{selectedExternalSource.title}}</h4>-->
+      </div>
+      <div class="modal-body">
+        <!--        <div *ngFor="let wizardPage of selectedExternalSource.wizardPages">Step {{wizardPage.orderIndex}}</div>-->
+        <router-outlet></router-outlet>
+        <button [routerLink]="nextLink()"> next</button>
+        <button [routerLink]="previousLink()"> previous</button>
+      </div>
+    </div>
+  </div>
+</div>

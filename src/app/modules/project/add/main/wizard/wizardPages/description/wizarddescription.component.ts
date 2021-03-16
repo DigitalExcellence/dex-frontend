@@ -2,16 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
-import { DataService } from '../../../data.service';
+import { DataService } from '../../../../data.service';
 
 @Component({
     selector: 'app-description',
     templateUrl: './wizarddescription.component.html',
-    styleUrls: ['../../wizardmodules/description/wizarddescription.component.scss']
+  styleUrls: ['./wizarddescription.component.scss']
 })
 export class DescriptionComponent implements OnInit {
-
-
     project: Project;
     subscription: Subscription;
     linkForm: FormControl;

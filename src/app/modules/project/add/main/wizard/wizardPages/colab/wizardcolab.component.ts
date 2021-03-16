@@ -18,7 +18,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
-import { DataService } from '../../../data.service';
+import { DataService } from '../../../../data.service';
 
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
@@ -28,7 +28,7 @@ import { AlertService } from 'src/app/services/alert.service';
 @Component({
   selector: 'app-colab',
   templateUrl: './wizardcolab.component.html',
-  styleUrls: ['../../wizardmodules/colab/wizardcolab.component.scss']
+  styleUrls: ['./wizardcolab.component.scss']
 })
 export class ColabComponent implements OnInit {
 

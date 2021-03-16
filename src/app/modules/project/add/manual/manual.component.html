@@ -20,97 +20,97 @@
 
 <!-- Modal -->
 
-<div class="wizard-wrapper" id="wizard-modal" *ngIf="show" [hidden]="hidden" [style.visibility]="visibility">
-  <div class="wizard">
-    <div class=" wizard-body">
+<!--<div class="wizard-wrapper" id="wizard-modal" *ngIf="show" [hidden]="hidden" [style.visibility]="visibility">-->
+<!--  <div class="wizard">-->
+<!--    <div class=" wizard-body">-->
 
-      <div class="stepper-box"></div>
+<!--      <div class="stepper-box"></div>-->
 
 
-      <div id="stepper1" class="bs-stepper vertical linear">
-        <div class="bs-stepper-header" role="tablist">
-          <div class="step active" id="step1">
-            <button type="button" class="step-trigger" role="tab" aria-selected="true">
-              <span class="bs-stepper-circle">1</span>
-            </button>
-          </div>
+<!--      <div id="stepper1" class="bs-stepper vertical linear">-->
+<!--        <div class="bs-stepper-header" role="tablist">-->
+<!--          <div class="step active" id="step1">-->
+<!--            <button type="button" class="step-trigger" role="tab" aria-selected="true">-->
+<!--              <span class="bs-stepper-circle">1</span>-->
+<!--            </button>-->
+<!--          </div>-->
 
-          <div class="bs-stepper-line"></div>
-          <div class="step" id="step2">
-            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-2"
-              aria-selected="false">
-              <span class="bs-stepper-circle">2</span>
-            </button>
-          </div>
+<!--          <div class="bs-stepper-line"></div>-->
+<!--          <div class="step" id="step2">-->
+<!--            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-2"-->
+<!--              aria-selected="false">-->
+<!--              <span class="bs-stepper-circle">2</span>-->
+<!--            </button>-->
+<!--          </div>-->
 
-          <div class="bs-stepper-line"></div>
-          <div class="step" id="step3">
-            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-3"
-              aria-selected="false">
-              <span class="bs-stepper-circle">3</span>
-            </button>
-          </div>
+<!--          <div class="bs-stepper-line"></div>-->
+<!--          <div class="step" id="step3">-->
+<!--            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-3"-->
+<!--              aria-selected="false">-->
+<!--              <span class="bs-stepper-circle">3</span>-->
+<!--            </button>-->
+<!--          </div>-->
 
-          <div class="bs-stepper-line"></div>
-          <div class="step" id="step4">
-            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-4"
-              aria-selected="false">
-              <span class="bs-stepper-circle">4</span>
-            </button>
-          </div>
+<!--          <div class="bs-stepper-line"></div>-->
+<!--          <div class="step" id="step4">-->
+<!--            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-4"-->
+<!--              aria-selected="false">-->
+<!--              <span class="bs-stepper-circle">4</span>-->
+<!--            </button>-->
+<!--          </div>-->
 
-          <div class="bs-stepper-line"></div>
-          <div class="step" id="step5">
-            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-5"
-              aria-selected="false">
-              <span class="bs-stepper-circle">5</span>
-            </button>
-          </div>
+<!--          <div class="bs-stepper-line"></div>-->
+<!--          <div class="step" id="step5">-->
+<!--            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-5"-->
+<!--              aria-selected="false">-->
+<!--              <span class="bs-stepper-circle">5</span>-->
+<!--            </button>-->
+<!--          </div>-->
 
-          <!-- <div class="bs-stepper-line"></div>
-          <div class="step" id="step6">
-            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-6"
-              aria-selected="false">
-              <span class="bs-stepper-circle">6</span>
-            </button>
-          </div> -->
+<!--          &lt;!&ndash; <div class="bs-stepper-line"></div>-->
+<!--          <div class="step" id="step6">-->
+<!--            <button type="button" class="step-trigger" role="tab" id="step-trigger" aria-controls="test-vl-6"-->
+<!--              aria-selected="false">-->
+<!--              <span class="bs-stepper-circle">6</span>-->
+<!--            </button>-->
+<!--          </div> &ndash;&gt;-->
 
-        </div>
-        <div class="bs-stepper-content">
-          <div id="test-vl-1" role="tabpanel" class="bs-stepper-pane fade active dstepper-block"
-            aria-labelledby="stepper4trigger1" *ngIf="show" [hidden]="hidden" [style.visibility]="visibility">
-            <ng-container *ngIf="component === 'link'">
-              <app-link></app-link>
-            </ng-container>
-            <ng-container *ngIf="component === 'name'">
-              <app-name></app-name>
-            </ng-container>
-            <ng-container *ngIf="component === 'description'">
-              <app-description></app-description>
-            </ng-container>
-            <ng-container *ngIf="component === 'colab'">
-              <app-colab></app-colab>
-            </ng-container>
-            <ng-container *ngIf="component === 'final'">
-              <app-final></app-final>
-            </ng-container>
-            <div class="row" style="margin-top: 1vw">
-              <button (click)="back('final')" class="btn btn-success" id="backButton" type="submit"
-                style="margin-left: 5vw; display: none;  font-size: 80%;">Back</button>
+<!--        </div>-->
+<!--        <div class="bs-stepper-content">-->
+<!--          <div id="test-vl-1" role="tabpanel" class="bs-stepper-pane fade active dstepper-block"-->
+<!--            aria-labelledby="stepper4trigger1" *ngIf="show" [hidden]="hidden" [style.visibility]="visibility">-->
+<!--            <ng-container *ngIf="component === 'link'">-->
+<!--              <app-link></app-link>-->
+<!--            </ng-container>-->
+<!--            <ng-container *ngIf="component === 'name'">-->
+<!--              <app-name></app-name>-->
+<!--            </ng-container>-->
+<!--            <ng-container *ngIf="component === 'description'">-->
+<!--              <app-description></app-description>-->
+<!--            </ng-container>-->
+<!--            <ng-container *ngIf="component === 'colab'">-->
+<!--              <app-colab></app-colab>-->
+<!--            </ng-container>-->
+<!--            <ng-container *ngIf="component === 'final'">-->
+<!--              <app-final></app-final>-->
+<!--            </ng-container>-->
+<!--            <div class="row" style="margin-top: 1vw">-->
+<!--              <button (click)="back('final')" class="btn btn-success" id="backButton" type="submit"-->
+<!--                style="margin-left: 5vw; display: none;  font-size: 80%;">Back</button>-->
 
-              <button (click)="toggleVisible()" class="btn btn-success" type="submit"
-                style="margin-left: 10vw; font-size: 80%;" id="hideButton">Hide</button>
+<!--              <button (click)="toggleVisible()" class="btn btn-success" type="submit"-->
+<!--                style="margin-left: 10vw; font-size: 80%;" id="hideButton">Hide</button>-->
 
-              <button (click)="next('final')" class="btn btn-success" style="margin-left: 10vw;  font-size: 80%;"
-                id="nextButton" type=" submit">Next</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="wizard-background"></div>
-</div>
+<!--              <button (click)="next('final')" class="btn btn-success" style="margin-left: 10vw;  font-size: 80%;"-->
+<!--                id="nextButton" type=" submit">Next</button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="wizard-background"></div>-->
+<!--</div>-->
 
 
 
@@ -128,11 +128,11 @@
     <h1 class="text-center">Add project overview</h1>
     <br> <br>
 
-    <div class="row justify-content-center">
-      <div class="col-7 text-center info-box-add">
-        <button class="btn btn-success" (click)="toggleVisible()">Open Wizard</button>
-      </div>
-    </div>
+    <!--    <div class="row justify-content-center">-->
+    <!--      <div class="col-7 text-center info-box-add">-->
+    <!--        <button class="btn btn-success" (click)="toggleVisible()">Open Wizard</button>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
     <form [formGroup]="newProjectForm" class="project-form">
 

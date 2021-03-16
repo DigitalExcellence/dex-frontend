@@ -16,7 +16,6 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
@@ -27,6 +26,7 @@ import { WizardService } from 'src/app/services/wizard.service';
 import { ExternalSource } from 'src/app/models/domain/external-source';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 /**
  * Component to import projects from external sources
@@ -40,28 +40,21 @@ export class MainComponent implements OnInit {
   /**
    * ExternalSources available to import your projects from
    */
-  public sourceUriInput = new FormControl('');
   public externalSources = new Array<ExternalSource>();
+  public selectedExternalSource: ExternalSource;
   public isAuthenticated: boolean;
-
-  private authenticatedPageRangeType: string[] = [];
-  private unauthenticatedPageRangeType: string[] = [];
-
-  private manualPageRangeType: string[] = [];
-
+  modalRef: BsModalRef;
   constructor(
       private router: Router,
       private alertService: AlertService,
       private authService: AuthService,
       private seoService: SEOService,
       private wizardService: WizardService,
-      private fileRetrieverService: FileRetrieverService
+      private fileRetrieverService: FileRetrieverService,
+      private modalService: BsModalService
   ) { }
 
   ngOnInit(): void {
-    this.authenticatedPageRangeType.push('link', 'description', 'final');
-    this.unauthenticatedPageRangeType.push('description', 'link', 'final');
-    this.manualPageRangeType.push('link', 'description', 'final');
 
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
@@ -77,28 +70,6 @@ export class MainComponent implements OnInit {
   }
 
   /**
-   * Method which triggers when the submit source uri button is pressed.
-   * Fetches the source from the wizard service.
-   */
-  public onClickSubmitSourceUri(): void {
-    if (this.checkIfLoggedInAndReturnAlert()) {
-      const sourceUri = this.sourceUriInput.value;
-      if (sourceUri == null || sourceUri === '') {
-        const alertConfig: AlertConfig = {
-          type: AlertType.danger,
-          preMessage: 'Source uri/url was invalid',
-          mainMessage: 'Source details could not be fetched',
-          dismissible: true,
-          timeout: this.alertService.defaultTimeout,
-        };
-        this.alertService.pushAlert(alertConfig);
-        return;
-      }
-    }
-
-  }
-
-  /**
    * Method which triggers when the add manual project is pressed.
    * Resets the fetched source in the wizard service.
    */
@@ -107,7 +78,6 @@ export class MainComponent implements OnInit {
       // this.wizardService.reset();
       this.router.navigate(['/project/add/manual']);
     }
-
   }
 
   /**
@@ -122,8 +92,8 @@ export class MainComponent implements OnInit {
    * Handle the click when the user chooses an external source.
    */
   public externalSourceClick(event: MouseEvent, selectedSource: ExternalSource) {
-    console.log(selectedSource);
-    this.wizardService.selectExternalSource(selectedSource);
+    this.selectedExternalSource = selectedSource;
+    this.router.navigate(['project', 'add', 'wizard']);
     // Only public flows
     // Input link
     // Only private flow

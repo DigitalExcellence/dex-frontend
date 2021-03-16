@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { WizardService } from 'src/app/services/wizard.service';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Project } from '../../../../../../models/domain/project';
+import { Project } from '../../../../../../../models/domain/project';
+import { NgWizardStep } from '@cmdap/ng-wizard';
 
 @Component({
-  selector: 'app-enter-username-page',
-  templateUrl: './enter-username-page.component.html',
-  styleUrls: ['./enter-username-page.component.scss']
+  selector: 'app-username',
+  templateUrl: './username.component.html',
+  styleUrls: ['./username.component.scss']
 })
-export class EnterUsernamePageComponent implements OnInit {
+export class UsernameComponent extends NgWizardStep implements OnInit {
 
   public usernameControl = new FormControl('');
   public userProjects: Array<Project>;
@@ -17,7 +18,9 @@ export class EnterUsernamePageComponent implements OnInit {
 
   constructor(private wizardService: WizardService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+    super();
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

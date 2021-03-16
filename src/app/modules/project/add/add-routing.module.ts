@@ -22,8 +22,8 @@ import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', component: MainComponent},
-  {path: 'external', loadChildren: () => import('./external/external.module').then((m) => m.ExternalModule)},
   {path: 'manual', component: ManualComponent},
+  {path: 'wizard', loadChildren: () => import('./main/wizard/wizard.module').then((m) => m.WizardModule)}
 ];
 
 @NgModule({
