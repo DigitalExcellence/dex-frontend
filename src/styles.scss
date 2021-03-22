@@ -81,8 +81,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 // Styles for QuillViewer
 .dex-quill-viewer {
-  display: flex;
-  flex-direction: column;
   .ql-editor {
     padding: 0 !important;
     font-family: $font-family-base;

@@ -332,10 +332,18 @@
       gap: 15px;
 
       .dex-quill-viewer {
+        display: flex;
+        flex-direction: column;
         img {
           margin: 20px 0;
           max-width: 100%;
         }
+      }
+      .bottom-buttons {
+        display: grid;
+        grid-auto-flow: column;
+        gap: 15px;
+        width: fit-content;
       }
 
       p {
