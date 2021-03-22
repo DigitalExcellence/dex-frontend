@@ -76,7 +76,7 @@
 
 .modal-open {
   .feedback-button-container {
-    right: 15.77%!important;
+    right: 15.77% !important;
   }
   .background {
     width: 101.8vw;
@@ -177,10 +177,10 @@
         margin-left: 2px;
       }
       .fas.fa-heart.animated {
-        animation: heartbeat .4s linear 1;
+        animation: heartbeat 0.4s linear 1;
       }
       .far.fa-heart.animated {
-        animation: fade-in .2s ease-in 1;
+        animation: fade-in 0.2s ease-in 1;
       }
     }
     .hover {
@@ -261,7 +261,7 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    
+
     .menu-wrapper {
       display: flex;
       justify-content: space-between;
@@ -357,7 +357,7 @@
   #call-to-action-button::first-letter {
     text-transform: uppercase;
   }
-  
+
   .project-highlighted-div {
     float: left;
   }
