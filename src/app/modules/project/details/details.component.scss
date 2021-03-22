@@ -339,7 +339,18 @@
       }
 
       p {
-        margin: 0;
+        margin: 0 0 10px 0;
+      }
+      p:last-child {
+        margin-bottom: 0px;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 10px;
       }
       .collaborators {
         display: grid;
