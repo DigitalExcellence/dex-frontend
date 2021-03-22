@@ -85,7 +85,7 @@
 
 .project-modal-content {
   border: none;
-  padding: 40px;
+  padding: 45px 60px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -112,9 +112,9 @@
     .circle {
       place-content: center;
       background-color: $accent-color-red-primary;
-      width: 60px;
-      min-width: 60px;
-      height: 60px;
+      width: 65px;
+      min-width: 65px;
+      height: 65px;
       border-radius: 999px;
       overflow: hidden;
       box-shadow: 0 0px 4px #0000001a;
