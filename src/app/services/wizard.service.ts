@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
+import { API_CONFIG } from 'src/app/config/api-config';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { ExternalSource } from '../models/domain/external-source';
+import { ExternalSource } from 'src/app/models/domain/external-source';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { Router } from '@angular/router';

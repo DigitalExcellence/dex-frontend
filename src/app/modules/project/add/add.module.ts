@@ -19,16 +19,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
-import { FinalComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/default_/final/wizardfinal.component';
-import { LinkComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/default_/link/wizardlink.component';
-import { DescriptionComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/default_/description/wizarddescription.component';
-import { ColabComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/default_/colab/wizardcolab.component';
-import { ProjectModule } from '../project.module';
 import { AddRoutingModule } from './add-routing.module';
 import { PickFlowPageComponent } from './main/wizard/wizardPages/dynamic/pick-flow-page/pick-flow-page.component';
 import { MainComponent } from './main/main.component';
 import { WizardComponent } from './main/wizard/wizard.component';
-import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
 import { UsernameComponent } from './main/wizard/wizardPages/dynamic/username/username.component';
 import { AvailableProjectsPageComponent } from './main/wizard/wizardPages/dynamic/available-projects-page/available-projects-page.component';
 import { StepHeaderComponent } from './main/wizard/step-header/step-header.component';
@@ -38,14 +32,12 @@ import { ProjectLinkComponent } from './main/wizard/wizardPages/default/project-
 import { ProjectDescriptionComponent } from './main/wizard/wizardPages/default/project-description/project-description.component';
 import { ProjectIconComponent } from './main/wizard/wizardPages/default/project-icon/project-icon.component';
 import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-name/project-name.component';
+import { ProjectModule } from 'src/app/modules/project/project.module';
+import { LinkComponent } from './main/wizard/wizardPages/default_/link/wizardlink.component';
 
 @NgModule({
   declarations: [
-    LinkComponent,
     ProjectNameComponent,
-    DescriptionComponent,
-    ColabComponent,
-    FinalComponent,
     PickFlowPageComponent,
     MainComponent,
     WizardComponent,
@@ -58,22 +50,16 @@ import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-
     ProjectDescriptionComponent,
     ProjectIconComponent,
     ProjectNameComponent,
+    LinkComponent,
 
   ],
   imports: [
     CommonModule,
     AddRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
     QuillModule,
-    ProjectModule,
-    ModalModule.forRoot()
+    FormsModule,
+    ProjectModule
   ],
-  entryComponents: [
-    WizardComponent
-  ],
-  providers: [
-    BsModalRef
-  ]
 })
 export class AddModule { }

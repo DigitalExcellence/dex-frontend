@@ -65,7 +65,7 @@ import { QuillModule } from 'ngx-quill';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
   ],
   providers: [
     {

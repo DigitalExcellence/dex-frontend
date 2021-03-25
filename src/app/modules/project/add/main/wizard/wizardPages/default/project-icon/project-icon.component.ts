@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WizardStepBaseComponent } from '../../dynamic/wizard-step-base/wizard-step-base.component';
+import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/dynamic/wizard-step-base/wizard-step-base.component';
 
 @Component({
   selector: 'app-project-icon',

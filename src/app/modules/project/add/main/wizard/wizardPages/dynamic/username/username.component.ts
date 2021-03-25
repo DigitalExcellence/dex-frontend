@@ -3,7 +3,7 @@ import { WizardService } from 'src/app/services/wizard.service';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
-import { WizardStepBaseComponent } from '../wizard-step-base/wizard-step-base.component';
+import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/dynamic/wizard-step-base/wizard-step-base.component';
 
 @Component({
   selector: 'app-username',

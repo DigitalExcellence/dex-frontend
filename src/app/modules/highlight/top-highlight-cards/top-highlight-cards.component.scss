@@ -41,6 +41,11 @@
       border: none;
       cursor: pointer;
       height: 100%;
+      transition: transform $transition-short;
+
+      &:hover{
+        transform: $transform-grow;
+      }
     }
 
     .card-title {
@@ -62,6 +67,7 @@
         border-radius: 999px;
         background-size: cover;
         background-position: center;
+        box-shadow: 0 0px 4px #0000001a;
 
         @include media-breakpoint-down(sm) {
           margin: auto;

@@ -15,6 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { CollaboratorAdd } from './collaborator-add';
 export interface ProjectAdd {
   userId: number;
@@ -23,5 +24,6 @@ export interface ProjectAdd {
   shortDescription: string;
   description?: string;
   url: string;
+  callToAction: CallToAction;
   fileId?: number;
 }

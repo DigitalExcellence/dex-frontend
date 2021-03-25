@@ -32,3 +32,37 @@ $box-shadow: 0 3px 6px #0000001a;
 
 // borderradius
 $border-radius: 6px;
+
+// Animations
+$transform-rotate: rotate(-270deg);
+
+$transform-grow-small: scale(1.02);
+$transform-grow: scale(1.04);
+$transform-grow-big: scale(1.08);
+
+$transition-long: .5s ease-in-out;
+$transition-short: .25s ease-in-out;
+
+@keyframes heartbeat{
+    0%{
+        transform: scale(1)
+    }
+    25%{
+        transform: scale(0.8)
+    }
+    75%{
+        transform: scale(1.2)
+    }
+    100%{
+        transform: scale(1)
+    }
+}
+
+@keyframes fade-in{
+    from{
+        transform: scale(0.2)
+    }
+    to{
+        transform: scale(1)
+    }
+}

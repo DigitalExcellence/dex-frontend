@@ -29,8 +29,8 @@
     </button>
 
     <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
-      <div class="header-nav">
-        <a routerLink="project/overview" routerLinkActive="active" class="nav-link nav-text">Projects</a>
+      <div class="header-nav project-link">
+        <a (click)="onClickProjects()" routerLinkActive="active" class="nav-link nav-text">Projects</a>
         <a class="nav-link nav-text" routerLink="project/add" routerLinkActive="active">Add project</a>
       </div>
       <div class="header-nav account">
