@@ -24,13 +24,18 @@
     <br> <br>
   </div>
 </div>
-
 <div class="grid-wrapper">
   <div class="source-grid">
-    <div *ngFor="let externalSource of externalSources" class="source">
-      <div (click)="externalSourceClick($event, externalSource)" class="source-content">
+    <div (click)="externalSourceClick($event, externalSource)" *ngFor="let externalSource of externalSources" class="source">
+      <div class="source-content">
         <img alt="" loading="lazy" src="{{ getIconUrl(externalSource.icon || 0) }}">
         <h3>{{ externalSource?.title }}</h3>
+      </div>
+    </div>
+    <div (click)="manualClick()" class="source">
+      <div class="source-content">
+        <img alt="" loading="lazy" src="/assets/images/wizard/name.svg">
+        <h3>Add project manually</h3>
       </div>
     </div>
   </div>

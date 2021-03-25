@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
@@ -27,6 +27,7 @@ import { ExternalSource } from 'src/app/models/domain/external-source';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { WizardComponent } from './wizard/wizard.component';
 
 /**
  * Component to import projects from external sources
@@ -35,6 +36,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MainComponent implements OnInit {
   /**
@@ -70,17 +72,6 @@ export class MainComponent implements OnInit {
   }
 
   /**
-   * Method which triggers when the add manual project is pressed.
-   * Resets the fetched source in the wizard service.
-   */
-  public onClickAddProjectManual(): void {
-    if (this.checkIfLoggedInAndReturnAlert()) {
-      // this.wizardService.reset();
-      this.router.navigate(['/project/add/manual']);
-    }
-  }
-
-  /**
    * Method to get the url of the icon of the project. This is retrieved
    * from the file retriever service
    */
@@ -92,14 +83,30 @@ export class MainComponent implements OnInit {
    * Handle the click when the user chooses an external source.
    */
   public externalSourceClick(event: MouseEvent, selectedSource: ExternalSource) {
-    this.selectedExternalSource = selectedSource;
-    this.router.navigate(['project', 'add', 'wizard']);
+    this.checkIfLoggedInAndReturnAlert();
+    this.wizardService.resetService();
+    this.wizardService.selectExternalSource(selectedSource);
+    this.wizardService.goToNextStep();
+    this.createWizardModal();
     // Only public flows
     // Input link
     // Only private flow
     // Redirect to login
     // Both flows
     // Let user decide
+  }
+
+  public manualClick() {
+    this.checkIfLoggedInAndReturnAlert();
+    this.wizardService.resetService();
+    this.wizardService.selectManualSource();
+    this.wizardService.goToNextStep();
+    this.createWizardModal();
+  }
+
+  private createWizardModal() {
+    this.modalRef = this.modalService.show(WizardComponent, {animated: true});
+    this.modalRef.setClass('project-modal');
   }
 
   /**

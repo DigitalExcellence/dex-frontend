@@ -1,16 +1,34 @@
-<div #autoShownModal="bs-modal" (onHidden)="onHidden()" *ngIf="isModalShown" [config]="{ show: true }" aria-labelledby="dialog-auto-name"
-     bsModal class="modal fade" role="dialog" tabindex="-1">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!--        <h4 class="modal-title pull-left">Import project from {{selectedExternalSource.title}}</h4>-->
-      </div>
-      <div class="modal-body">
-        <!--        <div *ngFor="let wizardPage of selectedExternalSource.wizardPages">Step {{wizardPage.orderIndex}}</div>-->
-        <router-outlet></router-outlet>
-        <button [routerLink]="nextLink()"> next</button>
-        <button [routerLink]="previousLink()"> previous</button>
-      </div>
+<div class="form-page-container">
+  <app-step-header></app-step-header>
+  <div class="step-page-container">
+    <div class="form-step">
+      <ng-container [ngSwitch]="(currentStep | async)?.name">
+        <ng-container *ngSwitchCase="'link'">
+          <app-link [step]="(currentStep | async)"></app-link>
+        </ng-container>
+        <ng-container *ngSwitchCase="'username'">
+          <app-username [step]="(currentStep | async)"></app-username>
+        </ng-container>
+        <!--    From this point the steps are always displayed    -->
+        <ng-container *ngSwitchCase="'project-name'">
+          <app-project-name [step]="(currentStep | async)"></app-project-name>
+        </ng-container>
+        <ng-container *ngSwitchCase="'project-description'">
+          <app-project-description [step]="(currentStep | async)"></app-project-description>
+        </ng-container>
+        <ng-container *ngSwitchCase="'project-icon'">
+          <app-project-icon [step]="(currentStep | async)"></app-project-icon>
+        </ng-container>
+        <ng-container *ngSwitchCase="'project-collaborators'">
+          <app-project-collaborators [step]="(currentStep | async)"></app-project-collaborators>
+        </ng-container>
+        <ng-container *ngSwitchCase="'project-link'">
+          <app-project-link [step]="(currentStep | async)"></app-project-link>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
+  <button (click)="onNextStep()" [disabled]="!(currentStep | async)?.isComplete" class="form-continue-btn">
+    {{ showButtonLabel() }}
+  </button>
 </div>

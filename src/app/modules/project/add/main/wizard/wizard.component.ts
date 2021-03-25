@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ExternalSource } from 'src/app/models/domain/external-source';
+import { Component, OnInit } from '@angular/core';
+import { WizardPage } from 'src/app/models/domain/wizard-page';
+import { Observable } from 'rxjs';
 import { WizardService } from 'src/app/services/wizard.service';
-import { WizardPageService } from 'src/app/services/wizard-page.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-wizard',
@@ -12,38 +11,33 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./wizard.component.scss']
 })
 export class WizardComponent implements OnInit {
-  @Input() selectedExternalSource: ExternalSource;
+  currentStep: Observable<WizardPage>;
 
-  modalRef: BsModalRef;
-  url: string;
-  stepLinks = ['/username', '/step2', '/step3', '/step4'];
-  isModalShown = true;
-
-  constructor(private wizardService: WizardService,
-              private wizardPageService: WizardPageService,
-              private router: Router,
-              private location: Location,
-              private modalService: BsModalService,
-              private route: ActivatedRoute) {
-    this.router.events.subscribe((url: any) => {this.url = url;});
-  }
+  constructor(
+      private wizardService: WizardService,
+      private router: Router) { }
 
   ngOnInit(): void {
-    this.selectedExternalSource.wizardPages.push();
-    //this.router.navigate(['project', 'add', 'wizard', this.selectedExternalSource.wizardPages[0].name])
+    if (!this.wizardService.serviceIsValid()) {
+      this.router.navigate(['project', 'add']);
+    }
+    this.currentStep = this.wizardService.getCurrentStep();
+    this.wizardService.getSteps().subscribe(items => console.log(items));
   }
 
-  public nextLink(): string {
-    const index = this.stepLinks.indexOf(this.url);
-    return `${this.location.path()}/${this.stepLinks[index + 1]}`;
+  public onNextStep() {
+    if (!this.wizardService.isLastStep()) {
+      this.wizardService.moveToNextStep();
+    } else {
+      this.onSubmit();
+    }
   }
 
-  public previousLink(): string {
-    const index = this.stepLinks.indexOf(this.url);
-    return `${this.location.path()}/${this.stepLinks[index + 1]}`;
+  public showButtonLabel() {
+    return this.wizardService.isLastStep() ? 'Finish' : 'Continue';
   }
 
-  onHidden() {
-
+  public onSubmit(): void {
+    this.router.navigate(['/complete']);
   }
 }

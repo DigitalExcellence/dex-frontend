@@ -1,0 +1,127 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+
+
+<div class="Wizard-2">
+    <div class="text">
+        <div class="step">
+            <h2>Step 3</h2>
+        </div>
+        <div class="title">
+            <h2> How would you describe the project? </h2>
+        </div>
+        <div class="under-title">
+            <h4> Here you can enter a short and long description for the project.
+            </h4>
+        </div>
+    </div>
+    <div class="inputfield2" style="margin-top: -2vw">
+        <div class="row">
+            <div class="col-11 source-box">
+                <div class="source-content ">
+                    <div>
+                        <form class="project-form">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="long-description-editor">
+                                        <!-- <h3>Description*</h3> -->
+                                        <!-- <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}"
+                                            [modules]="modulesConfigration" formControlName="description"
+                                            placeholder="">
+                                        </quill-editor> -->
+                                        <div class="container">
+                                            <div class="row pt-5">
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div>
+                                                                <h3>Short description*</h3>
+                                                                <!-- <textarea
+                                                                    placeholder="Fill in a short description of your project"
+                                                                    formControlName="shortDescription" required /> -->
+                                                                <textarea name="shortDescription"
+                                                                    style="height: 100px; margin-bottom: 5%;" mdInput
+                                                                    placeholder="Fill in a short description of your project"
+                                                                    rows="2" type="text" required
+                                                                    [formControl]="linkForm"
+                                                                    value="[[shortDescription]]"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div>
+                                                                <p class="form-footnote">Describe
+                                                                    your project in one sentence or 170 characters.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <form (ngSubmit)="onSubmit()">
+                                                        <div class="form-group">
+                                                            <label for="editor">
+                                                                <h3>Description</h3>
+                                                            </label>
+                                                            <textarea name="description" style="height: 150px;" mdInput
+                                                                placeholder="Fill in a more detailed description of your project"
+                                                                rows="2" type="text" required [formControl]="linkForm2"
+                                                                value="[[description]]"></textarea>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-4 p-4">
+                                                    <div class="sideContent">
+                                                        <div class="image">
+                                                            <div class="source-content">
+                                                                <div class="row justify-content-center">
+                                                                  <img alt="" loading="lazy"
+                                                                       src="../../../../../../../../../assets/images/wizard/describe.svg">
+                                                                </div>
+                                                                <div class="row justify-content-center">
+                                                                    <div>
+                                                                        <button class="btn btn-success"
+                                                                            (click)="onClickNextButton()"
+                                                                            type="submit">ADD</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="image">
+        <div class="source-content">
+            <div class="row justify-content-center">
+                <img src="assets/images/wizard/describe.svg" alt="" loading="lazy">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <button class="btn btn-success" style="margin-bottom: 5%" type="submit">Next</button>
+        </div>
+    </div>
+</div> -->

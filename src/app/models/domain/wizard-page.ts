@@ -18,8 +18,8 @@
 export interface WizardPage {
   authFlow: boolean;
   orderIndex: number;
-  id: number;
+  id?: number;
   name: string;
   description: string;
-  isDefault: boolean;
+  isComplete: boolean;
 }

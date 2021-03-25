@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api-config';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ExternalSource } from '../models/domain/external-source';
-import { Observable } from 'rxjs';
-import { WizardPage } from '../models/domain/wizard-page';
-import { NavigationExtras, Router } from '@angular/router';
-import { Project } from '../models/domain/project';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { WizardPage } from 'src/app/models/domain/wizard-page';
+import { Router } from '@angular/router';
+import { Project } from 'src/app/models/domain/project';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,23 @@ import { Project } from '../models/domain/project';
 export class WizardService {
   public allUserProjects: Array<Project>;
   public selectedUserProject: Project;
-
-  private selectedSource: ExternalSource;
+  public selectedSource: ExternalSource;
+  protected readonly datasourceUrl = API_CONFIG.url + API_CONFIG.dataSourceRoute;
+  protected readonly wizardUrl = API_CONFIG.url + API_CONFIG.wizardRoute;
+  private steps$: BehaviorSubject<Array<WizardPage>>;
+  private currentStep$: BehaviorSubject<WizardPage> = new BehaviorSubject<WizardPage>(null);
   private publicFlow: Array<WizardPage>;
   private privateFlow: Array<WizardPage>;
   private selectedFlow: Array<WizardPage>;
   private currentWizardPage: WizardPage;
+  private defaultSteps: Array<WizardPage> = [
+    {authFlow: false, orderIndex: 1, name: 'project-name', description: 'What would you like to name your project?', isComplete: true},
+    {authFlow: false, orderIndex: 2, name: 'project-description', description: 'How would you describe your project?', isComplete: true},
+    {authFlow: false, orderIndex: 3, name: 'project-icon', description: 'Do you have any images that fit your project?', isComplete: true},
+    {authFlow: false, orderIndex: 4, name: 'project-collaborators', description: 'Who collaborated to your project?', isComplete: true},
+    {authFlow: false, orderIndex: 5, name: 'project-link', description: 'Do you have a link for you project?', isComplete: true},
+  ];
   private userToken: string;
-  protected readonly datasourceUrl = API_CONFIG.url + API_CONFIG.dataSourceRoute;
-  protected readonly wizardUrl = API_CONFIG.url + API_CONFIG.wizardRoute;
 
   constructor(
       private http: HttpClient,
@@ -38,7 +46,7 @@ export class WizardService {
     let params = new HttpParams();
     params = params.append('dataSourceGuid', selectedSourceGuid);
     params = params.append('token', token);
-    params = params.append('needsAuth', this.selectedFlow[0].authFlow.toString());
+    params = params.append('needsAuth', this.steps$.value[0].authFlow.toString());
 
     return this.http.get<Array<Project>>(this.wizardUrl + '/projects', {
       params: params
@@ -50,6 +58,14 @@ export class WizardService {
     console.log('Selected project', this.selectedUserProject);
   }
 
+  public selectExternalSource(source: ExternalSource): void {
+    this.selectedSource = source;
+  }
+
+  public selectManualSource(): void {
+    this.selectedFlow = this.defaultSteps;
+  }
+
   /**
    * This function can be used to select the public or private flow
    * @param {string} selectedFlow - The selected flow (private/public)
@@ -58,6 +74,7 @@ export class WizardService {
     // Reset position in flow so we know for sure that we begin at the first page
     // When a user changes flow in the middle of the flow.
     this.currentWizardPage = undefined;
+    this.steps$ = null;
     if (selectedFlow.toLowerCase() === 'public') {
       this.selectedFlow = this.publicFlow;
       this.goToNextStep();
@@ -73,11 +90,45 @@ export class WizardService {
    * This function determines the next step in the wizard flow
    */
   public goToNextStep(): void {
-    if (!this.selectedFlow) {
+    if (!this.steps$) {
       this.determineFlow();
     } else {
-      this.determineNextPage();
+      this.moveToNextStep();
     }
+  }
+
+  public serviceIsValid(): boolean {
+    return this.steps$.value.length > 0;
+  }
+
+  public setCurrentStep(step: WizardPage): void {
+    this.currentStep$.next(step);
+  }
+
+  public getCurrentStep(): Observable<WizardPage> {
+    return this.currentStep$.asObservable();
+  }
+
+  public getSteps(): Observable<Array<WizardPage>> {
+    return this.steps$.asObservable();
+  }
+
+  public moveToNextStep(): void {
+    const index = this.currentStep$.value.orderIndex;
+
+    if (index < this.steps$.value.length) {
+      this.currentStep$.next(this.steps$.value[index]);
+    }
+  }
+
+  public isLastStep(): boolean {
+    return this.currentStep$.value.orderIndex === this.steps$.value.length;
+  }
+
+  public resetService(): void {
+    this.steps$ = undefined;
+    this.selectedSource = undefined;
+    this.selectedFlow = undefined;
   }
 
   private determineFlow(): void {
@@ -89,32 +140,30 @@ export class WizardService {
 
       if (this.publicFlow.length === 0 && this.privateFlow.length > 0) {
         // There only is a private flow
-        this.selectedFlow = this.privateFlow;
+        this.setBehaviourSubject(this.privateFlow);
         this.goToNextStep();
       } else if (this.publicFlow.length > 0 && this.privateFlow.length === 0) {
         // There is only a public flow
-        this.selectedFlow = this.publicFlow;
+        this.setBehaviourSubject(this.publicFlow);
       } else {
-        // Both flows are present
-        this.router.navigate(['project', 'add', 'external', 'pickflow']);
+        // TODO: Change this to determine flow so the user can pick.
+        this.setBehaviourSubject(this.publicFlow);
       }
+    } else {
+      // Flow is invalid or the manual flow was selected
+      this.setBehaviourSubject(this.defaultSteps);
     }
   }
 
-  private determineNextPage(): void {
-    const nextIndex = this.currentWizardPage?.orderIndex || 0;
-    if (nextIndex <= this.selectedFlow.length) {
-      this.currentWizardPage = this.selectedFlow[nextIndex];
-      let navigationExtras: NavigationExtras = {
-        queryParams: {
-          'externalSource': this.selectedSource.guid,
-          'token': this.userToken
-        }
-      };
-
-      this.router.navigate(['project', 'add', 'external', this.currentWizardPage.name.toLowerCase()], navigationExtras);
-    } else {
-      console.info('No steps left');
+  private setBehaviourSubject(wizardPages: Array<WizardPage>) {
+    if (wizardPages !== this.defaultSteps) {
+      // Make sure that we do not end up with duplicate pages
+      wizardPages = [...wizardPages, ...this.defaultSteps];
+      for (let i = 1; i < wizardPages.length; i++) {
+        wizardPages[i].orderIndex = i;
+      }
     }
+    this.steps$ = new BehaviorSubject<Array<WizardPage>>(wizardPages);
+    this.currentStep$.next(this.steps$.value[0]);
   }
 }

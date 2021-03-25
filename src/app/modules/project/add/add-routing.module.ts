@@ -17,13 +17,10 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ManualComponent } from './manual/manual.component';
 import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', component: MainComponent},
-  {path: 'manual', component: ManualComponent},
-  {path: 'wizard', loadChildren: () => import('./main/wizard/wizard.module').then((m) => m.WizardModule)}
+  {path: '', pathMatch: 'full', component: MainComponent}
 ];
 
 @NgModule({
