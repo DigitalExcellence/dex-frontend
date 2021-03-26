@@ -12,10 +12,14 @@ p {
   width: 145px;
   height: 40px;
   border: none;
-  border-radius: 10px;
+  border-radius: $border-radius;
   background-color: $accent-color-red-primary;
   box-shadow: $box-shadow;
   color: white;
+  &.grey {
+    color: black;
+    background-color: $light-mode-grey-quaternary;
+  }
 }
 
 input,

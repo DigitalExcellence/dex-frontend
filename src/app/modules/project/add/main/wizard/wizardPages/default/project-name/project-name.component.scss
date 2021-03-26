@@ -6,7 +6,7 @@
 
   input[type="text"] {
     line-height: 3rem;
-    width: 50%;
+    width: calc(100% - 135px);
     margin: 0;
   }
 
@@ -14,9 +14,15 @@
     margin-left: -10px;
   }
 }
-
-img {
-  width: 60%;
-  height: auto;
+.image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: 40px;
+  margin-right: 40px;
+  img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  }
 }
