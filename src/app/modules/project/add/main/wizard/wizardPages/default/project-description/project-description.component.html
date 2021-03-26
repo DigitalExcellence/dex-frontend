@@ -1,1 +1,18 @@
-<p>project-description works!</p>
+<h2 class="step-header">How would you describe the project?</h2>
+<p class="step-description">Here you can enter a short and long description for the project.</p>
+
+<div class="wrapper">
+  <div>
+    <textarea class="project-short-description" name="shortDescription" placeholder="This is a short description of your project" required rows="2" type="text"></textarea>
+
+    <p class="form-footnote">Describe your project in one sentence or 170 characters.</p>
+    <textarea class="project-long-description" name="longDescription" placeholder="This is a long description of your project" required rows="2" type="text"></textarea>
+  </div>
+  <div class="right">
+    <img src="/assets/images/wizard/describe.svg"/>
+    <button (click)="onClickNext()" [disabled]="!(step)?.isComplete" class="form-continue-btn">
+      Next
+    </button>
+  </div>
+</div>
+

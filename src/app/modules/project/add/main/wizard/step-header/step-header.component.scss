@@ -2,10 +2,10 @@
 
 .form-steps-container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 32px;
-  margin-top: 32px;
+  height: 100%;
 }
 
 .step-bubble {
@@ -24,10 +24,10 @@
 }
 
 .step-divider {
-  height: 2px;
+  width: 2px;
   background: $accent-color-red-primary;
   flex: 1;
-  margin: 0px 10px;
+  margin: 0 10px;
 }
 
 .step-current, .step-complete {

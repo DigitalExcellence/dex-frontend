@@ -82,14 +82,13 @@
 }
 
 .modal-dialog {
-  width: 1200px;
-  max-width: 90vw;
-  margin: 60px auto 30px auto;
+  max-width: 70vw;
+  max-height: 70vh;
+  margin: 45px auto 30px auto;
   border: none;
 
   .modal-content {
     border: none;
-    width: fit-content;
     margin: 0 auto;
     max-width: 100%;
   }

@@ -2,33 +2,31 @@
   <app-step-header></app-step-header>
   <div class="step-page-container">
     <div class="form-step">
+      <span class="current-step">Step {{(currentStep | async)?.orderIndex}}</span>
       <ng-container [ngSwitch]="(currentStep | async)?.name">
         <ng-container *ngSwitchCase="'link'">
-          <app-link [step]="(currentStep | async)"></app-link>
+          <app-link (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-link>
         </ng-container>
         <ng-container *ngSwitchCase="'username'">
-          <app-username [step]="(currentStep | async)"></app-username>
+          <app-username (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-username>
         </ng-container>
         <!--    From this point the steps are always displayed    -->
         <ng-container *ngSwitchCase="'project-name'">
-          <app-project-name [step]="(currentStep | async)"></app-project-name>
+          <app-project-name (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-name>
         </ng-container>
         <ng-container *ngSwitchCase="'project-description'">
-          <app-project-description [step]="(currentStep | async)"></app-project-description>
+          <app-project-description (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-description>
         </ng-container>
         <ng-container *ngSwitchCase="'project-icon'">
-          <app-project-icon [step]="(currentStep | async)"></app-project-icon>
+          <app-project-icon (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-icon>
         </ng-container>
         <ng-container *ngSwitchCase="'project-collaborators'">
-          <app-project-collaborators [step]="(currentStep | async)"></app-project-collaborators>
+          <app-project-collaborators (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-collaborators>
         </ng-container>
         <ng-container *ngSwitchCase="'project-link'">
-          <app-project-link [step]="(currentStep | async)"></app-project-link>
+          <app-project-link (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-link>
         </ng-container>
       </ng-container>
     </div>
   </div>
-  <button (click)="onNextStep()" [disabled]="!(currentStep | async)?.isComplete" class="form-continue-btn">
-    {{ showButtonLabel() }}
-  </button>
 </div>

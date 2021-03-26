@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WizardStepBaseComponent } from '../wizard-step-base/wizard-step-base.component';
+import { WizardStepBaseComponent } from '../../wizard-step-base/wizard-step-base.component';
 
 @Component({
   selector: 'app-login-page',

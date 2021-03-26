@@ -22,6 +22,7 @@ export class FileUploaderComponent {
   @ViewChild('fileDropRef') fileInput: ElementRef;
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
+  @Input() showPreview: Boolean;
 
   /**
    * The maximum size of a file in bytes
@@ -37,7 +38,7 @@ export class FileUploaderComponent {
               private alertService: AlertService,
               private fileRetrieverService: FileRetrieverService) { }
 
-  files: Array<UploadFile> = new Array<UploadFile>();
+  public files: Array<UploadFile> = new Array<UploadFile>();
 
   /**
    * handle onFileDrop event

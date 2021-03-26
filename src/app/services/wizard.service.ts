@@ -23,9 +23,9 @@ export class WizardService {
   private selectedFlow: Array<WizardPage>;
   private currentWizardPage: WizardPage;
   private defaultSteps: Array<WizardPage> = [
-    {authFlow: false, orderIndex: 1, name: 'project-name', description: 'What would you like to name your project?', isComplete: true},
-    {authFlow: false, orderIndex: 2, name: 'project-description', description: 'How would you describe your project?', isComplete: true},
-    {authFlow: false, orderIndex: 3, name: 'project-icon', description: 'Do you have any images that fit your project?', isComplete: true},
+    {authFlow: false, orderIndex: 1, name: 'project-icon', description: 'Do you have any images that fit your project?', isComplete: true},
+    {authFlow: false, orderIndex: 2, name: 'project-name', description: 'What would you like to name your project?', isComplete: true},
+    {authFlow: false, orderIndex: 3, name: 'project-description', description: 'How would you describe your project?', isComplete: true},
     {authFlow: false, orderIndex: 4, name: 'project-collaborators', description: 'Who collaborated to your project?', isComplete: true},
     {authFlow: false, orderIndex: 5, name: 'project-link', description: 'Do you have a link for you project?', isComplete: true},
   ];

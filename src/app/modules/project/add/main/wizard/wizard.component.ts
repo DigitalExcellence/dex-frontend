@@ -33,10 +33,6 @@ export class WizardComponent implements OnInit {
     }
   }
 
-  public showButtonLabel() {
-    return this.wizardService.isLastStep() ? 'Finish' : 'Continue';
-  }
-
   public onSubmit(): void {
     this.router.navigate(['/complete']);
   }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
-import { WizardStepBaseComponent } from '../../dynamic/wizard-step-base/wizard-step-base.component';
+import { WizardStepBaseComponent } from '../../wizard-step-base/wizard-step-base.component';
 
 @Component({
   selector: 'app-name',

@@ -1,0 +1,21 @@
+.inline-input {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  input[type="text"] {
+    line-height: 3rem;
+    width: 50%;
+    margin: 0;
+  }
+
+  button {
+    margin-left: -10px;
+  }
+}
+
+img {
+  width: 60%;
+  height: auto;
+  margin-top: 40px;
+}

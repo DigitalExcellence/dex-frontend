@@ -2,28 +2,23 @@
 
 .form-page-container {
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
+  flex-direction: row;
+  padding: 64px 32px;
+  background-color: #F4F6F8;
+  box-shadow: $box-shadow;
 
-.step-page-container {
-  flex: 1;
-  margin: 0px 32px;
-}
+  .form-step {
+    width: 80%;
+    margin: 32px auto;
+  }
 
-.form-continue-btn {
-  color: #fff;
-  background: $accent-color-red-primary;
-  padding: 20px;
-  border-radius: 50px;
-  font-size: 1.15em;
-  cursor: pointer;
-  border: none !important;
-  margin: 32px;
+  .step-page-container {
+    display: flex;
+    flex: 1;
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed !important;
+    .current-step {
+      color: #9A9696;
+      font-size: 2.5rem;
+    }
   }
 }

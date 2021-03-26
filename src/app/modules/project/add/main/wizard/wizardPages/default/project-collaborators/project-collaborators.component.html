@@ -1,1 +1,21 @@
-<p>project-collaborators works!</p>
+<div class="wrapper">
+  <div class="left-col">
+    <h3>Contributor Full Name</h3>
+    <input id="fullname" name="fullname" type="text">
+    <ul class="collaborator list"></ul>
+  </div>
+  <div class="right-col">
+    <h3>Contributor function</h3>
+    <input id="function" name="function" type="text">
+    <ul class="collaborator list"></ul>
+  </div>
+  <div class="button-col">
+    <button class="add-button">+</button>
+  </div>
+  <div class="image-col">
+    <img alt="" src="/assets/images/wizard/collaborators.svg">
+    <button (click)="onClickNext()" [disabled]="!(step)?.isComplete" class="form-continue-btn">
+      Next
+    </button>
+  </div>
+</div>

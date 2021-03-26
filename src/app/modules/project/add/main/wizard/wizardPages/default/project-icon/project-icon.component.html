@@ -1,1 +1,17 @@
-<p>project-icon works!</p>
+<h2 class="step-header">What project icon would fit the project?</h2>
+<p class="step-description">Please upload a fitting image for the project!</p>
+<div class="wrapper">
+  <div class="project-icon-picker">
+    <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false">
+    </app-file-uploader>
+  </div>
+  <div class="right">
+    <div class="file-preview">
+      <img [src]=fileUploader?.files[0]?.preview alt="image-preview" class="file-preview">
+      <img class="workers" src="/assets/images/wizard/icon.svg"/>
+    </div>
+    <button (click)="onClickNext()" [disabled]="!(step)?.isComplete" class="form-continue-btn">
+      Next
+    </button>
+  </div>
+</div>

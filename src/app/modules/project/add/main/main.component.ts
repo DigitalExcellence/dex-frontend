@@ -83,30 +83,26 @@ export class MainComponent implements OnInit {
    * Handle the click when the user chooses an external source.
    */
   public externalSourceClick(event: MouseEvent, selectedSource: ExternalSource) {
-    this.checkIfLoggedInAndReturnAlert();
-    this.wizardService.resetService();
-    this.wizardService.selectExternalSource(selectedSource);
-    this.wizardService.goToNextStep();
-    this.createWizardModal();
-    // Only public flows
-    // Input link
-    // Only private flow
-    // Redirect to login
-    // Both flows
-    // Let user decide
+    if (this.checkIfLoggedInAndReturnAlert()) {
+      this.wizardService.resetService();
+      this.wizardService.selectExternalSource(selectedSource);
+      this.wizardService.goToNextStep();
+      this.createWizardModal();
+    }
   }
 
   public manualClick() {
-    this.checkIfLoggedInAndReturnAlert();
-    this.wizardService.resetService();
-    this.wizardService.selectManualSource();
-    this.wizardService.goToNextStep();
-    this.createWizardModal();
+    if (this.checkIfLoggedInAndReturnAlert()) {
+      this.wizardService.resetService();
+      this.wizardService.selectManualSource();
+      this.wizardService.goToNextStep();
+      this.createWizardModal();
+    }
   }
 
   private createWizardModal() {
     this.modalRef = this.modalService.show(WizardComponent, {animated: true});
-    this.modalRef.setClass('project-modal');
+    this.modalRef.setClass('wizard-modal');
   }
 
   /**

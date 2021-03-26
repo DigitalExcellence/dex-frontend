@@ -1,0 +1,28 @@
+@import "assets/styles/variables";
+
+h2 {
+  color: #000;
+}
+
+p {
+  color: #AEAEAE;
+}
+
+.form-continue-btn {
+  width: 145px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: $accent-color-red-primary;
+  box-shadow: $box-shadow;
+  color: white;
+}
+
+input, textarea {
+  border: none;
+  border-radius: 6px;
+  box-shadow: $box-shadow;
+  height: 38px;
+  width: 100%;
+  padding: 0px 15px;
+}

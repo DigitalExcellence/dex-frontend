@@ -23,7 +23,7 @@ import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
-import { WizardStepBaseComponent } from '../../dynamic/wizard-step-base/wizard-step-base.component';
+import { WizardStepBaseComponent } from '../../wizard-step-base/wizard-step-base.component';
 
 @Component({
   selector: 'app-colab',
