@@ -5,7 +5,7 @@ h2 {
 }
 
 p {
-  color: #AEAEAE;
+  color: #aeaeae;
 }
 
 .form-continue-btn {
@@ -18,11 +18,13 @@ p {
   color: white;
 }
 
-input, textarea {
+input,
+textarea {
   border: none;
   border-radius: 6px;
-  box-shadow: $box-shadow;
+  background-color: $light-mode-grey-quaternary;
   height: 38px;
   width: 100%;
-  padding: 0px 15px;
+  padding: 8px 10px;
+  outline: none;
 }

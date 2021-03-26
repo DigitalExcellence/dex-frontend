@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  margin-right: 60px;
 }
 
 .step-bubble {
@@ -30,7 +31,8 @@
   margin: 0 10px;
 }
 
-.step-current, .step-complete {
+.step-current,
+.step-complete {
   background: $accent-color-red-primary;
   color: #fff;
 }

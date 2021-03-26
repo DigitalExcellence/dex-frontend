@@ -34,7 +34,7 @@
     grid-template-columns: repeat(auto-fill, minmax(226px, 1fr));
 
     &::before {
-      content: '';
+      content: "";
       width: 0;
       padding-bottom: 100%;
       grid-row: 1 / 1;
@@ -90,6 +90,10 @@
   .modal-content {
     border: none;
     margin: 0 auto;
-    max-width: 100%;
+    max-width: 1000px;
+    overflow: hidden;
+    @media only screen and (max-width: 1000px) {
+      max-width: 90vw;
+    }
   }
 }

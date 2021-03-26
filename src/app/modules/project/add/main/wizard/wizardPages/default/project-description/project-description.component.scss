@@ -5,6 +5,9 @@
   justify-content: center;
   align-items: center;
 
+  .left {
+    width: 100%;
+  }
 
   .right {
     display: flex;
@@ -23,7 +26,6 @@
     }
   }
 
-
   textarea {
     resize: none;
 
@@ -36,4 +38,3 @@
     }
   }
 }
-
