@@ -16,6 +16,7 @@
   .step-page-container {
     display: flex;
     flex: 1;
+    max-width: calc(100% - 82px);
 
     .current-step {
       color: #9a9696;

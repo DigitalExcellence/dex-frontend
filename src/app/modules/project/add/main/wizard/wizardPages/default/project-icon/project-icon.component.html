@@ -7,7 +7,8 @@
   <button class="form-continue-btn grey">Upload image</button>
   <div class="right">
     <div class="file-preview">
-      <img [src]="fileUploader?.files[0]?.preview" alt="image-preview" class="file-preview" />
+      <div class="circle"></div>
+      <!-- <img [src]="fileUploader?.files[0]?.preview" alt="image-preview" class="file-preview" /> -->
       <img class="workers" src="/assets/images/wizard/icon.svg" />
     </div>
     <button (click)="onClickNext()" [disabled]="!step?.isComplete" class="form-continue-btn">Next</button>
