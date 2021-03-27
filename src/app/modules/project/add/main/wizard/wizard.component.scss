@@ -13,7 +13,7 @@
     width: 100%;
     margin: 0px auto;
     padding-right: 30px;
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 1000px) {
       padding-right: 0px;
     }
     max-width: 740px;
@@ -23,6 +23,10 @@
     display: flex;
     flex: 1;
     max-width: calc(100% - 82px);
+
+    @media only screen and (max-width: 1000px) {
+      max-width: calc(100% - 52px);
+    }
     @media only screen and (max-width: 600px) {
       max-width: 100%;
     }
