@@ -38,6 +38,7 @@
 }
 
 .step-incomplete {
+  background: $light-mode-grey-quaternary;
   cursor: not-allowed;
   pointer-events: none;
 }

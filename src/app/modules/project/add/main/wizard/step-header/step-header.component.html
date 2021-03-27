@@ -1,8 +1,16 @@
 <div class="form-steps-container">
-  <ng-container *ngFor="let step of steps | async; let i = index;">
-    <div (click)="onStepClick(step)"
-         [ngClass]="{ 'step-complete': step.isComplete, 'step-incomplete': !step.isComplete, 'step-current': (currentStep | async)?.orderIndex === step.orderIndex }"
-         class="step-bubble">{{i + 1}}</div>
+  <ng-container *ngFor="let step of steps | async; let i = index">
+    <div
+      (click)="onStepClick(step)"
+      [ngClass]="{
+        'step-complete': step.isComplete,
+        'step-incomplete': !step.isComplete,
+        'step-current': (currentStep | async)?.orderIndex === step.orderIndex
+      }"
+      class="step-bubble"
+    >
+      {{ i + 1 }}
+    </div>
     <div *ngIf="i < (steps | async)?.length - 1" class="step-divider"></div>
   </ng-container>
 </div>

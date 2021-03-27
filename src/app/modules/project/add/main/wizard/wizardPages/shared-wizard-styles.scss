@@ -7,6 +7,9 @@ h2 {
 p {
   color: #aeaeae;
 }
+.step-description {
+  margin-bottom: 40px;
+}
 
 .form-continue-btn {
   width: 145px;
@@ -16,9 +19,15 @@ p {
   background-color: $accent-color-red-primary;
   box-shadow: $box-shadow;
   color: white;
+  &:hover {
+    background: $accent-color-red-secondary;
+  }
   &.grey {
     color: black;
     background-color: $light-mode-grey-quaternary;
+    &:hover {
+      background: $light-mode-grey-thertiary;
+    }
   }
 }
 

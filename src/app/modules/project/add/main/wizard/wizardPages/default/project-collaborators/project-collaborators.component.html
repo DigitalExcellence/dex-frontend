@@ -1,21 +1,38 @@
+<h2 class="step-header">Who has worked on the project?</h2>
+<p class="step-description">Here you can name all the project members and their role within the project!</p>
+
 <div class="wrapper">
-  <div class="left-col">
-    <h3>Contributor Full Name</h3>
-    <input id="fullname" name="fullname" type="text">
-    <ul class="collaborator list"></ul>
-  </div>
-  <div class="right-col">
-    <h3>Contributor function</h3>
-    <input id="function" name="function" type="text">
-    <ul class="collaborator list"></ul>
-  </div>
-  <div class="button-col">
-    <button class="add-button">+</button>
+  <div class="left">
+    <div class="left-col">
+      <p>Contributor Full Name</p>
+      <input id="fullname" name="fullname" type="text" />
+    </div>
+    <div class="right-col">
+      <p>Contributor function</p>
+      <input id="function" name="function" type="text" />
+    </div>
+    <div class="button-col">
+      <button class="add-button">+</button>
+    </div>
+    <ul class="collaborator list">
+      <li>Lieke van der Voort</li>
+      <li>Walter Sajtos</li>
+    </ul>
+    <ul class="collaborator list">
+      <li>Designer</li>
+      <li>Developer</li>
+    </ul>
+    <ul>
+      <li>
+        <span class="fas fa-trash trash-icon"></span>
+      </li>
+      <li>
+        <span class="fas fa-trash trash-icon"></span>
+      </li>
+    </ul>
   </div>
   <div class="image-col">
-    <img alt="" src="/assets/images/wizard/collaborators.svg">
-    <button (click)="onClickNext()" [disabled]="!(step)?.isComplete" class="form-continue-btn">
-      Next
-    </button>
+    <img alt="" src="/assets/images/wizard/collaborators.svg" />
+    <button (click)="onClickNext()" [disabled]="!step?.isComplete" class="form-continue-btn">Next</button>
   </div>
 </div>
