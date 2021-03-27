@@ -5,8 +5,9 @@
   grid-template-columns: 2fr 1fr;
   gap: 30px;
   button {
-    display: none;
-    margin-bottom: 40px;
+    &.grey {
+      display: none;
+    }
   }
 
   @media only screen and (max-width: 800px) {
@@ -15,12 +16,17 @@
       display: none;
     }
     button {
-      display: block;
+      &.grey {
+        display: block;
+      }
+    }
+    img {
+      display: none;
     }
   }
 
   .project-icon-picker {
-    height: 300px;
+    max-height: 300px;
     min-width: 300px;
   }
 
@@ -63,26 +69,14 @@
           bottom: -3px;
         }
 
-        &.file-preview {
-          border-radius: 9999px;
-          width: 60%;
-          object-fit: cover;
-          border: 4px solid $accent-color-red-primary;
-          // @media only screen and (max-width: 1000px) {
-          //   width: 150px;
-          //   height: 150px;
-          // }
-        }
-        &.file-preview:after {
-          content: "";
-          display: block;
-          padding-bottom: 60%;
+        @media only screen and (max-width: 600px) {
+          display: none;
         }
       }
     }
 
     button {
-      margin-top: 20px;
+      margin-top: 30px;
     }
   }
 }

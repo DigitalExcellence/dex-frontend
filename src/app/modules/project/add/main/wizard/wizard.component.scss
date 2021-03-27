@@ -6,10 +6,16 @@
   padding: 64px 32px;
   box-shadow: $box-shadow;
 
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
   .form-step {
     width: 100%;
     margin: 0px auto;
     padding-right: 30px;
+    @media only screen and (max-width: 600px) {
+      padding-right: 0px;
+    }
     max-width: 740px;
   }
 
@@ -17,6 +23,9 @@
     display: flex;
     flex: 1;
     max-width: calc(100% - 82px);
+    @media only screen and (max-width: 600px) {
+      max-width: 100%;
+    }
 
     .current-step {
       color: #9a9696;
