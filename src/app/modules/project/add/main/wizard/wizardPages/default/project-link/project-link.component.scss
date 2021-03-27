@@ -1,0 +1,44 @@
+@import "assets/styles/variables";
+.inline-input {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  input[type="text"] {
+    line-height: 3rem;
+    width: calc(100% - 135px);
+    margin: 0;
+    @media only screen and (max-width: 800px) {
+      width: calc(100% - 80px);
+    }
+  }
+
+  button {
+    margin-left: -10px;
+    @media only screen and (max-width: 800px) {
+      width: fit-content;
+      padding: 0 20px;
+    }
+  }
+}
+
+.detected-source {
+  height: 80px;
+  width: 80px;
+  border-radius: $border-radius;
+  border: 2px solid $light-mode-grey-quaternary;
+  margin-bottom: 30px;
+}
+
+.image-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-right: 40px;
+  img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  }
+}

@@ -1,1 +1,12 @@
-<p>project-link works!</p>
+<h2 class="step-header">Do you have a link for the project?</h2>
+<p class="step-description">If your project has a link with a project page or another source you can link it here!</p>
+<div class="wrapper">
+  <div class="detected-source"></div>
+  <div class="inline-input">
+    <input placeholder="Link to the source you would like to import" type="text" />
+    <button (click)="onClickNext()" [disabled]="!step?.isComplete" class="form-continue-btn">Next</button>
+  </div>
+  <div class="image-wrapper">
+    <img src="/assets/images/wizard/link.svg" />
+  </div>
+</div>
