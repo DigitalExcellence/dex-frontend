@@ -36,6 +36,7 @@ import * as showdown from 'showdown';
 import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
 import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
 import { CallToAction } from 'src/app/models/domain/call-to-action';
+import { AuthService } from 'src/app/services/auth.service';
 
 /**
  * Component for manually adding a project.
@@ -103,7 +104,8 @@ export class ManualComponent implements OnInit {
     private wizardService: WizardService,
     private alertService: AlertService,
     private seoService: SEOService,
-    private callToActionOptionService: CallToActionOptionService) {
+    private callToActionOptionService: CallToActionOptionService,
+    private authService: AuthService) {
 
     this.newProjectForm = this.formBuilder.group({
       name: [ null, Validators.required ],
@@ -124,6 +126,12 @@ export class ManualComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /* 
+    * First check user for authentication: if false, they should login. If true, they can continue.
+    */
+    if(!this.authService.isAuthenticated()) {
+      this.router.navigate(['/account/login']);
+    }
     this.wizardService.fetchedProject.subscribe(project => {
       if (project == null) {
         return;
