@@ -54,7 +54,12 @@ export class MainComponent implements OnInit {
       private wizardService: WizardService,
       private fileRetrieverService: FileRetrieverService,
       private modalService: BsModalService
-  ) { }
+  ) {
+    this.router.events
+        .subscribe((val) => {
+          this.modalRef?.hide();
+        });
+  }
 
   ngOnInit(): void {
 
@@ -92,12 +97,12 @@ export class MainComponent implements OnInit {
   }
 
   public manualClick() {
-    // if (this.checkIfLoggedInAndReturnAlert()) {
+    if (this.checkIfLoggedInAndReturnAlert()) {
       this.wizardService.resetService();
       this.wizardService.selectManualSource();
       this.wizardService.goToNextStep();
       this.createWizardModal();
-    // }
+    }
   }
 
   private createWizardModal() {

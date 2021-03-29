@@ -41,8 +41,14 @@
       background-color: $accent-color-red-primary;
       border: none;
       font-size: 30px;
+
       &:hover {
         background: $accent-color-red-secondary;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
     }
     ul {

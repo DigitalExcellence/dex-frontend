@@ -4,26 +4,31 @@
 <div class="wrapper">
   <div class="left">
     <textarea
-      class="project-short-description"
-      name="shortDescription"
-      placeholder="This is a short description of your project"
-      required
-      rows="2"
-      type="text"
+        [formControl]="shortDescription"
+        class="project-short-description"
+        maxlength="170"
+        minlength="3"
+        name="shortDescription"
+        placeholder="This is a short description of your project"
+        required
+        rows="2"
+        type="text"
     ></textarea>
 
     <p class="form-footnote">Describe your project in one sentence or 170 characters.</p>
     <textarea
-      class="project-long-description"
-      name="longDescription"
-      placeholder="This is a long description of your project"
-      required
-      rows="2"
-      type="text"
+        [formControl]="longDescription"
+        class="project-long-description"
+        minlength="3"
+        name="longDescription"
+        placeholder="This is a long description of your project"
+        required
+        rows="2"
+        type="text"
     ></textarea>
   </div>
   <div class="right">
-    <img src="/assets/images/wizard/describe.svg" />
-    <button (click)="onClickNext()" [disabled]="!step?.isComplete" class="form-continue-btn">Next</button>
+    <img src="/assets/images/wizard/describe.svg"/>
+    <button (click)="onClickNext()" [disabled]="!shortDescription.valid || !longDescription.valid" class="form-continue-btn">Next</button>
   </div>
 </div>

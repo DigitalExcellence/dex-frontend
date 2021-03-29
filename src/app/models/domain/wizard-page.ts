@@ -15,6 +15,9 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { UploadFile } from './uploadFile';
+import { ProjectAdd } from '../resources/project-add';
+
 export interface WizardPage {
   authFlow: boolean;
   orderIndex: number;
@@ -22,4 +25,6 @@ export interface WizardPage {
   name: string;
   description: string;
   isComplete: boolean;
+  project: ProjectAdd;
+  file?: UploadFile;
 }

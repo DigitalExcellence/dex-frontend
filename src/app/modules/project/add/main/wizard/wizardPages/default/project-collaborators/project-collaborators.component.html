@@ -5,24 +5,49 @@
   <div class="left">
     <div class="left-col">
       <p>Contributor Full Name</p>
-      <input maxlength="20" id="fullname" name="fullname" type="text" />
+      <input
+          (keydown.enter)="onClickAddCollaborator()"
+          [formControl]="collaboratorName"
+          id="fullname"
+          maxlength="20"
+          minlength="3"
+          name="fullname"
+          required
+          type="text"/>
     </div>
     <div class="right-col">
       <p>Contributor function</p>
-      <input maxlength="20" id="function" name="function" type="text" />
+      <input
+          (keydown.enter)="onClickAddCollaborator()"
+          [formControl]="collaboratorRole"
+          id="function"
+          maxlength="20"
+          minlength="3"
+          name="function"
+          required
+          type="text"/>
     </div>
     <div class="button-col">
-      <button class="add-button">+</button>
+      <button (click)="onClickAddCollaborator()" [disabled]="!collaboratorName.valid || !collaboratorRole.valid" class="add-button">+</button>
     </div>
     <ul class="collaborator list">
+      <li *ngFor="let collaborator of step.project.collaborators">
+        {{collaborator.fullName}}
+      </li>
       <li>Lieke van der Voort</li>
       <li>Walter Sajtos</li>
     </ul>
     <ul class="collaborator list">
+      <li *ngFor="let collaborator of step.project.collaborators">
+        {{collaborator.role}}
+      </li>
       <li>Designer</li>
       <li>Developer</li>
     </ul>
     <ul>
+      <li *ngFor="let collaborator of step.project.collaborators">
+        <span (click)="deleteCollaboratorClick(collaborator)" class="fas fa-trash trash-icon"></span>
+      </li>
       <li>
         <span class="fas fa-trash trash-icon"></span>
       </li>
@@ -33,6 +58,6 @@
   </div>
   <div class="image-col">
     <img alt="" src="/assets/images/wizard/collaborators.svg" />
-    <button (click)="onClickNext()" [disabled]="!step?.isComplete" class="form-continue-btn">Next</button>
+    <button (click)="onClickNext()" class="form-continue-btn">Next</button>
   </div>
 </div>

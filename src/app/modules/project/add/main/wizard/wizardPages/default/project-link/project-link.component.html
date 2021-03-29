@@ -3,10 +3,18 @@
 <div class="wrapper">
   <div class="detected-source"></div>
   <div class="inline-input">
-    <input placeholder="Link to the source you would like to import" type="text" />
-    <button (click)="onClickNext()" [disabled]="!step?.isComplete" class="form-continue-btn">Next</button>
+    <input (keydown.enter)="onClickNext()"
+           [formControl]="link"
+           minlength="10"
+           placeholder="Link to the source you would like to import"
+           required
+           type="url"/>
+    <button (click)="onClickNext()"
+            [disabled]="!link.valid"
+            class="form-continue-btn">Finish
+    </button>
   </div>
   <div class="image-wrapper">
-    <img src="/assets/images/wizard/link.svg" />
+    <img alt="link-svg" src="/assets/images/wizard/link.svg"/>
   </div>
 </div>

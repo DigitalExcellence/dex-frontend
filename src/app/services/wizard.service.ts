@@ -6,6 +6,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { Router } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
+import { ProjectAdd } from '../models/resources/project-add';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,18 +24,62 @@ export class WizardService {
   private privateFlow: Array<WizardPage>;
   private selectedFlow: Array<WizardPage>;
   private currentWizardPage: WizardPage;
+  public builtProject: ProjectAdd = {
+    callToAction: undefined,
+    collaborators: [],
+    name: '',
+    shortDescription: '',
+    uri: '',
+    userId: this.authService.getCurrentBackendUser().id
+  };
+
   private defaultSteps: Array<WizardPage> = [
-    {authFlow: false, orderIndex: 1, name: 'project-icon', description: 'Do you have any images that fit your project?', isComplete: true},
-    {authFlow: false, orderIndex: 2, name: 'project-name', description: 'What would you like to name your project?', isComplete: true},
-    {authFlow: false, orderIndex: 3, name: 'project-description', description: 'How would you describe your project?', isComplete: true},
-    {authFlow: false, orderIndex: 4, name: 'project-collaborators', description: 'Who collaborated to your project?', isComplete: true},
-    {authFlow: false, orderIndex: 5, name: 'project-link', description: 'Do you have a link for you project?', isComplete: true},
+    {
+      authFlow: false,
+      orderIndex: 1,
+      name: 'project-name',
+      description: 'What would you like to name your project?',
+      isComplete: false,
+      project: this.builtProject
+    },
+    {
+      authFlow: false,
+      orderIndex: 2,
+      name: 'project-description',
+      description: 'How would you describe your project?',
+      isComplete: false,
+      project: this.builtProject
+    },
+    {
+      authFlow: false,
+      orderIndex: 3,
+      name: 'project-icon',
+      description: 'Do you have any images that fit your project?',
+      isComplete: false,
+      project: this.builtProject
+    },
+    {
+      authFlow: false,
+      orderIndex: 4,
+      name: 'project-collaborators',
+      description: 'Who collaborated to your project?',
+      isComplete: false,
+      project: this.builtProject
+    },
+    {
+      authFlow: false,
+      orderIndex: 5,
+      name: 'project-link',
+      description: 'Do you have a link for you project?',
+      isComplete: false,
+      project: this.builtProject
+    },
   ];
-  private userToken: string;
 
   constructor(
       private http: HttpClient,
-      private router: Router) { }
+      private router: Router,
+      private authService: AuthService) { }
 
   /**
    * This function fetches all the available external sources
@@ -98,7 +144,7 @@ export class WizardService {
   }
 
   public serviceIsValid(): boolean {
-    return this.steps$.value.length > 0;
+    return this.steps$.value.length > 0 && this.authService.getCurrentBackendUser().id > 0;
   }
 
   public setCurrentStep(step: WizardPage): void {
@@ -118,6 +164,15 @@ export class WizardService {
 
     if (index < this.steps$.value.length) {
       this.currentStep$.next(this.steps$.value[index]);
+    }
+  }
+
+  public moveToPreviousStep(): void {
+    const index = this.currentStep$.value.orderIndex;
+    console.log(index);
+    if (index > 1) {
+      // -2 because the order index starts at 1, array starts at 0
+      this.currentStep$.next(this.steps$.value[index - 2]);
     }
   }
 

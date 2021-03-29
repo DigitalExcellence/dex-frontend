@@ -14,6 +14,7 @@ export class WizardStepBaseComponent {
   }
 
   onClickNext() {
+    this.onCompleteStep();
     this.clickNext.emit();
   }
 }

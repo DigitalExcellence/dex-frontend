@@ -3,6 +3,11 @@ import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { Observable } from 'rxjs';
 import { WizardService } from 'src/app/services/wizard.service';
 import { Router } from '@angular/router';
+import { ProjectService } from 'src/app/services/project.service';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from '../../../../../services/alert.service';
+import { LocationStrategy } from '@angular/common';
 
 
 @Component({
@@ -15,7 +20,18 @@ export class WizardComponent implements OnInit {
 
   constructor(
       private wizardService: WizardService,
-      private router: Router) { }
+      private router: Router,
+      private projectService: ProjectService,
+      private alertService: AlertService,
+      private location: LocationStrategy) {
+    // check if back or forward button is pressed.
+    this.location.onPopState(() => {
+      this.wizardService.moveToPreviousStep();
+      this.currentStep = this.wizardService.getCurrentStep();
+      console.log(this.currentStep);
+    });
+
+  }
 
   ngOnInit(): void {
     if (!this.wizardService.serviceIsValid()) {
@@ -34,6 +50,22 @@ export class WizardComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this.router.navigate(['/complete']);
+    this.createProject(this.wizardService.builtProject);
+  }
+
+  private createProject(newProject): void {
+    this.projectService
+        .post(newProject)
+        .subscribe(() => {
+          const alertConfig: AlertConfig = {
+            type: AlertType.success,
+            mainMessage: 'Project was succesfully saved',
+            dismissible: true,
+            autoDismiss: true,
+            timeout: this.alertService.defaultTimeout
+          };
+          this.alertService.pushAlert(alertConfig);
+          this.router.navigate([`/project/overview`]);
+        });
   }
 }

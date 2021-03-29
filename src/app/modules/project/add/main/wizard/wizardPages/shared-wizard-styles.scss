@@ -19,12 +19,20 @@ p {
   background-color: $accent-color-red-primary;
   box-shadow: $box-shadow;
   color: white;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   &:hover {
     background: $accent-color-red-secondary;
   }
+
   &.grey {
     color: black;
     background-color: $light-mode-grey-quaternary;
+
     &:hover {
       background: $light-mode-grey-thertiary;
     }

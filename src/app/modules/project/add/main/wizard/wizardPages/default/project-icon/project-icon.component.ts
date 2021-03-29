@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
-import { FileUploaderComponent } from '../../../../../../../../components/file-uploader/file-uploader.component';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 
 @Component({
   selector: 'app-project-icon',
@@ -17,6 +17,17 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
   }
 
   ngOnInit(): void {
+    if (this.step.file) {
+      this.fileUploader.setFiles([this.step.file]);
+    }
   }
 
+  onClickNext() {
+    this.fileUploader.uploadFiles().subscribe(files => {
+      if (files[0]) {
+        this.step.project.fileId = files[0].id;
+      }
+    });
+    super.onClickNext();
+  }
 }
