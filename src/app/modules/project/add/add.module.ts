@@ -20,37 +20,27 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import { AddRoutingModule } from './add-routing.module';
-import { PickFlowPageComponent } from './main/wizard/wizardPages/dynamic/pick-flow-page/pick-flow-page.component';
 import { MainComponent } from './main/main.component';
 import { WizardComponent } from './main/wizard/wizard.component';
-import { UsernameComponent } from './main/wizard/wizardPages/dynamic/username/username.component';
-import { AvailableProjectsPageComponent } from './main/wizard/wizardPages/dynamic/available-projects-page/available-projects-page.component';
 import { StepHeaderComponent } from './main/wizard/step-header/step-header.component';
-import { ProjectImageComponent } from './main/wizard/wizardPages/default_/project-image/project-image.component';
 import { ProjectCollaboratorsComponent } from './main/wizard/wizardPages/default/project-collaborators/project-collaborators.component';
 import { ProjectLinkComponent } from './main/wizard/wizardPages/default/project-link/project-link.component';
 import { ProjectDescriptionComponent } from './main/wizard/wizardPages/default/project-description/project-description.component';
 import { ProjectIconComponent } from './main/wizard/wizardPages/default/project-icon/project-icon.component';
 import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-name/project-name.component';
 import { ProjectModule } from 'src/app/modules/project/project.module';
-import { LinkComponent } from './main/wizard/wizardPages/default_/link/wizardlink.component';
 
 @NgModule({
   declarations: [
     ProjectNameComponent,
-    PickFlowPageComponent,
     MainComponent,
     WizardComponent,
-    UsernameComponent,
-    AvailableProjectsPageComponent,
     StepHeaderComponent,
-    ProjectImageComponent,
     ProjectCollaboratorsComponent,
     ProjectLinkComponent,
     ProjectDescriptionComponent,
     ProjectIconComponent,
     ProjectNameComponent,
-    LinkComponent,
 
   ],
   imports: [
@@ -62,4 +52,5 @@ import { LinkComponent } from './main/wizard/wizardPages/default_/link/wizardlin
     ProjectModule
   ],
 })
-export class AddModule { }
+export class AddModule {
+}
