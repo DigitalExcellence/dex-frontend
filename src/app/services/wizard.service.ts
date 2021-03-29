@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from 'src/app/config/api-config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ExternalSource } from 'src/app/models/domain/external-source';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
@@ -93,6 +93,17 @@ export class WizardService {
       params: {
         dataSourceGuid: this.selectedSource.guid
       }
+    });
+  }
+
+  public fetchProjectsFromExternalSource(selectedSourceGuid: string, token: string): Observable<Array<Project>> {
+    let params = new HttpParams();
+    params = params.append('dataSourceGuid', selectedSourceGuid);
+    params = params.append('token', token);
+    params = params.append('needsAuth', 'false');
+
+    return this.http.get<Array<Project>>(this.wizardUrl + '/projects', {
+      params: params
     });
   }
 
