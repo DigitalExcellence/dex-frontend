@@ -1,5 +1,0 @@
-<h1>Please enter your username</h1>
-<input [formControl]="usernameControl" id="username" name="username" type="text"/>
-<button (click)="fetchProjects()">Find projects!</button>
-
-<app-available-projects-page *ngIf="userProjects" [userProjects]="userProjects"></app-available-projects-page>

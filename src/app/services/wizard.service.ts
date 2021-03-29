@@ -92,16 +92,11 @@ export class WizardService {
     let params = new HttpParams();
     params = params.append('dataSourceGuid', selectedSourceGuid);
     params = params.append('token', token);
-    params = params.append('needsAuth', this.steps$.value[0].authFlow.toString());
+    params = params.append('needsAuth', 'false');
 
     return this.http.get<Array<Project>>(this.wizardUrl + '/projects', {
       params: params
     });
-  }
-
-  public selectProject(project: Project): void {
-    this.selectedUserProject = project;
-    console.log('Selected project', this.selectedUserProject);
   }
 
   public selectExternalSource(source: ExternalSource): void {
@@ -110,26 +105,6 @@ export class WizardService {
 
   public selectManualSource(): void {
     this.selectedFlow = this.defaultSteps;
-  }
-
-  /**
-   * This function can be used to select the public or private flow
-   * @param {string} selectedFlow - The selected flow (private/public)
-   */
-  public selectFlow(selectedFlow: string): void {
-    // Reset position in flow so we know for sure that we begin at the first page
-    // When a user changes flow in the middle of the flow.
-    this.currentWizardPage = undefined;
-    this.steps$ = null;
-    if (selectedFlow.toLowerCase() === 'public') {
-      this.selectedFlow = this.publicFlow;
-      this.goToNextStep();
-    } else if (selectedFlow.toLowerCase() === 'private') {
-      this.selectedFlow = this.privateFlow;
-      this.goToNextStep();
-    } else {
-      throw new Error('Invalid flow type');
-    }
   }
 
   /**
