@@ -12,8 +12,15 @@
   }
   @media only screen and (max-width: 600px) {
     flex-direction: row;
-    margin-right: 0px;
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;
+    .step-divider {
+      height: 4px;
+      margin: 0;
+
+      &.step-current {
+        background: linear-gradient(90deg, $accent-color-red-primary 50%, $light-mode-grey-secondary 50%);
+      }
+    }
   }
 }
 
@@ -21,6 +28,7 @@
   z-index: 1;
 
   .step-bubble {
+    background: $light-mode-grey-secondary;
     padding: 8px;
     width: 12px;
     height: 12px;
@@ -68,11 +76,10 @@
 }
 
 .step-complete {
-  background: $accent-color-red-primary;
+  background: $accent-color-red-primary !important;
 }
 
-.step-incomplete {
-  background: $light-mode-grey-secondary;
+.step-blocked {
   cursor: not-allowed;
   pointer-events: none;
 }

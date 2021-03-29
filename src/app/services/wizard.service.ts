@@ -30,7 +30,7 @@ export class WizardService {
     name: '',
     shortDescription: '',
     uri: '',
-    userId: this.authService.getCurrentBackendUser().id
+    userId: 0
   };
 
   private defaultSteps: Array<WizardPage> = [
@@ -184,6 +184,10 @@ export class WizardService {
     this.steps$ = undefined;
     this.selectedSource = undefined;
     this.selectedFlow = undefined;
+  }
+
+  public allStepsCompleted() {
+    return this.steps$.value.every(page => page.isComplete);
   }
 
   private determineFlow(): void {

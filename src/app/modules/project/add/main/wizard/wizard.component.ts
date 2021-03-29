@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 import { ProjectService } from 'src/app/services/project.service';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
-import { AlertService } from '../../../../../services/alert.service';
+import { AlertService } from 'src/app/services/alert.service';
 import { LocationStrategy } from '@angular/common';
+import { AuthService } from '../../../../../services/auth.service';
 
 
 @Component({
@@ -23,12 +24,12 @@ export class WizardComponent implements OnInit {
       private router: Router,
       private projectService: ProjectService,
       private alertService: AlertService,
-      private location: LocationStrategy) {
+      private location: LocationStrategy,
+      private authService: AuthService) {
     // check if back or forward button is pressed.
     this.location.onPopState(() => {
       this.wizardService.moveToPreviousStep();
       this.currentStep = this.wizardService.getCurrentStep();
-      console.log(this.currentStep);
     });
 
   }
@@ -42,15 +43,28 @@ export class WizardComponent implements OnInit {
   }
 
   public onNextStep() {
-    if (!this.wizardService.isLastStep()) {
-      this.wizardService.moveToNextStep();
-    } else {
+    if (this.wizardService.isLastStep()) {
       this.onSubmit();
+    } else {
+      this.wizardService.moveToNextStep();
     }
   }
 
   public onSubmit(): void {
-    this.createProject(this.wizardService.builtProject);
+    if (this.wizardService.allStepsCompleted()) {
+      this.wizardService.builtProject.userId = this.authService.getCurrentBackendUser().id;
+      this.createProject(this.wizardService.builtProject);
+    } else {
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        mainMessage: 'Please complete all the steps',
+        dismissible: true,
+        autoDismiss: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
+    }
+
   }
 
   private createProject(newProject): void {

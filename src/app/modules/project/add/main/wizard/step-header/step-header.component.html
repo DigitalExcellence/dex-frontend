@@ -6,7 +6,7 @@
           (click)="onStepClick(step)"
           [ngClass]="{
         'step-complete': step.isComplete,
-        'step-incomplete': !step.isComplete,
+        'step-blocked': !step.isComplete && (currentStep | async)?.orderIndex+1 !== step.orderIndex && (currentStep | async)?.orderIndex < step.orderIndex,
         'step-current': (currentStep | async)?.orderIndex === step.orderIndex
       }"
           class="step-bubble"
