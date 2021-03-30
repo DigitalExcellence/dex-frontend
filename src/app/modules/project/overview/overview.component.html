@@ -114,18 +114,18 @@
       </pagination>
       <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
         <ng-container *ngIf="!disabled">
-          <img alt="next" class="chevron-right" src="assets/images/chevron-down-solid.svg" />
+          <span class="chevron-right fas fa-chevron-down"></span>
         </ng-container>
         <ng-container *ngIf="disabled">
-          <img alt="disabled" class="chevron-right disabled" src="assets/images/chevron-down-solid.svg" />
+          <span class="chevron-right disabled fas fa-chevron-down"></span>
         </ng-container>
       </ng-template>
       <ng-template #prevTemplate let-currentPage="currentPage" let-disabled="disabled">
         <ng-container *ngIf="!disabled">
-          <img alt="previous" class="chevron-left" src="assets/images/chevron-down-solid.svg" />
+          <span class="chevron-left fas fa-chevron-down"></span>
         </ng-container>
         <ng-container *ngIf="disabled">
-          <img alt="disabled" class="chevron-left disabled" src="assets/images/chevron-down-solid.svg" />
+          <span class="chevron-left fas fa-chevron-down disabled"></span>
         </ng-container>
       </ng-template>
     </div>
