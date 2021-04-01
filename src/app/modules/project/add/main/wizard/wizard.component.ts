@@ -8,7 +8,8 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { LocationStrategy } from '@angular/common';
-import { AuthService } from '../../../../../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
 
 
 @Component({
@@ -52,8 +53,9 @@ export class WizardComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.wizardService.allStepsCompleted()) {
-      this.wizardService.builtProject.userId = this.authService.getCurrentBackendUser().id;
-      this.createProject(this.wizardService.builtProject);
+      const project: ProjectAdd = this.wizardService.builtProject.getValue();
+      project.userId = this.authService.getCurrentBackendUser().id;
+      this.createProject(project);
     } else {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,

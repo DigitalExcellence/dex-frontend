@@ -1,7 +1,12 @@
-<h2 class="step-header">Do you have a link for the project?</h2>
-<p class="step-description">If your project has a link with a project page or another source you can link it here!</p>
+<h2 class="step-header">{{step.name}}</h2>
+<p class="step-description">{{step.description}}</p>
 <div class="wrapper">
-  <div class="detected-source"></div>
+  <div class="external-source">
+    <div class="square">
+      <img alt="detected-source" src="{{getIconUrl(selectedSource.icon || 0)}}"/>
+    </div>
+    <h2>{{selectedSource.title}}</h2>
+  </div>
   <div class="inline-input">
     <input (keydown.enter)="onClickNext()"
            [formControl]="link"
@@ -11,7 +16,7 @@
            type="url"/>
     <button (click)="onClickNext()"
             [disabled]="!link.valid"
-            class="form-continue-btn">Finish
+            class="form-continue-btn">{{step.id === 2 ? "Import project" : "Finish"}}
     </button>
   </div>
   <div class="image-wrapper">

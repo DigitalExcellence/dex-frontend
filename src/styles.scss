@@ -64,12 +64,12 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .ql-editor {
-    background-color: white;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
     font-family: $font-family-base;
     font-size: $font-size-body;
-    color: $light-mode-grey-primary;
+    background-color: $light-mode-grey-thertiary;
+    color: $light-mode-black;
   }
 
   .ql-toolbar {

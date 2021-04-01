@@ -15,13 +15,15 @@ export class ProjectNameComponent extends WizardStepBaseComponent implements OnI
 
   public projectName = new FormControl('');
 
-  ngOnInit(): void {
-    if (this.step.project.name) {
-      this.projectName.setValue(this.step.project.name);
-    }
+  async ngOnInit(): Promise<void> {
+    this.step.project.subscribe(project => {
+      if (project.name) {
+        this.projectName.setValue(project.name);
+      }
 
-    this.projectName.valueChanges.subscribe(value => {
-      this.step.project.name = value;
+      this.projectName.valueChanges.subscribe(value => {
+        this.step.updateProject({name: value, ...project});
+      });
     });
   }
 }

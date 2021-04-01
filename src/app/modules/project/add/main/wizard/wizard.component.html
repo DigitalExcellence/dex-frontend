@@ -3,7 +3,7 @@
   <div class="step-page-container">
     <div class="form-step">
       <span class="current-step">Step {{(currentStep | async)?.orderIndex}}</span>
-      <ng-container [ngSwitch]="(currentStep | async)?.name">
+      <ng-container [ngSwitch]="(currentStep | async)?.wizardPageName">
         <!--    From this point the steps are always displayed    -->
         <ng-container *ngSwitchCase="'project-name'">
           <app-project-name (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-name>

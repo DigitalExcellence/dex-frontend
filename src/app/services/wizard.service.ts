@@ -6,8 +6,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { Router } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
-import { ProjectAdd } from '../models/resources/project-add';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { AuthService } from './auth.service';
+import { WizardPageConfig } from 'src/app/config/wizard-page-config';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,14 @@ export class WizardService {
   public allUserProjects: Array<Project>;
   public selectedUserProject: Project;
   public selectedSource: ExternalSource;
+  public builtProject: BehaviorSubject<ProjectAdd> = new BehaviorSubject<ProjectAdd>({
+    callToAction: undefined,
+    collaborators: [],
+    name: '',
+    shortDescription: '',
+    uri: '',
+    userId: 0
+  });
   protected readonly datasourceUrl = API_CONFIG.url + API_CONFIG.dataSourceRoute;
   protected readonly wizardUrl = API_CONFIG.url + API_CONFIG.wizardRoute;
   private steps$: BehaviorSubject<Array<WizardPage>>;
@@ -24,55 +34,56 @@ export class WizardService {
   private privateFlow: Array<WizardPage>;
   private selectedFlow: Array<WizardPage>;
   private currentWizardPage: WizardPage;
-  public builtProject: ProjectAdd = {
-    callToAction: undefined,
-    collaborators: [],
-    name: '',
-    shortDescription: '',
-    uri: '',
-    userId: 0
-  };
-
   private defaultSteps: Array<WizardPage> = [
     {
+      id: 4,
       authFlow: false,
       orderIndex: 1,
-      name: 'project-name',
+      name: 'What is the name of your project?',
       description: 'What would you like to name your project?',
       isComplete: false,
-      project: this.builtProject
+      updateProject: this.updateProject,
+      project: this.builtProject.asObservable()
     },
     {
+      id: 5,
       authFlow: false,
       orderIndex: 2,
-      name: 'project-description',
-      description: 'How would you describe your project?',
+      name: 'How would you describe the project?',
+      description: 'Here you can enter a short and long description for the project.',
       isComplete: false,
-      project: this.builtProject
+      updateProject: this.updateProject,
+      project: this.builtProject.asObservable()
     },
     {
+      id: 6,
       authFlow: false,
       orderIndex: 3,
-      name: 'project-icon',
-      description: 'Do you have any images that fit your project?',
+      name: 'What project icon would fit the project?',
+      description: 'Please upload a fitting image for the project!',
       isComplete: false,
-      project: this.builtProject
+      updateProject: this.updateProject,
+      project: this.builtProject.asObservable()
     },
     {
+      id: 7,
       authFlow: false,
       orderIndex: 4,
-      name: 'project-collaborators',
-      description: 'Who collaborated to your project?',
+      name: 'Who has worked on the project?',
+      description: 'Here you can name all the project members and their role within the project!',
       isComplete: false,
-      project: this.builtProject
+      updateProject: this.updateProject,
+      project: this.builtProject.asObservable()
     },
     {
+      id: 8,
       authFlow: false,
       orderIndex: 5,
-      name: 'project-link',
-      description: 'Do you have a link for you project?',
+      name: 'If your project has a link with a project page or another source you can link it here!',
+      description: 'If your project has a link with a project page or another source you can link it here!',
       isComplete: false,
-      project: this.builtProject
+      updateProject: this.updateProject,
+      project: this.builtProject.asObservable()
     },
   ];
 
@@ -88,23 +99,26 @@ export class WizardService {
     return this.http.get<Array<ExternalSource>>(this.datasourceUrl);
   }
 
-  public fetchProjectFromExternalSource(projectUri: string): Observable<Project> {
-    return this.http.get<Project>(`${this.wizardUrl}/uri/${projectUri}`, {
-      params: {
-        dataSourceGuid: this.selectedSource.guid
-      }
-    });
-  }
-
-  public fetchProjectsFromExternalSource(selectedSourceGuid: string, token: string): Observable<Array<Project>> {
+  public fetchProjectFromExternalSource(projectUri: string) {
     let params = new HttpParams();
-    params = params.append('dataSourceGuid', selectedSourceGuid);
-    params = params.append('token', token);
-    params = params.append('needsAuth', 'false');
+    params = params.append('dataSourceGuid', this.selectedSource.guid);
 
-    return this.http.get<Array<Project>>(this.wizardUrl + '/projects', {
-      params: params
-    });
+    return this.http.get<Project>(`${this.wizardUrl}/project/uri/${encodeURIComponent(projectUri)}`, {params: params})
+        .pipe(
+            tap(
+                project => {
+                  this.builtProject.next({
+                    collaborators: project.collaborators,
+                    userId: this.authService.getCurrentBackendUser().id,
+                    shortDescription: project.shortDescription,
+                    name: project.name,
+                    callToAction: project.callToAction,
+                    uri: projectUri,
+                    description: project.description
+                  });
+                }
+            )
+        );
   }
 
   public selectExternalSource(source: ExternalSource): void {
@@ -167,6 +181,14 @@ export class WizardService {
     this.steps$ = undefined;
     this.selectedSource = undefined;
     this.selectedFlow = undefined;
+    this.builtProject.next({
+      callToAction: undefined,
+      collaborators: [],
+      name: '',
+      shortDescription: '',
+      uri: '',
+      userId: 0
+    });
   }
 
   public allStepsCompleted() {
@@ -201,11 +223,19 @@ export class WizardService {
     if (wizardPages !== this.defaultSteps) {
       // Make sure that we do not end up with duplicate pages
       wizardPages = [...wizardPages, ...this.defaultSteps];
-      for (let i = 1; i < wizardPages.length; i++) {
-        wizardPages[i].orderIndex = i;
+      for (let i = 0; i < wizardPages.length; i++) {
+        wizardPages[i].orderIndex = i + 1;
       }
+    }
+    // Determine which component belongs to the step
+    for (let i = 0; i < wizardPages.length; i++) {
+      wizardPages[i].wizardPageName = WizardPageConfig[wizardPages[i].id];
     }
     this.steps$ = new BehaviorSubject<Array<WizardPage>>(wizardPages);
     this.currentStep$.next(this.steps$.value[0]);
+  }
+
+  private updateProject(project: ProjectAdd) {
+
   }
 }

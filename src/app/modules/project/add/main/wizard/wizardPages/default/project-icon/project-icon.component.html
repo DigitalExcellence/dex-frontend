@@ -1,14 +1,14 @@
-<h2 class="step-header">What project icon would fit the project?</h2>
-<p class="step-description">Please upload a fitting image for the project!</p>
+<h2 class="step-header">{{step.name}}</h2>
+<p class="step-description">{{step.description}}</p>
 <div class="wrapper">
   <div class="project-icon-picker">
-    <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false"> </app-file-uploader>
+    <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false"></app-file-uploader>
   </div>
   <button class="form-continue-btn grey">Upload image</button>
   <div class="right">
     <div class="file-preview">
       <div [style.background-image]="fileUploader?.files[0] ? 'url('+ fileUploader?.files[0]?.preview + ')' : 'url(/assets/images/placeholder.png)'" class="circle"></div>
-      <img class="workers" src="/assets/images/wizard/icon.svg" />
+      <img class="workers" src="/assets/images/wizard/icon.svg"/>
     </div>
     <button (click)="onClickNext()" class="form-continue-btn">Next</button>
   </div>
