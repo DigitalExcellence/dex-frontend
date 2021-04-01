@@ -17,14 +17,19 @@
 
 import { UploadFile } from './uploadFile';
 import { ProjectAdd } from '../resources/project-add';
+import { Observable } from 'rxjs';
 
 export interface WizardPage {
   authFlow: boolean;
   orderIndex: number;
-  id?: number;
+  wizardPageName?: string;
+  id: number;
   name: string;
   description: string;
   isComplete: boolean;
-  project: ProjectAdd;
+  project: Observable<ProjectAdd>;
+
+  updateProject(project: ProjectAdd): void;
+
   file?: UploadFile;
 }

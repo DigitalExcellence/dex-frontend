@@ -19,6 +19,7 @@ p {
   background-color: $accent-color-red-primary;
   box-shadow: $box-shadow;
   color: white;
+  outline: none;
 
   &:disabled {
     opacity: 0.5;

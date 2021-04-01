@@ -1,6 +1,5 @@
-<h2 class="step-header">Who has worked on the project?</h2>
-<p class="step-description">Here you can name all the project members and their role within the project!</p>
-
+<h2 class="step-header">{{step.name}}</h2>
+<p class="step-description">{{step.description}}</p>
 <div class="wrapper">
   <div class="left">
     <div class="left-col">
@@ -31,29 +30,20 @@
       <button (click)="onClickAddCollaborator()" [disabled]="!collaboratorName.valid || !collaboratorRole.valid" class="add-button">+</button>
     </div>
     <ul class="collaborator list">
-      <li *ngFor="let collaborator of step.project.collaborators">
+      <li *ngFor="let collaborator of collaboratorList">
         {{collaborator.fullName}}
       </li>
-      <li>Lieke van der Voort</li>
-      <li>Walter Sajtos</li>
     </ul>
     <ul class="collaborator list">
-      <li *ngFor="let collaborator of step.project.collaborators">
+      <li *ngFor="let collaborator of collaboratorList">
         {{collaborator.role}}
       </li>
-      <li>Designer</li>
-      <li>Developer</li>
     </ul>
     <ul>
-      <li *ngFor="let collaborator of step.project.collaborators">
+      <li *ngFor="let collaborator of collaboratorList">
         <span (click)="deleteCollaboratorClick(collaborator)" class="fas fa-trash trash-icon"></span>
       </li>
       <li>
-        <span class="fas fa-trash trash-icon"></span>
-      </li>
-      <li>
-        <span class="fas fa-trash trash-icon"></span>
-      </li>
     </ul>
   </div>
   <div class="image-col">

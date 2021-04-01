@@ -23,11 +23,15 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
   }
 
   onClickNext() {
-    this.fileUploader.uploadFiles().subscribe(files => {
-      if (files[0]) {
-        this.step.project.fileId = files[0].id;
-      }
-    });
+    if (this.fileUploader.files.length > 0) {
+      this.step.project.subscribe(project => {
+        this.fileUploader.uploadFiles().subscribe(files => {
+          if (files[0]) {
+            this.step.updateProject({fileId: files[0].id, ...project});
+          }
+        });
+      });
+    }
     super.onClickNext();
   }
 }
