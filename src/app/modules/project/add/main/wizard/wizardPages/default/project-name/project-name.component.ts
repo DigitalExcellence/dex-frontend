@@ -11,7 +11,13 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 })
 export class ProjectNameComponent extends WizardStepBaseComponent implements OnInit {
 
+  /**
+   * Form fields
+   */
   public projectName = new FormControl('');
+  /**
+   * Hold a copy of the project temporarily to prevent the service from listening to every change
+   */
   private project: ProjectAdd;
 
   constructor(private wizardService: WizardService) {
@@ -23,8 +29,11 @@ export class ProjectNameComponent extends WizardStepBaseComponent implements OnI
     if (this.project.name) {
       this.projectName.setValue(this.project.name);
     }
-  };
+  }
 
+  /**
+   * Method which triggers when the button to the next page is pressed
+   */
   public onClickNext() {
     this.wizardService.updateProject({...this.project, name: this.projectName.value});
     super.onClickNext();

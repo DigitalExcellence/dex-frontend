@@ -13,9 +13,15 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 })
 export class ProjectLinkComponent extends WizardStepBaseComponent implements OnInit {
 
-  public link = new FormControl('');
   public projectLoading = false;
+  public formSubmitted = false;
+  public link = new FormControl('');
   public selectedSource = this.wizardService.selectedSource;
+  public isDynamicPage: boolean;
+
+  /**
+   * Hold a copy of the project temporarily to prevent the service from listening to every change
+   */
   private project: ProjectAdd;
 
   constructor(private wizardService: WizardService,
@@ -24,14 +30,19 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
   }
 
   public ngOnInit(): void {
-    // This page can be loaded dynamically so project is not always present
-    this.projectLoading = false;
+    this.wizardService.getCurrentStep().subscribe(step => {
+      // Id 2 is the id of the dynamic link page in the backend
+      this.isDynamicPage = step.id === 2;
+    });
     this.project = this.wizardService.builtProject;
     if (this.project.uri) {
       this.link.setValue(this.project.uri);
     }
-  };
+  }
 
+  /**
+   * Method which triggers when the button to the next page is pressed
+   */
   public onClickNext() {
     if (this.link.valid) {
       if (this.step.id === 2) {
@@ -41,8 +52,10 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
           super.onClickNext();
         });
       } else {
+        this.formSubmitted = true;
         this.wizardService.updateProject({...this.project, uri: this.link.value});
         super.onClickNext();
+        // TODO: Check if the project was created successfully, else enable the button again
       }
     }
   }

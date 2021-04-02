@@ -15,9 +15,9 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class WizardService {
-  public allUserProjects: Array<Project>;
-  public selectedUserProject: Project;
-  public selectedSource: ExternalSource;
+  /**
+   * The project that is built with the wizard
+   */
   public builtProject: ProjectAdd = {
     callToAction: undefined,
     collaborators: [],
@@ -26,8 +26,29 @@ export class WizardService {
     uri: '',
     userId: 0
   };
-  protected readonly datasourceUrl = API_CONFIG.url + API_CONFIG.dataSourceRoute;
-  protected readonly wizardUrl = API_CONFIG.url + API_CONFIG.wizardRoute;
+
+  /**
+   * The external source that is currently selected
+   */
+  private selectedSource: ExternalSource;
+
+  /**
+   * The public and the private flow of the source
+   */
+  private publicFlow: Array<WizardPage>;
+  private privateFlow: Array<WizardPage>;
+
+  /**
+   * The flow that is currently selected
+   */
+  private selectedFlow: Array<WizardPage>;
+
+  /**
+   * API urls
+   */
+  private readonly datasourceUrl = API_CONFIG.url + API_CONFIG.dataSourceRoute;
+  private readonly wizardUrl = API_CONFIG.url + API_CONFIG.wizardRoute;
+
   private readonly defaultSteps: Array<WizardPage> = [
     {
       id: 4,
@@ -78,17 +99,27 @@ export class WizardService {
       isComplete: false
     },
   ];
+  /**
+   * Holds the wizard steps for the current source and flow
+   */
   private readonly steps$ = new BehaviorSubject<WizardPage[]>(null);
+  /**
+   * The current step in the wizard
+   */
   private readonly currentStep$: BehaviorSubject<WizardPage> = new BehaviorSubject<WizardPage>(null);
-  private publicFlow: Array<WizardPage>;
-  private privateFlow: Array<WizardPage>;
-  private selectedFlow: Array<WizardPage>;
-  private currentWizardPage: WizardPage;
 
   constructor(
       private http: HttpClient,
       private router: Router,
       private authService: AuthService) { }
+
+  /**
+   * Method that checks if the string is empty
+   * @param string String that needs to be checked
+   */
+  private static checkNotEmpty(string: string) {
+    return string.trim().length > 0;
+  }
 
   /**
    * This function fetches all the available external sources
@@ -97,18 +128,25 @@ export class WizardService {
     return this.http.get<Array<ExternalSource>>(this.datasourceUrl);
   }
 
-  private static checkNotEmpty(string: string) {
-    return string.trim().length > 0;
-  }
-
+  /**
+   * Method that sets the selectedExternalSource
+   * @param source The external source that was selected by the user
+   */
   public selectExternalSource(source: ExternalSource): void {
     this.selectedSource = source;
   }
 
+  /**
+   * Method that selects the manual source
+   */
   public selectManualSource(): void {
     this.selectedFlow = this.defaultSteps;
   }
 
+  /**
+   * Method that fetches the project from the external data source
+   * @param projectUri The inputted project uri
+   */
   public fetchProjectFromExternalSource(projectUri: string) {
     let params = new HttpParams();
     params = params.append('dataSourceGuid', this.selectedSource.guid);
@@ -132,44 +170,8 @@ export class WizardService {
         );
   }
 
-  public serviceIsValid(): boolean {
-    return this.steps$.value.length > 0 && this.authService.getCurrentBackendUser().id > 0;
-  }
-
-  public setCurrentStep(step: WizardPage): void {
-    this.currentStep$.next(step);
-  }
-
-  public getCurrentStep(): Observable<WizardPage> {
-    return this.currentStep$.asObservable();
-  }
-
-  public getSteps(): Observable<Array<WizardPage>> {
-    return this.steps$.asObservable();
-  }
-
-  public moveToNextStep(): void {
-    const index = this.currentStep$.value.orderIndex;
-
-    if (index < this.steps$.value.length) {
-      this.currentStep$.next(this.steps$.value[index]);
-    }
-  }
-
-  public moveToPreviousStep(): void {
-    const index = this.currentStep$.value.orderIndex;
-    if (index > 1) {
-      // -2 because the order index starts at 1, array starts at 0
-      this.currentStep$.next(this.steps$.value[index - 2]);
-    }
-  }
-
-  public isLastStep(): boolean {
-    return this.currentStep$.value.orderIndex === this.steps$.value.length;
-  }
-
   /**
-   * This function determines the next step in the wizard flow
+   * Method that determines the next step in the flow
    */
   public goToNextStep(): void {
     if (!this.selectedFlow || !this.selectedSource) {
@@ -180,34 +182,75 @@ export class WizardService {
     }
   }
 
+  /**
+   * Method that changes the currentPage to the next page
+   */
+  public moveToNextStep(): void {
+    const index = this.currentStep$.value.orderIndex;
+
+    if (index < this.steps$.value.length) {
+      this.currentStep$.next(this.steps$.value[index]);
+    }
+  }
+
+  /**
+   * Method that changes the currentPage to the previous page
+   */
+  public moveToPreviousStep(): void {
+    const index = this.currentStep$.value.orderIndex;
+    if (index > 1) {
+      // -2 because the order index starts at 1, array starts at 0
+      this.currentStep$.next(this.steps$.value[index - 2]);
+    }
+  }
+
+  /**
+   * Method that checks if the steps are set and the user is logged in
+   * This helps prevent the wizard from opening in a false state.
+   */
+  public serviceIsValid(): boolean {
+    return this.steps$.value.length > 0 && this.authService.getCurrentBackendUser().id > 0;
+  }
+
+  /**
+   * Method that sets the current page
+   * @param step The page that needs to be set as current step
+   */
+  public setCurrentStep(step: WizardPage): void {
+    this.currentStep$.next(step);
+  }
+
+  /**
+   * Method that returns the currentStep
+   */
+  public getCurrentStep(): Observable<WizardPage> {
+    return this.currentStep$.asObservable();
+  }
+
+  /**
+   * Method that returns all the steps in the current flow
+   */
+  public getSteps(): Observable<Array<WizardPage>> {
+    return this.steps$.asObservable();
+  }
+
+  /**
+   * Method that checks if the current step is the last one of the flow
+   */
+  public isLastStep(): boolean {
+    return this.currentStep$.value.orderIndex === this.steps$.value.length;
+  }
+
+  /**
+   * Method that checks if all steps of the wizard have been completed
+   */
   public allStepsCompleted() {
     return this.steps$.value.every(page => page.isComplete);
   }
 
-  private determineFlow(): void {
-    // There is no flow selected yet, check which options we have
-    // Make sure there are wizard pages
-    if (this.selectedSource?.wizardPages.length > 0) {
-      this.publicFlow = this.selectedSource.wizardPages.filter(s => s.authFlow === false).sort((s1, s2) => s1.orderIndex - s2.orderIndex);
-      this.privateFlow = this.selectedSource.wizardPages.filter(s => s.authFlow === true).sort((s1, s2) => s1.orderIndex - s2.orderIndex);
-
-      if (this.publicFlow.length === 0 && this.privateFlow.length > 0) {
-        // There only is a private flow
-        this.setBehaviourSubject(this.privateFlow);
-        this.goToNextStep();
-      } else if (this.publicFlow.length > 0 && this.privateFlow.length === 0) {
-        // There is only a public flow
-        this.setBehaviourSubject(this.publicFlow);
-      } else {
-        // TODO: Change this to determine flow so the user can pick.
-        this.setBehaviourSubject(this.publicFlow);
-      }
-    } else {
-      // Flow is invalid or the manual flow was selected
-      this.setBehaviourSubject(this.defaultSteps);
-    }
-  }
-
+  /**
+   * Method that can be used to reset the entire wizard
+   */
   public resetService(): void {
     this.selectedSource = undefined;
     this.selectedFlow = undefined;
@@ -225,7 +268,38 @@ export class WizardService {
     this.builtProject = project;
   }
 
-  private setBehaviourSubject(wizardPages: Array<WizardPage>) {
+  /**
+   * Method that checks which flows are present on the external source
+   */
+  private determineFlow(): void {
+    // There is no flow selected yet, check which options we have
+    // Make sure there are wizard pages
+    if (this.selectedSource?.wizardPages.length > 0) {
+      this.publicFlow = this.selectedSource.wizardPages.filter(s => s.authFlow === false).sort((s1, s2) => s1.orderIndex - s2.orderIndex);
+      this.privateFlow = this.selectedSource.wizardPages.filter(s => s.authFlow === true).sort((s1, s2) => s1.orderIndex - s2.orderIndex);
+
+      if (this.publicFlow.length === 0 && this.privateFlow.length > 0) {
+        // There only is a private flow
+        this.setWizardSteps(this.privateFlow);
+        this.goToNextStep();
+      } else if (this.publicFlow.length > 0 && this.privateFlow.length === 0) {
+        // There is only a public flow
+        this.setWizardSteps(this.publicFlow);
+      } else {
+        // TODO: Change this to determine flow so the user can pick.
+        this.setWizardSteps(this.publicFlow);
+      }
+    } else {
+      // Flow is invalid or the manual flow was selected
+      this.setWizardSteps(this.defaultSteps);
+    }
+  }
+
+  /**
+   * Updates the behavioural object with the correct wizard steps
+   * @param wizardPages The wizard pages that need to be set
+   */
+  private setWizardSteps(wizardPages: Array<WizardPage>) {
     if (wizardPages !== this.defaultSteps) {
       // Make sure that we do not end up with duplicate pages
       wizardPages = [...wizardPages, ...this.defaultSteps]
@@ -244,8 +318,12 @@ export class WizardService {
     this.currentStep$.next(wizardPages[0]);
   }
 
+  /**
+   * When a project is retrieved from the backend we need to check which properties were auto-filled
+   * @param project the project that was imported
+   */
   private determineStepsCompleted(project: Project) {
-    let updatedSteps = this.steps$.value;
+    const updatedSteps = this.steps$.value;
     if (WizardService.checkNotEmpty(project.name)) {
       updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = true;
     }
