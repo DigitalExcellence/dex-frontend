@@ -121,6 +121,8 @@
                 </ng-container>
                 <ng-container *ngIf="displayDeleteProjectButton">
                   <a class="cog-tooltip-item" routerLink="/project/delete/{{project?.id}}"><em class="fas fa-trash"></em>Delete project</a>
+                  <a class="cog-tooltip-item" (click)="onClickRemoveProject()"><em
+                      class="fas fa-trash"></em>Delete project</a>
                 </ng-container>
               </ng-template>
             </ng-container>

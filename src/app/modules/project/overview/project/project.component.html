@@ -27,15 +27,10 @@
       <h3 class="project-name">{{project.name}}</h3>
       <p class="project-short-description">{{project.shortDescription}}</p>
     </div>
-    <ng-container *ngIf="displayTags(); else noLikes">
-      <div (click)="likeClicked($event)" class="item project-likes">
-        <em [ngClass]="project.userHasLikedProject ? 'fas' : 'far'" class='far fa-heart'></em>
+    <div (click)="likeClicked($event)" class='item'>
+      <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class='fa-heart'></em>
         {{project.likeCount}} Likes
       </div>
-    </ng-container>
-    <ng-template #noLikes>
-      <div></div>
-    </ng-template>
     <div [tooltip]="projectUpdated" class="item project-created-date">
       <em class='far fa-clock'></em>
       {{project.created | date: 'longDate'}}

@@ -9,9 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added SEO & performance check when pushing new code to develop branch [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
-- Added a DeX preview with title, description and image for more user-friendliness [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
-- Added functionality to like projects [#389](https://github.com/DigitalExcellence/dex-frontend/issues/389)
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+
+
+## Release v.1.1.0-beta - 18-03-2021
+
+### Fixed
+
+- Fixed list view animation bug which prevented like animation from playing - [#419](https://github.com/DigitalExcellence/dex-frontend/issues/419)
+- Auto dismiss the login warning when liking project if you're not logged in - [#433](https://github.com/DigitalExcellence/dex-frontend/issues/433)
+- Hide the active modal when you navigate to another page via browser navigation arrows - [#423](https://github.com/DigitalExcellence/dex-frontend/issues/423)
+
+## Release v.1.0.1-beta - 31-01-2021
+
+### Added
+
+- Added SEO & performance check when pushing new code to develop branch - [#285](https://github.com/DigitalExcellence/dex-frontend/issues/285)
+- Added a DeX preview with title, description and image for more user-friendliness - [#347](https://github.com/DigitalExcellence/dex-frontend/issues/347)
+- Added functionality to like projects - [#389](https://github.com/DigitalExcellence/dex-frontend/issues/389)
 - Added update highlight functionality - [#294](https://github.com/DigitalExcellence/dex-frontend/issues/294)
 - Added animations on clickable items and while project pages are loading - [#321](https://github.com/DigitalExcellence/dex-frontend/issues/321)
 - Added animations when user likes (or unlikes) a project - [#414](https://github.com/DigitalExcellence/dex-frontend/issues/414)
@@ -22,13 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed the open graph tags in order to show a more appealing website preview - [#405](https://github.com/DigitalExcellence/dex-frontend/issues/405)
 - Changed it so you can now clear query paramters like pagination or search by clicking on 'projects' again - [#401](https://github.com/DigitalExcellence/dex-frontend/issues/401)
-- Changed the design of the filtermenu on project overview page- [#287](https://github.com/DigitalExcellence/dex-frontend/issues/287)
-
-### Deprecated
-
-
-### Removed
-
+- Changed the design of the filtermenu on project overview page - [#287](https://github.com/DigitalExcellence/dex-frontend/issues/287)
 
 ### Fixed
 
@@ -37,10 +55,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where long collaborator names would mess up styling - [#354](https://github.com/DigitalExcellence/dex-frontend/issues/354)
 - Fixed issue where in some cases the alert banner would not disapear automatically - [#392](https://github.com/DigitalExcellence/dex-frontend/issues/392)
 - Fixed issue where opening a modal or long usernames would cause the page to get unaligned - [#400](https://github.com/DigitalExcellence/dex-frontend/issues/400)
-
-### Security
-
-
 
 ## Release v.0.9.0-beta - 09-12-2020
 
