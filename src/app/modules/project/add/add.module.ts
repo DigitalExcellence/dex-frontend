@@ -29,6 +29,7 @@ import { ProjectDescriptionComponent } from './main/wizard/wizardPages/default/p
 import { ProjectIconComponent } from './main/wizard/wizardPages/default/project-icon/project-icon.component';
 import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-name/project-name.component';
 import { ProjectModule } from 'src/app/modules/project/project.module';
+import { ProjectCallToActionComponent } from './main/wizard/wizardPages/default/project-call-to-action/project-call-to-action.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ProjectModule } from 'src/app/modules/project/project.module';
     ProjectDescriptionComponent,
     ProjectIconComponent,
     ProjectNameComponent,
+    ProjectCallToActionComponent,
 
   ],
   imports: [

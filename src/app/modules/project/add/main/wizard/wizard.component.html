@@ -17,6 +17,9 @@
         <ng-container *ngSwitchCase="'project-collaborators'">
           <app-project-collaborators (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-collaborators>
         </ng-container>
+        <ng-container *ngSwitchCase="'project-call-to-action'">
+          <app-project-call-to-action (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-call-to-action>
+        </ng-container>
         <ng-container *ngSwitchCase="'project-link'">
           <app-project-link (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-link>
         </ng-container>
