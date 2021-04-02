@@ -23,6 +23,10 @@ export class ProjectDescriptionComponent extends WizardStepBaseComponent impleme
    */
   public shortDescription = new FormControl('');
   public longDescription = new FormControl('');
+
+  /**
+   * Hold a copy of the project temporarily to prevent the service from listening to every change
+   */
   private project: ProjectAdd;
 
   constructor(private wizardService: WizardService) {
@@ -44,10 +48,10 @@ export class ProjectDescriptionComponent extends WizardStepBaseComponent impleme
 
       this.longDescription.setValue(this.project.description);
     }
-  };
+  }
 
   /**
-   * Function that handles the next-page button
+   * Method which triggers when the button to the next page is pressed
    */
   public onClickNext() {
     this.wizardService.updateProject({

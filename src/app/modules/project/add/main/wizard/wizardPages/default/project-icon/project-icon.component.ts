@@ -10,10 +10,17 @@ import { WizardService } from 'src/app/services/wizard.service';
   styleUrls: ['./project-icon.component.scss', '../../shared-wizard-styles.scss']
 })
 export class ProjectIconComponent extends WizardStepBaseComponent implements OnInit {
-  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
-  public acceptMultiple = false;
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
+  /**
+   * File uploader variables
+   */
+  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+  public acceptMultiple = false;
+
+  /**
+   * Hold a copy of the project temporarily to prevent the service from listening to every change
+   */
   private project: ProjectAdd;
 
   constructor(private wizardService: WizardService) {
@@ -25,6 +32,9 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
     this.project = this.wizardService.builtProject;
   }
 
+  /**
+   * Method which triggers when the button to the next page is pressed
+   */
   onClickNext() {
     if (this.fileUploader.files.length > 0) {
       this.fileUploader.uploadFiles().subscribe(files => {

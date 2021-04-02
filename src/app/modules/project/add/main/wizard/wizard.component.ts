@@ -17,7 +17,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./wizard.component.scss']
 })
 export class WizardComponent implements OnInit {
-  currentStep: Observable<WizardPage>;
+  /**
+   * Copy of the current page to prevent unnecessary service calls
+   */
+  public currentStep: Observable<WizardPage>;
 
   constructor(
       private wizardService: WizardService,
@@ -26,15 +29,8 @@ export class WizardComponent implements OnInit {
       private alertService: AlertService,
       private location: LocationStrategy,
       private authService: AuthService) {
-    // check if back or forward button is pressed.
-
-    history.pushState(null, null, location.path());
-    this.location.onPopState((e) => {
-      history.pushState(null, null, location.path());
-      this.wizardService.moveToPreviousStep();
-      this.currentStep = this.wizardService.getCurrentStep();
-    });
-
+    // check if back or forward button is pressed and prevent it.
+    this.registerNavigationListener();
   }
 
   ngOnInit(): void {
@@ -45,14 +41,9 @@ export class WizardComponent implements OnInit {
     this.wizardService.getSteps().subscribe(items => console.log(items));
   }
 
-  public onNextStep() {
-    if (this.wizardService.isLastStep()) {
-      this.onSubmit();
-    } else {
-      this.wizardService.moveToNextStep();
-    }
-  }
-
+  /**
+   * Method which triggers when the form is submitted
+   */
   public onSubmit(): void {
     if (this.wizardService.allStepsCompleted()) {
       const project = this.wizardService.builtProject;
@@ -68,9 +59,24 @@ export class WizardComponent implements OnInit {
       };
       this.alertService.pushAlert(alertConfig);
     }
-
   }
 
+  /**
+   * Method which triggers when the button to the next page is pressed
+   */
+  public onNextStep() {
+    if (this.wizardService.isLastStep()) {
+      this.onSubmit();
+    } else {
+      this.wizardService.moveToNextStep();
+    }
+  }
+
+  /**
+   * Method that will take the built project in the wizard and send it to the backend
+   * @param newProject - the built project
+   * @private
+   */
   private createProject(newProject): void {
     this.projectService
         .post(newProject)
@@ -84,6 +90,24 @@ export class WizardComponent implements OnInit {
           };
           this.alertService.pushAlert(alertConfig);
           this.router.navigate([`/project/overview`]);
+        }, error => {
+          const alertConfig: AlertConfig = {
+            type: AlertType.danger,
+            mainMessage: error,
+            dismissible: true,
+            autoDismiss: true,
+            timeout: this.alertService.defaultTimeout
+          };
+          this.alertService.pushAlert(alertConfig);
         });
+  }
+
+  private registerNavigationListener(): void {
+    history.pushState(null, null, location.href);
+    this.location.onPopState((e) => {
+      history.pushState(null, null, location.href);
+      this.wizardService.moveToPreviousStep();
+      this.currentStep = this.wizardService.getCurrentStep();
+    });
   }
 }

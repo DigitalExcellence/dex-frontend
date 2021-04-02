@@ -15,8 +15,8 @@
            required
            type="url"/>
     <button (click)="onClickNext()"
-            [disabled]="!link.valid"
-            class="form-continue-btn">{{step.id === 2 ? "Import project" : "Finish"}}
+            [disabled]="!link.valid || formSubmitted"
+            class="form-continue-btn">{{isDynamicPage ? "Import project" : "Finish"}}
     </button>
   </div>
   <div class="image-wrapper">

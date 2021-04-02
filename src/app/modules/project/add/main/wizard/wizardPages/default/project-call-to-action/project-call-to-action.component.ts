@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WizardStepBaseComponent } from '../../wizard-step-base/wizard-step-base.component';
+import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 
 @Component({
   selector: 'app-project-call-to-action',
@@ -15,4 +15,10 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   ngOnInit(): void {
   }
 
+  /**
+   * Method which triggers when the button to the next page is pressed
+   */
+  onClickNext() {
+    super.onClickNext();
+  }
 }

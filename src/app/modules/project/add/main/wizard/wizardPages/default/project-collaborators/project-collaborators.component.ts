@@ -12,9 +12,19 @@ import { WizardService } from 'src/app/services/wizard.service';
 })
 export class ProjectCollaboratorsComponent extends WizardStepBaseComponent implements OnInit {
 
+  /**
+   * Forms fields
+   */
   public collaboratorName = new FormControl('');
   public collaboratorRole = new FormControl('');
+  /**
+   * Local copy of the collaborators to prevent unnecessary service calls
+   */
   public collaboratorList: CollaboratorAdd[];
+
+  /**
+   * Hold a copy of the project temporarily to prevent the service from listening to every change
+   */
   private project: ProjectAdd;
 
   constructor(private wizardService: WizardService) {
@@ -26,7 +36,7 @@ export class ProjectCollaboratorsComponent extends WizardStepBaseComponent imple
     if (this.project.collaborators) {
       this.collaboratorList = this.project.collaborators;
     }
-  };
+  }
 
   /**
    * Method which triggers when the add Collaborator button is pressed.
@@ -44,6 +54,10 @@ export class ProjectCollaboratorsComponent extends WizardStepBaseComponent imple
 
   }
 
+  /**
+   * Method which triggers when the delete collaborator button is pressed.
+   * Removes corresponding collaborator from collaborator array.
+   */
   public deleteCollaboratorClick(collaborator: CollaboratorAdd) {
     const index = this.collaboratorList.indexOf(collaborator);
     if (index > -1) {
@@ -51,6 +65,9 @@ export class ProjectCollaboratorsComponent extends WizardStepBaseComponent imple
     }
   }
 
+  /**
+   * Method which triggers when the button to the next page is pressed
+   */
   public onClickNext() {
     this.wizardService.updateProject({...this.project, collaborators: this.collaboratorList});
     super.onClickNext();

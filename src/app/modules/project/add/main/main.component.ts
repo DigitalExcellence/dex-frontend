@@ -43,9 +43,15 @@ export class MainComponent implements OnInit {
    * ExternalSources available to import your projects from
    */
   public externalSources = new Array<ExternalSource>();
-  public selectedExternalSource: ExternalSource;
+  /**
+   * Holds if the user is authenticaed
+   */
   public isAuthenticated: boolean;
-  modalRef: BsModalRef;
+  /**
+   * Reference to the wizard modal
+   */
+  private modalRef: BsModalRef;
+
   constructor(
       private router: Router,
       private alertService: AlertService,
@@ -55,6 +61,7 @@ export class MainComponent implements OnInit {
       private fileRetrieverService: FileRetrieverService,
       private modalService: BsModalService
   ) {
+    // Whenever the route is changed, close the modal
     this.router.events
         .subscribe((val) => {
           this.modalRef?.hide();
@@ -62,11 +69,11 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    // Check if the user is logged in
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
     });
-
+    // Get all the external sources
     this.wizardService.fetchExternalSources().subscribe(externalSources => {
       this.externalSources = externalSources;
     });
@@ -85,7 +92,7 @@ export class MainComponent implements OnInit {
   }
 
   /**
-   * Handle the click when the user chooses an external source.
+   * Method which is triggered by any of the add from external datasource buttons
    */
   public externalSourceClick(event: MouseEvent, selectedSource: ExternalSource) {
     if (this.checkIfLoggedInAndReturnAlert()) {
@@ -96,6 +103,9 @@ export class MainComponent implements OnInit {
     }
   }
 
+  /**
+   * Methods which is triggered by the 'add project manually' button
+   */
   public manualClick() {
     if (this.checkIfLoggedInAndReturnAlert()) {
       this.wizardService.resetService();
@@ -105,6 +115,9 @@ export class MainComponent implements OnInit {
     }
   }
 
+  /**
+   * Methods which creates the wizard modal
+   */
   private createWizardModal() {
     this.modalRef = this.modalService.show(WizardComponent, {animated: true});
     this.modalRef.setClass('wizard-modal');
