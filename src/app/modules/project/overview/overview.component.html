@@ -87,10 +87,10 @@
     <ng-container *ngIf="!projectsEmpty(); else noProjects">
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <app-project
-          *ngFor="let project of projectsToDisplay"
-          [project]="project"
-          [showListView]="this.showListView"
-          (click)="onClickProject(project.id, project.name)"
+            *ngFor="let project of projectsToDisplay"
+            [project]="project"
+            [showListView]="this.showListView"
+            (click)="onClickProject($event, project.id, project.name)"
         >
         </app-project>
       </div>

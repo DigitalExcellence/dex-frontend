@@ -35,11 +35,14 @@
     }
     .list-view-toggle {
       display: flex;
-      margin: auto 0 auto 0;
+      margin: auto 0 auto 20px;
       gap: 12px;
       flex-wrap: wrap;
-      margin-left: 20px;
       justify-content: flex-end;
+
+      @media only screen and (max-width: 720px) {
+        display: none;
+      }
 
       .container {
         box-shadow: $box-shadow;
