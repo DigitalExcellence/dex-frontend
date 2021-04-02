@@ -9,7 +9,6 @@ import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { LocationStrategy } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
-import { ProjectAdd } from 'src/app/models/resources/project-add';
 
 
 @Component({
@@ -28,7 +27,10 @@ export class WizardComponent implements OnInit {
       private location: LocationStrategy,
       private authService: AuthService) {
     // check if back or forward button is pressed.
-    this.location.onPopState(() => {
+
+    history.pushState(null, null, location.path());
+    this.location.onPopState((e) => {
+      history.pushState(null, null, location.path());
       this.wizardService.moveToPreviousStep();
       this.currentStep = this.wizardService.getCurrentStep();
     });
@@ -53,7 +55,7 @@ export class WizardComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.wizardService.allStepsCompleted()) {
-      const project: ProjectAdd = this.wizardService.builtProject.getValue();
+      const project = this.wizardService.builtProject;
       project.userId = this.authService.getCurrentBackendUser().id;
       this.createProject(project);
     } else {

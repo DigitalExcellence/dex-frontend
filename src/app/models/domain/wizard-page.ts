@@ -15,10 +15,6 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { UploadFile } from './uploadFile';
-import { ProjectAdd } from 'src/app/models/resources/project-add';
-import { Observable } from 'rxjs';
-
 export interface WizardPage {
   authFlow: boolean;
   orderIndex: number;
@@ -27,9 +23,4 @@ export interface WizardPage {
   name: string;
   description: string;
   isComplete: boolean;
-  project: Observable<ProjectAdd>;
-
-  file?: UploadFile;
-
-  updateProject(project: ProjectAdd): void;
 }

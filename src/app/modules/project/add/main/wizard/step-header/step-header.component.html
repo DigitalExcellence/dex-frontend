@@ -6,7 +6,10 @@
           (click)="onStepClick(step)"
           [ngClass]="{
         'step-complete': step.isComplete,
-        'step-blocked': !step.isComplete && (currentStep | async)?.orderIndex+1 !== step.orderIndex && (currentStep | async)?.orderIndex < step.orderIndex,
+        'step-blocked': !step.isComplete &&
+        (currentStep | async)?.orderIndex+1 !== step.orderIndex &&
+        (currentStep | async)?.orderIndex < step.orderIndex,
+
         'step-current': (currentStep | async)?.orderIndex === step.orderIndex
       }"
           class="step-bubble"
@@ -16,8 +19,13 @@
     </div>
     <div *ngIf="i < (steps | async)?.length - 1"
          [ngClass]="{
-            'step-complete': step.isComplete,
-            'step-current': (currentStep | async)?.orderIndex === step.orderIndex && !step.isComplete
+            'step-complete': step.isComplete &&
+            (
+              (steps | async)[(steps | async).indexOf(step)+1].isComplete ||
+              (steps | async)[(steps | async).indexOf(step)+1].id === (currentStep | async).id
+            ),
+            'step-current':
+            (currentStep | async)?.orderIndex === step.orderIndex
          }"
          class="step-divider">
     </div>

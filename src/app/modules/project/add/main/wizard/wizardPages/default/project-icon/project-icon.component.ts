@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-project-icon',
@@ -12,26 +14,27 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
   public acceptMultiple = false;
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
-  constructor() {
+  private project: ProjectAdd;
+
+  constructor(private wizardService: WizardService) {
     super();
   }
 
   ngOnInit(): void {
-    if (this.step.file) {
-      this.fileUploader.setFiles([this.step.file]);
-    }
+    // TODO: Implement loading added images
+    this.project = this.wizardService.builtProject;
   }
 
   onClickNext() {
     if (this.fileUploader.files.length > 0) {
-      this.step.project.subscribe(project => {
-        this.fileUploader.uploadFiles().subscribe(files => {
-          if (files[0]) {
-            this.step.updateProject({fileId: files[0].id, ...project});
-          }
-        });
+      this.fileUploader.uploadFiles().subscribe(files => {
+        if (files[0]) {
+          this.wizardService.updateProject({...this.project, fileId: files[0].id});
+        }
+        super.onClickNext();
       });
+    } else {
+      super.onClickNext();
     }
-    super.onClickNext();
   }
 }

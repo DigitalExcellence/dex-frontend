@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { WizardService } from 'src/app/services/wizard.service';
 import { SafeUrl } from '@angular/platform-browser';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
 
 @Component({
   selector: 'app-project-link',
@@ -15,6 +16,7 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
   public link = new FormControl('');
   public projectLoading = false;
   public selectedSource = this.wizardService.selectedSource;
+  private project: ProjectAdd;
 
   constructor(private wizardService: WizardService,
               private fileRetrieverService: FileRetrieverService) {
@@ -24,14 +26,11 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
   public ngOnInit(): void {
     // This page can be loaded dynamically so project is not always present
     this.projectLoading = false;
-    this.step.project?.subscribe(project => {
-      if (project.uri) {
-        this.link.setValue(project.uri);
-      }
-    });
-
-    console.log(this.selectedSource.title);
-  }
+    this.project = this.wizardService.builtProject;
+    if (this.project.uri) {
+      this.link.setValue(this.project.uri);
+    }
+  };
 
   public onClickNext() {
     if (this.link.valid) {
@@ -42,9 +41,7 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
           super.onClickNext();
         });
       } else {
-        this.step.project.subscribe(project => {
-          this.step.updateProject({uri: this.link.value, ...project});
-        });
+        this.wizardService.updateProject({...this.project, uri: this.link.value});
         super.onClickNext();
       }
     }

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
-import { ProjectAdd } from 'src/app/models/resources/project-add';
 
 // noinspection AngularMissingOrInvalidDeclarationInModule
 @Component({
@@ -10,10 +9,6 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 export class WizardStepBaseComponent {
   @Input() step: WizardPage;
   @Output() clickNext = new EventEmitter();
-
-  public updateProject(project: ProjectAdd) {
-    this.step.updateProject(project);
-  }
 
   public onCompleteStep() {
     this.step.isComplete = true;

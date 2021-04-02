@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { FormControl } from '@angular/forms';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-project-collaborators',
@@ -10,21 +12,21 @@ import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 })
 export class ProjectCollaboratorsComponent extends WizardStepBaseComponent implements OnInit {
 
-  constructor() {
-    super();
-  }
-
   public collaboratorName = new FormControl('');
   public collaboratorRole = new FormControl('');
   public collaboratorList: CollaboratorAdd[];
+  private project: ProjectAdd;
+
+  constructor(private wizardService: WizardService) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.step.project.subscribe(project => {
-      if (project.collaborators) {
-        this.collaboratorList = project.collaborators;
-      }
-    });
-  }
+    this.project = this.wizardService.builtProject;
+    if (this.project.collaborators) {
+      this.collaboratorList = this.project.collaborators;
+    }
+  };
 
   /**
    * Method which triggers when the add Collaborator button is pressed.
@@ -50,9 +52,7 @@ export class ProjectCollaboratorsComponent extends WizardStepBaseComponent imple
   }
 
   public onClickNext() {
-    this.step.project.subscribe(project => {
-      this.step.updateProject({collaborators: this.collaboratorList, ...project});
-    });
+    this.wizardService.updateProject({...this.project, collaborators: this.collaboratorList});
     super.onClickNext();
   }
 }

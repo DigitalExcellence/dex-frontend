@@ -3,54 +3,57 @@ import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard
 import { FormControl } from '@angular/forms';
 import * as showdown from 'showdown';
 import { QuillUtils } from 'src/app/utils/quill.utils';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-project-description',
   templateUrl: './project-description.component.html',
   styleUrls: ['./project-description.component.scss', '../../shared-wizard-styles.scss']
 })
+
 export class ProjectDescriptionComponent extends WizardStepBaseComponent implements OnInit {
 
-  constructor() {
+  /**
+   * Configuration for the quill editor
+   */
+  public modulesConfiguration = QuillUtils.getDefaultModulesConfiguration();
+  /**
+   * Form fields variables
+   */
+  public shortDescription = new FormControl('');
+  public longDescription = new FormControl('');
+  private project: ProjectAdd;
+
+  constructor(private wizardService: WizardService) {
     super();
   }
 
-  public modulesConfiguration = QuillUtils.getDefaultModulesConfiguration();
-  public shortDescription = new FormControl('');
-  public longDescription = new FormControl('');
-
   ngOnInit(): void {
-    this.step.project.subscribe(project => {
-      if (project.shortDescription) {
-        this.shortDescription.setValue(project.shortDescription);
-      }
-      if (project.description) {
-        const converter = new showdown.Converter(
-            {
-              literalMidWordUnderscores: true
-            }
-        );
-        project.description = converter.makeHtml(project.description);
+    this.project = this.wizardService.builtProject;
+    if (this.project.shortDescription) {
+      this.shortDescription.setValue(this.project.shortDescription);
+    }
+    if (this.project.description) {
+      const converter = new showdown.Converter(
+          {
+            literalMidWordUnderscores: true
+          }
+      );
+      this.project.description = converter.makeHtml(this.project.description);
 
-        this.longDescription.setValue(project.description);
-      }
+      this.longDescription.setValue(this.project.description);
+    }
+  };
 
-      this.shortDescription.valueChanges.subscribe(value => {
-        project.shortDescription = value;
-      });
-      this.longDescription.valueChanges.subscribe(value => {
-        project.description = value;
-      });
-    });
-  }
-
+  /**
+   * Function that handles the next-page button
+   */
   public onClickNext() {
-    this.step.project.subscribe(project => {
-      this.step.updateProject({
-        shortDescription: this.shortDescription.value,
-        description: this.longDescription.value,
-        ...project
-      });
+    this.wizardService.updateProject({
+      ...this.project,
+      shortDescription: this.shortDescription.value,
+      description: this.longDescription.value
     });
     super.onClickNext();
   }
