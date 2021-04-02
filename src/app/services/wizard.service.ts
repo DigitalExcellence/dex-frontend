@@ -79,6 +79,16 @@ export class WizardService {
       id: 8,
       authFlow: false,
       orderIndex: 5,
+      name: 'Would you like to add a call to action button?',
+      description: 'If you want to get people in action you can show it here!',
+      isComplete: false,
+      updateProject: this.updateProject,
+      project: this.builtProject.asObservable()
+    },
+    {
+      id: 9,
+      authFlow: false,
+      orderIndex: 5,
       name: 'If your project has a link with a project page or another source you can link it here!',
       description: 'If your project has a link with a project page or another source you can link it here!',
       isComplete: false,

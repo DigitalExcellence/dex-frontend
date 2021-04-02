@@ -7,6 +7,7 @@ export interface WizardPageConfig {
   6: string;
   7: string;
   8: string;
+  9: string;
 }
 
 export const WizardPageConfig: WizardPageConfig = {
@@ -17,5 +18,6 @@ export const WizardPageConfig: WizardPageConfig = {
   5: 'project-description',
   6: 'project-icon',
   7: 'project-collaborators',
-  8: 'project-link'
+  8: 'project-call-to-action',
+  9: 'project-link'
 };
