@@ -26,7 +26,8 @@
 </div>
 <div class="grid-wrapper">
   <div class="source-grid">
-    <div (click)="externalSourceClick($event, externalSource)" *ngFor="let externalSource of externalSources" class="source">
+    <div (click)="externalSourceClick($event, externalSource)" *ngFor="let externalSource of externalSources" [ngClass]="{'not-visible': !externalSource.isVisible}"
+         class="source">
       <div class="source-content">
         <img alt="" loading="lazy" src="{{ getIconUrl(externalSource.icon || 0) }}">
         <h3>{{ externalSource?.title }}</h3>

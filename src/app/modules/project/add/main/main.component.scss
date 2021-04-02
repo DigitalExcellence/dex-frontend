@@ -61,6 +61,20 @@
         padding-top: 100%;
       }
 
+      &.not-visible {
+        order: 69;
+        opacity: .75;
+
+        &:hover {
+          cursor: default;
+          transition: none;
+
+          img {
+            opacity: 1;
+          }
+        }
+      }
+
       &:hover {
         cursor: pointer;
         transition: all 0.2s ease-in-out;
