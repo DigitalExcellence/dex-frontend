@@ -75,7 +75,6 @@ export class WizardComponent implements OnInit {
   /**
    * Method that will take the built project in the wizard and send it to the backend
    * @param newProject - the built project
-   * @private
    */
   private createProject(newProject): void {
     this.projectService
