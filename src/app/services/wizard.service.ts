@@ -264,6 +264,10 @@ export class WizardService {
     };
   }
 
+  /**
+   * Method that updates the project that is being built, this does not push it to the backend
+   * @param project The updated project
+   */
   public updateProject(project: ProjectAdd) {
     this.builtProject = project;
   }
@@ -344,5 +348,9 @@ export class WizardService {
       updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = true;
     }
     this.steps$.next(updatedSteps);
+  }
+
+  public getSelectedSource(): ExternalSource {
+    return this.selectedSource;
   }
 }

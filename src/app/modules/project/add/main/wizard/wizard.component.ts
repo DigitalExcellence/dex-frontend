@@ -9,6 +9,7 @@ import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { LocationStrategy } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class WizardComponent implements OnInit {
    * Copy of the current page to prevent unnecessary service calls
    */
   public currentStep: Observable<WizardPage>;
+  public formSubmitted: boolean;
 
   constructor(
       private wizardService: WizardService,
@@ -37,6 +39,7 @@ export class WizardComponent implements OnInit {
     if (!this.wizardService.serviceIsValid()) {
       this.router.navigate(['project', 'add']);
     }
+    this.formSubmitted = false;
     this.currentStep = this.wizardService.getCurrentStep();
     this.wizardService.getSteps().subscribe(items => console.log(items));
   }
@@ -76,7 +79,8 @@ export class WizardComponent implements OnInit {
    * Method that will take the built project in the wizard and send it to the backend
    * @param newProject - the built projec
    */
-  private createProject(newProject): void {
+  private createProject(newProject: ProjectAdd): void {
+    this.formSubmitted = true;
     this.projectService
         .post(newProject)
         .subscribe(() => {
@@ -98,6 +102,7 @@ export class WizardComponent implements OnInit {
             timeout: this.alertService.defaultTimeout
           };
           this.alertService.pushAlert(alertConfig);
+          this.formSubmitted = false;
         });
   }
 

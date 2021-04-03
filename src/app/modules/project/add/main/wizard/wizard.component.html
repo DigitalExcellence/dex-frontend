@@ -21,7 +21,7 @@
           <app-project-call-to-action (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-call-to-action>
         </ng-container>
         <ng-container *ngSwitchCase="'project-link'">
-          <app-project-link (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-link>
+          <app-project-link (clickNext)="onNextStep()" [formSubmitted]="formSubmitted" [step]="(currentStep | async)"></app-project-link>
         </ng-container>
       </ng-container>
     </div>

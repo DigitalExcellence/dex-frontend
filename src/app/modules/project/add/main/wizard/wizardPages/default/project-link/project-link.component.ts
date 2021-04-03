@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { FormControl } from '@angular/forms';
 import { WizardService } from 'src/app/services/wizard.service';
@@ -12,11 +12,10 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
   styleUrls: ['./project-link.component.scss', '../../shared-wizard-styles.scss']
 })
 export class ProjectLinkComponent extends WizardStepBaseComponent implements OnInit {
-
+  @Input() formSubmitted: boolean;
   public projectLoading = false;
-  public formSubmitted = false;
   public link = new FormControl('');
-  public selectedSource = this.wizardService.selectedSource;
+  public selectedSource = this.wizardService.getSelectedSource();
   public isDynamicPage: boolean;
 
   /**
