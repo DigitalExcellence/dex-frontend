@@ -95,11 +95,13 @@ export class MainComponent implements OnInit {
    * Method which is triggered by any of the add from external datasource buttons
    */
   public externalSourceClick(event: MouseEvent, selectedSource: ExternalSource) {
-    if (this.checkIfLoggedInAndReturnAlert()) {
-      this.wizardService.resetService();
-      this.wizardService.selectExternalSource(selectedSource);
-      this.wizardService.goToNextStep();
-      this.createWizardModal();
+    if (selectedSource.isVisible) {
+      if (this.checkIfLoggedInAndReturnAlert()) {
+        this.wizardService.resetService();
+        this.wizardService.selectExternalSource(selectedSource);
+        this.wizardService.goToNextStep();
+        this.createWizardModal();
+      }
     }
   }
 
