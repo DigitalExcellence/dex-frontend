@@ -12,7 +12,8 @@ p {
 }
 
 .form-continue-btn {
-  width: 145px;
+  min-width: 145px;
+  width: fit-content;
   height: 40px;
   border: none;
   border-radius: $border-radius;
@@ -20,6 +21,11 @@ p {
   box-shadow: $box-shadow;
   color: white;
   outline: none;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
+  align-items: center;
+  padding: 0 20px;
 
   &:disabled {
     opacity: 0.5;
