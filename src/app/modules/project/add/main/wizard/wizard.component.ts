@@ -81,6 +81,7 @@ export class WizardComponent implements OnInit {
    */
   private createProject(newProject: ProjectAdd): void {
     this.formSubmitted = true;
+    console.log(newProject);
     this.projectService
         .post(newProject)
         .subscribe(() => {

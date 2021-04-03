@@ -1,7 +1,7 @@
 <h2 class="step-header">{{step.name}}</h2>
 <p class="step-description">{{step.description}}</p>
 <div class="wrapper">
-  <div class="external-source">
+  <div *ngIf="isDynamicPage" class="external-source">
     <div class="square">
       <img alt="detected-source" src="{{getIconUrl(selectedSource.icon || 0)}}"/>
     </div>

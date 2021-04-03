@@ -1,25 +1,22 @@
 <h2 class="step-header">Want to add a call to action?</h2>
 <p>Get people in action!</p>
-<form class="grid">
-  <input class="radio" type="radio" name="call-to-action" />
-  <button class="form-continue-btn">
-    Collaborate with us
-    <span class="fas fa-user"></span>
-  </button>
-  <input class="text-input" />
-  <input class="radio" type="radio" name="call-to-action" />
-  <button class="form-continue-btn">
-    Provide feedback
-    <span class="fas fa-user"></span>
-  </button>
-  <input class="text-input" />
-  <input class="radio" type="radio" name="call-to-action" />
-  <button class="form-continue-btn">
-    Apply now
-    <span class="fas fa-user"></span>
-  </button>
-  <input class="text-input" />
-</form>
+<div class="grid">
+  <ng-container *ngFor="let callToActionOption of callToActionOptions">
+    <input [(ngModel)]="selectedCallToActionOptionId" [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}" [value]="callToActionOption.id"
+           class="radio"
+           name="call-to-action"
+           type="radio"/>
+    <button [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
+            class="form-continue-btn">
+      {{callToActionOption.value}}
+    </button>
+    <input (change)="urlChange($event, callToActionOption.id)" [disabled]="callToActionOption.id !== selectedCallToActionOptionId" [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
+           [required]="callToActionOption.id === selectedCallToActionOptionId"
+           aria-label="action-url"
+           class="text-input"
+           type="url"/>
+  </ng-container>
+</div>
 <div class="bottom-button-wrapper">
   <button (click)="onClickNext()" class="form-continue-btn">Next</button>
 </div>
