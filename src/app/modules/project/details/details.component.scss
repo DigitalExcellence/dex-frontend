@@ -60,7 +60,7 @@
   cursor: pointer;
 }
 
-.modal-dialog {
+.modal-dialog.project-modal {
   width: 800px;
   max-width: 90vw;
   margin: 60px auto 30px auto;
@@ -261,7 +261,7 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    
+
     .menu-wrapper {
       display: flex;
       justify-content: space-between;
@@ -357,7 +357,7 @@
   #call-to-action-button::first-letter {
     text-transform: uppercase;
   }
-  
+
   .project-highlighted-div {
     float: left;
   }
