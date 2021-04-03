@@ -109,7 +109,6 @@ export class MainComponent implements OnInit {
   public manualClick() {
     if (this.checkIfLoggedInAndReturnAlert()) {
       this.wizardService.resetService();
-      this.wizardService.selectManualSource();
       this.wizardService.goToNextStep();
       this.createWizardModal();
     }

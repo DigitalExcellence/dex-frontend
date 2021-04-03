@@ -39,11 +39,6 @@ export class WizardService {
   private privateFlow: Array<WizardPage>;
 
   /**
-   * The flow that is currently selected
-   */
-  private selectedFlow: Array<WizardPage>;
-
-  /**
    * API urls
    */
   private readonly datasourceUrl = API_CONFIG.url + API_CONFIG.dataSourceRoute;
@@ -107,6 +102,10 @@ export class WizardService {
    * The current step in the wizard
    */
   private readonly currentStep$: BehaviorSubject<WizardPage> = new BehaviorSubject<WizardPage>(null);
+  /**
+   * Holds if there is a flow active
+   */
+  private flowIsSelected = false;
 
   constructor(
       private http: HttpClient,
@@ -134,13 +133,6 @@ export class WizardService {
    */
   public selectExternalSource(source: ExternalSource): void {
     this.selectedSource = source;
-  }
-
-  /**
-   * Method that selects the manual source
-   */
-  public selectManualSource(): void {
-    this.selectedFlow = this.defaultSteps;
   }
 
   /**
@@ -174,8 +166,7 @@ export class WizardService {
    * Method that determines the next step in the flow
    */
   public goToNextStep(): void {
-    if (!this.selectedFlow || !this.selectedSource) {
-      console.log('setting flow');
+    if (!this.flowIsSelected) {
       this.determineFlow();
     } else {
       this.moveToNextStep();
@@ -252,8 +243,7 @@ export class WizardService {
    * Method that can be used to reset the entire wizard
    */
   public resetService(): void {
-    this.selectedSource = undefined;
-    this.selectedFlow = undefined;
+    this.flowIsSelected = false;
     this.builtProject = {
       callToAction: undefined,
       collaborators: [],
@@ -272,6 +262,10 @@ export class WizardService {
     this.builtProject = project;
   }
 
+  public getSelectedSource(): ExternalSource {
+    return this.selectedSource;
+  }
+
   /**
    * Method that checks which flows are present on the external source
    */
@@ -279,6 +273,7 @@ export class WizardService {
     // There is no flow selected yet, check which options we have
     // Make sure there are wizard pages
     if (this.selectedSource?.wizardPages.length > 0) {
+      // Sort the wizard pages to separate the public and private flow
       this.publicFlow = this.selectedSource.wizardPages.filter(s => s.authFlow === false).sort((s1, s2) => s1.orderIndex - s2.orderIndex);
       this.privateFlow = this.selectedSource.wizardPages.filter(s => s.authFlow === true).sort((s1, s2) => s1.orderIndex - s2.orderIndex);
 
@@ -295,29 +290,33 @@ export class WizardService {
       }
     } else {
       // Flow is invalid or the manual flow was selected
-      this.setWizardSteps(this.defaultSteps);
+      this.setWizardSteps();
     }
+    this.flowIsSelected = true;
   }
 
   /**
    * Updates the behavioural object with the correct wizard steps
    * @param wizardPages The wizard pages that need to be set
    */
-  private setWizardSteps(wizardPages: Array<WizardPage>) {
-    if (wizardPages !== this.defaultSteps) {
-      // Make sure that we do not end up with duplicate pages
-      wizardPages = [...wizardPages, ...this.defaultSteps]
-          .map((wp, idx) => ({
-            ...wp,
-            orderIndex: idx + 1
-          }));
+  private setWizardSteps(wizardPages?: Array<WizardPage>) {
+    // Check if there are any wizardPages that need to be set
+    if (wizardPages) {
+      // Take the set pages and add the default steps
+      wizardPages = [...wizardPages, ...this.defaultSteps];
+    } else {
+      // Else just put the default steps
+      wizardPages = this.defaultSteps;
     }
-    // Determine which component belongs to the step
-    wizardPages = wizardPages.map((wp: WizardPage) => ({
+
+    // Fix the orderIndex for every step and determine
+    // which component belongs to it
+    wizardPages = wizardPages.map((wp, idx) => ({
       ...wp,
+      orderIndex: idx + 1,
       wizardPageName: WizardPageConfig[wp.id]
     }));
-
+    // Update the behavioural objects
     this.steps$.next(wizardPages);
     this.currentStep$.next(wizardPages[0]);
   }
@@ -348,9 +347,5 @@ export class WizardService {
       updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = true;
     }
     this.steps$.next(updatedSteps);
-  }
-
-  public getSelectedSource(): ExternalSource {
-    return this.selectedSource;
   }
 }

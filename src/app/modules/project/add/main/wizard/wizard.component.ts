@@ -41,7 +41,7 @@ export class WizardComponent implements OnInit {
     }
     this.formSubmitted = false;
     this.currentStep = this.wizardService.getCurrentStep();
-    this.wizardService.getSteps().subscribe(items => console.log(items));
+    console.log(this.currentStep);
   }
 
   /**
