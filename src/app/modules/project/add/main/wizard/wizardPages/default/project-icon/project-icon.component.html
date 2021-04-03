@@ -8,7 +8,7 @@
   <div class="right">
     <div class="file-preview">
       <div [style.background-image]="fileUploader?.files[0] ? 'url('+ fileUploader?.files[0]?.preview + ')' : 'url(/assets/images/placeholder.png)'" class="circle"></div>
-      <img class="workers" src="/assets/images/wizard/icon.svg"/>
+      <img alt="Workers svg" class="workers" src="/assets/images/wizard/icon.svg"/>
     </div>
     <button (click)="onClickNext()" class="form-continue-btn">Next</button>
   </div>
