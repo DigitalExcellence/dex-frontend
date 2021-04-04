@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 ### Fixed
+- Fixed issue where the privacy modal was not responsive - [#426](https://github.com/DigitalExcellence/dex-frontend/issues/426)
 
 ### Security
 
