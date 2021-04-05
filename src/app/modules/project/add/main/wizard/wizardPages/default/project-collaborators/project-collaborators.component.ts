@@ -50,7 +50,9 @@ export class ProjectCollaboratorsComponent extends WizardStepBaseComponent imple
   ngOnInit(): void {
     this.project = this.wizardService.builtProject;
     if (this.project.collaborators) {
-      this.collaboratorList = this.project.collaborators;
+      this.collaboratorList = this.project.collaborators.map(collaborator => {
+        return {...collaborator, role: 'Developer'};
+      });
     }
   }
 
