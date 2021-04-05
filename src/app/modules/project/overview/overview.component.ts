@@ -212,8 +212,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     this.modalSubscriptions.push(
         this.modalService.onHide.subscribe((reason) => {
               if (this.location.path().startsWith('/project/details')) {
-                // If the modal was closed using backdrop click or esc button we need to remove
-                // The fake history entry we made
                 if (reason && (reason === 'backdrop-click' || reason === 'esc')) {
                   history.back();
                 }
@@ -345,15 +343,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
       this.paginationService
-          .getProjectsPaginated(internalSearchQuery)
-          .pipe(finalize(() => (this.projectsLoading = false)))
-          .subscribe((result) => this.handleSearchAndProjectResponse(result));
+        .getProjectsPaginated(internalSearchQuery)
+        .pipe(finalize(() => (this.projectsLoading = false)))
+        .subscribe((result) => this.handleSearchAndProjectResponse(result));
     } else {
       // Search query provided use searchService.
       this.internalSearchService
-          .getSearchResultsPaginated(internalSearchQuery)
-          .pipe(finalize(() => (this.projectsLoading = false)))
-          .subscribe((result) => this.handleSearchAndProjectResponse(result));
+        .getSearchResultsPaginated(internalSearchQuery)
+        .pipe(finalize(() => (this.projectsLoading = false)))
+        .subscribe((result) => this.handleSearchAndProjectResponse(result));
     }
   }
 
@@ -399,15 +397,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     }
   }
 
-  /**
-   * Method that is responsible for closing the modal when the user navigates to another page.
-   */
-  private registerNavigationListener(): void {
-    history.pushState(null, null, location.href);
-    this.locationStrategy.onPopState((e) => {
-      this.modalRef?.hide();
-    });
-  }
 
   /**
    * Methods to update the title and description through the SEO service
