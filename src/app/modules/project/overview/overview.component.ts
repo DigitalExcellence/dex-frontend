@@ -16,7 +16,7 @@
  */
 import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location, LocationStrategy } from '@angular/common';
 import { debounceTime, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -32,7 +32,6 @@ import { SEOService } from 'src/app/services/seo.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 
 /**
  * Overview of all the projects
@@ -95,9 +94,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    { id: 0, amountOnPage: 12 },
-    { id: 1, amountOnPage: 24 },
-    { id: 2, amountOnPage: 36 },
+    {id: 0, amountOnPage: 12},
+    {id: 1, amountOnPage: 24},
+    {id: 2, amountOnPage: 36},
   ];
 
   /**
@@ -111,12 +110,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   public tagsForm: FormGroup;
 
   public sortSelectOptions: SelectFormOption[] = [
-    { value: 'updated,desc', viewValue: 'Updated (new-old)' },
-    { value: 'updated,asc', viewValue: 'Updated (old-new)' },
-    { value: 'name,asc', viewValue: 'Name (a-z)' },
-    { value: 'name,desc', viewValue: 'Name (z-a)' },
-    { value: 'created,desc', viewValue: 'Created (new-old)' },
-    { value: 'created,asc', viewValue: 'Created (old-new)' },
+    {value: 'updated,desc', viewValue: 'Updated (new-old)'},
+    {value: 'updated,asc', viewValue: 'Updated (old-new)'},
+    {value: 'name,asc', viewValue: 'Name (a-z)'},
+    {value: 'name,desc', viewValue: 'Name (z-a)'},
+    {value: 'created,desc', viewValue: 'Created (new-old)'},
+    {value: 'created,asc', viewValue: 'Created (old-new)'},
   ];
 
   public displaySearchElements = false;
@@ -138,20 +137,19 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    */
   private projectLoading = true;
 
-
   private modalRef: BsModalRef;
   private modalSubscriptions: Subscription[] = [];
 
   constructor(
-    private router: Router,
-    private paginationService: PaginationService,
-    private internalSearchService: InternalSearchService,
-    private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
-    private seoService: SEOService,
-    private modalService: BsModalService,
-    private location: Location,
-    private authService: AuthService) {
+      private router: Router,
+      private paginationService: PaginationService,
+      private internalSearchService: InternalSearchService,
+      private formBuilder: FormBuilder,
+      private activatedRoute: ActivatedRoute,
+      private seoService: SEOService,
+      private modalService: BsModalService,
+      private location: Location,
+      private locationStrategy: LocationStrategy) {
     this.searchControl = new FormControl('');
 
     this.categoryForm = this.formBuilder.group({
@@ -172,6 +170,11 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       this.displaySearchElements = true;
     }
 
+    // Listen for navigation events so we can close the modal
+    this.locationStrategy.onPopState((e) => {
+      this.modalRef?.hide();
+    });
+
   }
 
   ngOnInit(): void {
@@ -181,15 +184,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
-      .pipe(
-        debounceTime(500)
-      )
-      .subscribe((result) => {
-        if (result == null) {
-          return;
-        }
-        this.onInternalQueryChange();
-      });
+        .pipe(
+            debounceTime(500)
+        )
+        .subscribe((result) => {
+          if (result == null) {
+            return;
+          }
+          this.onInternalQueryChange();
+        });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
 
@@ -204,6 +207,22 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     // this.tagsForm.valueChanges.subscribe((tagFormResult: TagFormResult) => {
     //   console.log(tagFormResult);
     // });
+
+    // Go back to overview page after the modal is closed
+    this.modalSubscriptions.push(
+        this.modalService.onHide.subscribe((reason) => {
+              if (this.location.path().startsWith('/project/details')) {
+                // If the modal was closed using backdrop click or esc button we need to remove
+                // The fake history entry we made
+                if (reason && (reason === 'backdrop-click' || reason === 'esc')) {
+                  history.back();
+                }
+                this.location.replaceState('/project/overview');
+                this.updateSEOTags();
+              }
+            }
+        )
+    );
   }
 
   ngAfterContentInit() {
@@ -290,6 +309,26 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   }
 
   /**
+   * Method to make tags change appearance on clicking.
+   * further implementation is still pending.
+   */
+  public tagClicked(event) {
+    if (event.target.className === 'tag clicked') {
+      event.target.className = 'tag';
+    } else {
+      event.target.className = 'tag clicked';
+    }
+  }
+
+  /**
+   * Method to display the tags based on the environment variable.
+   * Tags should be hidden in production for now until further implementation is finished.
+   */
+  public displayTags(): boolean {
+    return !environment.production;
+  }
+
+  /**
    * Method to build the new internal search query when any of it params have changed.
    * Calls the projectService or searchService based on the value of the query.
    */
@@ -306,15 +345,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
       this.paginationService
-        .getProjectsPaginated(internalSearchQuery)
-        .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe((result) => this.handleSearchAndProjectResponse(result));
+          .getProjectsPaginated(internalSearchQuery)
+          .pipe(finalize(() => (this.projectsLoading = false)))
+          .subscribe((result) => this.handleSearchAndProjectResponse(result));
     } else {
       // Search query provided use searchService.
       this.internalSearchService
-        .getSearchResultsPaginated(internalSearchQuery)
-        .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe((result) => this.handleSearchAndProjectResponse(result));
+          .getSearchResultsPaginated(internalSearchQuery)
+          .pipe(finalize(() => (this.projectsLoading = false)))
+          .subscribe((result) => this.handleSearchAndProjectResponse(result));
     }
   }
 
@@ -335,15 +374,17 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     }
   }
 
-
   /**
    * Method to open the modal for a projects detail
    * @param projectId the id of the project that should be shown.
    */
   private createProjectModal(projectId: number) {
     if (projectId) {
-      this.modalRef = this.modalService.show(DetailsComponent, { animated: true, initialState: { projectId: projectId } });
+      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState: {projectId: projectId}});
       this.modalRef.setClass('project-modal');
+      // Add an entry to the history so we can close the modal if the user navigates
+      // We need to remove this entry when the user closes the modal using the 'backdrop click' method
+      history.pushState(null, null, location.href);
 
       this.modalRef.content.onLike.subscribe(isLiked => {
         const projectIndexToUpdate = this.projects.findIndex(project => project.id === projectId);
@@ -355,19 +396,18 @@ export class OverviewComponent implements OnInit, AfterContentInit {
           this.projects[projectIndexToUpdate].userHasLikedProject = false;
         }
       });
-
-      // Go back to home page after the modal is closed
-      this.modalSubscriptions.push(
-        this.modalService.onHide.subscribe(() => {
-          if (this.location.path().startsWith('/project/details')) {
-            this.location.replaceState('/project/overview');
-            this.updateSEOTags();
-          }
-        }
-        ));
     }
   }
 
+  /**
+   * Method that is responsible for closing the modal when the user navigates to another page.
+   */
+  private registerNavigationListener(): void {
+    history.pushState(null, null, location.href);
+    this.locationStrategy.onPopState((e) => {
+      this.modalRef?.hide();
+    });
+  }
 
   /**
    * Methods to update the title and description through the SEO service
@@ -376,25 +416,5 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     // Updates meta and title tags
     this.seoService.updateTitle('Project overview');
     this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
-  }
-
-  /**
- * Method to make tags change appearance on clicking.
- * further implementation is still pending.
- */
-  public tagClicked(event) {
-    if (event.target.className === 'tag clicked') {
-      event.target.className = 'tag';
-    } else {
-      event.target.className = 'tag clicked';
-    }
-  }
-
-  /**
- * Method to display the tags based on the environment variable.
- * Tags should be hidden in production for now until further implementation is finished.
- */
-  public displayTags(): boolean {
-    return !environment.production;
   }
 }
