@@ -18,6 +18,7 @@
     grid-template-columns: 1fr;
     img {
       grid-area: 1;
+      max-width: 100%;
     }
   }
   .top-right {
