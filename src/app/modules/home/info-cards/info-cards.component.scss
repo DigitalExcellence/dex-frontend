@@ -10,6 +10,10 @@
   //grid-auto-rows: 350px;
   .card-wrapper {
     position: relative;
+    transition: $transition-short;
+    &:hover {
+      transform: scale(1.02);
+    }
     .card {
       width: 100%;
       border-radius: $border-radius;
@@ -19,6 +23,7 @@
       border: none;
       display: grid;
       height: 100%;
+      cursor: pointer;
 
       grid-template-rows: 1fr 1fr;
       img {
