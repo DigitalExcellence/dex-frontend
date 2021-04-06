@@ -37,6 +37,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
 import { StripHtmlPipe } from './utils/striptags.pipe';
 import { QuillModule } from 'ngx-quill';
+import { HomeModule } from './modules/home/home.module';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { QuillModule } from 'ngx-quill';
     HttpClientModule,
     SharedModule,
     QuillModule.forRoot(),
+    HomeModule,
   ],
   providers: [
     {
