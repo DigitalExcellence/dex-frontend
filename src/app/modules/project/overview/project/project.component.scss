@@ -36,7 +36,7 @@
       text-align: left;
     }
 
-    &.show{
+    &.show {
       opacity: 1;
     }
   }
@@ -61,18 +61,18 @@
     grid-template-columns: auto 3fr 0.75fr 1fr 1fr;
     gap: 20px;
     transition: transform $transition-short;
-    &:hover{
-      transform: $transform-grow-small // exception on the variables
+    &:hover {
+      transform: $transform-grow-small; // exception on the variables
     }
     //media query to hide less important info on smaller screens
     @media only screen and (max-width: 1000px) {
       grid-template-columns: auto 3fr 0.75fr;
       gap: 12px;
       .project-created-date {
-        display: none!important;
+        display: none !important;
       }
       .project-user-name {
-        display: none!important;
+        display: none !important;
       }
     }
     .project-info {
@@ -121,10 +121,10 @@
           color: $accent-color-red-primary;
         }
         .fas.fa-heart.animated {
-          animation: heartbeat .4s linear 1;
+          animation: heartbeat 0.4s linear 1;
         }
         .far.fa-heart.animated {
-          animation: fade-in .2s ease-in 1;
+          animation: fade-in 0.2s ease-in 1;
         }
       }
     }
@@ -156,7 +156,7 @@
     padding: 20px;
     justify-content: space-between;
     transition: transform $transition-short;
-    &:hover{
+    &:hover {
       transform: $transform-grow;
     }
     .project-info {
@@ -238,7 +238,7 @@
         cursor: pointer;
         display: grid;
         grid-template-columns: 20px auto;
-        .project-collaborators{
+        .project-collaborators {
           max-width: 100%;
           overflow: hidden;
           white-space: nowrap;
@@ -261,10 +261,10 @@
           }
         }
         .fas.fa-heart.animated {
-          animation: heartbeat .4s linear 1;
+          animation: heartbeat 0.4s linear 1;
         }
         .far.fa-heart.animated {
-          animation: fade-in .2s ease-in 1;
+          animation: fade-in 0.2s ease-in 1;
         }
       }
     }
@@ -272,5 +272,4 @@
   .disabled {
     pointer-events: none;
   }
-
 }
