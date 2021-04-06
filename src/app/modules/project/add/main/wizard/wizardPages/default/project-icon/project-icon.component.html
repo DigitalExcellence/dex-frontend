@@ -22,7 +22,7 @@
   <div class="project-icon-picker">
     <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false"></app-file-uploader>
   </div>
-  <button class="form-continue-btn grey">Upload image</button>
+  <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
   <div class="right">
     <div class="file-preview">
       <div [style.background-image]="fileUploader?.files[0] ? 'url('+ fileUploader?.files[0]?.preview + ')' : 'url(/assets/images/placeholder.png)'" class="circle"></div>

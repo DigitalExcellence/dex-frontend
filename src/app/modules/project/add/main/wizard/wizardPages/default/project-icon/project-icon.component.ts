@@ -51,7 +51,7 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
   /**
    * Method which triggers when the button to the next page is pressed
    */
-  onClickNext() {
+  public onClickNext() {
     if (this.fileUploader.files.length > 0) {
       this.fileUploader.uploadFiles().subscribe(files => {
         if (files[0]) {
@@ -62,5 +62,9 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
     } else {
       super.onClickNext();
     }
+  }
+
+  public mobileUploadButtonClick(): void {
+    document.querySelector('input').click();
   }
 }
