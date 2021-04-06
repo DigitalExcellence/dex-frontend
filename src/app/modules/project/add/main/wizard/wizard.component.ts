@@ -121,10 +121,16 @@ export class WizardComponent implements OnInit {
         });
   }
 
+  /**
+   * Method that will subscribe to navigation events so we can go back a step when the user
+   * uses browser navigation
+   * @param newProject - the built project
+   */
   private registerNavigationListener(): void {
     history.pushState(null, null, location.href);
     this.location.onPopState((e) => {
       history.pushState(null, null, location.href);
+
       this.wizardService.moveToPreviousStep();
       this.currentStep = this.wizardService.getCurrentStep();
     });
