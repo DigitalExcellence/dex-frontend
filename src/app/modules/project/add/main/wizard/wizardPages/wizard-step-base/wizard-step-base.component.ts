@@ -24,6 +24,7 @@ import { WizardPage } from 'src/app/models/domain/wizard-page';
 })
 export class WizardStepBaseComponent {
   @Input() step: WizardPage;
+  @Input() isOptional: boolean = false;
   @Output() clickNext = new EventEmitter();
 
   /**

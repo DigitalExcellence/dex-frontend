@@ -36,5 +36,5 @@
   </ng-container>
 </div>
 <div class="bottom-button-wrapper">
-  <button (click)="onClickNext()" class="form-continue-btn">Next</button>
+  <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !selectedCallToActionOptionId ? "Skip" : "Next"}}</button>
 </div>

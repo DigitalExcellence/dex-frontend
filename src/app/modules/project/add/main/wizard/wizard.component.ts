@@ -57,7 +57,6 @@ export class WizardComponent implements OnInit {
     }
     this.formSubmitted = false;
     this.currentStep = this.wizardService.getCurrentStep();
-    console.log(this.currentStep);
   }
 
   /**
@@ -97,7 +96,6 @@ export class WizardComponent implements OnInit {
    */
   private createProject(newProject: ProjectAdd): void {
     this.formSubmitted = true;
-    console.log(newProject);
     this.projectService
         .post(newProject)
         .subscribe(() => {

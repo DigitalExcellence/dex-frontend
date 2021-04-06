@@ -59,12 +59,14 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * Method which triggers when the button to the next page is pressed
    */
   public onClickNext() {
-    const selectedCallToAction = this.callToActionOptions.find(cta => cta.id === this.selectedCallToActionOptionId);
-    this.project.callToAction = {
-      id: selectedCallToAction.id,
-      optionValue: selectedCallToAction.value,
-      value: selectedCallToAction.optionValue
-    };
+    if (this.selectedCallToActionOptionId) {
+      const selectedCallToAction = this.callToActionOptions.find(cta => cta.id === this.selectedCallToActionOptionId);
+      this.project.callToAction = {
+        id: selectedCallToAction.id,
+        optionValue: selectedCallToAction.value,
+        value: selectedCallToAction.optionValue
+      };
+    }
     super.onClickNext();
   }
 
