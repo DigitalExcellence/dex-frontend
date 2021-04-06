@@ -1,0 +1,16 @@
+@import "assets/styles/variables";
+.info-cards {
+  margin: 0 -39px;
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+  justify-content: center;
+  gap: 50px;
+  padding: 60px;
+  .card {
+    height: 350px;
+    width: 100%;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+  }
+}
