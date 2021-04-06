@@ -78,7 +78,6 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   public urlChange(event: Event, callToActionId: number) {
     const element = event.target as HTMLInputElement;
     const value = element.value;
-    console.log(value);
     this.callToActionOptions = this.callToActionOptions.map(callToActionOption =>
         callToActionOption.id === callToActionId
             ? {

@@ -34,7 +34,6 @@ export class StepHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.steps = this.stepsService.getSteps();
     this.currentStep = this.stepsService.getCurrentStep();
-    this.steps.subscribe(steps => console.log(steps));
   }
 
   onStepClick(step: WizardPage) {
