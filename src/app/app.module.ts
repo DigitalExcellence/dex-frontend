@@ -14,15 +14,14 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
-import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './interceptors/auth.interceptor';
 import { TopHighlightCardsComponent } from './modules/highlight/top-highlight-cards/top-highlight-cards.component';
 import { SharedModule } from './modules/shared/shared.module';
@@ -43,7 +42,6 @@ import { QuillModule } from 'ngx-quill';
   declarations: [
     AppComponent,
     AppLayoutComponent,
-    HomeComponent,
     AuthCallbackComponent,
     TopHighlightCardsComponent,
     AlertComponent,

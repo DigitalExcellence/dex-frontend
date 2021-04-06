@@ -18,15 +18,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
-import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { MainComponent } from './modules/home/main/main.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'privacy', component: PrivacyPolicyComponent },
-  { path: 'auth-callback', component: AuthCallbackComponent },
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component: MainComponent},
+  {path: 'privacy', component: PrivacyPolicyComponent},
+  {path: 'auth-callback', component: AuthCallbackComponent},
   {
     path: 'project',
     loadChildren: () => import('./modules/project/project.module').then((m) => m.ProjectModule),
