@@ -33,6 +33,7 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
   public link = new FormControl('');
   public selectedSource = this.wizardService.getSelectedSource();
   public isDynamicPage: boolean;
+  public errorMessage: string;
 
   /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
@@ -65,6 +66,9 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
         this.wizardService.fetchProjectFromExternalSource(this.link.value).subscribe(() => {
           this.projectLoading = false;
           super.onClickNext();
+        }, error => {
+          this.projectLoading = false;
+          this.errorMessage = error.error.title + ' Please make sure your url points to an repository';
         });
       } else {
         this.formSubmitted = true;
