@@ -52,7 +52,7 @@
     content: "";
     display: inline-block;
     visibility: visible;
-    border: 2px solid $light-mode-grey-quaternary;
+    border: 2px solid $accent-color-red-primary;
   }
 
   input[type="radio"]:checked::before {
