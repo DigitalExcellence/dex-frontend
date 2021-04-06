@@ -1,0 +1,40 @@
+@import "assets/styles/variables";
+.partners {
+  padding: 60px;
+  background-color: $light-mode-grey-quaternary;
+  margin: 0 -39px;
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    align-items: center;
+    padding: 25px;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+  a {
+    justify-self: center;
+    height: fit-content;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    &:hover {
+      background-color: white;
+      img {
+        -webkit-transform: scale(1.02);
+        opacity: 0.8;
+      }
+    }
+  }
+  img {
+    filter: gray;
+    -webkit-filter: grayscale(1);
+    opacity: 0.4;
+    width: auto;
+    height: 110px;
+    margin: 10px;
+    transition: 0.5s;
+  }
+}
