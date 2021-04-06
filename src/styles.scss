@@ -69,7 +69,10 @@ input[type="search"]::-webkit-search-cancel-button {
     font-family: $font-family-base;
     font-size: $font-size-body;
     background-color: $light-mode-grey-thertiary;
-    color: $light-mode-black;
+
+    p {
+      color: $light-mode-black;
+    }
   }
 
   .ql-toolbar {

@@ -34,6 +34,4 @@ export class WizardStepBaseComponent {
     this.step.isComplete = true;
     this.clickNext.emit();
   }
-
-
 }
