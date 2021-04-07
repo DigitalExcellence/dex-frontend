@@ -20,7 +20,7 @@
 <p>Get people in action!</p>
 <div class="grid">
   <ng-container *ngFor="let callToActionOption of callToActionOptions">
-    <input [(ngModel)]="selectedCallToActionOptionId" [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}" [value]="callToActionOption.id"
+    <input [(ngModel)]="selectedCallToActionOptionId" [value]="callToActionOption.id"
            class="radio"
            name="call-to-action"
            type="radio"/>
