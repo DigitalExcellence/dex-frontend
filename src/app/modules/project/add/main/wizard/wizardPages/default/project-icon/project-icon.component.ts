@@ -19,6 +19,8 @@ import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { WizardService } from 'src/app/services/wizard.service';
+import { SafeUrl } from '@angular/platform-browser';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 @Component({
   selector: 'app-project-icon',
@@ -39,7 +41,8 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
    */
   private project: ProjectAdd;
 
-  constructor(private wizardService: WizardService) {
+  constructor(private wizardService: WizardService,
+              private fileRetrieverService: FileRetrieverService) {
     super();
   }
 
@@ -56,6 +59,8 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
       this.fileUploader.uploadFiles().subscribe(files => {
         if (files[0]) {
           this.wizardService.updateProject({...this.project, fileId: files[0].id});
+          console.log(files[0]);
+          this.wizardService.uploadFile = files[0];
         }
         super.onClickNext();
       });
@@ -66,5 +71,15 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
 
   public mobileUploadButtonClick(): void {
     document.querySelector('input').click();
+  }
+
+  /**
+   * Method that determines which preview to use for the project icon
+   */
+  getProjectIcon(): SafeUrl {
+    if (this.fileUploader?.files[0]) {
+      return this.fileUploader.files[0].preview;
+    }
+    return this.fileRetrieverService.getIconUrl(this.wizardService.uploadFile);
   }
 }
