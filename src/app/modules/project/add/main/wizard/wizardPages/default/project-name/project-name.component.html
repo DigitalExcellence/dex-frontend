@@ -24,7 +24,6 @@
       [formControl]="projectName"
       placeholder="Project name"
       required
-      maxlength="128"
       type="text"/>
   <button (click)="onClickNext()" [disabled]="!projectName.valid" class="form-continue-btn">Next</button>
 </div>
