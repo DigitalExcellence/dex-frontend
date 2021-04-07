@@ -27,7 +27,7 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { AuthService } from './auth.service';
 import { WizardPageConfig } from 'src/app/config/wizard-page-config';
 import { tap } from 'rxjs/operators';
-import { UploadFile } from '../models/domain/uploadFile';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 @Injectable({
   providedIn: 'root'
