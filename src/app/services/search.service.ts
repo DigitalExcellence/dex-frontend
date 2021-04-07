@@ -19,68 +19,46 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api-config';
 import { ELASTIC_CONFIG } from '../config/elastic-config';
-import { ElasticSearchResults } from './../models/resources/elasticsearch-results';
+import { AutoCompleteSearchResult } from '../models/resources/autocomplete-search-result';
+import { HttpBaseService } from './http-base.service';
 
 /**
- * Service to communicate with ElasticSearch.
+ * Service to retrieve autocompleted project suggestions based on typed.
  */
 @Injectable({
     providedIn: 'root',
 })
-export class SearchService {
+export class SearchService extends HttpBaseService<AutoCompleteSearchResult, AutoCompleteSearchResult, AutoCompleteSearchResult> {
 
-    private readonly elasticUrl = `${ELASTIC_CONFIG.url}/`;
-    private readonly apiUrl = `${API_CONFIG.url}${API_CONFIG.internalSearchRoute}/`;
-    private previousRequest;
+    private previousRequest = null;
 
-    constructor(private http: HttpClient) {
-
+    constructor(http: HttpClient)  {
+        super(http, API_CONFIG.url + API_CONFIG.projectRoute);
     }
-
-    private credentials = btoa(`${ELASTIC_CONFIG.username}:${ELASTIC_CONFIG.password}`);
 
     async getAutocompletedSearchResults(searchQuery) {
-        if (this.previousRequest != null) {
-            this.previousRequest.unsubscribe();
-        }
-
-        var body = {
-            "query": {
-                "match": {
-                    "ProjectName": {
-                        "query": searchQuery
-                    }
-                }
+        var tempresults: AutoCompleteSearchResult[] = [];
+        
+        if(searchQuery.length > 1){
+        
+            if (this.previousRequest != null) {
+                this.previousRequest.unsubscribe();
             }
-        }
-        var options = {
-            headers: {
-                "Authorization": "Basic " + this.credentials,
-                "Content-Type": "application/json"
-            }
+
+            this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url + "/search/autocomplete?query=" + searchQuery).subscribe(response => {
+                response["autocompleteProjects"].forEach(element => {
+                    tempresults.push({
+                        id: element.id,
+                        name: element.name,
+                        projectIcon: element.projectIcon
+                    })
+                });
+            })
+            await this.previousRequest;
+            
         }
 
-        var tempresults: ElasticSearchResults[] = [];
-
-        this.previousRequest = this.http.post(this.elasticUrl + ELASTIC_CONFIG.searchurl, body, options).subscribe(response => {
-            response["hits"]["hits"].forEach(element => {
-                console.log()
-                tempresults.push({
-                    id: element._id,
-                    projectName: element._source.ProjectName,
-                    description: element._source.Description,
-                    created: element._source.Created
-                })
-            });
-        })
-        await this.previousRequest;
         return tempresults;
     }
-
-    getAllSearchResults() {
-
-    }
-
-
 
 }
