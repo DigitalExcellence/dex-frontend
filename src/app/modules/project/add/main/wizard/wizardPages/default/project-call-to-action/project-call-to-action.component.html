@@ -18,6 +18,7 @@
  -->
 <h2 class="step-header">Want to add a call to action?</h2>
 <p>Get people in action!</p>
+<p class="error-message">{{errorMessage}}</p>
 <div class="grid">
   <ng-container *ngFor="let callToActionOption of callToActionOptions">
     <input [(ngModel)]="selectedCallToActionOptionId" [value]="callToActionOption.id"
@@ -30,6 +31,8 @@
     </button>
     <input (change)="urlChange($event, callToActionOption.id)" [disabled]="callToActionOption.id !== selectedCallToActionOptionId" [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
            [required]="callToActionOption.id === selectedCallToActionOptionId"
+           [id]="'input-'+callToActionOption.id"
+           [value]="selectedCallToActionOptionId === callToActionOption.id ? project.callToAction?.value : ''"
            aria-label="action-url"
            class="text-input"
            type="url"/>

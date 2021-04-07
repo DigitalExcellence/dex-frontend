@@ -48,11 +48,11 @@
     top: -1px;
     left: -1px;
     position: relative;
-    background-color: $light-mode-grey-quaternary;
+    background-color: $light-mode-grey-thertiary;
     content: "";
     display: inline-block;
     visibility: visible;
-    border: 2px solid $accent-color-red-primary;
+    border: 2px solid $light-mode-grey-quaternary;
   }
 
   input[type="radio"]:checked::before {

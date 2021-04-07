@@ -61,6 +61,10 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    */
   public onClickNext() {
     if (this.link.valid) {
+      if (!this.validURL(this.link.value)) {
+        this.errorMessage = 'Invalid url';
+        return;
+      }
       if (this.step.id === 2) {
         this.projectLoading = true;
         this.wizardService.fetchProjectFromExternalSource(this.link.value).subscribe(() => {
@@ -77,6 +81,16 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
         // TODO: Check if the project was created successfully, else enable the button again
       }
     }
+  }
+
+  private validURL(url: string) {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return !!pattern.test(url);
   }
 
   /**

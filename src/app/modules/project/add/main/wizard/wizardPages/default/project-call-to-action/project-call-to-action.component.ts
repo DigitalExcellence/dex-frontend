@@ -27,7 +27,6 @@ import { WizardService } from 'src/app/services/wizard.service';
   styleUrls: ['./project-call-to-action.component.scss', '../../shared-wizard-styles.scss']
 })
 export class ProjectCallToActionComponent extends WizardStepBaseComponent implements OnInit {
-
   /**
    * Local copy of all call-to-action options
    */
@@ -41,7 +40,9 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
    */
-  private project: ProjectAdd;
+  public project: ProjectAdd;
+
+  public errorMessage: string;
 
   constructor(private wizardService: WizardService,
               private callToActionOptionService: CallToActionOptionService) {
@@ -50,6 +51,9 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
 
   ngOnInit(): void {
     this.project = this.wizardService.builtProject;
+    if (this.project.callToAction) {
+      this.selectedCallToActionOptionId = this.project.callToAction.id;
+    }
     this.callToActionOptionService.getAll().subscribe(options => {
       this.callToActionOptions = options;
     });
@@ -61,6 +65,10 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   public onClickNext() {
     if (this.selectedCallToActionOptionId) {
       const selectedCallToAction = this.callToActionOptions.find(cta => cta.id === this.selectedCallToActionOptionId);
+      if (!this.validURL(selectedCallToAction.optionValue)) {
+        this.errorMessage = 'Invalid url';
+        return;
+      }
       this.project.callToAction = {
         id: selectedCallToAction.id,
         optionValue: selectedCallToAction.value,
@@ -85,5 +93,15 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
               optionValue: value
             } : callToActionOption
     );
+  }
+
+  private validURL(url: string) {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return !!pattern.test(url);
   }
 }
