@@ -314,11 +314,6 @@ export class DetailsComponent implements OnInit {
    * If the user either has the ProjectWrite scope or is the creator of the project
    */
   private determineDisplayEditProjectButton(): void {
-    if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
-      this.displayEditButton = true;
-      return;
-    }
-
     if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayEditButton = false;
       return;
@@ -331,11 +326,6 @@ export class DetailsComponent implements OnInit {
    * If the user either has the ProjectWrite scope or is the creator of the project
    */
   private determineDisplayDeleteProjectButton(): void {
-    if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
-      this.displayDeleteProjectButton = true;
-      return;
-    }
-
     if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayDeleteProjectButton = false;
       return;
