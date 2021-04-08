@@ -15,34 +15,36 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {SafeUrl} from '@angular/platform-browser';
-import {Router} from '@angular/router';
-import {BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {EMPTY, Observable, Subject} from 'rxjs';
-import {finalize, switchMap} from 'rxjs/operators';
-import {ModalDeleteGenericComponent} from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
-import {Highlight} from 'src/app/models/domain/highlight';
-import {Project} from 'src/app/models/domain/project';
-import {scopes} from 'src/app/models/domain/scopes';
-import {User} from 'src/app/models/domain/user';
-import {AlertConfig} from 'src/app/models/internal/alert-config';
-import {AlertType} from 'src/app/models/internal/alert-type';
-import {HighlightAdd} from 'src/app/models/resources/highlight-add';
-import {HighlightUpdate} from 'src/app/models/resources/highlight-update';
-import {HighlightsModalComponent} from 'src/app/modules/project/highlights-modal/highlights-modal.component';
+import { Component, HostListener, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { finalize, switchMap } from 'rxjs/operators';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { Highlight } from 'src/app/models/domain/highlight';
+import { Project } from 'src/app/models/domain/project';
+import { scopes } from 'src/app/models/domain/scopes';
+import { User } from 'src/app/models/domain/user';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { HighlightAdd } from 'src/app/models/resources/highlight-add';
+import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
+import { HighlightsModalComponent } from 'src/app/modules/project/highlights-modal/highlights-modal.component';
 // tslint:disable-next-line: max-line-length
-import {HighlightFormResult, ModalHighlightFormComponent} from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
-import {AlertService} from 'src/app/services/alert.service';
-import {AuthService} from 'src/app/services/auth.service';
-import {FileRetrieverService} from 'src/app/services/file-retriever.service';
-import {HighlightService} from 'src/app/services/highlight.service';
-import {HighlightByProjectIdService} from 'src/app/services/highlightid.service';
-import {LikeService} from 'src/app/services/like.service';
-import {ProjectService} from 'src/app/services/project.service';
-import {SEOService} from 'src/app/services/seo.service';
-import {environment} from 'src/environments/environment';
-import { HostListener } from '@angular/core';
+import {
+  HighlightFormResult,
+  ModalHighlightFormComponent
+} from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { HighlightService } from 'src/app/services/highlight.service';
+import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
+import { LikeService } from 'src/app/services/like.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { SEOService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Overview of a single project
@@ -56,6 +58,7 @@ import { HostListener } from '@angular/core';
 export class DetailsComponent implements OnInit {
 
   @Input() projectId: number;
+  @Input() activeTab = 'description';
 
   /**
    * Variable to store the project which is retrieved from the api
@@ -69,11 +72,6 @@ export class DetailsComponent implements OnInit {
   public displayCallToActionButton = false;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
-
-  /**
-   * Property to indicate which tab is selected
-   */
-  public activeTab = 'description';
 
   /**
    * Property to indicate whether the project is loading.
