@@ -21,10 +21,9 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 
-
 $accent-color-red-primary: #e85b3f;
-$accent-color-red-secondary: #AC2B12;
-$accent-color-blue: #0156FF;
+$accent-color-red-secondary: #ac2b12;
+$accent-color-blue: #0156ff;
 
 // title color
 $light-mode-black: #323232;
@@ -32,22 +31,21 @@ $light-mode-black: #323232;
 // text color
 $light-mode-grey-primary: #707175;
 // form placeholder text color | cancel button color | light mode border color
-$light-mode-grey-secondary: #AEAEAE;
+$light-mode-grey-secondary: #aeaeae;
 // greyed out form color
-$light-mode-grey-thertiary: #EBECEE ;
+$light-mode-grey-thertiary: #ebecee;
 // light mode background-color
 $light-mode-grey-quaternary: #f4f6f8;
 
 // light mode component color
 $white: #ffffff;
 
-
 $font-family-base: "Lato", sans-serif;
 $font-family-headings: "Montserrat", sans-serif;
 $font-size-body: 14px;
 
 // box shadow color
-$box-shadow: 0 3px 6px #0000001a;
+$box-shadow: 0 3px 4px rgba(0, 0, 0, 0.08);
 
 // borderradius
 $border-radius: 6px;
@@ -59,29 +57,29 @@ $transform-grow-small: scale(1.02);
 $transform-grow: scale(1.04);
 $transform-grow-big: scale(1.08);
 
-$transition-long: .5s ease-in-out;
-$transition-short: .25s ease-in-out;
+$transition-long: 0.5s ease-in-out;
+$transition-short: 0.25s ease-in-out;
 
-@keyframes heartbeat{
-    0%{
-        transform: scale(1)
-    }
-    25%{
-        transform: scale(0.8)
-    }
-    75%{
-        transform: scale(1.2)
-    }
-    100%{
-        transform: scale(1)
-    }
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.8);
+  }
+  75% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-@keyframes fade-in{
-    from{
-        transform: scale(0.2)
-    }
-    to{
-        transform: scale(1)
-    }
+@keyframes fade-in {
+  from {
+    transform: scale(0.2);
+  }
+  to {
+    transform: scale(1);
+  }
 }
