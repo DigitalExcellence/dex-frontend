@@ -50,7 +50,7 @@
           </div>
           <div class="project-metadata__item">
             <p class="title">Likes <em class="fas fa-heart"></em></p>
-            <p (click)="likeClicked()">
+            <p class="hover" (click)="likeClicked()">
               <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
               {{ project.likeCount }}
             </p>

@@ -238,6 +238,7 @@
       grid-template-columns: 4fr 5fr;
       gap: 10px;
       .item {
+        width: fit-content;
         gap: 10px;
         align-items: center;
         cursor: pointer;
