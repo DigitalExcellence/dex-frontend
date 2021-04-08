@@ -16,8 +16,17 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
+@import "variables";
+
 ::ng-deep .alert {
-    margin: 0 0 10px 0;
-    box-shadow: 0 3px 6px #0000001a;
-    pointer-events: all;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto 10px auto;
+  box-shadow: $box-shadow;
+  pointer-events: all;
+
+  @media only screen and (max-width: 600px) {
+    max-width: 60%;
+    margin: 0;
+  }
 }
