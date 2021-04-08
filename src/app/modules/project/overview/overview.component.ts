@@ -243,13 +243,20 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
   /**
    * Triggers on project click in the list.
+   * @param event click event
    * @param id project id.
    * @param name project name
    */
-  public onClickProject(id: number, name: string): void {
+  public onClickProject(event: Event, id: number, name: string): void {
     name = name.split(' ').join('-');
 
-    this.createProjectModal(id);
+    const clickedSection = event.target as Element;
+
+    if (clickedSection.classList.contains('project-collaborators')) {
+      this.createProjectModal(id, 'collaborators');
+    } else {
+      this.createProjectModal(id);
+    }
     this.location.replaceState(`/project/details/${id}-${name}`);
   }
 
@@ -339,10 +346,15 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   /**
    * Method to open the modal for a projects detail
    * @param projectId the id of the project that should be shown.
+   * @param activeTab Define the active tab
    */
-  private createProjectModal(projectId: number) {
+  private createProjectModal(projectId: number, activeTab: string = 'description') {
+    const initialState = {
+      projectId: projectId,
+      activeTab: activeTab
+    };
     if (projectId) {
-      this.modalRef = this.modalService.show(DetailsComponent, { animated: true, initialState: { projectId: projectId } });
+      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState});
       this.modalRef.setClass('project-modal');
 
       this.modalRef.content.onLike.subscribe(isLiked => {

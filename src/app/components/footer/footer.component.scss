@@ -26,7 +26,7 @@ footer {
   line-height: normal;
   padding: 45px 0 0 0;
   color: #fff;
-  box-shadow: 0px -3px 6px #00000029;
+  box-shadow: 0px -3px 6px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   position: absolute; //needed to apply z-index
   z-index: 1; //put footer on top
@@ -55,14 +55,14 @@ footer {
     }
 
     @include media-breakpoint-down(md) {
-        text-align: center;
+      text-align: center;
     }
   }
 
-  h4{
-      @include media-breakpoint-down(md) {
-        text-align: center;
-      }
+  h4 {
+    @include media-breakpoint-down(md) {
+      text-align: center;
+    }
   }
 
   .copyright {
