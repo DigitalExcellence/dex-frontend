@@ -83,7 +83,11 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
     }
   }
 
-  private validURL(url: string) {
+  /**
+   * Check if the entered url is valid
+   * @param url The url that needs to be checked
+   */
+  private validURL(url: string): boolean {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address

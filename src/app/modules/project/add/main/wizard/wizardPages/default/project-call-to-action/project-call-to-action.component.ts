@@ -62,7 +62,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   /**
    * Method which triggers when the button to the next page is pressed
    */
-  public onClickNext() {
+  public onClickNext(): void {
     if (this.selectedCallToActionOptionId) {
       const selectedCallToAction = this.callToActionOptions.find(cta => cta.id === this.selectedCallToActionOptionId);
       if (!this.validURL(selectedCallToAction.optionValue)) {
@@ -83,7 +83,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * @param event The change event
    * @param callToActionId The id of the call-to-action-option that was changed
    */
-  public urlChange(event: Event, callToActionId: number) {
+  public urlChange(event: Event, callToActionId: number): void {
     const element = event.target as HTMLInputElement;
     const value = element.value;
     this.callToActionOptions = this.callToActionOptions.map(callToActionOption =>
@@ -95,7 +95,11 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
     );
   }
 
-  private validURL(url: string) {
+  /**
+   * Check if the entered url is valid
+   * @param url The url that needs to be checked
+   */
+  private validURL(url: string): boolean {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address

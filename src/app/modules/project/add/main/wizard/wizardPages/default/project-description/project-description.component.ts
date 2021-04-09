@@ -69,7 +69,7 @@ export class ProjectDescriptionComponent extends WizardStepBaseComponent impleme
   /**
    * Method which triggers when the button to the next page is pressed
    */
-  public onClickNext() {
+  public onClickNext(): void {
     this.wizardService.updateProject({
       ...this.project,
       shortDescription: this.shortDescription.value,

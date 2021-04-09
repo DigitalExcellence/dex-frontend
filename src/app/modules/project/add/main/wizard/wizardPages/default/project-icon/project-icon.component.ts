@@ -47,19 +47,18 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
   }
 
   ngOnInit(): void {
-    // TODO: Implement loading added images
+    // TODO: Implement loading added images. This will probably require some backend implementation first
     this.project = this.wizardService.builtProject;
   }
 
   /**
    * Method which triggers when the button to the next page is pressed
    */
-  public onClickNext() {
+  public onClickNext(): void {
     if (this.fileUploader.files.length > 0) {
       this.fileUploader.uploadFiles().subscribe(files => {
         if (files[0]) {
           this.wizardService.updateProject({...this.project, fileId: files[0].id});
-          console.log(files[0]);
           this.wizardService.uploadFile = files[0];
         }
         super.onClickNext();
@@ -69,6 +68,9 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
     }
   }
 
+  /**
+   * Method that triggers when the upload image button is clicked on mobile
+   */
   public mobileUploadButtonClick(): void {
     document.querySelector('input').click();
   }

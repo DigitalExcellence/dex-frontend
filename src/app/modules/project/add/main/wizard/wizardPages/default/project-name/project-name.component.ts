@@ -34,7 +34,7 @@ export class ProjectNameComponent extends WizardStepBaseComponent implements OnI
   /**
    * Method which triggers when the button to the next page is pressed
    */
-  public onClickNext() {
+  public onClickNext(): void {
     this.wizardService.updateProject({...this.project, name: this.projectName.value});
     super.onClickNext();
   }
