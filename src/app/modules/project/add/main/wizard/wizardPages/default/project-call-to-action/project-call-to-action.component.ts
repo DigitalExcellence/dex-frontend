@@ -100,6 +100,18 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   }
 
   /**
+   * @param event The browser event
+   * @param clickedRadioButtonId The clicked radio button
+   */
+  public radioButtonClicked(event: Event, clickedRadioButtonId: number): void {
+    const element = event.target as HTMLInputElement;
+    if (clickedRadioButtonId === this.selectedCallToActionOptionId) {
+      element.checked = false;
+      this.selectedCallToActionOptionId = undefined;
+    }
+  }
+
+  /**
    * Check if the entered url is valid
    * @param url The url that needs to be checked
    */
@@ -111,14 +123,5 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
         '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(url);
-  }
-
-  public radioButtonClicked(event: Event, clickedRadioButtonId: number): void {
-    const element = event.target as HTMLInputElement;
-    // console.log(radioBtn.getAttribute('value'), this.selectedCallToActionOptionId?.toString(), radioBtn.getAttribute('value') === this.selectedCallToActionOptionId?.toString());
-    if (clickedRadioButtonId === this.selectedCallToActionOptionId) {
-      element.checked = false;
-      this.selectedCallToActionOptionId = undefined;
-    }
   }
 }
