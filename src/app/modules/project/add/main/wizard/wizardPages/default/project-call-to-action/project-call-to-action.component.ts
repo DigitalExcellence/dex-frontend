@@ -41,7 +41,10 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * Hold a copy of the project temporarily to prevent the service from listening to every change
    */
   public project: ProjectAdd;
-
+  /**
+   * Holds whether the call-to-action options are loading or not
+   */
+  public callToActionOptionsLoading = true;
   public errorMessage: string;
 
   constructor(private wizardService: WizardService,
@@ -56,6 +59,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
     }
     this.callToActionOptionService.getAll().subscribe(options => {
       this.callToActionOptions = options;
+      this.callToActionOptionsLoading = false;
     });
   }
 
