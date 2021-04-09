@@ -112,4 +112,13 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(url);
   }
+
+  public radioButtonClicked(event: Event, clickedRadioButtonId: number): void {
+    const element = event.target as HTMLInputElement;
+    // console.log(radioBtn.getAttribute('value'), this.selectedCallToActionOptionId?.toString(), radioBtn.getAttribute('value') === this.selectedCallToActionOptionId?.toString());
+    if (clickedRadioButtonId === this.selectedCallToActionOptionId) {
+      element.checked = false;
+      this.selectedCallToActionOptionId = undefined;
+    }
+  }
 }
