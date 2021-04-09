@@ -107,6 +107,15 @@ export class MainComponent implements OnInit {
         this.wizardService.goToNextStep();
         this.createWizardModal();
       }
+    } else {
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: 'External source not available.',
+        mainMessage: 'This external source is either in development or temporarily disabled.',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout,
+      };
+      this.alertService.pushAlert(alertConfig);
     }
   }
 
