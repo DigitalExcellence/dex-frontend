@@ -44,7 +44,11 @@ export class MainComponent implements OnInit {
    */
   public externalSources = new Array<ExternalSource>();
   /**
-   * Holds if the user is authenticaed
+   * Holds if the external sources are loaded or not
+   */
+  public sourcesLoading = true;
+  /**
+   * Holds if the user is authenticated
    */
   public isAuthenticated: boolean;
   /**
@@ -76,6 +80,7 @@ export class MainComponent implements OnInit {
     // Get all the external sources
     this.wizardService.fetchExternalSources().subscribe(externalSources => {
       this.externalSources = externalSources;
+      this.sourcesLoading = false;
     });
 
     // Updates meta and title tags

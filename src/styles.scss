@@ -36,6 +36,20 @@ body {
   background: none;
 }
 
+// General loading circle
+.loading-circle {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    font-size: 3em;
+    color: $accent-color-red-primary;
+  }
+}
+
 // Clear the 'X' from the input type 'search' in various browsers.
 // clears the ‘X’ from Internet Explorer
 input[type="search"]::-ms-clear {
