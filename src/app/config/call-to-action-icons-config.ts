@@ -1,17 +1,17 @@
 export interface CallToActionIconsConfig {
-  1: string; // Join today
-  2: string; // Provide feedback
-  3: string; // Apply now
-  4: string; // Collaborate with us
-  5: string; // More information
-  6: string; // Get in touch
+  'join today': string; // Join today
+  'provide feedback': string; // Provide feedback
+  'apply now': string; // Apply now
+  'collaborate with us': string; // Collaborate with us
+  'more information': string; // More information
+  'get in touch': string; // Get in touch
 }
 
 export const CallToActionIconsConfig: CallToActionIconsConfig = {
-  1: 'fa-user-check',
-  2: 'fa-comments',
-  3: 'fa-plus',
-  4: 'fa-users',
-  5: 'fa-info-circle',
-  6: 'fa-hand-pointer'
+  'join today': 'fa-user-check',
+  'provide feedback': 'fa-comments',
+  'apply now': 'fa-plus',
+  'collaborate with us': 'fa-users',
+  'more information': 'fa-info-circle',
+  'get in touch': 'fa-hand-pointer'
 };
