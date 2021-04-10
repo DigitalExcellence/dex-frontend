@@ -25,7 +25,7 @@ import { HttpBaseService } from './http-base.service';
 import { from, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { map, mergeMap } from 'rxjs/operators';
-import { CallToActionIconsConfig } from '../config/call-to-action-icons-config';
+import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-config';
 
 @Injectable({
   providedIn: 'root',

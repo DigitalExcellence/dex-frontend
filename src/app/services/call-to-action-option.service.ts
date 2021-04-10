@@ -24,7 +24,7 @@ import { CallToActionOptionUpdate } from 'src/app/models/resources/calltoaction-
 import { HttpBaseService } from './http-base.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CallToActionIconsConfig } from '../config/call-to-action-icons-config';
+import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-config';
 
 @Injectable({
   providedIn: 'root'
