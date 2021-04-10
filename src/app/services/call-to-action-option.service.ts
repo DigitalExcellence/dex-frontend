@@ -22,12 +22,28 @@ import { CallToActionOption } from 'src/app/models/domain/call-to-action-option'
 import { CallToActionOptionAdd } from 'src/app/models/resources/calltoaction-add';
 import { CallToActionOptionUpdate } from 'src/app/models/resources/calltoaction-update';
 import { HttpBaseService } from './http-base.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CallToActionIconsConfig } from '../config/call-to-action-icons-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CallToActionOptionService extends HttpBaseService<CallToActionOption, CallToActionOptionAdd, CallToActionOptionUpdate> {
-    constructor(http: HttpClient) {
-      super(http, API_CONFIG.url + API_CONFIG.callToActionOptionRoute);
-    }
+  constructor(http: HttpClient) {
+    super(http, API_CONFIG.url + API_CONFIG.callToActionOptionRoute);
   }
+
+  get(id: number): Observable<CallToActionOption> {
+    return super.get(id).pipe(map(ctaOption => {
+      return {...ctaOption, iconName: CallToActionIconsConfig[ctaOption.id]};
+    }));
+  }
+
+  getAll(): Observable<CallToActionOption[]> {
+    return super.getAll().pipe(map((ctaOptions: CallToActionOption[]) => ctaOptions.map(
+        (ctaOption: CallToActionOption) => {
+          return {...ctaOption, iconName: CallToActionIconsConfig[ctaOption.id]};
+        })));
+  }
+}
