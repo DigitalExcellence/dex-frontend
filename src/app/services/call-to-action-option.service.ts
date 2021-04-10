@@ -36,14 +36,14 @@ export class CallToActionOptionService extends HttpBaseService<CallToActionOptio
 
   get(id: number): Observable<CallToActionOption> {
     return super.get(id).pipe(map(ctaOption => {
-      return {...ctaOption, iconName: CallToActionIconsConfig[ctaOption.id]};
+      return {...ctaOption, iconName: CallToActionIconsConfig[ctaOption.value.toLowerCase()]};
     }));
   }
 
   getAll(): Observable<CallToActionOption[]> {
     return super.getAll().pipe(map((ctaOptions: CallToActionOption[]) => ctaOptions.map(
         (ctaOption: CallToActionOption) => {
-          return {...ctaOption, iconName: CallToActionIconsConfig[ctaOption.id]};
+          return {...ctaOption, iconName: CallToActionIconsConfig[ctaOption.value.toLowerCase()]};
         })));
   }
 }
