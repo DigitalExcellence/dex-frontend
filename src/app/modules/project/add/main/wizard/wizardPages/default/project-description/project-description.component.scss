@@ -46,9 +46,6 @@
       display: block;
       margin-bottom: 50px;
     }
-
-    button {
-    }
   }
 
   textarea {
@@ -57,9 +54,19 @@
     &.project-short-description {
       height: 100px;
     }
+  }
 
-    &.project-long-description {
-      height: 300px;
+  .project-long-description {
+    height: 300px;
+  }
+}
+
+::ng-deep {
+  .project-long-description {
+    .ql-container {
+      width: 100%;
+      max-width: 408px;
+      height: 350px;
     }
   }
 }

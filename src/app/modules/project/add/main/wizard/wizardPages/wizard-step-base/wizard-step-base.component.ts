@@ -30,7 +30,7 @@ export class WizardStepBaseComponent {
   /**
    * Method which triggers when the button to the next page is pressed
    */
-  public onClickNext() {
+  public onClickNext(): void {
     this.step.isComplete = true;
     this.clickNext.emit();
   }

@@ -63,24 +63,23 @@ p {
 }
 
 .inline-input {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr auto;
 
   input {
     line-height: 3rem;
-    width: calc(100% - 135px);
+    width: 103%;
     margin: 0;
-    @media only screen and (max-width: 800px) {
-      width: calc(100% - 80px);
-    }
+    min-height: 40px;
   }
 
   button {
     margin-left: -10px;
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 500px) {
       width: fit-content;
       padding: 0 20px;
+      margin-left: 0;
+      min-width: unset;
     }
   }
 }
@@ -94,4 +93,8 @@ textarea {
   width: 100%;
   padding: 8px 10px;
   outline: none;
+}
+
+.error-message {
+  color: $accent-color-red-secondary;
 }

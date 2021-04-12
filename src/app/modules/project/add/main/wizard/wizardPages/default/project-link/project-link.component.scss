@@ -41,13 +41,14 @@
   }
 }
 
-
 .image-wrapper {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-items: center;
+  align-content: center;
   margin-top: 40px;
   margin-right: 40px;
+
   img {
     width: 100%;
     max-width: 500px;

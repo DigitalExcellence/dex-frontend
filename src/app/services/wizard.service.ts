@@ -27,6 +27,7 @@ import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { AuthService } from './auth.service';
 import { WizardPageConfig } from 'src/app/config/wizard-page-config';
 import { tap } from 'rxjs/operators';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,11 @@ export class WizardService {
     uri: '',
     userId: 0
   };
+
+  /**
+   * Store a copy of the uploadFile so we can show it when the user goes back a step
+   */
+  public uploadFile: UploadFile;
 
   /**
    * The external source that is currently selected

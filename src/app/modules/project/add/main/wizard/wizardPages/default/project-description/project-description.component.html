@@ -32,8 +32,8 @@
         type="text"
     ></textarea>
 
-    <p class="form-footnote">Describe your project in one sentence or 170 characters.</p>
-    <quill-editor [formControl]="longDescription" [modules]="modulesConfiguration" [styles]="{height: '350px'}"
+    <p class="form-footnote">Describe your project in one sentence. (max 170 characters)</p>
+    <quill-editor [formControl]="longDescription" [modules]="modulesConfiguration"
                   class="project-long-description dex-quill-editor" placeholder="This is a long description of your project">
     </quill-editor>
   </div>

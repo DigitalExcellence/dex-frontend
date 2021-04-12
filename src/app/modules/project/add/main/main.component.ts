@@ -44,7 +44,11 @@ export class MainComponent implements OnInit {
    */
   public externalSources = new Array<ExternalSource>();
   /**
-   * Holds if the user is authenticaed
+   * Holds if the external sources are loaded or not
+   */
+  public sourcesLoading = true;
+  /**
+   * Holds if the user is authenticated
    */
   public isAuthenticated: boolean;
   /**
@@ -76,6 +80,7 @@ export class MainComponent implements OnInit {
     // Get all the external sources
     this.wizardService.fetchExternalSources().subscribe(externalSources => {
       this.externalSources = externalSources;
+      this.sourcesLoading = false;
     });
 
     // Updates meta and title tags
@@ -102,6 +107,15 @@ export class MainComponent implements OnInit {
         this.wizardService.goToNextStep();
         this.createWizardModal();
       }
+    } else {
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: 'External source not available.',
+        mainMessage: 'This external source is either in development or temporarily disabled.',
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout,
+      };
+      this.alertService.pushAlert(alertConfig);
     }
   }
 

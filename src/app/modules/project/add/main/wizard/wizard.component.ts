@@ -92,7 +92,7 @@ export class WizardComponent implements OnInit {
 
   /**
    * Method that will take the built project in the wizard and send it to the backend
-   * @param newProject - the built projec
+   * @param newProject - the built project
    */
   private createProject(newProject: ProjectAdd): void {
     this.formSubmitted = true;

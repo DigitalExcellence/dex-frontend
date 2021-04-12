@@ -76,7 +76,7 @@ export class ProjectCollaboratorsComponent extends WizardStepBaseComponent imple
    * Method which triggers when the delete collaborator button is pressed.
    * Removes corresponding collaborator from collaborator array.
    */
-  public deleteCollaboratorClick(collaborator: CollaboratorAdd) {
+  public deleteCollaboratorClick(collaborator: CollaboratorAdd): void {
     const index = this.collaboratorList.indexOf(collaborator);
     if (index > -1) {
       this.collaboratorList.splice(index, 1);
@@ -86,7 +86,7 @@ export class ProjectCollaboratorsComponent extends WizardStepBaseComponent imple
   /**
    * Method which triggers when the button to the next page is pressed
    */
-  public onClickNext() {
+  public onClickNext(): void {
     this.wizardService.updateProject({...this.project, collaborators: this.collaboratorList});
     super.onClickNext();
   }

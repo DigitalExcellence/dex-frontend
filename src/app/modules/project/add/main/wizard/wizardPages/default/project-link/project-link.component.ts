@@ -33,6 +33,7 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
   public link = new FormControl('');
   public selectedSource = this.wizardService.getSelectedSource();
   public isDynamicPage: boolean;
+  public errorMessage: string;
 
   /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
@@ -60,11 +61,18 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    */
   public onClickNext() {
     if (this.link.valid) {
+      if (!this.validURL(this.link.value)) {
+        this.errorMessage = 'Invalid url';
+        return;
+      }
       if (this.step.id === 2) {
         this.projectLoading = true;
         this.wizardService.fetchProjectFromExternalSource(this.link.value).subscribe(() => {
           this.projectLoading = false;
           super.onClickNext();
+        }, error => {
+          this.projectLoading = false;
+          this.errorMessage = error.error.title + ' Please make sure your url points to an repository';
         });
       } else {
         this.formSubmitted = true;
@@ -73,6 +81,20 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
         // TODO: Check if the project was created successfully, else enable the button again
       }
     }
+  }
+
+  /**
+   * Check if the entered url is valid
+   * @param url The url that needs to be checked
+   */
+  private validURL(url: string): boolean {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return !!pattern.test(url);
   }
 
   /**
