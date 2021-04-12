@@ -21,6 +21,7 @@ export interface WizardPage {
   wizardPageName?: string;
   id: number;
   name: string;
+  isOptional?: boolean;
   description: string;
   isComplete: boolean;
 }

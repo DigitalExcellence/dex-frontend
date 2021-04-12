@@ -61,6 +61,7 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    */
   public onClickNext() {
     if (this.link.valid) {
+      console.log(this.link.value, !this.validURL(this.link.value));
       if (!this.validURL(this.link.value)) {
         this.errorMessage = 'Invalid url';
         return;
@@ -75,10 +76,8 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
           this.errorMessage = error.error.title + ' Please make sure your url points to an repository';
         });
       } else {
-        this.formSubmitted = true;
         this.wizardService.updateProject({...this.project, uri: this.link.value});
         super.onClickNext();
-        // TODO: Check if the project was created successfully, else enable the button again
       }
     }
   }

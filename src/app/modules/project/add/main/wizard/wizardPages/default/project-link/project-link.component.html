@@ -31,7 +31,7 @@
       </div>
       <h2>{{selectedSource.title}}</h2>
     </div>
-    <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
+    <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
     <div class="inline-input">
       <input (keydown.enter)="onClickNext()"
              [formControl]="link"

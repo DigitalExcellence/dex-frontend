@@ -74,7 +74,8 @@ export class WizardService {
       orderIndex: 1,
       name: 'What is the name of your project?',
       description: 'What would you like to name your project?',
-      isComplete: false
+      isComplete: false,
+      isOptional: false
     },
     {
       id: 5,
@@ -82,7 +83,8 @@ export class WizardService {
       orderIndex: 2,
       name: 'How would you describe the project?',
       description: 'Here you can enter a short and long description for the project.',
-      isComplete: false
+      isComplete: false,
+      isOptional: false
     },
     {
       id: 6,
@@ -90,7 +92,8 @@ export class WizardService {
       orderIndex: 3,
       name: 'What project icon would fit the project?',
       description: 'Please upload a fitting image for the project!',
-      isComplete: false
+      isComplete: false,
+      isOptional: true
     },
     {
       id: 7,
@@ -98,7 +101,8 @@ export class WizardService {
       orderIndex: 4,
       name: 'Who has worked on the project?',
       description: 'Here you can name all the project members and their role within the project!',
-      isComplete: false
+      isComplete: false,
+      isOptional: true
     },
     {
       id: 8,
@@ -106,7 +110,8 @@ export class WizardService {
       orderIndex: 5,
       name: 'Would you like to add a call to action button?',
       description: 'If you want to get people in action you can show it here!',
-      isComplete: false
+      isComplete: false,
+      isOptional: true
     },
     {
       id: 9,
@@ -114,7 +119,8 @@ export class WizardService {
       orderIndex: 5,
       name: 'If your project has a link with a project page or another source you can link it here!',
       description: 'If your project has a link with a project page or another source you can link it here!',
-      isComplete: false
+      isComplete: false,
+      isOptional: false
     },
   ];
   /**
@@ -259,7 +265,7 @@ export class WizardService {
    * Method that checks if all steps of the wizard have been completed
    */
   public allStepsCompleted() {
-    return this.steps$.value.every(page => page.isComplete);
+    return this.steps$.value.every(page => page.isComplete || page.isOptional);
   }
 
   /**
