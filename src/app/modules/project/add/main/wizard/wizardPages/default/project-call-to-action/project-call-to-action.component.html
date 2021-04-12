@@ -32,19 +32,21 @@
              class="radio"
              name="call-to-action"
              type="radio"/>
-      <button [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
+      <button (click)="buttonClicked(callToActionOption.id)"
+              [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
               class="form-continue-btn">
         {{callToActionOption.value}}
       </button>
-      <input (change)="urlChange($event, callToActionOption.id)" [disabled]="callToActionOption.id !== selectedCallToActionOptionId" [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
+      <input (change)="urlChange($event, callToActionOption.id)" [disabled]="callToActionOption.id !== selectedCallToActionOptionId" [id]="'input-'+callToActionOption.id"
+             [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
              [required]="callToActionOption.id === selectedCallToActionOptionId"
-             [id]="'input-'+callToActionOption.id"
              [value]="selectedCallToActionOptionId === callToActionOption.id ? project.callToAction?.value : ''"
              aria-label="action-url"
              class="text-input"
              type="url"/>
     </ng-container>
-</div>
-<div class="bottom-button-wrapper">
-  <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !selectedCallToActionOptionId ? "Skip" : "Next"}}</button>
-</div>
+  </div>
+  <div class="bottom-button-wrapper">
+    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !selectedCallToActionOptionId ? "Skip" : "Next"}}</button>
+  </div>
+</ng-template>

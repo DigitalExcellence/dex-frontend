@@ -112,6 +112,15 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   }
 
   /**
+   * @param clickedButtonId The clicked button
+   */
+  public buttonClicked(clickedButtonId: number): void {
+    if (clickedButtonId != this.selectedCallToActionOptionId) {
+      this.selectedCallToActionOptionId = clickedButtonId;
+    }
+  }
+
+  /**
    * Check if the entered url is valid
    * @param url The url that needs to be checked
    */
