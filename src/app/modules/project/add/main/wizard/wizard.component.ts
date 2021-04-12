@@ -64,6 +64,7 @@ export class WizardComponent implements OnInit {
    */
   public onSubmit(): void {
     if (this.wizardService.allStepsCompleted()) {
+      this.formSubmitted = true;
       const project = this.wizardService.builtProject;
       project.userId = this.authService.getCurrentBackendUser().id;
       this.createProject(project);
@@ -95,7 +96,6 @@ export class WizardComponent implements OnInit {
    * @param newProject - the built project
    */
   private createProject(newProject: ProjectAdd): void {
-    this.formSubmitted = true;
     this.projectService
         .post(newProject)
         .subscribe(() => {
