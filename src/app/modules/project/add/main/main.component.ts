@@ -113,7 +113,8 @@ export class MainComponent implements OnInit {
         preMessage: 'External source not available.',
         mainMessage: 'This external source is either in development or temporarily disabled.',
         dismissible: true,
-        timeout: this.alertService.defaultTimeout,
+        autoDismiss: true,
+        timeout: 1000,
       };
       this.alertService.pushAlert(alertConfig);
     }
@@ -148,7 +149,8 @@ export class MainComponent implements OnInit {
         preMessage: 'You\'re not logged in!',
         mainMessage: 'You can only add a project when you\'re logged in.',
         dismissible: true,
-        timeout: this.alertService.defaultTimeout,
+        autoDismiss: true,
+        timeout: 1000,
       };
       this.alertService.pushAlert(alertConfig);
     }
