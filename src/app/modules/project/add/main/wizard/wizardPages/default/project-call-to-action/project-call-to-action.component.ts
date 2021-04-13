@@ -79,7 +79,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * Method which triggers when the button to the next page is pressed
    */
   public onClickNext(): void {
-    if (this.selectedCallToActionOptionId) {
+    if (this.selectedCallToActionOptionId > 0) {
       const selectedCallToAction = this.callToActionOptions.find(cta => cta.id === this.selectedCallToActionOptionId);
       if (!this.validURL(selectedCallToAction.optionValue)) {
         this.errorMessage = 'Invalid url';
@@ -90,6 +90,9 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
         optionValue: selectedCallToAction.value,
         value: selectedCallToAction.optionValue
       };
+    } else {
+      // No call to action selected, make sure it's empty
+      this.project.callToAction = undefined;
     }
     super.onClickNext();
   }
