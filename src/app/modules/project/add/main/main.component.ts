@@ -92,8 +92,8 @@ export class MainComponent implements OnInit {
    * Method to get the url of the icon of the project. This is retrieved
    * from the file retriever service
    */
-  public getIconUrl(project): SafeUrl {
-    return this.fileRetrieverService.getIconUrl(project.projectIcon);
+  public getIconUrl(icon): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(icon);
   }
 
   /**

@@ -20,6 +20,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Removed
 
 ### Fixed
+- Added icon for data sources - [#466](https://github.com/DigitalExcellence/dex-frontend/issues/466)
 
 ### Security
 
