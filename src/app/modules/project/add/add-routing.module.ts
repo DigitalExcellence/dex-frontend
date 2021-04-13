@@ -17,12 +17,10 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ManualComponent } from './manual/manual.component';
-import { SourceComponent } from './source/source.component';
+import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  { path: 'source', component: SourceComponent },
-  { path: 'manual', component: ManualComponent },
+  {path: '', pathMatch: 'full', component: MainComponent}
 ];
 
 @NgModule({
