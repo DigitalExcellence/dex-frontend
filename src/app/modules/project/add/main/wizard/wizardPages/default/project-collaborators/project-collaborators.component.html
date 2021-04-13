@@ -1,0 +1,71 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+<h2 class="step-header">{{step.name}}</h2>
+<p class="step-description">{{step.description}}</p>
+<div class="wrapper">
+  <div class="left">
+    <div class="left-col">
+      <p>Contributor Full Name</p>
+      <input
+          (keydown.enter)="onClickAddCollaborator()"
+          [formControl]="collaboratorName"
+          id="fullname"
+          maxlength="39"
+          minlength="3"
+          name="fullname"
+          required
+          type="text"/>
+    </div>
+    <div class="right-col">
+      <p>Contributor role</p>
+      <input
+          (keydown.enter)="onClickAddCollaborator()"
+          [formControl]="collaboratorRole"
+          id="role"
+          maxlength="20"
+          minlength="3"
+          name="role"
+          required
+          type="text"/>
+    </div>
+    <div class="button-col">
+      <button (click)="onClickAddCollaborator()" [disabled]="!collaboratorName.valid || !collaboratorRole.valid" class="add-button">+</button>
+    </div>
+    <ul class="collaborator list">
+      <li *ngFor="let collaborator of collaboratorList">
+        {{collaborator.fullName}}
+      </li>
+    </ul>
+    <ul class="collaborator list">
+      <li *ngFor="let collaborator of collaboratorList">
+        {{collaborator.role}}
+      </li>
+    </ul>
+    <ul>
+      <li *ngFor="let collaborator of collaboratorList">
+        <span (click)="deleteCollaboratorClick(collaborator)" class="fas fa-trash trash-icon"></span>
+      </li>
+      <li>
+    </ul>
+  </div>
+  <div class="image-col">
+    <img alt="" src="/assets/images/wizard/collaborators.svg" />
+    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !(collaboratorList.length > 0) ? "Skip" : "Next"}}</button>
+  </div>
+</div>

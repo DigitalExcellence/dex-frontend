@@ -18,14 +18,28 @@
  -->
 
 <div class="container" DndDirective>
+  <div class="center">
     <input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target)"
-        [multiple]="acceptMultiple" [accept]="acceptedTypes.join(',')" />
+           [multiple]="acceptMultiple" [accept]="acceptedTypes.join(',')"/>
     <img src="assets/images/file-dnd.svg" alt="file-dnd-icon">
     <label for="fileDropRef">
-        <strong>Choose a file</strong>
-        <span class="box__dragndrop"> or drag it here</span>.
+      <strong>Choose a file</strong><br/>
+      <span class="box__dragndrop">or drag it here</span>.
     </label>
+  </div>
 </div>
+<p class="form-footnote">The recommended dimensions for an icon are atleast 512x512</p>
+<div *ngIf="showPreview" class="files-list">
+  <div class="single-file" *ngFor="let file of files; let i = index">
+    <div class="file-info">
+      <button type="button" class="btn btn-icon btn-danger" aria-label="error"
+              (click)="deleteFile(i)"><span aria-hidden="true">&times;</span>
+      </button>
+      <img alt="image-preview" class="file-icon" [src]=file?.preview>
+      <h4 class="file-name">
+        {{ file?.name }}
+      </h4>
+      <h4 class="file-size">
 <div class="files-list">
     <div class="single-file" *ngFor="let file of files; let i = index">
         <div class="file-info">

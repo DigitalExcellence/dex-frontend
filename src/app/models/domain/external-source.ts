@@ -15,8 +15,13 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { WizardPage } from './wizard-page';
+
 export interface ExternalSource {
-  id: number;
-  name: string;
-  image: string;
+  guid: string;
+  title: string;
+  description?: any;
+  isVisible: boolean;
+  icon?: any;
+  wizardPages: Array<WizardPage>;
 }

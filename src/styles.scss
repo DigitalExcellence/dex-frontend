@@ -36,6 +36,20 @@ body {
   background: none;
 }
 
+// General loading circle
+.loading-circle {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    font-size: 3em;
+    color: $accent-color-red-primary !important;
+  }
+}
+
 // Clear the 'X' from the input type 'search' in various browsers.
 // clears the ‘X’ from Internet Explorer
 input[type="search"]::-ms-clear {
@@ -64,12 +78,15 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 
   .ql-editor {
-    background-color: white;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
     font-family: $font-family-base;
     font-size: $font-size-body;
-    color: $light-mode-grey-primary;
+    background-color: $light-mode-grey-thertiary;
+
+    p {
+      color: $light-mode-black;
+    }
   }
 
   .ql-toolbar {

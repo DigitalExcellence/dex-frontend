@@ -37,7 +37,7 @@
         <h4>Sort Options</h4>
         <form class="sort-options-form">
           <label for="asc-desc">Sort options</label>
-          <select class="option-select" #sortForm id="asc-desc" (change)="onSortFormValueChange(sortForm.value)">
+          <select #sortForm (change)="onSortFormValueChange(sortForm.value)" class="option-select" id="asc-desc">
             <option *ngFor="let sortOption of sortSelectOptions" [value]="sortOption.value">
               {{ sortOption.viewValue }}
             </option>
@@ -62,7 +62,7 @@
       <h1 class="">Project overview</h1>
       <div class="list-view-toggle">
         <label class="container">
-          <input [(ngModel)]="showListView" [value]="false" name="list-view" type="radio" aria-label="Switch to grid view" />
+          <input [(ngModel)]="showListView" [value]="false" aria-label="Switch to grid view" name="list-view" type="radio"/>
           <span class="checkmark grid">
             <svg>
               <use xlink:href="assets/images/grid-icon.svg#img"></use>
@@ -70,7 +70,7 @@
           </span>
         </label>
         <label class="container">
-          <input [(ngModel)]="showListView" [value]="true" checked="checked" name="list-view" type="radio" aria-label="Switch to list view" />
+          <input [(ngModel)]="showListView" [value]="true" aria-label="Switch to list view" checked="checked" name="list-view" type="radio"/>
           <span class="checkmark list">
             <svg>
               <use xlink:href="assets/images/list-icon.svg#img"></use>
@@ -80,17 +80,17 @@
       </div>
     </div>
     <div class="search">
-      <input [formControl]="searchControl" placeholder="search project" type="search" aria-label="Search project" />
-      <button><img alt="" loading="lazy" src="assets/images/research.svg" aria-label="Search project" /></button>
+      <input [formControl]="searchControl" aria-label="Search project" placeholder="search project" type="search"/>
+      <button><img alt="" aria-label="Search project" loading="lazy" src="assets/images/research.svg"/></button>
     </div>
 
     <ng-container *ngIf="!projectsEmpty(); else noProjects">
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <app-project
+            (click)="onClickProject($event, project.id, project.name)"
             *ngFor="let project of projectsToDisplay"
             [project]="project"
             [showListView]="this.showListView"
-            (click)="onClickProject($event, project.id, project.name)"
         >
         </app-project>
       </div>
@@ -103,13 +103,13 @@
 
     <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
       <pagination
-        (pageChanged)="pageChanged($event)"
-        [itemsPerPage]="amountOfProjectsOnSinglePage"
-        [maxSize]="6"
-        [totalItems]="totalNrOfProjects"
-        [customNextTemplate]="nextTemplate"
-        [customPreviousTemplate]="prevTemplate"
-        class="pagination-footer"
+          (pageChanged)="pageChanged($event)"
+          [customNextTemplate]="nextTemplate"
+          [customPreviousTemplate]="prevTemplate"
+          [itemsPerPage]="amountOfProjectsOnSinglePage"
+          [maxSize]="6"
+          [totalItems]="totalNrOfProjects"
+          class="pagination-footer"
       >
       </pagination>
       <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
