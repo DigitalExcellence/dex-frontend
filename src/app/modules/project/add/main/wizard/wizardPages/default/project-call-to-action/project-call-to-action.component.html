@@ -1,0 +1,53 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+<h2 class="step-header">Want to add a call to action?</h2>
+<p>Get people in action!</p>
+<ng-container *ngIf="callToActionOptionsLoading; else callToActionOptionsLoaded">
+  <div class="loading-circle">
+    <h2 class="fas fa-spinner fa-pulse"></h2>
+  </div>
+</ng-container>
+<ng-template #callToActionOptionsLoaded>
+  <p class="error-message">{{errorMessage}}</p>
+  <div class="grid">
+    <ng-container *ngFor="let callToActionOption of callToActionOptions">
+      <input (click)="radioButtonClicked($event, callToActionOption.id)"
+             [checked]="selectedCallToActionOptionId === callToActionOption.id"
+             [value]="callToActionOption.id"
+             class="radio"
+             name="call-to-action"
+             type="radio"/>
+      <button (click)="buttonClicked(callToActionOption.id)"
+              [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
+              class="form-continue-btn">
+        {{callToActionOption.value}}
+      </button>
+      <input (change)="urlChange($event, callToActionOption.id)" [disabled]="callToActionOption.id !== selectedCallToActionOptionId" [id]="'input-'+callToActionOption.id"
+             [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
+             [required]="callToActionOption.id === selectedCallToActionOptionId"
+             [value]="selectedCallToActionOptionId === callToActionOption.id ? project.callToAction?.value : ''"
+             aria-label="action-url"
+             class="text-input"
+             type="url"/>
+    </ng-container>
+  </div>
+  <div class="bottom-button-wrapper">
+    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !selectedCallToActionOptionId ? "Skip" : "Next"}}</button>
+  </div>
+</ng-template>

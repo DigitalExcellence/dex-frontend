@@ -20,31 +20,31 @@
 <div class="main-container">
   <header *ngIf="!displayContentWithoutLayout" class="header header-6 navbar navbar-expand-md navbar-light">
     <div class="branding">
-      <span class="title"><a routerLink="" aria-label="Back to the Homepage"><img alt="" src="assets/images/dex-logo-dark-orange.png" loading="lazy"></a></span>
+      <span class="title"><a aria-label="Back to the Homepage" routerLink=""><img alt="" loading="lazy" src="assets/images/dex-logo-dark-orange.png"></a></span>
       <p (click)="onClickHeaderBetaText()" class="beta-text">Beta</p>
     </div>
 
-    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+    <button (click)="toggleNavbar()" class="navbar-toggler" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+    <div [ngClass]="{ 'show': navbarOpen }" class="collapse navbar-collapse">
       <div class="header-nav project-link">
-        <a (click)="onClickProjects()" routerLinkActive="active" class="nav-link nav-text">Projects</a>
-        <a routerLink="project/add/source" routerLinkActive="active" class="nav-link nav-text">Add project</a>
+        <a (click)="onClickProjects()" class="nav-link nav-text" routerLinkActive="active">Projects</a>
+        <a class="nav-link nav-text" routerLink="project/add" routerLinkActive="active">Add project</a>
       </div>
       <div class="header-nav account">
-        <a *ngIf="!isAuthenticated" routerLink="account/login" routerLinkActive="active" class="nav-link nav-text">Sign
-          in</a>
+        <a *ngIf="!isAuthenticated" class="nav-link nav-text" routerLink="account/login" routerLinkActive="active">Sign
+                                                                                                                   in</a>
       </div>
-      <div *ngIf="isAuthenticated" class="profile" >
+      <div *ngIf="isAuthenticated" class="profile">
         <div class="btn-group profile-dropdown w-100" dropdown>
-          <button class="btn dropdown-toggle profile-dropdown" dropdownToggle id="button-basic" type="button" aria-controls="dropdown-basic">
-            {{ name }} <img alt="" class="profile-picture" src="assets/images/profile-placeholder.png" loading="lazy"> <span class="caret"></span>
+          <button aria-controls="dropdown-basic" class="btn dropdown-toggle profile-dropdown" dropdownToggle id="button-basic" type="button">
+            {{ name }} <img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png"> <span class="caret"></span>
           </button>
-          <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" (click)="onClickSignout()" routerLinkActive="active">Sign
-                Out</a>
+          <ul *dropdownMenu aria-labelledby="button-basic" class="dropdown-menu" id="dropdown-basic" role="menu">
+            <li role="menuitem"><a (click)="onClickSignout()" class="dropdown-item" routerLinkActive="active">Sign
+                                                                                                              Out</a>
             </li>
           </ul>
         </div>
@@ -56,8 +56,8 @@
   <div *ngIf="displayBetaBanner" class="modal-beta-container">
     <div class="modal-beta-content">
       <p>DeX is a new platform and developed by students, it's still in <span class="accent-text-color">beta</span>. You
-        might encounter some bugs
-        or shortcomings. If you do, please do report them on our GitHub <a [href]="dexGithubIssueUrl">here</a></p>
+         might encounter some bugs
+         or shortcomings. If you do, please do report them on our GitHub <a [href]="dexGithubIssueUrl">here</a></p>
       <button (click)="onClickCloseBetaMessage()" aria-label="Close Account Info Modal Box">&times;</button>
     </div>
   </div>
@@ -79,11 +79,11 @@
     </div>
   </div>
 
-  <svg class='background' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 355.4 374.9">
-    <polygon points="240.9 166 347.7 0 245.2 0 188.7 92.5 240.9 166" fill="#e85b3f" />
+  <svg class='background' viewBox="0 0 355.4 374.9" xmlns="http://www.w3.org/2000/svg">
+    <polygon fill="#e85b3f" points="240.9 166 347.7 0 245.2 0 188.7 92.5 240.9 166"/>
     <polygon
-      points="230.9 181 215.8 159.8 112.1 0 5.3 0 122.1 185.3 0 374.9 108.3 374.9 176.7 258.7 246.2 374.9 355.4 374.9 230.9 181"
-      fill="#1d1d1b" />
+        fill="#1d1d1b"
+        points="230.9 181 215.8 159.8 112.1 0 5.3 0 122.1 185.3 0 374.9 108.3 374.9 176.7 258.7 246.2 374.9 355.4 374.9 230.9 181"/>
   </svg>
 
   <app-footer *ngIf="!displayContentWithoutLayout"></app-footer>

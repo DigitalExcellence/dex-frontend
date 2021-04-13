@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-@import "src/assets/styles/variables";
+@import "src/assets/styles/_variables";
 
 .project {
   display: flex;
@@ -64,9 +64,11 @@
     grid-template-columns: auto 3fr 0.75fr 1fr 1fr;
     gap: 20px;
     transition: transform $transition-short;
+
     &:hover {
       transform: $transform-grow-small; // exception on the variables
     }
+
     //media query to hide less important info on smaller screens
     @media only screen and (max-width: 1000px) {
       grid-template-columns: auto 3fr 0.75fr;
@@ -119,15 +121,19 @@
       }
       &:hover {
         color: $accent-color-red-primary;
+
         i {
           color: $accent-color-red-primary;
         }
+
         p {
           color: $light-mode-black;
         }
+
         .fas.fa-heart.animated {
           animation: heartbeat 0.4s linear 1;
         }
+
         .far.fa-heart.animated {
           animation: fade-in 0.2s ease-in 1;
         }
@@ -161,9 +167,11 @@
     padding: 20px;
     justify-content: space-between;
     transition: transform $transition-short;
+
     &:hover {
       transform: $transform-grow;
     }
+
     .project-info {
       .top-wrapper {
         display: flex;
@@ -171,6 +179,7 @@
         margin-bottom: 10px;
         gap: 10px;
         min-height: 42px;
+
         h3 {
           margin-bottom: 0px;
           display: block;
@@ -237,6 +246,7 @@
       display: grid;
       grid-template-columns: 4fr 5fr;
       gap: 10px;
+
       .item {
         width: fit-content;
         gap: 10px;
@@ -244,12 +254,14 @@
         cursor: pointer;
         display: grid;
         grid-template-columns: 20px auto;
+
         .project-collaborators {
           max-width: 100%;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
         }
+
         .project-user-name {
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -275,6 +287,7 @@
       }
     }
   }
+
   .disabled {
     pointer-events: none;
   }

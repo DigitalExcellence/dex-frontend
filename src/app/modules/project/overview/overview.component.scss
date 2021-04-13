@@ -23,6 +23,7 @@
   max-width: 1880px;
   margin-left: auto;
   margin-right: auto;
+
   .project-list-header {
     width: 100%;
     margin: 2em 0;
@@ -244,9 +245,11 @@
   margin: -24px 24px -64px -24px; // override padding from parent element & footer
   padding: 48px 36px;
   background-color: white;
+
   .divider {
     border-bottom: 1px solid $light-mode-grey-thertiary;
   }
+
   .filter-group {
     padding: 24px 0;
     display: flex;
