@@ -130,7 +130,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * @param clickedButtonId The clicked button
    */
   public buttonClicked(clickedButtonId: number): void {
-    if (clickedButtonId != this.selectedCallToActionOptionId) {
+    if (clickedButtonId !== this.selectedCallToActionOptionId) {
       this.selectedCallToActionOptionId = clickedButtonId;
     } else {
       this.selectedCallToActionOptionId = undefined;
