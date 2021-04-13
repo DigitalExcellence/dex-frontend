@@ -18,14 +18,20 @@
  */
 @import "assets/styles/variables";
 
+.loading-circle {
+  padding: 20px;
+}
+
 .highlight-form-modal {
   max-width: 90vw;
   width: 600px;
   margin: 60px auto 30px auto;
+
   .modal-content {
     border: none;
   }
 }
+
 .highlight-modal {
   max-width: 90vw;
   width: 800px;
