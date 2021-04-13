@@ -1,0 +1,33 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+<h2 class="step-header">{{step.name}}</h2>
+<p class="step-description">{{step.description}}</p>
+<div class="wrapper">
+  <div class="project-icon-picker">
+    <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false"></app-file-uploader>
+  </div>
+  <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
+  <div class="right">
+    <div class="file-preview">
+      <div [style.background-image]="'url('+getProjectIcon()+')'" class="circle"></div>
+      <img alt="Workers svg" class="workers" src="/assets/images/wizard/icon.svg"/>
+    </div>
+    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next"}}</button>
+  </div>
+</div>

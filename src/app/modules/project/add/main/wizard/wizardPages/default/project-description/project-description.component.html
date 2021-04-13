@@ -1,0 +1,44 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+<h2 class="step-header">{{step.name}}</h2>
+<p class="step-description">{{step.description}}</p>
+<div class="wrapper">
+  <div class="left">
+    <textarea
+        [formControl]="shortDescription"
+        class="project-short-description"
+        maxlength="170"
+        minlength="3"
+        name="shortDescription"
+        placeholder="This is a short description of your project"
+        required
+        rows="2"
+        type="text"
+    ></textarea>
+
+    <p class="form-footnote">Describe your project in one sentence. (max 170 characters)</p>
+    <quill-editor [formControl]="longDescription" [modules]="modulesConfiguration"
+                  class="project-long-description dex-quill-editor" placeholder="This is a long description of your project">
+    </quill-editor>
+  </div>
+  <div class="right">
+    <img alt="describe svg" src="/assets/images/wizard/describe.svg"/>
+    <button (click)="onClickNext()" [disabled]="!shortDescription.valid || !longDescription.valid" class="form-continue-btn">Next</button>
+  </div>
+</div>
