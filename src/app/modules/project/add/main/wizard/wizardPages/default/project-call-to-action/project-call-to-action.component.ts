@@ -120,7 +120,9 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    */
   public radioButtonClicked(event: Event, clickedRadioButtonId: number): void {
     const element = event.target as HTMLInputElement;
-    if (clickedRadioButtonId === this.selectedCallToActionOptionId) {
+    if (clickedRadioButtonId !== this.selectedCallToActionOptionId) {
+      this.selectCallToAction(clickedRadioButtonId);
+    } else {
       element.checked = false;
       this.selectedCallToActionOptionId = undefined;
     }
@@ -131,10 +133,15 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    */
   public buttonClicked(clickedButtonId: number): void {
     if (clickedButtonId !== this.selectedCallToActionOptionId) {
-      this.selectedCallToActionOptionId = clickedButtonId;
+      this.selectCallToAction(clickedButtonId);
     } else {
       this.selectedCallToActionOptionId = undefined;
     }
+  }
+
+  private selectCallToAction(callToActionId: number) {
+    this.project.callToAction = undefined;
+    this.selectedCallToActionOptionId = callToActionId;
   }
 
   /**
