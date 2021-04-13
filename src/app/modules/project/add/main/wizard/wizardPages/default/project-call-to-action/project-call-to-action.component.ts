@@ -54,12 +54,24 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
 
   ngOnInit(): void {
     this.project = this.wizardService.builtProject;
-    if (this.project.callToAction) {
-      this.selectedCallToActionOptionId = this.project.callToAction.id;
-    }
     this.callToActionOptionService.getAll().subscribe(options => {
       this.callToActionOptions = options;
       this.callToActionOptionsLoading = false;
+
+      if (this.project.callToAction) {
+        this.selectedCallToActionOptionId = this.project.callToAction.id;
+        this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
+          return ctaOption.id === this.project.callToAction.id
+              ?
+              {
+                ...ctaOption, optionValue: this.project.callToAction.value
+              }
+              :
+              {
+                ...ctaOption
+              };
+        });
+      }
     });
   }
 
