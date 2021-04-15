@@ -69,7 +69,7 @@ export class DetailsComponent implements OnInit {
 
   public displayEditButton = false;
   public displayDeleteProjectButton = false;
-  public displayCallToActionButton = false;
+  public displayCallToActionButton = true;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
 
@@ -129,9 +129,7 @@ export class DetailsComponent implements OnInit {
         (result) => {
           this.project = result;
           const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
-          this.determineDisplayEditProjectButton();
-          this.determineDisplayDeleteProjectButton();
-          this.determineDisplayCallToActionButton();
+          this.determineDisplayEditAndDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
 
@@ -313,24 +311,17 @@ export class DetailsComponent implements OnInit {
    * Method to display the edit project button based on the current user and the project user.
    * If the user either has the ProjectWrite scope or is the creator of the project
    */
-  private determineDisplayEditProjectButton(): void {
+  private determineDisplayEditAndDeleteProjectButton(): void {
     if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayEditButton = false;
-      return;
-    }
-    this.displayEditButton = this.project.user.id === this.currentUser.id;
-  }
-
-  /**
-   * Method to display the delete project button based on the current user and the project user.
-   * If the user either has the ProjectWrite scope or is the creator of the project
-   */
-  private determineDisplayDeleteProjectButton(): void {
-    if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayDeleteProjectButton = false;
       return;
     }
-    this.displayDeleteProjectButton = this.project.user.id === this.currentUser.id;
+    if (this.project.user.id === this.currentUser.id ||
+        this.authService.getCurrentBackendUser().role.name === 'Administrator') {
+      this.displayEditButton = true;
+      this.displayDeleteProjectButton = true;
+    }
   }
 
   /**
