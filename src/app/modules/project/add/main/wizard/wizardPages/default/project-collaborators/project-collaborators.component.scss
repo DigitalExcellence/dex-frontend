@@ -1,0 +1,92 @@
+/*
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ */
+@import "assets/styles/variables";
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  @media only screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .image-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 100%;
+      margin-bottom: 30px;
+      @media only screen and (max-width: 1000px) {
+        display: none;
+      }
+    }
+  }
+  .left {
+    display: grid;
+    grid-template-columns: 4fr 4fr 1fr;
+    gap: 20px;
+    row-gap: 30px;
+    height: fit-content;
+    .button-col {
+      display: flex;
+      align-items: flex-end;
+    }
+    .add-button {
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      border-radius: 999px;
+      background-color: $accent-color-red-primary;
+      border: none;
+      font-size: 30px;
+
+      &:hover {
+        background: $accent-color-red-secondary;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+    ul {
+      list-style: none;
+      padding: 0px 0px 0px 5px;
+      max-width: 100%;
+      overflow: hidden;
+      li {
+        margin: 2px 0;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        span {
+          color: $light-mode-grey-secondary;
+          opacity: 0.4;
+          cursor: pointer;
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

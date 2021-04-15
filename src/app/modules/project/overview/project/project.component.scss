@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-@import "src/assets/styles/variables";
+@import "src/assets/styles/_variables";
 
 .project {
   display: flex;
@@ -34,9 +34,12 @@
     p {
       margin: 2px 0;
       text-align: left;
+      color: $light-mode-black;
+      opacity: 0.85;
+      font-size: 14px;
     }
 
-    &.show{
+    &.show {
       opacity: 1;
     }
   }
@@ -61,18 +64,20 @@
     grid-template-columns: auto 3fr 0.75fr 1fr 1fr;
     gap: 20px;
     transition: transform $transition-short;
-    &:hover{
-      transform: $transform-grow-small // exception on the variables
+
+    &:hover {
+      transform: $transform-grow-small; // exception on the variables
     }
+
     //media query to hide less important info on smaller screens
     @media only screen and (max-width: 1000px) {
       grid-template-columns: auto 3fr 0.75fr;
       gap: 12px;
       .project-created-date {
-        display: none!important;
+        display: none !important;
       }
       .project-user-name {
-        display: none!important;
+        display: none !important;
       }
     }
     .project-info {
@@ -116,15 +121,21 @@
       }
       &:hover {
         color: $accent-color-red-primary;
-        opacity: 0.75;
+
         i {
           color: $accent-color-red-primary;
         }
-        .fas.fa-heart.animated {
-          animation: heartbeat .4s linear 1;
+
+        p {
+          color: $light-mode-black;
         }
+
+        .fas.fa-heart.animated {
+          animation: heartbeat 0.4s linear 1;
+        }
+
         .far.fa-heart.animated {
-          animation: fade-in .2s ease-in 1;
+          animation: fade-in 0.2s ease-in 1;
         }
       }
     }
@@ -156,9 +167,11 @@
     padding: 20px;
     justify-content: space-between;
     transition: transform $transition-short;
-    &:hover{
+
+    &:hover {
       transform: $transform-grow;
     }
+
     .project-info {
       .top-wrapper {
         display: flex;
@@ -166,6 +179,7 @@
         margin-bottom: 10px;
         gap: 10px;
         min-height: 42px;
+
         h3 {
           margin-bottom: 0px;
           display: block;
@@ -230,20 +244,24 @@
     }
     .bottom-wrapper {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 4fr 5fr;
       gap: 10px;
+
       .item {
+        width: fit-content;
         gap: 10px;
         align-items: center;
         cursor: pointer;
         display: grid;
         grid-template-columns: 20px auto;
-        .project-collaborators{
+
+        .project-collaborators {
           max-width: 100%;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
         }
+
         .project-user-name {
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -261,16 +279,16 @@
           }
         }
         .fas.fa-heart.animated {
-          animation: heartbeat .4s linear 1;
+          animation: heartbeat 0.4s linear 1;
         }
         .far.fa-heart.animated {
-          animation: fade-in .2s ease-in 1;
+          animation: fade-in 0.2s ease-in 1;
         }
       }
     }
   }
+
   .disabled {
     pointer-events: none;
   }
-
 }
