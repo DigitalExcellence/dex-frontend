@@ -9,11 +9,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Added the new wizard to make adding projects more user-friendly - [#361](https://github.com/DigitalExcellence/dex-frontend/issues/361)
-
 ### Changed
-
-- Styling fixes pagination menu detail popup and cards - [#440](https://github.com/DigitalExcellence/dex-frontend/issues/440)
 
 ### Deprecated
 
@@ -21,9 +17,22 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Fixed issue where the edit- & delete project would always be shown - [#458](https://github.com/DigitalExcellence/dex-frontend/issues/458)
-
 ### Security
+
+
+## Release v.1.2.0-beta - 15-04-2021
+
+### Added
+
+- Added the new wizard to make adding projects more user-friendly - [#361](https://github.com/DigitalExcellence/dex-frontend/issues/361)
+
+### Changed
+
+- Styling fixes pagination menu detail popup and cards - [#440](https://github.com/DigitalExcellence/dex-frontend/issues/440)
+
+### Fixed
+- Added icon for data sources - [#466](https://github.com/DigitalExcellence/dex-frontend/issues/466)
+- Fixed issue where the edit- & delete project would always be shown - [#458](https://github.com/DigitalExcellence/dex-frontend/issues/458)
 
 ## Release v.1.1.0-beta - 18-03-2021
 
@@ -33,6 +42,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Auto dismiss the login warning when liking project if you're not logged in - [#433](https://github.com/DigitalExcellence/dex-frontend/issues/433)
 - Hide the active modal when you navigate to another page via browser navigation arrows
   - [#423](https://github.com/DigitalExcellence/dex-frontend/issues/423)
+
 
 ## Release v.1.0.1-beta - 31-01-2021
 

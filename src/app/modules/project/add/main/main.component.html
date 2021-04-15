@@ -37,7 +37,7 @@
            [ngClass]="{'not-visible': !externalSource.isVisible}"
            class="source">
         <div class="source-content">
-          <img alt="{{externalSource.title}}" loading="lazy" src="{{ getIconUrl(externalSource.icon || 0) }}">
+          <img class="source-content-datasource-image" alt="{{externalSource.title}}" loading="lazy" src="{{ getIconUrl(externalSource.icon) }}">
           <h3>{{ externalSource.title }}</h3>
         </div>
       </div>
