@@ -356,7 +356,7 @@ export class WizardService {
    * @param project the project that was imported
    */
   private determineStepsCompleted(project: Project) {
-    let updatedSteps = this.steps$.value;
+    const updatedSteps = this.steps$.value;
     if (WizardService.checkNotEmpty(project.name)) {
       updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = true;
     }
