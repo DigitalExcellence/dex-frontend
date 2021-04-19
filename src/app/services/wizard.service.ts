@@ -146,7 +146,7 @@ export class WizardService {
    * @param string String that needs to be checked
    */
   private static checkNotEmpty(string: string) {
-    return string.trim().length > 0;
+    return string && string.trim().length > 0;
   }
 
   /**
@@ -356,7 +356,7 @@ export class WizardService {
    * @param project the project that was imported
    */
   private determineStepsCompleted(project: Project) {
-    const updatedSteps = this.steps$.value;
+    let updatedSteps = this.steps$.value;
     if (WizardService.checkNotEmpty(project.name)) {
       updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = true;
     }

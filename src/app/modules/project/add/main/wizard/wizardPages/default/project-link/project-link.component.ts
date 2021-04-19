@@ -72,8 +72,10 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
           this.projectLoading = false;
           super.onClickNext();
         }, error => {
-          this.projectLoading = false;
-          this.errorMessage = error.error.title + ' Please make sure your url points to an repository';
+          if (error.error) {
+            this.projectLoading = false;
+            this.errorMessage = error.error.title + ' Please make sure your url points to an repository';
+          }
         });
       } else {
         this.wizardService.updateProject({...this.project, uri: this.link.value});
