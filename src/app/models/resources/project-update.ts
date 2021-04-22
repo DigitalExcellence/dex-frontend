@@ -28,4 +28,5 @@ export interface ProjectUpdate {
   url: string;
   callToAction: CallToAction;
   fileId?: number;
+  projectImageIds?: number[];
 }

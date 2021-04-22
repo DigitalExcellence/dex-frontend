@@ -27,4 +27,5 @@ export interface ProjectAdd {
   uri: string;
   callToAction: CallToAction;
   fileId?: number;
+  projectImageIds?: number[];
 }

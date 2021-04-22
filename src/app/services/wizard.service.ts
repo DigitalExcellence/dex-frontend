@@ -48,7 +48,11 @@ export class WizardService {
   /**
    * Store a copy of the uploadFile so we can show it when the user goes back a step
    */
-  public uploadFile: UploadFile;
+  public projectIcon: UploadFile;
+
+  public projectImages: UploadFile[];
+
+  //TODO: ADD THIS FUNCTIONALITY FOR PROJECT IMAGES
 
   /**
    * The external source that is currently selected
@@ -69,6 +73,15 @@ export class WizardService {
 
   private readonly defaultSteps: Array<WizardPage> = [
     {
+      id: 6,
+      authFlow: false,
+      orderIndex: 3,
+      name: 'Would you like to upload some images?',
+      description: 'Please upload a fitting image',
+      isComplete: false,
+      isOptional: true
+    },
+    {
       id: 4,
       authFlow: false,
       orderIndex: 1,
@@ -87,20 +100,11 @@ export class WizardService {
       isOptional: false
     },
     {
-      id: 6,
-      authFlow: false,
-      orderIndex: 3,
-      name: 'What project icon would fit the project?',
-      description: 'Please upload a fitting image for the project!',
-      isComplete: false,
-      isOptional: true
-    },
-    {
       id: 7,
       authFlow: false,
       orderIndex: 4,
-      name: 'Who has worked on the project?',
-      description: 'Here you can name all the project members and their role within the project!',
+      name: 'What project icon would fit the project?',
+      description: 'Please upload a fitting image for the project!',
       isComplete: false,
       isOptional: true
     },
@@ -108,15 +112,24 @@ export class WizardService {
       id: 8,
       authFlow: false,
       orderIndex: 5,
-      name: 'Would you like to add a call to action button?',
-      description: 'If you want to get people in action you can show it here!',
+      name: 'Who has worked on the project?',
+      description: 'Here you can name all the project members and their role within the project!',
       isComplete: false,
       isOptional: true
     },
     {
       id: 9,
       authFlow: false,
-      orderIndex: 5,
+      orderIndex: 6,
+      name: 'Would you like to add a call to action button?',
+      description: 'If you want to get people in action you can show it here!',
+      isComplete: false,
+      isOptional: true
+    },
+    {
+      id: 10,
+      authFlow: false,
+      orderIndex: 7,
       name: 'If your project has a link with a project page or another source you can link it here!',
       description: 'If your project has a link with a project page or another source you can link it here!',
       isComplete: false,
