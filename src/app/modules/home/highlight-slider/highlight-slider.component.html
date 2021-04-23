@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="cards">
-      <div *ngFor="let highlight of highlights" class="col-md-12 col-lg-4 mb-4">
+      <div *ngFor="let highlight of highlights">
         <div class="card" (click)="onClickHighlightedProject(highlight.projectId, highlight.project.name)">
           <div class="card-title">
             <div class="icon"  [ngStyle]="{'background-image': 'url(' + getIconUrl(highlight.projectId) + ')'}"></div>
