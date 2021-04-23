@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-container-left',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContainerLeftComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  public viewAllProjects() {
+    if (this.router.url === '/project/overview') {
+      location.reload();
+    } else {
+      this.router.navigate(['project/overview']);
+    }
   }
 
 }
