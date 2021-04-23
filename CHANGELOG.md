@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-
+ - Redesigned homepage - [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
 ### Deprecated
 
 ### Removed
