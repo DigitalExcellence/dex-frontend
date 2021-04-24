@@ -1,0 +1,51 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+<ng-container *ngIf="projectLoading; else projectLoaded">
+  <div class="loading-circle">
+    <h2 class="fas fa-spinner fa-pulse"></h2>
+  </div>
+</ng-container>
+<ng-template #projectLoaded>
+  <h2 class="step-header">{{step.name}}</h2>
+  <p class="step-description">{{step.description}}</p>
+  <div class="wrapper">
+    <div *ngIf="isDynamicPage" class="external-source">
+      <div class="square">
+        <img alt="detected-source" src="{{getIconUrl(selectedSource.icon || 0)}}"/>
+      </div>
+      <h2>{{selectedSource.title}}</h2>
+    </div>
+    <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+    <div class="inline-input">
+      <input (keydown.enter)="onClickNext()"
+             [formControl]="link"
+             minlength="10"
+             placeholder="Link to the source you would like to import"
+             required
+             type="url"/>
+      <button (click)="onClickNext()"
+              [disabled]="(!link.valid)"
+              class="form-continue-btn">{{isDynamicPage ? "Import project" : "Finish"}}
+      </button>
+    </div>
+    <div class="image-wrapper">
+      <img alt="link-svg" src="/assets/images/wizard/link.svg"/>
+    </div>
+  </div>
+</ng-template>

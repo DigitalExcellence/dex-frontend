@@ -1,0 +1,101 @@
+/*
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ */
+@import "assets/styles/variables";
+
+.form-steps-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  margin-right: 60px;
+  @media only screen and (max-width: 1000px) {
+    margin-right: 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    flex-direction: row;
+    margin: 0 0 20px 0;
+    .step-divider {
+      height: 4px;
+      margin: 0;
+
+      &.step-current {
+        background: linear-gradient(90deg, $accent-color-red-primary 50%, $light-mode-grey-secondary 50%);
+      }
+    }
+  }
+}
+
+.index-wrapper {
+  z-index: 1;
+
+  .step-bubble {
+    background: $light-mode-grey-secondary;
+    padding: 8px;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    align-items: center;
+    border-radius: 50%;
+    color: $white;
+    font-size: 1em;
+    cursor: pointer;
+    user-select: none;
+
+    &.step-current {
+      background: $accent-color-red-primary;
+
+      &::after {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        top: -6px;
+        border-radius: 99999px;
+        border: 2px solid $accent-color-red-primary;
+        padding: 12px;
+        content: '';
+        background-color: $white;
+        z-index: -1;
+      }
+
+    }
+
+  }
+}
+
+.step-divider {
+  width: 4px;
+  background: $light-mode-grey-secondary;
+  flex: 1;
+  margin: 0 10px;
+
+  &.step-current {
+    background: linear-gradient(180deg, $accent-color-red-primary 50%, $light-mode-grey-secondary 50%);
+  }
+}
+
+.step-complete {
+  background: $accent-color-red-primary !important;
+}
+
+.step-blocked {
+  cursor: not-allowed;
+  pointer-events: none;
+}

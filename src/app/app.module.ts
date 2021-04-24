@@ -22,6 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
+import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './interceptors/auth.interceptor';
 import { TopHighlightCardsComponent } from './modules/highlight/top-highlight-cards/top-highlight-cards.component';
 import { SharedModule } from './modules/shared/shared.module';
@@ -43,6 +45,7 @@ import { HomeModule } from './modules/home/home.module';
   declarations: [
     AppComponent,
     AppLayoutComponent,
+    HomeComponent,
     AuthCallbackComponent,
     TopHighlightCardsComponent,
     AlertComponent,
@@ -57,6 +60,7 @@ import { HomeModule } from './modules/home/home.module';
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,

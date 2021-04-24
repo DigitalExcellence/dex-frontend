@@ -1,0 +1,101 @@
+/*
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ */
+@import "assets/styles/variables";
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  button {
+    &.grey {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+    .project-icon-picker {
+      display: none;
+    }
+    button {
+      &.grey {
+        display: block;
+      }
+    }
+    img {
+      display: none;
+    }
+  }
+
+  .project-icon-picker {
+    height: 300px;
+    min-width: 300px;
+    margin-bottom: 20px;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .file-preview {
+      display: flex;
+      flex-direction: row;
+      border-bottom: 3px solid $light-mode-black;
+      max-width: 100%;
+      width: 100%;
+      position: relative;
+      .circle {
+        width: 75%;
+        border: 4px solid $accent-color-red-primary;
+        border-radius: 999px;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+
+        @media only screen and (max-width: 600px) {
+          width: 95%;
+        }
+        &:after {
+          content: "";
+          display: block;
+          padding-bottom: calc(95% + 10px);
+        }
+      }
+
+      img {
+        display: inline-block;
+        z-index: 2;
+
+        &.workers {
+          position: absolute;
+          right: -5px;
+          bottom: -3px;
+        }
+
+        @media only screen and (max-width: 600px) {
+          display: none;
+        }
+      }
+    }
+
+    button {
+      margin-top: 30px;
+    }
+  }
+}

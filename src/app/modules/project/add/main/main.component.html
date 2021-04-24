@@ -1,0 +1,52 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+
+<!-- subtitle -->
+<div class="row">
+  <div class="col-12 text-center">
+    <h1 class="header-text">Add New Project</h1>
+    <br> <br>
+  </div>
+</div>
+<ng-container *ngIf="sourcesLoading; else sourcesLoaded">
+  <div class="loading-circle">
+    <h2 class="fas fa-spinner fa-pulse"></h2>
+  </div>
+</ng-container>
+<ng-template #sourcesLoaded>
+  <div class="grid-wrapper">
+    <div class="source-grid">
+      <div (click)="externalSourceClick($event, externalSource)"
+           *ngFor="let externalSource of externalSources"
+           [ngClass]="{'not-visible': !externalSource.isVisible}"
+           class="source">
+        <div class="source-content">
+          <img class="source-content-datasource-image" alt="{{externalSource.title}}" loading="lazy" src="{{ getIconUrl(externalSource.icon) }}">
+          <h3>{{ externalSource.title }}</h3>
+        </div>
+      </div>
+      <div (click)="manualClick()" class="source">
+        <div class="source-content">
+          <img alt="name svg" loading="lazy" src="/assets/images/wizard/name.svg">
+          <h3>Add project manually</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

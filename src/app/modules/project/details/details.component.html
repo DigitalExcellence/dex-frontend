@@ -21,7 +21,6 @@
   <div class="loading-circle">
     <h2 class="fas fa-spinner fa-pulse"></h2>
   </div>
-
 </ng-container>
 
 <ng-template #projectLoaded>
@@ -29,117 +28,97 @@
     <div class="row">
       <!-- on this spot should be an image or a bootstrap carrousel after the wizard is finished
       <img src="https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1177074_1920-960x540.jpg" alt="project-detail-image"> -->
-      <div class='project-modal-content '>
+      <div class="project-modal-content">
         <div id="title-wrapper">
           <h2 class="project-title">{{ project.name }}</h2>
           <div class="circle" style="background-color: unset">
-            <img [src]="getIconUrl()" alt="Code project" loading="lazy"
-              onerror="this.src='/assets/images/placeholder.svg';">
+            <img [src]="getIconUrl()" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';"/>
           </div>
-
         </div>
-        <div class=" project-metadata">
+        <div class="project-metadata">
           <div *ngIf="project.uri" class="project-metadata__item">
-            <p class='title'>Uploader <em class="fas fa-user"></em></p>
+            <p class="title">Uploader <em class="fas fa-user"></em></p>
             <p>
               {{ project.user.name }}
+            </p>
+          </div>
+
+          <div class="project-metadata__item">
+            <p class="title">External Link <em class="fas fa-external-link-alt"></em></p>
+
+            <a class="hover" href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
           </div>
           <div class="project-metadata__item">
-            <p class='title'>External Link <em class="fas fa-external-link-alt"></em></p>
-
-            <a class='hover' href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
-
+            <p class="title">Likes <em class="fas fa-heart"></em></p>
+            <p (click)="likeClicked()" class="hover">
+              <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
+              {{ project.likeCount }}
+            </p>
           </div>
-            <div class="project-metadata__item">
-              <p class='title'>Likes <em class="fas fa-heart"></em></p>
-              <p (click)="likeClicked()">
-                <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class='fa-heart'></em>
-                {{project.likeCount}}
-              </p>
-            </div>
           <div class="project-metadata__item" [tooltip]="projectUpdated">
-            <p class='title cursor-pointer'>Upload Date <em class="fas fa-calendar"></em></p>
-            <p class='hover'>{{ project.created | date:'longDate' }}</p>
+            <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p>
+            <p class="hover">{{ project.created | date: "longDate" }}</p>
             <ng-template #projectUpdated>
-              <p>Created: {{project.created | date: 'mediumDate'}}</p>
-              <p>Updated: {{project.updated | date: 'mediumDate'}}</p>
+              <p>Created: {{ project.created | date: "mediumDate" }}</p>
+              <p>Updated: {{ project.updated | date: "mediumDate" }}</p>
             </ng-template>
           </div>
         </div>
 
         <ng-container *ngIf="isProduction()">
           <div class="project-tags">
-            <a class="project-tags__tag" href="javascript:void(0)">
-              Game
-            </a>
-            <a class="project-tags__tag" href="javascript:void(0)">
-              JavaScript
-            </a>
-            <a class="project-tags__tag" href="javascript:void(0)">
-              HTML
-            </a>
-            <a class="project-tags__tag" href="javascript:void(0)">
-              CSS
-            </a>
-            <a class="project-tags__tag" href="javascript:void(0)">
-              UX
-            </a>
-            <a class="project-tags__tag" href="javascript:void(0)">
-              Interaction
-            </a>
-            <a class="project-tags__see-more-link" href="javascript:void(0)">
-              see more tags&hellip;
-            </a>
+            <a class="project-tags__tag" href="javascript:void(0)"> Game </a>
+            <a class="project-tags__tag" href="javascript:void(0)"> JavaScript </a>
+            <a class="project-tags__tag" href="javascript:void(0)"> HTML </a>
+            <a class="project-tags__tag" href="javascript:void(0)"> CSS </a>
+            <a class="project-tags__tag" href="javascript:void(0)"> UX </a>
+            <a class="project-tags__tag" href="javascript:void(0)"> Interaction </a>
+            <a class="project-tags__see-more-link" href="javascript:void(0)"> see more tags&hellip; </a>
           </div>
         </ng-container>
-        <hr>
+        <hr/>
 
-        <div class='bottom'>
-          <div class='menu-wrapper'>
-            <div class='menu'>
-              <div (click)="setActiveTab('description')" [ngClass]="{'active': this.activeTab == 'description' }"
-                class='item'>
-                Description
-              </div>
-              <div (click)="setActiveTab('collaborators')" [ngClass]="{'active': this.activeTab == 'collaborators' }"
-                class='item'>
-                Collaborators
-              </div>
+        <div class="bottom">
+          <div class="menu-wrapper">
+            <div class="menu">
+              <div (click)="setActiveTab('description')" [ngClass]="{ active: this.activeTab == 'description' }" class="item">Description</div>
+              <div (click)="setActiveTab('collaborators')" [ngClass]="{ active: this.activeTab == 'collaborators' }" class="item">Collaborators</div>
             </div>
             <ng-container *ngIf="displayHighlightButton || displayEditButton || displayDeleteProjectButton">
-              <em [popover]="cogPopOver" class="fas fa-cog cog" placement="bottom" triggers="click"
-                [outsideClick]="true">
-              </em>
+              <em [outsideClick]="true" [popover]="cogPopOver" class="fas fa-cog cog" placement="bottom" triggers="click"> </em>
               <ng-template #cogPopOver class="cog-tooltip">
                 <ng-container *ngIf="displayHighlightButton">
                   <a (click)="onClickEditHighlightButton()" class="cog-tooltip-item"><em class="fas fa-highlighter"></em>Hightlight settings</a>
                 </ng-container>
                 <ng-container *ngIf="displayEditButton">
-                  <a class="cog-tooltip-item" (click)="closeModalAndRedirect('project/edit/'+ project?.id)"><em
-                      class="fas fa-edit"></em>Edit project</a>
+                  <a (click)="closeModalAndRedirect('project/edit/' + project?.id)" class="cog-tooltip-item"
+                  ><em class="fas fa-edit"></em>Edit project</a
+                  >
                 </ng-container>
                 <ng-container *ngIf="displayDeleteProjectButton">
-                  <a class="cog-tooltip-item" (click)="onClickRemoveProject()"><em
-                      class="fas fa-trash"></em>Delete project</a>
+                  <a (click)="onClickRemoveProject()" class="cog-tooltip-item"><em class="fas fa-trash"></em>Delete project</a>
                 </ng-container>
               </ng-template>
             </ng-container>
           </div>
 
-          <div class='tab-content'>
-            <ng-container *ngIf=" this.activeTab == 'description' " class="project-description large">
+          <div class="tab-content">
+            <ng-container *ngIf="this.activeTab == 'description'" class="project-description large">
               <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
-              <ng-container *ngIf="displayCallToActionButton">
-                <button id="call-to-action-button" class="primary ml-2" (click)="onClickCallToActionButton(project.callToAction.value)">{{project.callToAction.optionValue}}</button>
-              </ng-container>
-              <ng-container *ngIf="displayEmbedButton">
-                <app-embed-button [projectId]=project.id></app-embed-button>
-              </ng-container>
+              <div class="bottom-buttons">
+                <ng-container *ngIf="displayCallToActionButton">
+                  <button (click)="onClickCallToActionButton(project.callToAction.value)" class="primary" id="call-to-action-button">
+                    {{ project.callToAction.optionValue }}
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="displayEmbedButton">
+                  <app-embed-button [projectId]="project.id"></app-embed-button>
+                </ng-container>
+              </div>
             </ng-container>
-            <ng-container *ngIf=" this.activeTab == 'collaborators' ">
-              <div class='collaborators'>
-                <app-collaborator *ngFor="let collaborator of project.collaborators" [collaborator]="collaborator">
-                </app-collaborator>
+            <ng-container *ngIf="this.activeTab == 'collaborators'">
+              <div class="collaborators">
+                <app-collaborator *ngFor="let collaborator of project.collaborators" [collaborator]="collaborator"></app-collaborator>
               </div>
             </ng-container>
           </div>
@@ -152,8 +131,7 @@
     <div class="row not-found">
       <div class="offset-2 col-8">
         <h1>Project details</h1>
-        <p>The project with the identifier "{{invalidId}}" could not be found.</p>
-
+        <p>The project with the identifier "{{ invalidId }}" could not be found.</p>
       </div>
     </div>
   </ng-template>
