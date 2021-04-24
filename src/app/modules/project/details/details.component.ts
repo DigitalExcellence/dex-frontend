@@ -132,6 +132,7 @@ export class DetailsComponent implements OnInit {
           this.determineDisplayEditAndDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
+          this.determineDisplayCallToActionButton();
 
           // Updates meta and title tags
           this.seoService.updateDescription(desc);
@@ -318,7 +319,7 @@ export class DetailsComponent implements OnInit {
       return;
     }
     if (this.project.user.id === this.currentUser.id ||
-        this.authService.getCurrentBackendUser().role.name === 'Administrator') {
+        this.authService.currentBackendUserHasScope(scopes.AdminProjectWrite)) {
       this.displayEditButton = true;
       this.displayDeleteProjectButton = true;
     }
