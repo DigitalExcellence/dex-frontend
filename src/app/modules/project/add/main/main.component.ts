@@ -40,9 +40,15 @@ import { WizardComponent } from './wizard/wizard.component';
 })
 export class MainComponent implements OnInit {
   /**
-   * ExternalSources available to import your projects from
+   * All external sources, some all ready to use and some are in development or disabled
    */
-  public externalSources = new Array<ExternalSource>();
+  public allExternalSources = new Array<ExternalSource>();
+
+  /**
+   * Available external sources that are able to get used to import projects from
+   */
+  public availableExternalSources = new Array<ExternalSource>();
+
   /**
    * Holds if the external sources are loaded or not
    */
@@ -79,7 +85,8 @@ export class MainComponent implements OnInit {
     });
     // Get all the external sources
     this.wizardService.fetchExternalSources().subscribe(externalSources => {
-      this.externalSources = externalSources;
+      this.allExternalSources = externalSources;
+      this.availableExternalSources = externalSources.filter(source => source.isVisible);
       this.sourcesLoading = false;
     });
 
