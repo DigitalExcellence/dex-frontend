@@ -318,7 +318,7 @@ export class DetailsComponent implements OnInit {
       return;
     }
     if (this.project.user.id === this.currentUser.id ||
-        this.authService.getCurrentBackendUser().role.name === 'Administrator') {
+        this.authService.currentBackendUserHasScope(scopes.AdminProjectWrite)) {
       this.displayEditButton = true;
       this.displayDeleteProjectButton = true;
     }
