@@ -40,7 +40,7 @@ import { WizardComponent } from './wizard/wizard.component';
 })
 export class MainComponent implements OnInit {
   /**
-   * All external sources, some all ready to use and some are in development or disabled
+   * All external sources, some are ready to use and some are in development or disabled
    */
   public allExternalSources = new Array<ExternalSource>();
 
