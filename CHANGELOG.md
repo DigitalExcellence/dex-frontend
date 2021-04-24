@@ -17,6 +17,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Fixed issue where the privacy modal and alerts were not responsive - [#426](https://github.com/DigitalExcellence/dex-frontend/issues/426)
+
 ### Security
 
 
@@ -37,7 +39,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## Release v.1.1.0-beta - 18-03-2021
 
 ### Fixed
-- Fixed issue where the privacy modal was not responsive - [#426](https://github.com/DigitalExcellence/dex-frontend/issues/426)
 
 - Fixed list view animation bug which prevented like animation from playing - [#419](https://github.com/DigitalExcellence/dex-frontend/issues/419)
 - Auto dismiss the login warning when liking project if you're not logged in - [#433](https://github.com/DigitalExcellence/dex-frontend/issues/433)
