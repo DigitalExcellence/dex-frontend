@@ -357,25 +357,16 @@ export class WizardService {
    */
   private determineStepsCompleted(project: Project) {
     const updatedSteps = this.steps$.value;
-    if (WizardService.checkNotEmpty(project.name)) {
-      updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = true;
-    }
-    if (WizardService.checkNotEmpty(project.description) &&
-        WizardService.checkNotEmpty(project.shortDescription)) {
-      updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = true;
-    }
-    if (project.projectIcon) {
-      updatedSteps.find(step => step.wizardPageName === 'project-icon').isComplete = true;
-    }
-    if (project.collaborators.length > 0) {
-      updatedSteps.find(step => step.wizardPageName === 'project-collaborators').isComplete = true;
-    }
-    if (project.callToAction) {
-      updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = true;
-    }
-    if (project.uri) {
-      updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = true;
-    }
+
+    updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = WizardService.checkNotEmpty(project.name);
+    updatedSteps.find(step => step.wizardPageName === 'project-icon').isComplete = !!project.projectIcon;
+    updatedSteps.find(step => step.wizardPageName === 'project-collaborators').isComplete = project.collaborators.length > 0;
+    updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = !!project.callToAction;
+    updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = !!project.uri;
+    updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = (
+        WizardService.checkNotEmpty(project.description) && WizardService.checkNotEmpty(project.shortDescription)
+    );
+
     this.steps$.next(updatedSteps);
   }
 }

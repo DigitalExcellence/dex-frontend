@@ -61,13 +61,13 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    */
   public onClickNext() {
     if (this.link.valid) {
-      console.log(this.link.value, !this.validURL(this.link.value));
       if (!this.validURL(this.link.value)) {
         this.errorMessage = 'Invalid url';
         return;
       }
       if (this.step.id === 2) {
         this.projectLoading = true;
+        // Make sure there is no old project in the service
         this.wizardService.fetchProjectFromExternalSource(this.link.value).subscribe(() => {
           this.projectLoading = false;
           super.onClickNext();
@@ -85,6 +85,14 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
   }
 
   /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
+   */
+  public getIconUrl(project): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(project.projectIcon);
+  }
+
+  /**
    * Check if the entered url is valid
    * @param url The url that needs to be checked
    */
@@ -96,13 +104,5 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
         '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(url);
-  }
-
-  /**
-   * Method to get the url of the icon of the project. This is retrieved
-   * from the file retriever service
-   */
-  public getIconUrl(project): SafeUrl {
-    return this.fileRetrieverService.getIconUrl(project.projectIcon);
   }
 }
