@@ -181,10 +181,12 @@ export class WizardService {
                     userId: this.authService.getCurrentBackendUser().id,
                     shortDescription: project.shortDescription,
                     name: project.name,
+                    fileId: undefined,
                     callToAction: project.callToAction,
                     uri: projectUri,
                     description: project.description
                   });
+                  this.uploadFile = undefined;
                   this.determineStepsCompleted(project);
                 }
             )
@@ -274,10 +276,12 @@ export class WizardService {
   public resetService(): void {
     this.flowIsSelected = false;
     this.selectedSource = undefined;
+    this.uploadFile = undefined;
     this.builtProject = {
       callToAction: undefined,
       collaborators: [],
       name: '',
+      fileId: -1,
       shortDescription: '',
       uri: '',
       userId: -1
@@ -366,7 +370,6 @@ export class WizardService {
     updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = (
         WizardService.checkNotEmpty(project.description) && WizardService.checkNotEmpty(project.shortDescription)
     );
-
     this.steps$.next(updatedSteps);
   }
 }
