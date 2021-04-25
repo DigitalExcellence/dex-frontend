@@ -17,6 +17,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Fixed issue where the edit- & delete project would always be shown - [#458](https://github.com/DigitalExcellence/dex-frontend/issues/458)
+
 ### Security
 
 
@@ -32,7 +34,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 - Added icon for data sources - [#466](https://github.com/DigitalExcellence/dex-frontend/issues/466)
-- Fixed issue where the edit- & delete project would always be shown - [#458](https://github.com/DigitalExcellence/dex-frontend/issues/458)
 
 ## Release v.1.1.0-beta - 18-03-2021
 
