@@ -19,8 +19,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Fixed issue where the wizard would not import projects that missed a required
-  property. [#471](https://github.com/DigitalExcellence/dex-frontend/issues/471)
+- Fixed issue where the privacy modal and alerts were not responsive - [#426](https://github.com/DigitalExcellence/dex-frontend/issues/426)
+- Fixed issue where the wizard would not import projects that missed a required property. [#471](https://github.com/DigitalExcellence/dex-frontend/issues/471)
 
 ### Security
 
