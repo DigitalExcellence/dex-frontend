@@ -146,7 +146,7 @@ export class WizardService {
    * @param string String that needs to be checked
    */
   private static checkNotEmpty(string: string) {
-    return string.trim().length > 0;
+    return string && string.trim().length > 0;
   }
 
   /**
@@ -181,10 +181,12 @@ export class WizardService {
                     userId: this.authService.getCurrentBackendUser().id,
                     shortDescription: project.shortDescription,
                     name: project.name,
+                    fileId: undefined,
                     callToAction: project.callToAction,
                     uri: projectUri,
                     description: project.description
                   });
+                  this.uploadFile = undefined;
                   this.determineStepsCompleted(project);
                 }
             )
@@ -274,10 +276,12 @@ export class WizardService {
   public resetService(): void {
     this.flowIsSelected = false;
     this.selectedSource = undefined;
+    this.uploadFile = undefined;
     this.builtProject = {
       callToAction: undefined,
       collaborators: [],
       name: '',
+      fileId: -1,
       shortDescription: '',
       uri: '',
       userId: -1
@@ -357,25 +361,15 @@ export class WizardService {
    */
   private determineStepsCompleted(project: Project) {
     const updatedSteps = this.steps$.value;
-    if (WizardService.checkNotEmpty(project.name)) {
-      updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = true;
-    }
-    if (WizardService.checkNotEmpty(project.description) &&
-        WizardService.checkNotEmpty(project.shortDescription)) {
-      updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = true;
-    }
-    if (project.projectIcon) {
-      updatedSteps.find(step => step.wizardPageName === 'project-icon').isComplete = true;
-    }
-    if (project.collaborators.length > 0) {
-      updatedSteps.find(step => step.wizardPageName === 'project-collaborators').isComplete = true;
-    }
-    if (project.callToAction) {
-      updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = true;
-    }
-    if (project.uri) {
-      updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = true;
-    }
+
+    updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = WizardService.checkNotEmpty(project.name);
+    updatedSteps.find(step => step.wizardPageName === 'project-icon').isComplete = !!project.projectIcon;
+    updatedSteps.find(step => step.wizardPageName === 'project-collaborators').isComplete = project.collaborators.length > 0;
+    updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = !!project.callToAction;
+    updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = !!project.uri;
+    updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = (
+        WizardService.checkNotEmpty(project.description) && WizardService.checkNotEmpty(project.shortDescription)
+    );
     this.steps$.next(updatedSteps);
   }
 }
