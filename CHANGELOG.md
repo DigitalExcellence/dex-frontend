@@ -19,8 +19,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-### Security
+- Fixed issue where the wizard would not import projects that missed a required
+  property. [#471](https://github.com/DigitalExcellence/dex-frontend/issues/471)
 
+### Security
 
 ## Release v.1.2.0-beta - 15-04-2021
 
