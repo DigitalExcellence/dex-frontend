@@ -45,7 +45,8 @@
   img {
     justify-self: center;
     z-index: 2;
-    height: 400px;
+    max-width: 600px;
+    width: 100%;
   }
   .text {
     display: grid;
