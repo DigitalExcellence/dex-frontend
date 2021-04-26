@@ -23,17 +23,19 @@
 }
 
 .modal-delete-container {
-    background: #f8f8f8;
-    width: 600px;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-    padding: 15px;
+  background: #f8f8f8;
+  width: 100%;
+  max-width: 600px;
 
-    button.close {
-        border: none;
-        background: none;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 15px;
+
+  button.close {
+    border: none;
+    background: none;
         display: flex;
         float: right;
         &:focus,
