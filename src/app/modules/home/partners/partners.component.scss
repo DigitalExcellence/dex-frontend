@@ -13,9 +13,11 @@
     gap: 30px;
   }
   a {
+    border-radius: $border-radius;
     justify-self: center;
     height: fit-content;
-    width: 200px;
+    width: 250px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
