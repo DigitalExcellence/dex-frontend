@@ -33,7 +33,7 @@
   <div class="grid-wrapper">
     <div class="source-grid">
       <div (click)="externalSourceClick($event, externalSource)"
-           *ngFor="let externalSource of externalSources"
+           *ngFor="let externalSource of availableExternalSources"
            [ngClass]="{'not-visible': !externalSource.isVisible}"
            class="source">
         <div class="source-content">
