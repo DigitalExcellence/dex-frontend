@@ -40,6 +40,7 @@ export class WizardService {
     callToAction: undefined,
     collaborators: [],
     name: '',
+    fileId: 0,
     shortDescription: '',
     uri: '',
     userId: 0
@@ -281,7 +282,7 @@ export class WizardService {
       callToAction: undefined,
       collaborators: [],
       name: '',
-      fileId: -1,
+      fileId: 0,
       shortDescription: '',
       uri: '',
       userId: -1
