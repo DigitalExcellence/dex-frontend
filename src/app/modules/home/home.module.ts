@@ -7,8 +7,7 @@ import { WhoIsDexComponent } from './who-is-dex/who-is-dex.component';
 import { PartnersComponent } from './partners/partners.component';
 import { ContainerLeftComponent } from './container-left/container-left.component';
 import { ContainerRightComponent } from './container-right/container-right.component';
-import { SharedModule } from '../shared/shared.module';
-import { StripHtmlPipe } from '../../utils/striptags.pipe';
+import { StripHtmlPipe } from 'src/app/utils/striptags.pipe';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { StripHtmlPipe } from '../../utils/striptags.pipe';
     StripHtmlPipe
   ],
   imports: [
-    CommonModule,
-    SharedModule
+    CommonModule
   ]
 })
 export class HomeModule {
