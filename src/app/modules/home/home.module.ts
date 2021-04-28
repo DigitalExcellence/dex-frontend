@@ -9,7 +9,15 @@ import { ContainerLeftComponent } from './container-left/container-left.componen
 import { ContainerRightComponent } from './container-right/container-right.component';
 
 @NgModule({
-  declarations: [MainComponent, HighlightSliderComponent, InfoCardsComponent, WhoIsDexComponent, PartnersComponent, ContainerLeftComponent, ContainerRightComponent],
+  declarations: [
+    MainComponent,
+    HighlightSliderComponent,
+    InfoCardsComponent,
+    WhoIsDexComponent,
+    PartnersComponent,
+    ContainerLeftComponent,
+    ContainerRightComponent
+  ],
   imports: [
     CommonModule
   ]
