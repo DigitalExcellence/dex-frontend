@@ -329,7 +329,6 @@ export class DetailsComponent implements OnInit {
    * Method to display the project's call to action button based on whether or not the project has a set call to action.
    */
   private determineDisplayCallToActionButton(): void {
-    console.log(this.project);
     if (this.project && this.project.callToAction) {
       this.displayCallToActionButton = true;
       return;
