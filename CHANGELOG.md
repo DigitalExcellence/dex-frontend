@@ -18,7 +18,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Removed
 
 ### Fixed
-
+- Fixed issue where the edit- & delete project would always be shown - [#458](https://github.com/DigitalExcellence/dex-frontend/issues/458)
 - Fixed issue where the privacy modal and alerts were not responsive - [#426](https://github.com/DigitalExcellence/dex-frontend/issues/426)
 - Fixed issue where the wizard would not import projects that missed a required property. [#471](https://github.com/DigitalExcellence/dex-frontend/issues/471)
 
@@ -37,22 +37,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 - Added icon for data sources - [#466](https://github.com/DigitalExcellence/dex-frontend/issues/466)
 
-
 ## Release v.1.1.0-beta - 18-03-2021
 
 ### Fixed
 
 - Fixed list view animation bug which prevented like animation from playing - [#419](https://github.com/DigitalExcellence/dex-frontend/issues/419)
 - Auto dismiss the login warning when liking project if you're not logged in - [#433](https://github.com/DigitalExcellence/dex-frontend/issues/433)
-- Hide the active modal when you navigate to another page via browser navigation arrows - [#423](https://github.com/DigitalExcellence/dex-frontend/issues/423)
-
-## Release v.1.1.0-beta - 18-03-2021
-
-### Fixed
-
-- Fixed list view animation bug which prevented like animation from playing - [#419](https://github.com/DigitalExcellence/dex-frontend/issues/419)
-- Auto dismiss the login warning when liking project if you're not logged in - [#433](https://github.com/DigitalExcellence/dex-frontend/issues/433)
-- Hide the active modal when you navigate to another page via browser navigation arrows - [#423](https://github.com/DigitalExcellence/dex-frontend/issues/423)
+- Hide the active modal when you navigate to another page via browser navigation arrows
+  - [#423](https://github.com/DigitalExcellence/dex-frontend/issues/423)
 
 
 ## Release v.1.0.1-beta - 31-01-2021
