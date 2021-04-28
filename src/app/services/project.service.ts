@@ -41,10 +41,11 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
             map(project => {
               return {
                 ...project,
-                callToAction: {
-                  ...project.callToAction,
-                  iconName: CallToActionIconsConfig[project.callToAction.optionValue.toLowerCase()]
-                }
+                callToAction: project.callToAction ?
+                    {
+                      ...project.callToAction,
+                      iconName: CallToActionIconsConfig[project.callToAction.optionValue.toLowerCase()]
+                    } : undefined
               };
             }),
             mergeMap(project =>
