@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,14 +6,11 @@ import { Router } from '@angular/router';
   templateUrl: './container-right.component.html',
   styleUrls: ['./container-right.component.scss']
 })
-export class ContainerRightComponent implements OnInit {
+export class ContainerRightComponent {
 
   constructor(
-    private router: Router
+      private router: Router
   ) { }
-
-  ngOnInit(): void {
-  }
 
   public viewAddProject() {
     if (this.router.url === '/project/add/source') {
