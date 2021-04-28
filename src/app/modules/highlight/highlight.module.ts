@@ -18,9 +18,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HighlightComponent } from './highlight.component';
+import { StripHtmlPipe } from 'src/app/utils/striptags.pipe';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [HighlightComponent],
+  declarations: [HighlightComponent, StripHtmlPipe],
 })
 export class HighlightModule { }
