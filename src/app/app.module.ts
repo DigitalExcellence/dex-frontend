@@ -24,7 +24,6 @@ import { AppLayoutComponent } from './components/app-layout/app-layout.component
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { FormsModule } from '@angular/forms';
 import { TokenInterceptor } from './interceptors/auth.interceptor';
-import { TopHighlightCardsComponent } from './modules/highlight/top-highlight-cards/top-highlight-cards.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './components/footer/footer.component';
@@ -36,7 +35,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
-import { StripHtmlPipe } from './utils/striptags.pipe';
 import { QuillModule } from 'ngx-quill';
 import { HomeModule } from './modules/home/home.module';
 
@@ -45,13 +43,11 @@ import { HomeModule } from './modules/home/home.module';
     AppComponent,
     AppLayoutComponent,
     AuthCallbackComponent,
-    TopHighlightCardsComponent,
     AlertComponent,
     FooterComponent,
     PrivacyPolicyComponent,
     NotFoundComponent,
-    ModalDeleteGenericComponent,
-    StripHtmlPipe
+    ModalDeleteGenericComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
