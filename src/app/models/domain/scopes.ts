@@ -15,14 +15,17 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 export enum scopes {
-    ProjectRead     = 'ProjectRead',
-    ProjectWrite    = 'ProjectWrite',
-    UserRead        = 'UserRead',
-    UserWrite       = 'UserWrite',
-    HighlightRead   = 'HighlightRead',
-    HighlightWrite  = 'HighlightWrite',
-    RoleRead        = 'RoleRead',
-    RoleWrite       = 'RoleWrite',
-    EmbedRead       = 'EmbedRead',
-    EmbedWrite      = 'EmbedWrite',
+  ProjectRead = 'ProjectRead',
+  ProjectWrite = 'ProjectWrite',
+  UserRead = 'UserRead',
+  UserWrite = 'UserWrite',
+  HighlightRead = 'HighlightRead',
+  HighlightWrite = 'HighlightWrite',
+  RoleRead = 'RoleRead',
+  RoleWrite = 'RoleWrite',
+  EmbedRead = 'EmbedRead',
+  EmbedWrite = 'EmbedWrite',
+  AdminProjectWrite = 'AdminProjectWrite',
+  InstitutionProjectWrite = 'InstitutionProjectWrite'
+
 }
