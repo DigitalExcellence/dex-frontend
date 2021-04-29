@@ -10,7 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 ### Changed
-
+ - Redesigned homepage - [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
 - Hide data sources that have the IsVisible property set to false - [#474](https://github.com/DigitalExcellence/dex-frontend/issues/474)
 
 ### Deprecated

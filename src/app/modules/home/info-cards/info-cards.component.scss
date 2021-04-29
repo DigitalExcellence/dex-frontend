@@ -1,0 +1,75 @@
+@import "assets/styles/variables";
+.info-cards {
+  margin: 0 -39px;
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
+  justify-content: center;
+  gap: 80px;
+  padding: 120px 80px;
+  //grid-auto-rows: 350px;
+  position: relative;
+  overflow: hidden;
+  .lines {
+    position: absolute;
+    right: 80px;
+    top: -235px;
+  }
+  .card-wrapper {
+    position: relative;
+    transition: $transition-short;
+    &:hover {
+      transform: scale(1.02);
+    }
+    .card {
+      width: 100%;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      display: grid;
+      z-index: 2;
+      border: none;
+      height: 100%;
+      /*cursor: pointer;*/
+
+      grid-template-rows: 1fr auto;
+      img {
+        height: 150px;
+        margin: auto;
+        width: auto;
+        padding: 20px 20px 0 20px;
+      }
+      .text {
+        padding: 30px;
+        p {
+          margin: 0;
+        }
+      }
+    }
+    .image {
+      height: 200px;
+      width: auto;
+      position: absolute;
+      z-index: 1;
+    }
+    .image1 {
+      left: -20px;
+      bottom: -26px;
+    }
+    .image2 {
+      right: -20px;
+      top: -26px;
+    }
+    .image3 {
+      left: -20px;
+      bottom: -26px;
+    }
+    .image4 {
+      right: 10px;
+      top: -45px;
+    }
+    .image5 {
+      bottom: -20px;
+      right: -20px;
+    }
+  }
+}
