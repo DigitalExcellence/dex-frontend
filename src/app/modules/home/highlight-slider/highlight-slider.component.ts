@@ -59,19 +59,12 @@ export class HighlightSliderComponent implements OnInit {
   }
 
   public viewAllProjects() {
-    if (this.router.url === '/project/overview') {
-      location.reload();
-    } else {
+
       this.router.navigate(['project/overview']);
-    }
   }
 
   public viewAddProject() {
-    if (this.router.url === '/project/add/source') {
-      location.reload();
-    } else {
-      this.router.navigate(['project/add/source']);
-    }
+      this.router.navigate(['project/add/']);
   }
 
   private pickRandomHighlights(highlights: Highlight[], amount: number) {

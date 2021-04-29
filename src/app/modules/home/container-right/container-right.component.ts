@@ -13,11 +13,8 @@ export class ContainerRightComponent {
   ) { }
 
   public viewAddProject() {
-    if (this.router.url === '/project/add/source') {
-      location.reload();
-    } else {
-      this.router.navigate(['project/add/source']);
+      this.router.navigate(['project/add']);
     }
-  }
+
 
 }

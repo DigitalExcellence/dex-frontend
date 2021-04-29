@@ -13,11 +13,7 @@ export class ContainerLeftComponent {
   ) { }
 
   public viewAllProjects() {
-    if (this.router.url === '/project/overview') {
-      location.reload();
-    } else {
       this.router.navigate(['project/overview']);
-    }
   }
 
 }
