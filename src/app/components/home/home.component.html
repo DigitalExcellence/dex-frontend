@@ -1,0 +1,48 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+
+<!--header-->
+<div class="row justify-content-center header-text">
+  <div class="col-12 justify-content-center">
+    <h1>All projects in one place.</h1>
+  </div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-12">
+    <div class="search">
+      <input type="search" placeholder="search project" [formControl]="searchControl"
+        (keydown)="onKeyDownFunction($event)" aria-label="Search project">
+      <button (click)="onClickSearch()"><img src="assets/images/research.svg" alt="" loading="lazy" aria-label="Search project" ></button>
+    </div>
+  </div>
+</div>
+
+<!--Highlights-->
+<app-top-highlight-cards></app-top-highlight-cards>
+
+<!--share image and button-->
+<div class="row share">
+  <div class="col-lg-6 col-md-12 image-wrapper">
+    <img src="assets/images/illustrations/undraw_mobile_development_8gyo.svg" alt="" loading="lazy">
+  </div>
+  <div class="col-lg-4 col-md-12 share-text">
+    <h1>Share a project and collaborate</h1>
+    <button class="primary" routerLink="/project/add">Add project</button>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+
+<div class="highlights">
+  <div class="row">
+    <div class="col-12">
+      <h2>Highlighted projects</h2>
+      <ng-container *ngIf="highlights && highlights.length > 0; else noHighlights">
+        <p class="large">Our top {{highlights.length}} projects</p>
+      </ng-container>
+      <ng-template #noHighlights>
+        <p class="large">Currently there are no highlighted projects</p>
+      </ng-template>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let highlight of highlights" class="col-md-12 col-lg-4 mb-4">
+      <div class="card" (click)="onClickHighlightedProject(highlight.projectId, highlight.project.name)">
+        <div class="card-title">
+          <div class="icon"  [ngStyle]="{'background-image': 'url(' + getIconUrl(highlight.projectId) + ')'}"></div>
+          <h3>{{highlight.project.name}}</h3>
+        </div>
+        <p class="large">{{highlight.description | striphtml}}</p>
+      </div>
+    </div>
+  </div>
+</div>
