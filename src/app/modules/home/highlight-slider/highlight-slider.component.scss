@@ -1,0 +1,149 @@
+@import "assets/styles/variables";
+.highlight-slider {
+  height: calc(100vh - 200px);
+  background-color: white;
+  margin: -24px -39px 0;
+  width: calc(100% + 78px);
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    //grid-template-columns: 1fr;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 80px;
+    gap: 80px;
+
+    @include media-breakpoint-down(sm) {
+      grid-template-columns: 1fr;
+    }
+    .text {
+      width: fit-content;
+      h2,
+      p {
+        width: fit-content;
+        color: $white;
+      }
+      .buttons {
+        display: grid;
+        grid-auto-flow: column;
+        gap: 20px;
+        width: fit-content;
+        margin-top: 50px;
+        button {
+          background-color: $accent-color-red-primary;
+          color: white;
+          border-radius: $border-radius;
+          border: none;
+          outline: none;
+          padding: 8px 20px;
+          width: fit-content;
+          &:hover {
+            background-color: $accent-color-red-secondary;
+          }
+        }
+      }
+    }
+    .cards {
+      display: grid;
+      grid-template-rows: 1fr 1fr 1fr;
+      gap: 40px;
+      height: 100%;
+      max-height: 750px;
+
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+      div {
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        border-radius: $border-radius;
+
+        .card {
+          padding: 30px 30px;
+          background: #ffffff;
+          box-shadow: $box-shadow;
+          border-radius: 6px;
+          border: none;
+          cursor: pointer;
+          height: 100%;
+          transition: transform $transition-short;
+
+          &:hover {
+            transform: $transform-grow;
+          }
+        }
+
+        .card-title {
+          display: flex;
+          max-height: 40px;
+
+          @include media-breakpoint-down(sm) {
+            flex-direction: column;
+          }
+
+          .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0px 4px #0000001a;
+
+            @include media-breakpoint-down(sm) {
+              margin: auto;
+              margin-bottom: 10px;
+            }
+          }
+
+          h3 {
+            margin: auto 5px;
+            max-width: calc(100% - 50px);
+            hyphens: auto;
+
+            @include media-breakpoint-down(sm) {
+              margin: auto;
+              text-align: center;
+              max-width: 100%;
+            }
+          }
+        }
+
+        p {
+          line-height: 1;
+          display: flex;
+          margin-top: 10px;
+          max-width: 100%;
+          flex-direction: column;
+          overflow: hidden;
+          hyphens: auto;
+        }
+      }
+    }
+  }
+}
