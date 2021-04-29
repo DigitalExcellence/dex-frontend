@@ -9,6 +9,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Added icons to the call-to-action buttons - [#451](https://github.com/DigitalExcellence/dex-frontend/issues/451)
+
 ### Changed
 
 - Hide data sources that have the IsVisible property set to false - [#474](https://github.com/DigitalExcellence/dex-frontend/issues/474)

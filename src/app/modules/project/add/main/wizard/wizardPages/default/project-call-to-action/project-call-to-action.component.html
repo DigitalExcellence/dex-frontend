@@ -35,8 +35,9 @@
              type="radio"/>
       <button (click)="buttonClicked(callToActionOption.id)"
               [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
-              class="form-continue-btn">
-        {{callToActionOption.value}}
+              class="call-to-action-btn">
+        {{ callToActionOption.value }}
+        <em [classList]="'fas ' + callToActionOption.iconName"></em>
       </button>
       <input (change)="urlChange($event, callToActionOption.id)" [disabled]="callToActionOption.id !== selectedCallToActionOptionId" [id]="'input-'+callToActionOption.id"
              [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
