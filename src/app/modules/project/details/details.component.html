@@ -128,37 +128,39 @@
               <div>
                 <input class="project-comment-input" placeholder="Add public comment..."/>
 
-                <button (click)="onClickGenerateEmbed()" class="project-comment-input-button primary">Comment</button>
+                <button  class="project-comment-input-button primary">Comment</button>
               </div>
-              <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
-              <div class="bottom-buttons">
-                <ng-container *ngIf=true>
-                <!-- TODO : Comments check -->
-                <!-- <ng-container *ngIf="Comments > 0"> -->
-                  <div class="project-comment-metadata">
-                    <div *ngIf="project.uri" class="project-comment-metadata__item">
-                      <p class="title">Uploader <em class="fas fa-user"></em></p>
-                      <p>
-                        {{ project.user.name }}
-                      </p>
+              <div *ngFor="let x of projectComments">
+                <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
+                <div class="bottom-buttons">
+                  <ng-container *ngIf=true>
+                  <!-- TODO : Comments check -->
+                  <!-- <ng-container *ngIf="Comments > 0"> -->
+                    <div class="project-comment-metadata">
+                      <div *ngIf="project.uri" class="project-comment-metadata__item">
+                        <p class="title">Uploader <em class="fas fa-user"></em></p>
+                        <p>
+                          {{ project.user.name }}
+                        </p>
+                      </div>
+                      <div class="project-comment-metadata__item" [tooltip]="projectUpdated">
+                        <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p>
+                        <p class="hover">{{ project.created | date: "longDate" }}</p>
+                        <ng-template #projectUpdated>
+                          <p>Created: {{ project.created | date: "mediumDate" }}</p>
+                          <p>Updated: {{ project.updated | date: "mediumDate" }}</p>
+                        </ng-template>
+                      </div>
+                      <div class="project-comment-metadata__item">
+                        <p class="title">Likes <em class="fas fa-heart"></em></p>
+                        <p (click)="likeClicked()" class="hover">
+                          <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
+                          {{ project.likeCount }}
+                        </p>
+                      </div>
                     </div>
-                    <div class="project-comment-metadata__item" [tooltip]="projectUpdated">
-                      <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p>
-                      <p class="hover">{{ project.created | date: "longDate" }}</p>
-                      <ng-template #projectUpdated>
-                        <p>Created: {{ project.created | date: "mediumDate" }}</p>
-                        <p>Updated: {{ project.updated | date: "mediumDate" }}</p>
-                      </ng-template>
-                    </div>
-                    <div class="project-comment-metadata__item">
-                      <p class="title">Likes <em class="fas fa-heart"></em></p>
-                      <p (click)="likeClicked()" class="hover">
-                        <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
-                        {{ project.likeCount }}
-                      </p>
-                    </div>
-                  </div>
-                </ng-container>
+                  </ng-container>
+                </div>
               </div>
             </ng-container>
           </div>
