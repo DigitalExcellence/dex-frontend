@@ -231,6 +231,101 @@
       border-top-color: #fff !important;
     }
   }
+  .project-comment-metadata {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    @media screen and (max-width: 769px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    .project-comment-metadata__item {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      ul {
+        margin: 0;
+      }
+      .title {
+        font-weight: bold;
+        color: $light-mode-black;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        em {
+          margin-left: 4px;
+          font-size: 13px;
+        }
+      }
+      h3,
+      p {
+        margin: 0;
+      }
+
+      a {
+        font-weight: normal;
+        font-family: "Lato", sans-serif;
+        width: inherit;
+        &:link {
+          color: $light-mode-grey-primary;
+        }
+      }
+
+      ul {
+        font-family: "Lato", sans-serif;
+        color: $light-mode-grey-primary;
+        padding: 0;
+      }
+      .fa-heart {
+        margin-left: 2px;
+      }
+      .fas.fa-heart.animated {
+        animation: heartbeat 0.4s linear 1;
+      }
+      .far.fa-heart.animated {
+        animation: fade-in 0.2s ease-in 1;
+      }
+    }
+    .hover {
+      &:hover {
+        opacity: 0.75;
+        color: $accent-color-red-primary !important;
+        cursor: pointer;
+      }
+    }
+    .project-metadata__item__collaborators {
+      list-style: none;
+    }
+
+    .tooltip-inner {
+      background-color: white;
+      color: black;
+      border-color: white;
+      padding: 8px 12px;
+    }
+    .tooltip {
+      filter: drop-shadow($box-shadow);
+
+      p {
+        margin: 2px 0;
+        text-align: left;
+      }
+
+      &.show {
+        opacity: 1;
+      }
+    }
+    .tooltip.bs-tooltip-right .arrow:before {
+      border-right-color: #fff !important;
+    }
+    .tooltip.bs-tooltip-left .arrow:before {
+      border-left-color: #fff !important;
+    }
+    .tooltip.bs-tooltip-bottom .arrow:before {
+      border-bottom-color: #fff !important;
+    }
+    .tooltip.bs-tooltip-top .arrow:before {
+      border-top-color: #fff !important;
+    }
+  }
 
   .project-title {
     margin-top: 0;
