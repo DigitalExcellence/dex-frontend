@@ -73,10 +73,56 @@ export class DetailsComponent implements OnInit {
   public displayHighlightButton = false;
   public displayEmbedButton = false;
   public projectComments = [
-    {id: 1, text: 'Sentence 1'},
-    {id: 2, text: 'Sentence 2'},
-    {id: 3, text: 'Sentence 3'},
-    {id: 4, text: 'Sentenc4 '},
+    {
+      id: 1, 
+      userId : 1,
+      username: "Prince Ron",
+      created: new Date(),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '22',
+    },
+    {
+      id: 2, 
+      userId : 2,
+      userName: "Humble Andrew",
+      created: new Date(),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '14',
+    },
+    {
+      id: 3, 
+      username: "Doctor Ron",
+      created: new Date(),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '2',
+    },
+    {
+      id: 4, 
+      username: "Teacher Ron",
+      created: new Date(),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '9',
+    },
+    {
+      id: 5, 
+      username: "Athlete Ron",
+      created: new Date(),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '7',
+    },
+    {
+      id: 6, 
+      username: "Developer Andrew",
+      created: new Date(),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '1',
+    },
   ];
 
   /**

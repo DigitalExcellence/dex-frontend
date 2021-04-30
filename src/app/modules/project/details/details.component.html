@@ -125,42 +125,43 @@
             </ng-container>
             <ng-container *ngIf="this.activeTab == 'comments'" class="project-description large">
               <!-- <div id="contenteditable-root" contenteditable="true" dir="auto" class="style-scope yt-formatted-string" aria-label="Add a public comment..."></div> -->
-              <div>
+              <div class="project-comment">
                 <input class="project-comment-input" placeholder="Add public comment..."/>
 
                 <button  class="project-comment-input-button primary">Comment</button>
               </div>
-              <div *ngFor="let x of projectComments">
+              <div class="project-comment-container" *ngFor="let projectComment of projectComments">
                 <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
                 <div class="bottom-buttons">
-                  <ng-container *ngIf=true>
+                  <ng-container *ngIf="projectComment">
                   <!-- TODO : Comments check -->
                   <!-- <ng-container *ngIf="Comments > 0"> -->
                     <div class="project-comment-metadata">
                       <div *ngIf="project.uri" class="project-comment-metadata__item">
                         <p class="title">Uploader <em class="fas fa-user"></em></p>
                         <p>
-                          {{ project.user.name }}
+                          {{ projectComment.username }}
                         </p>
                       </div>
                       <div class="project-comment-metadata__item" [tooltip]="projectUpdated">
                         <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p>
-                        <p class="hover">{{ project.created | date: "longDate" }}</p>
+                        <p class="hover">{{ projectComment.created | date: "longDate" }}</p>
                         <ng-template #projectUpdated>
-                          <p>Created: {{ project.created | date: "mediumDate" }}</p>
-                          <p>Updated: {{ project.updated | date: "mediumDate" }}</p>
+                          <p>Created: {{ projectComment.created | date: "mediumDate" }}</p>
+                          <p>Updated: {{ projectComment.updated | date: "mediumDate" }}</p>
                         </ng-template>
                       </div>
                       <div class="project-comment-metadata__item">
                         <p class="title">Likes <em class="fas fa-heart"></em></p>
                         <p (click)="likeClicked()" class="hover">
                           <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
-                          {{ project.likeCount }}
+                          {{ projectComment.likes }}
                         </p>
                       </div>
                     </div>
                   </ng-container>
                 </div>
+                <hr style="border-width: .3em;margin-top:1.5em;">
               </div>
             </ng-container>
           </div>
