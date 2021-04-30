@@ -85,7 +85,7 @@ export class DetailsComponent implements OnInit {
     {
       id: 2, 
       userId : 2,
-      userName: "Humble Andrew",
+      username: "Humble Andrew",
       created: new Date(),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
