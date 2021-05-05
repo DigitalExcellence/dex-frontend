@@ -47,6 +47,7 @@ export class EditComponent implements OnInit  {
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
   public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
   public acceptMultiple = false;
+  public showPreview = true;
 
   /**
    * Formgroup for entering project details.

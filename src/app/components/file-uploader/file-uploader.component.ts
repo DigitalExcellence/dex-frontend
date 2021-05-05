@@ -123,7 +123,6 @@ export class FileUploaderComponent {
         this.alertService.pushAlert(alertConfig);
         this.deleteFile(this.files.indexOf(file));
       }
-
     }
   }
 
