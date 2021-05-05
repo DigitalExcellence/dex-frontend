@@ -374,6 +374,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
           if (this.location.path().startsWith('/project/details')) {
             this.location.replaceState('/project/overview');
             this.updateSEOTags();
+            this.onInternalQueryChange();
           }
         }
         ));
