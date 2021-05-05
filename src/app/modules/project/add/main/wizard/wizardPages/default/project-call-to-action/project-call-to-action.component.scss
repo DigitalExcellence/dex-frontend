@@ -40,6 +40,22 @@
     }
   }
 
+  .call-to-action-btn {
+    width: fit-content;
+    height: 40px;
+    border: none;
+    border-radius: $border-radius;
+    background-color: $accent-color-red-primary;
+    box-shadow: $box-shadow;
+    color: white;
+    outline: none;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 10px;
+    align-items: center;
+    padding: 0 20px;
+  }
+
   input[type="radio"]::after,
   input[type="radio"]:checked::before {
     width: 22px;
