@@ -9,6 +9,20 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## Release v.1.3.0-beta - 05-05-2021
+
+### Added
+
 - Added icons to the call-to-action buttons - [#451](https://github.com/DigitalExcellence/dex-frontend/issues/451)
 
 ### Changed
