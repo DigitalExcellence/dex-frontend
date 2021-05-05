@@ -36,7 +36,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fixed issue where the wizard would not import projects that missed a required property. [#471](https://github.com/DigitalExcellence/dex-frontend/issues/471)
 
 ### Hotfix
+
 - Fixed issue where icon were not being previewed in edit project overview. [Hotfix](https://github.com/DigitalExcellence/dex-frontend/pull/480)
+- Fixed issue where project was still being showed after deletion until refresh . [Hotfix](https://github.com/DigitalExcellence/dex-frontend/pull/481)
 
 ## Release v.1.2.0-beta - 15-04-2021
 
