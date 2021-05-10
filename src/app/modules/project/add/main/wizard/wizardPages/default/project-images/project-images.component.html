@@ -1,14 +1,22 @@
-<h2 class="step-header">{{step.name}}</h2>
-<p class="step-description">{{step.description}}</p>
+<h2 class="step-header">{{ step.name }}</h2>
+<p class="step-description">{{ step.description }}</p>
 <div class="wrapper">
   <div class="left">
     <div class="file-preview">
-      <div *ngFor="let image of getProjectImages()" [style.background-image]="'url('+image+')'" class="preview"></div>
+      <div *ngFor="let image of getProjectImages()" [style.background-image]="'url(' + image + ')'" class="preview">
+        <div class="overlay"><em class="fas fa-trash"></em></div>
+      </div>
+      <div class="preview"></div>
+      <div class="preview"></div>
+      <div class="preview"></div>
+      <div class="preview"></div>
     </div>
-    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next"}}</button>
+    <div class="buttons">
+      <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
+      <button (click)="onClickNext()" class="form-continue-btn">{{ isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next" }}</button>
+    </div>
   </div>
   <div class="project-image-picker">
     <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false"></app-file-uploader>
   </div>
-  <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
 </div>

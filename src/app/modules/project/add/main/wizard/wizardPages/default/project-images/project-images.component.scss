@@ -55,19 +55,24 @@
     justify-content: space-between;
 
     .file-preview {
-      display: flex;
-      flex-direction: row;
-      border-bottom: 3px solid $light-mode-black;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
       max-width: 100%;
       width: 100%;
       position: relative;
 
       .preview {
-        width: 75%;
-        border: 4px solid $accent-color-red-primary;
+        position: relative;
+        border-radius: $border-radius;
+        width: 100% !important;
         overflow: hidden;
         background-size: cover;
         background-position: center;
+        background-color: $light-mode-grey-quaternary;
+        &:first-child {
+          grid-column: span 3;
+        }
 
         @media only screen and (max-width: 600px) {
           width: 95%;
@@ -76,7 +81,31 @@
         &:after {
           content: "";
           display: block;
-          padding-bottom: calc(95% + 10px);
+          padding-bottom: calc(55% + 10px);
+        }
+        .overlay {
+          z-index: 2;
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          background-color: rgba(0, 0, 0, 0.2);
+          left: 0;
+          top: 0;
+          opacity: 0;
+          transition: $transition-short;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          em {
+            cursor: pointer;
+            color: white;
+            font-size: 30px;
+          }
+        }
+        &:hover {
+          .overlay {
+            opacity: 1;
+          }
         }
       }
 
@@ -95,9 +124,15 @@
         }
       }
     }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+    }
 
     button {
-      margin-top: 30px;
     }
   }
 }
