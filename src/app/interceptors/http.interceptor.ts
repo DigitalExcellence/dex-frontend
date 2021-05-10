@@ -136,11 +136,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
      */
     private createErrorAlertConfig(preMessage: string, mainMessage: string): AlertConfig {
         const alertConfig: AlertConfig = {
-            type: AlertType.danger,
-            preMessage: preMessage,
-            mainMessage: mainMessage,
-            dismissible: true,
-            timeout: this.alertService.defaultTimeout
+          type: AlertType.danger,
+          preMessage: preMessage,
+          mainMessage: mainMessage,
+          dismissible: true,
+          autoDismiss: true,
+          timeout: this.alertService.defaultTimeout
         };
         return alertConfig;
     }
