@@ -36,8 +36,4 @@ export class StepHeaderComponent implements OnInit {
     this.currentStep = this.stepsService.getCurrentStep();
   }
 
-  onStepClick(step: WizardPage) {
-    this.stepsService.setCurrentStep(step);
-  }
-
 }

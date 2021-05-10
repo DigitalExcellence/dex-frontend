@@ -32,10 +32,6 @@
     .step-divider {
       height: 4px;
       margin: 0;
-
-      &.step-current {
-        background: linear-gradient(90deg, $accent-color-red-primary 50%, $light-mode-grey-secondary 50%);
-      }
     }
   }
 }
@@ -56,7 +52,6 @@
     border-radius: 50%;
     color: $white;
     font-size: 1em;
-    cursor: pointer;
     user-select: none;
 
     &.step-current {
@@ -85,10 +80,6 @@
   background: $light-mode-grey-secondary;
   flex: 1;
   margin: 0 10px;
-
-  &.step-current {
-    background: linear-gradient(180deg, $accent-color-red-primary 50%, $light-mode-grey-secondary 50%);
-  }
 }
 
 .step-complete {
