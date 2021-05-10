@@ -25,8 +25,12 @@ export interface ApiConfig {
   highlightRoute: string;
   internalSearchRoute: string;
   externalSearchRoute: string;
+  dataSourceRoute: string;
   wizardRoute: string;
+  wizardPageRoute: string;
+  callToActionOptionRoute: string;
   uploadFileRoute: string;
+  projectLikes: string;
 }
 
 export const API_CONFIG: ApiConfig = {
@@ -37,7 +41,11 @@ export const API_CONFIG: ApiConfig = {
   internalSearchRoute: 'search/internal',
   externalSearchRoute: 'search/external',
   embeddedProjectRoute: 'embed',
+  dataSourceRoute: 'dataSource',
   wizardRoute: 'wizard',
+  callToActionOptionRoute: 'callToActionOption',
+  wizardPageRoute: 'wizardpage',
   uploadFileRoute: 'file',
+  projectLikes: 'project/like'
 };
 

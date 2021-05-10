@@ -1,19 +1,41 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+
 <div class="container" DndDirective>
+  <div class="center">
     <input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target)"
-        [multiple]="acceptMultiple" [accept]="acceptedTypes.join(',')" />
+           [multiple]="acceptMultiple" [accept]="acceptedTypes.join(',')"/>
     <img src="assets/images/file-dnd.svg" alt="file-dnd-icon">
     <label for="fileDropRef">
-      <strong>Choose a file</strong>
-      <span class="box__dragndrop"> or drag it here</span>.
+      <strong>Choose a file</strong><br/>
+      <span class="box__dragndrop">or drag it here</span>.
     </label>
+  </div>
 </div>
-<div class="files-list">
+<p class="form-footnote">The recommended dimensions for an icon are atleast 512x512</p>
+<div *ngIf="showPreview" class="files-list">
     <div class="single-file" *ngFor="let file of files; let i = index">
         <div class="file-info">
-            <button type="button" class="btn btn-icon btn-danger" aria-label="error"
-                    (click)="deleteFile(i)"><span aria-hidden="true">&times;</span>
+            <button type="button" class="btn btn-icon btn-danger" aria-label="error" (click)="deleteFile(i)"><span
+                    aria-hidden="true">&times;</span>
             </button>
-            <img alt="image-preview" class="file-icon" [src]=file?.preview >
+            <img alt="image-preview" class="file-icon" [src]=file?.preview>
             <h4 class="file-name">
                 {{ file?.name }}
             </h4>
@@ -21,7 +43,7 @@
                 {{ file?.readableSize }}
             </h4>
         </div>
-        <div *ngIf="file.progress" class="file-progress" >
+        <div *ngIf="file.progress" class="file-progress">
             <div class="progress-bar" id="progress-bar-{{i}}" [style.width]="file.progress + '%'">{{file.progress}}%
             </div>
         </div>

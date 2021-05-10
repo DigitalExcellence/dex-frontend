@@ -1,0 +1,55 @@
+/*
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ */
+@import "assets/styles/variables";
+
+.form-page-container {
+  display: flex;
+  flex-direction: row;
+  padding: 64px 32px;
+  box-shadow: $box-shadow;
+
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+  .form-step {
+    width: 100%;
+    margin: 0px auto;
+    padding-right: 30px;
+    @media only screen and (max-width: 1000px) {
+      padding-right: 0px;
+    }
+    max-width: 740px;
+  }
+
+  .step-page-container {
+    display: flex;
+    flex: 1;
+    max-width: calc(100% - 82px);
+
+    @media only screen and (max-width: 1000px) {
+      max-width: calc(100% - 52px);
+    }
+    @media only screen and (max-width: 600px) {
+      max-width: 100%;
+    }
+
+    .current-step {
+      color: #9a9696;
+      font-size: 2.5rem;
+    }
+  }
+}

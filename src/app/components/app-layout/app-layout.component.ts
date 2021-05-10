@@ -89,6 +89,17 @@ export class AppLayoutComponent implements OnInit {
   }
 
   /**
+   * Navigate to project overview, if on project overview already reload page.
+   */
+  public onClickProjects() {
+    if (this.router.url === '/project/overview') {
+      location.reload();
+    } else {
+      this.router.navigate(['project/overview']);
+    }
+  }
+
+  /**
    * Method which triggers when the user clicks the beta text in the header.
    * Displays the beta banner.
    */

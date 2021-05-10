@@ -22,6 +22,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
+import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './interceptors/auth.interceptor';
 import { TopHighlightCardsComponent } from './modules/highlight/top-highlight-cards/top-highlight-cards.component';
@@ -39,6 +40,7 @@ import { ModalDeleteGenericComponent } from './components/modals/modal-delete-ge
 import { StripHtmlPipe } from './utils/striptags.pipe';
 import { QuillModule } from 'ngx-quill';
 import { SearchComponent } from './components/search/search.component';
+
 
 @NgModule({
   declarations: [
@@ -60,11 +62,12 @@ import { SearchComponent } from './components/search/search.component';
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
   ],
   providers: [
     {

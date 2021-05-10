@@ -17,24 +17,42 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AddRoutingModule } from './add-routing.module';
-import { ManualComponent } from './manual/manual.component';
-import { SourceComponent } from './source/source.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
-import { ProjectModule } from '../project.module';
+import { AddRoutingModule } from './add-routing.module';
+import { MainComponent } from './main/main.component';
+import { WizardComponent } from './main/wizard/wizard.component';
+import { StepHeaderComponent } from './main/wizard/step-header/step-header.component';
+import { ProjectCollaboratorsComponent } from './main/wizard/wizardPages/default/project-collaborators/project-collaborators.component';
+import { ProjectLinkComponent } from './main/wizard/wizardPages/default/project-link/project-link.component';
+import { ProjectDescriptionComponent } from './main/wizard/wizardPages/default/project-description/project-description.component';
+import { ProjectIconComponent } from './main/wizard/wizardPages/default/project-icon/project-icon.component';
+import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-name/project-name.component';
+import { ProjectModule } from 'src/app/modules/project/project.module';
+import { ProjectCallToActionComponent } from './main/wizard/wizardPages/default/project-call-to-action/project-call-to-action.component';
 
 @NgModule({
   declarations: [
-    SourceComponent,
-    ManualComponent
+    ProjectNameComponent,
+    MainComponent,
+    WizardComponent,
+    StepHeaderComponent,
+    ProjectCollaboratorsComponent,
+    ProjectLinkComponent,
+    ProjectDescriptionComponent,
+    ProjectIconComponent,
+    ProjectNameComponent,
+    ProjectCallToActionComponent,
+
   ],
   imports: [
     CommonModule,
     AddRoutingModule,
     ReactiveFormsModule,
     QuillModule,
+    FormsModule,
     ProjectModule
   ],
 })
-export class AddModule { }
+export class AddModule {
+}

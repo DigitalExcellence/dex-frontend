@@ -26,19 +26,67 @@ h1 {
 }
 
 
+  input[type="search"] {
+    margin: 36px 0 0 25px;
+    position: relative;
+    width: 100%;
+    max-width: 812px;
+    padding: 8px 20px;
+    font-size: 18px;
+    height: 60px;
+    color: $light-mode-grey-primary;
+    border: none;
+    background: #ffffff 0 0 no-repeat padding-box;
+    box-shadow: $box-shadow;
+    border-radius: 6px;
+    opacity: 1;
+    font-family: lato, sans-serif;
+    transition: transform $transition-short;
+
+    &::placeholder {
+      color: $light-mode-grey-primary;
+    }
+
+    &:focus {
+      border: none;
+      outline: none;
+      transform: $transform-grow;
+    }
+  }
+
+  button {
+    position: relative;
+    top: 18px;
+    right: 55px;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    img {
+      width: 25px;
+      transition: transform $transition-long;
+      &:hover {
+        transform: $transform-rotate;
+      }
+    }
+  }
 
 //share
 .share {
   margin: 180px 0;
-  
-   // add margin bottom on mobile
-   @include media-breakpoint-down(lg) {
+
+  // add margin bottom on mobile
+  @include media-breakpoint-down(lg) {
     .image-wrapper {
       margin-bottom: 50px;
     }
-   }
+  }
 
-  .image-wrapper{
+  .image-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,10 +112,15 @@ h1 {
 
   button {
     margin-top: 20px;
+    transition: transform $transition-short;
 
     &:focus {
       border: none;
       outline: none;
+    }
+
+    &:hover {
+      transform: $transform-grow;
     }
   }
 }

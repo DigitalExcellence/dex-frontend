@@ -17,17 +17,48 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
-import { Project } from '../models/domain/project';
-import { ProjectAdd } from '../models/resources/project-add';
-import { ProjectUpdate } from '../models/resources/project-update';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { Project } from 'src/app/models/domain/project';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { ProjectUpdate } from 'src/app/models/resources/project-update';
 import { HttpBaseService } from './http-base.service';
+import { from, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { map, mergeMap } from 'rxjs/operators';
+import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService extends HttpBaseService<Project, ProjectAdd, ProjectUpdate> {
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private authService: AuthService) {
     super(http, API_CONFIG.url + API_CONFIG.projectRoute);
+  }
+
+  get(id: number): Observable<Project> {
+    return super.get(id)
+        .pipe(
+            map(project => {
+              return {
+                ...project,
+                callToAction: project.callToAction ?
+                    {
+                      ...project.callToAction,
+                      iconName: CallToActionIconsConfig[project.callToAction.optionValue.toLowerCase()]
+                    } : undefined
+              };
+            }),
+            mergeMap(project =>
+                from(this.addLikes(project))
+            ));
+  }
+
+  private addLikes(project): Promise<Project> {
+    return this.authService.getBackendUser()
+        .then(currentUser => {
+            project.likeCount = project.likes?.length ? project.likes.length : 0;
+            project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
+            return project;
+          });
   }
 }
