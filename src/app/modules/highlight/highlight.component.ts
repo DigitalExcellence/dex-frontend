@@ -14,25 +14,16 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import {ErrorHandler, Injectable} from '@angular/core';
-import * as Sentry from '@sentry/browser';
-import {environment} from 'src/environments/environment';
 
-Sentry.init({
-    dsn: environment.sentryDsnUrl,
-    release: 'dex-frontend@1.3.0-beta'
-});
+import { Component, OnInit } from '@angular/core';
 
-/**
- * Error Handler which logs all errors to Sentry.
- */
-@Injectable()
-export class SentryErrorHandler implements ErrorHandler {
+@Component({
+  selector: 'app-highlight',
+  templateUrl: './highlight.component.html',
+  styleUrls: ['./highlight.component.scss'],
+})
+export class HighlightComponent implements OnInit {
+  constructor() { }
 
-    constructor() { }
-
-    handleError(error: any) {
-        Sentry.captureException(error.originalError || error);
-        throw error;
-    }
+  ngOnInit() { }
 }

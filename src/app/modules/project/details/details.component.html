@@ -109,6 +109,7 @@
                 <ng-container *ngIf="displayCallToActionButton">
                   <button (click)="onClickCallToActionButton(project.callToAction.value)" class="primary" id="call-to-action-button">
                     {{ project.callToAction.optionValue }}
+                    <em [classList]="'fas ' + project.callToAction.iconName"></em>
                   </button>
                 </ng-container>
                 <ng-container *ngIf="displayEmbedButton">

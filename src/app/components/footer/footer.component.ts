@@ -17,7 +17,6 @@
  *
  */
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 /**
  * Component which functions as the footer of the application.
@@ -29,26 +28,9 @@ import { Router } from '@angular/router';
 })
 export class FooterComponent implements OnInit {
 
-  /**
-   * Array that holds the routes that should have the simple footer
-   */
-  private simpleFooterRoutes = [
-    '/home'
-  ];
-
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  /**
-   * Method that checks if the current page should have the footer with the shapes
-   * or the simple footer without the shapes. This needs to be switched out sometimes to
-   * keep the pages from being too busy.
-   */
-  public showShapesInFooter(): boolean {
-    const currentUrl = this.router.url;
-    return !this.simpleFooterRoutes.includes(currentUrl);
   }
 
 }

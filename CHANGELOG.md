@@ -10,19 +10,35 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 ### Changed
- - Redesigned homepage - [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
-- Hide data sources that have the IsVisible property set to false - [#474](https://github.com/DigitalExcellence/dex-frontend/issues/474)
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
+
+### Security
+
+## Release v.1.3.0-beta - 05-05-2021
+
+### Added
+
+- Added icons to the call-to-action buttons - [#451](https://github.com/DigitalExcellence/dex-frontend/issues/451)
+
+### Changed
+
+- Hide data sources that have the IsVisible property set to false - [#474](https://github.com/DigitalExcellence/dex-frontend/issues/474)
+
+### Fixed
+
 - Fixed issue where the edit- & delete project would always be shown - [#458](https://github.com/DigitalExcellence/dex-frontend/issues/458)
 - Fixed issue where the privacy modal and alerts were not responsive - [#426](https://github.com/DigitalExcellence/dex-frontend/issues/426)
 - Fixed issue where the wizard would not import projects that missed a required property. [#471](https://github.com/DigitalExcellence/dex-frontend/issues/471)
 
-### Security
+### Hotfix
+
+- Fixed issue where icon were not being previewed in edit project overview. [Hotfix](https://github.com/DigitalExcellence/dex-frontend/pull/480)
+- Fixed issue where project was still being showed after deletion until refresh . [Hotfix](https://github.com/DigitalExcellence/dex-frontend/pull/481)
 
 ## Release v.1.2.0-beta - 15-04-2021
 
