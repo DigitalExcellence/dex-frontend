@@ -21,6 +21,7 @@
 
     <div class="index-wrapper">
       <div
+          (click)="onStepClick(step)"
           [ngClass]="{
         'step-complete': step.isComplete,
         'step-blocked': !step.isComplete &&

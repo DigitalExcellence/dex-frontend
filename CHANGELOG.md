@@ -11,8 +11,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- Changed step-header behaviour, removed clickable bubbles and removed orange progress bar
-  - [#460](https://github.com/DigitalExcellence/dex-frontend/issues/460)
+- Removed orange progress bar in wizard step-header - [#460](https://github.com/DigitalExcellence/dex-frontend/issues/460)
 
 ### Deprecated
 
