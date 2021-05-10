@@ -17,6 +17,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Fixed issue where collaborator roles would always get set to developer - [#462](https://github.com/DigitalExcellence/dex-frontend/issues/462)
+
 ### Security
 
 ## Release v.1.3.0-beta - 05-05-2021
