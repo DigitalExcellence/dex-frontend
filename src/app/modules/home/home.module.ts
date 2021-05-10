@@ -8,6 +8,9 @@ import { PartnersComponent } from './partners/partners.component';
 import { ContainerLeftComponent } from './container-left/container-left.component';
 import { ContainerRightComponent } from './container-right/container-right.component';
 import { StripHtmlPipe } from 'src/app/utils/striptags.pipe';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { StripHtmlPipe } from 'src/app/utils/striptags.pipe';
     StripHtmlPipe
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    PopoverModule.forRoot(),
+    ModalModule.forRoot(),
+    TooltipModule.forRoot(),
   ]
 })
 export class HomeModule {
