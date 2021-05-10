@@ -72,6 +72,11 @@
         background-color: $light-mode-grey-quaternary;
         &:first-child {
           grid-column: span 3;
+          .overlay {
+            em {
+              font-size: 35px;
+            }
+          }
         }
 
         @media only screen and (max-width: 600px) {
@@ -99,7 +104,7 @@
           em {
             cursor: pointer;
             color: white;
-            font-size: 30px;
+            font-size: 24px;
           }
         }
         &:hover {
