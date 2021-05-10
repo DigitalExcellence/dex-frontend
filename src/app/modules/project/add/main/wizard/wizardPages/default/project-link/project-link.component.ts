@@ -88,8 +88,9 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    * Method to get the url of the icon of the project. This is retrieved
    * from the file retriever service
    */
-  public getIconUrl(project): SafeUrl {
-    return this.fileRetrieverService.getIconUrl(project.projectIcon);
+  public getSourceIconUrl(): SafeUrl {
+    console.log(this.selectedSource);
+    return this.fileRetrieverService.getIconUrl(this.selectedSource.icon);
   }
 
   /**
