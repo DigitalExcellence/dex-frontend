@@ -88,6 +88,7 @@ export class MainComponent implements OnInit {
       this.allExternalSources = externalSources;
       this.availableExternalSources = externalSources.filter(source => source.isVisible);
       this.sourcesLoading = false;
+      console.log(this.allExternalSources);
     });
 
     // Updates meta and title tags
