@@ -27,7 +27,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     CommonModule,
     PopoverModule.forRoot(),
     ModalModule.forRoot(),
-    TooltipModule.forRoot(),
+    TooltipModule.forRoot()
   ]
 })
 export class HomeModule {
