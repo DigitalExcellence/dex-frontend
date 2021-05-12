@@ -225,6 +225,27 @@ export class DetailsComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  public onClickAddCommentToProject() {
+    let commentObject = document.getElementById('project-comment-input-field').value;
+    console.log("clicked on the comment button!")
+    console.log(commentObject)
+
+    
+    let newComment = {
+      id: 23, 
+      userId : 314,
+      username: "Test Comment",
+      created: new Date(),
+      updated: new Date(),
+      content: commentObject,
+      likes: '0',
+    };
+    //push to array projectComments
+    this.projectComments.push(newComment);
+    console.log("clicked on the comment button!");
+    console.log(this.projectComments);
+  }
+
   /**
    * Highlight a project by calling the API
    * When Indeterminate checkbox is checked start date and end date fields are disabled and will be null,

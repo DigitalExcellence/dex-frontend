@@ -108,7 +108,7 @@
               <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
               <div class="bottom-buttons">
                 <ng-container *ngIf="displayCallToActionButton">
-                  <button (click)="onClickCallToActionButton(project.callToAction.value)" class="primary" id="call-to-action-button">
+                  <button (click)="(project.callToAction.value)" class="primary" id="call-to-action-button">
                     {{ project.callToAction.optionValue }}
                     <em [classList]="'fas ' + project.callToAction.iconName"></em>
                   </button>
@@ -126,12 +126,18 @@
             <ng-container *ngIf="this.activeTab == 'comments'" class="project-description large">
               <!-- <div id="contenteditable-root" contenteditable="true" dir="auto" class="style-scope yt-formatted-string" aria-label="Add a public comment..."></div> -->
               <div class="project-comment">
-                <input class="project-comment-input" placeholder="Add public comment..."/>
+                <input id="project-comment-input-field" value="Dit is een test comment value" class="project-comment-input"  placeholder="Add public comment..."/>
+                
+                
+                <!-- ngClick="projectComments.push(document.getElementById('project-comment-input-field'))">Comment</button> -->
 
-                <button  class="project-comment-input-button primary">Comment</button>
+                <button 
+                  class="project-comment-input-button primary" 
+                  (click)="onClickAddCommentToProject()">Comment</button>
               </div>
-              <div class="project-comment-container" *ngFor="let projectComment of projectComments">
-                <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
+              <div class="project-comment-container" *ngFor="let projectComment of projectComments.reverse()">
+                <!-- <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p> -->
+                <p> {{ projectComment.content }} </p>
                 <div class="bottom-buttons">
                   <ng-container *ngIf="projectComment">
                   <!-- TODO : Comments check -->
