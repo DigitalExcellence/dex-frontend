@@ -226,7 +226,7 @@ export class DetailsComponent implements OnInit {
   }
 
   public onClickAddCommentToProject() {
-    let commentObject = document.getElementById('project-comment-input-field').value;
+    let commentObject = (<HTMLInputElement>document.getElementById('project-comment-input-field')).value;
     console.log("clicked on the comment button!")
     console.log(commentObject)
 
