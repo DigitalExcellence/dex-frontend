@@ -1,0 +1,100 @@
+/*
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ */
+@import "assets/styles/variables";
+
+h2 {
+  color: #000;
+}
+
+p {
+  color: #aeaeae;
+}
+.step-description {
+  margin-bottom: 40px;
+}
+
+.form-continue-btn {
+  min-width: 145px;
+  width: fit-content;
+  height: 40px;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $accent-color-red-primary;
+  box-shadow: $box-shadow;
+  color: white;
+  outline: none;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
+  align-items: center;
+  padding: 0 20px;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background: $accent-color-red-secondary;
+  }
+
+  &.grey {
+    color: black;
+    background-color: $light-mode-grey-quaternary;
+
+    &:hover {
+      background: $light-mode-grey-thertiary;
+    }
+  }
+}
+
+.inline-input {
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  input {
+    line-height: 3rem;
+    width: 103%;
+    margin: 0;
+    min-height: 40px;
+  }
+
+  button {
+    margin-left: -10px;
+    @media only screen and (max-width: 500px) {
+      width: fit-content;
+      padding: 0 20px;
+      margin-left: 0;
+      min-width: unset;
+    }
+  }
+}
+
+input,
+textarea {
+  border: none;
+  border-radius: 6px;
+  background-color: $light-mode-grey-quaternary;
+  height: 38px;
+  width: 100%;
+  padding: 8px 10px;
+  outline: none;
+}
+
+.error-message {
+  color: $accent-color-red-secondary;
+}

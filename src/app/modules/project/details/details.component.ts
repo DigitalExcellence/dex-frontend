@@ -15,34 +15,36 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {SafeUrl} from '@angular/platform-browser';
-import {Router} from '@angular/router';
-import {BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
-import {EMPTY, Observable, Subject} from 'rxjs';
-import {finalize, switchMap} from 'rxjs/operators';
-import {ModalDeleteGenericComponent} from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
-import {Highlight} from 'src/app/models/domain/highlight';
-import {Project} from 'src/app/models/domain/project';
-import {scopes} from 'src/app/models/domain/scopes';
-import {User} from 'src/app/models/domain/user';
-import {AlertConfig} from 'src/app/models/internal/alert-config';
-import {AlertType} from 'src/app/models/internal/alert-type';
-import {HighlightAdd} from 'src/app/models/resources/highlight-add';
-import {HighlightUpdate} from 'src/app/models/resources/highlight-update';
-import {HighlightsModalComponent} from 'src/app/modules/project/highlights-modal/highlights-modal.component';
+import { Component, HostListener, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { EMPTY, Observable, Subject } from 'rxjs';
+import { finalize, switchMap } from 'rxjs/operators';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { Highlight } from 'src/app/models/domain/highlight';
+import { Project } from 'src/app/models/domain/project';
+import { scopes } from 'src/app/models/domain/scopes';
+import { User } from 'src/app/models/domain/user';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { HighlightAdd } from 'src/app/models/resources/highlight-add';
+import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
+import { HighlightsModalComponent } from 'src/app/modules/project/highlights-modal/highlights-modal.component';
 // tslint:disable-next-line: max-line-length
-import {HighlightFormResult, ModalHighlightFormComponent} from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
-import {AlertService} from 'src/app/services/alert.service';
-import {AuthService} from 'src/app/services/auth.service';
-import {FileRetrieverService} from 'src/app/services/file-retriever.service';
-import {HighlightService} from 'src/app/services/highlight.service';
-import {HighlightByProjectIdService} from 'src/app/services/highlightid.service';
-import {LikeService} from 'src/app/services/like.service';
-import {ProjectService} from 'src/app/services/project.service';
-import {SEOService} from 'src/app/services/seo.service';
-import {environment} from 'src/environments/environment';
-import { HostListener } from '@angular/core';
+import {
+  HighlightFormResult,
+  ModalHighlightFormComponent
+} from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { HighlightService } from 'src/app/services/highlight.service';
+import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
+import { LikeService } from 'src/app/services/like.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { SEOService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Overview of a single project
@@ -56,6 +58,7 @@ import { HostListener } from '@angular/core';
 export class DetailsComponent implements OnInit {
 
   @Input() projectId: number;
+  @Input() activeTab = 'description';
 
   /**
    * Variable to store the project which is retrieved from the api
@@ -66,14 +69,9 @@ export class DetailsComponent implements OnInit {
 
   public displayEditButton = false;
   public displayDeleteProjectButton = false;
-  public displayCallToActionButton = false;
+  public displayCallToActionButton = true;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
-
-  /**
-   * Property to indicate which tab is selected
-   */
-  public activeTab = 'description';
 
   /**
    * Property to indicate whether the project is loading.
@@ -131,11 +129,10 @@ export class DetailsComponent implements OnInit {
         (result) => {
           this.project = result;
           const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
-          this.determineDisplayEditProjectButton();
-          this.determineDisplayDeleteProjectButton();
-          this.determineDisplayCallToActionButton();
+          this.determineDisplayEditAndDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
+          this.determineDisplayCallToActionButton();
 
           // Updates meta and title tags
           this.seoService.updateDescription(desc);
@@ -315,41 +312,24 @@ export class DetailsComponent implements OnInit {
    * Method to display the edit project button based on the current user and the project user.
    * If the user either has the ProjectWrite scope or is the creator of the project
    */
-  private determineDisplayEditProjectButton(): void {
-    if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
-      this.displayEditButton = true;
-      return;
-    }
-
+  private determineDisplayEditAndDeleteProjectButton(): void {
     if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayEditButton = false;
-      return;
-    }
-    this.displayEditButton = this.project.user.id === this.currentUser.id;
-  }
-
-  /**
-   * Method to display the delete project button based on the current user and the project user.
-   * If the user either has the ProjectWrite scope or is the creator of the project
-   */
-  private determineDisplayDeleteProjectButton(): void {
-    if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
-      this.displayDeleteProjectButton = true;
-      return;
-    }
-
-    if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayDeleteProjectButton = false;
       return;
     }
-    this.displayDeleteProjectButton = this.project.user.id === this.currentUser.id;
+    if (this.project.user.id === this.currentUser.id ||
+        this.authService.currentBackendUserHasScope(scopes.AdminProjectWrite)) {
+      this.displayEditButton = true;
+      this.displayDeleteProjectButton = true;
+    }
   }
 
   /**
    * Method to display the project's call to action button based on whether or not the project has a set call to action.
    */
   private determineDisplayCallToActionButton(): void {
-    if (this.project != null && this.project.callToAction != null) {
+    if (this.project && this.project.callToAction) {
       this.displayCallToActionButton = true;
       return;
     } else {

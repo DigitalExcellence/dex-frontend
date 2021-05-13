@@ -20,26 +20,26 @@
 <!-- List project -->
 <ng-container *ngIf="showListView">
   <div class="project list">
-    <div class='circle'>
-      <img [src]="getIconUrl(project)" onerror="this.src='/assets/images/placeholder.png';" alt="projec-icon" loading="lazy">
+    <div class="circle">
+      <img [src]="getIconUrl(project)" alt="projec-icon" loading="lazy" onerror="this.src='/assets/images/placeholder.png';"/>
     </div>
     <div class="project-info">
-      <h3 class="project-name">{{project.name}}</h3>
-      <p class="project-short-description">{{project.shortDescription}}</p>
+      <h3 class="project-name">{{ project.name }}</h3>
+      <p class="project-short-description">{{ project.shortDescription }}</p>
     </div>
-    <div (click)="likeClicked($event)" class='item'>
-      <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class='fa-heart'></em>
-        {{project.likeCount}} Likes
-      </div>
+    <div (click)="likeClicked($event)" class="item">
+      <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
+      {{ project.likeCount }} Likes
+    </div>
     <div [tooltip]="projectUpdated" class="item project-created-date">
-      <em class='far fa-clock'></em>
-      {{project.created | date: 'longDate'}}
+      <em class="far fa-clock"></em>
+      {{ project.created | date: "longDate" }}
       <ng-template #projectUpdated>
-        <p>Created: {{project.created | date: 'mediumDate'}}</p>
-        <p>Updated: {{project.updated | date: 'mediumDate'}}</p>
+        <p>Created: {{ project.created | date: "mediumDate" }}</p>
+        <p>Updated: {{ project.updated | date: "mediumDate" }}</p>
       </ng-template>
     </div>
-    <div (click)="userClicked($event)" class="item project-user-name disabled"><em class='fas fa-user'></em> {{project.user.name}}</div>
+    <div (click)="userClicked($event)" class="item project-user-name disabled"><em class="fas fa-user"></em> {{ project.user.name }}</div>
   </div>
 </ng-container>
 
@@ -47,52 +47,50 @@
 <ng-container *ngIf="!showListView">
   <div class="project grid">
     <div class="project-info">
-      <div class='top-wrapper'>
-        <h3 class="project-name">{{project.name}}</h3>
-        <div class='circle'>
-          <img [src]="getIconUrl(project)" onerror="this.src='/assets/images/placeholder.png';" alt="projec-icon" loading="lazy">
+      <div class="top-wrapper">
+        <h3 class="project-name">{{ project.name }}</h3>
+        <div class="circle">
+          <img [src]="getIconUrl(project)" alt="projec-icon" loading="lazy" onerror="this.src='/assets/images/placeholder.png';"/>
         </div>
       </div>
-      <p class="project-short-description">{{project.shortDescription}}</p>
+      <p class="project-short-description">{{ project.shortDescription }}</p>
     </div>
     <ng-container *ngIf="displayTags()">
-      <div class='tags'>
-        <div (click)="tagClicked($event)" class='tag'>UX</div>
-        <div (click)="tagClicked($event)" class='tag'>UI</div>
-        <div (click)="tagClicked($event)" class='tag'>Development</div>
-        <div (click)="tagClicked($event)" class='tag'>Creatief</div>
-        <div (click)="tagClicked($event)" class='tag'>Arduino</div>
-        <div (click)="tagClicked($event)" class='tag'>HTML</div>
-        <div (click)="tagClicked($event)" class='tag plus'>+ 3</div>
+      <div class="tags">
+        <div (click)="tagClicked($event)" class="tag">UX</div>
+        <div (click)="tagClicked($event)" class="tag">UI</div>
+        <div (click)="tagClicked($event)" class="tag">Development</div>
+        <div (click)="tagClicked($event)" class="tag">Creatief</div>
+        <div (click)="tagClicked($event)" class="tag">Arduino</div>
+        <div (click)="tagClicked($event)" class="tag">HTML</div>
+        <div (click)="tagClicked($event)" class="tag plus">+ 3</div>
       </div>
     </ng-container>
-    <div class='bottom-wrapper'>
-      <div (click)="likeClicked($event)" class='item'>
-        <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class='fa-heart'></em>
-        <div class="project-likes">{{project.likeCount}} Likes</div>
+    <div class="bottom-wrapper">
+      <div (click)="likeClicked($event)" class="item">
+        <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
+        <div class="project-likes">{{ project.likeCount }} Likes</div>
       </div>
-      <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class='item'>
+      <div [tooltip]="project.collaborators && project.collaborators.length > 0 ? projectCollaborators : null" class="item">
         <ng-template #projectCollaborators>
-          <p *ngFor="let collaborator of project.collaborators">
-            {{collaborator.fullName}} - {{collaborator.role}}
-          </p>
+          <p *ngFor="let collaborator of project.collaborators">{{ collaborator.fullName }} - {{ collaborator.role }}</p>
         </ng-template>
-        <em class='fas fa-users'></em>
-        <div class="project-collaborators">{{project.collaborators ? project.collaborators.length : 0}} collaborators</div>
+        <em class="fas fa-users"></em>
+        <div class="project-collaborators">{{ project.collaborators ? project.collaborators.length : 0 }} collaborators</div>
       </div>
-      <div [tooltip]="projectUpdated" class='item'>
+      <div [tooltip]="projectUpdated" class="item">
         <ng-template #projectUpdated>
-          <p>Created: {{project.created | date: 'mediumDate'}}</p>
-          <p>Updated: {{project.updated | date: 'mediumDate'}}</p>
+          <p>Created: {{ project.created | date: "mediumDate" }}</p>
+          <p>Updated: {{ project.updated | date: "mediumDate" }}</p>
         </ng-template>
-        <em class='far fa-clock'></em>
-        <div class="project-created-date">{{project.created | date: 'mediumDate'}}</div>
+        <em class="far fa-clock"></em>
+        <div class="project-created-date">{{ project.created | date: "mediumDate" }}</div>
       </div>
-      <div (click)="userClicked($event)" [tooltip]="projectUsername" class='item'>
-        <em class='fa fa-user'></em>
-        <div class="project-user-name">{{project.user.name}}</div>
+      <div (click)="userClicked($event)" [tooltip]="projectUsername" class="item">
+        <em class="fa fa-user"></em>
+        <div class="project-user-name">{{ project.user.name }}</div>
         <ng-template #projectUsername>
-          <p>{{project.user.name}}</p>
+          <p>{{ project.user.name }}</p>
         </ng-template>
       </div>
     </div>

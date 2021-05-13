@@ -18,14 +18,20 @@
  */
 @import "assets/styles/variables";
 
+.loading-circle {
+  padding: 20px;
+}
+
 .highlight-form-modal {
   max-width: 90vw;
   width: 600px;
   margin: 60px auto 30px auto;
+
   .modal-content {
     border: none;
   }
 }
+
 .highlight-modal {
   max-width: 90vw;
   width: 800px;
@@ -60,7 +66,7 @@
   cursor: pointer;
 }
 
-.modal-dialog {
+.modal-dialog.project-modal {
   width: 800px;
   max-width: 90vw;
   margin: 60px auto 30px auto;
@@ -76,7 +82,7 @@
 
 .modal-open {
   .feedback-button-container {
-    right: 15.77%!important;
+    right: 15.77% !important;
   }
   .background {
     width: 101.8vw;
@@ -85,7 +91,7 @@
 
 .project-modal-content {
   border: none;
-  padding: 40px;
+  padding: 45px 60px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -112,9 +118,9 @@
     .circle {
       place-content: center;
       background-color: $accent-color-red-primary;
-      width: 60px;
-      min-width: 60px;
-      height: 60px;
+      width: 65px;
+      min-width: 65px;
+      height: 65px;
       border-radius: 999px;
       overflow: hidden;
       box-shadow: 0 0px 4px #0000001a;
@@ -177,10 +183,10 @@
         margin-left: 2px;
       }
       .fas.fa-heart.animated {
-        animation: heartbeat .4s linear 1;
+        animation: heartbeat 0.4s linear 1;
       }
       .far.fa-heart.animated {
-        animation: fade-in .2s ease-in 1;
+        animation: fade-in 0.2s ease-in 1;
       }
     }
     .hover {
@@ -261,7 +267,7 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    
+
     .menu-wrapper {
       display: flex;
       justify-content: space-between;
@@ -332,15 +338,39 @@
       gap: 15px;
 
       .dex-quill-viewer {
+        display: flex;
+        flex-direction: column;
+
         img {
           margin: 20px 0;
           max-width: 100%;
         }
       }
 
-      p {
-        margin: 0;
+      .bottom-buttons {
+        display: grid;
+        grid-auto-flow: column;
+        gap: 15px;
+        width: fit-content;
       }
+
+      p {
+        margin: 0 0 10px 0;
+      }
+
+      p:last-child {
+        margin-bottom: 0px;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 10px;
+      }
+
       .collaborators {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -357,7 +387,7 @@
   #call-to-action-button::first-letter {
     text-transform: uppercase;
   }
-  
+
   .project-highlighted-div {
     float: left;
   }
@@ -385,15 +415,5 @@
       height: 36px;
       padding: 0;
     }
-  }
-}
-.loading-circle {
-  width: 20vw;
-  height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  h2 {
-    color: $accent-color-red-primary;
   }
 }

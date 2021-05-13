@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
+to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
@@ -19,7 +19,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## Release v.1.3.0-beta - 05-05-2021
 
+### Added
+
+- Added icons to the call-to-action buttons - [#451](https://github.com/DigitalExcellence/dex-frontend/issues/451)
+
+### Changed
+
+- Hide data sources that have the IsVisible property set to false - [#474](https://github.com/DigitalExcellence/dex-frontend/issues/474)
+
+### Fixed
+
+- Fixed issue where the edit- & delete project would always be shown - [#458](https://github.com/DigitalExcellence/dex-frontend/issues/458)
+- Fixed issue where the privacy modal and alerts were not responsive - [#426](https://github.com/DigitalExcellence/dex-frontend/issues/426)
+- Fixed issue where the wizard would not import projects that missed a required property. [#471](https://github.com/DigitalExcellence/dex-frontend/issues/471)
+
+### Hotfix
+
+- Fixed issue where icon were not being previewed in edit project overview. [Hotfix](https://github.com/DigitalExcellence/dex-frontend/pull/480)
+- Fixed issue where project was still being showed after deletion until refresh . [Hotfix](https://github.com/DigitalExcellence/dex-frontend/pull/481)
+
+## Release v.1.2.0-beta - 15-04-2021
+
+### Added
+
+- Added the new wizard to make adding projects more user-friendly - [#361](https://github.com/DigitalExcellence/dex-frontend/issues/361)
+
+### Changed
+
+- Styling fixes pagination menu detail popup and cards - [#440](https://github.com/DigitalExcellence/dex-frontend/issues/440)
+
+### Fixed
+- Added icon for data sources - [#466](https://github.com/DigitalExcellence/dex-frontend/issues/466)
 
 ## Release v.1.1.0-beta - 18-03-2021
 
@@ -27,7 +59,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed list view animation bug which prevented like animation from playing - [#419](https://github.com/DigitalExcellence/dex-frontend/issues/419)
 - Auto dismiss the login warning when liking project if you're not logged in - [#433](https://github.com/DigitalExcellence/dex-frontend/issues/433)
-- Hide the active modal when you navigate to another page via browser navigation arrows - [#423](https://github.com/DigitalExcellence/dex-frontend/issues/423)
+- Hide the active modal when you navigate to another page via browser navigation arrows
+  - [#423](https://github.com/DigitalExcellence/dex-frontend/issues/423)
+
 
 ## Release v.1.0.1-beta - 31-01-2021
 
@@ -40,7 +74,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added animations on clickable items and while project pages are loading - [#321](https://github.com/DigitalExcellence/dex-frontend/issues/321)
 - Added animations when user likes (or unlikes) a project - [#414](https://github.com/DigitalExcellence/dex-frontend/issues/414)
 - Added the option to add a Call-To-Action button to a project - [#267](https://github.com/DigitalExcellence/dex-frontend/issues/267)
-
 
 ### Changed
 
@@ -78,7 +111,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where images were not being lazy loaded - [#374](https://github.com/DigitalExcellence/dex-frontend/issues/374)
 - Fixed low accessibility score within Lighthouse tests on home and project overview page [#366](https://github.com/DigitalExcellence/dex-frontend/issues/366)
 
-
 ## Release v.0.8.0-beta - 06-11-2020
 
 ### Added
@@ -89,10 +121,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Display uploaded project icons - [#311](https://github.com/DigitalExcellence/dex-frontend/issues/311)
-
-
-
-
 
 ## Release v.0.7.0-beta - 09-10-2020
 
@@ -112,15 +140,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project detail URLs now show the project name instead of just a project ID - [#298](https://github.com/DigitalExcellence/dex-frontend/issues/298)
 - Updates some styling issues for more consistency in the platform - [#299](https://github.com/DigitalExcellence/dex-frontend/issues/299)
 
-
 ### Fixed
 
 - Fixed issue where the project overview page was not responsive on smaller viewports - [#296](https://github.com/DigitalExcellence/dex-frontend/issues/296)
 - Fixed issue where the feedback button would block the footer content on smaller screens - [#289](https://github.com/DigitalExcellence/dex-frontend/issues/289)
 - Fixed redirect to the project detail page after editing a project - [#256](https://github.com/DigitalExcellence/dex-frontend/issues/256)
 - Fixed issue that caused users to log out because token did not get refreshed - [#253](https://github.com/DigitalExcellence/dex-frontend/issues/253)
-
-
 
 ## Release v.0.6.1-beta - 17-08-2020
 
@@ -137,8 +162,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue where long project URI's would overlap other text on details page - [#252](https://github.com/DigitalExcellence/dex-frontend/issues/252)
 - Fixed issue where edit & details page would display error message while still loading the project - [#247](https://github.com/DigitalExcellence/dex-frontend/issues/247)
 
-
-
 ## Release v.0.6-beta - 22-06-2020
 
 ### Added
@@ -151,7 +174,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Implemented search functionality for project overview - [#72](https://github.com/DigitalExcellence/dex-frontend/issues/72)
 - Added an embed button and embed page - [#140](https://github.com/DigitalExcellence/dex-frontend/issues/140)
 - Get current user role from the backend - [#141](https://github.com/DigitalExcellence/dex-frontend/issues/141)
-- Implemented global error handling  & logging to Sentry - [#77](https://github.com/DigitalExcellence/dex-frontend/issues/77)
+- Implemented global error handling & logging to Sentry - [#77](https://github.com/DigitalExcellence/dex-frontend/issues/77)
 - Implemented wizard for GitHub and GitLab source url's - [#146](https://github.com/DigitalExcellence/dex-frontend/issues/146)
 - Implemented the highlight modal - [#75](https://github.com/DigitalExcellence/dex-frontend/issues/75)
 - Added the pipeline for the frontend - [#143](https://github.com/DigitalExcellence/dex-frontend/issues/143)
@@ -193,9 +216,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed text when there are no Highlights - [#221](https://github.com/DigitalExcellence/dex-frontend/issues/221)
 
 ### Removed
+
 - Removed the 'x' from search inputs - [#224](https://github.com/DigitalExcellence/dex-frontend/issues/224)
 
 ### Fixed
+
 - Fixed the bug when there are less than 3 highlights - [#113](https://github.com/DigitalExcellence/dex-frontend/issues/113)
 - Fixed the bug where requests made to external API's would also receive our access token - [#184](https://github.com/DigitalExcellence/dex-frontend/issues/184)
 - Users can no longer edit a project of which they are not the owner - [#168](https://github.com/DigitalExcellence/dex-frontend/issues/168)

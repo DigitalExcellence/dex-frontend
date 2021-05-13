@@ -24,7 +24,8 @@ import { ProjectUpdate } from 'src/app/models/resources/project-update';
 import { HttpBaseService } from './http-base.service';
 import { from, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { mergeMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
+import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-config';
 
 @Injectable({
   providedIn: 'root',
@@ -37,9 +38,19 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
   get(id: number): Observable<Project> {
     return super.get(id)
         .pipe(
+            map(project => {
+              return {
+                ...project,
+                callToAction: project.callToAction ?
+                    {
+                      ...project.callToAction,
+                      iconName: CallToActionIconsConfig[project.callToAction.optionValue.toLowerCase()]
+                    } : undefined
+              };
+            }),
             mergeMap(project =>
-              from(this.addLikes(project))
-        ));
+                from(this.addLikes(project))
+            ));
   }
 
   private addLikes(project): Promise<Project> {

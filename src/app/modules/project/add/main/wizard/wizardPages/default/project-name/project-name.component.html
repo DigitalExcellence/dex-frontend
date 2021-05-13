@@ -1,0 +1,32 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+<h2 class="step-header">{{step.name}}</h2>
+<p class="step-description">{{step.description}}</p>
+<div class="inline-input">
+  <input
+      (keydown.enter)="onClickNext()"
+      [formControl]="projectName"
+      placeholder="Project name"
+      required
+      type="text"/>
+  <button (click)="onClickNext()" [disabled]="!projectName.valid" class="form-continue-btn">Next</button>
+</div>
+<div class="image-wrapper">
+  <img alt="name svg" src="/assets/images/wizard/name.svg"/>
+</div>
