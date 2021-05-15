@@ -46,7 +46,7 @@ export class SearchService extends HttpBaseService<AutoCompleteSearchResult, Aut
             }
 
             this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url + "/search/autocomplete?query=" + searchQuery).subscribe(response => {
-                response["autocompleteProjects"].forEach(element => {
+                response.forEach(element => {
                     tempresults.push({
                         id: element.id,
                         name: element.name,

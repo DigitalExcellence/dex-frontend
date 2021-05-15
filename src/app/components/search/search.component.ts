@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { AutoCompleteSearchResult } from 'src/app/models/resources/autocomplete-search-result';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { SearchService } from './../../services/search.service';
 
 @Component({
@@ -11,9 +15,11 @@ import { SearchService } from './../../services/search.service';
 export class SearchComponent implements OnInit {
 
   public searchControl: FormControl;
+  public searchResults : AutoCompleteSearchResult[] = [];
 
   constructor(
     private router: Router,
+    private fileRetrieverService: FileRetrieverService,
     private searchService: SearchService) {
     this.searchControl = new FormControl('');
   }
@@ -26,8 +32,9 @@ export class SearchComponent implements OnInit {
    * @param event event that contains the key that's pressed
    */
   public async onChangeFunction(event): Promise<void> {
-    console.log(await this.searchService.getAutocompletedSearchResults(event.target.value));
-
+    
+    this.searchResults = await this.searchService.getAutocompletedSearchResults(event.target.value);
+    console.log(this.searchResults);
     if (event.code === 'Enter') {
       this.onClickSearch();
     }
@@ -41,6 +48,14 @@ export class SearchComponent implements OnInit {
     this.validateSearchInput();
   }
 
+  /**
+   * Called when the user click on one of the search results
+   **/
+  public onClickProject(id: number, name: string): void {
+    name = name.split(' ').join('-');
+    this.router.navigate([`/project/details/${id}-${name}`]);
+  }
+
 
   /**
    * Method that validates the input, and based on the outcome
@@ -52,6 +67,14 @@ export class SearchComponent implements OnInit {
     } else {
       this.router.navigate(['/project/overview']);
     }
+  }
+  
+  /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
+   */
+   public getIconUrl(file: UploadFile): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(file);
   }
 
 }
