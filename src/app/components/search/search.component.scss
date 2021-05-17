@@ -94,9 +94,10 @@
         border: 1px solid $light-mode-grey-thertiary;
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 5px;
+        gap: 12px;
+        padding: 5px 10px 5px 5px;
         border-radius: $border-radius;
+        max-width: 100%;
         &:hover {
           background-color: $light-mode-grey-quaternary;
         }
@@ -113,10 +114,14 @@
           background-size: cover;
           background-position: center;
           box-shadow: 0 0px 4px #0000001a;
+        }
 
-          .resultName {
-            display: inline-block;
-          }
+        .resultName {
+          display: inline-block;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }
