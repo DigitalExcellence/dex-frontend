@@ -37,28 +37,35 @@ export class SearchService extends HttpBaseService<AutoCompleteSearchResult, Aut
     }
 
     async getAutocompletedSearchResults(searchQuery) {
-        var tempresults: AutoCompleteSearchResult[] = [];
+        const tempResults = [
+            { id: 1, name: "Dex Backend", projectIcon: null },
+            { id: 2, name: "Dex Frontend", projectIcon: null },
+        ]
         
-        if(searchQuery.length > 1){
+        return tempResults;
         
-            if (this.previousRequest != null) {
-                this.previousRequest.unsubscribe();
-            }
+        // var tempresults: AutoCompleteSearchResult[] = [];
+        
+        // if(searchQuery.length > 1){
+        
+        //     if (this.previousRequest != null) {
+        //         this.previousRequest.unsubscribe();
+        //     }
 
-            this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url + "/search/autocomplete?query=" + searchQuery).subscribe(response => {
-                response.forEach(element => {
-                    tempresults.push({
-                        id: element.id,
-                        name: element.name,
-                        projectIcon: element.projectIcon
-                    })
-                });
-            })
-            await this.previousRequest;
+        //     this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url + "/search/autocomplete?query=" + searchQuery).subscribe(response => {
+        //         response.forEach(element => {
+        //             tempresults.push({
+        //                 id: element.id,
+        //                 name: element.name,
+        //                 projectIcon: element.projectIcon
+        //             })
+        //         });
+        //     })
+        //     await this.previousRequest;
             
-        }
+        // }
 
-        return tempresults;
+        // return tempresults;
     }
 
 }
