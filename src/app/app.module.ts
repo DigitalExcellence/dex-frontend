@@ -37,6 +37,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
 import { QuillModule } from 'ngx-quill';
 import { HomeModule } from './modules/home/home.module';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { HomeModule } from './modules/home/home.module';
     FooterComponent,
     PrivacyPolicyComponent,
     NotFoundComponent,
-    ModalDeleteGenericComponent
+    ModalDeleteGenericComponent,
+    SearchComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -80,5 +82,6 @@ import { HomeModule } from './modules/home/home.module';
     }
   ],
   bootstrap: [AppComponent],
+  exports: [SearchComponent]
 })
 export class AppModule { }

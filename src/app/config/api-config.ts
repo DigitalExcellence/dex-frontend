@@ -48,3 +48,4 @@ export const API_CONFIG: ApiConfig = {
   uploadFileRoute: 'file',
   projectLikes: 'project/like'
 };
+

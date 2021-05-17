@@ -1,0 +1,113 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+
+@import "assets/styles/variables";
+
+
+.searchBar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin: 0 auto;
+}
+
+.searchInput {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+
+  input[type="search"] {
+    margin: 36px 0 0 0;
+    position: relative;
+    width: 100%;
+    max-width: 812px;
+    padding: 8px 20px;
+    font-size: 18px;
+    height: 60px;
+    color: $light-mode-grey-primary;
+    border: none;
+    background: #ffffff 0 0 no-repeat padding-box;
+    box-shadow: $box-shadow;
+    border-radius: 6px;
+    opacity: 1;
+    font-family: lato, sans-serif;
+
+    &::placeholder {
+      color: $light-mode-grey-primary;
+    }
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+
+  button {
+    position: relative;
+    top: 18px;
+    right: 55px;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    img {
+      width: 25px;
+    }
+  }
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  z-index: 1;
+  list-style-type: none;
+  max-width: 812px;
+  
+}
+
+.result {
+  cursor: pointer;
+  border: 1px solid grey;
+}
+
+.resultName {
+  display: inline-block;
+}
+
+.icon {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0px 4px #0000001a;
+}
+

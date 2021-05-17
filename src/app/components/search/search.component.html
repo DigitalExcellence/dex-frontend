@@ -1,0 +1,17 @@
+<div class=searchBar>
+    <div class="searchInput">
+        <input type="search" placeholder="search project" [formControl]="searchControl"
+            (keyup)="onChangeFunction($event)" aria-label="Search project">
+        <button (click)="onClickSearch()"><img src="assets/images/research.svg" alt="" loading="lazy"
+                aria-label="Search project"></button>
+    </div>
+
+    <div class="results">
+        <div class="result" *ngFor="let searchResult of searchResults"
+         (click)="onClickProject(searchResult.id, searchResult.name)">
+            <div class="icon" [ngStyle]="{'background-image': 'url(' + getIconUrl(searchResult.projectIcon) + ')'}">
+            </div>
+            <div class="resultName">{{searchResult.name}}</div>
+        </div>
+    </div>
+</div>

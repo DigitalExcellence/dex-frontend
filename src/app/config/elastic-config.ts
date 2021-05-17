@@ -15,19 +15,19 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-export const environment = {
-  production: true,
-  identityServerUrl: 'https://identity.staging.dex.software/',
-  apiUrl: 'https://api.staging.dex.software/',
-  frontendUrl: 'https://staging.dex.software/',
-  identityCallbackUrl: 'https://staging.dex.software/',
-  identityClientId: 'dex-frontend',
-  identityRedirectUri: 'https://identity.staging.dex.software/auth-callback',
-  identityLogoutRedirectUri: 'https://staging.dex.software/',
-  identitySilentRedirectUri: 'https://staging.dex.software/auth-callback',
-  // TODO:
-  elasticUrl: '',
-  // This should be empty because it will only be used in production.
-  sentryDsnUrl: ''
+import { environment } from 'src/environments/environment';
 
+export interface ElasticConfig {
+    url: string;
+    username: string;
+    password: string;
+    searchurl: string;
+}
+
+export const ELASTIC_CONFIG: ElasticConfig = {
+    url: `${environment.elasticUrl}`,
+    username: "elastic",
+    password: "changeme",
+    searchurl: "projectkeywords5/_search"
 };
+
