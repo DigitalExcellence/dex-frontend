@@ -20,7 +20,8 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageUtils, LocalStorageOptions } from 'src/app/utils/localstorage.utils';
 import { AlertService } from 'src/app/services/alert.service';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 /**
  * Component used to display the basic layout of the application.
@@ -37,14 +38,17 @@ export class AppLayoutComponent implements OnInit {
   public displayAlertContainer = false;
   public displayContentWithoutLayout = false;
   public navbarOpen = false;
+  public showSearchbar = false;
 
   public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
 
   constructor(
-      private authService: AuthService,
-      private alertService: AlertService,
-      private router: Router) { }
+    private authService: AuthService,
+    private alertService: AlertService,
+    private router: Router) {
+      
+  }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
@@ -59,6 +63,17 @@ export class AppLayoutComponent implements OnInit {
         this.displayAlertContainer = true;
       }
     });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+          if((event.url == "/home" || event.url == "/")) {
+            this.showSearchbar = true;
+          }
+          else {
+            this.showSearchbar = false;
+          }
+      }
+    })
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

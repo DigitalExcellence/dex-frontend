@@ -32,9 +32,8 @@ export class SearchComponent implements OnInit {
    * @param event event that contains the key that's pressed
    */
   public async onChangeFunction(event): Promise<void> {
-    
     this.searchResults = await this.searchService.getAutocompletedSearchResults(event.target.value);
-    console.log(this.searchResults);
+    this.searchResults = this.searchResults.slice(0, 5);
     if (event.code === 'Enter') {
       this.onClickSearch();
     }
@@ -78,3 +77,4 @@ export class SearchComponent implements OnInit {
   }
 
 }
+
