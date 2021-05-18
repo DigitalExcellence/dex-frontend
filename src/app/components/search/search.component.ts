@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Subscription } from 'rxjs';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { AutoCompleteSearchResult } from 'src/app/models/resources/autocomplete-search-result';
+import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { SearchService } from './../../services/search.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-search',
@@ -17,11 +21,17 @@ export class SearchComponent implements OnInit {
   public searchControl: FormControl;
   public searchResults : AutoCompleteSearchResult[] = [];
 
+  private modalRef: BsModalRef;
+  private modalSubscriptions: Subscription[] = [];
+
   constructor(
     private router: Router,
     private fileRetrieverService: FileRetrieverService,
-    private searchService: SearchService) {
-    this.searchControl = new FormControl('');
+    private searchService: SearchService,
+    private location: Location,
+    private modalService: BsModalService) {
+    this.searchControl = new FormControl('')
+    ;
   }
 
   ngOnInit(): void {
@@ -33,7 +43,6 @@ export class SearchComponent implements OnInit {
    */
   public async onChangeFunction(event): Promise<void> {
     this.searchResults = await this.searchService.getAutocompletedSearchResults(event.target.value);
-    this.searchResults = this.searchResults.slice(0, 5);
     if (event.code === 'Enter') {
       this.onClickSearch();
     }
@@ -51,8 +60,32 @@ export class SearchComponent implements OnInit {
    * Called when the user click on one of the search results
    **/
   public onClickProject(id: number, name: string): void {
+    this.searchResults = [];
     name = name.split(' ').join('-');
-    this.router.navigate([`/project/details/${id}-${name}`]);
+
+    this.createProjectModal(id);
+    this.location.replaceState(`/project/details/${id}-${name}`);
+  }
+
+  private createProjectModal(projectId: number, activeTab: string = 'description') {
+    const initialState = {
+      projectId: projectId,
+      activeTab: activeTab
+    };
+
+    if (projectId) {
+      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState});
+      this.modalRef.setClass('project-modal');
+
+      // Go back to home page after the modal is closed
+      this.modalSubscriptions.push(
+          this.modalService.onHide.subscribe(() => {
+                if (this.location.path().startsWith('/project/details')) {
+                  this.location.replaceState('/home');
+                }
+              }
+          ));
+    }
   }
 
 

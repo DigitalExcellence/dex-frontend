@@ -48,9 +48,10 @@ export class SearchService extends HttpBaseService<AutoCompleteSearchResult, Aut
 
         return tempResults;
         
-        // var tempresults: AutoCompleteSearchResult[] = [];
+        // var results: AutoCompleteSearchResult[] = [];
         
         // if(searchQuery.length > 1){
+
         
         //     if (this.previousRequest != null) {
         //         this.previousRequest.unsubscribe();
@@ -58,7 +59,7 @@ export class SearchService extends HttpBaseService<AutoCompleteSearchResult, Aut
 
         //     this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url + "/search/autocomplete?query=" + searchQuery).subscribe(response => {
         //         response.forEach(element => {
-        //             tempresults.push({
+        //             results.push({
         //                 id: element.id,
         //                 name: element.name,
         //                 projectIcon: element.projectIcon
@@ -69,7 +70,7 @@ export class SearchService extends HttpBaseService<AutoCompleteSearchResult, Aut
             
         // }
 
-        // return tempresults;
+        // return results;
     }
 
 }
