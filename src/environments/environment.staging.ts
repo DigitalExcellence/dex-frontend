@@ -25,8 +25,6 @@ export const environment = {
   identityRedirectUri: 'https://identity.staging.dex.software/auth-callback',
   identityLogoutRedirectUri: 'https://staging.dex.software/',
   identitySilentRedirectUri: 'https://staging.dex.software/auth-callback',
-  // TODO:
-  elasticUrl: '',
   // This should be empty because it will only be used in production.
   sentryDsnUrl: ''
 

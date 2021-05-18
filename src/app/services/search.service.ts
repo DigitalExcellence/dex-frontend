@@ -18,7 +18,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api-config';
-import { ELASTIC_CONFIG } from '../config/elastic-config';
 import { AutoCompleteSearchResult } from '../models/resources/autocomplete-search-result';
 import { HttpBaseService } from './http-base.service';
 
