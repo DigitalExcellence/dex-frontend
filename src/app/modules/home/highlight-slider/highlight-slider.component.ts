@@ -6,12 +6,7 @@ import { Highlight } from 'src/app/models/domain/highlight';
 import { Project } from 'src/app/models/domain/project';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightService } from 'src/app/services/highlight.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Subscription } from 'rxjs';
-import { DetailsComponent } from 'src/app/modules/project/details/details.component';
-import { SEOService } from 'src/app/services/seo.service';
-import { Location } from '@angular/common';
-
+import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
 
 @Component({
   selector: 'app-highlight-slider',
@@ -30,15 +25,10 @@ export class HighlightSliderComponent implements OnInit {
    */
   public highlightsLoading = true;
 
-  private modalRef: BsModalRef;
-  private modalSubscriptions: Subscription[] = [];
-
   constructor(private router: Router,
               private projectService: HighlightService,
               private fileRetrieverService: FileRetrieverService,
-              private modalService: BsModalService,
-              private location: Location,
-              private seoService: SEOService) { }
+              private projectDetailModalUtility : ProjectDetailModalUtility) { }
 
 
   ngOnInit(): void {
@@ -78,45 +68,6 @@ export class HighlightSliderComponent implements OnInit {
    * @param name project name
    */
   public onClickHighlightedProject(id: number, name: string): void {
-    name = name.split(' ').join('-');
-
-    this.createProjectModal(id);
-    this.location.replaceState(`/project/details/${id}-${name}`);
-  }
-
-  /**
-   * Method to open the modal for a projects detail
-   * @param projectId the id of the project that should be shown.
-   * @param activeTab Define the active tab
-   */
-  private createProjectModal(projectId: number, activeTab: string = 'description') {
-    const initialState = {
-      projectId: projectId,
-      activeTab: activeTab
-    };
-
-    if (projectId) {
-      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState});
-      this.modalRef.setClass('project-modal');
-
-      // Go back to home page after the modal is closed
-      this.modalSubscriptions.push(
-          this.modalService.onHide.subscribe(() => {
-                if (this.location.path().startsWith('/project/details')) {
-                  this.location.replaceState('/home');
-                  this.updateSEOTags();
-                }
-              }
-          ));
-    }
-  }
-
-  /**
-   * Methods to update the title and description through the SEO service
-   */
-  private updateSEOTags() {
-    // Updates meta and title tags
-    this.seoService.updateTitle('Digital Excellence');
-    this.seoService.updateDescription('Dex homepage');
+    this.projectDetailModalUtility.openProjectModal(id, name, "/home");
   }
 }
