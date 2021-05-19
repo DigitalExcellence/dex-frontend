@@ -36,41 +36,41 @@ export class SearchService extends HttpBaseService<AutoCompleteSearchResult, Aut
     }
 
     async getAutocompletedSearchResults(searchQuery) {
-        var tempResults = [
-            { id: 1, name: "Dex Backend", projectIcon: null },
-            { id: 2, name: "Dex Frontend", projectIcon: null },
-            { id: 3, name: "Dex Frontend", projectIcon: null },
-            { id: 4, name: "Dex Frontend", projectIcon: null },
-            { id: 5, name: "Dex Frontend", projectIcon: null },
-            { id: 6, name: "Dex Frontend", projectIcon: null },
-            { id: 7, name: "Dex Frontend", projectIcon: null },
-        ]
+        // var tempResults = [
+        //     { id: 1, name: "Dex Backend", projectIcon: null },
+        //     { id: 2, name: "Dex Frontend", projectIcon: null },
+        //     { id: 3, name: "Dex Frontend", projectIcon: null },
+        //     { id: 4, name: "Dex Frontend", projectIcon: null },
+        //     { id: 5, name: "Dex Frontend", projectIcon: null },
+        //     { id: 6, name: "Dex Frontend", projectIcon: null },
+        //     { id: 7, name: "Dex Frontend", projectIcon: null },
+        // ]
 
-        return tempResults;
+        // return tempResults;
         
-        // var results: AutoCompleteSearchResult[] = [];
+        var results: AutoCompleteSearchResult[] = [];
         
-        // if(searchQuery.length > 1){
+        if(searchQuery.length > 1){
 
         
-        //     if (this.previousRequest != null) {
-        //         this.previousRequest.unsubscribe();
-        //     }
+            if (this.previousRequest != null) {
+                this.previousRequest.unsubscribe();
+            }
 
-        //     this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url + "/search/autocomplete?query=" + searchQuery).subscribe(response => {
-        //         response.forEach(element => {
-        //             results.push({
-        //                 id: element.id,
-        //                 name: element.name,
-        //                 projectIcon: element.projectIcon
-        //             })
-        //         });
-        //     })
-        //     await this.previousRequest;
+            this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url + "/search/autocomplete?query=" + searchQuery).subscribe(response => {
+                response.forEach(element => {
+                    results.push({
+                        id: element.id,
+                        name: element.name,
+                        projectIcon: element.projectIcon
+                    })
+                });
+            })
+            await this.previousRequest;
             
-        // }
+        }
 
-        // return results;
+        return results;
     }
 
 }

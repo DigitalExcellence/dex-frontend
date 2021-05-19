@@ -20,7 +20,6 @@ export class SearchComponent implements OnInit {
 
   public searchControl: FormControl;
   public searchResults : AutoCompleteSearchResult[] = [];
-
   private modalRef: BsModalRef;
   private modalSubscriptions: Subscription[] = [];
 
@@ -34,9 +33,6 @@ export class SearchComponent implements OnInit {
     ;
   }
 
-  ngOnInit(): void {
-  }
-
   /**
    * Method that checks if the enter key is pressed
    * @param event event that contains the key that's pressed
@@ -47,7 +43,6 @@ export class SearchComponent implements OnInit {
       this.onClickSearch();
     }
   }
-
 
   /**
  * Called when the user clicks the search icon in the search bar
@@ -87,7 +82,6 @@ export class SearchComponent implements OnInit {
           ));
     }
   }
-
 
   /**
    * Method that validates the input, and based on the outcome
