@@ -42,12 +42,20 @@ export class HighlightSliderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.projectService
-        .getAll()
-        .pipe(finalize(() => (this.highlightsLoading = false)))
-        .subscribe((result) => {
-          this.highlights = this.pickRandomHighlights(result, 3);
-        });
+    this.highlights = [
+      { projectId: 1, project: {id: 1, created: new Date(), likeCount: 20, name: 'test', updated: new Date(), userHasLikedProject: false}, id: 1,description: 'adsjfalsjfalsdhjflaskdjfl;sadjfl;sda'},
+      { projectId: 1, project: {id: 1, created: new Date(), likeCount: 20, name: 'test', updated: new Date(), userHasLikedProject: false}, id: 1,description: 'adsjfalsjfalsdhjflaskdjfl;sadjfl;sda'},
+      { projectId: 1, project: {id: 1, created: new Date(), likeCount: 20, name: 'test', updated: new Date(), userHasLikedProject: false}, id: 1,description: 'adsjfalsjfalsdhjflaskdjfl;sadjfl;sda'},
+      { projectId: 1, project: {id: 1, created: new Date(), likeCount: 20, name: 'test', updated: new Date(), userHasLikedProject: false}, id: 1,description: 'adsjfalsjfalsdhjflaskdjfl;sadjfl;sda'},
+      { projectId: 1, project: {id: 1, created: new Date(), likeCount: 20, name: 'test', updated: new Date(), userHasLikedProject: false}, id: 1,description: 'adsjfalsjfalsdhjflaskdjfl;sadjfl;sda'},
+      { projectId: 1, project: {id: 1, created: new Date(), likeCount: 20, name: 'test', updated: new Date(), userHasLikedProject: false}, id: 1,description: 'adsjfalsjfalsdhjflaskdjfl;sadjfl;sda'}
+    ];
+    // this.projectService
+    //     .getAll()
+    //     .pipe(finalize(() => (this.highlightsLoading = false)))
+    //     .subscribe((result) => {
+    //       this.highlights = this.pickRandomHighlights(result, 6);
+    //     });
   }
 
   /**
