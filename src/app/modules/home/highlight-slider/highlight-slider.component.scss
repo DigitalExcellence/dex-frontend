@@ -81,7 +81,7 @@
       max-width: 100%;
       overflow-x: scroll;
       overflow-y: hidden;
-      padding-bottom: 10px;
+      padding: 10px 0;
 
       //scrollbar stylingbody
       &::-webkit-scrollbar {
@@ -125,9 +125,9 @@
           display: flex;
           max-height: 40px;
 
-          @include media-breakpoint-down(sm) {
-            flex-direction: column;
-          }
+          // @include media-breakpoint-down(sm) {
+          //   flex-direction: column;
+          // }
 
           .icon {
             display: flex;
@@ -143,10 +143,10 @@
             background-position: center;
             box-shadow: 0 0px 4px #0000001a;
 
-            @include media-breakpoint-down(sm) {
-              margin: auto;
-              margin-bottom: 10px;
-            }
+            // @include media-breakpoint-down(sm) {
+            //   margin: auto;
+            //   margin-bottom: 10px;
+            // }
           }
 
           h3 {
@@ -154,11 +154,11 @@
             max-width: calc(100% - 50px);
             hyphens: auto;
 
-            @include media-breakpoint-down(sm) {
-              margin: auto;
-              text-align: center;
-              max-width: 100%;
-            }
+            // @include media-breakpoint-down(sm) {
+            //   margin: auto;
+            //   text-align: center;
+            //   max-width: 100%;
+            // }
           }
         }
 
