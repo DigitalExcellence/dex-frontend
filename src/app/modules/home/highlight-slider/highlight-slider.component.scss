@@ -1,11 +1,13 @@
 @import "assets/styles/variables";
 
 .highlight-slider {
-  height: calc(100vh - 200px);
+  //height: calc(100vh - 200px);
+  height: 85vh;
   background-color: white;
   margin: -24px -39px 0;
   width: calc(100% + 78px);
   position: relative;
+  overflow: hidden;
 
   .image {
     width: 100%;
@@ -16,7 +18,7 @@
     position: absolute;
     right: -600px;
     top: -400px;
-    opacity: 0.2;
+    opacity: 0.225;
   }
 
   .overlay {
@@ -102,7 +104,7 @@
 
       &::-webkit-scrollbar-thumb {
         border-radius: 999px;
-        background-color: $light-mode-grey-thertiary;
+        background-color: rgba(255, 255, 255, 0.3);
       }
 
       // @include media-breakpoint-down(sm) {
