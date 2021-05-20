@@ -41,18 +41,20 @@
       </div>
 
       <div *ngIf="!this.showSearchbar" class="search-bar"></div>
-      <div class="header-nav account">
-        <a *ngIf="!isAuthenticated" class="nav-link nav-text" routerLink="account/login" routerLinkActive="active">Sign in</a>
-      </div>
-      <div *ngIf="isAuthenticated" class="profile">
-        <div class="btn-group profile-dropdown w-100" dropdown>
-          <button aria-controls="dropdown-basic" class="btn dropdown-toggle profile-dropdown" dropdownToggle id="button-basic" type="button">
-            {{ name }} <img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png" />
-            <span class="caret"></span>
-          </button>
-          <ul *dropdownMenu aria-labelledby="button-basic" class="dropdown-menu" id="dropdown-basic" role="menu">
-            <li role="menuitem"><a (click)="onClickSignout()" class="dropdown-item" routerLinkActive="active">Sign Out</a></li>
-          </ul>
+      <div>
+        <div class="header-nav account">
+          <a *ngIf="!isAuthenticated" class="nav-link nav-text" routerLink="account/login" routerLinkActive="active">Sign in</a>
+        </div>
+        <div *ngIf="isAuthenticated" class="profile">
+          <div class="btn-group profile-dropdown w-100" dropdown>
+            <button aria-controls="dropdown-basic" class="btn dropdown-toggle profile-dropdown" dropdownToggle id="button-basic" type="button">
+              {{ name }} <img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png" />
+              <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu aria-labelledby="button-basic" class="dropdown-menu" id="dropdown-basic" role="menu">
+              <li role="menuitem"><a (click)="onClickSignout()" class="dropdown-item" routerLinkActive="active">Sign Out</a></li>
+            </ul>
+          </div>
         </div>
       </div>
 
