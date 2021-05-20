@@ -36,17 +36,17 @@ export class SearchService extends HttpBaseService<AutoCompleteSearchResult, Aut
     }
 
     async getAutocompletedSearchResults(searchQuery) {
-        // var tempResults = [
-        //     { id: 1, name: "Dex Backend", projectIcon: null },
-        //     { id: 2, name: "Dex Frontend", projectIcon: null },
-        //     { id: 3, name: "Dex Frontend", projectIcon: null },
-        //     { id: 4, name: "Dex Frontend", projectIcon: null },
-        //     { id: 5, name: "Dex Frontend", projectIcon: null },
-        //     { id: 6, name: "Dex Frontend", projectIcon: null },
-        //     { id: 7, name: "Dex Frontend", projectIcon: null },
-        // ]
+        var tempResults = [
+            { id: 1, name: "Dex Backend", projectIcon: null },
+            { id: 2, name: "Dex Frontend", projectIcon: null },
+            { id: 3, name: "Dex Frontend", projectIcon: null },
+            { id: 4, name: "Dex Frontend", projectIcon: null },
+            { id: 5, name: "Dex Frontend", projectIcon: null },
+            { id: 6, name: "Dex Frontend", projectIcon: null },
+            { id: 7, name: "Dex Frontend", projectIcon: null },
+        ]
 
-        // return tempResults;
+        return tempResults;
         
         var results: AutoCompleteSearchResult[] = [];
         

@@ -31,7 +31,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 36px 0 0 0;
   .wrapper {
     position: relative;
     width: 100%;
@@ -41,10 +40,10 @@
       position: relative;
       padding: 8px 20px;
       font-size: 18px;
-      height: 60px;
+      height: 40px;
       color: $light-mode-grey-primary;
       border: none;
-      background: #ffffff 0 0 no-repeat padding-box;
+      background: $light-mode-grey-thertiary 0 0 no-repeat padding-box;
       box-shadow: $box-shadow;
       border-radius: 6px;
       opacity: 1;
@@ -62,8 +61,8 @@
 
     button {
       position: absolute;
-      top: 18px;
-      right: 18px;
+      top: 8px;
+      right: 8px;
       cursor: pointer;
       background: none;
       border: none;
@@ -79,7 +78,7 @@
 
     .results {
       position: absolute;
-      top: 61px;
+      top: 41px;
       width: 100%;
       bottom: 0;
       display: flex;
@@ -88,6 +87,9 @@
       z-index: 1;
       list-style-type: none;
       max-width: 812px;
+      border-radius: $border-radius;
+      overflow: hidden;
+      height: fit-content;
       .result {
         cursor: pointer;
         background: white;
@@ -96,7 +98,6 @@
         align-items: center;
         gap: 12px;
         padding: 5px 10px 5px 5px;
-        border-radius: $border-radius;
         max-width: 100%;
         &:hover {
           background-color: $light-mode-grey-quaternary;
