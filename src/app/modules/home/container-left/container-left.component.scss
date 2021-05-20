@@ -14,11 +14,8 @@
   padding: 60px;
   gap: 60px;
   @media only screen and (max-width: 1000px) {
-    grid-template-columns: 1fr;
-    img {
-      grid-area: 1;
-      max-width: 100%;
-    }
+    max-height: unset;
+    height: auto;
   }
 
   .top-right {
@@ -53,6 +50,13 @@
     max-width: 1920px;
     margin: auto;
     align-items: center;
+    @media only screen and (max-width: 1000px) {
+      grid-template-columns: 1fr !important;
+      img {
+        grid-area: 1;
+        max-width: 100%;
+      }
+    }
     img {
       justify-self: center;
       z-index: 2;
