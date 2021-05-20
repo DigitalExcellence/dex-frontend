@@ -49,6 +49,11 @@
   }
 
   .content {
+    @include media-breakpoint-down(sm) {
+      .search-bar {
+        display: none;
+      }
+    }
     @include media-breakpoint-down(md) {
       grid-template-columns: auto 1fr auto !important;
     }
@@ -56,6 +61,9 @@
       display: grid !important;
       gap: 10px;
       grid-template-columns: auto 1fr 200px;
+      .search-bar-mobile {
+        display: none;
+      }
     }
   }
 
