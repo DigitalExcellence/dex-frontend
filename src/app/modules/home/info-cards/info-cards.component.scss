@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
   justify-content: center;
-  gap: 80px;
+  gap: 100px;
   padding: 120px 80px;
   //grid-auto-rows: 350px;
   position: relative;
@@ -55,7 +55,7 @@
     }
 
     .image {
-      height: 200px;
+      height: 165px;
       width: auto;
       position: absolute;
       z-index: 1;

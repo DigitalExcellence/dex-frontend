@@ -44,9 +44,13 @@
     padding: 80px;
     gap: 10px;
 
+    max-width: 1800px;
+    left: 50%;
+    transform: translateX(-50%);
+
     @include media-breakpoint-down(sm) {
       grid-template-columns: 1fr;
-      padding: 20px;
+      padding: 30px;
     }
 
     .text {
