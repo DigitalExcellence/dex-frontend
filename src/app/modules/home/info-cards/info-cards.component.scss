@@ -7,7 +7,10 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
   justify-content: center;
   gap: 100px;
-  padding: 120px 80px;
+  padding: 140px 80px;
+  @include media-breakpoint-down(sm) {
+    padding: 80px 60px;
+  }
   //grid-auto-rows: 350px;
   position: relative;
   overflow: hidden;

@@ -1,18 +1,17 @@
 @import "assets/styles/variables";
 
 .container-right {
-  min-height: 80vh;
+  display: flex;
+  height: 80vh;
+  max-height: 850px;
   background-color: white;
   margin: 0 -39px;
   width: calc(100% + 78px);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: hidden;
   padding: 60px;
-  gap: 60px;
   margin-bottom: -65px;
   @media only screen and (max-width: 1000px) {
     grid-template-columns: 1fr;
@@ -51,31 +50,40 @@
     z-index: 0;
   }
 
-  img {
-    justify-self: center;
-    z-index: 2;
-    max-width: 1000px;
-    width: 100%;
-  }
-
-  .text {
+  .inner {
     display: grid;
-    gap: 40px;
-    max-width: 750px;
-    z-index: 2;
-    justify-self: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    max-width: 1920px;
+    margin: auto;
+    align-items: center;
+    img {
+      justify-self: center;
+      z-index: 2;
+      max-width: 1000px;
+      width: 100%;
+    }
 
-    button {
-      background-color: $accent-color-red-primary;
-      color: white;
-      border-radius: $border-radius;
-      border: none;
-      outline: none;
-      padding: 8px 20px;
-      width: fit-content;
+    .text {
+      height: fit-content;
+      display: grid;
+      gap: 40px;
+      max-width: 750px;
+      z-index: 2;
+      justify-self: center;
 
-      &:hover {
-        background-color: $accent-color-red-secondary;
+      button {
+        background-color: $accent-color-red-primary;
+        color: white;
+        border-radius: $border-radius;
+        border: none;
+        outline: none;
+        padding: 8px 20px;
+        width: fit-content;
+
+        &:hover {
+          background-color: $accent-color-red-secondary;
+        }
       }
     }
   }
