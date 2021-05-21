@@ -13,9 +13,9 @@
     </div>
     <div class="cards">
       <div *ngFor="let highlight of highlights">
-        <div (click)="onClickHighlightedProject(highlight.projectId, highlight.project.name)" class="card">
+        <div (click)="onClickHighlightedProject(highlight.project.id, highlight.project.name)" class="card">
           <div class="card-title">
-            <div [ngStyle]="{ 'background-image': 'url(' + getIconUrl(highlight.projectId) + ')' }" class="icon"></div>
+            <div [ngStyle]="{ 'background-image': 'url(' + getIconUrl(highlight.project.id) + ')' }" class="icon"></div>
             <h3>{{ highlight.project.name }}</h3>
           </div>
           <p class="large">{{ highlight.description | striphtml }}</p>

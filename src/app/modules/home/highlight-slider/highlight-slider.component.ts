@@ -55,7 +55,7 @@ export class HighlightSliderComponent implements OnInit {
    * from the file retriever service
    */
   public getIconUrl(id: number): SafeUrl {
-    const foundProject: Project = this.highlights.find(highlight => highlight.projectId === id).project;
+    const foundProject = this.highlights.find(highlight => highlight.project.id === id)?.project;
     return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 
@@ -79,7 +79,6 @@ export class HighlightSliderComponent implements OnInit {
    */
   public onClickHighlightedProject(id: number, name: string): void {
     name = name.split(' ').join('-');
-
     this.createProjectModal(id);
     this.location.replaceState(`/project/details/${id}-${name}`);
   }
