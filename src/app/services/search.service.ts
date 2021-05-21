@@ -19,58 +19,42 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api-config';
 import { AutoCompleteSearchResult } from '../models/resources/autocomplete-search-result';
-import { HttpBaseService } from './http-base.service';
 
 /**
  * Service to retrieve autocompleted project suggestions based on typed.
  */
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
-export class SearchService extends HttpBaseService<AutoCompleteSearchResult, AutoCompleteSearchResult, AutoCompleteSearchResult> {
+export class SearchService {
 
-    private previousRequest = null;
+  protected readonly url = API_CONFIG.url + API_CONFIG.autoCompleteRoute;
 
-    constructor(http: HttpClient)  {
-        super(http, API_CONFIG.url + API_CONFIG.projectRoute);
+  private previousRequest = null;
+
+  constructor(private http: HttpClient) {}
+
+  async getAutocompletedSearchResults(searchQuery) {
+    let results: AutoCompleteSearchResult[] = [];
+
+    if (searchQuery.length > 1) {
+      if (this.previousRequest != null) {
+        this.previousRequest.unsubscribe();
+      }
+
+      this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url, {params: {query: searchQuery}})
+          .subscribe(response => {
+            response.forEach(element => {
+              results.push({
+                id: element.id,
+                name: element.name,
+                projectIcon: element.projectIcon
+              })
+            });
+          });
+      await this.previousRequest;
     }
-
-    async getAutocompletedSearchResults(searchQuery) {
-        // var tempResults = [
-        //     { id: 1, name: "Dex Backend", projectIcon: null },
-        //     { id: 2, name: "Dex Frontend", projectIcon: null },
-        //     { id: 3, name: "Dex Frontend", projectIcon: null },
-        //     { id: 4, name: "Dex Frontend", projectIcon: null },
-        //     { id: 5, name: "Dex Frontend", projectIcon: null },
-        //     { id: 6, name: "Dex Frontend", projectIcon: null },
-        //     { id: 7, name: "Dex Frontend", projectIcon: null },
-        // ]
-
-        // return tempResults;
-        
-        var results: AutoCompleteSearchResult[] = [];
-        
-        if(searchQuery.length > 1){
-
-        
-            if (this.previousRequest != null) {
-                this.previousRequest.unsubscribe();
-            }
-
-            this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url + "/search/autocomplete?query=" + searchQuery).subscribe(response => {
-                response.forEach(element => {
-                    results.push({
-                        id: element.id,
-                        name: element.name,
-                        projectIcon: element.projectIcon
-                    })
-                });
-            })
-            await this.previousRequest;
-            
-        }
-
-        return results;
-    }
+    return results;
+  }
 
 }
