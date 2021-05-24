@@ -43,7 +43,8 @@ export class WizardService {
     fileId: 0,
     shortDescription: '',
     uri: '',
-    userId: 0
+    userId: 0,
+    categories: []
   };
 
   /**
@@ -70,9 +71,18 @@ export class WizardService {
 
   private readonly defaultSteps: Array<WizardPage> = [
     {
-      id: 4,
+      id: 10,
       authFlow: false,
       orderIndex: 1,
+      name: 'Categories & tags',
+      description: 'Add categories and tags to your project!',
+      isComplete: false,
+      isOptional: true
+    },
+    {
+      id: 4,
+      authFlow: false,
+      orderIndex: 2,
       name: 'What is the name of your project?',
       description: 'What would you like to name your project?',
       isComplete: false,
@@ -81,7 +91,7 @@ export class WizardService {
     {
       id: 5,
       authFlow: false,
-      orderIndex: 2,
+      orderIndex: 3,
       name: 'How would you describe the project?',
       description: 'Here you can enter a short and long description for the project.',
       isComplete: false,
@@ -90,7 +100,7 @@ export class WizardService {
     {
       id: 6,
       authFlow: false,
-      orderIndex: 3,
+      orderIndex: 4,
       name: 'What project icon would fit the project?',
       description: 'Please upload a fitting image for the project!',
       isComplete: false,
@@ -99,7 +109,7 @@ export class WizardService {
     {
       id: 7,
       authFlow: false,
-      orderIndex: 4,
+      orderIndex: 5,
       name: 'Who has worked on the project?',
       description: 'Here you can name all the project members and their role within the project!',
       isComplete: false,
@@ -108,7 +118,7 @@ export class WizardService {
     {
       id: 8,
       authFlow: false,
-      orderIndex: 5,
+      orderIndex: 6,
       name: 'Would you like to add a call to action button?',
       description: 'If you want to get people in action you can show it here!',
       isComplete: false,
@@ -117,7 +127,7 @@ export class WizardService {
     {
       id: 9,
       authFlow: false,
-      orderIndex: 5,
+      orderIndex: 7,
       name: 'If your project has a link with a project page or another source you can link it here!',
       description: 'If your project has a link with a project page or another source you can link it here!',
       isComplete: false,
