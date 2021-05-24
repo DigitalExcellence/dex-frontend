@@ -77,16 +77,17 @@ export class SearchComponent {
     // These terms will be ignored by the regular expressions
     let matched = ['<span>', '</span>'];
 
+    // We want to check if any words in the query match so they can be seperated
     query.split(' ')
-        .filter(part => part)
+        .filter(part => part) // Make sure the part is not just whitespace
         .forEach(part => {
           projectName = projectName
               .replace(
                   new RegExp(part, 'gi'),
                   (match) => {
-                    if (!matched.some(m => m.includes(match))) {
-                      matched.push(match.toLowerCase());
-                      return `<span class="bold">${match}</span>`;
+                    if (!matched.some(m => m.includes(match))) {    // Check if the 'part' was already handled
+                      matched.push(match.toLowerCase());            // Push the match to the matched array so it won't be checked again
+                      return `<span class="bold">${match}</span>`;  // Highlight the matched part
                     }
                     return match;
                   });
