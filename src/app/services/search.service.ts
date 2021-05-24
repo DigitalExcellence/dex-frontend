@@ -17,8 +17,9 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
-import { AutoCompleteSearchResult } from '../models/resources/autocomplete-search-result';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { AutoCompleteSearchResult } from 'src/app/models/resources/autocomplete-search-result';
+import { Observable } from 'rxjs';
 
 /**
  * Service to retrieve autocompleted project suggestions based on typed.
@@ -30,31 +31,10 @@ export class SearchService {
 
   protected readonly url = API_CONFIG.url + API_CONFIG.autoCompleteRoute;
 
-  private previousRequest = null;
-
   constructor(private http: HttpClient) {}
 
-  async getAutocompletedSearchResults(searchQuery) {
-    let results: AutoCompleteSearchResult[] = [];
-
-    if (searchQuery.length > 1) {
-      if (this.previousRequest != null) {
-        this.previousRequest.unsubscribe();
-      }
-
-      this.previousRequest = this.http.get<Array<AutoCompleteSearchResult>>(this.url, {params: {query: searchQuery}})
-          .subscribe(response => {
-            response.forEach(element => {
-              results.push({
-                id: element.id,
-                name: element.name,
-                projectIcon: element.projectIcon
-              })
-            });
-          });
-      await this.previousRequest;
-    }
-    return results;
+  public getAutocompletedSearchResults(searchQuery): Observable<Array<AutoCompleteSearchResult>> {
+    return this.http.get<Array<AutoCompleteSearchResult>>(this.url, {params: {query: searchQuery}});
   }
 
 }

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { AutoCompleteSearchResult } from 'src/app/models/resources/autocomplete-search-result';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { SearchService } from './../../services/search.service';
+import { SearchService } from 'src/app/services/search.service';
 import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
 
 @Component({
@@ -16,30 +16,33 @@ import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.ut
 export class SearchComponent {
 
   public searchControl: FormControl;
-  public searchResults : AutoCompleteSearchResult[] = [];
+  public searchResults: AutoCompleteSearchResult[] = [];
 
   constructor(
-    private router: Router,
-    private fileRetrieverService: FileRetrieverService,
-    private searchService: SearchService,
-    private projectDetailModalUtility : ProjectDetailModalUtility) {
+      private router: Router,
+      private fileRetrieverService: FileRetrieverService,
+      private searchService: SearchService,
+      private projectDetailModalUtility: ProjectDetailModalUtility) {
     this.searchControl = new FormControl('');
   }
-  
+
   /**
    * Method that checks if the enter key is pressed
    * @param event event that contains the key that's pressed
    */
-  public async onChangeFunction(event): Promise<void> {
-    this.searchResults = await this.searchService.getAutocompletedSearchResults(event.target.value);
+  public onChangeFunction(event): void {
     if (event.code === 'Enter') {
       this.onClickSearch();
+    } else {
+      this.searchService.getAutocompletedSearchResults(event.target.value).subscribe(results => {
+        this.searchResults = results;
+      });
     }
   }
 
   /**
- * Called when the user clicks the search icon in the search bar
- */
+   * Called when the user clicks the search icon in the search bar
+   */
   public onClickSearch(): void {
     this.validateSearchInput();
   }
@@ -48,8 +51,16 @@ export class SearchComponent {
    * Called when the user click on one of the search results
    **/
   public onClickProject(id: number, name: string): void {
-    this.projectDetailModalUtility.openProjectModal(id, name, "/home");
+    this.projectDetailModalUtility.openProjectModal(id, name, '/home');
     this.searchResults = [];
+  }
+
+  /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
+   */
+  public getIconUrl(file: UploadFile): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(file);
   }
 
   /**
@@ -58,18 +69,10 @@ export class SearchComponent {
    */
   private validateSearchInput(): void {
     if (this.searchControl.value !== '' && this.searchControl.value.replace(/\s/g, '').length) {
-      this.router.navigate(['/project/overview'], { queryParams: { query: this.searchControl.value } });
+      this.router.navigate(['/project/overview'], {queryParams: {query: this.searchControl.value}});
     } else {
       this.router.navigate(['/project/overview']);
     }
-  }
-  
-  /**
-   * Method to get the url of the icon of the project. This is retrieved
-   * from the file retriever service
-   */
-   public getIconUrl(file: UploadFile): SafeUrl {
-    return this.fileRetrieverService.getIconUrl(file);
   }
 
 }
