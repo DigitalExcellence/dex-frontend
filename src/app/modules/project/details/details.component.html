@@ -65,17 +65,30 @@
           </div>
         </div>
 
-        <ng-container *ngIf="isProduction()">
-          <div class="project-tags">
-            <a class="project-tags__tag" href="javascript:void(0)"> Game </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> JavaScript </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> HTML </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> CSS </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> UX </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> Interaction </a>
-            <a class="project-tags__see-more-link" href="javascript:void(0)"> see more tags&hellip; </a>
+        <div class="project-categories-tags">
+          <div>
+            <p class="title">Tags</p>
+            <div class="project-tags">
+              <div class="project-tags">
+                <!--  <span *ngFor="let tag of project.tags" class="tag" (click)="onTagClick(tag)">-->
+                <span>#html</span>
+                <span>#css</span>
+                <span>#javascript</span>
+              </div>
+            </div>
           </div>
-        </ng-container>
+          <div>
+            <p class="title">Categories</p>
+            <div class="project-categories">
+              <a
+                  *ngFor="let category of project.categories"
+                  class="category"
+                  href="javascript:void(0)">
+                {{category.name}}
+              </a>
+            </div>
+          </div>
+        </div>
         <hr/>
 
         <div class="bottom">
