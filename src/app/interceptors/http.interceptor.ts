@@ -105,7 +105,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               // Create and send alert.
               if (httpErrorResponse.status === 0) {
                 // API Could not be reached
-                this.alertService.pushAlert(this.createErrorAlertConfig('API could not be reached', 'Please check your internet connection'));
+                this.alertService.pushAlert(this.createErrorAlertConfig(
+                    'API could not be reached',
+                    'Please check your internet connection'));
               } else {
                 // API Could be reached but returned error
                 // tslint:disable-next-line: max-line-length

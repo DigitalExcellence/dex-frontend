@@ -65,7 +65,6 @@ export class SearchComponent {
 
   /**
    * Method that will split the name into a part that was matched in the query and a part that was not.
-   * @param projectName
    */
   public setMatchedToBold(projectName) {
     const name = projectName.toUpperCase();
