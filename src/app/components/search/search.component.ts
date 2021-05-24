@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { AutoCompleteSearchResult } from 'src/app/models/resources/autocomplete-search-result';
@@ -11,7 +11,8 @@ import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.ut
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent {
 
@@ -22,7 +23,8 @@ export class SearchComponent {
       private router: Router,
       private fileRetrieverService: FileRetrieverService,
       private searchService: SearchService,
-      private projectDetailModalUtility: ProjectDetailModalUtility) {
+      private projectDetailModalUtility: ProjectDetailModalUtility,
+      private sanitizer: DomSanitizer) {
     this.searchControl = new FormControl('');
   }
 
@@ -67,21 +69,29 @@ export class SearchComponent {
    * Method that will split the name into a part that was matched in the query and a part that was not.
    */
   public setMatchedToBold(projectName) {
-    const name = projectName.toUpperCase();
-    const query = this.searchControl.value.toUpperCase();
-    const position = name.indexOf(query);
-    if (!query || position === -1) {
+    const query = this.searchControl.value;
+    if (!query) {
       return projectName; // no part was matched
     }
-    const length = query.length;
-    return [{
-      text: projectName.substr(0, position)
-    }, {
-      text: projectName.substr(position, length),
-      bold: true
-    }, {
-      text: projectName.substr(position + length)
-    }];
+
+    // These terms will be ignored by the regular expressions
+    let matched = ['<span>', '</span>'];
+
+    query.split(' ')
+        .filter(part => part)
+        .forEach(part => {
+          projectName = projectName
+              .replace(
+                  new RegExp(part, 'gi'),
+                  (match) => {
+                    if (!matched.some(m => m.includes(match))) {
+                      matched.push(match.toLowerCase());
+                      return `<span class="bold">${match}</span>`;
+                    }
+                    return match;
+                  });
+        });
+    return projectName;
   }
 
   /**

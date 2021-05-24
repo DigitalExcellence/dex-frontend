@@ -38,6 +38,7 @@ import { ModalDeleteGenericComponent } from './components/modals/modal-delete-ge
 import { QuillModule } from 'ngx-quill';
 import { HomeModule } from './modules/home/home.module';
 import { SearchComponent } from './components/search/search.component';
+import { ProjectModule } from './modules/project/project.module';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { SearchComponent } from './components/search/search.component';
     HttpClientModule,
     SharedModule,
     QuillModule.forRoot(),
-    HomeModule
+    HomeModule,
+    ProjectModule
   ],
   providers: [
     {

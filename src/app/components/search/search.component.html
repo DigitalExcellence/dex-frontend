@@ -15,10 +15,8 @@
       <div class="results">
         <div class="result" *ngFor="let searchResult of searchResults" (click)="onClickProject(searchResult.id, searchResult.name)">
           <div class="icon" [ngStyle]="{ 'background-image': 'url(' + getIconUrl(searchResult.projectIcon) + ')' }"></div>
-          <div class="resultName">
-            <span
-                *ngFor="let partial of setMatchedToBold(searchResult.name)"
-                [ngClass]="{bold: partial.bold}">{{partial.text}}</span>
+          <div [innerHTML]="setMatchedToBold(searchResult.name) | safeHtml"
+               class="resultName">
           </div>
         </div>
       </div>
