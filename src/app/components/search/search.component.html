@@ -8,7 +8,9 @@
         (keyup)="onChangeFunction($event)"
         aria-label="Search project"
       />
-      <button (click)="onClickSearch()"><img src="assets/images/research.svg" alt="" loading="lazy" aria-label="Search project" /></button>
+      <button (click)="onClickSearch()">
+        <em class="fas fa-search"> </em>
+      </button>
 
       <div class="results">
         <div class="result" *ngFor="let searchResult of searchResults" (click)="onClickProject(searchResult.id, searchResult.name)">
