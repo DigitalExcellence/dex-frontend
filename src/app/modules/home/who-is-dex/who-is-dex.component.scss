@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
   height: 60vh;
+  max-height: 650px;
   @media only screen and (max-width: 1000px) {
     grid-template-columns: 1fr;
     .image {

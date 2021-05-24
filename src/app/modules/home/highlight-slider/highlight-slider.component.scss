@@ -1,16 +1,24 @@
 @import "assets/styles/variables";
 
 .highlight-slider {
-  height: calc(100vh - 200px);
+  //height: calc(100vh - 200px);
+  height: 85vh;
   background-color: white;
   margin: -24px -39px 0;
   width: calc(100% + 78px);
   position: relative;
+  overflow: hidden;
 
-  img {
+  .image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .lines {
+    position: absolute;
+    right: -600px;
+    top: -400px;
+    opacity: 0.225;
   }
 
   .overlay {
@@ -19,7 +27,7 @@
     top: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.45);
   }
 
   .content {
@@ -27,26 +35,34 @@
     left: 0;
     top: 0;
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-rows: 1fr auto;
     //grid-template-columns: 1fr;
     width: 100%;
     height: 100%;
     justify-content: center;
     align-items: center;
     padding: 80px;
-    gap: 80px;
+    gap: 10px;
+
+    max-width: 1800px;
+    left: 50%;
+    transform: translateX(-50%);
 
     @include media-breakpoint-down(sm) {
       grid-template-columns: 1fr;
+      padding: 30px;
     }
 
     .text {
       width: fit-content;
 
-      h2,
+      h1,
       p {
         width: fit-content;
         color: $white;
+      }
+      p {
+        font-size: 18px;
       }
 
       .buttons {
@@ -74,14 +90,30 @@
 
     .cards {
       display: grid;
-      grid-template-rows: 1fr 1fr 1fr;
+      grid-auto-flow: column;
       gap: 40px;
       height: 100%;
-      max-height: 750px;
+      max-width: 100%;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      padding: 10px 0;
 
-      @include media-breakpoint-down(sm) {
-        display: none;
+      //scrollbar stylingbody
+      &::-webkit-scrollbar {
+        height: 4px;
       }
+
+      &::-webkit-scrollbar-track {
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+
+      // @include media-breakpoint-down(sm) {
+      //   display: none;
+      // }
 
       div {
         height: 100%;
@@ -108,9 +140,9 @@
           display: flex;
           max-height: 40px;
 
-          @include media-breakpoint-down(sm) {
-            flex-direction: column;
-          }
+          // @include media-breakpoint-down(sm) {
+          //   flex-direction: column;
+          // }
 
           .icon {
             display: flex;
@@ -126,10 +158,10 @@
             background-position: center;
             box-shadow: 0 0px 4px #0000001a;
 
-            @include media-breakpoint-down(sm) {
-              margin: auto;
-              margin-bottom: 10px;
-            }
+            // @include media-breakpoint-down(sm) {
+            //   margin: auto;
+            //   margin-bottom: 10px;
+            // }
           }
 
           h3 {
@@ -137,11 +169,11 @@
             max-width: calc(100% - 50px);
             hyphens: auto;
 
-            @include media-breakpoint-down(sm) {
-              margin: auto;
-              text-align: center;
-              max-width: 100%;
-            }
+            // @include media-breakpoint-down(sm) {
+            //   margin: auto;
+            //   text-align: center;
+            //   max-width: 100%;
+            // }
           }
         }
 

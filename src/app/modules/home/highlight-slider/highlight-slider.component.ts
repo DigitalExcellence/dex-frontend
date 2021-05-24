@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { SafeUrl } from '@angular/platform-browser';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { Highlight } from 'src/app/models/domain/highlight';
-import { Project } from 'src/app/models/domain/project';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
@@ -36,7 +35,7 @@ export class HighlightSliderComponent implements OnInit {
         .getAll()
         .pipe(finalize(() => (this.highlightsLoading = false)))
         .subscribe((result) => {
-          this.highlights = this.pickRandomHighlights(result, 3);
+          this.highlights = this.pickRandomHighlights(result, 6);
         });
   }
 
@@ -45,7 +44,7 @@ export class HighlightSliderComponent implements OnInit {
    * from the file retriever service
    */
   public getIconUrl(id: number): SafeUrl {
-    const foundProject: Project = this.highlights.find(highlight => highlight.projectId === id).project;
+    const foundProject = this.highlights.find(highlight => highlight.project.id === id)?.project;
     return this.fileRetrieverService.getIconUrl(foundProject.projectIcon);
   }
 
