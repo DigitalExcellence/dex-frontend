@@ -99,7 +99,7 @@
         gap: 12px;
         padding: 5px 10px 5px 5px;
         max-width: 100%;
-        font-weight: bold;
+
         &:hover {
           background-color: $light-mode-grey-quaternary;
         }
@@ -115,7 +115,7 @@
           border-radius: 999px;
           background-size: cover;
           background-position: center;
-          box-shadow: 0 0px 4px #0000001a;
+          box-shadow: 0 0 4px #0000001a;
         }
 
         .resultName {
@@ -124,6 +124,10 @@
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+
+          span.bold {
+            font-weight: bold;
+          }
         }
       }
     }

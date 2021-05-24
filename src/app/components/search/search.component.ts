@@ -64,6 +64,28 @@ export class SearchComponent {
   }
 
   /**
+   * Method that will split the name into a part that was matched in the query and a part that was not.
+   * @param projectName
+   */
+  public setMatchedToBold(projectName) {
+    const name = projectName.toUpperCase();
+    const query = this.searchControl.value.toUpperCase();
+    const position = name.indexOf(query);
+    if (!query || position === -1) {
+      return projectName; // no part was matched
+    }
+    const length = query.length;
+    return [{
+      text: projectName.substr(0, position)
+    }, {
+      text: projectName.substr(position, length),
+      bold: true
+    }, {
+      text: projectName.substr(position + length)
+    }];
+  }
+
+  /**
    * Method that validates the input, and based on the outcome
    * routes to the overview page with/without queryparameters
    */
