@@ -89,7 +89,6 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    * from the file retriever service
    */
   public getSourceIconUrl(): SafeUrl {
-    console.log(this.selectedSource);
     return this.fileRetrieverService.getIconUrl(this.selectedSource.icon);
   }
 
