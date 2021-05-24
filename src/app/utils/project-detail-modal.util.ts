@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 
- /**
+/**
   * This class is responsible for opening the project overview modal on a certain page.
   */
 @Injectable({
@@ -38,7 +38,7 @@ export class ProjectDetailModalUtility {
    * @param projectId the id of the project that should be shown.
    * @param activeTab Define the active tab
    */
-  private createProjectModal(projectId: number, returnPage : string, activeTab: string = 'description') {
+  private createProjectModal(projectId: number, returnPage: string, activeTab: string = 'description') {
     const initialState = {
       projectId: projectId,
       activeTab: activeTab,

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SafeUrl } from '@angular/platform-browser';
 import { finalize } from 'rxjs/internal/operators/finalize';
@@ -27,7 +27,7 @@ export class HighlightSliderComponent implements OnInit {
   constructor(private router: Router,
               private projectService: HighlightService,
               private fileRetrieverService: FileRetrieverService,
-              private projectDetailModalUtility : ProjectDetailModalUtility) { }
+              private projectDetailModalUtility: ProjectDetailModalUtility) { }
 
 
   ngOnInit(): void {
@@ -67,6 +67,6 @@ export class HighlightSliderComponent implements OnInit {
    * @param name project name
    */
   public onClickHighlightedProject(id: number, name: string): void {
-    this.projectDetailModalUtility.openProjectModal(id, name, "/home");
+    this.projectDetailModalUtility.openProjectModal(id, name, '/home');
   }
 }

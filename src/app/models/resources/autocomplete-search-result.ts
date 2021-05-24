@@ -16,7 +16,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { UploadFile } from '../domain/uploadFile';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 export interface AutoCompleteSearchResult {
     id: number;

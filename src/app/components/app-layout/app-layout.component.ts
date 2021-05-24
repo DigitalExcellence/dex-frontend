@@ -18,10 +18,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { LocalStorageUtils, LocalStorageOptions } from 'src/app/utils/localstorage.utils';
+import { LocalStorageOptions, LocalStorageUtils } from 'src/app/utils/localstorage.utils';
 import { AlertService } from 'src/app/services/alert.service';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 
 /**
  * Component used to display the basic layout of the application.
@@ -47,7 +46,7 @@ export class AppLayoutComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private router: Router) {
-      
+
   }
 
   ngOnInit(): void {
@@ -66,14 +65,13 @@ export class AppLayoutComponent implements OnInit {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-          if((event.url == "/home" || event.url == "/")) {
-            this.showSearchbar = true;
-          }
-          else {
-            this.showSearchbar = false;
-          }
+        if ((event.url === '/home' || event.url === '/')) {
+          this.showSearchbar = true;
+        } else {
+          this.showSearchbar = false;
+        }
       }
-    })
+    });
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
