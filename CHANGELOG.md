@@ -22,6 +22,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - Fixed issue where collaborator roles would always get set to developer - [#462](https://github.com/DigitalExcellence/dex-frontend/issues/462)
+- Fixed issue where the same project could be added multiple times by spamming the finish
+  button [#490](https://github.com/DigitalExcellence/dex-frontend/issues/490)
 
 ### Security
 
