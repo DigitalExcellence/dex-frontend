@@ -32,6 +32,9 @@
   z-index: 1; // put header on top
   row-gap: 10px;
 
+  .right {
+    display: flex;
+  }
   .header-nav {
     display: flex;
 
