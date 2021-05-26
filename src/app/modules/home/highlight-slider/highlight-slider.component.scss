@@ -122,14 +122,16 @@
         border-radius: $border-radius;
 
         .card {
-          padding: 30px 30px;
+          padding: 25px;
           background: #ffffff;
           box-shadow: $box-shadow;
           border-radius: 6px;
           border: none;
           cursor: pointer;
           height: 100%;
+          width: 300px;
           transition: transform $transition-short;
+          gap: 20px;
 
           &:hover {
             transform: $transform-grow;
@@ -139,11 +141,11 @@
         .card-title {
           display: flex;
           max-height: 40px;
+          margin: 0;
 
           // @include media-breakpoint-down(sm) {
           //   flex-direction: column;
           // }
-
           .icon {
             display: flex;
             align-items: center;
@@ -169,6 +171,14 @@
             max-width: calc(100% - 50px);
             hyphens: auto;
 
+            max-height: 100%;
+            display: block;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
             // @include media-breakpoint-down(sm) {
             //   margin: auto;
             //   text-align: center;
@@ -178,13 +188,20 @@
         }
 
         p {
+          height: 38px;
           line-height: 1;
-          display: flex;
-          margin-top: 10px;
+          margin: 0px;
           max-width: 100%;
-          flex-direction: column;
           overflow: hidden;
           hyphens: auto;
+
+          max-height: 100%;
+          display: block;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
