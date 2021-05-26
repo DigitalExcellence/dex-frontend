@@ -127,6 +127,7 @@ export class DetailsComponent implements OnInit {
       )
       .subscribe(
         (result) => {
+          console.log(result);
           this.project = result;
           const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
           this.determineDisplayEditAndDeleteProjectButton();

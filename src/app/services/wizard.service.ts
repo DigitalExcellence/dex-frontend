@@ -121,7 +121,7 @@ export class WizardService {
       name: 'If your project has a link with a project page or another source you can link it here!',
       description: 'If your project has a link with a project page or another source you can link it here!',
       isComplete: false,
-      isOptional: false
+      isOptional: true
     },
   ];
   /**

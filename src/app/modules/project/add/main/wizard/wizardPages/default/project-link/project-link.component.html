@@ -40,7 +40,7 @@
              required
              type="url"/>
       <button (click)="onClickNext()"
-              [disabled]="(!link.valid)"
+              [disabled]="(!link.valid && link.value.length > 0)"
               class="form-continue-btn">{{isDynamicPage ? "Import project" : "Finish"}}
       </button>
     </div>
