@@ -74,8 +74,8 @@ export class WizardService {
       id: 10,
       authFlow: false,
       orderIndex: 1,
-      name: 'Categories & tags',
-      description: 'Add categories and tags to your project!',
+      name: 'Categories',
+      description: 'Add categories to your project!',
       isComplete: false,
       isOptional: true
     },

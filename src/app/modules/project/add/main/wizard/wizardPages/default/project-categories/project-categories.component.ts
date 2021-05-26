@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 import { CategoryService } from 'src/app/services/category.service';
+import { environment } from '../../../../../../../../../environments/environment';
 
 @Component({
   selector: 'app-project-categories',
@@ -72,5 +73,13 @@ export class ProjectCategoriesComponent extends WizardStepBaseComponent implemen
       categories: this.categories.filter(category => category.selected)
     });
     super.onClickNext();
+  }
+
+  /**
+   * Method to display the tags based on the environment variable.
+   * Tags should be hidden in production for now until further implementation is finished.
+   */
+  public isProduction(): boolean {
+    return !environment.production;
   }
 }

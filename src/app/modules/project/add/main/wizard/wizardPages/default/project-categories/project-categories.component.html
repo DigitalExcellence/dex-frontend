@@ -13,22 +13,22 @@
     {{category.name}}
   </a>
 </div>
+<!-- TODO: Implement tags when this is in the backend -->
 
-<h3>Tags</h3>
-<p>Add #tags by typing the word and pressing enter</p>
-<input
-    (keydown.enter)="onTagEnter()"
-    [formControl]="tagInput"
-    id="tag"
-    maxlength="20"
-    minlength="3"
-    name="tag"
-    required
-    type="text"/>
-<div class="project-tags">
-  <span (click)="onTagClick(tag)" *ngFor="let tag of tags" class="tag">
-    #{{tag}}
-  </span>
-</div>
-
+<!--  <h3>Tags</h3>-->
+<!--  <p>Add #tags by typing the word and pressing enter</p>-->
+<!--  <input-->
+<!--      (keydown.enter)="onTagEnter()"-->
+<!--      [formControl]="tagInput"-->
+<!--      id="tag"-->
+<!--      maxlength="20"-->
+<!--      minlength="3"-->
+<!--      name="tag"-->
+<!--      required-->
+<!--      type="text"/>-->
+<!--  <div class="project-tags">-->
+<!--  <span (click)="onTagClick(tag)" *ngFor="let tag of tags" class="tag">-->
+<!--    #{{tag}}-->
+<!--  </span>-->
+<!--  </div>-->
 <button (click)="onClickNext()" class="form-continue-btn">{{isOptional ? "Skip" : "Next"}}</button>
