@@ -60,7 +60,6 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    * Method which triggers when the button to the next page is pressed
    */
   public onClickNext() {
-    console.log('click next');
     if (this.link.valid || this.link.value.length === 0) {
       if (!this.validURL(this.link.value) && this.link.value.length !== 0) {
         this.errorMessage = 'Invalid url';
