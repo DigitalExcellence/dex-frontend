@@ -33,6 +33,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { CategoryService } from '../../../services/category.service';
+import { ProjectCategory } from '../../../models/domain/projectCategory';
 
 /**
  * Overview of all the projects
@@ -121,6 +123,11 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
   public displaySearchElements = false;
   public currentPage = 1;
+
+
+  public categories: ProjectCategory[];
+
+
   /**
    * Project parameter gets updated per project detail modal
    */
@@ -151,22 +158,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     private seoService: SEOService,
     private modalService: BsModalService,
     private location: Location,
-    private authService: AuthService) {
+    private categoryService: CategoryService) {
+
     this.searchControl = new FormControl('');
-
-    this.categoryForm = this.formBuilder.group({
-      code: false,
-      video: false,
-      research_paper: false,
-      survey_results: false
-    });
-
-    this.tagsForm = this.formBuilder.group({
-      learning: false,
-      research: false,
-      mobile: false,
-      ux: false
-    });
 
     if (!environment.production) {
       this.displaySearchElements = true;
@@ -178,6 +172,14 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     this.currentSearchInput = this.activatedRoute.snapshot.queryParamMap.get('query');
     this.searchControl.patchValue(this.currentSearchInput);
     this.onInternalQueryChange();
+
+    this.categoryService.getAll().subscribe(categories => {
+      this.categories = categories;
+      this.categories = this.categories.map(category => ({
+        ...category,
+         // selected: !!this.project.categories?.find(c => c.name === category.name)
+      }));
+    });
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
@@ -211,6 +213,14 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       const projectId = params.id?.split('-')[0];
       this.createProjectModal(projectId);
     });
+  }
+
+  public onCategoryClick(category): void {
+    this.categories = this.categories.map(cat => (
+        cat.name === category.name
+            ? {...cat, selected: !category.selected}
+            : {...cat}
+    ));
   }
 
   /**

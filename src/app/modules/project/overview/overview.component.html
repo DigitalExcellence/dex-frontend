@@ -21,17 +21,6 @@
   <div class="col-md-2 projects-filter-wrapper">
     <div class="projects-filter">
       <h3><em class="fas fa-filter"></em> Filters</h3>
-      <div class="filter-group" *ngIf="displayTags()">
-        <h4>Labels</h4>
-        <div class="tags">
-          <div (click)="tagClicked($event)" class="tag clicked">UX</div>
-          <div (click)="tagClicked($event)" class="tag clicked">UI</div>
-          <div (click)="tagClicked($event)" class="tag">Development</div>
-          <div (click)="tagClicked($event)" class="tag">Creatief</div>
-          <div (click)="tagClicked($event)" class="tag clicked">Arduino</div>
-          <div (click)="tagClicked($event)" class="tag clicked">HTML</div>
-        </div>
-      </div>
       <div class="divider" *ngIf="displayTags()"></div>
       <div class="filter-group">
         <h4>Sort Options</h4>
@@ -53,6 +42,17 @@
             {{ paginationOption.amountOnPage }}
           </option>
         </select>
+      </div>
+      <div class="filter-group" *ngIf="displayTags()">
+        <h4>Categories</h4>
+        <div class="project-categories">
+          <ng-container *ngFor="let category of categories">
+            <p>
+              <input type="checkbox" [value]="category.selected" [name]="category.name">
+              <label [for]="category.name">{{category.name}}</label>
+            </p>
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>
