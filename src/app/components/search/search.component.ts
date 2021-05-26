@@ -75,7 +75,7 @@ export class SearchComponent {
     }
 
     // These terms will be ignored by the regular expressions
-    let matched = ['<span>', '</span>'];
+    const matched = ['<span>', '</span>'];
 
     // We want to check if any words in the query match so they can be seperated
     query.split(' ')
