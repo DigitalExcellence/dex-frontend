@@ -18,6 +18,7 @@
  -->
 
 <footer>
+  <img *ngIf="showShapesInFooter()" alt="red-rectangle" class="img-right" src="assets/images/shapes/rectangle-red.svg">
   <div class="container">
     <div class="row">
       <div class="col-lg-3 col-sm-12 px-5 my-3 text-center">
@@ -59,4 +60,5 @@
       </div>
     </div>
   </div>
+  <img *ngIf="showShapesInFooter()" alt="blue-circle" class="img-left" src="assets/images/shapes/circle-small-blue.svg">
 </footer>
