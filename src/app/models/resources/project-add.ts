@@ -17,7 +17,7 @@
 
 import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { CollaboratorAdd } from './collaborator-add';
-import { ProjectCategory } from '../domain/projectCategory';
+import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 
 export interface ProjectAdd {
   userId: number;

@@ -32,10 +32,8 @@ import { SEOService } from 'src/app/services/seo.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { CategoryService } from '../../../services/category.service';
-import { ProjectCategory } from '../../../models/domain/projectCategory';
-import { query } from '@angular/animations';
+import { CategoryService } from 'src/app/services/category.service';
+import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 
 /**
  * Overview of all the projects
@@ -73,8 +71,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * FormControl for getting the input.
    */
   public searchControl: FormControl = null;
-  public sortOptionControl: FormControl = null
-  public paginationOptionControl: FormControl = null
+  public sortOptionControl: FormControl = null;
+  public paginationOptionControl: FormControl = null;
 
   /**
    * The amount of projects that will be displayed on a single page.
@@ -152,7 +150,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       private modalService: BsModalService,
       private location: Location,
       private categoryService: CategoryService,
-      private route: ActivatedRoute,) {
+      private route: ActivatedRoute, ) {
     this.searchControl = new FormControl('');
     this.sortOptionControl = new FormControl(this.sortSelectOptions);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
@@ -243,7 +241,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     } else {
       this.createProjectModal(id);
     }
-    this.location.replaceState(`/project/details/${id}-${name}`, );
+    this.location.replaceState(`/project/details/${id}-${name}`);
   }
 
   /**
@@ -367,7 +365,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       this.modalSubscriptions.push(
           this.modalService.onHide.subscribe(() => {
                 if (this.location.path().startsWith('/project/details')) {
-                  const queryString = `query=${this.searchControl.value}&categories=${JSON.stringify(this.categories?.map(category => category.selected ? category.id : null).filter(category => category))}&sortOption=${this.currentSortOptions}&pagination=${this.amountOfProjectsOnSinglePage}`
+                  const queryString = `query=${this.searchControl.value}`
+                      + `&sortOption=${this.currentSortOptions}&pagination=${this.amountOfProjectsOnSinglePage}`
+                      + `&categories=${JSON.stringify(this.categories?.map(
+                          category => category.selected ? category.id : null)
+                          .filter(category => category)
+                      )}`;
                   this.location.replaceState(`/project/overview/`, queryString);
                   this.updateSEOTags();
                   this.onInternalQueryChange();
@@ -383,9 +386,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
         {
           queryParams: {
             query: this.searchControl.value,
-            categories: JSON.stringify(this.categories?.map(category => category.selected ? category.id : null).filter(category => category)),
             sortOption: this.currentSortOptions,
-            pagination: this.amountOfProjectsOnSinglePage
+            pagination: this.amountOfProjectsOnSinglePage,
+            categories: JSON.stringify(this.categories?.map(
+                category => category.selected ? category.id : null)
+                .filter(category => category)
+            )
           },
           queryParamsHandling: 'merge'
         });
@@ -394,17 +400,18 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private processQueryParams() {
     this.route.queryParams.subscribe(({query, categories: selectedCategories, sortOption, pagination}) => {
       this.searchControl.setValue(query);
-      if(selectedCategories) {
+      if (selectedCategories) {
         this.categories = this.categories.map(category => ({
           ...category,
-          selected: selectedCategories?.includes(category.id)}));
+          selected: selectedCategories?.includes(category.id)
+        }));
       }
-      if(sortOption) {
+      if (sortOption) {
         this.currentSortOptions = sortOption;
         this.sortOptionControl.setValue(this.sortSelectOptions.find(option => option.value === sortOption));
       }
-      if(pagination) {
-        this.paginationOptionControl.setValue(this.paginationDropDownOptions.find(option => option.amountOnPage == pagination));
+      if (pagination) {
+        this.paginationOptionControl.setValue(this.paginationDropDownOptions.find(option => option.amountOnPage === pagination.toInt()));
         this.amountOfProjectsOnSinglePage = pagination;
       }
       this.onInternalQueryChange();

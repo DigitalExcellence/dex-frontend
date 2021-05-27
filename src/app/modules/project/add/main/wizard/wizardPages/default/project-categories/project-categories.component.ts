@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 import { CategoryService } from 'src/app/services/category.service';
-import { environment } from '../../../../../../../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-project-categories',
@@ -39,7 +39,7 @@ export class ProjectCategoriesComponent extends WizardStepBaseComponent implemen
         selected: !!this.project.categories?.find(c => c.name === category.name)
       }));
     });
-  };
+  }
 
   public onCategoryClick(category): void {
     this.categories = this.categories.map(cat => (

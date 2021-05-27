@@ -37,5 +37,5 @@ export interface Project {
   likes?: Array<ProjectLike>;
   userHasLikedProject: boolean;
   likeCount: number;
-  categories?: Array<ProjectCategory>
+  categories?: Array<ProjectCategory>;
 }

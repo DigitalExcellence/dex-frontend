@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpBaseService } from './http-base.service';
 import { HttpClient } from '@angular/common/http';
-import { API_CONFIG } from '../config/api-config';
-import { ProjectCategory } from '../models/domain/projectCategory';
-import { ProjectCategoryAdd } from '../models/resources/project-category-add';
-import { ProjectCategoryUpdate } from '../models/resources/project-category-update';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { ProjectCategory } from 'src/app/models/domain/projectCategory';
+import { ProjectCategoryAdd } from 'src/app/models/resources/project-category-add';
+import { ProjectCategoryUpdate } from 'src/app/models/resources/project-category-update';
 
 @Injectable({
   providedIn: 'root'
