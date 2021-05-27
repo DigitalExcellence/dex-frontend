@@ -72,6 +72,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * FormControl for getting the input.
    */
   public searchControl: FormControl = null;
+  public sortOptionControl: FormControl = null
+  public paginationOptionControl: FormControl = null
 
   /**
    * The amount of projects that will be displayed on a single page.
@@ -97,49 +99,39 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * The possible pagination options for the dropdown
    */
   public paginationDropDownOptions = [
-    { id: 0, amountOnPage: 12 },
-    { id: 1, amountOnPage: 24 },
-    { id: 2, amountOnPage: 36 },
+    {id: 0, amountOnPage: 12},
+    {id: 1, amountOnPage: 24},
+    {id: 2, amountOnPage: 36},
   ];
 
-  /**
-   * FormGroup for the category search option.
-   */
-  public categoryForm: FormGroup;
-
-  /**
-   * FormGroup for the tags search option.
-   */
-  public tagsForm: FormGroup;
-
   public sortSelectOptions: SelectFormOption[] = [
-    { value: 'updated,desc', viewValue: 'Updated (new-old)' },
-    { value: 'updated,asc', viewValue: 'Updated (old-new)' },
-    { value: 'name,asc', viewValue: 'Name (a-z)' },
-    { value: 'name,desc', viewValue: 'Name (z-a)' },
-    { value: 'created,desc', viewValue: 'Created (new-old)' },
-    { value: 'created,asc', viewValue: 'Created (old-new)' },
+    {value: 'updated,desc', viewValue: 'Updated (new-old)'},
+    {value: 'updated,asc', viewValue: 'Updated (old-new)'},
+    {value: 'name,asc', viewValue: 'Name (a-z)'},
+    {value: 'name,desc', viewValue: 'Name (z-a)'},
+    {value: 'created,desc', viewValue: 'Created (new-old)'},
+    {value: 'created,asc', viewValue: 'Created (old-new)'},
   ];
 
   public displaySearchElements = false;
   public currentPage = 1;
 
-
   public categories: ProjectCategory[];
-
 
   /**
    * Project parameter gets updated per project detail modal
    */
   public currentProject: Project = null;
   private searchSubject = new BehaviorSubject<string>(null);
+
   /**
    * Parameters for keeping track of the current internalSearch query values.
    */
-  private currentSearchInput: string = null;
+  private currentSearchInput: string;
   private currentSortOptions: string = this.sortSelectOptions[0].value;
   private currentSortType: string = this.currentSortOptions.split(',')[0];
   private currentSortDirection: string = this.currentSortOptions.split(',')[1];
+
   /**
    * Property to indicate whether the project is loading.
    */
@@ -150,62 +142,45 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   private modalSubscriptions: Subscription[] = [];
 
   constructor(
-    private router: Router,
-    private paginationService: PaginationService,
-    private internalSearchService: InternalSearchService,
-    private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
-    private seoService: SEOService,
-    private modalService: BsModalService,
-    private location: Location,
-    private categoryService: CategoryService) {
+      private router: Router,
+      private paginationService: PaginationService,
+      private internalSearchService: InternalSearchService,
+      private formBuilder: FormBuilder,
+      private activatedRoute: ActivatedRoute,
+      private seoService: SEOService,
+      private modalService: BsModalService,
+      private location: Location,
+      private categoryService: CategoryService,
+      private route: ActivatedRoute,) {
 
     this.searchControl = new FormControl('');
+    this.sortOptionControl = new FormControl(this.sortSelectOptions);
+    this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
 
-    if (!environment.production) {
-      this.displaySearchElements = true;
-    }
 
   }
 
   ngOnInit(): void {
-    this.currentSearchInput = this.activatedRoute.snapshot.queryParamMap.get('query');
-    this.searchControl.patchValue(this.currentSearchInput);
-    this.onInternalQueryChange();
-
     this.categoryService.getAll().subscribe(categories => {
       this.categories = categories;
-      this.categories = this.categories.map(category => ({
-        ...category,
-         // selected: !!this.project.categories?.find(c => c.name === category.name)
-      }));
+      this.processQueryParams();
     });
 
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
-      .pipe(
-        debounceTime(500)
-      )
-      .subscribe((result) => {
-        if (result == null) {
-          return;
-        }
-        this.onInternalQueryChange();
-      });
+        .pipe(
+            debounceTime(500)
+        )
+        .subscribe((result) => {
+          if (!result) {
+            return;
+          }
+          this.onInternalQueryChange();
+        });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
 
     this.updateSEOTags();
-
-
-    // Following two oberservables can be used in the feature to implement category & tags searching
-    // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {
-    //   console.log(categoryFormResult);
-    // });
-
-    // this.tagsForm.valueChanges.subscribe((tagFormResult: TagFormResult) => {
-    //   console.log(tagFormResult);
-    // });
   }
 
   ngAfterContentInit() {
@@ -285,8 +260,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * and based on that value retrieves the paginated projects with the right parameters.
    * @param $event the identifier of the selected value.
    */
-  public onChangePaginationSelect($event: number) {
-    this.amountOfProjectsOnSinglePage = this.paginationDropDownOptions[$event].amountOnPage;
+  public onPaginationChange() {
+    console.log(this.paginationOptionControl.value.amountOnPage);
+    this.amountOfProjectsOnSinglePage = this.paginationOptionControl.value.amountOnPage;
     if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
       this.currentPage = 1;
     }
@@ -297,12 +273,19 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * Method to handle value changes of the sort form.
    * @param value the value of the form.
    */
-  public onSortFormValueChange(value: string): void {
-    if (value == null) {
+  public onSortFormValueChange(): void {
+    if (this.sortOptionControl.value == null) {
       return;
     }
-    this.currentSortType = value.split(',')[0];
-    this.currentSortDirection = value.split(',')[1];
+    this.currentSortType = this.sortOptionControl.value.split(',')[0];
+    this.currentSortDirection = this.sortOptionControl.value.split(',')[1];
+    this.onInternalQueryChange();
+  }
+
+  public onCategoryChange(categoryId: number): void {
+    this.categories = this.categories.map(category => category.id === categoryId
+        ? {...category, selected: !category.selected}
+        : category);
     this.onInternalQueryChange();
   }
 
@@ -320,18 +303,20 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       sortDirection: this.currentSortDirection,
     };
 
+    this.updateQueryParams();
+
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
       this.paginationService
-        .getProjectsPaginated(internalSearchQuery)
-        .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe((result) => this.handleSearchAndProjectResponse(result));
+          .getProjectsPaginated(internalSearchQuery)
+          .pipe(finalize(() => (this.projectsLoading = false)))
+          .subscribe((result) => this.handleSearchAndProjectResponse(result));
     } else {
       // Search query provided use searchService.
       this.internalSearchService
-        .getSearchResultsPaginated(internalSearchQuery)
-        .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe((result) => this.handleSearchAndProjectResponse(result));
+          .getSearchResultsPaginated(internalSearchQuery)
+          .pipe(finalize(() => (this.projectsLoading = false)))
+          .subscribe((result) => this.handleSearchAndProjectResponse(result));
     }
   }
 
@@ -351,7 +336,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       this.showPaginationFooter = true;
     }
   }
-
 
   /**
    * Method to open the modal for a projects detail
@@ -380,17 +364,50 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
       // Go back to home page after the modal is closed
       this.modalSubscriptions.push(
-        this.modalService.onHide.subscribe(() => {
-          if (this.location.path().startsWith('/project/details')) {
-            this.location.replaceState('/project/overview');
-            this.updateSEOTags();
-            this.onInternalQueryChange();
-          }
-        }
-        ));
+          this.modalService.onHide.subscribe(() => {
+                if (this.location.path().startsWith('/project/details')) {
+                  this.location.replaceState('/project/overview');
+                  this.updateSEOTags();
+                  this.onInternalQueryChange();
+                }
+              }
+          ));
     }
   }
 
+  private updateQueryParams() {
+    this.router.navigate(
+        [],
+        {
+          queryParams: {
+            query: this.searchControl.value,
+            categories: JSON.stringify(this.categories?.map(category => category.selected ? category.id : null).filter(category => category)),
+            sortOption: this.currentSortOptions,
+            pagination: this.amountOfProjectsOnSinglePage
+          },
+          queryParamsHandling: 'merge'
+        });
+  }
+
+  private processQueryParams() {
+    this.route.queryParams.subscribe(({query, categories: selectedCategories, sortOption, pagination}) => {
+      this.searchControl.setValue(query);
+      if(selectedCategories) {
+        this.categories = this.categories.map(category => ({
+          ...category,
+          selected: selectedCategories?.includes(category.id)}));
+      }
+      if(sortOption) {
+        this.currentSortOptions = sortOption;
+        this.sortOptionControl.setValue(this.sortSelectOptions.find(option => option.value === sortOption));
+      }
+      if(pagination) {
+        this.paginationOptionControl.setValue(this.paginationDropDownOptions.find(option => option.amountOnPage == pagination));
+        this.amountOfProjectsOnSinglePage = pagination;
+      }
+      this.onInternalQueryChange();
+    });
+  }
 
   /**
    * Methods to update the title and description through the SEO service
@@ -402,9 +419,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   }
 
   /**
- * Method to make tags change appearance on clicking.
- * further implementation is still pending.
- */
+   * Method to make tags change appearance on clicking.
+   * further implementation is still pending.
+   */
   public tagClicked(event) {
     if (event.target.className === 'tag clicked') {
       event.target.className = 'tag';
@@ -414,9 +431,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   }
 
   /**
- * Method to display the tags based on the environment variable.
- * Tags should be hidden in production for now until further implementation is finished.
- */
+   * Method to display the tags based on the environment variable.
+   * Tags should be hidden in production for now until further implementation is finished.
+   */
   public displayTags(): boolean {
     return !environment.production;
   }

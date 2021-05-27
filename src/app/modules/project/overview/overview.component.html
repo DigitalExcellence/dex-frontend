@@ -26,8 +26,8 @@
         <h4>Sort Options</h4>
         <form class="sort-options-form">
           <label for="asc-desc">Sort options</label>
-          <select #sortForm (change)="onSortFormValueChange(sortForm.value)" class="option-select" id="asc-desc">
-            <option *ngFor="let sortOption of sortSelectOptions" [value]="sortOption.value">
+          <select (change)="onSortFormValueChange()" [formControl]="sortOptionControl" class="option-select" id="asc-desc">
+            <option *ngFor="let sortOption of sortSelectOptions" [ngValue]="sortOption">
               {{ sortOption.viewValue }}
             </option>
           </select>
@@ -37,8 +37,8 @@
       <div class="filter-group">
         <h4>Pagination</h4>
         <label>Projects per page</label>
-        <select (ngModelChange)="onChangePaginationSelect($event)" [(ngModel)]="defaultPaginationOption.id" class="option-select">
-          <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption.id" class="paginationDropDown">
+        <select (change)="onPaginationChange()" [formControl]="paginationOptionControl" class="option-select">
+          <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption" class="paginationDropDown">
             {{ paginationOption.amountOnPage }}
           </option>
         </select>
@@ -48,7 +48,7 @@
         <div class="project-categories">
           <ng-container *ngFor="let category of categories">
             <p>
-              <input type="checkbox" [value]="category.selected" [name]="category.name">
+              <input type="checkbox" [ngModel]="category.selected" [name]="category.name" (change)="onCategoryChange(category.id)">
               <label [for]="category.name">{{category.name}}</label>
             </p>
           </ng-container>
