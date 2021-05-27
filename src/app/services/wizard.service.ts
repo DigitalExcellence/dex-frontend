@@ -121,7 +121,7 @@ export class WizardService {
       name: 'If your project has a link with a project page or another source you can link it here!',
       description: 'If your project has a link with a project page or another source you can link it here!',
       isComplete: false,
-      isOptional: false
+      isOptional: true
     },
   ];
   /**
@@ -240,6 +240,12 @@ export class WizardService {
    * @param step The page that needs to be set as current step
    */
   public setCurrentStep(step: WizardPage): void {
+    this.steps$.next(this.steps$.value.map(s => {
+      return s.orderIndex === step.orderIndex - 1
+      && s.isOptional
+          ? {...s, isComplete: true}
+          : s;
+    }));
     this.currentStep$.next(step);
   }
 
