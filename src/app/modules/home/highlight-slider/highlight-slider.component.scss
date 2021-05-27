@@ -129,7 +129,7 @@
           border: none;
           cursor: pointer;
           height: 100%;
-          width: 300px;
+          width: 325px;
           transition: transform $transition-short;
           gap: 20px;
 
@@ -188,7 +188,7 @@
         }
 
         p {
-          height: 38px;
+          height: 58px;
           line-height: 1;
           margin: 0px;
           max-width: 100%;
@@ -197,7 +197,7 @@
           max-height: 100%;
           display: block;
           display: -webkit-box;
-          -webkit-line-clamp: 2;
+          -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;
