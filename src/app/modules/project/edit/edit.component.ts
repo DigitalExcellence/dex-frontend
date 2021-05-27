@@ -31,6 +31,8 @@ import { CallToActionOptionService } from 'src/app/services/call-to-action-optio
 import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
 import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
+import { ProjectCategory } from '../../../models/domain/projectCategory';
+import { CategoryService } from '../../../services/category.service';
 
 /**
  * Component for editing adding a project.
@@ -40,7 +42,7 @@ import { FileUploaderComponent } from 'src/app/components/file-uploader/file-upl
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
 })
-export class EditComponent implements OnInit  {
+export class EditComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
@@ -56,6 +58,7 @@ export class EditComponent implements OnInit  {
   public editCallToActionForm: FormGroup;
   public editCollaboratorForm: FormGroup;
   public project: Project;
+  public categories: ProjectCategory[];
 
   /**
    * Projects selected call to action
@@ -104,12 +107,13 @@ export class EditComponent implements OnInit  {
   public projectLoading = true;
 
   constructor(
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private projectService: ProjectService,
-    private activatedRoute: ActivatedRoute,
-    private alertService: AlertService,
-    private callToActionOptionService: CallToActionOptionService
+      private router: Router,
+      private formBuilder: FormBuilder,
+      private projectService: ProjectService,
+      private activatedRoute: ActivatedRoute,
+      private alertService: AlertService,
+      private callToActionOptionService: CallToActionOptionService,
+      private categoryService: CategoryService,
   ) {
     this.editProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
@@ -140,43 +144,60 @@ export class EditComponent implements OnInit  {
       return;
     }
 
+    this.categoryService.getAll().subscribe(categories => {
+      this.categories = categories;
+    });
+
     /**
      * Retrieve the available call to actions
      */
     this.callToActionOptionService
-    .getAll()
-    .pipe(finalize(() => (this.callToActionsLoading = false)))
-    .subscribe((result) => {
-        this.callToActionOptions = result.filter(o => o.type === 'title');
+        .getAll()
+        .pipe(finalize(() => (this.callToActionsLoading = false)))
+        .subscribe((result) => {
+          this.callToActionOptions = result.filter(o => o.type === 'title');
 
-        /**
-         * Add the none option to the dropdown
-         */
-        this.callToActionOptions.unshift(this.selectedCallToActionOption);
+          /**
+           * Add the none option to the dropdown
+           */
+          this.callToActionOptions.unshift(this.selectedCallToActionOption);
 
-        this.projectService.get(id)
-          .pipe(
-            finalize(() => this.projectLoading = false)
-          )
-          .subscribe(
-            (projectResult) => {
-              this.project = projectResult;
-              this.collaborators = this.project.collaborators;
-              this.fileUploader.setFiles([this.project.projectIcon]);
+          this.projectService.get(id)
+              .pipe(
+                  finalize(() => this.projectLoading = false)
+              )
+              .subscribe(
+                  (projectResult) => {
+                    this.project = projectResult;
+                    this.collaborators = this.project.collaborators;
+                    this.fileUploader.setFiles([this.project.projectIcon]);
 
-              if (this.project.callToAction != null) {
-                for (let i = 0; i < this.callToActionOptions.length; i++) {
-                  const element = this.callToActionOptions[i];
-                  if (element.value.toLowerCase() === this.project.callToAction.optionValue) {
-                    this.selectedCallToActionOption = this.callToActionOptions[i];
+                    this.categories = this.categories.map(category => ({
+                      ...category,
+                      selected: !!this.project.categories?.find(c => c.name === category.name)
+                    }));
+
+                    if (this.project.callToAction != null) {
+                      for (let i = 0; i < this.callToActionOptions.length; i++) {
+                        const element = this.callToActionOptions[i];
+                        if (element.value.toLowerCase() === this.project.callToAction.optionValue) {
+                          this.selectedCallToActionOption = this.callToActionOptions[i];
+                        }
+                      }
+
+                      this.callToActionRedirectUrl = this.project.callToAction.value;
+                    }
                   }
-                }
+              );
+        });
+  }
 
-                this.callToActionRedirectUrl = this.project.callToAction.value;
-              }
-            }
-          );
-    });
+  public onCategoryClick(category): void {
+    this.categories = this.categories.map(cat => (
+        cat.name === category.name
+            ? {...cat, selected: !category.selected}
+            : {...cat}
+    ));
   }
 
   public onClickSubmit(): void {
@@ -196,6 +217,7 @@ export class EditComponent implements OnInit  {
 
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
+    editedProject.categories = this.categories.filter(category => category.selected);
 
     /*
     * Whenever a call to action is selected, this value
@@ -215,28 +237,28 @@ export class EditComponent implements OnInit  {
       }
 
       const callToActionToSubmit =
-      { optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl } as CallToAction;
+          {optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl} as CallToAction;
 
       editedProject.callToAction = callToActionToSubmit;
-   }
+    }
 
     this.fileUploader.uploadFiles()
-      .subscribe(uploadedFiles => {
-        if (uploadedFiles) {
-          if (uploadedFiles[0]) {
-            // Project icon was set and uploaded
-            editedProject.fileId = uploadedFiles[0].id;
+        .subscribe(uploadedFiles => {
+          if (uploadedFiles) {
+            if (uploadedFiles[0]) {
+              // Project icon was set and uploaded
+              editedProject.fileId = uploadedFiles[0].id;
+              this.editProject(editedProject);
+            }
+            // Project icon was set but not uploaded successfully, the component will show the error
+          } else {
+            // There was no project icon
+            if (this.project.projectIcon) {
+              editedProject.fileId = 0;
+            }
             this.editProject(editedProject);
           }
-          // Project icon was set but not uploaded successfully, the component will show the error
-        } else {
-          // There was no project icon
-          if (this.project.projectIcon) {
-            editedProject.fileId = 0;
-          }
-          this.editProject(editedProject);
-        }
-      });
+        });
   }
 
   /**

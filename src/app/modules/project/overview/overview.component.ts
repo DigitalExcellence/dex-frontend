@@ -411,7 +411,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
         this.sortOptionControl.setValue(this.sortSelectOptions.find(option => option.value === sortOption));
       }
       if (pagination) {
-        this.paginationOptionControl.setValue(this.paginationDropDownOptions.find(option => option.amountOnPage === pagination.toInt()));
+        this.paginationOptionControl.setValue(this.paginationDropDownOptions.find(option => option.amountOnPage === parseInt(pagination)));
         this.amountOfProjectsOnSinglePage = pagination;
       }
       this.onInternalQueryChange();

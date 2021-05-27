@@ -74,6 +74,28 @@
   }
 }
 
+.project-categories {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+
+  .category {
+    text-decoration: none;
+    border-radius: 999px;
+    background-color: $light-mode-grey-thertiary;
+    color: $black;
+    padding: 3px 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
+    margin: 5px 5px 5px 0;
+    font-size: 12px;
+
+    &.selected {
+      background: $accent-color-red-primary;
+      color: #fff;
+    }
+  }
+}
+
 .long-description-editor {
   margin-bottom: 25px;
 }
@@ -114,7 +136,7 @@
           align-self: center;
           margin: 0;
           max-width: 100%;
-          
+
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;

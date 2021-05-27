@@ -40,11 +40,10 @@
               <div>
                 <h3>Project link*</h3>
                 <input placeholder="https://github.com/fontys/digitalexcellence" formControlName="uri" required
-                  [ngModel]="project?.uri">
+                       [ngModel]="project?.uri">
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-12">
               <div>
@@ -61,13 +60,29 @@
               </div>
             </div>
           </div>
-
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <h3>Project categories*</h3>
+                <div class="project-categories">
+                  <a
+                      (click)="onCategoryClick(category)"
+                      *ngFor="let category of categories"
+                      [ngClass]="{selected: category.selected}"
+                      class="category"
+                      href="javascript:void(0)">
+                    {{category.name}}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-12">
               <div class="long-description-editor">
                 <h3>Description*</h3>
                 <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
-                  formControlName="description" placeholder="" [ngModel]="project?.description">
+                              formControlName="description" placeholder="" [ngModel]="project?.description">
                 </quill-editor>
               </div>
             </div>
@@ -82,7 +97,6 @@
             </div>
           </div>
         </form>
-
         <ng-container *ngIf="callToActionOptions.length > 1">
           <form [formGroup]="editCallToActionForm" class="project-form">
 
@@ -136,7 +150,7 @@
 
                 <div class="col-2 add-collaborator-col">
                   <button type="button" class="btn btn-icon btn-primary add-collaborator-button" aria-label="settings"
-                    (click)="onClickAddCollaborator()" [disabled]="!editCollaboratorForm.valid">
+                          (click)="onClickAddCollaborator()" [disabled]="!editCollaboratorForm.valid">
                     +
                   </button>
                 </div>
@@ -158,20 +172,20 @@
 
           <div *ngFor="let collaborator of collaborators; index as i" class="col-5 collaborator-item">
             <button type="button" class="btn btn-icon btn-danger" aria-label="error"
-              (click)="onClickDeleteCollaborator(collaborator)"> <span aria-hidden="true"> &times; </span>
+                    (click)="onClickDeleteCollaborator(collaborator)"><span aria-hidden="true"> &times; </span>
             </button>
 
-              <div class="collaborator-text-container w-100">
+            <div class="collaborator-text-container w-100">
 
-                <div>
-                  <p class="collaborator-text large font-weight-bold" [tooltip]="collaborator?.fullName" delay="300">{{collaborator?.fullName}}</p>
-                </div>
-                <p class="collaborator-text large dash">-</p>
-                <div>
-                  <p class="collaborator-text large" [tooltip]="collaborator?.role" delay="300">{{collaborator?.role}}</p>
-                </div>
-
+              <div>
+                <p class="collaborator-text large font-weight-bold" [tooltip]="collaborator?.fullName" delay="300">{{collaborator?.fullName}}</p>
               </div>
+              <p class="collaborator-text large dash">-</p>
+              <div>
+                <p class="collaborator-text large" [tooltip]="collaborator?.role" delay="300">{{collaborator?.role}}</p>
+              </div>
+
+            </div>
 
             <hr class="dashed">
           </div>
@@ -180,8 +194,9 @@
         <div class="row">
           <div class="col-12">
             <button class="btn btn-success" type="submit" (click)="onClickSubmit()"
-              [disabled]="!editProjectForm.valid">Edit
-              project</button>
+                    [disabled]="!editProjectForm.valid">Edit
+                                                        project
+            </button>
             <button class="btn btn-cancel" (click)="onClickCancel()">Cancel</button>
           </div>
         </div>
