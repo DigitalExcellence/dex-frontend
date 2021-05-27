@@ -20,6 +20,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Fixed issue where alerts would never get dismissed - [#441](https://github.com/DigitalExcellence/dex-frontend/issues/441)
+
 ### Security
 
 ## Release v.1.3.0-beta - 05-05-2021

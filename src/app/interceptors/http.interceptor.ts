@@ -132,19 +132,20 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         );
   }
 
-  /**
-   * Method to return the default error AlertConfig for HttpInterceptor
-   * @param preMessage the alert message prefix.
-   * @param mainMessage the alert message main content.
-   */
-  private createErrorAlertConfig(preMessage: string, mainMessage: string): AlertConfig {
-    const alertConfig: AlertConfig = {
-      type: AlertType.danger,
-      preMessage: preMessage,
-      mainMessage: mainMessage,
-      dismissible: true,
-      timeout: this.alertService.defaultTimeout
-    };
-    return alertConfig;
-  }
+    /**
+     * Method to return the default error AlertConfig for HttpInterceptor
+     * @param preMessage the alert message prefix.
+     * @param mainMessage the alert message main content.
+     */
+    private createErrorAlertConfig(preMessage: string, mainMessage: string): AlertConfig {
+        const alertConfig: AlertConfig = {
+          type: AlertType.danger,
+          preMessage: preMessage,
+          mainMessage: mainMessage,
+          dismissible: true,
+          autoDismiss: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        return alertConfig;
+    }
 }
