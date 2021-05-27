@@ -35,6 +35,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoryService } from '../../../services/category.service';
 import { ProjectCategory } from '../../../models/domain/projectCategory';
+import { query } from '@angular/animations';
 
 /**
  * Overview of all the projects
@@ -152,7 +153,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       private location: Location,
       private categoryService: CategoryService,
       private route: ActivatedRoute,) {
-
     this.searchControl = new FormControl('');
     this.sortOptionControl = new FormControl(this.sortSelectOptions);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
@@ -161,6 +161,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit(): void {
+    console.log('on init');
     this.categoryService.getAll().subscribe(categories => {
       this.categories = categories;
       this.processQueryParams();
@@ -242,7 +243,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     } else {
       this.createProjectModal(id);
     }
-    this.location.replaceState(`/project/details/${id}-${name}`);
+    this.location.replaceState(`/project/details/${id}-${name}`, );
   }
 
   /**
@@ -277,8 +278,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     if (this.sortOptionControl.value == null) {
       return;
     }
-    this.currentSortType = this.sortOptionControl.value.split(',')[0];
-    this.currentSortDirection = this.sortOptionControl.value.split(',')[1];
+    this.currentSortType = this.sortOptionControl.value.value.split(',')[0];
+    this.currentSortDirection = this.sortOptionControl.value.value.split(',')[1];
     this.onInternalQueryChange();
   }
 
@@ -366,7 +367,8 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       this.modalSubscriptions.push(
           this.modalService.onHide.subscribe(() => {
                 if (this.location.path().startsWith('/project/details')) {
-                  this.location.replaceState('/project/overview');
+                  const queryString = `query=${this.searchControl.value}&categories=${JSON.stringify(this.categories?.map(category => category.selected ? category.id : null).filter(category => category))}&sortOption=${this.currentSortOptions}&pagination=${this.amountOfProjectsOnSinglePage}`
+                  this.location.replaceState(`/project/overview/`, queryString);
                   this.updateSEOTags();
                   this.onInternalQueryChange();
                 }
