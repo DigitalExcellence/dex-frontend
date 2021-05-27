@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Added search bar inside navbar with autocomplete suggested results. - [#403](https://github.com/DigitalExcellence/dex-frontend/issues/403)
+- Refactored the home page. [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
 
 ### Changed
 
