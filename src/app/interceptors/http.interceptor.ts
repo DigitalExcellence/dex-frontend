@@ -137,7 +137,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
      * @param preMessage the alert message prefix.
      * @param mainMessage the alert message main content.
      */
-    private createErrorAlertConfig(preMessage: string, mainMessage: string): AlertConfig {
+  private createErrorAlertConfig(preMessage: string, mainMessage: string): AlertConfig {
         const alertConfig: AlertConfig = {
           type: AlertType.danger,
           preMessage: preMessage,
