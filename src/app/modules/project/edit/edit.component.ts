@@ -31,8 +31,8 @@ import { CallToActionOptionService } from 'src/app/services/call-to-action-optio
 import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
 import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
-import { ProjectCategory } from '../../../models/domain/projectCategory';
-import { CategoryService } from '../../../services/category.service';
+import { ProjectCategory } from 'src/app/models/domain/projectCategory';
+import { CategoryService } from 'src/app/services/category.service';
 
 /**
  * Component for editing adding a project.
