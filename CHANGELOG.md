@@ -9,6 +9,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Implemented categories - [#475](https://github.com/DigitalExcellence/dex-frontend/issues/475)
+- Added filter parameters to the url, so a user can share their search settings - [#493](https://github.com/DigitalExcellence/dex-frontend/issues/493)
+
 ### Changed
 
 ### Deprecated
