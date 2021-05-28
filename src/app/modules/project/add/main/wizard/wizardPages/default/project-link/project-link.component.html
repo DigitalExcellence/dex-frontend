@@ -27,7 +27,7 @@
   <div class="wrapper">
     <div *ngIf="isDynamicPage" class="external-source">
       <div class="square">
-        <img alt="detected-source" src="{{getIconUrl(selectedSource.icon || 0)}}"/>
+        <img alt="detected-source" src="{{getSourceIconUrl()}}"/>
       </div>
       <h2>{{selectedSource.title}}</h2>
     </div>
@@ -40,7 +40,7 @@
              required
              type="url"/>
       <button (click)="onClickNext()"
-              [disabled]="(!link.valid)"
+              [disabled]="(!link.valid && link.value.length > 0)"
               class="form-continue-btn">{{isDynamicPage ? "Import project" : "Finish"}}
       </button>
     </div>

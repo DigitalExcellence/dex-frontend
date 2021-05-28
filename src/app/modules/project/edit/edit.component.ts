@@ -15,9 +15,9 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
 import { ProjectService } from 'src/app/services/project.service';
@@ -117,7 +117,7 @@ export class EditComponent implements OnInit {
   ) {
     this.editProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
-      uri: [null, Validators.required],
+      uri: [null],
       shortDescription: [null, Validators.required],
       description: [null],
     });
