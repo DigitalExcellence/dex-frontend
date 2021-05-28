@@ -22,7 +22,7 @@
  //project recommendations
  .recommendedProjects {
   //  margin-top: 220px;
-  padding: 60px;
+  padding: 40px 60px 20px 60px;
   background-color: $light-mode-grey-quaternary;
   margin: 0 -39px;
   justify-content: center;
@@ -33,17 +33,37 @@
     margin: auto;
     width: 100%;
     .text {
-
+      .large{
+        margin: 0 0 5px 0;
+      }
     }
   }
   
 
   .cards {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-auto-columns: 40px;
+    gap: 30px;
+    max-width: 100%;
+    grid-auto-columns: 310px;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 0;
 
-    .card {
+    //scrollbar stylingbody
+    &::-webkit-scrollbar {
+      height: 4px;
     }
+
+    &::-webkit-scrollbar-track {
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background-color: white;
+    }
+
    
   }
 }
