@@ -300,6 +300,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,
+      categories: this.categories
+          .map(value => value.selected ? value.id : null)
+          .filter(value => value)
     };
 
     this.updateQueryParams();
@@ -399,7 +402,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
 
   private processQueryParams() {
     this.route.queryParams.subscribe(({query, categories: selectedCategories, sortOption, pagination}) => {
-      this.searchControl.setValue(query);
+      if (query !== 'null' && query !== 'undefined') {
+        this.searchControl.setValue(query);
+      }
       if (selectedCategories) {
         this.categories = this.categories.map(category => ({
           ...category,
