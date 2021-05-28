@@ -65,17 +65,19 @@
         </div>
 
         <div class="project-categories-tags">
-          <div>
-            <p class="title">Tags</p>
-            <div class="project-tags">
+          <ng-container *ngIf="!isProduction()">
+            <div>
+              <p class="title">Tags</p>
               <div class="project-tags">
-                <!--  <span *ngFor="let tag of project.tags" class="tag" (click)="onTagClick(tag)">-->
-                <span>#html</span>
-                <span>#css</span>
-                <span>#javascript</span>
+                <div class="project-tags">
+                  <!--  <span *ngFor="let tag of project.tags" class="tag" (click)="onTagClick(tag)">-->
+                  <span>#html</span>
+                  <span>#css</span>
+                  <span>#javascript</span>
+                </div>
               </div>
             </div>
-          </div>
+          </ng-container>
           <div>
             <p class="title">Categories</p>
             <div class="project-categories">
