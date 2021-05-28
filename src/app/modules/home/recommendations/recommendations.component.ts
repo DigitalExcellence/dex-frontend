@@ -56,6 +56,9 @@ export class RecommendationCardsComponent implements OnInit {
           .pipe(finalize(() => (this.recommendationsLoading = false)))
           .subscribe((result) => {
             this.recommendations = result;
+            this.recommendations.forEach(element => {
+              element.likeCount = element.likes.length;
+            });
           });
       }
     });
