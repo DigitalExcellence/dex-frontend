@@ -19,7 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { debounceTime, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PaginationService } from 'src/app/services/pagination.service';
@@ -411,7 +411,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
         this.sortOptionControl.setValue(this.sortSelectOptions.find(option => option.value === sortOption));
       }
       if (pagination) {
-        this.paginationOptionControl.setValue(this.paginationDropDownOptions.find(option => option.amountOnPage === parseInt(pagination, 10)));
+        this.paginationOptionControl.setValue(
+            this.paginationDropDownOptions.find(option =>
+                option.amountOnPage === parseInt(pagination, 10)));
         this.amountOfProjectsOnSinglePage = pagination;
       }
       this.onInternalQueryChange();
