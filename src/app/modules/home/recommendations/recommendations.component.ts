@@ -31,7 +31,7 @@ import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.ut
 })
 export class RecommendationCardsComponent implements OnInit {
 
-  public isAuthenticated: boolean = false;
+  public isAuthenticated: boolean;
 
   /**
    * Array to receive and store the projects from the api.
@@ -46,19 +46,19 @@ export class RecommendationCardsComponent implements OnInit {
   constructor(private recommendationService: RecommendationService,
     private fileRetrieverService: FileRetrieverService,
     private modalUtility: ProjectDetailModalUtility,
-    private authService: AuthService) { }
+    private authService: AuthService) {}
 
   ngOnInit(): void {
-
-
-    if (this.authService.isAuthenticated()) {
-      this.isAuthenticated = true;
-      this.recommendationService.getRecommendations(8)
-        .pipe(finalize(() => (this.recommendationsLoading = false)))
-        .subscribe((result) => {
-          this.recommendations = result;
-        });
-    }
+    this.authService.authNavStatus$.subscribe((status) => {
+      this.isAuthenticated = status;
+      if (status) {
+        this.recommendationService.getRecommendations(8)
+          .pipe(finalize(() => (this.recommendationsLoading = false)))
+          .subscribe((result) => {
+            this.recommendations = result;
+          });
+      }
+    });
   }
 
   /**

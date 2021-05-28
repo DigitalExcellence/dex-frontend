@@ -64,7 +64,7 @@ export class AppLayoutComponent implements OnInit {
     });
 
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
+      if (event instanceof NavigationEnd) {
         if ((event.url === '/home' || event.url === '/')) {
           this.showSearchbar = true;
         } else {

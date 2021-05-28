@@ -16,13 +16,10 @@
   
   <div class="inner">
     <div class="text">
-      <h2>Recommended projects</h2>
-      <ng-container *ngIf="recommendations && recommendations.length > 0; else noHighlights">
-        <p class="large">Our top {{recommendations.length}} projects</p>
+      <h2>Your recommended projects</h2>
+      <ng-container *ngIf="recommendations">
+        <p class="large">Your top {{recommendations.length}} recommendations</p>
       </ng-container>
-      <ng-template #noHighlights>
-        <p class="large">Currently there are no highlighted projects</p>
-      </ng-template>
     </div>
 
   <div class="cards">
