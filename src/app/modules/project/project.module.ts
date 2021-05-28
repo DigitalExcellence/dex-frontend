@@ -80,7 +80,8 @@ import { CollaboratorComponent } from './collaborator/collaborator.component';
   ],
   exports: [
     FileUploaderComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ProjectComponent
   ],
   providers: [Meta]
 })

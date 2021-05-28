@@ -11,6 +11,7 @@ import { StripHtmlPipe } from 'src/app/utils/striptags.pipe';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ProjectModule } from '../project/project.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     CommonModule,
     PopoverModule.forRoot(),
     ModalModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    ProjectModule
   ]
 })
 export class HomeModule {

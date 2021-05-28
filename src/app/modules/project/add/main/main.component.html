@@ -32,6 +32,12 @@
 <ng-template #sourcesLoaded>
   <div class="grid-wrapper">
     <div class="source-grid">
+      <div (click)="manualClick()" class="source">
+        <div class="source-content">
+          <img alt="name svg" loading="lazy" src="/assets/images/wizard/name.svg">
+          <h3>Add project manually</h3>
+        </div>
+      </div>
       <div (click)="externalSourceClick($event, externalSource)"
            *ngFor="let externalSource of availableExternalSources"
            [ngClass]="{'not-visible': !externalSource.isVisible}"
@@ -39,12 +45,6 @@
         <div class="source-content">
           <img class="source-content-datasource-image" alt="{{externalSource.title}}" loading="lazy" src="{{ getIconUrl(externalSource.icon) }}">
           <h3>{{ externalSource.title }}</h3>
-        </div>
-      </div>
-      <div (click)="manualClick()" class="source">
-        <div class="source-content">
-          <img alt="name svg" loading="lazy" src="/assets/images/wizard/name.svg">
-          <h3>Add project manually</h3>
         </div>
       </div>
     </div>

@@ -36,16 +36,15 @@
           </div>
         </div>
         <div class="project-metadata">
-          <div *ngIf="project.uri" class="project-metadata__item">
+          <div *ngIf="project.user" class="project-metadata__item">
             <p class="title">Uploader <em class="fas fa-user"></em></p>
             <p>
               {{ project.user.name }}
             </p>
           </div>
 
-          <div class="project-metadata__item">
+          <div *ngIf="project.uri" class="project-metadata__item">
             <p class="title">External Link <em class="fas fa-external-link-alt"></em></p>
-
             <a class="hover" href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
           </div>
           <div class="project-metadata__item">
