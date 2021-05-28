@@ -218,6 +218,7 @@ export class EditComponent implements OnInit {
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
+    console.log(editedProject.categories);
 
     /*
     * Whenever a call to action is selected, this value
