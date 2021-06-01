@@ -55,22 +55,30 @@
     .text {
       max-width: 1800px;
       width: 100%;
+      display: grid;
+      gap: 20px;
 
-      h1,
-      p {
-        width: fit-content;
-        color: $white;
-      }
       p {
         font-size: 18px;
       }
+      h1,
+      p {
+        margin: 0;
+        width: fit-content;
+        color: $white;
+      }
+      @include media-breakpoint-down(sm) {
+        h1 {
+          font-size: 35px;
+        }
+      }
 
       .buttons {
+        margin-top: 20px;
         display: grid;
         grid-auto-flow: column;
         gap: 20px;
         width: fit-content;
-        margin-top: 50px;
 
         button {
           background-color: $accent-color-red-primary;
@@ -188,7 +196,7 @@
         }
 
         p {
-          height: 58px;
+          height: 54px;
           line-height: 1;
           margin: 0px;
           max-width: 100%;
