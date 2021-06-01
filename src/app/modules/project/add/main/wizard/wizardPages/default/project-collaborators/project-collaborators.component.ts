@@ -51,7 +51,7 @@ export class ProjectCollaboratorsComponent extends WizardStepBaseComponent imple
     this.project = this.wizardService.builtProject;
     if (this.project.collaborators) {
       this.collaboratorList = this.project.collaborators.map(collaborator => {
-        return {...collaborator, role: 'Developer'};
+        return {...collaborator, role: collaborator.role ? collaborator.role : 'Developer'};
       });
     }
   }

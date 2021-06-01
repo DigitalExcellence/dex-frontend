@@ -16,12 +16,13 @@
  */
 
 import { WizardPage } from './wizard-page';
+import { UploadFile } from './uploadFile';
 
 export interface ExternalSource {
   guid: string;
   title: string;
-  description?: any;
+  description?: string;
   isVisible: boolean;
-  icon?: any;
+  icon?: UploadFile;
   wizardPages: Array<WizardPage>;
 }

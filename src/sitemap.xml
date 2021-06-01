@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url><loc>https://dex.software/home</loc><priority>0.5</priority></url>
     <url><loc>https://dex.software/project/overview</loc><priority>0.5</priority></url>
-    <url><loc>https://dex.software/project/add/source</loc><priority>0.5</priority></url>
+    <url>
+      <loc>https://dex.software/project/add</loc>
+      <priority>0.5</priority>
+    </url>
     <url><loc>https://dex.software/account/login</loc><priority>0.5</priority></url>
 </urlset>
