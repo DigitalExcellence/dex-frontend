@@ -44,9 +44,9 @@ export class RecommendationCardsComponent implements OnInit {
   public recommendationsLoading = true;
 
   constructor(private recommendationService: RecommendationService,
-    private fileRetrieverService: FileRetrieverService,
-    private modalUtility: ProjectDetailModalUtility,
-    private authService: AuthService) {}
+              private fileRetrieverService: FileRetrieverService,
+              private modalUtility: ProjectDetailModalUtility,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.authNavStatus$.subscribe((status) => {
@@ -81,6 +81,4 @@ export class RecommendationCardsComponent implements OnInit {
   public getIconUrl(project: Project): SafeUrl {
     return this.fileRetrieverService.getIconUrl(project.projectIcon);
   }
-
-
 }

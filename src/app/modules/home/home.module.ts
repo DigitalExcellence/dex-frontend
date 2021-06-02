@@ -12,7 +12,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { RecommendationCardsComponent } from './recommendations/recommendations.component';
-import { ProjectModule } from '../project/project.module';
+import { ProjectModule } from 'src/app/modules/project/project.module';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +26,6 @@ import { ProjectModule } from '../project/project.module';
     ContainerRightComponent,
     StripHtmlPipe,
     RecommendationCardsComponent
-    
   ],
   imports: [
     CommonModule,

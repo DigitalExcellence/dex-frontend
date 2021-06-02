@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from 'src/app/config/api-config';
 import { Observable } from 'rxjs';
-import { Project } from '../models/domain/project';
+import { Project } from 'src/app/models/domain/project';
 
 /**
  * Service to retrieve autocompleted project suggestions based on typed.
@@ -33,7 +33,7 @@ export class RecommendationService {
   constructor(private http: HttpClient) {}
 
   public getRecommendations(amountOfRecommendations): Observable<Array<Project>> {
-    return this.http.get<Array<Project>>(this.url + "/projectrecommendations/" + amountOfRecommendations);
+    return this.http.get<Array<Project>>(this.url + '/projectrecommendations/' + amountOfRecommendations);
   }
 
 }
