@@ -72,12 +72,13 @@ export class DetailsComponent implements OnInit {
   public displayCallToActionButton = true;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
+  public today = new Date();
   public projectComments = [
     {
       id: 1, 
       userId : 1,
       username: "Prince Ron",
-      created: new Date(),
+      created: new Date(this.today.getDate() - 1),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '22',
@@ -86,7 +87,7 @@ export class DetailsComponent implements OnInit {
       id: 2, 
       userId : 2,
       username: "Humble Andrew",
-      created: new Date(),
+      created: new Date(this.today.getDate() - 30),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '14',
@@ -94,7 +95,7 @@ export class DetailsComponent implements OnInit {
     {
       id: 3, 
       username: "Doctor Ron",
-      created: new Date(),
+      created: new Date(this.today.getDate() - 370),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '2',
@@ -102,7 +103,7 @@ export class DetailsComponent implements OnInit {
     {
       id: 4, 
       username: "Teacher Ron",
-      created: new Date(),
+      created: new Date(this.today.getDate() - 800),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '9',
@@ -110,7 +111,7 @@ export class DetailsComponent implements OnInit {
     {
       id: 5, 
       username: "Athlete Ron",
-      created: new Date(),
+      created: new Date(this.today.getDate() - 6),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '7',
@@ -118,7 +119,7 @@ export class DetailsComponent implements OnInit {
     {
       id: 6, 
       username: "Developer Andrew",
-      created: new Date(),
+      created: new Date(this.today.getDate() - 342786),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '1',
@@ -513,7 +514,10 @@ export class DetailsComponent implements OnInit {
     const limitMonth = limitWeek*4;
     const limitYear = limitMonth*52;
     //
-    let diffInSeconds = today.getSeconds() - commentDate.getSeconds();
+    let diffInSeconds = (Math.abs(today.getTime() - commentDate.getTime()))/1000;
+    console.log(diffInSeconds);
+    console.log(today.getTime());
+    console.log(commentDate.getTime())
     let diffInMinutes = 48;
     let diffInHours = 48;
     let diffInDays = 48;
@@ -522,32 +526,25 @@ export class DetailsComponent implements OnInit {
     switch(true) {
       case (diffInSeconds < limitMinute):
         formattedCommentDate = "... +"+diffInSeconds+" second(s).";
-        console.log("... +"+diffInSeconds+" second(s).");
         return formattedCommentDate;
         break;
       case (diffInSeconds < limitHour):
         formattedCommentDate = "... +"+diffInHours+" minute(s).";
-        console.log("... +"+diffInHours+" minute(s).");
         break;
       case (diffInSeconds < limitDay):
         formattedCommentDate = "... +"+diffInHours+" hour(s).";
-        console.log("... +"+diffInHours+" hour(s).");
         break;
       case (diffInSeconds < (limitWeek)):
         formattedCommentDate = "... +"+diffInDays+" day(s).";
-        console.log("... +"+diffInDays+" day(s).");
         break;
       case (diffInSeconds < (limitWeek+1)):
         formattedCommentDate = "... +"+diffInDays+" week(s).";
-        console.log("... +"+diffInDays+" week(s).");
           break;
       case (diffInSeconds < (limitWeek)):
         formattedCommentDate = "... +"+diffInDays+" month(s).";
-        console.log("... +"+diffInDays+" month(s).");
         break;
       case (diffInSeconds < (limitYear)):
         formattedCommentDate = "... +"+diffInDays+" years(s).";
-        console.log("... +"+diffInDays+" years(s).");
         break;
       default:
           console.log("This comment is missing a date.");
