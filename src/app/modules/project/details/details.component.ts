@@ -502,6 +502,62 @@ export class DetailsComponent implements OnInit {
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
 
+  private commentFormatDate(commentDate: Date) {
+    let formattedCommentDate = '';
+    let today = new Date();
+
+    const limitMinute = 60;
+    const limitHour = limitMinute*60;
+    const limitDay = limitHour* 24;
+    const limitWeek = limitDay * 7;
+    const limitMonth = limitWeek*4;
+    const limitYear = limitMonth*52;
+    //
+    let diffInSeconds = today.getSeconds() - commentDate.getSeconds();
+    let diffInMinutes = 48;
+    let diffInHours = 48;
+    let diffInDays = 48;
+
+
+    switch(true) {
+      case (diffInSeconds < limitMinute):
+        formattedCommentDate = "... +"+diffInSeconds+" second(s).";
+        console.log("... +"+diffInSeconds+" second(s).");
+        return formattedCommentDate;
+        break;
+      case (diffInSeconds < limitHour):
+        formattedCommentDate = "... +"+diffInHours+" minute(s).";
+        console.log("... +"+diffInHours+" minute(s).");
+        break;
+      case (diffInSeconds < limitDay):
+        formattedCommentDate = "... +"+diffInHours+" hour(s).";
+        console.log("... +"+diffInHours+" hour(s).");
+        break;
+      case (diffInSeconds < (limitWeek)):
+        formattedCommentDate = "... +"+diffInDays+" day(s).";
+        console.log("... +"+diffInDays+" day(s).");
+        break;
+      case (diffInSeconds < (limitWeek+1)):
+        formattedCommentDate = "... +"+diffInDays+" week(s).";
+        console.log("... +"+diffInDays+" week(s).");
+          break;
+      case (diffInSeconds < (limitWeek)):
+        formattedCommentDate = "... +"+diffInDays+" month(s).";
+        console.log("... +"+diffInDays+" month(s).");
+        break;
+      case (diffInSeconds < (limitYear)):
+        formattedCommentDate = "... +"+diffInDays+" years(s).";
+        console.log("... +"+diffInDays+" years(s).");
+        break;
+      default:
+          console.log("This comment is missing a date.");
+          break;
+
+    }
+
+    return formattedCommentDate;
+  }
+
   /**
    * Method for opening the highlight-modal-form
    * @param highlights the array of highlights to be displayed in the modals
