@@ -14,8 +14,8 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,9 +23,7 @@ import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { FormsModule } from '@angular/forms';
-import { HomeComponent } from './components/home/home.component';
 import { TokenInterceptor } from './interceptors/auth.interceptor';
-import { TopHighlightCardsComponent } from './modules/highlight/top-highlight-cards/top-highlight-cards.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './components/footer/footer.component';
@@ -37,23 +35,23 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
-import { StripHtmlPipe } from './utils/striptags.pipe';
 import { QuillModule } from 'ngx-quill';
+import { HomeModule } from './modules/home/home.module';
+import { SearchComponent } from './components/search/search.component';
+import { ProjectModule } from './modules/project/project.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppLayoutComponent,
-    HomeComponent,
     AuthCallbackComponent,
-    TopHighlightCardsComponent,
     AlertComponent,
     FooterComponent,
     PrivacyPolicyComponent,
     NotFoundComponent,
     ModalDeleteGenericComponent,
-    StripHtmlPipe
+    SearchComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -66,6 +64,8 @@ import { QuillModule } from 'ngx-quill';
     HttpClientModule,
     SharedModule,
     QuillModule.forRoot(),
+    HomeModule,
+    ProjectModule
   ],
   providers: [
     {
@@ -84,5 +84,6 @@ import { QuillModule } from 'ngx-quill';
     }
   ],
   bootstrap: [AppComponent],
+  exports: [SearchComponent]
 })
 export class AppModule { }

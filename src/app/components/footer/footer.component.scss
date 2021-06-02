@@ -19,6 +19,7 @@
 @import "assets/styles/variables";
 
 footer {
+  overflow: hidden;
   margin-top: 40px;
   box-sizing: border-box;
   width: 100%;
@@ -37,6 +38,26 @@ footer {
       max-width: 100px;
     }
   }
+
+  .img-left {
+    width: 200px;
+    height: auto;
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    z-index: 1;
+  }
+
+  .img-right {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    top: -100px;
+    right: -100px;
+    z-index: 1;
+  }
+
+
 
   .menu-items {
     margin-top: 24px;
