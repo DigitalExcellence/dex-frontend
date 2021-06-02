@@ -39,7 +39,7 @@ export class InternalSearchService {
   }
 
   getSearchResultsPaginated(internalSearchQuery: InternalSearchQuery): Observable<SearchResultsResource> {
-    let url = this.url + internalSearchQuery.query;
+    const url = this.url + internalSearchQuery.query;
     let params = new HttpParams();
     for (const key of Object.keys(internalSearchQuery)) {
       if (internalSearchQuery[key] == null) {

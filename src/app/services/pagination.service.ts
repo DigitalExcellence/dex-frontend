@@ -42,7 +42,7 @@ export class PaginationService {
   // }
 
   public getProjectsPaginated(internalSearchQuery: InternalSearchQuery): Observable<SearchResultsResource> {
-    let url = this.url;
+    const url = this.url;
     let params = new HttpParams();
 
     for (const key of Object.keys(internalSearchQuery)) {
