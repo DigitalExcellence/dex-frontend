@@ -25,6 +25,7 @@ export interface ApiConfig {
   highlightRoute: string;
   internalSearchRoute: string;
   externalSearchRoute: string;
+  autoCompleteRoute: string;
   dataSourceRoute: string;
   wizardRoute: string;
   wizardPageRoute: string;
@@ -41,6 +42,7 @@ export const API_CONFIG: ApiConfig = {
   highlightRoute: 'highlight',
   internalSearchRoute: 'search/internal',
   externalSearchRoute: 'search/external',
+  autoCompleteRoute: 'project/search/autocomplete',
   embeddedProjectRoute: 'embed',
   dataSourceRoute: 'dataSource',
   wizardRoute: 'wizard',
@@ -50,3 +52,4 @@ export const API_CONFIG: ApiConfig = {
   projectLikes: 'project/like',
   categoryRoute: 'category'
 };
+
