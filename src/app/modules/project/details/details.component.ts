@@ -78,7 +78,7 @@ export class DetailsComponent implements OnInit {
       id: 1, 
       userId : 1,
       username: "Prince Ron",
-      created: new Date(this.today.getDate() - 1),
+      created: new Date("31/12/1998"),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '22',
@@ -87,7 +87,7 @@ export class DetailsComponent implements OnInit {
       id: 2, 
       userId : 2,
       username: "Humble Andrew",
-      created: new Date(this.today.getDate() - 30),
+      created: new Date(this.today.getDate() - 60*60*24*5),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '14',
@@ -95,7 +95,7 @@ export class DetailsComponent implements OnInit {
     {
       id: 3, 
       username: "Doctor Ron",
-      created: new Date(this.today.getDate() - 370),
+      created: new Date(this.today.getDate() - 60*60*24*10),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '2',
@@ -103,7 +103,7 @@ export class DetailsComponent implements OnInit {
     {
       id: 4, 
       username: "Teacher Ron",
-      created: new Date(this.today.getDate() - 800),
+      created: new Date(this.today.getDate() - 60*60*24*200),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '9',
@@ -111,7 +111,7 @@ export class DetailsComponent implements OnInit {
     {
       id: 5, 
       username: "Athlete Ron",
-      created: new Date(this.today.getDate() - 6),
+      created: new Date(this.today.getDate() - 60*60*24*365),
       updated: new Date(),
       content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
       likes: '7',
@@ -505,19 +505,37 @@ export class DetailsComponent implements OnInit {
 
   private commentFormatDate(commentDate: Date) {
     let formattedCommentDate = '';
-    let today = new Date();
+
+    let today = new Date(2019, 11, 24, 10, 33, 30, 0);
+    commentDate = new Date(2018, 11, 24, 10, 33, 30, 0);
+
+    let dateDifferenceInMs = Math.abs(today.getTime() - commentDate.getTime());
+
+    let dateDifferenceInSecs = dateDifferenceInMs/1000;
+
+    let dateDifInMinutes = dateDifferenceInSecs/60;
+
+    let dateDifInHours = dateDifInMinutes/60;
+
+    let dateDifInDays = dateDifInHours/24;
+
+    let dateDifInWeeks = dateDifInDays/7;
+
+    let dateDifInMonths = dateDifInWeeks/4;
+
+    let dateDifInYears = dateDifInDays/365;
 
     const limitMinute = 60;
     const limitHour = limitMinute*60;
     const limitDay = limitHour* 24;
     const limitWeek = limitDay * 7;
     const limitMonth = limitWeek*4;
-    const limitYear = limitMonth*52;
+    const limitYear = limitDay*365;
     //
-    let diffInSeconds = (Math.abs(today.getTime() - commentDate.getTime()))/1000;
-    console.log(diffInSeconds);
-    console.log(today.getTime());
-    console.log(commentDate.getTime())
+    let diffInSeconds = dateDifferenceInSecs;
+     console.log(diffInSeconds);
+    // console.log(today.getTime());
+    // console.log(commentDate.getTime())
     let diffInMinutes = 48;
     let diffInHours = 48;
     let diffInDays = 48;
@@ -530,21 +548,27 @@ export class DetailsComponent implements OnInit {
         break;
       case (diffInSeconds < limitHour):
         formattedCommentDate = "... +"+diffInHours+" minute(s).";
+        return formattedCommentDate;
         break;
       case (diffInSeconds < limitDay):
         formattedCommentDate = "... +"+diffInHours+" hour(s).";
+        return formattedCommentDate;
         break;
       case (diffInSeconds < (limitWeek)):
         formattedCommentDate = "... +"+diffInDays+" day(s).";
+        return formattedCommentDate;
         break;
       case (diffInSeconds < (limitWeek+1)):
         formattedCommentDate = "... +"+diffInDays+" week(s).";
+        return formattedCommentDate;
           break;
       case (diffInSeconds < (limitWeek)):
         formattedCommentDate = "... +"+diffInDays+" month(s).";
+        return formattedCommentDate;
         break;
-      case (diffInSeconds < (limitYear)):
+      case (diffInSeconds < (limitYear+1)):
         formattedCommentDate = "... +"+diffInDays+" years(s).";
+        return formattedCommentDate;
         break;
       default:
           console.log("This comment is missing a date.");
