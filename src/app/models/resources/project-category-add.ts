@@ -17,5 +17,4 @@
 
 export interface ProjectCategoryAdd {
   name: string;
-  selected?: boolean;
 }

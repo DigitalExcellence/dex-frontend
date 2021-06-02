@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { debounceTime, finalize } from 'rxjs/operators';
@@ -23,7 +23,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PaginationService } from 'src/app/services/pagination.service';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { PageChangedEvent, PaginationComponent } from 'ngx-bootstrap/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
@@ -43,7 +43,8 @@ import { ProjectCategory } from 'src/app/models/domain/projectCategory';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements OnInit, AfterContentInit {
+export class OverviewComponent implements OnInit, AfterViewInit {
+
   /**
    * Array to receive and store the projects from the api.
    */
@@ -113,7 +114,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   ];
 
   public displaySearchElements = false;
-  public currentPage = 1;
+  public currentPage;
 
   public categories: ProjectCategory[];
 
@@ -159,12 +160,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit(): void {
-    console.log('on init');
-    this.categoryService.getAll().subscribe(categories => {
-      this.categories = categories;
-      this.processQueryParams();
-    });
-
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
         .pipe(
@@ -182,7 +177,12 @@ export class OverviewComponent implements OnInit, AfterContentInit {
     this.updateSEOTags();
   }
 
-  ngAfterContentInit() {
+  ngAfterViewInit() {
+    this.categoryService.getAll().subscribe(categories => {
+      this.categories = categories;
+      this.processQueryParams();
+    });
+
     this.activatedRoute.params.subscribe(params => {
       const projectId = params.id?.split('-')[0];
       this.createProjectModal(projectId);
@@ -260,7 +260,6 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * @param $event the identifier of the selected value.
    */
   public onPaginationChange() {
-    console.log(this.paginationOptionControl.value.amountOnPage);
     this.amountOfProjectsOnSinglePage = this.paginationOptionControl.value.amountOnPage;
     if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
       this.currentPage = 1;
@@ -273,7 +272,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
    * @param value the value of the form.
    */
   public onSortFormValueChange(): void {
-    if (this.sortOptionControl.value == null) {
+    if (!this.sortOptionControl.value) {
       return;
     }
     this.currentSortType = this.sortOptionControl.value.value.split(',')[0];
@@ -369,7 +368,9 @@ export class OverviewComponent implements OnInit, AfterContentInit {
           this.modalService.onHide.subscribe(() => {
                 if (this.location.path().startsWith('/project/details')) {
                   const queryString = `query=${this.searchControl.value}`
-                      + `&sortOption=${this.currentSortOptions}&pagination=${this.amountOfProjectsOnSinglePage}`
+                      + `&sortOption=${this.currentSortOptions}`
+                      + `&pagination=${this.amountOfProjectsOnSinglePage}`
+                      + `&page=${this.currentPage}`
                       + `&categories=${JSON.stringify(this.categories?.map(
                           category => category.selected ? category.id : null)
                           .filter(category => category)
@@ -406,7 +407,7 @@ export class OverviewComponent implements OnInit, AfterContentInit {
         this.searchControl.setValue(query);
       }
       if (selectedCategories) {
-        this.categories = this.categories.map(category => ({
+        this.categories = this.categories?.map(category => ({
           ...category,
           selected: selectedCategories?.includes(category.id)
         }));
@@ -416,10 +417,11 @@ export class OverviewComponent implements OnInit, AfterContentInit {
         this.sortOptionControl.setValue(this.sortSelectOptions.find(option => option.value === sortOption));
       }
       if (pagination) {
-        this.paginationOptionControl.setValue(
-            this.paginationDropDownOptions.find(option =>
-                option.amountOnPage === parseInt(pagination, 10)));
-        this.amountOfProjectsOnSinglePage = pagination;
+        const parsed = this.paginationDropDownOptions.find(option =>
+            option.amountOnPage === parseInt(pagination, 10));
+
+        this.paginationOptionControl.setValue(parsed ? parsed : 12);
+        this.amountOfProjectsOnSinglePage = parsed ? parsed.amountOnPage : 12;
       }
       this.onInternalQueryChange();
     });
