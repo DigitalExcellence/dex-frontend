@@ -9,9 +9,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Added search bar inside navbar with autocomplete suggested results. - [#403](https://github.com/DigitalExcellence/dex-frontend/issues/403)
+- Refactored the home page. [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
+- Added project recommendations on the home page. [#497](https://github.com/DigitalExcellence/dex-frontend/issues/497)
+
 ### Changed
 
-- Clicking to the next step in the wizard step-header will now skip the step & removed orange progress bar - [#460](https://github.com/DigitalExcellence/dex-frontend/issues/460)
+- Clicking to the next step in the wizard step-header will now skip the step & removed orange progress bar [#460](https://github.com/DigitalExcellence/dex-frontend/issues/460)
 - Made Project URI optional - [#492](https://github.com/DigitalExcellence/dex-frontend/issues/492)
 
 ### Deprecated

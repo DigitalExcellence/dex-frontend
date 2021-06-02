@@ -1,0 +1,96 @@
+@import "assets/styles/variables";
+
+.info-cards {
+  margin: 0 -39px;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 100px;
+  padding: 140px 80px;
+  @include media-breakpoint-down(sm) {
+    padding: 80px 60px;
+  }
+  //grid-auto-rows: 350px;
+  position: relative;
+  overflow: hidden;
+
+  .lines {
+    position: absolute;
+    right: 80px;
+    top: -235px;
+  }
+
+  .card-wrapper {
+    position: relative;
+    transition: $transition-short;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    .card {
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      display: grid;
+      z-index: 2;
+      border: none;
+      height: 100%;
+      width: 350px;
+      /*cursor: pointer;*/
+
+      grid-template-rows: 1fr auto;
+
+      img {
+        height: 150px;
+        margin: auto;
+        width: auto;
+        padding: 20px 20px 0 20px;
+        @media only screen and (max-width: 600px) {
+          width: 80%;
+          height: auto;
+        }
+      }
+
+      .text {
+        padding: 30px;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .image {
+      height: 165px;
+      width: auto;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .image1 {
+      left: -20px;
+      bottom: -26px;
+    }
+
+    .image2 {
+      right: -20px;
+      top: -26px;
+    }
+
+    .image3 {
+      left: -20px;
+      bottom: -26px;
+    }
+
+    .image4 {
+      right: 10px;
+      top: -45px;
+    }
+
+    .image5 {
+      bottom: -20px;
+      right: -20px;
+    }
+  }
+}
