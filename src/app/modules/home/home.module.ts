@@ -11,7 +11,8 @@ import { StripHtmlPipe } from 'src/app/utils/striptags.pipe';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ProjectModule } from 'src/app/modules/project/project.module';
+import { RecommendationCardsComponent } from './recommendations/recommendations.component';
+import { ProjectModule } from '../project/project.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { ProjectModule } from 'src/app/modules/project/project.module';
     PartnersComponent,
     ContainerLeftComponent,
     ContainerRightComponent,
-    StripHtmlPipe
+    StripHtmlPipe,
+    RecommendationCardsComponent
+    
   ],
   imports: [
     CommonModule,
