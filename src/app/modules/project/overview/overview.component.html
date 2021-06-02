@@ -47,10 +47,11 @@
         <h4>Categories</h4>
         <div class="project-categories">
           <ng-container *ngFor="let category of categories">
-            <p>
-              <input type="checkbox" [ngModel]="category.selected" [name]="category.name" (change)="onCategoryChange(category.id)">
-              <label [for]="category.name">{{category.name}}</label>
-            </p>
+              <label class="container">
+                <input type="checkbox" [ngModel]="category.selected" [name]="category.name" (change)="onCategoryChange(category.id)">
+                <span class="checkmark"></span>
+                <span>{{category.name}}</span>
+              </label>
           </ng-container>
         </div>
       </div>
