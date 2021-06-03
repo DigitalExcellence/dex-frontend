@@ -281,9 +281,10 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   }
 
   public onCategoryChange(categoryId: number): void {
-    this.categories = this.categories.map(category => category.id === categoryId
+    this.categories = this.categories.map(category => {
+        return category.id === categoryId
         ? {...category, selected: !category.selected}
-        : category);
+        : category});
     this.onInternalQueryChange();
   }
 
@@ -392,9 +393,10 @@ export class OverviewComponent implements OnInit, AfterViewInit {
             query: this.searchControl.value,
             sortOption: this.currentSortOptions,
             pagination: this.amountOfProjectsOnSinglePage,
-            categories: JSON.stringify(this.categories?.map(
-                category => category.selected ? category.id : null)
-                .filter(category => category)
+            categories: JSON.stringify(
+                this.categories?.map(category =>
+                    category.selected ? category.id : null
+                ).filter(category => category)
             )
           },
           queryParamsHandling: 'merge'
@@ -403,14 +405,16 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
   private processQueryParams() {
     this.route.queryParams.subscribe(({query, categories: selectedCategories, sortOption, pagination}) => {
+      selectedCategories = JSON.parse(selectedCategories);
       if (query !== 'null' && query !== 'undefined') {
         this.searchControl.setValue(query);
       }
       if (selectedCategories) {
-        this.categories = this.categories?.map(category => ({
+        this.categories = this.categories?.map(category => {
+          return {
           ...category,
-          selected: selectedCategories?.includes(category.id)
-        }));
+          selected: selectedCategories?.contains(category.id)
+        }});
       }
       if (sortOption) {
         this.currentSortOptions = sortOption;
