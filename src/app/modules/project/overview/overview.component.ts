@@ -151,7 +151,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       private modalService: BsModalService,
       private location: Location,
       private categoryService: CategoryService,
-      private route: ActivatedRoute, ) {
+      private route: ActivatedRoute,) {
     this.searchControl = new FormControl('');
     this.sortOptionControl = new FormControl(this.sortSelectOptions);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
@@ -283,8 +283,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   public onCategoryChange(categoryId: number): void {
     this.categories = this.categories.map(category =>
         category.id === categoryId
-        ? {...category, selected: !category.selected}
-        : category);
+            ? {...category, selected: !category.selected}
+            : category);
     this.onInternalQueryChange();
   }
 
@@ -411,7 +411,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
       if (selectedCategories) {
         selectedCategories = JSON.parse(selectedCategories);
-        if(selectedCategories.count > 0) {
+        if (selectedCategories.count > 0) {
           this.categories = this.categories?.map(category => {
             return {
               ...category,
