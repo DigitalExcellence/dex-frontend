@@ -409,7 +409,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       if (query !== 'null' && query !== 'undefined') {
         this.searchControl.setValue(query);
       }
-      if (selectedCategories) {
+      if (selectedCategories && selectedCategories.length > 0) {
         this.categories = this.categories?.map(category => {
           return {
           ...category,
