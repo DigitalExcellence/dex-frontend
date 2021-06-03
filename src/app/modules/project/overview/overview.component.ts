@@ -281,10 +281,10 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   }
 
   public onCategoryChange(categoryId: number): void {
-    this.categories = this.categories.map(category => {
-        return category.id === categoryId
+    this.categories = this.categories.map(category =>
+        category.id === categoryId
         ? {...category, selected: !category.selected}
-        : category});
+        : category);
     this.onInternalQueryChange();
   }
 
@@ -409,12 +409,13 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       if (query !== 'null' && query !== 'undefined') {
         this.searchControl.setValue(query);
       }
-      if (selectedCategories && selectedCategories.length > 0) {
+      if (selectedCategories && selectedCategories.count > 0) {
         this.categories = this.categories?.map(category => {
           return {
-          ...category,
-          selected: selectedCategories?.contains(category.id)
-        }});
+            ...category,
+            selected: selectedCategories.contains(category.id)
+          };
+        });
       }
       if (sortOption) {
         this.currentSortOptions = sortOption;
