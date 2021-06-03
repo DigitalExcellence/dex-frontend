@@ -3,7 +3,8 @@ FROM node:12 AS compile-image
 WORKDIR /opt/ng
 
 COPY package.json ./
-RUN npm install
+COPY package-lock.json ./
+RUN npm ci
 
 ENV PATH="./node_modules/.bin:$PATH"
 COPY . ./
