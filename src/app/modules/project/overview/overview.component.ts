@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { debounceTime, finalize } from 'rxjs/operators';
@@ -23,7 +23,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PaginationService } from 'src/app/services/pagination.service';
-import { PageChangedEvent, PaginationComponent } from 'ngx-bootstrap/pagination';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environment } from 'src/environments/environment';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
@@ -151,7 +151,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       private modalService: BsModalService,
       private location: Location,
       private categoryService: CategoryService,
-      private route: ActivatedRoute,) {
+      private route: ActivatedRoute) {
     this.searchControl = new FormControl('');
     this.sortOptionControl = new FormControl(this.sortSelectOptions);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
