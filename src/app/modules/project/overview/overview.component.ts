@@ -405,22 +405,27 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
   private processQueryParams() {
     this.route.queryParams.subscribe(({query, categories: selectedCategories, sortOption, pagination}) => {
-      selectedCategories = JSON.parse(selectedCategories);
       if (query !== 'null' && query !== 'undefined') {
         this.searchControl.setValue(query);
       }
-      if (selectedCategories && selectedCategories.count > 0) {
-        this.categories = this.categories?.map(category => {
-          return {
-            ...category,
-            selected: selectedCategories.contains(category.id)
-          };
-        });
+
+      if (selectedCategories) {
+        selectedCategories = JSON.parse(selectedCategories);
+        if(selectedCategories.count > 0) {
+          this.categories = this.categories?.map(category => {
+            return {
+              ...category,
+              selected: selectedCategories.contains(category.id)
+            };
+          });
+        }
       }
+
       if (sortOption) {
         this.currentSortOptions = sortOption;
         this.sortOptionControl.setValue(this.sortSelectOptions.find(option => option.value === sortOption));
       }
+
       if (pagination) {
         const parsed = this.paginationDropDownOptions.find(option =>
             option.amountOnPage === parseInt(pagination, 10));
@@ -428,6 +433,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
         this.paginationOptionControl.setValue(parsed ? parsed : 12);
         this.amountOfProjectsOnSinglePage = parsed ? parsed.amountOnPage : 12;
       }
+
       this.onInternalQueryChange();
     });
   }
