@@ -71,18 +71,9 @@ export class WizardService {
 
   private readonly defaultSteps: Array<WizardPage> = [
     {
-      id: 10,
-      authFlow: false,
-      orderIndex: 1,
-      name: 'Categories',
-      description: 'Add categories to your project!',
-      isComplete: false,
-      isOptional: true
-    },
-    {
       id: 4,
       authFlow: false,
-      orderIndex: 2,
+      orderIndex: 1,
       name: 'What is the name of your project?',
       description: 'What would you like to name your project?',
       isComplete: false,
@@ -91,11 +82,20 @@ export class WizardService {
     {
       id: 5,
       authFlow: false,
-      orderIndex: 3,
+      orderIndex: 2,
       name: 'How would you describe the project?',
       description: 'Here you can enter a short and long description for the project.',
       isComplete: false,
       isOptional: false
+    },
+    {
+      id: 10,
+      authFlow: false,
+      orderIndex: 3,
+      name: 'Categories',
+      description: 'Add categories to your project!',
+      isComplete: false,
+      isOptional: true
     },
     {
       id: 6,
