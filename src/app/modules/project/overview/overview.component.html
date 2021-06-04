@@ -21,7 +21,7 @@
   <div class="col-md-2 projects-filter-wrapper">
     <div class="projects-filter">
       <h3><em class="fas fa-filter"></em> Filters</h3>
-      <div class="divider" *ngIf="displayTags()"></div>
+      <div class="divider"></div>
       <div class="filter-group">
         <h4>Sort Options</h4>
         <form class="sort-options-form">
@@ -43,7 +43,8 @@
           </option>
         </select>
       </div>
-      <div class="filter-group" *ngIf="displayTags()">
+      <div class="divider"></div>
+      <div class="filter-group">
         <h4>Categories</h4>
         <div class="project-categories">
           <ng-container *ngFor="let category of categories">
