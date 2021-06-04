@@ -31,6 +31,7 @@ export interface ApiConfig {
   callToActionOptionRoute: string;
   uploadFileRoute: string;
   projectLikes: string;
+  projectComments: string;
 }
 
 export const API_CONFIG: ApiConfig = {
@@ -46,5 +47,6 @@ export const API_CONFIG: ApiConfig = {
   callToActionOptionRoute: 'callToActionOption',
   wizardPageRoute: 'wizardpage',
   uploadFileRoute: 'file',
-  projectLikes: 'project/like'
+  projectLikes: 'project/like',
+  projectComments: 'project/comments'
 };

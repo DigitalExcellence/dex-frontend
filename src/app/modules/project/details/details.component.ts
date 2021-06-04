@@ -38,6 +38,7 @@ import {
 } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommentService } from 'src/app/services/comment.service';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
@@ -72,58 +73,60 @@ export class DetailsComponent implements OnInit {
   public displayCallToActionButton = true;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
-  public projectComments = [
-    {
-      id: 1, 
-      userId : 1,
-      username: "Prince Ron",
-      created: new Date(),
-      updated: new Date(),
-      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-      likes: '22',
-    },
-    {
-      id: 2, 
-      userId : 2,
-      username: "Humble Andrew",
-      created: new Date(),
-      updated: new Date(),
-      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-      likes: '14',
-    },
-    {
-      id: 3, 
-      username: "Doctor Ron",
-      created: new Date(),
-      updated: new Date(),
-      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-      likes: '2',
-    },
-    {
-      id: 4, 
-      username: "Teacher Ron",
-      created: new Date(),
-      updated: new Date(),
-      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-      likes: '9',
-    },
-    {
-      id: 5, 
-      username: "Athlete Ron",
-      created: new Date(),
-      updated: new Date(),
-      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-      likes: '7',
-    },
-    {
-      id: 6, 
-      username: "Developer Andrew",
-      created: new Date(),
-      updated: new Date(),
-      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-      likes: '1',
-    },
-  ];
+  public projectComments : any[][];
+  // public projectComments : Array<Comment>;
+  // public projectComments = [
+  //   {
+  //     id: 1, 
+  //     userId : 1,
+  //     username: "Prince Ron",
+  //     created: new Date(),
+  //     updated: new Date(),
+  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+  //     likes: '22',
+  //   },
+  //   {
+  //     id: 2, 
+  //     userId : 2,
+  //     username: "Humble Andrew",
+  //     created: new Date(),
+  //     updated: new Date(),
+  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+  //     likes: '14',
+  //   },
+  //   {
+  //     id: 3, 
+  //     username: "Doctor Ron",
+  //     created: new Date(),
+  //     updated: new Date(),
+  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+  //     likes: '2',
+  //   },
+  //   {
+  //     id: 4, 
+  //     username: "Teacher Ron",
+  //     created: new Date(),
+  //     updated: new Date(),
+  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+  //     likes: '9',
+  //   },
+  //   {
+  //     id: 5, 
+  //     username: "Athlete Ron",
+  //     created: new Date(),
+  //     updated: new Date(),
+  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+  //     likes: '7',
+  //   },
+  //   {
+  //     id: 6, 
+  //     username: "Developer Andrew",
+  //     created: new Date(),
+  //     updated: new Date(),
+  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+  //     likes: '1',
+  //   },
+  // ];
 
   /**
    * Property to indicate whether the project is loading.
@@ -150,6 +153,7 @@ export class DetailsComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private authService: AuthService,
+    private commentService: CommentService,
     private highlightService: HighlightService,
     private modalService: BsModalService,
     private alertService: AlertService,
@@ -172,6 +176,9 @@ export class DetailsComponent implements OnInit {
       this.isAuthenticated = status;
     });
     this.currentUser = this.authService.getCurrentBackendUser();
+    
+    this.fetchProjectComments();
+
 
     this.projectService.get(this.projectId)
       .pipe(
@@ -225,7 +232,36 @@ export class DetailsComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  public fetchProjectComments(){
+    console.log("starting to fetch comments");
+    console.log("current project_id: "+this.projectId);
+    //let objectFetchComments : Object;
+    this.commentService
+      .fetchComments(this.projectId)
+      .subscribe(
+        (fetchComments) => {
+          console.log(typeof fetchComments);
+          console.log(fetchComments);
+          //objectFetchComments = fetchComments;
+
+          this.projectComments = Object.keys(fetchComments)
+          .map(function(key) {
+            return [key,fetchComments[key]]
+            });
+            console.log(typeof this.projectComments);
+            console.log(this.projectComments);
+        }
+      );
+    // let projectComments1 = this.commentService.fetchComments(1);
+    // console.log("Fetching project with id: "+this.projectId);
+    // console.log(projectComments);
+    // console.log("Fetching project with id: 1");
+    // console.log(projectComments1);
+
+  }
+
   public onClickAddCommentToProject() {
+    //POST-COMMENT
     let commentObject = (<HTMLInputElement>document.getElementById('project-comment-input-field')).value;
     console.log("clicked on the comment button!")
     console.log(commentObject)
@@ -241,9 +277,9 @@ export class DetailsComponent implements OnInit {
       likes: '0',
     };
     //push to array projectComments
-    this.projectComments.push(newComment);
-    console.log("clicked on the comment button!");
-    console.log(this.projectComments);
+    // this.projectComments.push(newComment);
+    // console.log("clicked on the comment button!");
+    // console.log(this.projectComments);
   }
 
   /**
