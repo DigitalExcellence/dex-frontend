@@ -33,7 +33,6 @@ import { AlertService } from 'src/app/services/alert.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ProjectComponent {
-
   @Input() showListView: boolean;
   @Input() project: Project;
 

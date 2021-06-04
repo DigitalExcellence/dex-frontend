@@ -136,6 +136,21 @@
       margin-left: 15px;
     }
   }
+
+
+  .title {
+    font-weight: bold;
+    color: $light-mode-black;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+
+    em {
+      margin-left: 4px;
+      font-size: 13px;
+    }
+  }
+
   .project-metadata {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -143,22 +158,12 @@
     @media screen and (max-width: 769px) {
       grid-template-columns: 1fr 1fr;
     }
+
     .project-metadata__item {
       overflow: hidden;
       text-overflow: ellipsis;
       ul {
         margin: 0;
-      }
-      .title {
-        font-weight: bold;
-        color: $light-mode-black;
-        margin-bottom: 5px;
-        display: flex;
-        align-items: center;
-        em {
-          margin-left: 4px;
-          font-size: 13px;
-        }
       }
       h3,
       p {
@@ -227,6 +232,7 @@
     .tooltip.bs-tooltip-bottom .arrow:before {
       border-bottom-color: #fff !important;
     }
+
     .tooltip.bs-tooltip-top .arrow:before {
       border-top-color: #fff !important;
     }
@@ -235,25 +241,33 @@
   .project-title {
     margin-top: 0;
   }
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
 
-    .project-tags__tag {
-      text-decoration: none;
-      background: $accent-color-red-primary;
-      color: #fff;
-      border-radius: 999px;
-      padding: 3px 20px;
-      box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
-      margin: 5px 5px 5px 0;
-      font-size: 12px;
+  .project-categories-tags {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    .project-categories {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+
+      .category {
+        text-decoration: none;
+        border-radius: 999px;
+        background-color: $accent-color-red-primary;
+        color: $white;
+        padding: 3px 20px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
+        margin: 5px 5px 5px 0;
+        font-size: 12px;
+      }
     }
 
-    .project-tags__see-more-link {
-      align-self: center;
-      margin-left: 15px;
-      color: $light-mode-black;
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: $light-mode-grey-secondary;
     }
   }
 
