@@ -42,23 +42,22 @@ export class FileUploaderComponent {
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
   @Input() showPreview: Boolean;
-
+  @Input() recommendedHeight = 512;
+  @Input() recommendedWidth = 512;
+  public files: Array<UploadFile> = new Array<UploadFile>();
   /**
    * The maximum size of a file in bytes
    */
   private maxFileSize = 2097152;
-
   /**
    * The maximum size of a file in a readable format
    */
   private maxFileSizeReadable: string = this.formatBytes(this.maxFileSize, 0);
 
   constructor(
-    private uploadService: FileUploaderService,
-    private alertService: AlertService,
-    private fileRetrieverService: FileRetrieverService) { }
-
-  public files: Array<UploadFile> = new Array<UploadFile>();
+      private uploadService: FileUploaderService,
+      private alertService: AlertService,
+      private fileRetrieverService: FileRetrieverService) { }
 
   /**
    * handle onFileDrop event
@@ -85,6 +84,65 @@ export class FileUploaderComponent {
     this.fileInput.nativeElement.value = '';
   }
 
+  /**
+   * Send the selected files to the API and return the id's
+   * @return Observable<Array<UploadFile>>
+   */
+  public uploadFiles(): Observable<Array<UploadFile>> {
+    // Check if any files were uploaded
+    if (this.fileInput.nativeElement.value !== '') {
+      // Map all the files to an observable
+      const fileUploads = this.files.map(file => {
+            if (file.path) {
+              return of(file);
+            } else {
+              return this.uploadService.uploadFile(file)
+                  .pipe(
+                      map(event => {
+                        switch (event.type) {
+                          case HttpEventType.UploadProgress:
+                            // divide the (uploaded bytes * 100) by the total bytes to calculate the progress in percentage
+                            this.files.find(value => value.name === file.name).progress = Math.round(event.loaded * 100 / event.total);
+                            break;
+                          case HttpEventType.Response:
+                            return event.body;
+                          default:
+                            return;
+                        }
+                      })
+                  );
+            }
+          }
+      );
+      // forkJoin the observables so they can be uploaded at the same time
+      return forkJoin(fileUploads);
+    }
+    // If no files were updated return original list
+
+    // If there are any files left in the list
+    if (this.files.length) {
+      // Return the original list
+      return of(this.files);
+    } else {
+      // If there are no files in the list return undefined
+      return of(undefined);
+    }
+  }
+
+  /**
+   * Populates the fileList
+   * @param uploadedFiles files that have been uploaded
+   */
+  public setFiles(uploadedFiles: Array<UploadFile>): void {
+    uploadedFiles.forEach(uploadedFile => {
+      if (uploadedFile) {
+        this.files.push({
+          ...uploadedFile,
+          preview: this.fileRetrieverService.getIconUrl(uploadedFile)
+        });
+      }
+    });
+  }
 
   /**
    * This will finalize the data from the uploadForm and do some filetype and -size checks.
@@ -157,61 +215,5 @@ export class FileUploaderComponent {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-  }
-
-
-  /**
-   * Send the selected files to the API and return the id's
-   * @return Observable<Array<UploadFile>>
-   */
-  public uploadFiles(): Observable<Array<UploadFile>> {
-    // Check if any files were uploaded
-    if (this.fileInput.nativeElement.value !== '') {
-      // Map all the files to an observable
-      const fileUploads = this.files.map(file => this.uploadService.uploadFile(file)
-        .pipe(
-          map(event => {
-            switch (event.type) {
-              case HttpEventType.UploadProgress:
-                // divide the (uploaded bytes * 100) by the total bytes to calculate the progress in percentage
-                this.files.find(value => value.name === file.name).progress = Math.round(event.loaded * 100 / event.total);
-                break;
-              case HttpEventType.Response:
-                return event.body;
-              default:
-                return;
-            }
-          })
-        )
-      );
-      // forkJoin the observables so they can be uploaded at the same time
-      return forkJoin(fileUploads);
-    }
-    // If no files were updated return original list
-
-    // If there are any files left in the list
-    if (this.files.length) {
-      // Return the original list
-      return of(this.files);
-    } else {
-      // If there are no files in the list return undefined
-      return of(undefined);
-    }
-  }
-
-
-  /**
-   * Populates the fileList
-   * @param files files that have been uploaded
-   */
-  public setFiles(uploadedFiles: Array<UploadFile>): void {
-    uploadedFiles.forEach(uploadedFile => {
-      if (uploadedFile) {
-        this.files.push({
-          ...uploadedFile,
-          preview: this.fileRetrieverService.getIconUrl(uploadedFile)
-        });
-      }
-    });
   }
 }

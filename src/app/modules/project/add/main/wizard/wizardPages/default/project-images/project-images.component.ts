@@ -65,7 +65,7 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
   }
 
   public deleteImageClicked(index: number) {
-    this.fileUploader.files.splice(index, 1);
+    this.fileUploader.deleteFile(index);
   }
 
   /**
