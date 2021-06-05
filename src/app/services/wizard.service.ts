@@ -77,7 +77,7 @@ export class WizardService {
     {
       id: 6,
       authFlow: false,
-      orderIndex: 3,
+      orderIndex: 4,
       name: 'Would you like to upload some images?',
       description: 'Please upload a fitting image',
       isComplete: false,
@@ -102,7 +102,7 @@ export class WizardService {
       isOptional: false
     },
     {
-      id: 10,
+      id: 11,
       authFlow: false,
       orderIndex: 3,
       name: 'Categories',
@@ -111,7 +111,7 @@ export class WizardService {
       isOptional: true
     },
     {
-      id: 6,
+      id: 7,
       authFlow: false,
       orderIndex: 3,
       name: 'What project icon would fit the project?',
@@ -120,7 +120,7 @@ export class WizardService {
       isOptional: true
     },
     {
-      id: 7,
+      id: 8,
       authFlow: false,
       orderIndex: 4,
       name: 'Who has worked on the project?',
@@ -129,7 +129,7 @@ export class WizardService {
       isOptional: true
     },
     {
-      id: 8,
+      id: 9,
       authFlow: false,
       orderIndex: 5,
       name: 'Would you like to add a call to action button?',
@@ -138,7 +138,7 @@ export class WizardService {
       isOptional: true
     },
     {
-      id: 9,
+      id: 10,
       authFlow: false,
       orderIndex: 5,
       name: 'If your project has a link with a project page or another source you can link it here!',
@@ -210,7 +210,6 @@ export class WizardService {
                     uri: projectUri,
                     description: project.description
                   });
-                  this.uploadFile = undefined;
                   this.determineStepsCompleted(project);
                 }
             )
@@ -306,7 +305,6 @@ export class WizardService {
   public resetService(): void {
     this.flowIsSelected = false;
     this.selectedSource = undefined;
-    this.uploadFile = undefined;
     this.builtProject = {
       callToAction: undefined,
       collaborators: [],
