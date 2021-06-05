@@ -34,7 +34,7 @@ export interface Project {
   collaborators?: Collaborator[];
   callToAction?: CallToAction;
   projectIcon?: UploadFile;
-  projectImages?: UploadFile[];
+  images?: UploadFile[];
   likes?: Array<ProjectLike>;
   userHasLikedProject: boolean;
   likeCount: number;

@@ -30,5 +30,5 @@ export interface ProjectUpdate {
   callToAction: CallToAction;
   categories: ProjectCategory[];
   fileId?: number;
-  projectImageIds?: number[];
+  imageIds?: number[];
 }
