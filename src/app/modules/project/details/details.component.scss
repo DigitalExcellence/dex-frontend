@@ -42,22 +42,6 @@
   }
 }
 
-.project-icon {
-  display: flex;
-  place-content: center;
-  background-color: $accent-color-red-primary;
-  margin-right: 10px;
-  width: 180px;
-  height: 180px;
-  overflow: hidden;
-
-  img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-}
-
 .not-found {
   margin: 0;
   max-width: 100%;
@@ -115,6 +99,7 @@
   .project-info {
     padding: 45px 60px;
     display: flex;
+    gap: 30px;
     flex-direction: column;
     width: 800px;
     max-width: 100%;
