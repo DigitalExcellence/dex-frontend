@@ -19,7 +19,8 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
    */
   public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
   public acceptMultiple = true;
-
+  return;
+  files;
   /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
    */
@@ -42,7 +43,7 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
     if (this.fileUploader.files.length > 0) {
       this.fileUploader.uploadFiles().subscribe(files => {
         if (files) {
-          this.wizardService.updateProject({...this.project, projectImageIds: files.map(file => file.id)});
+          this.wizardService.updateProject({...this.project, imageIds: files.map(file => file.id)});
           this.wizardService.projectImages = files;
         }
         super.onClickNext();
@@ -59,13 +60,30 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
     document.querySelector('input').click();
   }
 
+  public addImageClick() {
+    this.fileUploader.fileInput.nativeElement.click();
+  }
+
+  public deleteImageClicked(index: number) {
+    this.fileUploader.files.splice(index, 1);
+  }
+
   /**
    * Method that determines which preview to use for the project icon
    */
   public getProjectImages(): SafeUrl[] {
+    let files: SafeUrl[] = [];
     if (this.fileUploader?.files) {
-      return this.fileUploader.files.map(file => file.preview);
+      files = this.fileUploader.files.map(file => file.preview);
     }
-    //return this.fileRetrieverService.getIconUrl(this.wizardService.uploadFile);
+
+    const amountToAdd = files ? 4 - files.length : 4;
+    for (let i = 0; i < amountToAdd; i++) {
+      files.push('');
+    }
+
+    return files;
   }
+
+  //return this.fileRetrieverService.getIconUrl(this.wizardService.uploadFile);
 }

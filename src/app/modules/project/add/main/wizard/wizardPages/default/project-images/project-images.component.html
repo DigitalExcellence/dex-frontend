@@ -3,13 +3,12 @@
 <div class="wrapper">
   <div class="left">
     <div class="file-preview">
-      <div *ngFor="let image of getProjectImages()" [style.background-image]="'url(' + image + ')'" class="preview">
-        <div class="overlay"><em class="fas fa-trash"></em></div>
+      <div *ngFor="let image of getProjectImages(); let i = index" [style.background-image]="'url(' + image + ')'" class="preview">
+        <div (click)="deleteImageClicked(i)" *ngIf="image; else noImage" class="overlay"><em class="fas fa-trash"></em></div>
+        <ng-template #noImage>
+          <div (click)="addImageClick()" class="overlay"><em class="fas fa-plus"></em></div>
+        </ng-template>
       </div>
-      <div class="preview"></div>
-      <div class="preview"></div>
-      <div class="preview"></div>
-      <div class="preview"></div>
     </div>
     <div class="buttons">
       <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
