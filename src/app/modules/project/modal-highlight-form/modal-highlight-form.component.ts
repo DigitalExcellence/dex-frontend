@@ -113,8 +113,8 @@ export class ModalHighlightFormComponent implements OnInit {
     if (highlightFormResult.description === null) {
       this.validationErrorMessage = 'Error: Please enter a description';
       return;
-    } else if (highlightFormResult.description.length < 75 || highlightFormResult.description.length > 155) {
-      this.validationErrorMessage = 'Error: Description must be between 75 and 155 characters long';
+    } else if (highlightFormResult.description.length < 50 || highlightFormResult.description.length > 100) {
+      this.validationErrorMessage = 'Error: Description must be between 50 and 100 characters long';
       return;
     }
 

@@ -64,7 +64,6 @@ export class WizardComponent implements OnInit {
    */
   public onSubmit(): void {
     if (this.wizardService.allStepsCompleted()) {
-      this.formSubmitted = true;
       const project = this.wizardService.builtProject;
       project.userId = this.authService.getCurrentBackendUser().id;
       this.createProject(project);
@@ -76,6 +75,7 @@ export class WizardComponent implements OnInit {
         autoDismiss: true,
         timeout: this.alertService.defaultTimeout
       };
+      this.formSubmitted = false;
       this.alertService.pushAlert(alertConfig);
     }
   }
@@ -85,7 +85,10 @@ export class WizardComponent implements OnInit {
    */
   public onNextStep() {
     if (this.wizardService.isLastStep()) {
-      this.onSubmit();
+      if (!this.formSubmitted) {
+        this.formSubmitted = true;
+        this.onSubmit();
+      }
     } else {
       this.wizardService.moveToNextStep();
     }

@@ -40,9 +40,11 @@ export class WizardService {
     callToAction: undefined,
     collaborators: [],
     name: '',
+    fileId: 0,
     shortDescription: '',
     uri: '',
-    userId: 0
+    userId: 0,
+    categories: []
   };
 
   /**
@@ -100,11 +102,29 @@ export class WizardService {
       isOptional: false
     },
     {
+      id: 10,
+      authFlow: false,
+      orderIndex: 3,
+      name: 'Categories',
+      description: 'Add categories to your project!',
+      isComplete: false,
+      isOptional: true
+    },
+    {
+      id: 6,
+      authFlow: false,
+      orderIndex: 3,
+      name: 'What project icon would fit the project?',
+      description: 'Please upload a fitting image for the project!',
+      isComplete: false,
+      isOptional: true
+    },
+    {
       id: 7,
       authFlow: false,
       orderIndex: 4,
-      name: 'What project icon would fit the project?',
-      description: 'Please upload a fitting image for the project!',
+      name: 'Who has worked on the project?',
+      description: 'Here you can name all the project members and their role within the project!',
       isComplete: false,
       isOptional: true
     },
@@ -112,28 +132,19 @@ export class WizardService {
       id: 8,
       authFlow: false,
       orderIndex: 5,
-      name: 'Who has worked on the project?',
-      description: 'Here you can name all the project members and their role within the project!',
-      isComplete: false,
-      isOptional: true
-    },
-    {
-      id: 9,
-      authFlow: false,
-      orderIndex: 6,
       name: 'Would you like to add a call to action button?',
       description: 'If you want to get people in action you can show it here!',
       isComplete: false,
       isOptional: true
     },
     {
-      id: 10,
+      id: 9,
       authFlow: false,
-      orderIndex: 7,
+      orderIndex: 5,
       name: 'If your project has a link with a project page or another source you can link it here!',
       description: 'If your project has a link with a project page or another source you can link it here!',
       isComplete: false,
-      isOptional: false
+      isOptional: true
     },
   ];
   /**
@@ -159,7 +170,7 @@ export class WizardService {
    * @param string String that needs to be checked
    */
   private static checkNotEmpty(string: string) {
-    return string.trim().length > 0;
+    return string && string.trim().length > 0;
   }
 
   /**
@@ -194,10 +205,12 @@ export class WizardService {
                     userId: this.authService.getCurrentBackendUser().id,
                     shortDescription: project.shortDescription,
                     name: project.name,
+                    fileId: undefined,
                     callToAction: project.callToAction,
                     uri: projectUri,
                     description: project.description
                   });
+                  this.uploadFile = undefined;
                   this.determineStepsCompleted(project);
                 }
             )
@@ -250,6 +263,12 @@ export class WizardService {
    * @param step The page that needs to be set as current step
    */
   public setCurrentStep(step: WizardPage): void {
+    this.steps$.next(this.steps$.value.map(s => {
+      return s.orderIndex === step.orderIndex - 1
+      && s.isOptional
+          ? {...s, isComplete: true}
+          : s;
+    }));
     this.currentStep$.next(step);
   }
 
@@ -287,10 +306,12 @@ export class WizardService {
   public resetService(): void {
     this.flowIsSelected = false;
     this.selectedSource = undefined;
+    this.uploadFile = undefined;
     this.builtProject = {
       callToAction: undefined,
       collaborators: [],
       name: '',
+      fileId: 0,
       shortDescription: '',
       uri: '',
       userId: -1
@@ -370,25 +391,15 @@ export class WizardService {
    */
   private determineStepsCompleted(project: Project) {
     const updatedSteps = this.steps$.value;
-    if (WizardService.checkNotEmpty(project.name)) {
-      updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = true;
-    }
-    if (WizardService.checkNotEmpty(project.description) &&
-        WizardService.checkNotEmpty(project.shortDescription)) {
-      updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = true;
-    }
-    if (project.projectIcon) {
-      updatedSteps.find(step => step.wizardPageName === 'project-icon').isComplete = true;
-    }
-    if (project.collaborators.length > 0) {
-      updatedSteps.find(step => step.wizardPageName === 'project-collaborators').isComplete = true;
-    }
-    if (project.callToAction) {
-      updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = true;
-    }
-    if (project.uri) {
-      updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = true;
-    }
+
+    updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = WizardService.checkNotEmpty(project.name);
+    updatedSteps.find(step => step.wizardPageName === 'project-icon').isComplete = !!project.projectIcon;
+    updatedSteps.find(step => step.wizardPageName === 'project-collaborators').isComplete = project.collaborators.length > 0;
+    updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = !!project.callToAction;
+    updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = !!project.uri;
+    updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = (
+        WizardService.checkNotEmpty(project.description) && WizardService.checkNotEmpty(project.shortDescription)
+    );
     this.steps$.next(updatedSteps);
   }
 }

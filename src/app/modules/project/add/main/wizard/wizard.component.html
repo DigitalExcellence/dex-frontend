@@ -23,6 +23,9 @@
       <span class="current-step">Step {{(currentStep | async)?.orderIndex}}</span>
       <ng-container [ngSwitch]="(currentStep | async)?.wizardPageName">
         <!--    From this point the steps are always displayed    -->
+        <ng-container *ngSwitchCase="'project-categories'">
+          <app-project-categories (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-categories>
+        </ng-container>
         <ng-container *ngSwitchCase="'project-name'">
           <app-project-name (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-name>
         </ng-container>

@@ -28,4 +28,5 @@ export interface ProjectAdd {
   callToAction: CallToAction;
   fileId?: number;
   projectImageIds?: number[];
+  categories?: ProjectCategory[];
 }

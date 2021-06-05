@@ -20,6 +20,7 @@ import { UploadFile } from './uploadFile';
 import { User } from './user';
 import { ProjectLike } from './projectLike';
 import { CallToAction } from './call-to-action';
+import { ProjectCategory } from './projectCategory';
 
 export interface Project {
   id: number;
@@ -37,4 +38,5 @@ export interface Project {
   likes?: Array<ProjectLike>;
   userHasLikedProject: boolean;
   likeCount: number;
+  categories?: Array<ProjectCategory>;
 }

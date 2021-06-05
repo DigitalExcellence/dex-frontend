@@ -36,16 +36,15 @@
           </div>
         </div>
         <div class="project-metadata">
-          <div *ngIf="project.uri" class="project-metadata__item">
+          <div *ngIf="project.user" class="project-metadata__item">
             <p class="title">Uploader <em class="fas fa-user"></em></p>
             <p>
               {{ project.user.name }}
             </p>
           </div>
 
-          <div class="project-metadata__item">
+          <div *ngIf="project.uri" class="project-metadata__item">
             <p class="title">External Link <em class="fas fa-external-link-alt"></em></p>
-
             <a class="hover" href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
           </div>
           <div class="project-metadata__item">
@@ -65,17 +64,32 @@
           </div>
         </div>
 
-        <ng-container *ngIf="isProduction()">
-          <div class="project-tags">
-            <a class="project-tags__tag" href="javascript:void(0)"> Game </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> JavaScript </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> HTML </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> CSS </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> UX </a>
-            <a class="project-tags__tag" href="javascript:void(0)"> Interaction </a>
-            <a class="project-tags__see-more-link" href="javascript:void(0)"> see more tags&hellip; </a>
+        <div class="project-categories-tags">
+          <ng-container *ngIf="!isProduction()">
+            <div>
+              <p class="title">Tags</p>
+              <div class="project-tags">
+                <div class="project-tags">
+                  <!--  <span *ngFor="let tag of project.tags" class="tag" (click)="onTagClick(tag)">-->
+                  <span>#html</span>
+                  <span>#css</span>
+                  <span>#javascript</span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <div>
+            <p class="title">Categories</p>
+            <div class="project-categories">
+              <a
+                  *ngFor="let category of project.categories"
+                  class="category"
+                  href="javascript:void(0)">
+                {{category.name}}
+              </a>
+            </div>
           </div>
-        </ng-container>
+        </div>
         <hr/>
 
         <div class="bottom">
@@ -109,6 +123,7 @@
                 <ng-container *ngIf="displayCallToActionButton">
                   <button (click)="onClickCallToActionButton(project.callToAction.value)" class="primary" id="call-to-action-button">
                     {{ project.callToAction.optionValue }}
+                    <em [classList]="'fas ' + project.callToAction.iconName"></em>
                   </button>
                 </ng-container>
                 <ng-container *ngIf="displayEmbedButton">

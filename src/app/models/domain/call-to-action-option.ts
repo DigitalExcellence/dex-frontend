@@ -20,4 +20,5 @@ export interface CallToActionOption {
   type: string;
   value: string;
   optionValue?: string;
+  iconName?: string;
 }

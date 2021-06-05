@@ -69,7 +69,7 @@ export class DetailsComponent implements OnInit {
 
   public displayEditButton = false;
   public displayDeleteProjectButton = false;
-  public displayCallToActionButton = false;
+  public displayCallToActionButton = true;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
 
@@ -129,11 +129,10 @@ export class DetailsComponent implements OnInit {
         (result) => {
           this.project = result;
           const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
-          this.determineDisplayEditProjectButton();
-          this.determineDisplayDeleteProjectButton();
-          this.determineDisplayCallToActionButton();
+          this.determineDisplayEditAndDeleteProjectButton();
           this.determineDisplayEmbedButton();
           this.determineDisplayHighlightButton();
+          this.determineDisplayCallToActionButton();
 
           // Updates meta and title tags
           this.seoService.updateDescription(desc);
@@ -252,7 +251,7 @@ export class DetailsComponent implements OnInit {
    * Tags should be hidden in production for now until further implementation is finished.
    */
   public isProduction(): boolean {
-    return !environment.production;
+    return environment.production;
   }
 
   /**
@@ -313,41 +312,24 @@ export class DetailsComponent implements OnInit {
    * Method to display the edit project button based on the current user and the project user.
    * If the user either has the ProjectWrite scope or is the creator of the project
    */
-  private determineDisplayEditProjectButton(): void {
-    if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
-      this.displayEditButton = true;
-      return;
-    }
-
+  private determineDisplayEditAndDeleteProjectButton(): void {
     if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayEditButton = false;
-      return;
-    }
-    this.displayEditButton = this.project.user.id === this.currentUser.id;
-  }
-
-  /**
-   * Method to display the delete project button based on the current user and the project user.
-   * If the user either has the ProjectWrite scope or is the creator of the project
-   */
-  private determineDisplayDeleteProjectButton(): void {
-    if (this.authService.currentBackendUserHasScope(scopes.ProjectWrite)) {
-      this.displayDeleteProjectButton = true;
-      return;
-    }
-
-    if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayDeleteProjectButton = false;
       return;
     }
-    this.displayDeleteProjectButton = this.project.user.id === this.currentUser.id;
+    if (this.project.user.id === this.currentUser.id ||
+        this.authService.currentBackendUserHasScope(scopes.AdminProjectWrite)) {
+      this.displayEditButton = true;
+      this.displayDeleteProjectButton = true;
+    }
   }
 
   /**
    * Method to display the project's call to action button based on whether or not the project has a set call to action.
    */
   private determineDisplayCallToActionButton(): void {
-    if (this.project != null && this.project.callToAction != null) {
+    if (this.project && this.project.callToAction) {
       this.displayCallToActionButton = true;
       return;
     } else {
