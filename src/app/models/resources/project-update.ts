@@ -17,6 +17,7 @@
 
 import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { CollaboratorUpdate } from './collaborator-update';
+import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 
 export interface ProjectUpdate {
   id: number;
@@ -27,5 +28,6 @@ export interface ProjectUpdate {
   description: string;
   url: string;
   callToAction: CallToAction;
+  categories: ProjectCategory[];
   fileId?: number;
 }

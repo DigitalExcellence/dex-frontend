@@ -21,7 +21,7 @@ import { Injectable } from '@angular/core';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { API_CONFIG } from 'src/app/config/api-config';
 import { from, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { mergeMap } from 'rxjs/operators';
 
@@ -39,25 +39,22 @@ export class InternalSearchService {
   }
 
   getSearchResultsPaginated(internalSearchQuery: InternalSearchQuery): Observable<SearchResultsResource> {
-    let url = this.url + internalSearchQuery.query;
-    let params = '';
+    const url = this.url + internalSearchQuery.query;
+    let params = new HttpParams();
     for (const key of Object.keys(internalSearchQuery)) {
       if (internalSearchQuery[key] == null) {
         continue;
       }
-
-      if (params === '') {
-        params += `${key}=${internalSearchQuery[key]}`;
-        continue;
+      if (Array.isArray(internalSearchQuery[key])) {
+        internalSearchQuery[key].forEach((item, index) => {
+          params = params.append(key + '[' + index + ']', item);
+        });
+      } else {
+        params = params.append(key, internalSearchQuery[key]);
       }
-      params += `&${key}=${internalSearchQuery[key]}`;
     }
 
-    if (params !== '') {
-      url += `?${params}`;
-    }
-
-    return this.http.get<SearchResultsResource>(url)
+    return this.http.get<SearchResultsResource>(url, {params})
         .pipe(
             mergeMap(result => from(
                 this.addLikes(result)
