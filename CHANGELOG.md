@@ -17,6 +17,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Resolved links in footer that navigated to non-existing pages - [#513](https://github.com/DigitalExcellence/dex-frontend/issues/513)
+
 ### Security
 
 ## Release v.1.4.0-beta - 07-06-2021
