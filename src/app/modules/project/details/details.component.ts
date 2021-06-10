@@ -233,35 +233,16 @@ export class DetailsComponent implements OnInit {
   }
 
   public fetchProjectComments(){
-    console.log("starting to fetch comments");
-    console.log("current project_id: "+this.projectId);
-    //let objectFetchComments : Object;
     this.commentService
       .fetchComments(this.projectId)
       .subscribe(
         (fetchComments) => {
-          console.log("typeof fetchComments");
-          console.log(typeof fetchComments);
-          console.log("fetchComments");
-          console.log(fetchComments);
-          //objectFetchComments = fetchComments;
-
           this.projectComments = Object.keys(fetchComments)
           .map(function(key) {
             return fetchComments[key]
             });
-            console.log("typeof this.projectComments");
-            console.log(typeof this.projectComments);
-            console.log("this.projectComments");
-            console.log(this.projectComments);
         }
       );
-    // let projectComments1 = this.commentService.fetchComments(1);
-    // console.log("Fetching project with id: "+this.projectId);
-    // console.log(projectComments);
-    // console.log("Fetching project with id: 1");
-    // console.log(projectComments1);
-
   }
 
   public onClickAddCommentToProject() {
@@ -542,15 +523,17 @@ export class DetailsComponent implements OnInit {
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
 
-  public commentFormatDate(commentDate: Date) {
+  public commentFormatDate(commentDateString: string) {
     let formattedCommentDate = '';
 
+    console.log(this.projectComments);
+    console.log(commentDateString);
     let today = new Date(2019, 11, 24, 10, 33, 30, 0);
-    commentDate = new Date(2018, 11, 24, 10, 33, 30, 0);
-    console.log("today");
-    console.log(today);
-    console.log("commentDate");
-    console.log(commentDate);
+    let commentDate = new Date(2018, 11, 24, 10, 33, 30, 0);
+    // console.log("today");
+    // console.log(today);
+    // console.log("commentDate");
+    // console.log(commentDate);
     let dateDifferenceInMs = Math.abs(today.getTime() - commentDate.getTime());
     // console.log(dateDifferenceInMs);
     // console.log(dateDifferenceInMs);

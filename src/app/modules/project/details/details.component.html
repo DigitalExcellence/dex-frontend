@@ -127,10 +127,6 @@
               <!-- <div id="contenteditable-root" contenteditable="true" dir="auto" class="style-scope yt-formatted-string" aria-label="Add a public comment..."></div> -->
               <div class="project-comment">
                 <input id="project-comment-input-field" value="Dit is een test comment value" class="project-comment-input"  placeholder="Add public comment..."/>
-                
-                
-                <!-- ngClick="projectComments.push(document.getElementById('project-comment-input-field'))">Comment</button> -->
-
                 <button 
                   class="project-comment-input-button primary" 
                   (click)="onClickAddCommentToProject()">Comment</button>
@@ -145,17 +141,14 @@
                     <div class="project-comment-metadata">
                       <div *ngIf="project.uri" class="project-comment-metadata__item">
                         <p class="title">{{ projectComment.user.name }}</p>
-                        <p>
-                          
-                        </p>
                       </div>
                       <div class="project-comment-metadata__item" [tooltip]="projectUpdated">
                         <!-- <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p> -->
                         <!-- <p class="hover">{{ projectComment.created | date: "longDate" }}</p> -->
-                        <p> posted {{ commentFormatDate(projectComment.user.dateCreated) }}</p>
+                        <p> posted {{ commentFormatDate(projectComment.dateCreated) }}</p>
                         <ng-template #projectUpdated>
                           <!-- <p>Created: {{ projectComment.created | date: "mediumDate" }}</p> -->
-                          <p> posted {{ commentFormatDate(projectComment.user.dateUpdated) }}</p>
+                          <p> posted {{ commentFormatDate(projectComment.dateUpdated) }}</p>
                           <!-- <p>Updated: {{ projectComment.updated | date: "mediumDate" }}</p> -->
                         </ng-template>
                       </div>
