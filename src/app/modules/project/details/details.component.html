@@ -144,7 +144,7 @@
                   <!-- <ng-container *ngIf="Comments > 0"> -->
                     <div class="project-comment-metadata">
                       <div *ngIf="project.uri" class="project-comment-metadata__item">
-                        <p class="title">{{ projectComment.username }}</p>
+                        <p class="title">{{ projectComment.user.name }}</p>
                         <p>
                           
                         </p>
@@ -152,10 +152,10 @@
                       <div class="project-comment-metadata__item" [tooltip]="projectUpdated">
                         <!-- <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p> -->
                         <!-- <p class="hover">{{ projectComment.created | date: "longDate" }}</p> -->
-                        <p> posted {{ commentFormatDate(projectComment.created) }}</p>
+                        <p> posted {{ commentFormatDate(projectComment.user.dateCreated) }}</p>
                         <ng-template #projectUpdated>
                           <!-- <p>Created: {{ projectComment.created | date: "mediumDate" }}</p> -->
-                          <p> posted {{ commentFormatDate(projectComment.created) }}</p>
+                          <p> posted {{ commentFormatDate(projectComment.user.dateUpdated) }}</p>
                           <!-- <p>Updated: {{ projectComment.updated | date: "mediumDate" }}</p> -->
                         </ng-template>
                       </div>

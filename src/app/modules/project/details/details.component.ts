@@ -542,26 +542,26 @@ export class DetailsComponent implements OnInit {
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
 
-  private commentFormatDate(commentDate: Date) {
+  public commentFormatDate(commentDate: Date) {
     let formattedCommentDate = '';
 
     let today = new Date(2019, 11, 24, 10, 33, 30, 0);
     commentDate = new Date(2018, 11, 24, 10, 33, 30, 0);
-
+    console.log("today");
+    console.log(today);
+    console.log("commentDate");
+    console.log(commentDate);
     let dateDifferenceInMs = Math.abs(today.getTime() - commentDate.getTime());
+    // console.log(dateDifferenceInMs);
+    // console.log(dateDifferenceInMs);
+    // console.log();
 
     let dateDifferenceInSecs = dateDifferenceInMs/1000;
-
     let dateDifInMinutes = dateDifferenceInSecs/60;
-
     let dateDifInHours = dateDifInMinutes/60;
-
     let dateDifInDays = dateDifInHours/24;
-
     let dateDifInWeeks = dateDifInDays/7;
-
     let dateDifInMonths = dateDifInWeeks/4;
-
     let dateDifInYears = dateDifInDays/365;
 
     const limitMinute = 60;
@@ -572,41 +572,38 @@ export class DetailsComponent implements OnInit {
     const limitYear = limitDay*365;
     //
     let diffInSeconds = dateDifferenceInSecs;
-     console.log(diffInSeconds);
-    // console.log(today.getTime());
-    // console.log(commentDate.getTime())
-    let diffInMinutes = 48;
-    let diffInHours = 48;
-    let diffInDays = 48;
+    // console.log(diffInSeconds);
+    // console.log(diffInSeconds);
+    // console.log(limitYear);
 
 
     switch(true) {
       case (diffInSeconds < limitMinute):
-        formattedCommentDate = "... +"+diffInSeconds+" second(s).";
+        formattedCommentDate = diffInSeconds+" second(s) ago.";
         return formattedCommentDate;
         break;
       case (diffInSeconds < limitHour):
-        formattedCommentDate = "... +"+diffInHours+" minute(s).";
+        formattedCommentDate = dateDifInMinutes+" minute(s) ago.";
         return formattedCommentDate;
         break;
       case (diffInSeconds < limitDay):
-        formattedCommentDate = "... +"+diffInHours+" hour(s).";
+        formattedCommentDate = dateDifInHours+" hour(s) ago.";
         return formattedCommentDate;
         break;
       case (diffInSeconds < (limitWeek)):
-        formattedCommentDate = "... +"+diffInDays+" day(s).";
+        formattedCommentDate = dateDifInDays+" day(s) ago.";
         return formattedCommentDate;
         break;
       case (diffInSeconds < (limitWeek+1)):
-        formattedCommentDate = "... +"+diffInDays+" week(s).";
+        formattedCommentDate = dateDifInWeeks+" week(s) ago.";
         return formattedCommentDate;
           break;
       case (diffInSeconds < (limitWeek)):
-        formattedCommentDate = "... +"+diffInDays+" month(s).";
+        formattedCommentDate = dateDifInMonths+" month(s) ago.";
         return formattedCommentDate;
         break;
       case (diffInSeconds < (limitYear+1)):
-        formattedCommentDate = "... +"+diffInDays+" years(s).";
+        formattedCommentDate = dateDifInYears+" year(s) ago.";
         return formattedCommentDate;
         break;
       default:
