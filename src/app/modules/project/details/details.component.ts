@@ -74,6 +74,59 @@ export class DetailsComponent implements OnInit {
   public displayHighlightButton = false;
   public displayEmbedButton = false;
   public projectComments : any[][];
+  public today = new Date();
+  public projectCommentsOld= [
+    {
+      id: 1, 
+      userId : 1,
+      username: "Prince Ron",
+      created: new Date("31/12/1998"),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '22',
+    },
+    {
+      id: 2, 
+      userId : 2,
+      username: "Humble Andrew",
+      created: new Date(this.today.getDate() - 60*60*24*5),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '14',
+    },
+    {
+      id: 3, 
+      username: "Doctor Ron",
+      created: new Date(this.today.getDate() - 60*60*24*10),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '2',
+    },
+    {
+      id: 4, 
+      username: "Teacher Ron",
+      created: new Date(this.today.getDate() - 60*60*24*200),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '9',
+    },
+    {
+      id: 5, 
+      username: "Athlete Ron",
+      created: new Date(this.today.getDate() - 60*60*24*365),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '7',
+    },
+    {
+      id: 6, 
+      username: "Developer Andrew",
+      created: new Date(this.today.getDate() - 342786),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '1',
+    },
+  ];
 
   /**
    * Property to indicate whether the project is loading.
@@ -487,6 +540,82 @@ export class DetailsComponent implements OnInit {
     const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' + ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
     const timeZone = 'GMT';
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
+  }
+
+  private commentFormatDate(commentDate: Date) {
+    let formattedCommentDate = '';
+
+    let today = new Date(2019, 11, 24, 10, 33, 30, 0);
+    commentDate = new Date(2018, 11, 24, 10, 33, 30, 0);
+
+    let dateDifferenceInMs = Math.abs(today.getTime() - commentDate.getTime());
+
+    let dateDifferenceInSecs = dateDifferenceInMs/1000;
+
+    let dateDifInMinutes = dateDifferenceInSecs/60;
+
+    let dateDifInHours = dateDifInMinutes/60;
+
+    let dateDifInDays = dateDifInHours/24;
+
+    let dateDifInWeeks = dateDifInDays/7;
+
+    let dateDifInMonths = dateDifInWeeks/4;
+
+    let dateDifInYears = dateDifInDays/365;
+
+    const limitMinute = 60;
+    const limitHour = limitMinute*60;
+    const limitDay = limitHour* 24;
+    const limitWeek = limitDay * 7;
+    const limitMonth = limitWeek*4;
+    const limitYear = limitDay*365;
+    //
+    let diffInSeconds = dateDifferenceInSecs;
+     console.log(diffInSeconds);
+    // console.log(today.getTime());
+    // console.log(commentDate.getTime())
+    let diffInMinutes = 48;
+    let diffInHours = 48;
+    let diffInDays = 48;
+
+
+    switch(true) {
+      case (diffInSeconds < limitMinute):
+        formattedCommentDate = "... +"+diffInSeconds+" second(s).";
+        return formattedCommentDate;
+        break;
+      case (diffInSeconds < limitHour):
+        formattedCommentDate = "... +"+diffInHours+" minute(s).";
+        return formattedCommentDate;
+        break;
+      case (diffInSeconds < limitDay):
+        formattedCommentDate = "... +"+diffInHours+" hour(s).";
+        return formattedCommentDate;
+        break;
+      case (diffInSeconds < (limitWeek)):
+        formattedCommentDate = "... +"+diffInDays+" day(s).";
+        return formattedCommentDate;
+        break;
+      case (diffInSeconds < (limitWeek+1)):
+        formattedCommentDate = "... +"+diffInDays+" week(s).";
+        return formattedCommentDate;
+          break;
+      case (diffInSeconds < (limitWeek)):
+        formattedCommentDate = "... +"+diffInDays+" month(s).";
+        return formattedCommentDate;
+        break;
+      case (diffInSeconds < (limitYear+1)):
+        formattedCommentDate = "... +"+diffInDays+" years(s).";
+        return formattedCommentDate;
+        break;
+      default:
+          console.log("This comment is missing a date.");
+          break;
+
+    }
+
+    return formattedCommentDate;
   }
 
   /**
