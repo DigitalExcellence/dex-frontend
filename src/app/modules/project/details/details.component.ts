@@ -523,22 +523,25 @@ export class DetailsComponent implements OnInit {
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
   }
 
+
+
+  /**
+   * Method to display the timedifference between current date and published date.
+   * @param commentDateString The comment published date.
+   */
   public commentFormatDate(commentDateString: string) {
+    //Constants we use within our switch
+    const limitMinute = 60;
+    const limitHour = limitMinute*60;
+    const limitDay = limitHour* 24;
+    const limitWeek = limitDay * 7;
+    const limitMonth = limitWeek*4;
+    const limitYear = limitDay*365;
+
     let formattedCommentDate = '';
-
-    console.log(this.projectComments);
-    console.log(commentDateString);
-    let today = new Date(2019, 11, 24, 10, 33, 30, 0);
-    let commentDate = new Date(2018, 11, 24, 10, 33, 30, 0);
-    // console.log("today");
-    // console.log(today);
-    // console.log("commentDate");
-    // console.log(commentDate);
-    let dateDifferenceInMs = Math.abs(today.getTime() - commentDate.getTime());
-    // console.log(dateDifferenceInMs);
-    // console.log(dateDifferenceInMs);
-    // console.log();
-
+    let today = new Date();
+    let commentDate = new Date(commentDateString);
+    let dateDifferenceInMs = today.getTime() - commentDate.getTime();
     let dateDifferenceInSecs = dateDifferenceInMs/1000;
     let dateDifInMinutes = dateDifferenceInSecs/60;
     let dateDifInHours = dateDifInMinutes/60;
@@ -546,56 +549,36 @@ export class DetailsComponent implements OnInit {
     let dateDifInWeeks = dateDifInDays/7;
     let dateDifInMonths = dateDifInWeeks/4;
     let dateDifInYears = dateDifInDays/365;
-
-    const limitMinute = 60;
-    const limitHour = limitMinute*60;
-    const limitDay = limitHour* 24;
-    const limitWeek = limitDay * 7;
-    const limitMonth = limitWeek*4;
-    const limitYear = limitDay*365;
-    //
     let diffInSeconds = dateDifferenceInSecs;
-    // console.log(diffInSeconds);
-    // console.log(diffInSeconds);
-    // console.log(limitYear);
-
 
     switch(true) {
       case (diffInSeconds < limitMinute):
-        formattedCommentDate = diffInSeconds+" second(s) ago.";
-        return formattedCommentDate;
+        return Math.ceil(diffInSeconds) +" second(s) ago.";
         break;
       case (diffInSeconds < limitHour):
-        formattedCommentDate = dateDifInMinutes+" minute(s) ago.";
-        return formattedCommentDate;
+        return Math.floor(dateDifInMinutes) +" minute(s) ago.";
         break;
       case (diffInSeconds < limitDay):
-        formattedCommentDate = dateDifInHours+" hour(s) ago.";
-        return formattedCommentDate;
+        return Math.floor(dateDifInHours)+" hour(s) ago.";
         break;
       case (diffInSeconds < (limitWeek)):
-        formattedCommentDate = dateDifInDays+" day(s) ago.";
-        return formattedCommentDate;
+        return Math.floor(dateDifInDays)+" day(s) ago.";
         break;
       case (diffInSeconds < (limitWeek+1)):
-        formattedCommentDate = dateDifInWeeks+" week(s) ago.";
-        return formattedCommentDate;
+        return Math.floor(dateDifInWeeks)+" week(s) ago.";
           break;
       case (diffInSeconds < (limitWeek)):
-        formattedCommentDate = dateDifInMonths+" month(s) ago.";
-        return formattedCommentDate;
+        return Math.floor(dateDifInMonths)+" month(s) ago.";
         break;
       case (diffInSeconds < (limitYear+1)):
-        formattedCommentDate = dateDifInYears+" year(s) ago.";
-        return formattedCommentDate;
+        return Math.floor(dateDifInYears)+" year(s) ago.";
         break;
       default:
           console.log("This comment is missing a date.");
           break;
-
     }
 
-    return formattedCommentDate;
+    return false;
   }
 
   /**
