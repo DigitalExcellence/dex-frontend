@@ -74,59 +74,6 @@ export class DetailsComponent implements OnInit {
   public displayHighlightButton = false;
   public displayEmbedButton = false;
   public projectComments : any[][];
-  // public projectComments : Array<Comment>;
-  // public projectComments = [
-  //   {
-  //     id: 1, 
-  //     userId : 1,
-  //     username: "Prince Ron",
-  //     created: new Date(),
-  //     updated: new Date(),
-  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-  //     likes: '22',
-  //   },
-  //   {
-  //     id: 2, 
-  //     userId : 2,
-  //     username: "Humble Andrew",
-  //     created: new Date(),
-  //     updated: new Date(),
-  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-  //     likes: '14',
-  //   },
-  //   {
-  //     id: 3, 
-  //     username: "Doctor Ron",
-  //     created: new Date(),
-  //     updated: new Date(),
-  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-  //     likes: '2',
-  //   },
-  //   {
-  //     id: 4, 
-  //     username: "Teacher Ron",
-  //     created: new Date(),
-  //     updated: new Date(),
-  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-  //     likes: '9',
-  //   },
-  //   {
-  //     id: 5, 
-  //     username: "Athlete Ron",
-  //     created: new Date(),
-  //     updated: new Date(),
-  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-  //     likes: '7',
-  //   },
-  //   {
-  //     id: 6, 
-  //     username: "Developer Andrew",
-  //     created: new Date(),
-  //     updated: new Date(),
-  //     content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
-  //     likes: '1',
-  //   },
-  // ];
 
   /**
    * Property to indicate whether the project is loading.
@@ -240,15 +187,19 @@ export class DetailsComponent implements OnInit {
       .fetchComments(this.projectId)
       .subscribe(
         (fetchComments) => {
+          console.log("typeof fetchComments");
           console.log(typeof fetchComments);
+          console.log("fetchComments");
           console.log(fetchComments);
           //objectFetchComments = fetchComments;
 
           this.projectComments = Object.keys(fetchComments)
           .map(function(key) {
-            return [key,fetchComments[key]]
+            return fetchComments[key]
             });
+            console.log("typeof this.projectComments");
             console.log(typeof this.projectComments);
+            console.log("this.projectComments");
             console.log(this.projectComments);
         }
       );
