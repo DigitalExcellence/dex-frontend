@@ -21,6 +21,7 @@ import { AuthCallbackComponent } from './components/auth-callback/auth-callback.
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { MainComponent } from './modules/home/main/main.component';
+// import { UserModule } from './modules/user/user.module';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'project',
     loadChildren: () => import('./modules/project/project.module').then((m) => m.ProjectModule),
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./modules/user/user.module').then((m) => m.UserModule),
   },
   {
     path: 'account',
