@@ -29,7 +29,6 @@ import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { UserService } from 'src/app/services/user.service';
-//import { RecommendationService } from 'src/app/services/recommendation.service';
 import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
@@ -126,6 +125,7 @@ export class UserProjectComponent implements OnInit {
             this.userprojects.forEach(element => {
               element.likeCount = element.likes.length;
             });
+            this.projectsToDisplay = this.userprojects;
           });
       }
     });
