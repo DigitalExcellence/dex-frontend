@@ -22,6 +22,7 @@ import { User } from 'src/app/models/domain/user';
 import { UserAdd } from 'src/app/models/resources/user-add';
 import { HttpBaseService } from './http-base.service';
 import { Observable } from 'rxjs';
+import { Project } from 'src/app/models/domain/project';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,9 @@ export class UserService extends HttpBaseService<User, UserAdd, User> {
 
   public getCurrentUser(): Observable<User> {
     return this.http.get<User>(this.url);
+  }
+
+  public getProjectsFromUser(): Observable<Project[]> {
+    return this.http.get<Project[]>(`${this.url}`);
   }
 }

@@ -1,0 +1,201 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+ @import "assets/styles/variables";
+
+ .projects-overview-wrapper {
+   padding: 0 5vw;
+   max-width: 1880px;
+   margin-left: auto;
+   margin-right: auto;
+ 
+   .project-list-header {
+     width: 100%;
+     margin: 2em 0;
+     display: inline-flex;
+     justify-content: space-between;
+     align-content: center;
+ 
+     h1 {
+       display: inline;
+     }
+     .list-view-toggle {
+       display: flex;
+       margin: auto 0 auto 20px;
+       gap: 12px;
+       flex-wrap: wrap;
+       justify-content: flex-end;
+ 
+       @media only screen and (max-width: 720px) {
+         display: none;
+       }
+ 
+       .container {
+         box-shadow: $box-shadow;
+         display: inline;
+         position: relative;
+         cursor: pointer;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         user-select: none;
+         padding: 0;
+         width: fit-content;
+         margin: 0;
+         height: fit-content;
+       }
+ 
+       // Hide the default radio button
+       .container input[type="radio"] {
+         position: absolute;
+         opacity: 0;
+         cursor: pointer;
+         height: 0;
+         width: 0;
+       }
+ 
+       // Create custom radio button
+       .checkmark {
+         height: 40px;
+         width: 40px;
+         padding: 10px;
+         border-radius: 5px;
+         background-color: $white;
+         color: $accent-color-red-primary;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         transition: transform $transition-short;
+ 
+         &:hover {
+           transform: $transform-grow-big;
+         }
+         svg {
+           size: inherit;
+           width: 100%;
+           height: 100%;
+           margin: 0;
+         }
+       }
+     }
+ 
+     // If the sibling input is checked
+     .container input[type="radio"]:checked ~ .checkmark {
+       color: $light-mode-grey-quaternary;
+       background: $accent-color-red-primary;
+     }
+   }
+
+ 
+   .project-list-wrapper {
+     width: 100%;
+     display: grid;
+     gap: 15px;
+     margin-bottom: 35px;
+ 
+     &.grid {
+       gap: 25px;
+       grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+     }
+   }
+ 
+   .pagination-div {
+     margin-top: 20px;
+     display: flex;
+     justify-content: center;
+   }
+ 
+   .pagination-footer::ng-deep {
+     flex-wrap: wrap;
+ 
+     .pagination-next,
+     .pagination-prev {
+       max-width: 35px;
+       overflow: hidden;
+     }
+   }
+ 
+   .pagination-footer::ng-deep .page-link {
+     z-index: 1;
+     color: $light-mode-black;
+     height: 35px;
+     display: flex;
+     align-items: center;
+   }
+ 
+   .pagination-footer::ng-deep .page-item.active .page-link {
+     border-color: $accent-color-red-primary;
+     background-color: $accent-color-red-primary !important;
+     color: #ffffff;
+   }
+ 
+   .paginationDropDown {
+     width: 80px;
+   }
+ 
+   .pagination-footer {
+     li {
+       height: 35px;
+       width: 35px;
+     }
+     a {
+       height: 35px;
+       width: 35px;
+     }
+     img {
+       width: 100%;
+     }
+     .chevron-right {
+       margin-top: 1px;
+       transform: rotateZ(270deg);
+     }
+     .chevron-left {
+       margin-top: 1px;
+       transform: rotateZ(90deg);
+     }
+     .disabled {
+       opacity: 0.3;
+     }
+   }
+ 
+   .paginationDropDown {
+     width: 80px;
+   }
+ 
+   .loading-circle {
+     color: $accent-color-red-primary;
+   }
+ }
+ 
+ .projects-filter-wrapper {
+   min-width: 250px;
+   @media only screen and (min-width: 1000px) {
+     max-width: 300px;
+   }
+   height: 100vh;
+   position: sticky;
+   top: 0;
+   margin: -24px 24px -64px -24px; // override padding from parent element & footer
+   padding: 48px 36px;
+   background-color: white;
+ 
+   .divider {
+     border-bottom: 1px solid $light-mode-grey-thertiary;
+   }
+  }
+ 

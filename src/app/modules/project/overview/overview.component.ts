@@ -146,7 +146,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       private paginationService: PaginationService,
       private internalSearchService: InternalSearchService,
       private formBuilder: FormBuilder,
-      private activatedRoute: ActivatedRoute,
+      private activatedRoute: ActivatedRoute, 
       private seoService: SEOService,
       private modalService: BsModalService,
       private location: Location,

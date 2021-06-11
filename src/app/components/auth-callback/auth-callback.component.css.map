@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;;;;;;;;;;;;;;GAiBG",
+    "sources": [
+        "auth-callback.component.scss"
+    ],
+    "names": [],
+    "file": "auth-callback.component.css"
+}
