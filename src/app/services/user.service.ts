@@ -38,6 +38,6 @@ export class UserService extends HttpBaseService<User, UserAdd, User> {
   }
 
   public getProjectsFromUser(): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.url}`);
+    return this.http.get<Project[]>(`${this.url}/projects`);
   }
 }
