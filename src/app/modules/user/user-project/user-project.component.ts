@@ -82,4 +82,8 @@ export class UserProjectComponent implements OnInit {
   public getIconUrl(project: Project): SafeUrl {
     return this.fileRetrieverService.getIconUrl(project.projectIcon);
   }
+
+  public projectsEmpty(): boolean {
+    return this.userprojects.length < 1;
+  }
 }
