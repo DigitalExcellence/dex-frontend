@@ -20,8 +20,8 @@ import { User } from 'src/app/models/domain/user';
 export interface CommentAdd {
     projectId: number;
     user: User;
-    dateCreated: Date;
-    dateUpdated: Date;
+    created: Date;
+    Updated: Date;
     content: string;
   }
   

@@ -27,23 +27,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 
-export class CommentService  extends HttpBaseService<Comment, CommentAdd, Comment>{
+export class CommentService{
 
   protected readonly url = API_CONFIG.url + API_CONFIG.projectComments;
 
-  constructor(http: HttpClient) { 
-        super(http, API_CONFIG.url + API_CONFIG.projectComments);
+  constructor(private http: HttpClient) { 
+        // super(http, API_CONFIG.url + API_CONFIG.projectComments);
     }
 
       public fetchComments(projectId: number): Observable<Comment> {
-        return this.http.get<Comment>(`${this.url}/${projectId}`);
+        return this.http.get<Comment>(`${API_CONFIG.url + API_CONFIG.projectComments}/${projectId}`);
       }
 
-      public addComment(projectId: number): void {
-        this.http.post(`${this.url}/${projectId}`, {projectId: projectId})
-            .subscribe();
+      public addComment(projectId: number, comment): void {
+        this.http.post(`${API_CONFIG.url + API_CONFIG.projectComment}/${projectId}`, comment).subscribe();
       }
-    
+
       public removeComment(projectId: number): void {
         this.http.delete(`${this.url}/${projectId}`);
       }

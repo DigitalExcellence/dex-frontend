@@ -25,8 +25,8 @@ export interface Comment {
   id: number;
   projectId: number;
   user: User;
-  dateCreated: Date;
-  dateUpdated: Date;
+  created: Date;
+  updated: Date;
   content: string;
   //likes?: Array<CommentLike>;
   Likes: string[];//TODO CommentLikes Model

@@ -145,10 +145,10 @@
                       <div class="project-comment-metadata__item" [tooltip]="projectUpdated">
                         <!-- <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p> -->
                         <!-- <p class="hover">{{ projectComment.created | date: "longDate" }}</p> -->
-                        <p> posted {{ commentFormatDate(projectComment.dateCreated) }}</p>
+                        <p> posted {{ commentFormatDate(projectComment.created) }}</p>
                         <ng-template #projectUpdated>
                           <!-- <p>Created: {{ projectComment.created | date: "mediumDate" }}</p> -->
-                          <p> posted {{ commentFormatDate(projectComment.dateUpdated) }}</p>
+                          <p> posted {{ commentFormatDate(projectComment.Updated) }}</p>
                           <!-- <p>Updated: {{ projectComment.updated | date: "mediumDate" }}</p> -->
                         </ng-template>
                       </div>

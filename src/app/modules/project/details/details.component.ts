@@ -46,6 +46,7 @@ import { LikeService } from 'src/app/services/like.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
+import { Comment } from 'src/app/models/domain/comment';
 
 /**
  * Overview of a single project
@@ -65,6 +66,7 @@ export class DetailsComponent implements OnInit {
    * Variable to store the project which is retrieved from the api
    */
   public project: Project;
+  public newComment: Comment;
   public isAuthenticated: boolean;
   public isProjectHighlighted = false;
 
@@ -248,23 +250,45 @@ export class DetailsComponent implements OnInit {
   public onClickAddCommentToProject() {
     //POST-COMMENT
     let commentObject = (<HTMLInputElement>document.getElementById('project-comment-input-field')).value;
-    console.log("clicked on the comment button!")
-    console.log(commentObject)
+    let newCommentObject = {
+      created: "2021-01-05T11:46:18.558Z",
+      updated: "2021-02-10T11:46:18.558Z",
+      // content : "Hope inexpedient joy disgust virtues endless prejudice suicide decieve christianity against pious. Prejudice hatred prejudice noble zarathustra merciful oneself grandeur transvaluation truth ultimate revaluation aversion intentions. Faith spirit depths victorious ocean superiority burying free inexpedient virtues christian spirit disgust joy. Faithful war madness horror ideal contradict fearful mountains insofar christian mountains grandeur right fearful."};
+      content : commentObject};
 
-    
-    let newComment = {
-      id: 23, 
-      userId : 314,
-      username: "Test Comment",
-      created: new Date(),
-      updated: new Date(),
-      content: commentObject,
-      likes: '0',
-    };
-    //push to array projectComments
-    // this.projectComments.push(newComment);
-    // console.log("clicked on the comment button!");
-    // console.log(this.projectComments);
+      if(this.authService.isAuthenticated()){
+        //commentService
+        this.commentService.addComment(this.projectId, newCommentObject);
+        //commentService
+      } else {
+      // User is not logged in
+      const alertConfig: AlertConfig = {
+        type: AlertType.warning,
+        mainMessage: 'You need to be logged in to comment on this project',
+        dismissible: true,
+        autoDismiss: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
+    }
+
+    //Like post version
+    if (this.authService.isAuthenticated()) {
+      if (!this.project.userHasLikedProject) {
+        this.likeService.likeProject(this.project.id);
+        this.project.likeCount++;
+        this.animationTriggered = true;
+        // We add this so we can update the overview page when the modal is closed
+        this.onLike.next(true);
+      } else {
+        this.likeService.removeLike(this.project.id);
+        this.project.likeCount--;
+        this.animationTriggered = true;
+        // We add this so we can update the overview page when the modal is closed
+        this.onLike.next(false);
+      }
+      this.project.userHasLikedProject = !this.project.userHasLikedProject;
+    }
   }
 
   /**
@@ -554,31 +578,21 @@ export class DetailsComponent implements OnInit {
     switch(true) {
       case (diffInSeconds < limitMinute):
         return Math.ceil(diffInSeconds) +" second(s) ago.";
-        break;
       case (diffInSeconds < limitHour):
         return Math.floor(dateDifInMinutes) +" minute(s) ago.";
-        break;
       case (diffInSeconds < limitDay):
         return Math.floor(dateDifInHours)+" hour(s) ago.";
-        break;
       case (diffInSeconds < (limitWeek)):
         return Math.floor(dateDifInDays)+" day(s) ago.";
-        break;
       case (diffInSeconds < (limitWeek+1)):
         return Math.floor(dateDifInWeeks)+" week(s) ago.";
-          break;
       case (diffInSeconds < (limitWeek)):
         return Math.floor(dateDifInMonths)+" month(s) ago.";
-        break;
       case (diffInSeconds < (limitYear+1)):
         return Math.floor(dateDifInYears)+" year(s) ago.";
-        break;
       default:
-          console.log("This comment is missing a date.");
-          break;
+          return " once upon a time.";
     }
-
-    return false;
   }
 
   /**
