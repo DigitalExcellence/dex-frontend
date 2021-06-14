@@ -138,8 +138,8 @@ export class UserProjectComponent implements OnInit {
    /**
    * Array to receive and store the projects from the api.
    */
-    public projects: Project[] = [];
-    public projectsTotal: Project[] = [];
+   // public projects: Project[] = [];
+   // public projectsTotal: Project[] = [];
   
     public displaySearchElements = false;
  
@@ -187,6 +187,26 @@ export class UserProjectComponent implements OnInit {
               }
 
               ngOnInit(): void {
+                this.subscription = this.authService.authNavStatus$.subscribe((status) => {
+                  this.isAuthenticated = status;
+                  this.name = this.authService.name;
+                });
+
+                this.authService.authNavStatus$.subscribe((status) => {
+                  this.isAuthenticated = status;
+                  if (status) {
+                    this.userService.getProjectsFromUser()
+                      .pipe(finalize(() => (this.userprojectsLoading = false)))
+                      .subscribe((result) => {
+                        this.userprojects = result;
+                        this.userprojects.forEach(element => {
+                          element.likeCount = element.likes.length;
+                        });
+                       // this.projectsToDisplay = this.userprojects;
+                      });
+                  }
+                });
+              
                 // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
                 this.searchSubject
                     .pipe(
@@ -214,6 +234,10 @@ export class UserProjectComponent implements OnInit {
                   const projectId = params.id?.split('-')[0];
                   this.createProjectModal(projectId);
                 });
+              }
+              public onClickUserProject(id: number, name: string): void {
+                name = name.split(' ').join('-');
+                this.modalUtility.openProjectModal(id, name, '/home');
               }
             
               public onCategoryClick(category): void {
@@ -249,7 +273,7 @@ export class UserProjectComponent implements OnInit {
                * Checks whether there are any projects
                */
               public projectsEmpty(): boolean {
-                return this.projects.length < 1;
+                return this.userprojects.length < 1;
               }
             
               /**
@@ -270,6 +294,13 @@ export class UserProjectComponent implements OnInit {
                 }
                 this.location.replaceState(`/project/details/${id}-${name}`);
               }
+                /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the file retriever service
+   */
+  public getIconUrl(project: Project): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(project.projectIcon);
+  }
             
               /**
                * Method that retrieves the page of the pagination footer when the user selects a new one.
@@ -338,13 +369,13 @@ export class UserProjectComponent implements OnInit {
                   // No search query provided use projectService.
                   this.paginationService
                       .getProjectsPaginated(internalSearchQuery)
-                      .pipe(finalize(() => (this.projectsLoading = false)))
+                      .pipe(finalize(() => (this.userprojectsLoading = false)))
                       .subscribe((result) => this.handleSearchAndProjectResponse(result));
                 } else {
                   // Search query provided use searchService.
                   this.internalSearchService
                       .getSearchResultsPaginated(internalSearchQuery)
-                      .pipe(finalize(() => (this.projectsLoading = false)))
+                      .pipe(finalize(() => (this.userprojectsLoading = false)))
                       .subscribe((result) => this.handleSearchAndProjectResponse(result));
                 }
               }
@@ -355,11 +386,11 @@ export class UserProjectComponent implements OnInit {
               private handleSearchAndProjectResponse(response: SearchResultsResource): void {
                 this.paginationResponse = response;
             
-                this.projects = response.results;
+                this.userprojects = response.results;
                 this.projectsToDisplay = response.results;
                 this.totalNrOfProjects = response.totalCount;
             
-                if (this.projects.length < this.amountOfProjectsOnSinglePage && this.currentPage <= 1) {
+                if (this.userprojects.length < this.amountOfProjectsOnSinglePage && this.currentPage <= 1) {
                   this.showPaginationFooter = false;
                 } else {
                   this.showPaginationFooter = true;
@@ -381,13 +412,13 @@ export class UserProjectComponent implements OnInit {
                   this.modalRef.setClass('project-modal');
             
                   this.modalRef.content.onLike.subscribe(isLiked => {
-                    const projectIndexToUpdate = this.projects.findIndex(project => project.id === projectId);
+                    const projectIndexToUpdate = this.userprojects.findIndex(project => project.id === projectId);
                     if (isLiked) {
-                      this.projects[projectIndexToUpdate].likeCount++;
-                      this.projects[projectIndexToUpdate].userHasLikedProject = true;
+                      this.userprojects[projectIndexToUpdate].likeCount++;
+                      this.userprojects[projectIndexToUpdate].userHasLikedProject = true;
                     } else {
-                      this.projects[projectIndexToUpdate].likeCount--;
-                      this.projects[projectIndexToUpdate].userHasLikedProject = false;
+                      this.userprojects[projectIndexToUpdate].likeCount--;
+                      this.userprojects[projectIndexToUpdate].userHasLikedProject = false;
                     }
                   });
             
