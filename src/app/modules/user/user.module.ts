@@ -5,17 +5,22 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserProjectComponent } from './user-project/user-project.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProjectModule } from '../project/project.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [UserProjectComponent],
+  declarations: [
+    UserProjectComponent
+  ],
   imports: [
     CommonModule,
     UserRoutingModule,
     PaginationModule.forRoot(),
     ProjectModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class UserModule { }
