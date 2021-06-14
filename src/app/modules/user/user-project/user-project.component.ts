@@ -63,6 +63,9 @@ export class UserProjectComponent implements OnInit {
   private modalRef: BsModalRef;
   private modalSubscriptions: Subscription[] = [];
 
+  public name: string;
+  public photo : File;
+  public subscription: Subscription;
     /**
    * The number of projects that are on the platform
    */
@@ -115,6 +118,11 @@ export class UserProjectComponent implements OnInit {
               private modalService: BsModalService) {}
 
   ngOnInit(): void {
+    this.subscription = this.authService.authNavStatus$.subscribe((status) => {
+      this.isAuthenticated = status;
+      this.name = this.authService.name;
+    });
+
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
       if (status) {

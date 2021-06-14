@@ -17,6 +17,65 @@
  *
  */
  @import "assets/styles/variables";
+  
+ .userinfo{
+    display: flex;
+   background-color: #ffffff;
+   border-radius: 5px;
+   box-shadow: 0 3px 4px rgb(0 0 0 / 8%);
+   width: 400px;
+   height: 150px;
+   position: relative;
+   margin-bottom: 50px;
+
+   .profile-picture{
+     width: 120px;
+     height: 120px;
+     border-radius: 50%;
+     margin: 15px; 
+   }
+
+   .usercreds{
+     height: calc(100% - 30px);
+     margin: 30px;
+   }
+ }
+
+ .project-chooser{
+  width: 100%;
+  display: flex;
+  margin-bottom: 30px;
+
+  .item{
+    width: 200px;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 20px auto;
+    font-weight: 700;
+    overflow: inherit;
+
+    div {
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      
+      i {
+        justify-self: center;
+        color: $light-mode-black;
+      }
+    }
+
+      &:hover {
+        color: $accent-color-red-primary;
+      }
+    }
+  }
+
+
+
 
  .projects-overview-wrapper {
    padding: 0 5vw;

@@ -41,6 +41,7 @@
   <div class="col-md projects-overview-wrapper">
     <div class="project-list-header">
       <h1 class="">My feed</h1>
+
       <div class="list-view-toggle">
         <label class="container">
           <input [(ngModel)]="showListView" [value]="false" aria-label="Switch to grid view" name="list-view" type="radio"/>
@@ -59,6 +60,25 @@
           </span>
         </label>
       </div>
+    </div>
+
+    <div class="userinfo">
+      <img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png" />
+      <div class="usercreds">
+       <h3> {{ name }} </h3>
+       <p> Projects: {{ userprojects.length }}</p>
+      </div>
+    </div>
+
+    <div class="project-chooser">
+      <div class="item">
+        <em class="fas fa-user"></em>
+        <div id="myprojects">My projects</div>
+      </div>
+      <div class="item">
+      <em class="fas fa-users"></em>
+      <div id="collabprojects">Collaborated projects</div>
+    </div>
     </div>
 
     <ng-container *ngIf="!projectsEmpty(); else noProjects">

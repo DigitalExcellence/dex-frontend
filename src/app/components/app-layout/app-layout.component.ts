@@ -23,7 +23,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 /**
- * Component used to display the basic layout of the application.
+ * Component used to display the basic layout of the application. 
  */
 @Component({
   selector: 'app-layout',
