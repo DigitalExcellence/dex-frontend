@@ -153,7 +153,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       private categoryService: CategoryService,
       private route: ActivatedRoute) {
     this.searchControl = new FormControl('');
-    this.sortOptionControl = new FormControl(this.sortSelectOptions);
+    this.sortOptionControl = new FormControl(this.sortSelectOptions[0]);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
 
 
@@ -368,15 +368,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       this.modalSubscriptions.push(
           this.modalService.onHide.subscribe(() => {
                 if (this.location.path().startsWith('/project/details')) {
-                  const queryString = `query=${this.searchControl.value}`
-                      + `&sortOption=${this.currentSortOptions}`
-                      + `&pagination=${this.amountOfProjectsOnSinglePage}`
-                      + `&page=${this.currentPage}`
-                      + `&categories=${JSON.stringify(this.categories?.map(
-                          category => category.selected ? category.id : null)
-                          .filter(category => category)
-                      )}`;
-                  this.location.replaceState(`/project/overview/`, queryString);
+                  this.updateQueryParams();
+                  this.location.replaceState("/project/overview");
                   this.updateSEOTags();
                   this.onInternalQueryChange();
                 }
@@ -389,33 +382,36 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     this.router.navigate(
         [],
         {
+          replaceUrl: true,
           queryParams: {
             query: this.searchControl.value,
-            sortOption: this.currentSortOptions,
             pagination: this.amountOfProjectsOnSinglePage,
-            categories: JSON.stringify(
-                this.categories?.map(category =>
-                    category.selected ? category.id : null
-                ).filter(category => category)
-            )
+            sortOption: this.sortOptionControl.value.value,
+            categories: JSON.stringify(this.categories?.map(
+                category => category.selected ? category.id : null)
+                .filter(category => category))
           },
-          queryParamsHandling: 'merge'
-        });
+          queryParamsHandling: "merge"
+        }
+    );
   }
 
   private processQueryParams() {
-    this.route.queryParams.subscribe(({query, categories: selectedCategories, sortOption, pagination}) => {
-      if (query !== 'null' && query !== 'undefined') {
+    this.route.queryParams.subscribe((params) => {
+
+      const {query, sortOption, pagination} = params;
+      let {categories: selectedCategories} = params;
+      if (query && query !== 'null' && query !== 'undefined') {
         this.searchControl.setValue(query);
       }
 
       if (selectedCategories) {
         selectedCategories = JSON.parse(selectedCategories);
-        if (selectedCategories.count > 0) {
+        if (selectedCategories.length > 0) {
           this.categories = this.categories?.map(category => {
             return {
               ...category,
-              selected: selectedCategories.contains(category.id)
+              selected: selectedCategories.indexOf(category.id) >= 0
             };
           });
         }
@@ -423,19 +419,36 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
       if (sortOption) {
         this.currentSortOptions = sortOption;
-        this.sortOptionControl.setValue(this.sortSelectOptions.find(option => option.value === sortOption));
+        const parsed = this.sortSelectOptions.find(option => option.value === sortOption);
+        this.sortOptionControl.setValue(parsed ? parsed : this.sortSelectOptions[0]);
       }
 
       if (pagination) {
         const parsed = this.paginationDropDownOptions.find(option =>
             option.amountOnPage === parseInt(pagination, 10));
 
-        this.paginationOptionControl.setValue(parsed ? parsed : 12);
+        this.paginationOptionControl.setValue(parsed ? parsed : this.paginationDropDownOptions[0]);
         this.amountOfProjectsOnSinglePage = parsed ? parsed.amountOnPage : 12;
       }
 
       this.onInternalQueryChange();
     });
+  }
+
+  private buildQueryParams() {
+    const categories = this.categories?.map(
+        category => category.selected ? category.id : null)
+        .filter(category => category);
+
+    const queryValue = this.searchControl.value;
+    const sortOptionValue = this.sortOptionControl.value.value;
+    const paginationValue = this.amountOfProjectsOnSinglePage;
+    const categoriesValue = JSON.stringify(categories);
+
+    return `query=${queryValue}`
+        + `&sortOption=${sortOptionValue}`
+        + `&pagination=${paginationValue}`
+        + `&categories=${categoriesValue}`;
   }
 
   /**
