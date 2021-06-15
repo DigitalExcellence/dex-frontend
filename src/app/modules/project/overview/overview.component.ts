@@ -214,6 +214,10 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    if(value === '') {
+      this.onInternalQueryChange();
+    }
+
     this.currentSearchInput = value;
     this.searchSubject.next(value);
   }
@@ -241,7 +245,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     } else {
       this.createProjectModal(id);
     }
-    this.location.replaceState(`/project/details/${id}-${name}`);
+
+    this.location.replaceState(`/project/details/${id}-${name}`, this.buildQueryParams());
   }
 
   /**
@@ -369,7 +374,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
           this.modalService.onHide.subscribe(() => {
                 if (this.location.path().startsWith('/project/details')) {
                   this.updateQueryParams();
-                  this.location.replaceState("/project/overview");
+                  this.location.replaceState("/project/overview", this.buildQueryParams());
                   this.updateSEOTags();
                   this.onInternalQueryChange();
                 }
@@ -440,7 +445,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
         category => category.selected ? category.id : null)
         .filter(category => category);
 
-    const queryValue = this.searchControl.value;
+    const queryValue = this.currentSearchInput;
     const sortOptionValue = this.sortOptionControl.value.value;
     const paginationValue = this.amountOfProjectsOnSinglePage;
     const categoriesValue = JSON.stringify(categories);
