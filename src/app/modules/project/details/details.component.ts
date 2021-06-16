@@ -128,6 +128,7 @@ export class DetailsComponent implements OnInit {
       .subscribe(
         (result) => {
           this.project = result;
+          console.log(result);
           const desc = (this.project.shortDescription) ? this.project.shortDescription : this.project.description;
           this.determineDisplayEditAndDeleteProjectButton();
           this.determineDisplayEmbedButton();
@@ -329,7 +330,7 @@ export class DetailsComponent implements OnInit {
    * Method to display the project's call to action button based on whether or not the project has a set call to action.
    */
   private determineDisplayCallToActionButton(): void {
-    if (this.project && this.project.callToAction) {
+    if (this.project && this.project.callToActions.length > 0) {
       this.displayCallToActionButton = true;
       return;
     } else {

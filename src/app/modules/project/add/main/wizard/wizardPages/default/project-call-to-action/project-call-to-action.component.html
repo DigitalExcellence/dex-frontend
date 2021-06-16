@@ -27,12 +27,12 @@
   <p class="error-message">{{errorMessage}}</p>
   <div class="grid">
     <ng-container *ngFor="let callToActionOption of callToActionOptions">
-      <input (click)="radioButtonClicked($event, callToActionOption.id)"
+      <input (click)="checkboxButtonClicked($event, callToActionOption.id)"
              [checked]="selectedCallToActionOptionId === callToActionOption.id"
              [value]="callToActionOption.id"
              class="radio"
              name="call-to-action"
-             type="radio"/>
+             type="checkbox"/>
       <button (click)="buttonClicked(callToActionOption.id)"
               [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
               class="call-to-action-btn">

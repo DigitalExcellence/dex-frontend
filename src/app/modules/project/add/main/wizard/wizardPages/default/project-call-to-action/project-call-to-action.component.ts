@@ -35,7 +35,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   /**
    * The selected call to action option
    */
-  public selectedCallToActionOptionId: number;
+  public selectedCallToActionOptionIds: number[];
 
   /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
@@ -58,13 +58,13 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
       this.callToActionOptions = options;
       this.callToActionOptionsLoading = false;
 
-      if (this.project.callToAction) {
-        this.selectedCallToActionOptionId = this.project.callToAction.id;
+      if (this.project.callToActions.length > 0) {
+        this.selectedCallToActionOptionIds = this.project.callToActions.map(p => p.id);
         this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
-          return ctaOption.id === this.project.callToAction.id
+          return this.project.callToActions.some(cta => ctaOption.id == cta.id)
               ?
               {
-                ...ctaOption, optionValue: this.project.callToAction.value
+                ...ctaOption, optionValue: this.project.callToActions.find(cta => ctaOption.id === cta.id).value
               }
               :
               {
@@ -79,20 +79,23 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * Method which triggers when the button to the next page is pressed
    */
   public onClickNext(): void {
-    if (this.selectedCallToActionOptionId > 0) {
-      const selectedCallToAction = this.callToActionOptions.find(cta => cta.id === this.selectedCallToActionOptionId);
-      if (!this.validURL(selectedCallToAction.optionValue)) {
+    if (this.selectedCallToActionOptionIds.length > 0) {
+      const selectedCallToActions = this.callToActionOptions.filter(option => this.selectedCallToActionOptionIds.includes(option.id));
+      if (!this.validURL(selectedCallToActions.map(scta => scta.optionValue))) {
         this.errorMessage = 'Invalid url';
         return;
       }
-      this.project.callToAction = {
-        id: selectedCallToAction.id,
-        optionValue: selectedCallToAction.value,
-        value: selectedCallToAction.optionValue
-      };
+
+      selectedCallToActions.forEach(scta => {
+        this.project.callToActions.push({
+          id : scta.id,
+          optionValue : scta.value,
+          value: scta.optionValue
+        })
+      })
     } else {
       // No call to action selected, make sure it's empty
-      this.project.callToAction = undefined;
+      this.project.callToActions = undefined;
     }
     super.onClickNext();
   }
@@ -118,13 +121,13 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * @param event The browser event
    * @param clickedRadioButtonId The clicked radio button
    */
-  public radioButtonClicked(event: Event, clickedRadioButtonId: number): void {
+  public checkboxButtonClicked(event: Event, clickedCheckboxId: number): void {
     const element = event.target as HTMLInputElement;
-    if (clickedRadioButtonId !== this.selectedCallToActionOptionId) {
-      this.selectCallToAction(clickedRadioButtonId);
+    if (this.selectedCallToActionOptionIds.find(option => option === clickedCheckboxId) !== null) {
+      this.selectCallToActions(clickedCheckboxId);
     } else {
       element.checked = false;
-      this.selectedCallToActionOptionId = undefined;
+      this.selectedCallToActionOptionIds = undefined;
     }
   }
 
@@ -132,29 +135,36 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * @param clickedButtonId The clicked button
    */
   public buttonClicked(clickedButtonId: number): void {
-    if (clickedButtonId !== this.selectedCallToActionOptionId) {
-      this.selectCallToAction(clickedButtonId);
+    if (this.selectedCallToActionOptionIds.find(option => option === clickedButtonId) !== null) {
+      this.selectCallToActions(clickedButtonId);
     } else {
-      this.selectedCallToActionOptionId = undefined;
+      this.selectedCallToActionOptionIds = undefined;
     }
   }
 
-  private selectCallToAction(callToActionId: number) {
-    this.project.callToAction = undefined;
-    this.selectedCallToActionOptionId = callToActionId;
+  private selectCallToActions(callToActionId: number) {
+    this.project.callToActions = undefined;
+    this.selectedCallToActionOptionIds.push(callToActionId);
   }
 
   /**
    * Check if the entered url is valid
    * @param url The url that needs to be checked
    */
-  private validURL(url: string): boolean {
+  private validURL(urls: string[]): boolean {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
         '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-    return !!pattern.test(url);
+
+      urls.forEach(url => {
+        if (!!pattern.test(url) === false) {
+          return false;
+        }
+      })
+
+    return true;
   }
 }

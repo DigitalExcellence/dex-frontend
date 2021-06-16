@@ -63,11 +63,11 @@ export class EditComponent implements OnInit {
   /**
    * Projects selected call to action
    */
-  public selectedCallToActionOption: CallToActionOption = {
+  public selectedCallToActionOptions: CallToActionOption[] = [{
     id: 0,
     type: 'title',
     value: 'None',
-  };
+  }];
 
   /**
    * The specified redirect url from the call to action
@@ -160,7 +160,7 @@ export class EditComponent implements OnInit {
           /**
            * Add the none option to the dropdown
            */
-          this.callToActionOptions.unshift(this.selectedCallToActionOption);
+          this.callToActionOptions.unshift(this.selectedCallToActionOptions[0]);
 
           this.projectService.get(id)
               .pipe(
@@ -177,15 +177,15 @@ export class EditComponent implements OnInit {
                       selected: !!this.project.categories?.find(c => c.name === category.name)
                     }));
 
-                    if (this.project.callToAction != null) {
+                    if (this.project.callToActions != null) {
                       for (let i = 0; i < this.callToActionOptions.length; i++) {
                         const element = this.callToActionOptions[i];
-                        if (element.value.toLowerCase() === this.project.callToAction.optionValue) {
-                          this.selectedCallToActionOption = this.callToActionOptions[i];
+                        if (element.value.toLowerCase() === this.project.callToActions.find(cta => cta.value === element.value)) {
+                          this.selectedCallToActionOptions = this.callToActionOptions[i];
                         }
                       }
 
-                      this.callToActionRedirectUrl = this.project.callToAction.value;
+                      this.callToActionRedirectUrl = this.project.callToActions.value;
                     }
                   }
               );
