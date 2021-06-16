@@ -9,6 +9,22 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+- Resolved links in footer that navigated to non-existing pages - [#513](https://github.com/DigitalExcellence/dex-frontend/issues/513)
+
+### Security
+
+## Release v.1.4.0-beta - 07-06-2021
+
+### Added
+
 - Implemented categories - [#475](https://github.com/DigitalExcellence/dex-frontend/issues/475)
 - Added filter parameters to the url, so a user can share their search settings - [#493](https://github.com/DigitalExcellence/dex-frontend/issues/493)
 - Added search bar inside navbar with autocomplete suggested results. - [#403](https://github.com/DigitalExcellence/dex-frontend/issues/403)
@@ -20,18 +36,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Clicking to the next step in the wizard step-header will now skip the step & removed orange progress bar [#460](https://github.com/DigitalExcellence/dex-frontend/issues/460)
 - Made Project URI optional - [#492](https://github.com/DigitalExcellence/dex-frontend/issues/492)
 
-### Deprecated
-
-### Removed
-
 ### Fixed
 
 - Fixed issue where collaborator roles would always get set to developer - [#462](https://github.com/DigitalExcellence/dex-frontend/issues/462)
 - Fixed issue where the same project could be added multiple times by spamming the finish
   button [#490](https://github.com/DigitalExcellence/dex-frontend/issues/490)
 - Fixed issue where alerts would never get dismissed - [#441](https://github.com/DigitalExcellence/dex-frontend/issues/441)
-
-### Security
 
 ## Release v.1.3.0-beta - 05-05-2021
 
