@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { WizardStepBaseComponent } from '../../wizard-step-base/wizard-step-base.component';
+import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { WizardService } from 'src/app/services/wizard.service';
@@ -85,5 +85,5 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
     return files;
   }
 
-  //return this.fileRetrieverService.getIconUrl(this.wizardService.uploadFile);
+  // return this.fileRetrieverService.getIconUrl(this.wizardService.uploadFile);
 }

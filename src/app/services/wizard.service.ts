@@ -54,7 +54,7 @@ export class WizardService {
 
   public projectImages: UploadFile[];
 
-  //TODO: ADD THIS FUNCTIONALITY FOR PROJECT IMAGES
+  // TODO: ADD THIS FUNCTIONALITY FOR PROJECT IMAGES
 
   /**
    * The external source that is currently selected

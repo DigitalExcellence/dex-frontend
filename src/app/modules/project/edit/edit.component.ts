@@ -34,7 +34,7 @@ import { FileUploaderComponent } from 'src/app/components/file-uploader/file-upl
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 import { CategoryService } from 'src/app/services/category.service';
 import { SafeUrl } from '@angular/platform-browser';
-import { UploadFile } from '../../../models/domain/uploadFile';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 /**
  * Component for editing adding a project.
