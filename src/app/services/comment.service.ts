@@ -43,6 +43,10 @@ export class CommentService{
         this.http.post(`${API_CONFIG.url + API_CONFIG.projectComment}/${projectId}`, comment).subscribe();
       }
 
+      public updateComment(projectId: number, comment): void {
+        this.http.post(`${API_CONFIG.url + API_CONFIG.projectComment}/${projectId}`, comment).subscribe();
+      }
+
       public removeComment(projectId: number): void {
         this.http.delete(`${this.url}/${projectId}`);
       }

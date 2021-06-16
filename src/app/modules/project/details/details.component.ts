@@ -247,18 +247,44 @@ export class DetailsComponent implements OnInit {
       );
   }
 
+  public userHaslikedComment(currentComment){
+    if(this.currentUser == undefined){
+      return currentComment.likes.includes(this.currentUser.id)
+    }
+    return false;
+  }
+
+  public onClickLikeComment(currentComment) {
+    //Like post version
+    if (this.authService.isAuthenticated()) {
+      if (this.userHaslikedComment(currentComment)) {//add id to current comment likes array.
+        currentComment.likes.push(this.currentUser.id);
+      } else {//remove id from current comment likes array.
+        currentComment.likes.push(this.currentUser.id);
+      }
+      
+        //updated comment with commentService
+        this.commentService.updateComment(this.projectId, currentComment);
+        this.animationTriggered = true;
+    }
+  }
+
+
   public onClickAddCommentToProject() {
     //POST-COMMENT
     let commentObject = (<HTMLInputElement>document.getElementById('project-comment-input-field')).value;
-    let newCommentObject = {
-      created: "2021-01-05T11:46:18.558Z",
-      updated: "2021-02-10T11:46:18.558Z",
-      // content : "Hope inexpedient joy disgust virtues endless prejudice suicide decieve christianity against pious. Prejudice hatred prejudice noble zarathustra merciful oneself grandeur transvaluation truth ultimate revaluation aversion intentions. Faith spirit depths victorious ocean superiority burying free inexpedient virtues christian spirit disgust joy. Faithful war madness horror ideal contradict fearful mountains insofar christian mountains grandeur right fearful."};
-      content : commentObject};
 
       if(this.authService.isAuthenticated()){
+        let newCommentObject = {
+          id: 1,
+          user: this.currentUser,
+          created: new Date(),
+          updated: new Date(),
+          likes : [],
+          
+          content : commentObject};
         //commentService
-        this.commentService.addComment(this.projectId, newCommentObject);
+        this.commentService.addComment(this.projectId, {content: commentObject});
         //commentService
       } else {
       // User is not logged in
@@ -271,24 +297,7 @@ export class DetailsComponent implements OnInit {
       };
       this.alertService.pushAlert(alertConfig);
     }
-
-    //Like post version
-    if (this.authService.isAuthenticated()) {
-      if (!this.project.userHasLikedProject) {
-        this.likeService.likeProject(this.project.id);
-        this.project.likeCount++;
-        this.animationTriggered = true;
-        // We add this so we can update the overview page when the modal is closed
-        this.onLike.next(true);
-      } else {
-        this.likeService.removeLike(this.project.id);
-        this.project.likeCount--;
-        this.animationTriggered = true;
-        // We add this so we can update the overview page when the modal is closed
-        this.onLike.next(false);
-      }
-      this.project.userHasLikedProject = !this.project.userHasLikedProject;
-    }
+    this.fetchProjectComments();
   }
 
   /**
