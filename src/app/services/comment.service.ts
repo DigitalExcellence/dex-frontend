@@ -50,4 +50,7 @@ export class CommentService{
       public removeComment(projectId: number): void {
         this.http.delete(`${this.url}/${projectId}`);
       }
+      public addLikeToComment(projectCommentId: number): void{
+        this.http.post(`${API_CONFIG.url + API_CONFIG.projectComment}/${projectCommentId}`, projectCommentId)
+      }
 }

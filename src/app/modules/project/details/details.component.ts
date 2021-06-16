@@ -264,8 +264,17 @@ export class DetailsComponent implements OnInit {
       }
       
         //updated comment with commentService
-        this.commentService.updateComment(this.projectId, currentComment);
+        //TODO: Change CommentService Call
+        this.commentService.addLikeToComment(currentComment.id);
         this.animationTriggered = true;
+    }
+  }
+
+  public onClickUpdateComment(currentComment){
+    if(this.authService.isAuthenticated()){
+      
+
+      this.commentService.updateComment(currentComment.id, currentComment );
     }
   }
 
