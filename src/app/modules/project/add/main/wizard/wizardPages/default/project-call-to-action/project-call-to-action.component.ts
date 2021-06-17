@@ -36,7 +36,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   /**
    * The selected call to action option
    */
-  public selectedCallToActionOptionIds:number[] = []
+  public selectedCallToActionOptionIds: number[] = [];
 
   /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
@@ -80,7 +80,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   public onClickNext(): void {
     if (this.selectedCallToActionOptionIds.length > 0) {
       const selectedCallToActions = this.callToActionOptions.filter(option => this.selectedCallToActionOptionIds.includes(option.id));
-      if (!this.validURL(selectedCallToActions.map(scta => scta.optionValue))) {
+      if (selectedCallToActions.filter(cta => !this.validURL(cta.optionValue)).length > 0) {
         this.errorMessage = 'Invalid url';
         return;
       }
@@ -98,7 +98,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
           value: cta.optionValue,
           id: cta.id
         }))
-      })
+      });
     } else {
       // No call to action selected, make sure it's empty
       this.project.callToActions = undefined;
@@ -115,16 +115,17 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
     const element = event.target as HTMLInputElement;
     const value = element.value;
     this.callToActionOptions = this.callToActionOptions.map(callToActionOption => {
-        return callToActionOption.id === callToActionId
-            ? {
-              ...callToActionOption,
-              optionValue: value
-            } : callToActionOption});
+      return callToActionOption.id === callToActionId
+          ? {
+            ...callToActionOption,
+            optionValue: value
+          } : callToActionOption;
+    });
   }
 
   /**
    * @param event The browser event
-   * @param clickedRadioButtonId The clicked radio button
+   * @param clickedCheckboxId The clicked radio button
    */
   public ctaButtonClicked(event: Event, clickedCheckboxId: number): void {
     if (!this.selectedCallToActionOptionIds.find(id => id === clickedCheckboxId)) {
@@ -141,7 +142,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
    * Check if the entered url is valid
    * @param url The url that needs to be checked
    */
-  private validURL(urls: string[]): boolean {
+  private validURL(url: string): boolean {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -149,12 +150,6 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
         '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
         '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
 
-      urls.forEach(url => {
-        if (!!pattern.test(url) === false) {
-          return false;
-        }
-      })
-
-    return true;
+    return !!pattern.test(url);
   }
 }
