@@ -104,21 +104,28 @@
               <div class="col-12">
                 <h3 class="title-spacing">Call to action</h3>
               </div>
-              <div class="col-6">
-                <div>
-                  <h3>Text</h3>
-<!--                  <select [(ngModel)]="selectedCallToActionOption" class='form-control' [ngModelOptions]="{standalone: true}">-->
-<!--                    <option *ngFor="let action of callToActionOptions" [ngValue]="action">{{action.value}}</option>-->
-<!--                  </select>-->
+                <div class="grid">
+                  <ng-container *ngFor="let callToActionOption of callToActionOptions">
+                    <input (click)="ctaButtonClicked($event, callToActionOption.id)"
+                           [checked]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+                           [value]="callToActionOption.id"
+                           class="radio"
+                           name="call-to-action"
+                           type="checkbox"/>
+                    <button (click)="ctaButtonClicked($event, callToActionOption.id)"
+                            [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+                            class="call-to-action-btn">
+                      {{ callToActionOption.value }}
+                      <em [classList]="'fas ' + callToActionOption.iconName"></em>
+                    </button>
+                    <input (change)="urlChange($event, callToActionOption.id)" [disabled]="!selectedCallToActionOptionIds.includes(callToActionOption.id)" [id]="'input-'+callToActionOption.id"
+                           [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+                           [required]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+                           aria-label="action-url"
+                           class="text-input"
+                           type="url"/>
+                  </ng-container>
                 </div>
-              </div>
-
-              <div class="col-6">
-                <div>
-                  <h3>Link</h3>
-<!--                  <input [(ngModel)]="callToActionRedirectUrl" [ngModelOptions]="{standalone: true}" [disabled]="selectedCallToActionOption.id <= 0"/>-->
-                </div>
-              </div>
             </div>
             <div class="row">
               <div class="col-12">

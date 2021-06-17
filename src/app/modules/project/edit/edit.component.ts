@@ -63,7 +63,11 @@ export class EditComponent implements OnInit {
   /**
    * Projects selected call to action
    */
-  public selectedCallToActionOptions: CallToActionOption[] = [];
+  /**
+   * The selected call to action option
+   */
+  public selectedCallToActionOptionIds: number[] = [];
+  public callToActionOptionValues: CallToAction[] = [];
 
   /**
    * The specified redirect url from the call to action
@@ -153,11 +157,6 @@ export class EditComponent implements OnInit {
         .subscribe((result) => {
           this.callToActionOptions = result.filter(o => o.type === 'title');
 
-          /**
-           * Add the none option to the dropdown
-           */
-          this.callToActionOptions.unshift(this.selectedCallToActionOptions[0]);
-
           this.projectService.get(id)
               .pipe(
                   finalize(() => this.projectLoading = false)
@@ -172,17 +171,6 @@ export class EditComponent implements OnInit {
                       ...category,
                       selected: !!this.project.categories?.find(c => c.name === category.name)
                     }));
-
-                    // if (this.project.callToActions !== null) {
-                    //   for (let i = 0; i < this.callToActionOptions.length; i++) {
-                    //     const element = this.callToActionOptions[i];
-                    //     if (element.value.toLowerCase() === this.project.callToActions.find(cta => cta.value === element.value)) {
-                    //       this.selectedCallToActionOptions.push(this.callToActionOptions[i])
-                    //     }
-                    //   }
-                    //
-                    //   this.callToActionRedirectUrl = this.project.callToActions.value;
-                    // }
                   }
               );
         });
@@ -214,30 +202,6 @@ export class EditComponent implements OnInit {
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
-    console.log(editedProject.categories);
-
-    /*
-    * Whenever a call to action is selected, this value
-    * should be sent to to the API.
-     */
-    if (this.selectedCallToActionOptions.length > 0) {
-      if (this.callToActionRedirectUrl == null) {
-        const alertConfig: AlertConfig = {
-          type: AlertType.danger,
-          preMessage: 'The call to action form is invalid',
-          mainMessage: 'Please add a link to your selected call to action (or set it to "None")',
-          dismissible: true,
-          timeout: this.alertService.defaultTimeout
-        };
-        this.alertService.pushAlert(alertConfig);
-        return;
-      }
-
-      // const callToActionToSubmit =
-      //     {optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl} as CallToAction;
-
-      // editedProject.callToAction = callToActionToSubmit;
-    }
 
     this.fileUploader.uploadFiles()
         .subscribe(uploadedFiles => {
@@ -256,6 +220,14 @@ export class EditComponent implements OnInit {
             this.editProject(editedProject);
           }
         });
+
+    editedProject.callToActions = this.callToActionOptions.map(cta => (
+        this.selectedCallToActionOptionIds.includes(cta.id) ? {
+          id: cta.id,
+          optionValue: cta.optionValue,
+          value: cta.value
+        } : undefined
+    )).filter(cta => cta)
   }
 
   /**
@@ -308,6 +280,53 @@ export class EditComponent implements OnInit {
       return;
     }
     this.collaborators.splice(index, 1);
+  }
+
+  /**
+   * Method that is triggered when any of the url input fields changes
+   * @param event The change event
+   * @param callToActionId The id of the call-to-action-option that was changed
+   */
+  public urlChange(event: Event, callToActionId: number): void {
+    const element = event.target as HTMLInputElement;
+    const value = element.value;
+    this.callToActionOptions = this.callToActionOptions.map(callToActionOption => {
+      return callToActionOption.id === callToActionId
+          ? {
+            ...callToActionOption,
+            optionValue: value
+          } : callToActionOption;
+    });
+  }
+
+  /**
+   * @param event The browser event
+   * @param clickedCheckboxId The clicked radio button
+   */
+  public ctaButtonClicked(event: Event, clickedCheckboxId: number): void {
+    if (!this.selectedCallToActionOptionIds.find(id => id === clickedCheckboxId)) {
+      this.selectedCallToActionOptionIds.push(clickedCheckboxId);
+    } else {
+      this.selectedCallToActionOptionIds.splice(
+          this.selectedCallToActionOptionIds.indexOf(
+              this.selectedCallToActionOptionIds.find(ctaId => ctaId === clickedCheckboxId)
+          ), 1);
+    }
+  }
+
+  /**
+   * Check if the entered url is valid
+   * @param url The url that needs to be checked
+   */
+  private validURL(url: string): boolean {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+
+    return !!pattern.test(url);
   }
 
   /**
