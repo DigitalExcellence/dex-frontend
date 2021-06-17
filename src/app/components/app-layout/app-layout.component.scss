@@ -188,6 +188,7 @@
   below each other
   */
   .profile-dropdown {
+    z-index: 9;
     @include media-breakpoint-down(sm) {
       flex-direction: column;
     }
