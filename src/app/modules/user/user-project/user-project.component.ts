@@ -419,7 +419,7 @@ export class UserProjectComponent implements OnInit {
                                       category => category.selected ? category.id : null)
                                       .filter(category => category)
                                   )}`;
-                              this.location.replaceState(`/project/overview/`, queryString);
+                              this.location.replaceState(`/user/projects`, queryString);
                               this.updateSEOTags();
                               this.onInternalQueryChange();
                             }
