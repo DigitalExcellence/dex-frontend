@@ -214,7 +214,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    if(value === '') {
+    if (value === '') {
       this.onInternalQueryChange();
     }
 
@@ -374,7 +374,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
           this.modalService.onHide.subscribe(() => {
                 if (this.location.path().startsWith('/project/details')) {
                   this.updateQueryParams();
-                  this.location.replaceState("/project/overview", this.buildQueryParams());
+                  this.location.replaceState('/project/overview', this.buildQueryParams());
                   this.updateSEOTags();
                   this.onInternalQueryChange();
                 }
@@ -396,7 +396,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
                 category => category.selected ? category.id : null)
                 .filter(category => category))
           },
-          queryParamsHandling: "merge"
+          queryParamsHandling: 'merge'
         }
     );
   }
