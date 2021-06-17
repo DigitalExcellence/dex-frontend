@@ -25,8 +25,6 @@ import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { AuthService } from 'src/app/services/auth.service';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { InternalSearchService } from 'src/app/services/internal-search.service';
-import { PaginationService } from 'src/app/services/pagination.service';
 import { UserService } from 'src/app/services/user.service';
 import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
@@ -171,8 +169,6 @@ export class UserProjectComponent implements OnInit {
               private fileRetrieverService: FileRetrieverService,
               private modalUtility: ProjectDetailModalUtility,
               private authService: AuthService,
-              private internalSearchService: InternalSearchService,
-              private paginationService: PaginationService,
               private seoService: SEOService,
               private location: Location,
               private modalService: BsModalService,
@@ -199,6 +195,7 @@ export class UserProjectComponent implements OnInit {
                       .pipe(finalize(() => (this.userprojectsLoading = false)))
                       .subscribe((result) => {
                         this.userprojects = result;
+                        console.log(this.userprojects)
                         this.userprojects.forEach(element => {
                           element.likeCount = element.likes.length;
                         });
@@ -365,19 +362,7 @@ export class UserProjectComponent implements OnInit {
             
                 this.updateQueryParams();
             
-                if (internalSearchQuery.query == null) {
-                  // No search query provided use projectService.
-                  this.paginationService
-                      .getProjectsPaginated(internalSearchQuery)
-                      .pipe(finalize(() => (this.userprojectsLoading = false)))
-                      .subscribe((result) => this.handleSearchAndProjectResponse(result));
-                } else {
-                  // Search query provided use searchService.
-                  this.internalSearchService
-                      .getSearchResultsPaginated(internalSearchQuery)
-                      .pipe(finalize(() => (this.userprojectsLoading = false)))
-                      .subscribe((result) => this.handleSearchAndProjectResponse(result));
-                }
+
               }
             
               /**

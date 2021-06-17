@@ -70,29 +70,13 @@
       </div>
     </div>
 
-   <!-- <div class="project-chooser">-->
-      <!--<div class="item">
-        <em class="fas fa-user"></em>
-        <div id="myprojects">My projects</div>
-      </div>
-      <div class="item">
-      <em class="fas fa-users"></em>
-      <div id="collabprojects">Collaborated projects</div>
-    </div>-->
-    <h4>Pagination</h4>
-    <label>Projects per page</label><br>
-    <select (change)="onPaginationChange()" [formControl]="paginationOptionControl" class="option-select">
-      <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption" class="paginationDropDown">
-        {{ paginationOption.amountOnPage }}
-      </option>
-    </select>
-   <!--</div>-->
+  
 
     <ng-container *ngIf="!projectsEmpty(); else noProjects">
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <app-project
             (click)="onClickProject($event, project.id, project.name)"
-            *ngFor="let project of projectsToDisplay"
+            *ngFor="let project of userprojects"
             [project]="project"
             [showListView]="this.showListView"
         >
@@ -105,33 +89,6 @@
       <p *ngIf="!projectsLoading">There are no projects available.</p>
     </ng-template>
 
-    <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
-      <pagination
-          (pageChanged)="pageChanged($event)"
-          [customNextTemplate]="nextTemplate"
-          [customPreviousTemplate]="prevTemplate"
-          [itemsPerPage]="amountOfProjectsOnSinglePage"
-          [maxSize]="6"
-          [totalItems]="totalNrOfProjects"
-          class="pagination-footer"
-      >
-      </pagination>
-      <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
-        <ng-container *ngIf="!disabled">
-          <span class="chevron-right fas fa-chevron-down"></span>
-        </ng-container>
-        <ng-container *ngIf="disabled">
-          <span class="chevron-right disabled fas fa-chevron-down"></span>
-        </ng-container>
-      </ng-template>
-      <ng-template #prevTemplate let-currentPage="currentPage" let-disabled="disabled">
-        <ng-container *ngIf="!disabled">
-          <span class="chevron-left fas fa-chevron-down"></span>
-        </ng-container>
-        <ng-container *ngIf="disabled">
-          <span class="chevron-left fas fa-chevron-down disabled"></span>
-        </ng-container>
-      </ng-template>
-    </div>
+
   </div>
 </div>
