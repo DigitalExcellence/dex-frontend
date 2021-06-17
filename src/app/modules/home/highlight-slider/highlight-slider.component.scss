@@ -99,6 +99,7 @@
     .cards {
       display: grid;
       grid-auto-flow: column;
+      grid-auto-columns: 325px;
       gap: 40px;
       height: 100%;
       max-width: 100%;
@@ -106,7 +107,11 @@
       overflow-y: hidden;
       padding: 10px 0;
 
-      //scrollbar stylingbody
+      //scrolbar styling firefox
+      scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+      scrollbar-width: thin;
+
+      //scrollbar styling webkit
       &::-webkit-scrollbar {
         height: 4px;
       }
@@ -123,27 +128,23 @@
       //   display: none;
       // }
 
-      div {
+      .card {
         height: 100%;
         width: 100%;
         background-color: white;
         border-radius: $border-radius;
+        padding: 25px;
+        background: #ffffff;
+        box-shadow: $box-shadow;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        height: 100%;
+        transition: transform $transition-short;
+        gap: 20px;
 
-        .card {
-          padding: 25px;
-          background: #ffffff;
-          box-shadow: $box-shadow;
-          border-radius: 6px;
-          border: none;
-          cursor: pointer;
-          height: 100%;
-          width: 325px;
-          transition: transform $transition-short;
-          gap: 20px;
-
-          &:hover {
-            transform: $transform-grow;
-          }
+        &:hover {
+          transform: $transform-grow;
         }
 
         .card-title {
