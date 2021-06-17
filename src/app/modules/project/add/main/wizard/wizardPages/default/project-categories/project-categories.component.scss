@@ -16,56 +16,42 @@
  */
 @import "assets/styles/variables";
 
-.wrapper {
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: 30px;
-  @media only screen and (max-width: 800px) {
-    grid-template-columns: 1fr;
-    img {
-      display: none !important;
+.project-categories {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 80px;
+
+  .category {
+    text-decoration: none;
+    border-radius: 999px;
+    background-color: $light-mode-grey-thertiary;
+    color: $black;
+    padding: 3px 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
+    margin: 5px 5px 5px 0;
+    font-size: 12px;
+
+    &.selected {
+      background: $accent-color-red-primary;
+      color: #fff;
     }
-  }
-
-  .left {
-    width: 100%;
-  }
-
-  .right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-      margin-bottom: 50px;
-    }
-  }
-
-  textarea {
-    resize: none;
-
-    &.project-short-description {
-      height: 100px;
-    }
-  }
-
-  .project-long-description {
-    height: 300px;
   }
 }
 
-::ng-deep {
-  .project-long-description {
-    .ql-container {
-      width: 100%;
-      height: 350px;
-    }
+#tag {
+  box-shadow: $box-shadow;
+}
+
+.project-tags {
+  color: $light-mode-grey-secondary;
+  min-height: 100px;
+  padding: 10px;
+  margin-top: 20px;
+
+  border: 2px solid $light-mode-grey-thertiary;
+  border-radius: 10px;
+
+  &:hover {
+    text-decoration: line-through $accent-color-red-primary;
   }
 }
