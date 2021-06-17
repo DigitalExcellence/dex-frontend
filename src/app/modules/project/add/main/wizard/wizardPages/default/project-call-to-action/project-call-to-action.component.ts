@@ -85,12 +85,6 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
         return;
       }
 
-      console.log(selectedCallToActions);
-      console.log(selectedCallToActions.map(cta => ({
-        optionValue: cta.value,
-        value: cta.optionValue,
-        id: cta.id
-      })));
       this.wizardService.updateProject({
         ...this.project,
         callToActions: selectedCallToActions.map(cta => ({
