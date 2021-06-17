@@ -39,6 +39,11 @@
      height: calc(100% - 30px);
      margin: 30px;
    }
+
+   .user-amounts{
+     display: grid;
+     grid-template-columns: auto auto;
+   }
  }
 
  .project-chooser{

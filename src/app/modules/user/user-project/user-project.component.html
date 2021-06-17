@@ -63,10 +63,14 @@
     </div>
 
     <div class="userinfo">
-      <!--<img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png" />-->
+      <img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png" />
       <div class="usercreds">
        <h3> {{ name }} </h3>
-       <p> Projects: {{ userprojects.length }}</p>
+       <div class="user-amounts">
+       <div class="grid-item"><p>Projects:</p></div>
+       <div class="grid-item"><p>{{ userprojects.length }}</p></div>
+
+       </div>
       </div>
     </div>
 

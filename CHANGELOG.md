@@ -8,6 +8,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- Added my projects page - [#505](https://github.com/DigitalExcellence/dex-frontend/issues/505)
 
 ### Changed
 
