@@ -20,6 +20,7 @@ import { CallToActionOptionService } from 'src/app/services/call-to-action-optio
 import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { WizardService } from 'src/app/services/wizard.service';
+import { CallToAction } from 'src/app/models/domain/call-to-action';
 
 @Component({
   selector: 'app-project-call-to-action',
@@ -35,7 +36,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   /**
    * The selected call to action option
    */
-  public selectedCallToActionOptionIds: number[];
+  public selectedCallToActionOptionIds:number[] = []
 
   /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
@@ -58,16 +59,14 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
       this.callToActionOptions = options;
       this.callToActionOptionsLoading = false;
 
-      if (this.project.callToActions.length > 0) {
+      if (this.project.callToActions?.length > 0) {
         this.selectedCallToActionOptionIds = this.project.callToActions.map(p => p.id);
         this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
-          return this.project.callToActions.some(cta => ctaOption.id == cta.id)
-              ?
-              {
+          return this.project.callToActions.find(cta => ctaOption.id == cta.id)
+              ? {
                 ...ctaOption, optionValue: this.project.callToActions.find(cta => ctaOption.id === cta.id).value
               }
-              :
-              {
+              : {
                 ...ctaOption
               };
         });
@@ -86,12 +85,19 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
         return;
       }
 
-      selectedCallToActions.forEach(scta => {
-        this.project.callToActions.push({
-          id : scta.id,
-          optionValue : scta.value,
-          value: scta.optionValue
-        })
+      console.log(selectedCallToActions);
+      console.log(selectedCallToActions.map(cta => ({
+        optionValue: cta.value,
+        value: cta.optionValue,
+        id: cta.id
+      })));
+      this.wizardService.updateProject({
+        ...this.project,
+        callToActions: selectedCallToActions.map(cta => ({
+          optionValue: cta.value,
+          value: cta.optionValue,
+          id: cta.id
+        }))
       })
     } else {
       // No call to action selected, make sure it's empty
@@ -108,43 +114,27 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
   public urlChange(event: Event, callToActionId: number): void {
     const element = event.target as HTMLInputElement;
     const value = element.value;
-    this.callToActionOptions = this.callToActionOptions.map(callToActionOption =>
-        callToActionOption.id === callToActionId
+    this.callToActionOptions = this.callToActionOptions.map(callToActionOption => {
+        return callToActionOption.id === callToActionId
             ? {
               ...callToActionOption,
               optionValue: value
-            } : callToActionOption
-    );
+            } : callToActionOption});
   }
 
   /**
    * @param event The browser event
    * @param clickedRadioButtonId The clicked radio button
    */
-  public checkboxButtonClicked(event: Event, clickedCheckboxId: number): void {
-    const element = event.target as HTMLInputElement;
-    if (this.selectedCallToActionOptionIds.find(option => option === clickedCheckboxId) !== null) {
-      this.selectCallToActions(clickedCheckboxId);
+  public ctaButtonClicked(event: Event, clickedCheckboxId: number): void {
+    if (!this.selectedCallToActionOptionIds.find(id => id === clickedCheckboxId)) {
+      this.selectedCallToActionOptionIds.push(clickedCheckboxId);
     } else {
-      element.checked = false;
-      this.selectedCallToActionOptionIds = undefined;
+      this.selectedCallToActionOptionIds.splice(
+          this.selectedCallToActionOptionIds.indexOf(
+              this.selectedCallToActionOptionIds.find(ctaId => ctaId === clickedCheckboxId)
+          ), 1);
     }
-  }
-
-  /**
-   * @param clickedButtonId The clicked button
-   */
-  public buttonClicked(clickedButtonId: number): void {
-    if (this.selectedCallToActionOptionIds.find(option => option === clickedButtonId) !== null) {
-      this.selectCallToActions(clickedButtonId);
-    } else {
-      this.selectedCallToActionOptionIds = undefined;
-    }
-  }
-
-  private selectCallToActions(callToActionId: number) {
-    this.project.callToActions = undefined;
-    this.selectedCallToActionOptionIds.push(callToActionId);
   }
 
   /**

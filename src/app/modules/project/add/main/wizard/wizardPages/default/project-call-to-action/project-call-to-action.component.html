@@ -27,28 +27,27 @@
   <p class="error-message">{{errorMessage}}</p>
   <div class="grid">
     <ng-container *ngFor="let callToActionOption of callToActionOptions">
-      <input (click)="checkboxButtonClicked($event, callToActionOption.id)"
-             [checked]="selectedCallToActionOptionId === callToActionOption.id"
+      <input (click)="ctaButtonClicked($event, callToActionOption.id)"
+             [checked]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
              [value]="callToActionOption.id"
              class="radio"
              name="call-to-action"
              type="checkbox"/>
-      <button (click)="buttonClicked(callToActionOption.id)"
-              [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
+      <button (click)="ctaButtonClicked($event, callToActionOption.id)"
+              [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
               class="call-to-action-btn">
         {{ callToActionOption.value }}
         <em [classList]="'fas ' + callToActionOption.iconName"></em>
       </button>
-      <input (change)="urlChange($event, callToActionOption.id)" [disabled]="callToActionOption.id !== selectedCallToActionOptionId" [id]="'input-'+callToActionOption.id"
-             [ngClass]="{'disabled': callToActionOption.id !== selectedCallToActionOptionId}"
-             [required]="callToActionOption.id === selectedCallToActionOptionId"
-             [value]="selectedCallToActionOptionId === callToActionOption.id ? project.callToAction?.value : ''"
+      <input (change)="urlChange($event, callToActionOption.id)" [disabled]="!selectedCallToActionOptionIds.includes(callToActionOption.id)" [id]="'input-'+callToActionOption.id"
+             [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+             [required]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
              aria-label="action-url"
              class="text-input"
              type="url"/>
     </ng-container>
   </div>
   <div class="bottom-button-wrapper">
-    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !selectedCallToActionOptionId ? "Skip" : "Next"}}</button>
+    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !selectedCallToActionOptionIds ? "Skip" : "Next"}}</button>
   </div>
 </ng-template>

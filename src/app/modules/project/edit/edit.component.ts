@@ -63,11 +63,7 @@ export class EditComponent implements OnInit {
   /**
    * Projects selected call to action
    */
-  public selectedCallToActionOptions: CallToActionOption[] = [{
-    id: 0,
-    type: 'title',
-    value: 'None',
-  }];
+  public selectedCallToActionOptions: CallToActionOption[] = [];
 
   /**
    * The specified redirect url from the call to action
@@ -177,16 +173,16 @@ export class EditComponent implements OnInit {
                       selected: !!this.project.categories?.find(c => c.name === category.name)
                     }));
 
-                    if (this.project.callToActions != null) {
-                      for (let i = 0; i < this.callToActionOptions.length; i++) {
-                        const element = this.callToActionOptions[i];
-                        if (element.value.toLowerCase() === this.project.callToActions.find(cta => cta.value === element.value)) {
-                          this.selectedCallToActionOptions = this.callToActionOptions[i];
-                        }
-                      }
-
-                      this.callToActionRedirectUrl = this.project.callToActions.value;
-                    }
+                    // if (this.project.callToActions !== null) {
+                    //   for (let i = 0; i < this.callToActionOptions.length; i++) {
+                    //     const element = this.callToActionOptions[i];
+                    //     if (element.value.toLowerCase() === this.project.callToActions.find(cta => cta.value === element.value)) {
+                    //       this.selectedCallToActionOptions.push(this.callToActionOptions[i])
+                    //     }
+                    //   }
+                    //
+                    //   this.callToActionRedirectUrl = this.project.callToActions.value;
+                    // }
                   }
               );
         });
@@ -224,7 +220,7 @@ export class EditComponent implements OnInit {
     * Whenever a call to action is selected, this value
     * should be sent to to the API.
      */
-    if (this.selectedCallToActionOption.id > 0) {
+    if (this.selectedCallToActionOptions.length > 0) {
       if (this.callToActionRedirectUrl == null) {
         const alertConfig: AlertConfig = {
           type: AlertType.danger,
@@ -237,10 +233,10 @@ export class EditComponent implements OnInit {
         return;
       }
 
-      const callToActionToSubmit =
-          {optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl} as CallToAction;
+      // const callToActionToSubmit =
+      //     {optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl} as CallToAction;
 
-      editedProject.callToAction = callToActionToSubmit;
+      // editedProject.callToAction = callToActionToSubmit;
     }
 
     this.fileUploader.uploadFiles()
