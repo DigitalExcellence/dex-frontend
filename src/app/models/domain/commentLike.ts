@@ -19,16 +19,13 @@ import { Project } from './project';
 import { LinkedService } from './linked-service';
 import { Role } from './role';
 import { User } from 'src/app/models/domain/user';
-import { CommentLike } from 'src/app/models/domain/commentLike';
+import { Comment } from 'src/app/models/domain/comment';
 
 
-export interface Comment {
-  currentUserLiked: boolean;
+export interface CommentLike {
   id: number;
-  projectId: number;
-  user: User;
-  created: Date;
-  updated: Date;
-  content: string;
-  likes?: CommentLike[];
+  likedComment: Comment;
+  commentLiker: User;
+  userId: number;
+  date: Date;
 }

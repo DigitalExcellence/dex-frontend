@@ -131,7 +131,7 @@
                   class="project-comment-input-button primary" 
                   (click)="onClickAddCommentToProject()">Comment</button>
               </div>
-              <div class="project-comment-container" *ngFor="let projectComment of projectComments.reverse()">
+              <div class="project-comment-container" *ngFor="let projectComment of projectCommentsType.reverse()">
                 <div class="bottom-buttons">
                   <ng-container *ngIf="projectComment">
                   <!-- TODO : Comments check -->

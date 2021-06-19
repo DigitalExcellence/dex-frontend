@@ -76,6 +76,7 @@ export class DetailsComponent implements OnInit {
   public displayHighlightButton = false;
   public displayEmbedButton = false;
   public projectComments : any[][];
+  public projectCommentsType : Comment[];
   public today = new Date();
   public projectCommentsOld= [
     {
@@ -239,20 +240,17 @@ export class DetailsComponent implements OnInit {
       .fetchComments(this.projectId)
       .subscribe(
         (fetchComments) => {
-          let fetchedCommentsArray = Object.keys(fetchComments)
-          .map(function(key) {
-            return fetchComments[key]
-            });
-          fetchedCommentsArray.forEach(projectComment => {
+          fetchComments.forEach(projectComment => {
             projectComment.likes.forEach(projectCommentLiker => {
               if (this.authService.isAuthenticated()) {
-                projectComment.currentUserLiked = projectCommentLiker.userId == this.currentUser.id;
+                projectComment.currentUserLiked = (projectCommentLiker.userId == this.currentUser.id);
               } else {
                 projectComment.currentUserLiked = false;
               }
             });  
           });
-          this.projectComments = fetchedCommentsArray;
+          this.projectCommentsType = fetchComments;
+
         }
       );
   }
@@ -264,16 +262,19 @@ export class DetailsComponent implements OnInit {
   public onClickLikeComment(currentComment) {
     //Like post version
     if (this.authService.isAuthenticated()) {
-      /*if (this.userHaslikedComment(currentComment)) {//add id to current comment likes array.
-        // currentComment.likes.push(this.currentUser.id);
-      } else {//remove id from current comment likes array.
-        // currentComment.likes.push(this.currentUser.id);
-      }*/
-        //updated comment with commentService
-        //TODO: Change CommentService Call
-        this.commentService.addLikeToComment(currentComment.id);
+        this.commentService.addLikeToComment(currentComment.id).subscribe(
+          (commentLike) => {
+            commentLike.userId = this.currentUser.id;
+            this.projectCommentsType.forEach(projectComment => {
+              if(projectComment.id == currentComment.id){
+                projectComment.likes.push(commentLike);
+              }
+            });
+          }
+        );
         this.animationTriggered = true;
     }
+    this.ngOnInit();
   }
 
   public onClickUpdateComment(currentComment){
@@ -286,19 +287,11 @@ export class DetailsComponent implements OnInit {
   public onClickAddCommentToProject() {
     //POST-COMMENT
     let commentObject = (<HTMLInputElement>document.getElementById('project-comment-input-field')).value;
+    (<HTMLInputElement>document.getElementById('project-comment-input-field')).value = '';
 
       if(this.authService.isAuthenticated()){
-        let newCommentObject = {
-          id: 1,
-          user: this.currentUser,
-          created: new Date(),
-          updated: new Date(),
-          likes : [],
-          
-          content : commentObject};
         //commentService
-        this.commentService.addComment(this.projectId, {content: commentObject});
-        //commentService
+        this.commentService.addComment(this.projectId, {content: commentObject}).subscribe(returnedComment => this.projectCommentsType.push(returnedComment));
       } else {
       // User is not logged in
       const alertConfig: AlertConfig = {
