@@ -239,30 +239,36 @@ export class DetailsComponent implements OnInit {
       .fetchComments(this.projectId)
       .subscribe(
         (fetchComments) => {
-          this.projectComments = Object.keys(fetchComments)
+          let fetchedCommentsArray = Object.keys(fetchComments)
           .map(function(key) {
             return fetchComments[key]
             });
+          fetchedCommentsArray.forEach(projectComment => {
+            projectComment.likes.forEach(projectCommentLiker => {
+              if (this.authService.isAuthenticated()) {
+                projectComment.currentUserLiked = projectCommentLiker.userId == this.currentUser.id;
+              } else {
+                projectComment.currentUserLiked = false;
+              }
+            });  
+          });
+          this.projectComments = fetchedCommentsArray;
         }
       );
   }
 
   public userHaslikedComment(currentComment){
-    if(this.currentUser == undefined){
-      return currentComment.likes.includes(this.currentUser.id)
-    }
-    return false;
+    return currentComment.currentUserLiked;
   }
 
   public onClickLikeComment(currentComment) {
     //Like post version
     if (this.authService.isAuthenticated()) {
-      if (this.userHaslikedComment(currentComment)) {//add id to current comment likes array.
-        currentComment.likes.push(this.currentUser.id);
+      /*if (this.userHaslikedComment(currentComment)) {//add id to current comment likes array.
+        // currentComment.likes.push(this.currentUser.id);
       } else {//remove id from current comment likes array.
-        currentComment.likes.push(this.currentUser.id);
-      }
-      
+        // currentComment.likes.push(this.currentUser.id);
+      }*/
         //updated comment with commentService
         //TODO: Change CommentService Call
         this.commentService.addLikeToComment(currentComment.id);
@@ -272,8 +278,6 @@ export class DetailsComponent implements OnInit {
 
   public onClickUpdateComment(currentComment){
     if(this.authService.isAuthenticated()){
-      
-
       this.commentService.updateComment(currentComment.id, currentComment );
     }
   }

@@ -51,6 +51,6 @@ export class CommentService{
         this.http.delete(`${this.url}/${projectId}`);
       }
       public addLikeToComment(projectCommentId: number): void{
-        this.http.post(`${API_CONFIG.url + API_CONFIG.projectComment}/${projectCommentId}`, projectCommentId)
+        this.http.post(`${API_CONFIG.url + API_CONFIG.projectCommentLike}/${projectCommentId}`, projectCommentId).subscribe()
       }
 }

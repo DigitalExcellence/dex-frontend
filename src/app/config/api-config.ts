@@ -32,6 +32,7 @@ export interface ApiConfig {
   uploadFileRoute: string;
   projectLikes: string;
   projectComment: string;
+  projectCommentLike: string;
   projectComments: string;
 }
 
@@ -50,5 +51,6 @@ export const API_CONFIG: ApiConfig = {
   uploadFileRoute: 'file',
   projectLikes: 'project/like',
   projectComment: 'project/comment',
+  projectCommentLike: 'project/comment/like',
   projectComments: 'project/comments'
 };
