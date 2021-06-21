@@ -167,6 +167,15 @@ export class EditComponent implements OnInit {
                     this.collaborators = this.project.collaborators;
                     this.fileUploader.setFiles([this.project.projectIcon]);
 
+
+                    console.log(projectResult);
+                    console.log(this.callToActionOptions);
+                    this.callToActionOptions = this.callToActionOptions.map(cta => ({
+                      ...cta,
+                      optionValue: projectResult.callToActions.find(pcta => cta.value === pcta.value).optionValue
+                    }));
+                    console.log(this.callToActionOptions);
+
                     this.categories = this.categories.map(category => ({
                       ...category,
                       selected: !!this.project.categories?.find(c => c.name === category.name)
