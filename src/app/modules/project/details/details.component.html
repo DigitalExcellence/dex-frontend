@@ -97,6 +97,7 @@
             <div class="menu">
               <div (click)="setActiveTab('description')" [ngClass]="{ active: this.activeTab == 'description' }" class="item">Description</div>
               <div (click)="setActiveTab('collaborators')" [ngClass]="{ active: this.activeTab == 'collaborators' }" class="item">Collaborators</div>
+              <div (click)="setActiveTab('comments')" [ngClass]="{ active: this.activeTab == 'comments' }" class="item">Comments</div>
             </div>
             <ng-container *ngIf="displayHighlightButton || displayEditButton || displayDeleteProjectButton">
               <em [outsideClick]="true" [popover]="cogPopOver" class="fas fa-cog cog" placement="bottom" triggers="click"> </em>
@@ -121,7 +122,7 @@
               <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
               <div class="bottom-buttons">
                 <ng-container *ngIf="displayCallToActionButton">
-                  <button (click)="onClickCallToActionButton(project.callToAction.value)" class="primary" id="call-to-action-button">
+                  <button (click)="(project.callToAction.value)" class="primary" id="call-to-action-button">
                     {{ project.callToAction.optionValue }}
                     <em [classList]="'fas ' + project.callToAction.iconName"></em>
                   </button>
@@ -134,6 +135,41 @@
             <ng-container *ngIf="this.activeTab == 'collaborators'">
               <div class="collaborators">
                 <app-collaborator *ngFor="let collaborator of project.collaborators" [collaborator]="collaborator"></app-collaborator>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="this.activeTab == 'comments'" class="project-description large">
+              <!-- <div id="contenteditable-root" contenteditable="true" dir="auto" class="style-scope yt-formatted-string" aria-label="Add a public comment..."></div> -->
+              <div class="project-comment">
+                <input id="project-comment-input-field" value="" class="project-comment-input"  placeholder="Add public comment..."/>
+                <button 
+                  class="project-comment-input-button primary" 
+                  (click)="onClickAddCommentToProject()">Comment</button>
+              </div>
+              <div class="project-comment-container" *ngFor="let projectComment of projectCommentsType.reverse()">
+                <div class="bottom-buttons">
+                  <ng-container *ngIf="projectComment">
+                  <!-- TODO : Comments check -->
+                    <div class="project-comment-metadata">
+                      <div *ngIf="project.uri" class="project-comment-metadata__item">
+                        <p class="title">{{ projectComment.user.name }}</p>
+                      </div>
+                      <div class="project-comment-metadata__item" [tooltip]="projectUpdated">
+                        <p> posted {{ commentFormatDate(projectComment.created) }}</p>
+                        <ng-template #projectUpdated>
+                          <p> posted {{ commentFormatDate(projectComment.Updated) }}</p>
+                        </ng-template>
+                      </div>
+                      <div class="project-comment-metadata__item">
+                        <p (click)="onClickLikeComment(projectComment)" class="hover">
+                          <em [ngClass]="[userHaslikedComment(projectComment) ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
+                          {{ projectComment.likes.length }}
+                        </p>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <p> {{ projectComment.content }} </p>
+                <hr style="border-width: .3em;margin-top:1.5em;">
               </div>
             </ng-container>
           </div>

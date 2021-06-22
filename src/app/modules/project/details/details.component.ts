@@ -38,6 +38,7 @@ import {
 } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommentService } from 'src/app/services/comment.service';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
@@ -45,6 +46,7 @@ import { LikeService } from 'src/app/services/like.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
+import { Comment } from 'src/app/models/domain/comment';
 
 /**
  * Overview of a single project
@@ -64,6 +66,7 @@ export class DetailsComponent implements OnInit {
    * Variable to store the project which is retrieved from the api
    */
   public project: Project;
+  public newComment: Comment;
   public isAuthenticated: boolean;
   public isProjectHighlighted = false;
 
@@ -72,6 +75,61 @@ export class DetailsComponent implements OnInit {
   public displayCallToActionButton = true;
   public displayHighlightButton = false;
   public displayEmbedButton = false;
+  public projectComments : any[][];
+  public projectCommentsType : Comment[];
+  public today = new Date();
+  public projectCommentsOld= [
+    {
+      id: 1, 
+      userId : 1,
+      username: "Prince Ron",
+      created: new Date("31/12/1998"),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '22',
+    },
+    {
+      id: 2, 
+      userId : 2,
+      username: "Humble Andrew",
+      created: new Date(this.today.getDate() - 60*60*24*5),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '14',
+    },
+    {
+      id: 3, 
+      username: "Doctor Ron",
+      created: new Date(this.today.getDate() - 60*60*24*10),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '2',
+    },
+    {
+      id: 4, 
+      username: "Teacher Ron",
+      created: new Date(this.today.getDate() - 60*60*24*200),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '9',
+    },
+    {
+      id: 5, 
+      username: "Athlete Ron",
+      created: new Date(this.today.getDate() - 60*60*24*365),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '7',
+    },
+    {
+      id: 6, 
+      username: "Developer Andrew",
+      created: new Date(this.today.getDate() - 342786),
+      updated: new Date(),
+      content: 'Super project! Zou hier graag aan willen sluiten. Leave a like and subscribe!!',
+      likes: '1',
+    },
+  ];
 
   /**
    * Property to indicate whether the project is loading.
@@ -98,6 +156,7 @@ export class DetailsComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private authService: AuthService,
+    private commentService: CommentService,
     private highlightService: HighlightService,
     private modalService: BsModalService,
     private alertService: AlertService,
@@ -120,6 +179,9 @@ export class DetailsComponent implements OnInit {
       this.isAuthenticated = status;
     });
     this.currentUser = this.authService.getCurrentBackendUser();
+    
+    this.fetchProjectComments();
+
 
     this.projectService.get(this.projectId)
       .pipe(
@@ -171,6 +233,77 @@ export class DetailsComponent implements OnInit {
     }
 
     window.open(url, '_blank');
+  }
+
+  public fetchProjectComments(){
+    this.commentService
+      .fetchComments(this.projectId)
+      .subscribe(
+        (fetchComments) => {
+          fetchComments.forEach(projectComment => {
+            projectComment.likes.forEach(projectCommentLiker => {
+              if (this.authService.isAuthenticated()) {
+                projectComment.currentUserLiked = (projectCommentLiker.userId == this.currentUser.id);
+              } else {
+                projectComment.currentUserLiked = false;
+              }
+            });  
+          });
+          this.projectCommentsType = fetchComments;
+
+        }
+      );
+  }
+
+  public userHaslikedComment(currentComment){
+    return currentComment.currentUserLiked;
+  }
+
+  public onClickLikeComment(currentComment) {
+    //Like post version
+    if (this.authService.isAuthenticated()) {
+        this.commentService.addLikeToComment(currentComment.id).subscribe(
+          (commentLike) => {
+            commentLike.userId = this.currentUser.id;
+            this.projectCommentsType.forEach(projectComment => {
+              if(projectComment.id == currentComment.id){
+                projectComment.likes.push(commentLike);
+              }
+            });
+          }
+        );
+        this.animationTriggered = true;
+    }
+    this.ngOnInit();
+  }
+
+  public onClickUpdateComment(currentComment){
+    if(this.authService.isAuthenticated()){
+      this.commentService.updateComment(currentComment.id, currentComment );
+    }
+  }
+
+
+  public onClickAddCommentToProject() {
+    //POST-COMMENT
+    let commentObject = (<HTMLInputElement>document.getElementById('project-comment-input-field')).value;
+    (<HTMLInputElement>document.getElementById('project-comment-input-field')).value = '';
+
+      if(this.authService.isAuthenticated()){
+        //commentService
+        this.commentService.addComment(this.projectId, {content: commentObject}).subscribe(returnedComment => this.projectCommentsType.push(returnedComment));
+      } else {
+      // User is not logged in
+      const alertConfig: AlertConfig = {
+        type: AlertType.warning,
+        mainMessage: 'You need to be logged in to comment on this project',
+        dismissible: true,
+        autoDismiss: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
+    }
+    this.fetchProjectComments();
   }
 
   /**
@@ -427,6 +560,54 @@ export class DetailsComponent implements OnInit {
     const timeStamp = new Date(highlightTimestamp).getUTCHours() + ':' + ('0' + new Date(highlightTimestamp).getUTCMinutes()).slice(-2);
     const timeZone = 'GMT';
     return dayOfTheWeek + ', ' + dateStamp + ', ' + timeStamp + ' ' + timeZone;
+  }
+
+
+
+  /**
+   * Method to display the timedifference between current date and published date.
+   * @param commentDateString The comment published date.
+   */
+  public commentFormatDate(commentDateString: string) {
+    //Constants we use within our switch
+    const limitMinute = 60;
+    const limitHour = limitMinute*60;
+    const limitDay = limitHour* 24;
+    const limitWeek = limitDay * 7;
+    const limitMonth = limitWeek*4;
+    const limitYear = limitDay*365;
+
+    let formattedCommentDate = '';
+    let today = new Date();
+    let commentDate = new Date(commentDateString);
+    let dateDifferenceInMs = today.getTime() - commentDate.getTime();
+    let dateDifferenceInSecs = dateDifferenceInMs/1000;
+    let dateDifInMinutes = dateDifferenceInSecs/60;
+    let dateDifInHours = dateDifInMinutes/60;
+    let dateDifInDays = dateDifInHours/24;
+    let dateDifInWeeks = dateDifInDays/7;
+    let dateDifInMonths = dateDifInWeeks/4;
+    let dateDifInYears = dateDifInDays/365;
+    let diffInSeconds = dateDifferenceInSecs;
+
+    switch(true) {
+      case (diffInSeconds < limitMinute):
+        return Math.ceil(diffInSeconds) +" second(s) ago.";
+      case (diffInSeconds < limitHour):
+        return Math.floor(dateDifInMinutes) +" minute(s) ago.";
+      case (diffInSeconds < limitDay):
+        return Math.floor(dateDifInHours)+" hour(s) ago.";
+      case (diffInSeconds < (limitWeek)):
+        return Math.floor(dateDifInDays)+" day(s) ago.";
+      case (diffInSeconds < (limitWeek+1)):
+        return Math.floor(dateDifInWeeks)+" week(s) ago.";
+      case (diffInSeconds < (limitWeek)):
+        return Math.floor(dateDifInMonths)+" month(s) ago.";
+      case (diffInSeconds < (limitYear+1)):
+        return Math.floor(dateDifInYears)+" year(s) ago.";
+      default:
+          return " once upon a time.";
+    }
   }
 
   /**
