@@ -385,7 +385,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
   private updateQueryParams() {
     this.router.navigate(
-        [],
+        ['project/overview'],
         {
           replaceUrl: true,
           queryParams: {
