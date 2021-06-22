@@ -20,7 +20,6 @@ import { CallToActionOptionService } from 'src/app/services/call-to-action-optio
 import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { WizardService } from 'src/app/services/wizard.service';
-import { CallToAction } from 'src/app/models/domain/call-to-action';
 
 @Component({
   selector: 'app-project-call-to-action',
@@ -62,7 +61,7 @@ export class ProjectCallToActionComponent extends WizardStepBaseComponent implem
       if (this.project.callToActions?.length > 0) {
         this.selectedCallToActionOptionIds = this.project.callToActions.map(p => p.id);
         this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
-          return this.project.callToActions.find(cta => ctaOption.id == cta.id)
+          return this.project.callToActions.find(cta => ctaOption.id === cta.id)
               ? {
                 ...ctaOption, optionValue: this.project.callToActions.find(cta => ctaOption.id === cta.id).value
               }

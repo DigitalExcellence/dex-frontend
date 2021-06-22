@@ -133,7 +133,7 @@ export class EditComponent implements OnInit {
       return;
     }
     const id = Number(routeId);
-    if (id == null || Number.isNaN(id) || id < 1) {
+    if (!id || Number.isNaN(id) || id < 1) {
       this.invalidId = routeId;
       return;
     }
@@ -318,7 +318,7 @@ export class EditComponent implements OnInit {
     if (!this.selectedCallToActionOptionIds.find(id => id === clickedCheckboxId)) {
       this.selectedCallToActionOptionIds.push(clickedCheckboxId);
     } else {
-      let cta = this.callToActionOptions.find(cta => cta.id === clickedCheckboxId);
+      const cta = this.callToActionOptions.find(ctaOption => ctaOption.id === clickedCheckboxId);
       cta.optionValue = undefined;
       this.selectedCallToActionOptionIds.splice(
           this.selectedCallToActionOptionIds.indexOf(
