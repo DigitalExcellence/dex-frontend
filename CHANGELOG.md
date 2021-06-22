@@ -11,6 +11,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Refactored content on the homepage - [#502](https://github.com/DigitalExcellence/dex-frontend/issues/502)
+
 ### Deprecated
 
 ### Removed
