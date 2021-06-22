@@ -161,7 +161,6 @@ export class EditComponent implements OnInit {
                     this.collaborators = this.project.collaborators;
                     this.fileUploader.setFiles([this.project.projectIcon]);
 
-                    console.log(this.project.callToActions);
                     if (this.project.callToActions?.length > 0) {
                       this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
                         if (this.project.callToActions.find(cta => ctaOption.value.toLowerCase() === cta.optionValue)) {
@@ -214,7 +213,6 @@ export class EditComponent implements OnInit {
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
-    console.log(this.callToActionOptions);
     editedProject.callToActions = this.callToActionOptions.map(cta => {
       return cta.optionValue?.trim().length > 0
           ? {
@@ -223,7 +221,6 @@ export class EditComponent implements OnInit {
             value: cta.optionValue
           } : undefined;
     }).filter(cta => cta);
-    console.log(editedProject.callToActions);
 
     this.fileUploader.uploadFiles()
         .subscribe(uploadedFiles => {
