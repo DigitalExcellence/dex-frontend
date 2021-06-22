@@ -60,8 +60,8 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    * Method which triggers when the button to the next page is pressed
    */
   public onClickNext() {
-    if (this.link.valid) {
-      if (!this.validURL(this.link.value)) {
+    if (this.link.valid || this.link.value.length === 0) {
+      if (!this.validURL(this.link.value) && this.link.value.length !== 0) {
         this.errorMessage = 'Invalid url';
         return;
       }
@@ -88,8 +88,8 @@ export class ProjectLinkComponent extends WizardStepBaseComponent implements OnI
    * Method to get the url of the icon of the project. This is retrieved
    * from the file retriever service
    */
-  public getIconUrl(project): SafeUrl {
-    return this.fileRetrieverService.getIconUrl(project.projectIcon);
+  public getSourceIconUrl(): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(this.selectedSource.icon);
   }
 
   /**

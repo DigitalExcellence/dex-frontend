@@ -43,7 +43,8 @@ export class WizardService {
     fileId: 0,
     shortDescription: '',
     uri: '',
-    userId: 0
+    userId: 0,
+    categories: []
   };
 
   /**
@@ -88,9 +89,18 @@ export class WizardService {
       isOptional: false
     },
     {
-      id: 6,
+      id: 10,
       authFlow: false,
       orderIndex: 3,
+      name: 'Categories',
+      description: 'Add categories to your project!',
+      isComplete: false,
+      isOptional: true
+    },
+    {
+      id: 6,
+      authFlow: false,
+      orderIndex: 4,
       name: 'What project icon would fit the project?',
       description: 'Please upload a fitting image for the project!',
       isComplete: false,
@@ -99,7 +109,7 @@ export class WizardService {
     {
       id: 7,
       authFlow: false,
-      orderIndex: 4,
+      orderIndex: 5,
       name: 'Who has worked on the project?',
       description: 'Here you can name all the project members and their role within the project!',
       isComplete: false,
@@ -108,7 +118,7 @@ export class WizardService {
     {
       id: 8,
       authFlow: false,
-      orderIndex: 5,
+      orderIndex: 6,
       name: 'Would you like to add a call to action button?',
       description: 'If you want to get people in action you can show it here!',
       isComplete: false,
@@ -117,11 +127,11 @@ export class WizardService {
     {
       id: 9,
       authFlow: false,
-      orderIndex: 5,
+      orderIndex: 7,
       name: 'If your project has a link with a project page or another source you can link it here!',
       description: 'If your project has a link with a project page or another source you can link it here!',
       isComplete: false,
-      isOptional: false
+      isOptional: true
     },
   ];
   /**
@@ -240,6 +250,12 @@ export class WizardService {
    * @param step The page that needs to be set as current step
    */
   public setCurrentStep(step: WizardPage): void {
+    this.steps$.next(this.steps$.value.map(s => {
+      return s.orderIndex === step.orderIndex - 1
+      && s.isOptional
+          ? {...s, isComplete: true}
+          : s;
+    }));
     this.currentStep$.next(step);
   }
 

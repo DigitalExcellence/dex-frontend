@@ -30,7 +30,11 @@
   background-color: #ffffff;
   padding: 10px 20px;
   z-index: 1; // put header on top
+  row-gap: 10px;
 
+  .right {
+    display: flex;
+  }
   .header-nav {
     display: flex;
 
@@ -47,25 +51,44 @@
     }
   }
 
+  .content {
+    @include media-breakpoint-down(sm) {
+      .search-bar {
+        display: none;
+      }
+    }
+    @include media-breakpoint-down(md) {
+      grid-template-columns: auto 1fr auto !important;
+    }
+    @include media-breakpoint-up(md) {
+      display: grid !important;
+      gap: 10px;
+      grid-template-columns: auto 1fr 200px;
+      .search-bar-mobile {
+        display: none;
+      }
+    }
+  }
+
   .branding {
     display: flex;
     align-items: flex-end;
-    margin-right: 64px;
+    margin-right: 5px;
 
     .beta-text {
       cursor: pointer;
       margin: 0 0 -4px 3px;
     }
 
-     /*
+    /*
     For extreme scenarios, the margin right from the Dex-logo
     is decreased. So in these (extreme) scenarios, the burger menu
     can still be rendered besides the logo
     */
     @include media-breakpoint-down(sm) {
       margin-right: 15px;
+    }
   }
-}
 
   a {
     font-family: "Montserrat", sans-serif;
@@ -88,8 +111,6 @@
   }
 
   .search-bar {
-    margin-left: 30px;
-
     input[type="search"] {
       width: 266px;
       height: 28px;
@@ -133,10 +154,10 @@
     cursor: pointer;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
   }
 
@@ -166,8 +187,8 @@
   In burger menu show the profile navigation items
   below each other
   */
-  .profile-dropdown{
-    @include media-breakpoint-down(sm){
+  .profile-dropdown {
+    @include media-breakpoint-down(sm) {
       flex-direction: column;
     }
   }
@@ -232,7 +253,7 @@
 
   .feedback-button {
     background: $light-mode-grey-secondary 0% 0% no-repeat padding-box;
-    box-shadow:$box-shadow;
+    box-shadow: $box-shadow;
     border-radius: 6px 6px 0px 0px;
 
     width: 188px;
@@ -245,7 +266,7 @@
     text-transform: capitalize;
     transition: height $transition-short, padding $transition-short;
 
-    &:hover{
+    &:hover {
       height: 64px;
       padding-bottom: 15px;
     }
@@ -268,11 +289,11 @@
   top: 0;
   right: 0;
   z-index: -1;
-  opacity: .075;
+  opacity: 0.075;
   width: 100vw;
   height: 100vh;
 
-  polygon{
+  polygon {
     transform: rotate(16deg) translate(-10vw, -25vh) scale(1.9);
   }
 }
@@ -310,7 +331,7 @@
     cursor: pointer;
   }
 
-  @include media-breakpoint-down(sm){
+  @include media-breakpoint-down(sm) {
     position: initial;
   }
 }
@@ -323,7 +344,7 @@
     font-size: 14px;
     padding: 8px 16px;
 
-    @include media-breakpoint-down(sm){
+    @include media-breakpoint-down(sm) {
       font-size: 16px;
     }
 

@@ -384,7 +384,7 @@ export class DetailsComponent implements OnInit {
    * Tags should be hidden in production for now until further implementation is finished.
    */
   public isProduction(): boolean {
-    return !environment.production;
+    return environment.production;
   }
 
   /**

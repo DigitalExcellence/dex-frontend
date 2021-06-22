@@ -55,17 +55,14 @@
       </div>
       <p class="project-short-description">{{ project.shortDescription }}</p>
     </div>
-    <ng-container *ngIf="displayTags()">
-      <div class="tags">
-        <div (click)="tagClicked($event)" class="tag">UX</div>
-        <div (click)="tagClicked($event)" class="tag">UI</div>
-        <div (click)="tagClicked($event)" class="tag">Development</div>
-        <div (click)="tagClicked($event)" class="tag">Creatief</div>
-        <div (click)="tagClicked($event)" class="tag">Arduino</div>
-        <div (click)="tagClicked($event)" class="tag">HTML</div>
-        <div (click)="tagClicked($event)" class="tag plus">+ 3</div>
+    <div class="tags">
+      <div
+          (click)="tagClicked($event)"
+          *ngFor="let category of project.categories"
+          class="tag">
+        {{category.name}}
       </div>
-    </ng-container>
+    </div>
     <div class="bottom-wrapper">
       <div (click)="likeClicked($event)" class="item">
         <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>

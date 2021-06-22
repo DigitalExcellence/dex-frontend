@@ -27,4 +27,5 @@ export const environment = {
   identitySilentRedirectUri: 'https://staging.dex.software/auth-callback',
   // This should be empty because it will only be used in production.
   sentryDsnUrl: ''
+
 };
