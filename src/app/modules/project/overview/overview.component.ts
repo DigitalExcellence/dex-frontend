@@ -52,7 +52,6 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   public projectsToDisplay: Project[] = [];
   public projectsTotal: Project[] = [];
 
-
   /**
    * Determine whether we need to render a list or cart view
    */
@@ -146,7 +145,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       private paginationService: PaginationService,
       private internalSearchService: InternalSearchService,
       private formBuilder: FormBuilder,
-      private activatedRoute: ActivatedRoute, 
+      private activatedRoute: ActivatedRoute,
       private seoService: SEOService,
       private modalService: BsModalService,
       private location: Location,

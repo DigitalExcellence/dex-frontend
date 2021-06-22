@@ -23,7 +23,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 /**
- * Component used to display the basic layout of the application. 
+ * Component used to display the basic layout of the application.
  */
 @Component({
   selector: 'app-layout',
@@ -120,7 +120,7 @@ export class AppLayoutComponent implements OnInit {
     this.displayBetaBanner = true;
   }
 
-  
+
   public viewUserProjects() {
     this.router.navigate(['user/projects']);
   }

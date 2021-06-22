@@ -21,8 +21,9 @@ import { API_CONFIG } from 'src/app/config/api-config';
 import { User } from 'src/app/models/domain/user';
 import { UserAdd } from 'src/app/models/resources/user-add';
 import { HttpBaseService } from './http-base.service';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
+import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,24 @@ export class UserService extends HttpBaseService<User, UserAdd, User> {
   }
 
   public getProjectsFromUser(): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.url}/projects`);
+    return this.http.get<Project[]>(`${this.url}/projects`)
+        .pipe(
+        mergeMap(result => from(
+            this.addLikes(result)
+        ))
+    );
+  }
+
+  private addLikes(projects): Promise<Project[]> {
+    return new Promise(resolve => {
+      this.getCurrentUser().subscribe(currentUser => {
+        projects.map(project => {
+          project.likeCount = project.likes.length ? project.likes.length : 0;
+          project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
+          return project;
+        });
+        resolve(projects);
+      });
+    });
   }
 }
