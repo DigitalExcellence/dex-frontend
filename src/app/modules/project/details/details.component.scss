@@ -362,8 +362,8 @@
       }
 
       .bottom-buttons {
-        display: grid;
-        grid-auto-flow: column;
+        display: flex;
+        flex-wrap: wrap;
         gap: 15px;
         width: fit-content;
       }
