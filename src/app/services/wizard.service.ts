@@ -71,15 +71,6 @@ export class WizardService {
 
   private readonly defaultSteps: Array<WizardPage> = [
     {
-      id: 8,
-      authFlow: false,
-      orderIndex: 6,
-      name: 'Would you like to add a call to action button?',
-      description: 'If you want to get people in action you can show it here!',
-      isComplete: false,
-      isOptional: true
-    },
-    {
       id: 4,
       authFlow: false,
       orderIndex: 1,
@@ -121,6 +112,15 @@ export class WizardService {
       orderIndex: 5,
       name: 'Who has worked on the project?',
       description: 'Here you can name all the project members and their role within the project!',
+      isComplete: false,
+      isOptional: true
+    },
+    {
+      id: 8,
+      authFlow: false,
+      orderIndex: 6,
+      name: 'Would you like to add a call to action button?',
+      description: 'If you want to get people in action you can show it here!',
       isComplete: false,
       isOptional: true
     },
