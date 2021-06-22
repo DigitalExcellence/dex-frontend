@@ -132,8 +132,9 @@ export class EditComponent implements OnInit {
     if (!routeId) {
       return;
     }
+
     const id = Number(routeId);
-    if (id == null || Number.isNaN(id) || id < 1) {
+    if (!id || Number.isNaN(id) || id < 1) {
       this.invalidId = routeId;
       return;
     }
@@ -163,18 +164,16 @@ export class EditComponent implements OnInit {
 
                     if (this.project.callToActions?.length > 0) {
                       this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
-                        if (this.project.callToActions.find(cta => ctaOption.value.toLowerCase() === cta.optionValue)) {
+                        let callToActionOption = this.project.callToActions.find(cta => ctaOption.value.toLowerCase() === cta.optionValue);
+                        if (callToActionOption) {
                           this.selectedCallToActionOptionIds.push(ctaOption.id);
+                          return {
+                            ...ctaOption,
+                            optionValue: this.project.callToActions
+                                .find(cta => ctaOption.value.toLowerCase() === cta.optionValue).value
+                          }
                         }
-                        return this.project.callToActions.find(cta => ctaOption.value.toLowerCase() === cta.optionValue)
-                            ? {
-                              ...ctaOption,
-                              optionValue: this.project.callToActions
-                                  .find(cta => ctaOption.value.toLowerCase() === cta.optionValue).value
-                            }
-                            : {
-                              ...ctaOption
-                            };
+                        return ctaOption;
                       });
                     }
 
@@ -318,7 +317,7 @@ export class EditComponent implements OnInit {
     if (!this.selectedCallToActionOptionIds.find(id => id === clickedCheckboxId)) {
       this.selectedCallToActionOptionIds.push(clickedCheckboxId);
     } else {
-      let cta = this.callToActionOptions.find(cta => cta.id === clickedCheckboxId);
+      const cta = this.callToActionOptions.find(ctaOption => ctaOption.id === clickedCheckboxId);
       cta.optionValue = undefined;
       this.selectedCallToActionOptionIds.splice(
           this.selectedCallToActionOptionIds.indexOf(
