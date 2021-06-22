@@ -55,7 +55,6 @@ export class EditComponent implements OnInit {
    * Formgroup for entering project details.
    */
   public editProjectForm: FormGroup;
-  public editCallToActionForm: FormGroup;
   public editCollaboratorForm: FormGroup;
   public project: Project;
   public categories: ProjectCategory[];
@@ -122,11 +121,6 @@ export class EditComponent implements OnInit {
       description: [null],
     });
 
-    this.editCallToActionForm = this.formBuilder.group({
-      type: [null, Validators.required],
-      value: [null, Validators.required],
-    });
-
     this.editCollaboratorForm = this.formBuilder.group({
       fullName: [null, Validators.required],
       role: [null, Validators.required],
@@ -167,14 +161,23 @@ export class EditComponent implements OnInit {
                     this.collaborators = this.project.collaborators;
                     this.fileUploader.setFiles([this.project.projectIcon]);
 
-
-                    console.log(projectResult);
-                    console.log(this.callToActionOptions);
-                    this.callToActionOptions = this.callToActionOptions.map(cta => ({
-                      ...cta,
-                      optionValue: projectResult.callToActions.find(pcta => cta.value === pcta.value).optionValue
-                    }));
-                    console.log(this.callToActionOptions);
+                    console.log(this.project.callToActions);
+                    if (this.project.callToActions?.length > 0) {
+                      this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
+                        if (this.project.callToActions.find(cta => ctaOption.value.toLowerCase() === cta.optionValue)) {
+                          this.selectedCallToActionOptionIds.push(ctaOption.id);
+                        }
+                        return this.project.callToActions.find(cta => ctaOption.value.toLowerCase() === cta.optionValue)
+                            ? {
+                              ...ctaOption,
+                              optionValue: this.project.callToActions
+                                  .find(cta => ctaOption.value.toLowerCase() === cta.optionValue).value
+                            }
+                            : {
+                              ...ctaOption
+                            };
+                      });
+                    }
 
                     this.categories = this.categories.map(category => ({
                       ...category,
@@ -211,6 +214,16 @@ export class EditComponent implements OnInit {
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
+    console.log(this.callToActionOptions);
+    editedProject.callToActions = this.callToActionOptions.map(cta => {
+      return cta.optionValue?.trim().length > 0
+          ? {
+            id: cta.id,
+            optionValue: cta.value,
+            value: cta.optionValue
+          } : undefined;
+    }).filter(cta => cta);
+    console.log(editedProject.callToActions);
 
     this.fileUploader.uploadFiles()
         .subscribe(uploadedFiles => {
@@ -229,14 +242,6 @@ export class EditComponent implements OnInit {
             this.editProject(editedProject);
           }
         });
-
-    editedProject.callToActions = this.callToActionOptions.map(cta => (
-        this.selectedCallToActionOptionIds.includes(cta.id) ? {
-          id: cta.id,
-          optionValue: cta.optionValue,
-          value: cta.value
-        } : undefined
-    )).filter(cta => cta)
   }
 
   /**
@@ -316,6 +321,8 @@ export class EditComponent implements OnInit {
     if (!this.selectedCallToActionOptionIds.find(id => id === clickedCheckboxId)) {
       this.selectedCallToActionOptionIds.push(clickedCheckboxId);
     } else {
+      let cta = this.callToActionOptions.find(cta => cta.id === clickedCheckboxId);
+      cta.optionValue = undefined;
       this.selectedCallToActionOptionIds.splice(
           this.selectedCallToActionOptionIds.indexOf(
               this.selectedCallToActionOptionIds.find(ctaId => ctaId === clickedCheckboxId)

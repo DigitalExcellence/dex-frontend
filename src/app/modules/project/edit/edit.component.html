@@ -98,44 +98,41 @@
           </div>
         </form>
         <ng-container *ngIf="callToActionOptions.length > 1">
-          <form [formGroup]="editCallToActionForm" class="project-form">
-
-            <div class="row">
-              <div class="col-12">
-                <h3 class="title-spacing">Call to action</h3>
-              </div>
-                <div class="grid">
-                  <ng-container *ngFor="let callToActionOption of callToActionOptions">
-                    <input (click)="ctaButtonClicked($event, callToActionOption.id)"
-                           [checked]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
-                           [value]="callToActionOption.id"
-                           class="radio"
-                           name="call-to-action"
-                           type="checkbox"/>
-                    <button (click)="ctaButtonClicked($event, callToActionOption.id)"
-                            [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
-                            class="call-to-action-btn">
-                      {{ callToActionOption.value }}
-                      <em [classList]="'fas ' + callToActionOption.iconName"></em>
-                    </button>
-                    <input (change)="urlChange($event, callToActionOption.id)" [disabled]="!selectedCallToActionOptionIds.includes(callToActionOption.id)" [id]="'input-'+callToActionOption.id"
-                           [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
-                           [required]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
-                           [value]="callToActionOption.optionValue"
-                           aria-label="action-url"
-                           class="text-input"
-                           type="url"/>
-                  </ng-container>
-                </div>
+          <div class="row project-form">
+            <div class="col-12">
+              <h3 class="title-spacing">Call to action</h3>
             </div>
-            <div class="row">
-              <div class="col-12">
-                <div>
-                  <p class="form-footnote">Select the type of call to action button you want for your project.</p>
-                </div>
+            <div class="grid">
+              <ng-container *ngFor="let callToActionOption of callToActionOptions">
+                <input (click)="ctaButtonClicked($event, callToActionOption.id)"
+                       [checked]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+                       [value]="callToActionOption.id"
+                       class="radio"
+                       name="call-to-action"
+                       type="checkbox"/>
+                <button (click)="ctaButtonClicked($event, callToActionOption.id)"
+                        [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+                        class="call-to-action-btn">
+                  {{ callToActionOption.value }}
+                  <em [classList]="'fas ' + callToActionOption.iconName"></em>
+                </button>
+                <input (change)="urlChange($event, callToActionOption.id)" [disabled]="!selectedCallToActionOptionIds.includes(callToActionOption.id)" [id]="'input-'+callToActionOption.id"
+                       [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+                       [required]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+                       [ngModel]="callToActionOption.optionValue"
+                       aria-label="action-url"
+                       class="text-input"
+                       type="url"/>
+              </ng-container>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <p class="form-footnote">Select the type of call to action button you want for your project.</p>
               </div>
             </div>
-          </form>
+          </div>
         </ng-container>
 
         <form [formGroup]="editCollaboratorForm" class="project-form">

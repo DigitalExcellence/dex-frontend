@@ -42,6 +42,7 @@
       <input (change)="urlChange($event, callToActionOption.id)" [disabled]="!selectedCallToActionOptionIds.includes(callToActionOption.id)" [id]="'input-'+callToActionOption.id"
              [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
              [required]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+             [ngModel]="callToActionOption.optionValue"
              aria-label="action-url"
              class="text-input"
              type="url"/>

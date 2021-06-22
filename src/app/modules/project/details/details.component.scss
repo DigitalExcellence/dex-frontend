@@ -394,40 +394,12 @@
   }
 
   #call-to-action-button {
-    text-transform: lowercase;
+    text-transform: capitalize;
     width: fit-content;
-  }
-
-  #call-to-action-button::first-letter {
-    text-transform: uppercase;
   }
 
   .project-highlighted-div {
     float: left;
   }
 
-  #project-share-buttons {
-    display: flex;
-    margin-top: 60px;
-
-    button:first-child {
-      margin-left: 0 !important;
-    }
-
-    button {
-      margin-right: 20px;
-    }
-  }
-
-  #project-edit-buttons {
-    margin-top: 15px;
-    display: flex;
-
-    button {
-      border-radius: 18px;
-      width: 36px;
-      height: 36px;
-      padding: 0;
-    }
-  }
 }
