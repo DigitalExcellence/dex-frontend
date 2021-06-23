@@ -361,10 +361,10 @@
         }
       }
 
-      .bottom-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
+      .top-buttons {
+        display: grid;
+        grid-auto-flow: row;
+        gap: 25px;
         width: fit-content;
       }
 

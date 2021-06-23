@@ -118,8 +118,7 @@
 
           <div class="tab-content">
             <ng-container *ngIf="this.activeTab == 'description'" class="project-description large">
-              <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
-              <div class="bottom-buttons">
+              <div class="top-buttons">
                 <ng-container *ngIf="displayCallToActionButton">
                   <button *ngFor="let cta of project.callToActions" (click)="onClickCallToActionButton(cta.value)" class="primary" id="call-to-action-button">
                     {{ cta.optionValue }}
@@ -130,6 +129,7 @@
                   <app-embed-button [projectId]="project.id"></app-embed-button>
                 </ng-container>
               </div>
+              <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
             </ng-container>
             <ng-container *ngIf="this.activeTab == 'collaborators'">
               <div class="collaborators">

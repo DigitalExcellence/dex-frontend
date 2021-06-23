@@ -12,6 +12,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - Multiple call to actions supported. [#454](https://github.com/DigitalExcellence/dex-frontend/issues/454)
+- Changed location of the buttons on the project details page - [#518](https://github.com/DigitalExcellence/dex-frontend/issues/518)
 
 ### Deprecated
 
