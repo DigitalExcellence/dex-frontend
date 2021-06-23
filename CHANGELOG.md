@@ -11,6 +11,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Changed location of the buttons on the project details page - [#518](https://github.com/DigitalExcellence/dex-frontend/issues/518)
+
 ### Deprecated
 
 ### Removed
