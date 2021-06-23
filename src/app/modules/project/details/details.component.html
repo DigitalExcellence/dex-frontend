@@ -119,16 +119,20 @@
           <div class="tab-content">
             <ng-container *ngIf="this.activeTab == 'description'" class="project-description large">
               <div class="top-buttons">
-                <ng-container *ngIf="displayCallToActionButton">
-                  <button *ngFor="let cta of project.callToActions" (click)="onClickCallToActionButton(cta.value)" class="primary" id="call-to-action-button">
-                    {{ cta.optionValue }}
-                    <em [classList]="'fas ' + cta.iconName"></em>
-                  </button>
-                </ng-container>
-                <ng-container *ngIf="displayEmbedButton">
-                  <app-embed-button [projectId]="project.id"></app-embed-button>
-                </ng-container>
+                  <ng-container *ngIf="displayCallToActionButton">
+                    <div class="callToActionButtons">
+                      <button *ngFor="let cta of project.callToActions" (click)="onClickCallToActionButton(cta.value)" class="primary" id="call-to-action-button">
+                        {{ cta.optionValue }}
+                        <em [classList]="'fas ' + cta.iconName"></em>
+                      </button>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="displayEmbedButton">
+                    <app-embed-button [projectId]="project.id"></app-embed-button>
+                  </ng-container>
               </div>
+              
+              
               <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
             </ng-container>
             <ng-container *ngIf="this.activeTab == 'collaborators'">
