@@ -11,6 +11,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- URL does now contain project overview filter parameters - [#517](https://github.com/DigitalExcellence/dex-frontend/issues/517)
+
 ### Deprecated
 
 ### Removed
