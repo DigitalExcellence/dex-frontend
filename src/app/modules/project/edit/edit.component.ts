@@ -226,7 +226,16 @@ export class EditComponent implements OnInit {
       files = this.projectImagesFileUploader.files.map(file => file.preview);
     }
 
-    const amountToAdd = files ? 4 - files.length : 4;
+    let amountToAdd = 4;
+
+    if(files?.length > 0) {
+      if(files.length >= 4) {
+        amountToAdd = 1;
+      } else {
+        amountToAdd -= files.length;
+      }
+    }
+
     for (let i = 0; i < amountToAdd; i++) {
       files.push('');
     }

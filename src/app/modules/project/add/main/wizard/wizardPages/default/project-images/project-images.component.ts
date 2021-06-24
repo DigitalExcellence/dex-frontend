@@ -77,13 +77,20 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
       files = this.fileUploader.files.map(file => file.preview);
     }
 
-    const amountToAdd = files ? 4 - files.length : 4;
+    let amountToAdd = 4;
+
+    if(files?.length > 0) {
+      if(files.length >= 4) {
+        amountToAdd = 1;
+      } else {
+        amountToAdd -= files.length;
+      }
+    }
+
     for (let i = 0; i < amountToAdd; i++) {
       files.push('');
     }
 
     return files;
   }
-
-  // return this.fileRetrieverService.getIconUrl(this.wizardService.uploadFile);
 }

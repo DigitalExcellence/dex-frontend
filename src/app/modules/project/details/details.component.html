@@ -26,7 +26,7 @@
 <ng-template #projectLoaded>
   <div *ngIf="project; else noProject">
     <div class="project-modal-content">
-      <carousel [interval]="3000" [isAnimated]="true" [noPause]="false" class="image-carousel">
+      <carousel [interval]="5000" [isAnimated]="true" [noPause]="false" class="image-carousel">
         <slide *ngFor="let image of project.images">
           <img [src]="getIconUrl(image)" alt="project-image" loading="lazy" style="display: block; width: 100%;"/>
         </slide>
