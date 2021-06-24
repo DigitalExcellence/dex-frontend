@@ -22,7 +22,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { HttpClient } from '@angular/common/http';
-import { API_CONFIG } from '../config/api-config';
+import { API_CONFIG } from 'src/app/config/api-config';
 import { Observable } from 'rxjs';
 
 @Injectable({
