@@ -52,6 +52,8 @@ export class EditComponent implements OnInit {
   @ViewChild('projectImagesFileUploader') projectImagesFileUploader: FileUploaderComponent;
   public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
 
+  public uploadingFiles = false;
+
   /**
    * Formgroup for entering project details.
    */
@@ -258,6 +260,7 @@ export class EditComponent implements OnInit {
       return;
     }
 
+    this.uploadingFiles = true;
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
@@ -292,6 +295,8 @@ export class EditComponent implements OnInit {
               .subscribe(projectImages => {
                 editedProject.imageIds = this.getProjectImagesIds(projectImages);
                 this.editProject(editedProject);
+
+                this.uploadingFiles = false;
               });
         });
   }

@@ -339,6 +339,9 @@
 
 .btn-success,
 .btn-cancel {
+  display: flex;
+  white-space: nowrap;
+  gap: 10px;
   color: #fff;
   border: none;
   padding: 12px 30px;
