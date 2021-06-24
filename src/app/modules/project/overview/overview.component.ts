@@ -17,7 +17,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { debounceTime, finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
@@ -163,7 +163,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
         .pipe(
-            debounceTime(500)
+            filter(Boolean),
+            debounceTime(500),
+            distinctUntilChanged()
         )
         .subscribe((result) => {
           if (!result) {
@@ -214,11 +216,13 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    this.currentSearchInput = value;
+
     if (value === '') {
-      this.onInternalQueryChange();
+      return this.onInternalQueryChange();
     }
 
-    this.currentSearchInput = value;
+    // If the field is empty we don't want to update the searchSubject anymore because the debounce will mess with the query.
     this.searchSubject.next(value);
   }
 
@@ -299,7 +303,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
    */
   private onInternalQueryChange(): void {
     const internalSearchQuery: InternalSearchQuery = {
-      query: this.currentSearchInput === '' ? null : this.currentSearchInput,
+      query: !this.currentSearchInput || this.currentSearchInput === '' ? null : this.currentSearchInput,
       // If there is a search query, search on all pages
       page: !this.currentSearchInput ? this.currentPage : null,
       amountOnPage: this.amountOfProjectsOnSinglePage,
