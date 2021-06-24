@@ -12,7 +12,12 @@
     </div>
     <div class="buttons">
       <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
-      <button (click)="onClickNext()" class="form-continue-btn">{{ isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next" }}</button>
+      <button (click)="onClickNext()" class="form-continue-btn">
+          {{ isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next" }}
+        <div class="loading-circle" *ngIf="uploadingFiles">
+          <em class="fas fa-circle-notch fa-pulse"></em>
+        </div>
+      </button>
     </div>
   </div>
   <div class="project-image-picker">
