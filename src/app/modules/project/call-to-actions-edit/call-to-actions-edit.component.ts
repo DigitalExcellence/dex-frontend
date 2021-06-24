@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CallToActionOption } from '../../../models/domain/call-to-action-option';
-import { WizardService } from '../../../services/wizard.service';
-import { CallToActionOptionService } from '../../../services/call-to-action-option.service';
-import { CallToAction } from '../../../models/domain/call-to-action';
+import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
+import { WizardService } from 'src/app/services/wizard.service';
+import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
+import { CallToAction } from 'src/app/models/domain/call-to-action';
 
 @Component({
   selector: 'app-call-to-actions-edit',
