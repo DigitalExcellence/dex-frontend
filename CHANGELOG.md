@@ -8,6 +8,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- Added project images. - [#464](https://github.com/DigitalExcellence/dex-frontend/issues/464)
 
 ### Changed
 
@@ -32,7 +33,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added search bar inside navbar with autocomplete suggested results. - [#403](https://github.com/DigitalExcellence/dex-frontend/issues/403)
 - Refactored the home page. - [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
 - Added project recommendations on the home page. - [#497](https://github.com/DigitalExcellence/dex-frontend/issues/497)
-- Added project images. - [#464](https://github.com/DigitalExcellence/dex-frontend/issues/464)
 
 ### Changed
 
