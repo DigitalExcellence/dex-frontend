@@ -58,7 +58,7 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
     if (this.fileUploader.files.length > 0) {
       this.fileUploader.uploadFiles().subscribe(files => {
         if (files[0]) {
-          this.wizardService.updateProject({...this.project, fileId: files[0].id});
+          this.wizardService.updateProject({...this.project, iconId: files[0].id});
           this.wizardService.projectIcon = files[0];
         }
         super.onClickNext();

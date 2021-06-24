@@ -40,7 +40,7 @@ export class WizardService {
     callToAction: undefined,
     collaborators: [],
     name: '',
-    fileId: 0,
+    iconId: 0,
     shortDescription: '',
     uri: '',
     userId: 0,
@@ -205,7 +205,7 @@ export class WizardService {
                     userId: this.authService.getCurrentBackendUser().id,
                     shortDescription: project.shortDescription,
                     name: project.name,
-                    fileId: undefined,
+                    iconId: undefined,
                     callToAction: project.callToAction,
                     uri: projectUri,
                     description: project.description
@@ -309,7 +309,7 @@ export class WizardService {
       callToAction: undefined,
       collaborators: [],
       name: '',
-      fileId: 0,
+      iconId: 0,
       shortDescription: '',
       uri: '',
       userId: -1

@@ -19,8 +19,9 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
    */
   public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
   public acceptMultiple = true;
-  return;
-  files;
+
+  public uploadingFiles = false;
+
   /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
    */
@@ -41,11 +42,13 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
    */
   public onClickNext(): void {
     if (this.fileUploader.files.length > 0) {
+      this.uploadingFiles = true;
       this.fileUploader.uploadFiles().subscribe(files => {
         if (files) {
           this.wizardService.updateProject({...this.project, imageIds: files.map(file => file.id)});
           this.wizardService.projectImages = files;
         }
+        this.uploadingFiles = false;
         super.onClickNext();
       });
     } else {

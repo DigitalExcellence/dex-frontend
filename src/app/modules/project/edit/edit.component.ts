@@ -287,7 +287,7 @@ export class EditComponent implements OnInit {
 
     this.projectIconFileUploader.uploadFiles()
         .subscribe(projectIcon => {
-          editedProject.fileId = this.getProjectIconId(projectIcon);
+          editedProject.iconId = this.getProjectIconId(projectIcon);
           this.projectImagesFileUploader.uploadFiles()
               .subscribe(projectImages => {
                 editedProject.imageIds = this.getProjectImagesIds(projectImages);
