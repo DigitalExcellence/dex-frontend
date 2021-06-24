@@ -391,12 +391,12 @@
           }
         }
 
-        .bottom-buttons {
-          display: grid;
-          grid-auto-flow: column;
-          gap: 15px;
-          width: fit-content;
-        }
+      .top-buttons {
+        display: grid;
+        grid-auto-flow: row;
+        gap: 25px;
+        width: fit-content;
+      }
 
         p {
           margin: 0 0 10px 0;
