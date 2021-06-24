@@ -75,15 +75,6 @@ export class WizardService {
 
   private readonly defaultSteps: Array<WizardPage> = [
     {
-      id: 6,
-      authFlow: false,
-      orderIndex: 4,
-      name: 'Would you like to upload some images?',
-      description: 'Please upload a fitting image',
-      isComplete: false,
-      isOptional: true
-    },
-    {
       id: 4,
       authFlow: false,
       orderIndex: 1,
@@ -116,6 +107,15 @@ export class WizardService {
       orderIndex: 3,
       name: 'What project icon would fit the project?',
       description: 'Please upload a fitting image for the project!',
+      isComplete: false,
+      isOptional: true
+    },
+    {
+      id: 6,
+      authFlow: false,
+      orderIndex: 4,
+      name: 'Would you like to upload some images?',
+      description: 'Please upload a fitting image',
       isComplete: false,
       isOptional: true
     },
