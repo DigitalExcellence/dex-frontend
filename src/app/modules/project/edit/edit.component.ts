@@ -164,7 +164,10 @@ export class EditComponent implements OnInit {
 
                     if (this.project.callToActions?.length > 0) {
                       this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
-                        const callToActionOption = this.project.callToActions.find(cta => ctaOption.value.toLowerCase() === cta.optionValue);
+
+                        const callToActionOption = this.project.callToActions
+                            .find(cta => ctaOption.value.toLowerCase() === cta.optionValue);
+
                         if (callToActionOption) {
                           this.selectedCallToActionOptionIds.push(ctaOption.id);
                           return {
