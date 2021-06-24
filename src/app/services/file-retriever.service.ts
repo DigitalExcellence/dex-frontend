@@ -18,28 +18,37 @@
  */
 
 import { Injectable } from '@angular/core';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {RESOURCE_CONFIG} from 'src/app/config/resource-config';
-import {UploadFile} from 'src/app/models/domain/uploadFile';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { HttpClient } from '@angular/common/http';
+import { API_CONFIG } from '../config/api-config';
+import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root'
+})
 export class FileRetrieverService {
+  protected readonly url: string = API_CONFIG.url + API_CONFIG.uploadFileRoute;
 
-    constructor(
-        private sanitizer: DomSanitizer
-    ) {}
+  constructor(
+      private sanitizer: DomSanitizer,
+      private http: HttpClient
+  ) {}
 
-   /**
+  /**
    * Method to get the url of the icon of the project. This urls can be the local
    * image for a default or a specified icon stored on the server.
    * @param file retrieving the icon url of the specified file.
    */
-    public getIconUrl(file: UploadFile): SafeUrl {
+  public getIconUrl(file: UploadFile): SafeUrl {
     if (file != null) {
       return this.sanitizer.sanitize(4, RESOURCE_CONFIG.url + file.path);
     }
     return 'assets/images/placeholder.png';
+  }
+
+  public getIconById(fileId: number): Observable<UploadFile> {
+    return this.http.get<UploadFile>(`${this.url}/${fileId}`);
   }
 }

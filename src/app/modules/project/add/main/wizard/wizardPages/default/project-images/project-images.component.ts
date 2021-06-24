@@ -1,17 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { WizardService } from 'src/app/services/wizard.service';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { SafeUrl } from '@angular/platform-browser';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-project-images',
   templateUrl: './project-images.component.html',
   styleUrls: ['./project-images.component.scss', '../../shared-wizard-styles.scss']
 })
-export class ProjectImagesComponent extends WizardStepBaseComponent implements OnInit {
+export class ProjectImagesComponent extends WizardStepBaseComponent implements OnInit, AfterViewInit {
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
   /**
@@ -35,6 +37,19 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
   ngOnInit(): void {
     // TODO: Implement loading added images. This will probably require some backend implementation first
     this.project = this.wizardService.builtProject;
+  }
+
+  ngAfterViewInit(): void {
+    if (this.project.imageIds) {
+      const files: Observable<UploadFile>[] = this.project.imageIds.map(id => {
+        return this.fileRetrieverService.getIconById(id);
+      });
+      setTimeout(() => {
+        forkJoin(files).subscribe(images => {
+          this.fileUploader.setFiles(images);
+        });
+      }, 5);
+    }
   }
 
   /**
