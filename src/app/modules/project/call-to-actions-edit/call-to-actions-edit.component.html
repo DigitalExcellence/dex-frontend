@@ -1,0 +1,32 @@
+<ng-template *ngIf="callToActionOptionsLoading; else callToActionOptionsLoaded">
+  <div class="loading-circle">
+    <h2 class="fas fa-spinner fa-pulse"></h2>
+  </div>
+</ng-template>
+<ng-template #callToActionOptionsLoaded>
+  <p class="error-message">{{errorMessage}}</p>
+  <div class="grid">
+    <ng-container *ngFor="let callToActionOption of callToActionOptions">
+      <input (click)="ctaButtonClicked($event, callToActionOption.id)"
+             [checked]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+             [value]="callToActionOption.id"
+             class="radio"
+             name="call-to-action"
+             type="checkbox"/>
+      <button (click)="ctaButtonClicked($event, callToActionOption.id)"
+              [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+              class="call-to-action-btn">
+        {{ callToActionOption.value }}
+        <em [classList]="'fas ' + callToActionOption.iconName"></em>
+      </button>
+      <input (change)="urlChange($event, callToActionOption.id)" [disabled]="!selectedCallToActionOptionIds.includes(callToActionOption.id)" [id]="'input-'+callToActionOption.id"
+             [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+             [ngModel]="callToActionOption.optionValue"
+             [required]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+             aria-label="action-url"
+             class="text-input"
+             type="url"/>
+    </ng-container>
+  </div>
+</ng-template>
+

@@ -27,12 +27,10 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
-import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
-import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
-import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 import { CategoryService } from 'src/app/services/category.service';
+import { CallToActionsEditComponent } from 'src/app/modules/project/call-to-actions-edit/call-to-actions-edit.component';
 
 /**
  * Component for editing adding a project.
@@ -47,6 +45,7 @@ export class EditComponent implements OnInit {
    * Configuration for file-picker
    */
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
+  @ViewChild(CallToActionsEditComponent) callToActions: CallToActionsEditComponent;
   public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
   public acceptMultiple = false;
   public showPreview = true;
@@ -62,16 +61,6 @@ export class EditComponent implements OnInit {
   /**
    * Projects selected call to action
    */
-  /**
-   * The selected call to action option
-   */
-  public selectedCallToActionOptionIds: number[] = [];
-  public callToActionOptionValues: CallToAction[] = [];
-
-  /**
-   * The specified redirect url from the call to action
-   */
-  public callToActionRedirectUrl: string;
 
   /**
    * Project's collaborators.
@@ -89,13 +78,6 @@ export class EditComponent implements OnInit {
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
   /**
-   * The available call to action options to select from
-   */
-  public callToActionOptions: CallToActionOption[] = [];
-
-  public callToActionsLoading = true;
-
-  /**
    * Property for storting the invalidId if an invalid project id was entered.
    */
   public invalidId: string;
@@ -111,8 +93,7 @@ export class EditComponent implements OnInit {
       private projectService: ProjectService,
       private activatedRoute: ActivatedRoute,
       private alertService: AlertService,
-      private callToActionOptionService: CallToActionOptionService,
-      private categoryService: CategoryService,
+      private categoryService: CategoryService
   ) {
     this.editProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
@@ -143,50 +124,23 @@ export class EditComponent implements OnInit {
       this.categories = categories;
     });
 
-    /**
-     * Retrieve the available call to actions
-     */
-    this.callToActionOptionService
-        .getAll()
-        .pipe(finalize(() => (this.callToActionsLoading = false)))
-        .subscribe((result) => {
-          this.callToActionOptions = result.filter(o => o.type === 'title');
 
-          this.projectService.get(id)
-              .pipe(
-                  finalize(() => this.projectLoading = false)
-              )
-              .subscribe(
-                  (projectResult) => {
-                    this.project = projectResult;
-                    this.collaborators = this.project.collaborators;
-                    this.fileUploader.setFiles([this.project.projectIcon]);
+    this.projectService.get(id)
+        .pipe(
+            finalize(() => this.projectLoading = false)
+        )
+        .subscribe(
+            (projectResult) => {
+              this.project = projectResult;
+              this.collaborators = this.project.collaborators;
+              this.fileUploader.setFiles([this.project.projectIcon]);
 
-                    if (this.project.callToActions?.length > 0) {
-                      this.callToActionOptions = this.callToActionOptions.map(ctaOption => {
-
-                        const callToActionOption = this.project.callToActions
-                            .find(cta => ctaOption.value.toLowerCase() === cta.optionValue);
-
-                        if (callToActionOption) {
-                          this.selectedCallToActionOptionIds.push(ctaOption.id);
-                          return {
-                            ...ctaOption,
-                            optionValue: this.project.callToActions
-                                .find(cta => ctaOption.value.toLowerCase() === cta.optionValue).value
-                          };
-                        }
-                        return ctaOption;
-                      });
-                    }
-
-                    this.categories = this.categories.map(category => ({
-                      ...category,
-                      selected: !!this.project.categories?.find(c => c.name === category.name)
-                    }));
-                  }
-              );
-        });
+              this.categories = this.categories.map(category => ({
+                ...category,
+                selected: !!this.project.categories?.find(c => c.name === category.name)
+              }));
+            }
+        );
   }
 
   public onCategoryClick(category): void {
@@ -198,7 +152,7 @@ export class EditComponent implements OnInit {
   }
 
   public onClickSubmit(): void {
-    if (!this.editProjectForm.valid) {
+    if (!this.editProjectForm.valid || !this.callToActions.validateUrls()) {
       this.editProjectForm.markAllAsTouched();
 
       const alertConfig: AlertConfig = {
@@ -215,14 +169,16 @@ export class EditComponent implements OnInit {
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
-    editedProject.callToActions = this.callToActionOptions.map(cta => {
-      return cta.optionValue?.trim().length > 0
-          ? {
-            id: cta.id,
-            optionValue: cta.value,
-            value: cta.optionValue
-          } : undefined;
-    }).filter(cta => cta);
+
+    const selectedCallToActions = this.callToActions.callToActionOptions
+        .filter(option => this.callToActions.selectedCallToActionOptionIds
+            .includes(option.id));
+
+    editedProject.callToActions = selectedCallToActions.map(cta => ({
+      optionValue: cta.value,
+      value: cta.optionValue,
+      id: cta.id
+    }));
 
     this.fileUploader.uploadFiles()
         .subscribe(uploadedFiles => {
@@ -293,55 +249,6 @@ export class EditComponent implements OnInit {
       return;
     }
     this.collaborators.splice(index, 1);
-  }
-
-  /**
-   * Method that is triggered when any of the url input fields changes
-   * @param event The change event
-   * @param callToActionId The id of the call-to-action-option that was changed
-   */
-  public urlChange(event: Event, callToActionId: number): void {
-    const element = event.target as HTMLInputElement;
-    const value = element.value;
-    this.callToActionOptions = this.callToActionOptions.map(callToActionOption => {
-      return callToActionOption.id === callToActionId
-          ? {
-            ...callToActionOption,
-            optionValue: value
-          } : callToActionOption;
-    });
-  }
-
-  /**
-   * @param event The browser event
-   * @param clickedCheckboxId The clicked radio button
-   */
-  public ctaButtonClicked(event: Event, clickedCheckboxId: number): void {
-    if (!this.selectedCallToActionOptionIds.find(id => id === clickedCheckboxId)) {
-      this.selectedCallToActionOptionIds.push(clickedCheckboxId);
-    } else {
-      const cta = this.callToActionOptions.find(ctaOption => ctaOption.id === clickedCheckboxId);
-      cta.optionValue = undefined;
-      this.selectedCallToActionOptionIds.splice(
-          this.selectedCallToActionOptionIds.indexOf(
-              this.selectedCallToActionOptionIds.find(ctaId => ctaId === clickedCheckboxId)
-          ), 1);
-    }
-  }
-
-  /**
-   * Check if the entered url is valid
-   * @param url The url that needs to be checked
-   */
-  private validURL(url: string): boolean {
-    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-
-    return !!pattern.test(url);
   }
 
   /**

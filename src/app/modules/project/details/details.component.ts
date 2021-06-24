@@ -56,7 +56,6 @@ import { environment } from 'src/environments/environment';
   encapsulation: ViewEncapsulation.None
 })
 export class DetailsComponent implements OnInit {
-
   @Input() projectId: number;
   @Input() activeTab = 'description';
 
@@ -115,7 +114,6 @@ export class DetailsComponent implements OnInit {
       this.invalidId = this.projectId.toString();
       return;
     }
-
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
     });
@@ -329,7 +327,7 @@ export class DetailsComponent implements OnInit {
    * Method to display the project's call to action button based on whether or not the project has a set call to action.
    */
   private determineDisplayCallToActionButton(): void {
-    if (this.project && this.project.callToActions.length > 0) {
+    if (this.project && this.project.callToActions?.length > 0) {
       this.displayCallToActionButton = true;
       return;
     } else {
