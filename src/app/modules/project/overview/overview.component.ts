@@ -341,11 +341,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     this.projectsToDisplay = response.results;
     this.totalNrOfProjects = response.totalCount;
 
-    if (this.projects.length < this.amountOfProjectsOnSinglePage && this.currentPage <= 1) {
-      this.showPaginationFooter = false;
-    } else {
-      this.showPaginationFooter = true;
-    }
+    this.showPaginationFooter = !(this.projects.length < this.amountOfProjectsOnSinglePage && this.currentPage <= 1);
   }
 
   /**
