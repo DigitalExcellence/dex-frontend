@@ -230,8 +230,8 @@ export class EditComponent implements OnInit {
 
     let amountToAdd = 4;
 
-    if(files?.length > 0) {
-      if(files.length >= 4) {
+    if (files?.length > 0) {
+      if (files.length >= 4) {
         amountToAdd = 1;
       } else {
         amountToAdd -= files.length;
