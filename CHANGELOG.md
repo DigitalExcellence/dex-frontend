@@ -9,6 +9,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Added bot to optimize image sizes - [#440](https://github.com/DigitalExcellence/dex-frontend/issues/540)
+
 ### Changed
 
 - Support multiple call-to-actions. [#454](https://github.com/DigitalExcellence/dex-frontend/issues/454)
