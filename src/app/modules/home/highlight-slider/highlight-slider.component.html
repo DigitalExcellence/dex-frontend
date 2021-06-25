@@ -1,5 +1,14 @@
 <div class="highlight-slider">
-  <img alt="illustrative image" class="image" src="/assets/images/homepage/header.jpg" />
+  <carousel
+      [interval]="animationPaused ? 100000 : 5000"
+      [isAnimated]="true"
+      (activeSlideChange)="setCurrentHighlight($event)"
+      [(activeSlide)]="currentHighlightIndex"
+      class="image-carousel">
+    <slide *ngFor="let highlight of highlights">
+      <img [src]="getHighlightImageByUrl(highlight)" alt="project-image" loading="lazy" style="display: block; width: 100%;"/>
+    </slide>
+  </carousel>
   <img alt="lines" class="lines" src="/assets/images/shapes/lines.svg" />
   <div class="overlay"></div>
   <div class="content">
@@ -12,7 +21,13 @@
       </div>
     </div>
     <div class="cards">
-      <div *ngFor="let highlight of highlights" (click)="onClickHighlightedProject(highlight.project.id, highlight.project.name)" class="card">
+      <div
+          *ngFor="let highlight of highlights; index as index"
+          [ngClass]="{'active': currentHighlightIndex === index}"
+          (click)="onClickHighlightedProject(highlight.project.id, highlight.project.name)"
+          (mouseover)="setActiveSlide(index)"
+          (mouseout)="continueSlides($event)"
+          class="card">
         <div class="card-title">
           <div [ngStyle]="{ 'background-image': 'url(' + getIconUrl(highlight.project.id) + ')' }" class="icon"></div>
           <h3>{{ highlight.project.name }}</h3>
