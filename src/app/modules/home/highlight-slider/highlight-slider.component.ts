@@ -74,7 +74,12 @@ export class HighlightSliderComponent implements OnInit {
   }
 
   public getHighlightImageByUrl(highlight: Highlight) {
-    return this.fileRetrieverService.getIconUrl(highlight.image);
+    let highlightImage = this.fileRetrieverService.getIconUrl(highlight.image);
+    if(highlightImage == 'assets/images/placeholder.png'){
+      highlightImage = 'assets/images/homepage/header.jpg';
+    }
+
+    return highlightImage;
   }
 
   public setCurrentHighlight($event: number) {
