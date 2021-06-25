@@ -305,6 +305,8 @@ export class WizardService {
   public resetService(): void {
     this.flowIsSelected = false;
     this.selectedSource = undefined;
+    this.projectIcon = undefined;
+    this.projectImages = undefined;
     this.builtProject = {
       callToAction: undefined,
       collaborators: [],
