@@ -11,6 +11,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Added project images. - [#464](https://github.com/DigitalExcellence/dex-frontend/issues/464)
 - Updated selection color to improve branding - [#539](https://github.com/DigitalExcellence/dex-frontend/issues/539) 
+- Added bot to optimize image sizes - [#440](https://github.com/DigitalExcellence/dex-frontend/issues/540)
 
 ### Changed
 
