@@ -83,8 +83,9 @@
   max-width: 100%;
   overflow: hidden;
 
-  .carousel-item {
+  .carousel-animation {
     position: relative !important;
+    padding-bottom: 56.25%;
   }
   .image-carousel {
     li,
@@ -94,7 +95,8 @@
     .item {
       position: absolute;
       overflow: hidden;
-      padding-bottom: 56.25%;
+      height: 100%;
+      width: 100%;
 
       img {
         width: 100%;
