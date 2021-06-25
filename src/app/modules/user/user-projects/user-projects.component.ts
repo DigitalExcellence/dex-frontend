@@ -53,19 +53,9 @@ export class UserProjectsComponent implements OnInit {
    */
   public projectsLoading = true;
 
-   /**
-   * Boolean to determine whether to show the projects in listview or gridview
-   */
   public showListView = false;
 
-  /**
-   * Boolean to determine whether the pagination footer has to be showed
-   */
-  public showPaginationFooter = true; 
-
-  /**
-   * The pagination page the user is currently on
-   */
+  public showPaginationFooter = true;
   public currentPage;
 
   /**
@@ -83,9 +73,6 @@ export class UserProjectsComponent implements OnInit {
    */
   public currentProject: Project = null;
 
-  /**
-   * Property to indicate whether the project is loading.
-   */
   private modalRef: BsModalRef;
 
   constructor(private userService: UserService,
