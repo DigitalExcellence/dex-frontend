@@ -10,6 +10,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 - Added my projects page - [#505](https://github.com/DigitalExcellence/dex-frontend/issues/505)
 
+- Added bot to optimize image sizes - [#440](https://github.com/DigitalExcellence/dex-frontend/issues/540)
+
 ### Changed
 
 - Refactored content on the homepage - [#502](https://github.com/DigitalExcellence/dex-frontend/issues/502)
