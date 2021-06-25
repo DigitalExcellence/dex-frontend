@@ -28,7 +28,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     StripHtmlPipe,
     RecommendationCardsComponent
   ],
-    imports: [
+  imports: [
         CommonModule,
         PopoverModule.forRoot(),
         ModalModule.forRoot(),

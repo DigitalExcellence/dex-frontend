@@ -19,13 +19,13 @@ export class HighlightSliderComponent implements OnInit {
    */
   public highlights: Highlight[] = [];
 
-  public currentHighlightIndex: number = 0;
+  public currentHighlightIndex = 0;
 
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
   public highlightsLoading = true;
-  public animationPaused: boolean = false;
+  public animationPaused = false;
 
   constructor(private router: Router,
               private projectService: HighlightService,
@@ -87,9 +87,9 @@ export class HighlightSliderComponent implements OnInit {
   }
 
   public continueSlides(event) {
-    //this is the original element the event handler was assigned to
-    let e = event.toElement || event.relatedTarget;
-    if (e.parentNode == this || e == this) {
+    // this is the original element the event handler was assigned to
+    const e = event.toElement || event.relatedTarget;
+    if (e.parentNode === this || e === this) {
       return;
     }
     this.animationPaused = false;

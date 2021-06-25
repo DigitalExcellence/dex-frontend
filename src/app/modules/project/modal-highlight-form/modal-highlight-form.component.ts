@@ -25,8 +25,8 @@ import * as moment from 'moment';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertService } from 'src/app/services/alert.service';
 import { AlertType } from 'src/app/models/internal/alert-type';
-import { FileRetrieverService } from '../../../services/file-retriever.service';
-import { FileUploaderComponent } from '../../../components/file-uploader/file-uploader.component';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 
 export interface HighlightFormResult {
   startDate?: Date;
@@ -96,7 +96,7 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
     if (this.highlight.image) {
       setTimeout(() => {
         this.fileUploader.setFiles([this.highlight.image]);
-      }, 5)
+      }, 5);
     }
   }
 
