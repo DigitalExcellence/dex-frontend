@@ -42,6 +42,7 @@ export class FileUploaderComponent {
   @Input() acceptMultiple: boolean;
   @Input() acceptedTypes: Array<String>;
   @Input() showPreview: Boolean;
+  @Input() maxImages = 10;
   @Input() recommendedHeight = 512;
   @Input() recommendedWidth = 512;
   public files: Array<UploadFile> = new Array<UploadFile>();
@@ -158,7 +159,18 @@ export class FileUploaderComponent {
         if (this.acceptedTypes.includes(file.type.toLocaleLowerCase())) {
           this.generatePreview(file);
           file.readableSize = this.formatBytes(file.size);
-          this.files.push(file);
+          if (this.files.length < this.maxImages) {
+            this.files.push(file);
+          } else {
+            const alertConfig: AlertConfig = {
+              type: AlertType.danger,
+              preMessage: "You can't upload more than 10 images",
+              mainMessage: `You tried to upload too many images, please remove some.`,
+              dismissible: true,
+              timeout: this.alertService.defaultTimeout
+            };
+            this.alertService.pushAlert(alertConfig);
+          }
         } else {
           const alertConfig: AlertConfig = {
             type: AlertType.danger,

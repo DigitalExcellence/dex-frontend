@@ -21,6 +21,13 @@
     </div>
   </div>
   <div class="project-image-picker">
-    <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false"></app-file-uploader>
+    <app-file-uploader
+        [acceptMultiple]="acceptMultiple"
+        [acceptedTypes]="acceptedTypes"
+        [showPreview]="false"
+        [maxImages]="10"
+    >
+
+    </app-file-uploader>
   </div>
 </div>
