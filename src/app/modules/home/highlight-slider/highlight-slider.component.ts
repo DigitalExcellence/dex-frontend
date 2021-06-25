@@ -75,7 +75,7 @@ export class HighlightSliderComponent implements OnInit {
 
   public getHighlightImageByUrl(highlight: Highlight) {
     let highlightImage = this.fileRetrieverService.getIconUrl(highlight.image);
-    if(highlightImage === 'assets/images/placeholder.png'){
+    if (highlightImage === 'assets/images/placeholder.png') {
       highlightImage = 'assets/images/homepage/header.jpg';
     }
 
