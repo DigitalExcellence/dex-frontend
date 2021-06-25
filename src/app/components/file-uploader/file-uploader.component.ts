@@ -154,23 +154,25 @@ export class FileUploaderComponent {
     if (!this.acceptMultiple) {
       this.files = [];
     }
+
+    if (this.files.length + files.length > 10) {
+      const alertConfig: AlertConfig = {
+        type: AlertType.danger,
+        preMessage: `You can't upload more than 10 images`,
+        mainMessage: `You tried to upload too many images, please remove some.`,
+        dismissible: true,
+        timeout: this.alertService.defaultTimeout
+      };
+      this.alertService.pushAlert(alertConfig);
+      return;
+    }
+
     for (const file of files) {
       if (file.size < this.maxFileSize) {
         if (this.acceptedTypes.includes(file.type.toLocaleLowerCase())) {
           this.generatePreview(file);
           file.readableSize = this.formatBytes(file.size);
-          if (this.files.length < this.maxImages) {
-            this.files.push(file);
-          } else {
-            const alertConfig: AlertConfig = {
-              type: AlertType.danger,
-              preMessage: `You can't upload more than 10 images`,
-              mainMessage: `You tried to upload too many images, please remove some.`,
-              dismissible: true,
-              timeout: this.alertService.defaultTimeout
-            };
-            this.alertService.pushAlert(alertConfig);
-          }
+          this.files.push(file);
         } else {
           const alertConfig: AlertConfig = {
             type: AlertType.danger,
