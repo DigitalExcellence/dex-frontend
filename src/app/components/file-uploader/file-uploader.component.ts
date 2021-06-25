@@ -155,7 +155,7 @@ export class FileUploaderComponent {
     }
     for (const file of files) {
       if (file.size < this.maxFileSize) {
-        if (this.acceptedTypes.includes(file.type)) {
+        if (this.acceptedTypes.includes(file.type.toLocaleLowerCase())) {
           this.generatePreview(file);
           file.readableSize = this.formatBytes(file.size);
           this.files.push(file);
