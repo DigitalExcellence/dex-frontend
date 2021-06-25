@@ -93,7 +93,7 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.highlight.image) {
+    if (this.highlight?.image) {
       setTimeout(() => {
         this.fileUploader.setFiles([this.highlight.image]);
       }, 5);
@@ -146,6 +146,9 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
         });
         this.bsModalRef.hide();
       });
+    } else {
+      this.confirm.emit(this.highlightProjectForm.value);
+      this.bsModalRef.hide();
     }
   }
 
