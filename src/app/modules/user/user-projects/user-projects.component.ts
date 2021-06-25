@@ -61,7 +61,7 @@ export class UserProjectsComponent implements OnInit {
   /**
    * Boolean to determine whether the pagination footer has to be showed
    */
-  public showPaginationFooter = true; 
+  public showPaginationFooter = true;
 
   /**
    * The pagination page the user is currently on
