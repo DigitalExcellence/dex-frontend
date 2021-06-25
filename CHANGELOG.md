@@ -12,6 +12,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Refactored content on the homepage - [#502](https://github.com/DigitalExcellence/dex-frontend/issues/502)
+- Changed location of the buttons on the project details page - [#518](https://github.com/DigitalExcellence/dex-frontend/issues/518)
+
 ### Deprecated
 
 ### Removed
@@ -36,6 +39,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Clicking to the next step in the wizard step-header will now skip the step & removed orange progress bar [#460](https://github.com/DigitalExcellence/dex-frontend/issues/460)
 - Made Project URI optional - [#492](https://github.com/DigitalExcellence/dex-frontend/issues/492)
+- Changed the global styling of scrollbars - [#448](https://github.com/DigitalExcellence/dex-frontend/issues/448)
 
 ### Fixed
 
