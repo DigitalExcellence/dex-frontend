@@ -8,7 +8,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+
 - Added project images. - [#464](https://github.com/DigitalExcellence/dex-frontend/issues/464)
+- Updated selection color to improve branding - [#539](https://github.com/DigitalExcellence/dex-frontend/issues/539) 
 
 ### Changed
 
