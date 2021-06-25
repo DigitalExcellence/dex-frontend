@@ -164,7 +164,7 @@ export class FileUploaderComponent {
           } else {
             const alertConfig: AlertConfig = {
               type: AlertType.danger,
-              preMessage: "You can't upload more than 10 images",
+              preMessage: `You can't upload more than 10 images`,
               mainMessage: `You tried to upload too many images, please remove some.`,
               dismissible: true,
               timeout: this.alertService.defaultTimeout
