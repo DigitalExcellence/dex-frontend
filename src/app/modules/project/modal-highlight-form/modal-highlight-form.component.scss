@@ -21,6 +21,7 @@
 .modal-body {
   position: unset;
 }
+
 h3 {
   margin-top: 20px;
   margin-bottom: 12px;
@@ -47,29 +48,41 @@ h3 {
     background: none;
     display: flex;
     float: right;
+
     &:focus,
     &:active {
       border: none;
       outline: none;
     }
   }
-  
-  @include media-breakpoint-down(md) {
-    width: 100%;
+
+  button {
+    &.grey {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    button.grey {
+      display: block;
+    }
   }
 }
+
 input, textarea {
   background-color: $light-mode-grey-quaternary;
-  border: none!important;
+  border: none !important;
 }
 
 .highlight-form {
   margin-top: 20px;
-  label{
+
+  label {
     display: flex;
     align-items: center;
     cursor: pointer;
   }
+
   textarea.description,
   input[type="text"],
   input[type="date"] {
@@ -79,11 +92,13 @@ input, textarea {
     width: 100%;
     margin-bottom: 10px;
     padding: 0 20px;
+
     &:focus {
       outline: none;
       border: 1px solid #707070;
     }
   }
+
   textarea.description {
     resize: vertical;
     max-height: 300px;
@@ -91,7 +106,7 @@ input, textarea {
     height: 90px;
     padding: 10px 15px;
   }
-  
+
 
   p.validation-error-message {
     color: $accent-color-red-primary;
@@ -113,6 +128,55 @@ input, textarea {
   }
 }
 
+.highlight-image {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .overlay {
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.2);
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: $transition-short;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    em {
+      cursor: pointer;
+      color: white;
+      font-size: 24px;
+    }
+  }
+
+  &:hover {
+    .overlay {
+      opacity: 1;
+    }
+  }
+
+  .preview {
+    position: relative;
+    place-content: center;
+    background-color: $accent-color-red-primary;
+    overflow: hidden;
+    box-shadow: 0 0px 4px #0000001a;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
@@ -128,14 +192,14 @@ input, textarea {
   margin-right: 8px;
 }
 
-.trash-icon{
+.trash-icon {
   display: flex;
   align-items: center;
   color: $light-mode-grey-secondary;
   cursor: pointer;
 }
 
-.buttons-bottom{
+.buttons-bottom {
   gap: 15px;
   display: flex;
   flex-wrap: wrap;

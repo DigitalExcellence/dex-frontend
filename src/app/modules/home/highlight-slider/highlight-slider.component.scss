@@ -21,6 +21,52 @@
     opacity: 0.225;
   }
 
+  .active {
+    transform: scale(1.1);
+  }
+
+  ::ng-deep {
+    a.carousel-control.carousel-control-next,
+    a.carousel-control.carousel-control-prev {
+      display: none;
+    }
+    .carousel-indicators {
+      display: none;
+    }
+    .carousel {
+      height: 100%;
+      .item {
+        height: 100%;
+        position: relative;
+        img {
+          height: 100%;
+          position: absolute;
+          object-fit: cover;
+          width: 100%;
+        }
+      }
+    }
+    .carousel-inner {
+      height: 100%;
+    }
+  }
+
+  .image-carousel {
+    .carousel-slide {
+      height: 100%;
+      transform: scale(1) !important;
+
+      .item {
+        height: 100%;
+        img {
+          object-fit: cover;
+          height: 100%;
+          width: auto;
+        }
+      }
+    }
+  }
+
   .overlay {
     position: absolute;
     left: 0;
