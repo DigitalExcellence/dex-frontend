@@ -1,0 +1,33 @@
+<h2 class="step-header">{{ step.name }}</h2>
+<p class="step-description">{{ step.description }}</p>
+<div class="wrapper">
+  <div class="left">
+    <div class="file-preview">
+      <div *ngFor="let image of getProjectImages(); let i = index" [style.background-image]="'url(' + image + ')'" class="preview">
+        <div (click)="deleteImageClicked(i)" *ngIf="image; else noImage" class="overlay"><em class="fas fa-trash"></em></div>
+        <ng-template #noImage>
+          <div (click)="addImageClick()" class="overlay"><em class="fas fa-plus"></em></div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="buttons">
+      <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
+      <button (click)="onClickNext()" class="form-continue-btn">
+          {{ isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next" }}
+        <div class="loading-circle" *ngIf="uploadingFiles">
+          <em class="fas fa-circle-notch fa-pulse"></em>
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="project-image-picker">
+    <app-file-uploader
+        [acceptMultiple]="acceptMultiple"
+        [acceptedTypes]="acceptedTypes"
+        [showPreview]="false"
+        [maxImages]="10"
+    >
+
+    </app-file-uploader>
+  </div>
+</div>
