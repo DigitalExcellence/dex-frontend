@@ -111,7 +111,7 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
+    if (Number.isNaN(this.projectId) || this.projectId < 1) {
       this.invalidId = this.projectId.toString();
       return;
     }

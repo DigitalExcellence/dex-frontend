@@ -395,7 +395,7 @@ export class WizardService {
     updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = WizardService.checkNotEmpty(project.name);
     updatedSteps.find(step => step.wizardPageName === 'project-icon').isComplete = !!project.projectIcon;
     updatedSteps.find(step => step.wizardPageName === 'project-collaborators').isComplete = project.collaborators.length > 0;
-    updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = !!project.callToAction;
+    updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = !!project.callToActions;
     updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = !!project.uri;
     updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = (
         WizardService.checkNotEmpty(project.description) && WizardService.checkNotEmpty(project.shortDescription)

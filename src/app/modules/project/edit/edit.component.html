@@ -138,11 +138,11 @@
             </div>
           </div>
         </form>
-          <div class="row project-form">
-            <div class="col-12">
-              <h3 class="title-spacing">Call to action</h3>
-            </div>
-            <app-call-to-actions-edit [projectCallToActions]="project.callToActions" class="col-12 call-to-actions"></app-call-to-actions-edit>
+        <div class="row project-form">
+          <div class="col-12">
+            <h3 class="title-spacing">Call to action</h3>
+          </div>
+          <app-call-to-actions-edit [projectCallToActions]="project.callToActions" class="col-12 call-to-actions"></app-call-to-actions-edit>
           <div class="row">
             <div class="col-12">
               <div>
@@ -150,6 +150,7 @@
               </div>
             </div>
           </div>
+        </div>
 
         <form [formGroup]="editCollaboratorForm" class="project-form">
           <div class="row">
@@ -213,17 +214,17 @@
         </div>
 
         <div class="row">
-            <button class="btn btn-success" type="submit" (click)="onClickSubmit()" [disabled]="!editProjectForm.valid">
-              <div>
-                Edit project
-              </div>
-              <div class="loading-circle" *ngIf="uploadingFiles">
-                <em class="fas fa-circle-notch fa-pulse"></em>
-              </div>
-            </button>
-            <button class="btn btn-cancel" (click)="onClickCancel()">Cancel</button>
-          </div>
+          <button (click)="onClickSubmit()" [disabled]="!editProjectForm.valid" class="btn btn-success" type="submit">
+            <div>
+              Edit project
+            </div>
+            <div *ngIf="uploadingFiles" class="loading-circle">
+              <em class="fas fa-circle-notch fa-pulse"></em>
+            </div>
+          </button>
+          <button (click)="onClickCancel()" class="btn btn-cancel">Cancel</button>
         </div>
+      </div>
       <div [hidden]="project">
         <p>No project could be found with id: {{invalidId}}</p>
       </div>
