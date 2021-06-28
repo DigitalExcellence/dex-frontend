@@ -127,7 +127,7 @@ export class EditComponent implements OnInit {
       this.categories = categories;
     });
 
-          this.projectService.get(id)
+    this.projectService.get(id)
               .pipe(
                   finalize(() => this.projectLoading = false)
               )
@@ -138,10 +138,10 @@ export class EditComponent implements OnInit {
                     this.projectIconFileUploader.setFiles([this.project.projectIcon]);
                     this.projectImagesFileUploader.setFiles(this.project.images);
 
-              this.categories = this.categories.map(category => ({
-                ...category,
-                selected: !!this.project.categories?.find(c => c.name === category.name)
-              }));
+                    this.categories = this.categories.map(category => ({
+                      ...category,
+                      selected: !!this.project.categories?.find(c => c.name === category.name)
+                    }));
             }
         );
   }
