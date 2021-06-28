@@ -111,6 +111,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     {value: 'name,desc', viewValue: 'Name (z-a)'},
     {value: 'created,desc', viewValue: 'Created (new-old)'},
     {value: 'created,asc', viewValue: 'Created (old-new)'},
+    {value: 'likes,desc', viewValue: 'Likes (high-low)'},
+    {value: 'likes,asc', viewValue: 'Likes (low-high)'},
   ];
 
   public displaySearchElements = false;
