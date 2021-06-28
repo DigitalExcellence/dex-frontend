@@ -9,7 +9,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Added project images. - [#464](https://github.com/DigitalExcellence/dex-frontend/issues/464)
+- Added images to highlights - [#463](https://github.com/DigitalExcellence/dex-frontend/issues/463)
+- Updated selection color to improve branding - [#539](https://github.com/DigitalExcellence/dex-frontend/issues/539)
 - Added bot to optimize image sizes - [#440](https://github.com/DigitalExcellence/dex-frontend/issues/540)
+- Added search functionality based on the number of likes - [#499](https://github.com/DigitalExcellence/dex-frontend/issues/499)
 
 ### Changed
 
@@ -34,8 +38,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Implemented categories - [#475](https://github.com/DigitalExcellence/dex-frontend/issues/475)
 - Added filter parameters to the url, so a user can share their search settings - [#493](https://github.com/DigitalExcellence/dex-frontend/issues/493)
 - Added search bar inside navbar with autocomplete suggested results. - [#403](https://github.com/DigitalExcellence/dex-frontend/issues/403)
-- Refactored the home page. [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
-- Added project recommendations on the home page. [#497](https://github.com/DigitalExcellence/dex-frontend/issues/497)
+- Refactored the home page. - [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
+- Added project recommendations on the home page. - [#497](https://github.com/DigitalExcellence/dex-frontend/issues/497)
 
 ### Changed
 

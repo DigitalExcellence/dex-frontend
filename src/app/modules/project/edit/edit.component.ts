@@ -31,6 +31,8 @@ import { FileUploaderComponent } from 'src/app/components/file-uploader/file-upl
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 import { CategoryService } from 'src/app/services/category.service';
 import { CallToActionsEditComponent } from 'src/app/modules/project/call-to-actions-edit/call-to-actions-edit.component';
+import { SafeUrl } from '@angular/platform-browser';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 /**
  * Component for editing adding a project.
@@ -44,11 +46,12 @@ export class EditComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
-  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
   @ViewChild(CallToActionsEditComponent) callToActions: CallToActionsEditComponent;
+  @ViewChild('projectIconFileUploader') projectIconFileUploader: FileUploaderComponent;
+  @ViewChild('projectImagesFileUploader') projectImagesFileUploader: FileUploaderComponent;
   public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
-  public acceptMultiple = false;
-  public showPreview = true;
+
+  public uploadingFiles = false;
 
   /**
    * Formgroup for entering project details.
@@ -124,16 +127,16 @@ export class EditComponent implements OnInit {
       this.categories = categories;
     });
 
-
-    this.projectService.get(id)
-        .pipe(
-            finalize(() => this.projectLoading = false)
-        )
-        .subscribe(
-            (projectResult) => {
-              this.project = projectResult;
-              this.collaborators = this.project.collaborators;
-              this.fileUploader.setFiles([this.project.projectIcon]);
+          this.projectService.get(id)
+              .pipe(
+                  finalize(() => this.projectLoading = false)
+              )
+              .subscribe(
+                  (projectResult) => {
+                    this.project = projectResult;
+                    this.collaborators = this.project.collaborators;
+                    this.projectIconFileUploader.setFiles([this.project.projectIcon]);
+                    this.projectImagesFileUploader.setFiles(this.project.images);
 
               this.categories = this.categories.map(category => ({
                 ...category,
@@ -151,6 +154,47 @@ export class EditComponent implements OnInit {
     ));
   }
 
+  /**
+   * Method that triggers when the upload image button is clicked on mobile
+   */
+  public mobileUploadButtonClick(): void {
+    document.querySelector('input').click();
+  }
+
+  public addImageClick() {
+    this.projectImagesFileUploader.fileInput.nativeElement.click();
+  }
+
+  public deleteImageClicked(index: number) {
+    this.projectImagesFileUploader.deleteFile(index);
+  }
+
+  /**
+   * Method that determines which preview to use for the project icon
+   */
+  public getProjectImages(): SafeUrl[] {
+    let files: SafeUrl[] = [];
+    if (this.projectImagesFileUploader?.files) {
+      files = this.projectImagesFileUploader.files.map(file => file.preview);
+    }
+
+    let amountToAdd = 4;
+
+    if (files?.length > 0) {
+      if (files.length >= 4) {
+        amountToAdd = 1;
+      } else {
+        amountToAdd -= files.length;
+      }
+    }
+
+    for (let i = 0; i < amountToAdd; i++) {
+      files.push('');
+    }
+
+    return files;
+  }
+
   public onClickSubmit(): void {
     if (!this.editProjectForm.valid || !this.callToActions.validateUrls()) {
       this.editProjectForm.markAllAsTouched();
@@ -166,6 +210,7 @@ export class EditComponent implements OnInit {
       return;
     }
 
+    this.uploadingFiles = true;
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
@@ -180,22 +225,16 @@ export class EditComponent implements OnInit {
       id: cta.id
     }));
 
-    this.fileUploader.uploadFiles()
-        .subscribe(uploadedFiles => {
-          if (uploadedFiles) {
-            if (uploadedFiles[0]) {
-              // Project icon was set and uploaded
-              editedProject.fileId = uploadedFiles[0].id;
-              this.editProject(editedProject);
-            }
-            // Project icon was set but not uploaded successfully, the component will show the error
-          } else {
-            // There was no project icon
-            if (this.project.projectIcon) {
-              editedProject.fileId = 0;
-            }
-            this.editProject(editedProject);
-          }
+    this.projectIconFileUploader.uploadFiles()
+        .subscribe(projectIcon => {
+          editedProject.iconId = this.getProjectIconId(projectIcon);
+          this.projectImagesFileUploader.uploadFiles()
+              .subscribe(projectImages => {
+                editedProject.imageIds = this.getProjectImagesIds(projectImages);
+                this.editProject(editedProject);
+
+                this.uploadingFiles = false;
+              });
         });
   }
 
@@ -249,6 +288,27 @@ export class EditComponent implements OnInit {
       return;
     }
     this.collaborators.splice(index, 1);
+  }
+
+  private getProjectIconId(uploadedFiles: UploadFile[]) {
+    if (uploadedFiles) {
+      if (uploadedFiles[0]) {
+        // Project icon was set and uploaded
+        return uploadedFiles[0].id;
+      }
+      // Project icon was set but not uploaded successfully, the component will show the error
+    } else {
+      // There was no project icon
+      if (this.project.projectIcon) {
+        return 0;
+      }
+    }
+  }
+
+  private getProjectImagesIds(projectImages: UploadFile[]) {
+    if (projectImages) {
+      return projectImages.map(image => image ? image.id : null).filter(id => id);
+    }
   }
 
   /**

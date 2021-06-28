@@ -27,6 +27,7 @@ export interface ProjectAdd {
   description?: string;
   uri: string;
   callToActions: CallToAction[];
-  fileId?: number;
+  iconId?: number;
+  imageIds?: number[];
   categories?: ProjectCategory[];
 }
