@@ -30,6 +30,7 @@ import { ProjectIconComponent } from './main/wizard/wizardPages/default/project-
 import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-name/project-name.component';
 import { ProjectModule } from 'src/app/modules/project/project.module';
 import { ProjectCallToActionComponent } from './main/wizard/wizardPages/default/project-call-to-action/project-call-to-action.component';
+import { ProjectImagesComponent } from './main/wizard/wizardPages/default/project-images/project-images.component';
 import { ProjectCategoriesComponent } from './main/wizard/wizardPages/default/project-categories/project-categories.component';
 
 @NgModule({
@@ -45,6 +46,7 @@ import { ProjectCategoriesComponent } from './main/wizard/wizardPages/default/pr
     ProjectNameComponent,
     ProjectCallToActionComponent,
     ProjectCategoriesComponent,
+    ProjectImagesComponent,
 
   ],
   imports: [

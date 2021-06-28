@@ -41,6 +41,7 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project/proje
 import { NgxDebounceClickModule } from '@ngx-lite/debounce-click';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { CollaboratorComponent } from './collaborator/collaborator.component';
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
+    CarouselModule.forRoot(),
     QuillModule,
     NgxDebounceClickModule,
     PopoverModule.forRoot(),

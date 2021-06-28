@@ -32,6 +32,9 @@
         <ng-container *ngSwitchCase="'project-description'">
           <app-project-description (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-description>
         </ng-container>
+        <ng-container *ngSwitchCase="'project-images'">
+          <app-project-images (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-images>
+        </ng-container>
         <ng-container *ngSwitchCase="'project-icon'">
           <app-project-icon (clickNext)="onNextStep()" [isOptional]="true" [step]="(currentStep | async)"></app-project-icon>
         </ng-container>

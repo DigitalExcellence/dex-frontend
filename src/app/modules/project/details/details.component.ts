@@ -45,6 +45,7 @@ import { LikeService } from 'src/app/services/like.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 /**
  * Overview of a single project
@@ -297,8 +298,8 @@ export class DetailsComponent implements OnInit {
    * Method to get the url of the icon of the project. This is retrieved
    * from the file retriever service.
    */
-  public getIconUrl(): SafeUrl {
-    return this.fileRetrieverService.getIconUrl(this.project.projectIcon);
+  public getIconUrl(file: UploadFile): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(file);
   }
 
   /**
