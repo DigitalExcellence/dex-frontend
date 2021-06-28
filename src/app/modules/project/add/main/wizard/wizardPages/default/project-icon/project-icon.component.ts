@@ -58,8 +58,8 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
     if (this.fileUploader.files.length > 0) {
       this.fileUploader.uploadFiles().subscribe(files => {
         if (files[0]) {
-          this.wizardService.updateProject({...this.project, fileId: files[0].id});
-          this.wizardService.uploadFile = files[0];
+          this.wizardService.updateProject({...this.project, iconId: files[0].id});
+          this.wizardService.projectIcon = files[0];
         }
         super.onClickNext();
       });
@@ -78,10 +78,10 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
   /**
    * Method that determines which preview to use for the project icon
    */
-  getProjectIcon(): SafeUrl {
+  public getProjectIcon(): SafeUrl {
     if (this.fileUploader?.files[0]) {
       return this.fileUploader.files[0].preview;
     }
-    return this.fileRetrieverService.getIconUrl(this.wizardService.uploadFile);
+    return this.fileRetrieverService.getIconUrl(this.wizardService.projectIcon);
   }
 }

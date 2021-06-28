@@ -33,6 +33,8 @@ import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 import { CategoryService } from 'src/app/services/category.service';
+import { SafeUrl } from '@angular/platform-browser';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 /**
  * Component for editing adding a project.
@@ -46,10 +48,11 @@ export class EditComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
-  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
+  @ViewChild('projectIconFileUploader') projectIconFileUploader: FileUploaderComponent;
+  @ViewChild('projectImagesFileUploader') projectImagesFileUploader: FileUploaderComponent;
   public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
-  public acceptMultiple = false;
-  public showPreview = true;
+
+  public uploadingFiles = false;
 
   /**
    * Formgroup for entering project details.
@@ -170,7 +173,8 @@ export class EditComponent implements OnInit {
                   (projectResult) => {
                     this.project = projectResult;
                     this.collaborators = this.project.collaborators;
-                    this.fileUploader.setFiles([this.project.projectIcon]);
+                    this.projectIconFileUploader.setFiles([this.project.projectIcon]);
+                    this.projectImagesFileUploader.setFiles(this.project.images);
 
                     this.categories = this.categories.map(category => ({
                       ...category,
@@ -200,6 +204,47 @@ export class EditComponent implements OnInit {
     ));
   }
 
+  /**
+   * Method that triggers when the upload image button is clicked on mobile
+   */
+  public mobileUploadButtonClick(): void {
+    document.querySelector('input').click();
+  }
+
+  public addImageClick() {
+    this.projectImagesFileUploader.fileInput.nativeElement.click();
+  }
+
+  public deleteImageClicked(index: number) {
+    this.projectImagesFileUploader.deleteFile(index);
+  }
+
+  /**
+   * Method that determines which preview to use for the project icon
+   */
+  public getProjectImages(): SafeUrl[] {
+    let files: SafeUrl[] = [];
+    if (this.projectImagesFileUploader?.files) {
+      files = this.projectImagesFileUploader.files.map(file => file.preview);
+    }
+
+    let amountToAdd = 4;
+
+    if (files?.length > 0) {
+      if (files.length >= 4) {
+        amountToAdd = 1;
+      } else {
+        amountToAdd -= files.length;
+      }
+    }
+
+    for (let i = 0; i < amountToAdd; i++) {
+      files.push('');
+    }
+
+    return files;
+  }
+
   public onClickSubmit(): void {
     if (!this.editProjectForm.valid) {
       this.editProjectForm.markAllAsTouched();
@@ -215,10 +260,10 @@ export class EditComponent implements OnInit {
       return;
     }
 
+    this.uploadingFiles = true;
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
-    console.log(editedProject.categories);
 
     /*
     * Whenever a call to action is selected, this value
@@ -243,22 +288,16 @@ export class EditComponent implements OnInit {
       editedProject.callToAction = callToActionToSubmit;
     }
 
-    this.fileUploader.uploadFiles()
-        .subscribe(uploadedFiles => {
-          if (uploadedFiles) {
-            if (uploadedFiles[0]) {
-              // Project icon was set and uploaded
-              editedProject.fileId = uploadedFiles[0].id;
-              this.editProject(editedProject);
-            }
-            // Project icon was set but not uploaded successfully, the component will show the error
-          } else {
-            // There was no project icon
-            if (this.project.projectIcon) {
-              editedProject.fileId = 0;
-            }
-            this.editProject(editedProject);
-          }
+    this.projectIconFileUploader.uploadFiles()
+        .subscribe(projectIcon => {
+          editedProject.iconId = this.getProjectIconId(projectIcon);
+          this.projectImagesFileUploader.uploadFiles()
+              .subscribe(projectImages => {
+                editedProject.imageIds = this.getProjectImagesIds(projectImages);
+                this.editProject(editedProject);
+
+                this.uploadingFiles = false;
+              });
         });
   }
 
@@ -314,10 +353,32 @@ export class EditComponent implements OnInit {
     this.collaborators.splice(index, 1);
   }
 
+  private getProjectIconId(uploadedFiles: UploadFile[]) {
+    if (uploadedFiles) {
+      if (uploadedFiles[0]) {
+        // Project icon was set and uploaded
+        return uploadedFiles[0].id;
+      }
+      // Project icon was set but not uploaded successfully, the component will show the error
+    } else {
+      // There was no project icon
+      if (this.project.projectIcon) {
+        return 0;
+      }
+    }
+  }
+
+  private getProjectImagesIds(projectImages: UploadFile[]) {
+    if (projectImages) {
+      return projectImages.map(image => image ? image.id : null).filter(id => id);
+    }
+  }
+
   /**
    * Method which will send the requests to the API to edit the project
    */
   private editProject(edittedProject) {
+    console.log(edittedProject);
     this.projectService
         .put(this.project.id, edittedProject)
         .pipe(

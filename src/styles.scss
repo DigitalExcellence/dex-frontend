@@ -33,6 +33,11 @@
   scrollbar-color: $light-mode-grey-secondary white;
   scrollbar-width: thin;
 
+  &::selection {
+    color: white;
+    background: $accent-color-red-primary;
+  }
+
   //scrollbar styling webkit
   &::-webkit-scrollbar {
     height: 4px;

@@ -13,6 +13,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { RecommendationCardsComponent } from './recommendations/recommendations.component';
 import { ProjectModule } from 'src/app/modules/project/project.module';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 @NgModule({
@@ -28,12 +29,13 @@ import { ProjectModule } from 'src/app/modules/project/project.module';
     RecommendationCardsComponent
   ],
   imports: [
-    CommonModule,
-    PopoverModule.forRoot(),
-    ModalModule.forRoot(),
-    TooltipModule.forRoot(),
-    ProjectModule
-  ]
+        CommonModule,
+        PopoverModule.forRoot(),
+        ModalModule.forRoot(),
+        TooltipModule.forRoot(),
+        ProjectModule,
+        CarouselModule
+    ]
 })
 export class HomeModule {
 }

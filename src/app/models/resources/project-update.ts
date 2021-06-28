@@ -29,5 +29,6 @@ export interface ProjectUpdate {
   url: string;
   callToAction: CallToAction;
   categories: ProjectCategory[];
-  fileId?: number;
+  iconId?: number;
+  imageIds?: number[];
 }
