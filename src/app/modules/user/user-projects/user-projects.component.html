@@ -68,8 +68,8 @@
     </ng-container>
 
     <ng-container *ngIf="projectsEmpty()">
-      <p>No projects found</p>
-      <button class="primary">Create project</button>
+      <h3>No projects found</h3>
+      <button class="primary" (click)="addProjectClicked()">Create project</button>
     </ng-container>
 
     <ng-template #projectsLoading>
