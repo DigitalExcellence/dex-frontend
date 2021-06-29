@@ -218,6 +218,6 @@ export class UserProjectsComponent implements OnInit {
   }
 
   public addProjectClicked() {
-    this.router.navigateByUrl('project/add')
+    this.router.navigateByUrl('project/add');
   }
 }
