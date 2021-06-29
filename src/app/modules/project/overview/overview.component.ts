@@ -31,7 +31,7 @@ import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
-import { Subscription } from 'rxjs';
+import { Subscription, VirtualTimeScheduler } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 
@@ -294,7 +294,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     }
     this.currentSortType = this.sortOptionControl.value.value.split(',')[0];
     this.currentSortDirection = this.sortOptionControl.value.value.split(',')[1];
-
+    this.currentSortOptions = this.sortOptionControl.value.value;
     this.onInternalQueryChange();
     this.updateQueryParams();
   }
