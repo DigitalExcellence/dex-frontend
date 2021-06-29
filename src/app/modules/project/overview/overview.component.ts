@@ -17,7 +17,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { debounceTime, finalize } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
@@ -31,7 +31,7 @@ import { SearchResultsResource } from 'src/app/models/resources/search-results';
 import { SEOService } from 'src/app/services/seo.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
-import { Subscription } from 'rxjs';
+import { Subscription, VirtualTimeScheduler } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 
@@ -155,7 +155,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       private categoryService: CategoryService,
       private route: ActivatedRoute) {
     this.searchControl = new FormControl('');
-    this.sortOptionControl = new FormControl(this.sortSelectOptions);
+    this.sortOptionControl = new FormControl(this.sortSelectOptions[0]);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
 
 
@@ -165,13 +165,16 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
     this.searchSubject
         .pipe(
-            debounceTime(500)
+            filter(Boolean),
+            debounceTime(500),
+            distinctUntilChanged()
         )
         .subscribe((result) => {
           if (!result) {
             return;
           }
           this.onInternalQueryChange();
+          this.updateQueryParams();
         });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
@@ -217,6 +220,13 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     }
 
     this.currentSearchInput = value;
+
+    if (value === '') {
+      this.updateQueryParams();
+      return this.onInternalQueryChange();
+    }
+
+    // If the field is empty we don't want to update the searchSubject anymore because the debounce will mess with the query.
     this.searchSubject.next(value);
   }
 
@@ -243,7 +253,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     } else {
       this.createProjectModal(id);
     }
-    this.location.replaceState(`/project/details/${id}-${name}`);
+
+    this.location.replaceState(`/project/details/${id}-${name}`, this.buildQueryParams());
   }
 
   /**
@@ -253,7 +264,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
    */
   public pageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
+
     this.onInternalQueryChange();
+    this.updateQueryParams();
   }
 
   /**
@@ -266,7 +279,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
       this.currentPage = 1;
     }
+
     this.onInternalQueryChange();
+    this.updateQueryParams();
   }
 
   /**
@@ -279,7 +294,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     }
     this.currentSortType = this.sortOptionControl.value.value.split(',')[0];
     this.currentSortDirection = this.sortOptionControl.value.value.split(',')[1];
+    this.currentSortOptions = this.sortOptionControl.value.value;
     this.onInternalQueryChange();
+    this.updateQueryParams();
   }
 
   public onCategoryChange(categoryId: number): void {
@@ -287,7 +304,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
         category.id === categoryId
             ? {...category, selected: !category.selected}
             : category);
+
     this.onInternalQueryChange();
+    this.updateQueryParams();
   }
 
   /**
@@ -296,7 +315,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
    */
   private onInternalQueryChange(): void {
     const internalSearchQuery: InternalSearchQuery = {
-      query: this.currentSearchInput === '' ? null : this.currentSearchInput,
+      query: !this.currentSearchInput || this.currentSearchInput === '' ? null : this.currentSearchInput,
       // If there is a search query, search on all pages
       page: !this.currentSearchInput ? this.currentPage : null,
       amountOnPage: this.amountOfProjectsOnSinglePage,
@@ -307,7 +326,6 @@ export class OverviewComponent implements OnInit, AfterViewInit {
           .filter(value => value)
     };
 
-    this.updateQueryParams();
 
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
@@ -334,11 +352,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     this.projectsToDisplay = response.results;
     this.totalNrOfProjects = response.totalCount;
 
-    if (this.projects.length < this.amountOfProjectsOnSinglePage && this.currentPage <= 1) {
-      this.showPaginationFooter = false;
-    } else {
-      this.showPaginationFooter = true;
-    }
+    this.showPaginationFooter = !(this.projects.length < this.amountOfProjectsOnSinglePage && this.currentPage <= 1);
   }
 
   /**
@@ -370,16 +384,11 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       this.modalSubscriptions.push(
           this.modalService.onHide.subscribe(() => {
                 if (this.location.path().startsWith('/project/details')) {
-                  const queryString = `query=${this.searchControl.value}`
-                      + `&sortOption=${this.currentSortOptions}`
-                      + `&pagination=${this.amountOfProjectsOnSinglePage}`
-                      + `&page=${this.currentPage}`
-                      + `&categories=${JSON.stringify(this.categories?.map(
-                          category => category.selected ? category.id : null)
-                          .filter(category => category)
-                      )}`;
-                  this.location.replaceState(`/project/overview/`, queryString);
+                  // this.updateQueryParams();
+                  // this.location.replaceState('/project/overview', this.buildQueryParams());
                   this.updateSEOTags();
+
+                  this.updateQueryParams();
                   this.onInternalQueryChange();
                 }
               }
@@ -389,7 +398,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
   private updateQueryParams() {
     this.router.navigate(
-        [],
+        ['/project/overview'],
         {
           queryParams: {
             query: this.searchControl.value,
@@ -406,18 +415,20 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   }
 
   private processQueryParams() {
-    this.route.queryParams.subscribe(({query, categories: selectedCategories, sortOption, pagination}) => {
-      if (query !== 'null' && query !== 'undefined') {
+    this.route.queryParams.subscribe((params) => {
+      const {query, sortOption, pagination} = params;
+      let {categories: selectedCategories} = params;
+      if (query && query !== 'null' && query !== 'undefined') {
         this.searchControl.setValue(query);
       }
 
       if (selectedCategories) {
         selectedCategories = JSON.parse(selectedCategories);
-        if (selectedCategories.count > 0) {
+        if (selectedCategories.length > 0) {
           this.categories = this.categories?.map(category => {
             return {
               ...category,
-              selected: selectedCategories.contains(category.id)
+              selected: selectedCategories.indexOf(category.id) >= 0
             };
           });
         }
@@ -425,19 +436,36 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
       if (sortOption) {
         this.currentSortOptions = sortOption;
-        this.sortOptionControl.setValue(this.sortSelectOptions.find(option => option.value === sortOption));
+        const parsed = this.sortSelectOptions.find(option => option.value === sortOption);
+        this.sortOptionControl.setValue(parsed ? parsed : this.sortSelectOptions[0]);
       }
 
       if (pagination) {
         const parsed = this.paginationDropDownOptions.find(option =>
             option.amountOnPage === parseInt(pagination, 10));
 
-        this.paginationOptionControl.setValue(parsed ? parsed : 12);
+        this.paginationOptionControl.setValue(parsed ? parsed : this.paginationDropDownOptions[0]);
         this.amountOfProjectsOnSinglePage = parsed ? parsed.amountOnPage : 12;
       }
 
       this.onInternalQueryChange();
     });
+  }
+
+  private buildQueryParams() {
+    const categories = this.categories?.map(
+        category => category.selected ? category.id : null)
+        .filter(category => category);
+
+    const queryValue = this.currentSearchInput;
+    const sortOptionValue = this.sortOptionControl.value.value;
+    const paginationValue = this.amountOfProjectsOnSinglePage;
+    const categoriesValue = JSON.stringify(categories);
+
+    return `query=${queryValue}`
+        + `&sortOption=${sortOptionValue}`
+        + `&pagination=${paginationValue}`
+        + `&categories=${categoriesValue}`;
   }
 
   /**

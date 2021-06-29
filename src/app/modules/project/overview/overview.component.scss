@@ -263,6 +263,8 @@
       /* Customize the label (the container) */
       display: flex;
       flex-direction: column;
+      overflow-y: auto;
+      max-height: 300px;
       gap: 10px;
       .container {
         display: flex;
