@@ -222,9 +222,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     this.currentSearchInput = value;
 
     if (value === '') {
-
-      return this.onInternalQueryChange();
       this.updateQueryParams();
+      return this.onInternalQueryChange();
     }
 
     // If the field is empty we don't want to update the searchSubject anymore because the debounce will mess with the query.
