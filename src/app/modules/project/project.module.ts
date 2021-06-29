@@ -41,6 +41,7 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project/proje
 import { NgxDebounceClickModule } from '@ngx-lite/debounce-click';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
+import { CallToActionsEditComponent } from './call-to-actions-edit/call-to-actions-edit.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
@@ -58,7 +59,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     HighlightsModalComponent,
     ProjectComponent,
     CollaboratorComponent,
-    ProjectComponent
+    ProjectComponent,
+    CallToActionsEditComponent
   ],
   imports: [
     CommonModule,
@@ -83,7 +85,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   exports: [
     FileUploaderComponent,
     SafeHtmlPipe,
-    ProjectComponent
+    ProjectComponent,
+    CallToActionsEditComponent
   ],
   providers: [Meta]
 })

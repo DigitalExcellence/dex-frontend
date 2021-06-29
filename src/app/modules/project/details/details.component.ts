@@ -57,7 +57,6 @@ import { UploadFile } from 'src/app/models/domain/uploadFile';
   encapsulation: ViewEncapsulation.None
 })
 export class DetailsComponent implements OnInit {
-
   @Input() projectId: number;
   @Input() activeTab = 'description';
 
@@ -112,11 +111,10 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
+    if (Number.isNaN(this.projectId) || this.projectId < 1) {
       this.invalidId = this.projectId.toString();
       return;
     }
-
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
     });
@@ -330,7 +328,7 @@ export class DetailsComponent implements OnInit {
    * Method to display the project's call to action button based on whether or not the project has a set call to action.
    */
   private determineDisplayCallToActionButton(): void {
-    if (this.project && this.project.callToAction) {
+    if (this.project && this.project.callToActions?.length > 0) {
       this.displayCallToActionButton = true;
       return;
     } else {

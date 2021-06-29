@@ -1,0 +1,54 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+
+<ng-template *ngIf="callToActionOptionsLoading; else callToActionOptionsLoaded">
+  <div class="loading-circle">
+    <h2 class="fas fa-spinner fa-pulse"></h2>
+  </div>
+</ng-template>
+<ng-template #callToActionOptionsLoaded>
+  <p class="error-message">{{errorMessage}}</p>
+  <div class="grid">
+    <ng-container *ngFor="let callToActionOption of callToActionOptions">
+      <label class="container">
+        <input (click)="ctaButtonClicked($event, callToActionOption.id)"
+               [checked]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+               [value]="callToActionOption.id"
+               type="checkbox"
+               checked="checked"
+        />
+        <span class="checkmark"></span>
+      </label>
+      <button (click)="ctaButtonClicked($event, callToActionOption.id)"
+              [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+              class="call-to-action-btn">
+        {{ callToActionOption.value }}
+        <em [classList]="'fas ' + callToActionOption.iconName"></em>
+      </button>
+      <input (change)="urlChange($event, callToActionOption.id)" [disabled]="!selectedCallToActionOptionIds.includes(callToActionOption.id)" [id]="'input-'+callToActionOption.id"
+             [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
+             [ngModel]="callToActionOption.optionValue"
+             [required]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+             aria-label="action-url"
+             class="text-input"
+             type="url"/>
+    </ng-container>
+  </div>
+</ng-template>
+
