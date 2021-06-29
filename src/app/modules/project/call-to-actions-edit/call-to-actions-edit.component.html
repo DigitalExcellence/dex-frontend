@@ -26,12 +26,15 @@
   <p class="error-message">{{errorMessage}}</p>
   <div class="grid">
     <ng-container *ngFor="let callToActionOption of callToActionOptions">
-      <input (click)="ctaButtonClicked($event, callToActionOption.id)"
-             [checked]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
-             [value]="callToActionOption.id"
-             class="radio"
-             name="call-to-action"
-             type="checkbox"/>
+      <label class="container">
+        <input (click)="ctaButtonClicked($event, callToActionOption.id)"
+               [checked]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+               [value]="callToActionOption.id"
+               type="checkbox"
+               checked="checked"
+        />
+        <span class="checkmark"></span>
+      </label>
       <button (click)="ctaButtonClicked($event, callToActionOption.id)"
               [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
               class="call-to-action-btn">
