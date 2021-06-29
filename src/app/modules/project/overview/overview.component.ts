@@ -52,7 +52,6 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   public projectsToDisplay: Project[] = [];
   public projectsTotal: Project[] = [];
 
-
   /**
    * Determine whether we need to render a list or cart view
    */
