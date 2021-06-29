@@ -378,7 +378,6 @@ export class EditComponent implements OnInit {
    * Method which will send the requests to the API to edit the project
    */
   private editProject(edittedProject) {
-    console.log(edittedProject);
     this.projectService
         .put(this.project.id, edittedProject)
         .pipe(
