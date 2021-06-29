@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -42,7 +42,7 @@ import { UploadFile } from 'src/app/models/domain/uploadFile';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, AfterViewInit {
   /**
    * Configuration for file-picker
    */
@@ -125,25 +125,29 @@ export class EditComponent implements OnInit {
 
     this.categoryService.getAll().subscribe(categories => {
       this.categories = categories;
+      this.projectService.get(id)
+          .pipe(
+              finalize(() => this.projectLoading = false)
+          )
+          .subscribe(
+              (projectResult) => {
+                this.project = projectResult;
+                this.collaborators = this.project.collaborators;
+
+                this.categories = this.categories.map(category => ({
+                  ...category,
+                  selected: !!this.project.categories?.find(c => c.name === category.name)
+                }));
+              }
+          );
     });
+  }
 
-    this.projectService.get(id)
-              .pipe(
-                  finalize(() => this.projectLoading = false)
-              )
-              .subscribe(
-                  (projectResult) => {
-                    this.project = projectResult;
-                    this.collaborators = this.project.collaborators;
-                    this.projectIconFileUploader.setFiles([this.project.projectIcon]);
-                    this.projectImagesFileUploader.setFiles(this.project.images);
-
-                    this.categories = this.categories.map(category => ({
-                      ...category,
-                      selected: !!this.project.categories?.find(c => c.name === category.name)
-                    }));
-            }
-        );
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.projectIconFileUploader.setFiles([this.project.projectIcon]);
+      this.projectImagesFileUploader.setFiles(this.project.images);
+    }, 5);
   }
 
   public onCategoryClick(category): void {

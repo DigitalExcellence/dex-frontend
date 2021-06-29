@@ -29,7 +29,6 @@
         <form [formGroup]="editProjectForm" class="project-form">
           <div class="row">
             <div class="col-6">
-              <div class="project-icon">
                 <app-file-uploader
                     #projectIconFileUploader
                     [acceptMultiple]="false"
@@ -39,6 +38,8 @@
                     [recommendedWidth]="512"
                     [showPreview]="false">
                 </app-file-uploader>
+
+              <div class="project-icon">
                 <div class="preview" style="background-color: unset">
                   <img [src]="projectIconFileUploader.files[0]?.preview" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';"/>
                   <div (click)="projectIconFileUploader.fileInput.nativeElement.click()" class="overlay"><em class="fas fa-pencil-alt"></em></div>
