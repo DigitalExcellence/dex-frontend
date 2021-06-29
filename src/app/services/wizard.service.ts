@@ -37,7 +37,7 @@ export class WizardService {
    * The project that is built with the wizard
    */
   public builtProject: ProjectAdd = {
-    callToAction: undefined,
+    callToActions: [],
     collaborators: [],
     name: '',
     iconId: 0,
@@ -206,7 +206,7 @@ export class WizardService {
                     shortDescription: project.shortDescription,
                     name: project.name,
                     iconId: undefined,
-                    callToAction: project.callToAction,
+                    callToActions: project.callToActions,
                     uri: projectUri,
                     description: project.description
                   });
@@ -308,7 +308,7 @@ export class WizardService {
     this.projectIcon = undefined;
     this.projectImages = undefined;
     this.builtProject = {
-      callToAction: undefined,
+      callToActions: undefined,
       collaborators: [],
       name: '',
       iconId: 0,
@@ -395,7 +395,7 @@ export class WizardService {
     updatedSteps.find(step => step.wizardPageName === 'project-name').isComplete = WizardService.checkNotEmpty(project.name);
     updatedSteps.find(step => step.wizardPageName === 'project-icon').isComplete = !!project.projectIcon;
     updatedSteps.find(step => step.wizardPageName === 'project-collaborators').isComplete = project.collaborators.length > 0;
-    updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = !!project.callToAction;
+    updatedSteps.find(step => step.wizardPageName === 'project-call-to-action').isComplete = !!project.callToActions;
     updatedSteps.find(step => step.wizardPageName === 'project-link').isComplete = !!project.uri;
     updatedSteps.find(step => step.wizardPageName === 'project-description').isComplete = (
         WizardService.checkNotEmpty(project.description) && WizardService.checkNotEmpty(project.shortDescription)

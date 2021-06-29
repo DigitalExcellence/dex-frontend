@@ -26,7 +26,6 @@
     box-shadow: 0px 3px 6px #0000001a;
     height: 45px;
     width: 100%;
-    margin-bottom: 25px;
     padding: 0px 15px;
   }
 
@@ -46,10 +45,6 @@
 
   option::first-letter {
     text-transform: uppercase;
-  }
-
-  .form-footnote {
-    margin-top: -15px;
   }
 }
 
@@ -124,6 +119,11 @@
     font-size: 25px;
     font-weight: 800;
   }
+}
+
+.call-to-actions {
+  background-color: white;
+  border-radius: $border-radius;
 }
 
 .project-categories {
