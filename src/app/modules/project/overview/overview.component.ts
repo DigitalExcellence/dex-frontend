@@ -174,6 +174,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
             return;
           }
           this.onInternalQueryChange();
+          this.updateQueryParams();
         });
 
     this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
@@ -221,7 +222,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     this.currentSearchInput = value;
 
     if (value === '') {
+
       return this.onInternalQueryChange();
+      this.updateQueryParams();
     }
 
     // If the field is empty we don't want to update the searchSubject anymore because the debounce will mess with the query.
@@ -262,7 +265,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
    */
   public pageChanged(event: PageChangedEvent): void {
     this.currentPage = event.page;
+
     this.onInternalQueryChange();
+    this.updateQueryParams();
   }
 
   /**
@@ -275,7 +280,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
       this.currentPage = 1;
     }
+
     this.onInternalQueryChange();
+    this.updateQueryParams();
   }
 
   /**
@@ -288,7 +295,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     }
     this.currentSortType = this.sortOptionControl.value.value.split(',')[0];
     this.currentSortDirection = this.sortOptionControl.value.value.split(',')[1];
+
     this.onInternalQueryChange();
+    this.updateQueryParams();
   }
 
   public onCategoryChange(categoryId: number): void {
@@ -296,7 +305,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
         category.id === categoryId
             ? {...category, selected: !category.selected}
             : category);
+
     this.onInternalQueryChange();
+    this.updateQueryParams();
   }
 
   /**
@@ -316,7 +327,6 @@ export class OverviewComponent implements OnInit, AfterViewInit {
           .filter(value => value)
     };
 
-    this.updateQueryParams();
 
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
@@ -375,9 +385,11 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       this.modalSubscriptions.push(
           this.modalService.onHide.subscribe(() => {
                 if (this.location.path().startsWith('/project/details')) {
-                  this.updateQueryParams();
-                  this.location.replaceState('/project/overview', this.buildQueryParams());
+                  // this.updateQueryParams();
+                  // this.location.replaceState('/project/overview', this.buildQueryParams());
                   this.updateSEOTags();
+
+                  this.updateQueryParams();
                   this.onInternalQueryChange();
                 }
               }
@@ -387,25 +399,24 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
   private updateQueryParams() {
     this.router.navigate(
-        ['project/overview'],
+        ['/project/overview'],
         {
-          replaceUrl: true,
           queryParams: {
             query: this.searchControl.value,
+            sortOption: this.currentSortOptions,
             pagination: this.amountOfProjectsOnSinglePage,
-            sortOption: this.sortOptionControl.value.value,
-            categories: JSON.stringify(this.categories?.map(
-                category => category.selected ? category.id : null)
-                .filter(category => category))
+            categories: JSON.stringify(
+                this.categories?.map(category =>
+                    category.selected ? category.id : null
+                ).filter(category => category)
+            )
           },
           queryParamsHandling: 'merge'
-        }
-    );
+        });
   }
 
   private processQueryParams() {
     this.route.queryParams.subscribe((params) => {
-
       const {query, sortOption, pagination} = params;
       let {categories: selectedCategories} = params;
       if (query && query !== 'null' && query !== 'undefined') {
