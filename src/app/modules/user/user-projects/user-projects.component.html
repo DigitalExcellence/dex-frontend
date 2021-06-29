@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <ng-container *ngIf="!projectsEmpty(); else noProjects">
+    <ng-container *ngIf="projectsLoading; else projectsLoading">
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <app-project
             (click)="onClickProject($event, project.id, project.name)"
@@ -67,7 +67,11 @@
       </div>
     </ng-container>
 
-    <ng-template #noProjects>
+    <ng-container *ngIf="projectsEmpty()">
+      <button class="primary">Create project</button>
+    </ng-container>
+
+    <ng-template #projectsLoading>
       <h2 class="fas fa-spinner fa-pulse loading-circle" *ngIf="userProjectsLoading"></h2>
       <p *ngIf="!userProjectsLoading">There are no projects available.</p>
     </ng-template>

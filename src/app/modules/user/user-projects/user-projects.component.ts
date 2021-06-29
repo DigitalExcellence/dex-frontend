@@ -83,6 +83,8 @@ export class UserProjectsComponent implements OnInit {
    */
   public currentProject: Project = null;
 
+  public noProjects: boolean = false;
+
   /**
    * Property to indicate whether the project is loading.
    */
@@ -108,7 +110,11 @@ export class UserProjectsComponent implements OnInit {
                     this.userProjectsLoading = false
                 ))
             ).subscribe(result => {
-          this.userprojects = result;
+              if(result) {
+                this.userprojects = result;
+              } else {
+                this.noProjects = true;
+              }
         });
       }
     });

@@ -33,7 +33,7 @@
     <div [ngClass]="{ show: navbarOpen }" class="collapse content navbar-collapse">
       <div class="header-nav project-link">
         <a (click)="onClickProjects()" class="nav-link nav-text" routerLinkActive="active">Projects</a>
-        <a class="nav-link nav-text" routerLink="project/add" routerLinkActive="active">Add project</a> 
+        <a class="nav-link nav-text" routerLink="project/add" routerLinkActive="active">Add project</a>
       </div>
 
       <div *ngIf="this.showSearchbar" class="search-bar">
@@ -52,9 +52,9 @@
               <span class="caret"></span>
             </button>
             <ul *dropdownMenu aria-labelledby="button-basic" class="dropdown-menu" id="dropdown-basic" role="menu">
-              <li role="menuitem"> <a class="dropdown-item" routerLink="user/projects" routerLinkActive="active">My Projects</a></li>
-              <li role="menuitem"><a (click)="onClickSignout()" class="dropdown-item" routerLinkActive="active">Sign Out</a></li>
-             
+              <li role="menuitem"> <a class="dropdown-item" routerLink="user/projects">My Projects</a></li>
+              <li role="menuitem"><a (click)="onClickSignout()" class="dropdown-item">Sign Out</a></li>
+
             </ul>
           </div>
         </div>
