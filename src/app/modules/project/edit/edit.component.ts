@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -42,7 +42,7 @@ import { UploadFile } from 'src/app/models/domain/uploadFile';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
 })
-export class EditComponent implements OnInit, AfterViewInit {
+export class EditComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
@@ -132,22 +132,21 @@ export class EditComponent implements OnInit, AfterViewInit {
           .subscribe(
               (projectResult) => {
                 this.project = projectResult;
+                console.log(this.project);
                 this.collaborators = this.project.collaborators;
 
                 this.categories = this.categories.map(category => ({
                   ...category,
                   selected: !!this.project.categories?.find(c => c.name === category.name)
                 }));
+
+                setTimeout(() => {
+                  this.projectIconFileUploader.setFiles([this.project.projectIcon]);
+                  this.projectImagesFileUploader.setFiles(this.project.images);
+                }, 1);
               }
           );
     });
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.projectIconFileUploader.setFiles([this.project.projectIcon]);
-      this.projectImagesFileUploader.setFiles(this.project.images);
-    }, 5);
   }
 
   public onCategoryClick(category): void {
