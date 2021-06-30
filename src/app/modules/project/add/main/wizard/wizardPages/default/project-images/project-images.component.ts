@@ -19,7 +19,7 @@ export class ProjectImagesComponent extends WizardStepBaseComponent implements O
   /**
    * File uploader variables
    */
-  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'];
   public acceptMultiple = true;
 
   public uploadingFiles = false;

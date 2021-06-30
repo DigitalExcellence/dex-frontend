@@ -61,7 +61,7 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
   /**
    * File uploader variables
    */
-  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'];
   public acceptMultiple = false;
 
   constructor(
