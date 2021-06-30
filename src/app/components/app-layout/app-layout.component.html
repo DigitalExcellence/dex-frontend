@@ -52,9 +52,7 @@
               <span class="caret"></span>
             </button>
             <ul *dropdownMenu aria-labelledby="button-basic" class="dropdown-menu" id="dropdown-basic" role="menu">
-              <li role="menuitem"> <a class="dropdown-item" routerLink="user/projects">My Projects</a></li>
-              <li role="menuitem"><a (click)="onClickSignout()" class="dropdown-item">Sign Out</a></li>
-
+              <li role="menuitem"><a (click)="onClickSignout()" class="dropdown-item" routerLinkActive="active">Sign Out</a></li>
             </ul>
           </div>
         </div>

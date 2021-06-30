@@ -109,9 +109,6 @@
       width: 90px;
     }
   }
-  .navbar-toggler {
-    border: none;
-  }
 
   .search-bar {
     input[type="search"] {
@@ -168,9 +165,6 @@
     display: flex;
     align-items: flex-start;
     margin-left: auto;
-    @include media-breakpoint-down(sm) {
-      margin-left: 0px;
-    }
   }
 
   .profile {
@@ -178,9 +172,6 @@
     align-items: center;
     margin-left: auto;
     margin-right: 24px;
-    @include media-breakpoint-down(sm) {
-      margin-left: 0px;
-    }
 
     h4 {
       margin: 0 15px 0 0;
@@ -197,7 +188,6 @@
   below each other
   */
   .profile-dropdown {
-    z-index: 9;
     @include media-breakpoint-down(sm) {
       flex-direction: column;
     }

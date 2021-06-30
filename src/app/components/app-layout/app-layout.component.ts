@@ -120,11 +120,6 @@ export class AppLayoutComponent implements OnInit {
     this.displayBetaBanner = true;
   }
 
-
-  public viewUserProjects() {
-    this.router.navigate(['user/projects']);
-  }
-
   /**
    * Method which triggers when the user clicks on the burger menu in the header.
    * Toggles the navbar visibility

@@ -28,17 +28,17 @@
     </label>
   </div>
 </div>
-<p class="form-footnote">The recommended dimensions for an icon are atleast {{recommendedWidth}}x{{recommendedHeight}}</p>
+<p class="form-footnote">The recommended dimensions for an icon are atleast 512x512</p>
 <div *ngIf="showPreview" class="files-list">
-  <div class="single-file" *ngFor="let file of files; let i = index">
-    <div class="file-info">
-      <button type="button" class="btn btn-icon btn-danger" aria-label="error" (click)="deleteFile(i)"><span
-          aria-hidden="true">&times;</span>
-      </button>
-      <img alt="image-preview" class="file-icon" [src]=file?.preview>
-      <h4 class="file-name">
-        {{ file?.name }}
-      </h4>
+    <div class="single-file" *ngFor="let file of files; let i = index">
+        <div class="file-info">
+            <button type="button" class="btn btn-icon btn-danger" aria-label="error" (click)="deleteFile(i)"><span
+                    aria-hidden="true">&times;</span>
+            </button>
+            <img alt="image-preview" class="file-icon" [src]=file?.preview>
+            <h4 class="file-name">
+                {{ file?.name }}
+            </h4>
             <h4 class="file-size">
                 {{ file?.readableSize }}
             </h4>

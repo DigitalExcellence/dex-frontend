@@ -1,6 +1,6 @@
 {
   "name": "dex-frontend",
-  "version": "1.5.0-beta",
+  "version": "1.4.0-beta",
   "scripts": {
     "ng": "ng",
     "config": "ts-node set-env.ts",
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.13",
-    "@angular/cli": "^9.1.15",
+    "@angular/cli": "^9.1.13",
     "@angular/compiler-cli": "^9.1.13",
     "@angular/language-service": "^9.1.13",
     "@types/jasmine": "^3.6.3",

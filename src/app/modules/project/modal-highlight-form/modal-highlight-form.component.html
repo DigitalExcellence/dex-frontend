@@ -30,17 +30,15 @@
         <div class="col-md-6">
           <div>
             <h3>Start Date</h3>
-            <input type="date" formControlName="startDate" [disabled]="dateFieldsEnabled"/>
+            <input type="date" formControlName="startDate" [disabled]="dateFieldsEnabled" />
           </div>
         </div>
         <div class="col-md-6">
           <div>
             <h3>End Date</h3>
-            <input type="date" formControlName="endDate" [disabled]="dateFieldsEnabled"/>
+            <input type="date" formControlName="endDate" [disabled]="dateFieldsEnabled" />
           </div>
         </div>
-      </div>
-      <div class="row">
         <div class="col-12">
           <div>
             <h3>Highlight description</h3>
@@ -48,37 +46,16 @@
             </textarea>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <h3>Highlight image</h3>
-          <div class="highlight-image">
-            <app-file-uploader
-                #highlightImageFileUploader
-                [acceptMultiple]="false"
-                [acceptedTypes]="acceptedTypes"
-                [hidden]="true"
-                [showPreview]="false">
-            </app-file-uploader>
-            <div class="preview" style="background-color: unset">
-              <img [src]="highlightImageFileUploader.files[0]?.preview" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';"/>
-              <div class="overlay">
-                <em class="fas fa-pencil-alt" (click)="highlightImageFileUploader.fileInput.nativeElement.click()"></em>
-                <em class="fas fa-trash" (click)="highlightImageFileUploader.deleteFile(0)"></em>
-              </div>
-            </div>
-          </div>
+        <div class="col-12" *ngIf="validationErrorMessage != null">
+          <p class="validation-error-message">{{validationErrorMessage}}</p>
         </div>
-      </div>
-      <div class="col-12" *ngIf="validationErrorMessage != null">
-        <p class="validation-error-message">{{validationErrorMessage}}</p>
       </div>
 
       <div class="row">
         <div class="col-12">
           <div class="highlight-form__checkbox">
             <label>
-              <input type="checkbox" formControlName="indeterminate"/>
+              <input type="checkbox" formControlName="indeterminate" />
               <p>Never-ending</p>
             </label>
           </div>
@@ -96,10 +73,10 @@
         <span *ngIf="canDelete" ngxDebounceClick (debouncedClick)="onClickDelete()" class='fas fa-trash mobile-trash'></span>
       </div>
       <div class=" col-10 buttons-bottom col-sm-7 text-right">
-        <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
-        <button type="button" class="primary" ngxDebounceClick (debouncedClick)="onClickConfirm()">
-          Save <span class="fas fa-save"></span>
-        </button>
+          <button type="button" class="cancel" (click)="onClickDeny()">Cancel</button>
+          <button type="button" class="primary" ngxDebounceClick (debouncedClick)="onClickConfirm()">
+            Save <span class="fas fa-save"></span>
+          </button>
       </div>
     </div>
   </div>

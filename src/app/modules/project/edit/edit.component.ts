@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -27,12 +27,12 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { QuillUtils } from 'src/app/utils/quill.utils';
+import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
+import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
+import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 import { CategoryService } from 'src/app/services/category.service';
-import { CallToActionsEditComponent } from 'src/app/modules/project/call-to-actions-edit/call-to-actions-edit.component';
-import { SafeUrl } from '@angular/platform-browser';
-import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 /**
  * Component for editing adding a project.
@@ -42,21 +42,20 @@ import { UploadFile } from 'src/app/models/domain/uploadFile';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
 })
-export class EditComponent implements OnInit, AfterViewInit {
+export class EditComponent implements OnInit {
   /**
    * Configuration for file-picker
    */
-  @ViewChild(CallToActionsEditComponent) callToActions: CallToActionsEditComponent;
-  @ViewChild('projectIconFileUploader') projectIconFileUploader: FileUploaderComponent;
-  @ViewChild('projectImagesFileUploader') projectImagesFileUploader: FileUploaderComponent;
+  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
   public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
-
-  public uploadingFiles = false;
+  public acceptMultiple = false;
+  public showPreview = true;
 
   /**
    * Formgroup for entering project details.
    */
   public editProjectForm: FormGroup;
+  public editCallToActionForm: FormGroup;
   public editCollaboratorForm: FormGroup;
   public project: Project;
   public categories: ProjectCategory[];
@@ -64,6 +63,16 @@ export class EditComponent implements OnInit, AfterViewInit {
   /**
    * Projects selected call to action
    */
+  public selectedCallToActionOption: CallToActionOption = {
+    id: 0,
+    type: 'title',
+    value: 'None',
+  };
+
+  /**
+   * The specified redirect url from the call to action
+   */
+  public callToActionRedirectUrl: string;
 
   /**
    * Project's collaborators.
@@ -81,6 +90,13 @@ export class EditComponent implements OnInit, AfterViewInit {
   public modulesConfigration = QuillUtils.getDefaultModulesConfiguration();
 
   /**
+   * The available call to action options to select from
+   */
+  public callToActionOptions: CallToActionOption[] = [];
+
+  public callToActionsLoading = true;
+
+  /**
    * Property for storting the invalidId if an invalid project id was entered.
    */
   public invalidId: string;
@@ -96,13 +112,19 @@ export class EditComponent implements OnInit, AfterViewInit {
       private projectService: ProjectService,
       private activatedRoute: ActivatedRoute,
       private alertService: AlertService,
-      private categoryService: CategoryService
+      private callToActionOptionService: CallToActionOptionService,
+      private categoryService: CategoryService,
   ) {
     this.editProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
       uri: [null],
       shortDescription: [null, Validators.required],
       description: [null],
+    });
+
+    this.editCallToActionForm = this.formBuilder.group({
+      type: [null, Validators.required],
+      value: [null, Validators.required],
     });
 
     this.editCollaboratorForm = this.formBuilder.group({
@@ -116,38 +138,58 @@ export class EditComponent implements OnInit, AfterViewInit {
     if (!routeId) {
       return;
     }
-
     const id = Number(routeId);
-    if (!id || Number.isNaN(id) || id < 1) {
+    if (id == null || Number.isNaN(id) || id < 1) {
       this.invalidId = routeId;
       return;
     }
 
     this.categoryService.getAll().subscribe(categories => {
       this.categories = categories;
-      this.projectService.get(id)
-          .pipe(
-              finalize(() => this.projectLoading = false)
-          )
-          .subscribe(
-              (projectResult) => {
-                this.project = projectResult;
-                this.collaborators = this.project.collaborators;
-
-                this.categories = this.categories.map(category => ({
-                  ...category,
-                  selected: !!this.project.categories?.find(c => c.name === category.name)
-                }));
-              }
-          );
     });
-  }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.projectIconFileUploader.setFiles([this.project.projectIcon]);
-      this.projectImagesFileUploader.setFiles(this.project.images);
-    }, 5);
+    /**
+     * Retrieve the available call to actions
+     */
+    this.callToActionOptionService
+        .getAll()
+        .pipe(finalize(() => (this.callToActionsLoading = false)))
+        .subscribe((result) => {
+          this.callToActionOptions = result.filter(o => o.type === 'title');
+
+          /**
+           * Add the none option to the dropdown
+           */
+          this.callToActionOptions.unshift(this.selectedCallToActionOption);
+
+          this.projectService.get(id)
+              .pipe(
+                  finalize(() => this.projectLoading = false)
+              )
+              .subscribe(
+                  (projectResult) => {
+                    this.project = projectResult;
+                    this.collaborators = this.project.collaborators;
+                    this.fileUploader.setFiles([this.project.projectIcon]);
+
+                    this.categories = this.categories.map(category => ({
+                      ...category,
+                      selected: !!this.project.categories?.find(c => c.name === category.name)
+                    }));
+
+                    if (this.project.callToAction != null) {
+                      for (let i = 0; i < this.callToActionOptions.length; i++) {
+                        const element = this.callToActionOptions[i];
+                        if (element.value.toLowerCase() === this.project.callToAction.optionValue) {
+                          this.selectedCallToActionOption = this.callToActionOptions[i];
+                        }
+                      }
+
+                      this.callToActionRedirectUrl = this.project.callToAction.value;
+                    }
+                  }
+              );
+        });
   }
 
   public onCategoryClick(category): void {
@@ -158,49 +200,8 @@ export class EditComponent implements OnInit, AfterViewInit {
     ));
   }
 
-  /**
-   * Method that triggers when the upload image button is clicked on mobile
-   */
-  public mobileUploadButtonClick(): void {
-    document.querySelector('input').click();
-  }
-
-  public addImageClick() {
-    this.projectImagesFileUploader.fileInput.nativeElement.click();
-  }
-
-  public deleteImageClicked(index: number) {
-    this.projectImagesFileUploader.deleteFile(index);
-  }
-
-  /**
-   * Method that determines which preview to use for the project icon
-   */
-  public getProjectImages(): SafeUrl[] {
-    let files: SafeUrl[] = [];
-    if (this.projectImagesFileUploader?.files) {
-      files = this.projectImagesFileUploader.files.map(file => file.preview);
-    }
-
-    let amountToAdd = 4;
-
-    if (files?.length > 0) {
-      if (files.length >= 4) {
-        amountToAdd = 1;
-      } else {
-        amountToAdd -= files.length;
-      }
-    }
-
-    for (let i = 0; i < amountToAdd; i++) {
-      files.push('');
-    }
-
-    return files;
-  }
-
   public onClickSubmit(): void {
-    if (!this.editProjectForm.valid || !this.callToActions.validateUrls()) {
+    if (!this.editProjectForm.valid) {
       this.editProjectForm.markAllAsTouched();
 
       const alertConfig: AlertConfig = {
@@ -214,31 +215,50 @@ export class EditComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.uploadingFiles = true;
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
+    console.log(editedProject.categories);
 
-    const selectedCallToActions = this.callToActions.callToActionOptions
-        .filter(option => this.callToActions.selectedCallToActionOptionIds
-            .includes(option.id));
+    /*
+    * Whenever a call to action is selected, this value
+    * should be sent to to the API.
+     */
+    if (this.selectedCallToActionOption.id > 0) {
+      if (this.callToActionRedirectUrl == null) {
+        const alertConfig: AlertConfig = {
+          type: AlertType.danger,
+          preMessage: 'The call to action form is invalid',
+          mainMessage: 'Please add a link to your selected call to action (or set it to "None")',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
+        return;
+      }
 
-    editedProject.callToActions = selectedCallToActions.map(cta => ({
-      optionValue: cta.value,
-      value: cta.optionValue,
-      id: cta.id
-    }));
+      const callToActionToSubmit =
+          {optionValue: this.selectedCallToActionOption.value, value: this.callToActionRedirectUrl} as CallToAction;
 
-    this.projectIconFileUploader.uploadFiles()
-        .subscribe(projectIcon => {
-          editedProject.iconId = this.getProjectIconId(projectIcon);
-          this.projectImagesFileUploader.uploadFiles()
-              .subscribe(projectImages => {
-                editedProject.imageIds = this.getProjectImagesIds(projectImages);
-                this.editProject(editedProject);
+      editedProject.callToAction = callToActionToSubmit;
+    }
 
-                this.uploadingFiles = false;
-              });
+    this.fileUploader.uploadFiles()
+        .subscribe(uploadedFiles => {
+          if (uploadedFiles) {
+            if (uploadedFiles[0]) {
+              // Project icon was set and uploaded
+              editedProject.fileId = uploadedFiles[0].id;
+              this.editProject(editedProject);
+            }
+            // Project icon was set but not uploaded successfully, the component will show the error
+          } else {
+            // There was no project icon
+            if (this.project.projectIcon) {
+              editedProject.fileId = 0;
+            }
+            this.editProject(editedProject);
+          }
         });
   }
 
@@ -292,27 +312,6 @@ export class EditComponent implements OnInit, AfterViewInit {
       return;
     }
     this.collaborators.splice(index, 1);
-  }
-
-  private getProjectIconId(uploadedFiles: UploadFile[]) {
-    if (uploadedFiles) {
-      if (uploadedFiles[0]) {
-        // Project icon was set and uploaded
-        return uploadedFiles[0].id;
-      }
-      // Project icon was set but not uploaded successfully, the component will show the error
-    } else {
-      // There was no project icon
-      if (this.project.projectIcon) {
-        return 0;
-      }
-    }
-  }
-
-  private getProjectImagesIds(projectImages: UploadFile[]) {
-    if (projectImages) {
-      return projectImages.map(image => image ? image.id : null).filter(id => id);
-    }
   }
 
   /**

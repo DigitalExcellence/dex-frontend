@@ -1,1 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="315" height="251" fill="none" viewBox="0 0 315 251"><rect width="254" height="161" x="13.537" y="81.34" stroke="#FF755A" stroke-width="22" transform="rotate(-15.4823 13.5372 81.34)"/></svg>
+<svg fill="none" height="251" viewBox="0 0 315 251" width="315" xmlns="http://www.w3.org/2000/svg">
+  <rect height="161" stroke="#FF755A" stroke-width="22" transform="rotate(-15.4823 13.5372 81.34)" width="254" x="13.5372" y="81.34"/>
+</svg>

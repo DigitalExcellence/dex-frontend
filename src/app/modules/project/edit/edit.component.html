@@ -27,27 +27,6 @@
     <div [hidden]="projectLoading">
       <div [hidden]="!project">
         <form [formGroup]="editProjectForm" class="project-form">
-          <div class="row">
-            <div class="col-6">
-                <app-file-uploader
-                    #projectIconFileUploader
-                    [acceptMultiple]="false"
-                    [acceptedTypes]="acceptedTypes"
-                    [hidden]="true"
-                    [recommendedHeight]="512"
-                    [recommendedWidth]="512"
-                    [showPreview]="false">
-                </app-file-uploader>
-
-              <div class="project-icon">
-                <div class="preview" style="background-color: unset">
-                  <img [src]="projectIconFileUploader.files[0]?.preview" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';"/>
-                  <div (click)="projectIconFileUploader.fileInput.nativeElement.click()" class="overlay"><em class="fas fa-pencil-alt"></em></div>
-                </div>
-                <h3>Project icon</h3>
-              </div>
-            </div>
-          </div>
 
           <div class="row">
             <div class="col-6">
@@ -110,48 +89,46 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <h3>Project images</h3>
-              <div class="project-images">
-                <div class="left">
-                  <div class="file-preview">
-                    <div *ngFor="let image of getProjectImages(); let i = index" [style.background-image]="'url(' + image + ')'" class="preview">
-                      <div (click)="deleteImageClicked(i)" *ngIf="image; else noImage" class="overlay"><em class="fas fa-trash"></em></div>
-                      <ng-template #noImage>
-                        <div (click)="addImageClick()" class="overlay"><em class="fas fa-plus"></em></div>
-                      </ng-template>
-                    </div>
-                  </div>
-                  <div class="buttons">
-                    <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
-                  </div>
-                </div>
-                <div class="project-image-picker">
-                  <app-file-uploader
-                      #projectImagesFileUploader
-                      [acceptMultiple]="true"
-                      [acceptedTypes]="acceptedTypes"
-                      [recommendedHeight]="400"
-                      [recommendedWidth]="800"
-                      [showPreview]="false">
-                  </app-file-uploader>
-                </div>
+              <div class="project-icon-picker">
+                <h3>Project icon</h3>
+                <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="showPreview">
+                </app-file-uploader>
               </div>
             </div>
           </div>
         </form>
-        <div class="row project-form">
-          <div class="col-12">
-            <h3 class="title-spacing">Call to action</h3>
-          </div>
-          <app-call-to-actions-edit [projectCallToActions]="project.callToActions" class="col-12 call-to-actions"></app-call-to-actions-edit>
-          <div class="row">
-            <div class="col-12">
-              <div>
-                <p class="form-footnote">Select the type of call to action button you want for your project.</p>
+        <ng-container *ngIf="callToActionOptions.length > 1">
+          <form [formGroup]="editCallToActionForm" class="project-form">
+
+            <div class="row">
+              <div class="col-12">
+                <h3 class="title-spacing">Call to action</h3>
+              </div>
+              <div class="col-6">
+                <div>
+                  <h3>Text</h3>
+                  <select [(ngModel)]="selectedCallToActionOption" class='form-control' [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let action of callToActionOptions" [ngValue]="action">{{action.value}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div>
+                  <h3>Link</h3>
+                  <input [(ngModel)]="callToActionRedirectUrl" [ngModelOptions]="{standalone: true}" [disabled]="selectedCallToActionOption.id <= 0"/>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+            <div class="row">
+              <div class="col-12">
+                <div>
+                  <p class="form-footnote">Select the type of call to action button you want for your project.</p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ng-container>
 
         <form [formGroup]="editCollaboratorForm" class="project-form">
           <div class="row">
@@ -215,15 +192,13 @@
         </div>
 
         <div class="row">
-          <button (click)="onClickSubmit()" [disabled]="!editProjectForm.valid" class="btn btn-success" type="submit">
-            <div>
-              Edit project
-            </div>
-            <div *ngIf="uploadingFiles" class="loading-circle">
-              <em class="fas fa-circle-notch fa-pulse"></em>
-            </div>
-          </button>
-          <button (click)="onClickCancel()" class="btn btn-cancel">Cancel</button>
+          <div class="col-12">
+            <button class="btn btn-success" type="submit" (click)="onClickSubmit()"
+                    [disabled]="!editProjectForm.valid">Edit
+                                                        project
+            </button>
+            <button class="btn btn-cancel" (click)="onClickCancel()">Cancel</button>
+          </div>
         </div>
       </div>
       <div [hidden]="project">

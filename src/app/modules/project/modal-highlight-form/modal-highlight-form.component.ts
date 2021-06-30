@@ -16,7 +16,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Highlight } from 'src/app/models/domain/highlight';
@@ -25,14 +25,11 @@ import * as moment from 'moment';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertService } from 'src/app/services/alert.service';
 import { AlertType } from 'src/app/models/internal/alert-type';
-import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 
 export interface HighlightFormResult {
   startDate?: Date;
   endDate?: Date;
   description?: string;
-  imageId?: number;
   indeterminate: boolean;
 }
 
@@ -44,32 +41,22 @@ export interface HighlightFormResult {
   templateUrl: './modal-highlight-form.component.html',
   styleUrls: ['./modal-highlight-form.component.scss']
 })
-export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
+export class ModalHighlightFormComponent implements OnInit {
   @Input() highlight: Highlight;
   @Input() canGoBack: Boolean;
   @Output() confirm = new EventEmitter();
   @Output() goBack = new EventEmitter();
-
-  @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
-
 
   public highlightProjectForm: FormGroup;
   public dateFieldsEnabled = true;
   public validationErrorMessage: string = null;
   public canDelete = false;
 
-  /**
-   * File uploader variables
-   */
-  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
-  public acceptMultiple = false;
-
   constructor(
-      public bsModalRef: BsModalRef,
-      private formBuilder: FormBuilder,
-      private highlightService: HighlightService,
-      private alertService: AlertService,
-      private fileRetrieverService: FileRetrieverService
+    public bsModalRef: BsModalRef,
+    private formBuilder: FormBuilder,
+    private highlightService: HighlightService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -90,14 +77,6 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
     }
 
     this.canDelete = !!this.highlight;
-  }
-
-  ngAfterViewInit(): void {
-    if (this.highlight?.image) {
-      setTimeout(() => {
-        this.fileUploader.setFiles([this.highlight.image]);
-      }, 5);
-    }
   }
 
   /**
@@ -123,7 +102,7 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
     const highlightFormResult: HighlightFormResult = this.highlightProjectForm.value;
 
     if ((highlightFormResult.startDate == null || highlightFormResult.endDate == null) &&
-        highlightFormResult.indeterminate === false) {
+      highlightFormResult.indeterminate === false) {
       this.validationErrorMessage = 'Error: Fill in a start and end date or choose never ending';
       return;
     }
@@ -138,25 +117,9 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
       this.validationErrorMessage = 'Error: Description must be between 50 and 100 characters long';
       return;
     }
-    if (this.fileUploader.files.length > 0) {
-      this.fileUploader.uploadFiles().subscribe(files => {
-        this.confirm.emit({
-          ...this.highlightProjectForm.value,
-          imageId: files[0].id
-        });
-        this.bsModalRef.hide();
-      });
-    } else {
-      this.confirm.emit(this.highlightProjectForm.value);
-      this.bsModalRef.hide();
-    }
-  }
 
-  /**
-   * Method that triggers when the upload image button is clicked on mobile
-   */
-  public mobileUploadButtonClick(): void {
-    document.querySelector('input').click();
+    this.confirm.emit(this.highlightProjectForm.value);
+    this.bsModalRef.hide();
   }
 
   /**
@@ -166,7 +129,7 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
     this.bsModalRef.hide();
   }
 
-  /**
+    /**
    * Method which triggers when the back button is clicked.
    */
   public onClickBack(): void {
@@ -174,7 +137,7 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
     this.bsModalRef.hide();
   }
 
-  /**
+    /**
    * Method which triggers when the delete button is clicked.
    */
   public onClickDelete(): void {
@@ -183,16 +146,16 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
     }
 
     this.highlightService.delete(this.highlight.id)
-        .subscribe(() => {
-          const alertConfig: AlertConfig = {
-            type: AlertType.success,
-            mainMessage: 'The highlight was succesfully deleted',
-            dismissible: true,
-            timeout: this.alertService.defaultTimeout
-          };
+      .subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'The highlight was succesfully deleted',
+          dismissible: true,
+          timeout: this.alertService.defaultTimeout
+        };
 
-          this.alertService.pushAlert(alertConfig);
-          this.bsModalRef.hide();
-        });
+        this.alertService.pushAlert(alertConfig);
+        this.bsModalRef.hide();
+      });
   }
 }

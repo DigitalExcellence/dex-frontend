@@ -16,7 +16,6 @@
  */
 
 import { Project } from './project';
-import { UploadFile } from './uploadFile';
 
 export interface Highlight {
   id: number;
@@ -24,8 +23,6 @@ export interface Highlight {
   project: Project;
   startDate?: string;
   endDate?: string;
-  imageId?: number;
-  image?: UploadFile;
   description: string;
   isNeverEnding?: boolean;
 }

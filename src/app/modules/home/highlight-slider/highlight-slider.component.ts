@@ -19,13 +19,10 @@ export class HighlightSliderComponent implements OnInit {
    */
   public highlights: Highlight[] = [];
 
-  public currentHighlightIndex = 0;
-
   /**
    * Boolean to determine whether the component is loading the information from the api.
    */
   public highlightsLoading = true;
-  public animationPaused = false;
 
   constructor(private router: Router,
               private projectService: HighlightService,
@@ -71,32 +68,5 @@ export class HighlightSliderComponent implements OnInit {
    */
   public onClickHighlightedProject(id: number, name: string): void {
     this.projectDetailModalUtility.openProjectModal(id, name, '/home');
-  }
-
-  public getHighlightImageByUrl(highlight: Highlight) {
-    let highlightImage = this.fileRetrieverService.getIconUrl(highlight.image);
-    if (highlightImage === 'assets/images/placeholder.png') {
-      highlightImage = 'assets/images/homepage/header.jpg';
-    }
-
-    return highlightImage;
-  }
-
-  public setCurrentHighlight($event: number) {
-    this.currentHighlightIndex = $event;
-  }
-
-  public setActiveSlide(index: number) {
-    this.animationPaused = true;
-    this.currentHighlightIndex = index;
-  }
-
-  public continueSlides(event) {
-    // this is the original element the event handler was assigned to
-    const e = event.toElement || event.relatedTarget;
-    if (e.parentNode === this || e === this) {
-      return;
-    }
-    this.animationPaused = false;
   }
 }

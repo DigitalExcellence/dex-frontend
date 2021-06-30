@@ -21,52 +21,6 @@
     opacity: 0.225;
   }
 
-  .active {
-    transform: scale(1.1);
-  }
-
-  ::ng-deep {
-    a.carousel-control.carousel-control-next,
-    a.carousel-control.carousel-control-prev {
-      display: none;
-    }
-    .carousel-indicators {
-      display: none;
-    }
-    .carousel {
-      height: 100%;
-      .item {
-        height: 100%;
-        position: relative;
-        img {
-          height: 100%;
-          position: absolute;
-          object-fit: cover;
-          width: 100%;
-        }
-      }
-    }
-    .carousel-inner {
-      height: 100%;
-    }
-  }
-
-  .image-carousel {
-    .carousel-slide {
-      height: 100%;
-      transform: scale(1) !important;
-
-      .item {
-        height: 100%;
-        img {
-          object-fit: cover;
-          height: 100%;
-          width: auto;
-        }
-      }
-    }
-  }
-
   .overlay {
     position: absolute;
     left: 0;
@@ -145,7 +99,6 @@
     .cards {
       display: grid;
       grid-auto-flow: column;
-      grid-auto-columns: 325px;
       gap: 40px;
       height: 100%;
       max-width: 100%;
@@ -153,17 +106,12 @@
       overflow-y: hidden;
       padding: 10px 0;
 
-      //scrolbar styling firefox
-      scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-      scrollbar-width: thin;
-
-      //scrollbar styling webkit
+      //scrollbar stylingbody
       &::-webkit-scrollbar {
         height: 4px;
       }
 
       &::-webkit-scrollbar-track {
-        background-color: transparent;
       }
 
       &::-webkit-scrollbar-thumb {
@@ -175,20 +123,27 @@
       //   display: none;
       // }
 
-      .card {
-        width: 100%;
-        border-radius: $border-radius;
-        padding: 25px;
-        background: #ffffff;
-        box-shadow: $box-shadow;
-        border: none;
-        cursor: pointer;
+      div {
         height: 100%;
-        transition: transform $transition-short;
-        gap: 20px;
+        width: 100%;
+        background-color: white;
+        border-radius: $border-radius;
 
-        &:hover {
-          transform: $transform-grow;
+        .card {
+          padding: 25px;
+          background: #ffffff;
+          box-shadow: $box-shadow;
+          border-radius: 6px;
+          border: none;
+          cursor: pointer;
+          height: 100%;
+          width: 325px;
+          transition: transform $transition-short;
+          gap: 20px;
+
+          &:hover {
+            transform: $transform-grow;
+          }
         }
 
         .card-title {

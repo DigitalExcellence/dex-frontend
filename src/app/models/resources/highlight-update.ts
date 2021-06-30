@@ -19,6 +19,5 @@ export interface HighlightUpdate {
   projectId: number;
   startDate: Date;
   endDate: Date;
-  imageId: number;
   description: string;
 }
