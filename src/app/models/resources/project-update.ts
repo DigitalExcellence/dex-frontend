@@ -27,7 +27,8 @@ export interface ProjectUpdate {
   shortDescription: string;
   description: string;
   url: string;
-  callToAction: CallToAction;
+  callToActions: CallToAction[];
   categories: ProjectCategory[];
-  fileId?: number;
+  iconId?: number;
+  imageIds?: number[];
 }

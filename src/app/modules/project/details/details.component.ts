@@ -45,6 +45,7 @@ import { LikeService } from 'src/app/services/like.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 /**
  * Overview of a single project
@@ -56,7 +57,6 @@ import { environment } from 'src/environments/environment';
   encapsulation: ViewEncapsulation.None
 })
 export class DetailsComponent implements OnInit {
-
   @Input() projectId: number;
   @Input() activeTab = 'description';
 
@@ -111,11 +111,10 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.projectId == null || Number.isNaN(this.projectId) || this.projectId < 1) {
+    if (Number.isNaN(this.projectId) || this.projectId < 1) {
       this.invalidId = this.projectId.toString();
       return;
     }
-
     this.authService.authNavStatus$.subscribe((status) => {
       this.isAuthenticated = status;
     });
@@ -297,8 +296,8 @@ export class DetailsComponent implements OnInit {
    * Method to get the url of the icon of the project. This is retrieved
    * from the file retriever service.
    */
-  public getIconUrl(): SafeUrl {
-    return this.fileRetrieverService.getIconUrl(this.project.projectIcon);
+  public getIconUrl(file: UploadFile): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(file);
   }
 
   /**
@@ -329,7 +328,7 @@ export class DetailsComponent implements OnInit {
    * Method to display the project's call to action button based on whether or not the project has a set call to action.
    */
   private determineDisplayCallToActionButton(): void {
-    if (this.project && this.project.callToAction) {
+    if (this.project && this.project.callToActions?.length > 0) {
       this.displayCallToActionButton = true;
       return;
     } else {
@@ -447,7 +446,8 @@ export class DetailsComponent implements OnInit {
             projectId: this.project.id,
             startDate: highlightFormResult.startDate,
             description: highlightFormResult.description,
-            endDate: highlightFormResult.endDate
+            endDate: highlightFormResult.endDate,
+            imageId: highlightFormResult.imageId
           };
 
           if (highlightFormResult.indeterminate) {

@@ -25,14 +25,17 @@
 
 <ng-template #projectLoaded>
   <div *ngIf="project; else noProject">
-    <div class="row">
-      <!-- on this spot should be an image or a bootstrap carrousel after the wizard is finished
-      <img src="https://www.rover.com/blog/wp-content/uploads/2019/06/bernese-mountain-dog-1177074_1920-960x540.jpg" alt="project-detail-image"> -->
-      <div class="project-modal-content">
+    <div class="project-modal-content">
+      <carousel [interval]="5000" [isAnimated]="true" [noPause]="false" class="image-carousel">
+        <slide *ngFor="let image of project.images">
+          <img [src]="getIconUrl(image)" alt="project-image" loading="lazy" style="display: block; width: 100%;"/>
+        </slide>
+      </carousel>
+      <div class="project-info">
         <div id="title-wrapper">
           <h2 class="project-title">{{ project.name }}</h2>
           <div class="circle" style="background-color: unset">
-            <img [src]="getIconUrl()" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';"/>
+            <img [src]="getIconUrl(project.projectIcon)" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';"/>
           </div>
         </div>
         <div class="project-metadata">
@@ -54,7 +57,7 @@
               {{ project.likeCount }}
             </p>
           </div>
-          <div class="project-metadata__item" [tooltip]="projectUpdated">
+          <div [tooltip]="projectUpdated" class="project-metadata__item">
             <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p>
             <p class="hover">{{ project.created | date: "longDate" }}</p>
             <ng-template #projectUpdated>
@@ -96,7 +99,8 @@
           <div class="menu-wrapper">
             <div class="menu">
               <div (click)="setActiveTab('description')" [ngClass]="{ active: this.activeTab == 'description' }" class="item">Description</div>
-              <div (click)="setActiveTab('collaborators')" [ngClass]="{ active: this.activeTab == 'collaborators' }" class="item">Collaborators</div>
+              <div (click)="setActiveTab('collaborators')" [ngClass]="{ active: this.activeTab == 'collaborators' }" class="item">Collaborators
+              </div>
             </div>
             <ng-container *ngIf="displayHighlightButton || displayEditButton || displayDeleteProjectButton">
               <em [outsideClick]="true" [popover]="cogPopOver" class="fas fa-cog cog" placement="bottom" triggers="click"> </em>
@@ -118,18 +122,22 @@
 
           <div class="tab-content">
             <ng-container *ngIf="this.activeTab == 'description'" class="project-description large">
-              <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
-              <div class="bottom-buttons">
-                <ng-container *ngIf="displayCallToActionButton">
-                  <button (click)="onClickCallToActionButton(project.callToAction.value)" class="primary" id="call-to-action-button">
-                    {{ project.callToAction.optionValue }}
-                    <em [classList]="'fas ' + project.callToAction.iconName"></em>
-                  </button>
-                </ng-container>
-                <ng-container *ngIf="displayEmbedButton">
-                  <app-embed-button [projectId]="project.id"></app-embed-button>
-                </ng-container>
+              <div class="top-buttons">
+                  <ng-container *ngIf="displayCallToActionButton">
+                    <div class="callToActionButtons">
+                      <button (click)="onClickCallToActionButton(cta.value)" *ngFor="let cta of project?.callToActions" class="primary" id="call-to-action-button">
+                        {{ cta.optionValue }}
+                        <em [classList]="'fas ' + cta.iconName"></em>
+                      </button>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="displayEmbedButton">
+                    <app-embed-button [projectId]="project.id"></app-embed-button>
+                  </ng-container>
               </div>
+
+
+              <p [innerHTML]="project.description | safeHtml" class="dex-quill-viewer"></p>
             </ng-container>
             <ng-container *ngIf="this.activeTab == 'collaborators'">
               <div class="collaborators">

@@ -9,16 +9,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Implemented categories - [#475](https://github.com/DigitalExcellence/dex-frontend/issues/475)
-- Added filter parameters to the url, so a user can share their search settings - [#493](https://github.com/DigitalExcellence/dex-frontend/issues/493)
-- Added search bar inside navbar with autocomplete suggested results. - [#403](https://github.com/DigitalExcellence/dex-frontend/issues/403)
-- Refactored the home page. [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
-- Added project recommendations on the home page. [#497](https://github.com/DigitalExcellence/dex-frontend/issues/497)
-
 ### Changed
-
-- Clicking to the next step in the wizard step-header will now skip the step & removed orange progress bar [#460](https://github.com/DigitalExcellence/dex-frontend/issues/460)
-- Made Project URI optional - [#492](https://github.com/DigitalExcellence/dex-frontend/issues/492)
 
 ### Deprecated
 
@@ -26,12 +17,29 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Fixed issue where collaborator roles would always get set to developer - [#462](https://github.com/DigitalExcellence/dex-frontend/issues/462)
-- Fixed issue where the same project could be added multiple times by spamming the finish
-  button [#490](https://github.com/DigitalExcellence/dex-frontend/issues/490)
-- Fixed issue where alerts would never get dismissed - [#441](https://github.com/DigitalExcellence/dex-frontend/issues/441)
-
 ### Security
+
+## Release v.1.5.0-beta - 30-06-2021
+
+### Added
+
+- Added my projects page - [#505](https://github.com/DigitalExcellence/dex-frontend/issues/505)
+- Added project images. - [#464](https://github.com/DigitalExcellence/dex-frontend/issues/464)
+- Added images to highlights - [#463](https://github.com/DigitalExcellence/dex-frontend/issues/463)
+- Updated selection color to improve branding - [#539](https://github.com/DigitalExcellence/dex-frontend/issues/539)
+- Added bot to optimize image sizes - [#440](https://github.com/DigitalExcellence/dex-frontend/issues/540)
+- Added search functionality based on the number of likes - [#499](https://github.com/DigitalExcellence/dex-frontend/issues/499)
+
+### Changed
+
+- URL does now contain project overview filter parameters - [#517](https://github.com/DigitalExcellence/dex-frontend/issues/517)
+- Support multiple call-to-actions. [#454](https://github.com/DigitalExcellence/dex-frontend/issues/454)
+- Refactored content on the homepage - [#502](https://github.com/DigitalExcellence/dex-frontend/issues/502)
+- Changed location of the buttons on the project details page - [#518](https://github.com/DigitalExcellence/dex-frontend/issues/518)
+
+### Fixed
+
+- Resolved links in footer that navigated to non-existing pages - [#513](https://github.com/DigitalExcellence/dex-frontend/issues/513)
 
 ## Release v.1.4.0-beta - 07-06-2021
 
@@ -40,13 +48,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Implemented categories - [#475](https://github.com/DigitalExcellence/dex-frontend/issues/475)
 - Added filter parameters to the url, so a user can share their search settings - [#493](https://github.com/DigitalExcellence/dex-frontend/issues/493)
 - Added search bar inside navbar with autocomplete suggested results. - [#403](https://github.com/DigitalExcellence/dex-frontend/issues/403)
-- Refactored the home page. [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
-- Added project recommendations on the home page. [#497](https://github.com/DigitalExcellence/dex-frontend/issues/497)
+- Refactored the home page. - [#380](https://github.com/DigitalExcellence/dex-frontend/issues/380)
+- Added project recommendations on the home page. - [#497](https://github.com/DigitalExcellence/dex-frontend/issues/497)
 
 ### Changed
 
 - Clicking to the next step in the wizard step-header will now skip the step & removed orange progress bar [#460](https://github.com/DigitalExcellence/dex-frontend/issues/460)
 - Made Project URI optional - [#492](https://github.com/DigitalExcellence/dex-frontend/issues/492)
+- Changed the global styling of scrollbars - [#448](https://github.com/DigitalExcellence/dex-frontend/issues/448)
 
 ### Fixed
 

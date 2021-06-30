@@ -32,8 +32,9 @@ export interface Project {
   updated: Date;
   uri?: string;
   collaborators?: Collaborator[];
-  callToAction?: CallToAction;
+  callToActions?: CallToAction[];
   projectIcon?: UploadFile;
+  images?: UploadFile[];
   likes?: Array<ProjectLike>;
   userHasLikedProject: boolean;
   likeCount: number;
