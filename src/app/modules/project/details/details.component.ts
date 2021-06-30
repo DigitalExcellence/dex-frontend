@@ -201,7 +201,8 @@ export class DetailsComponent implements OnInit {
             projectId: this.project.id,
             startDate: highlightFormResult.startDate,
             description: highlightFormResult.description,
-            endDate: highlightFormResult.endDate
+            endDate: highlightFormResult.endDate,
+            imageId: highlightFormResult.imageId
           };
 
           if (highlightFormResult.indeterminate) {

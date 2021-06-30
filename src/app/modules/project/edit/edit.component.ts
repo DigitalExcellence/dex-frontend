@@ -49,7 +49,7 @@ export class EditComponent implements OnInit {
   @ViewChild(CallToActionsEditComponent) callToActions: CallToActionsEditComponent;
   @ViewChild('projectIconFileUploader') projectIconFileUploader: FileUploaderComponent;
   @ViewChild('projectImagesFileUploader') projectImagesFileUploader: FileUploaderComponent;
-  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+  public acceptedTypes = ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'];
 
   public uploadingFiles = false;
 
