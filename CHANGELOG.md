@@ -9,6 +9,26 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## Release v.1.5.1-beta - 30-06-2021
+
+### Changed
+
+- Gifs are now supported for project images and highlight images - [#546](https://github.com/DigitalExcellence/dex-frontend/issues/546)
+
+## Release v.1.5.0-beta - 30-06-2021
+
+### Added
+
 - Added my projects page - [#505](https://github.com/DigitalExcellence/dex-frontend/issues/505)
 - Added project images. - [#464](https://github.com/DigitalExcellence/dex-frontend/issues/464)
 - Added images to highlights - [#463](https://github.com/DigitalExcellence/dex-frontend/issues/463)
@@ -22,17 +42,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Support multiple call-to-actions. [#454](https://github.com/DigitalExcellence/dex-frontend/issues/454)
 - Refactored content on the homepage - [#502](https://github.com/DigitalExcellence/dex-frontend/issues/502)
 - Changed location of the buttons on the project details page - [#518](https://github.com/DigitalExcellence/dex-frontend/issues/518)
-- Gifs are now supported for project images and highlight images - [#546](https://github.com/DigitalExcellence/dex-frontend/issues/546)
-
-### Deprecated
-
-### Removed
 
 ### Fixed
 
 - Resolved links in footer that navigated to non-existing pages - [#513](https://github.com/DigitalExcellence/dex-frontend/issues/513)
-
-### Security
 
 ## Release v.1.4.0-beta - 07-06-2021
 
