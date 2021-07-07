@@ -15,8 +15,8 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { WizardPage } from './wizard-page';
 import { UploadFile } from './uploadFile';
+import { WizardPage } from './wizard-page';
 
 export interface ExternalSource {
   guid: string;

@@ -16,10 +16,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { timer } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
 
 /**
  * Service for keeping track of alerts.

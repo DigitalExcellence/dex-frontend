@@ -17,13 +17,14 @@
  *
  */
 
-import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
+import { AuthService } from './auth.service';
+
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
+import { from, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { API_CONFIG } from 'src/app/config/api-config';
-import { from, Observable } from 'rxjs';
+import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
 
 @Injectable({

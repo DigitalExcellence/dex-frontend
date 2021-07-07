@@ -15,8 +15,9 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { CollaboratorUpdate } from './collaborator-update';
+
+import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
 
 export interface ProjectUpdate {

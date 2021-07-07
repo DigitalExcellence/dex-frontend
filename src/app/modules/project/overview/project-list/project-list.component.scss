@@ -1,0 +1,150 @@
+@import "assets/styles/variables";
+
+.project-list-header {
+  width: 100%;
+  margin: 2em 0;
+  display: inline-flex;
+  justify-content: space-between;
+  align-content: center;
+
+  h1 {
+    display: inline;
+  }
+
+  .list-view-toggle {
+    display: flex;
+    margin: auto 0 auto 20px;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    @media only screen and (max-width: 720px) {
+      display: none;
+    }
+
+    .container {
+      box-shadow: $box-shadow;
+      display: inline;
+      position: relative;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      padding: 0;
+      width: fit-content;
+      margin: 0;
+      height: fit-content;
+    }
+
+    // Hide the default radio button
+    .container input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    // Create custom radio button
+    .checkmark {
+      height: 40px;
+      width: 40px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: $white;
+      color: $accent-color-red-primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform $transition-short;
+
+      &:hover {
+        transform: $transform-grow-big;
+      }
+
+      svg {
+        size: inherit;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    }
+  }
+
+  // If the sibling input is checked
+  .container input[type="radio"]:checked ~ .checkmark {
+    color: $light-mode-grey-quaternary;
+    background: $accent-color-red-primary;
+  }
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  input[type="search"] {
+    position: relative;
+    width: 100%;
+    padding: 8px 20px;
+    font-size: 18px;
+    height: 60px;
+    color: $light-mode-grey-primary;
+    border: none;
+    background: $white;
+    box-shadow: $box-shadow;
+    border-radius: 6px;
+    font-family: lato, sans-serif;
+
+    &::placeholder {
+      color: $light-mode-grey-primary;
+    }
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+
+  button {
+    position: relative;
+    right: 55px;
+    height: auto;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 0;
+    padding: 0;
+
+    &:focus {
+      outline: none;
+    }
+
+    img {
+      width: 25px;
+      transition: transform $transition-long;
+
+      &:hover {
+        transform: $transform-rotate;
+      }
+    }
+  }
+}
+
+.project-list-wrapper {
+  width: 100%;
+  display: grid;
+  gap: 15px;
+  margin-bottom: 35px;
+
+  &.grid {
+    gap: 25px;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  }
+}
+
+.loading-circle {
+  color: $accent-color-red-primary;
+}

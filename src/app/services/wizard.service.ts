@@ -15,19 +15,20 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Injectable } from '@angular/core';
-import { API_CONFIG } from 'src/app/config/api-config';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ExternalSource } from 'src/app/models/domain/external-source';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { WizardPage } from 'src/app/models/domain/wizard-page';
-import { Router } from '@angular/router';
-import { Project } from 'src/app/models/domain/project';
-import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { AuthService } from './auth.service';
-import { WizardPageConfig } from 'src/app/config/wizard-page-config';
+
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { WizardPageConfig } from 'src/app/config/wizard-page-config';
+import { ExternalSource } from 'src/app/models/domain/external-source';
+import { Project } from 'src/app/models/domain/project';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { WizardPage } from 'src/app/models/domain/wizard-page';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
 
 @Injectable({
   providedIn: 'root'

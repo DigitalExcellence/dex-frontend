@@ -16,12 +16,11 @@
  */
 
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalAcceptGenericComponent } from 'src/app/components/modals/modal-accept-generic/modal-accept-generic.component';
-import { LocalStorageUtils } from 'src/app/utils/localstorage.utils';
-import { LocalStorageOptions } from 'src/app/utils/localstorage.utils';
+import { AuthService } from 'src/app/services/auth.service';
 import { SEOService } from 'src/app/services/seo.service';
+import { LocalStorageOptions, LocalStorageUtils } from 'src/app/utils/localstorage.utils';
 
 @Component({
   selector: 'app-login',

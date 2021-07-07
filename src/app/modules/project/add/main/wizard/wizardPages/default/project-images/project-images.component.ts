@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
-import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
-import { ProjectAdd } from 'src/app/models/resources/project-add';
-import { WizardService } from 'src/app/services/wizard.service';
-import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { SafeUrl } from '@angular/platform-browser';
-import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { forkJoin, Observable } from 'rxjs';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-project-images',

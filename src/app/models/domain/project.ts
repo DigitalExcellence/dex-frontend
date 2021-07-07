@@ -15,12 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { CallToAction } from './call-to-action';
 import { Collaborator } from './collaborator';
+import { ProjectCategory } from './projectCategory';
+import { ProjectLike } from './projectLike';
 import { UploadFile } from './uploadFile';
 import { User } from './user';
-import { ProjectLike } from './projectLike';
-import { CallToAction } from './call-to-action';
-import { ProjectCategory } from './projectCategory';
 
 export interface Project {
   id: number;

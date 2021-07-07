@@ -1,0 +1,42 @@
+<div class="project-list-header">
+  <h1 class="">Project overview</h1>
+  <div class="list-view-toggle">
+    <label class="container">
+      <input [(ngModel)]="showListView" [value]="false" aria-label="Switch to grid view" name="list-view" type="radio"/>
+      <span class="checkmark grid">
+            <svg>
+              <use xlink:href="assets/images/grid-icon.svg#img"></use>
+            </svg>
+          </span>
+    </label>
+    <label class="container">
+      <input [(ngModel)]="showListView" [value]="true" aria-label="Switch to list view" checked="checked" name="list-view" type="radio"/>
+      <span class="checkmark list">
+            <svg>
+              <use xlink:href="assets/images/list-icon.svg#img"></use>
+            </svg>
+          </span>
+    </label>
+  </div>
+</div>
+<div class="search">
+  <input [formControl]="searchControl" aria-label="Search project" placeholder="search project" type="search"/>
+  <button><img alt="" aria-label="Search project" loading="lazy" src="assets/images/research.svg"/></button>
+</div>
+
+<ng-container *ngIf="!projectsEmpty(); else noProjects">
+  <div [ngClass]="this.showListView ? 'list' : 'grid'" class="project-list-wrapper">
+    <app-project
+        (click)="onClickProject($event, project)"
+        *ngFor="let project of filteredProjects"
+        [project]="project"
+        [showListView]="this.showListView"
+    >
+    </app-project>
+  </div>
+</ng-container>
+
+<ng-template #noProjects>
+  <h2 *ngIf="projectsLoading" class="fas fa-circle-notch fa-pulse loading-circle"></h2>
+  <p *ngIf="!projectsLoading">There are no projects available.</p>
+</ng-template>

@@ -15,9 +15,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { MainComponent } from './main/main.component';
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', component: MainComponent}

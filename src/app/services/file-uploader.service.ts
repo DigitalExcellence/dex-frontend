@@ -17,8 +17,8 @@
  *
  */
 
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from 'src/app/config/api-config';
 import { UploadFile } from 'src/app/models/domain/uploadFile';

@@ -15,8 +15,8 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Project } from './project';
 import { LinkedService } from './linked-service';
+import { Project } from './project';
 import { Role } from './role';
 
 export interface User {

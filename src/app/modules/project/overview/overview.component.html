@@ -18,118 +18,27 @@
  -->
 
 <div class="row">
-  <div class="col-md-2 projects-filter-wrapper">
-    <div class="projects-filter">
-      <h3><em class="fas fa-filter"></em> Filters</h3>
-      <div class="divider"></div>
-      <div class="filter-group">
-        <h4>Sort Options</h4>
-        <form class="sort-options-form">
-          <label for="asc-desc">Sort options</label>
-          <select (change)="onSortFormValueChange()" [formControl]="sortOptionControl" class="option-select" id="asc-desc">
-            <option *ngFor="let sortOption of sortSelectOptions" [ngValue]="sortOption">
-              {{ sortOption.viewValue }}
-            </option>
-          </select>
-        </form>
-      </div>
-      <div class="divider"></div>
-      <div class="filter-group">
-        <h4>Pagination</h4>
-        <label>Projects per page</label>
-        <select (change)="onPaginationChange()" [formControl]="paginationOptionControl" class="option-select">
-          <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption" class="paginationDropDown">
-            {{ paginationOption.amountOnPage }}
-          </option>
-        </select>
-      </div>
-      <div class="divider"></div>
-      <div class="filter-group">
-        <h4>Categories</h4>
-        <div class="project-categories">
-          <ng-container *ngFor="let category of categories">
-              <label class="container">
-                <input type="checkbox" [ngModel]="category.selected" [name]="category.name" (change)="onCategoryChange(category.id)">
-                <span class="checkmark"></span>
-                <span>{{category.name}}</span>
-              </label>
-          </ng-container>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <app-filter-menu
+      (filteredProjectsChanged)="filteredProjectsChanged($event)"
+      (projectsLoadingChanged)="projectsLoadingChanged($event)"
+      [currentPage]="currentPage"
+  >
+  </app-filter-menu>
   <div class="col-md projects-overview-wrapper">
-    <div class="project-list-header">
-      <h1 class="">Project overview</h1>
-      <div class="list-view-toggle">
-        <label class="container">
-          <input [(ngModel)]="showListView" [value]="false" aria-label="Switch to grid view" name="list-view" type="radio"/>
-          <span class="checkmark grid">
-            <svg>
-              <use xlink:href="assets/images/grid-icon.svg#img"></use>
-            </svg>
-          </span>
-        </label>
-        <label class="container">
-          <input [(ngModel)]="showListView" [value]="true" aria-label="Switch to list view" checked="checked" name="list-view" type="radio"/>
-          <span class="checkmark list">
-            <svg>
-              <use xlink:href="assets/images/list-icon.svg#img"></use>
-            </svg>
-          </span>
-        </label>
-      </div>
-    </div>
-    <div class="search">
-      <input [formControl]="searchControl" aria-label="Search project" placeholder="search project" type="search"/>
-      <button><img alt="" aria-label="Search project" loading="lazy" src="assets/images/research.svg"/></button>
-    </div>
 
-    <ng-container *ngIf="!projectsEmpty(); else noProjects">
-      <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
-        <app-project
-            (click)="onClickProject($event, project.id, project.name)"
-            *ngFor="let project of projectsToDisplay"
-            [project]="project"
-            [showListView]="this.showListView"
-        >
-        </app-project>
-      </div>
-    </ng-container>
+    <app-project-list
+        (modalClosed)="modalClosed()"
+        (projectClicked)="filterMenu.modalOpened($event.id, $event.name)"
+        (searchInputChanged)="searchInputChanged($event)"
+        [filteredProjects]="filteredProjects"
+        [projectsLoading]="projectsLoading"
+    ></app-project-list>
 
-    <ng-template #noProjects>
-      <h2 class="fas fa-spinner fa-pulse loading-circle" *ngIf="projectsLoading"></h2>
-      <p *ngIf="!projectsLoading">There are no projects available.</p>
-    </ng-template>
-
-    <div *ngIf="amountOfProjectsOnSinglePage < totalNrOfProjects && showPaginationFooter" class="pagination-div">
-      <pagination
-          (pageChanged)="pageChanged($event)"
-          [customNextTemplate]="nextTemplate"
-          [customPreviousTemplate]="prevTemplate"
-          [itemsPerPage]="amountOfProjectsOnSinglePage"
-          [maxSize]="6"
-          [totalItems]="totalNrOfProjects"
-          class="pagination-footer"
-      >
-      </pagination>
-      <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
-        <ng-container *ngIf="!disabled">
-          <span class="chevron-right fas fa-chevron-down"></span>
-        </ng-container>
-        <ng-container *ngIf="disabled">
-          <span class="chevron-right disabled fas fa-chevron-down"></span>
-        </ng-container>
-      </ng-template>
-      <ng-template #prevTemplate let-currentPage="currentPage" let-disabled="disabled">
-        <ng-container *ngIf="!disabled">
-          <span class="chevron-left fas fa-chevron-down"></span>
-        </ng-container>
-        <ng-container *ngIf="disabled">
-          <span class="chevron-left fas fa-chevron-down disabled"></span>
-        </ng-container>
-      </ng-template>
-    </div>
+    <app-pagination
+        (pageChanged)="pageChanged($event)"
+        [amountOfProjectsOnSinglePage]="amountOfProjectsOnSinglePage"
+        [showPaginationFooter]="showPaginationFooter && !projectsLoading"
+        [totalNumberOfProjects]="totalAmountOfProjects"
+    ></app-pagination>
   </div>
 </div>

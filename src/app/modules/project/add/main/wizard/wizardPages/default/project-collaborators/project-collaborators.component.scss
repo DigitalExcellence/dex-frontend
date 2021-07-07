@@ -69,15 +69,17 @@
     }
     ul {
       list-style: none;
-      padding: 0px 0px 0px 5px;
+      padding: 0 0 0 5px;
       max-width: 100%;
       overflow: hidden;
+
       li {
         margin: 2px 0;
         max-width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
         span {
           color: $light-mode-grey-secondary;
           opacity: 0.4;

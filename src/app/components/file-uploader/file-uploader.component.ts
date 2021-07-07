@@ -17,16 +17,16 @@
  *
  */
 
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
-import { FileUploaderService } from 'src/app/services/file-uploader.service';
-import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { FileUploaderService } from 'src/app/services/file-uploader.service';
 
 /**
  * Component that will function as a form to upload files of any type

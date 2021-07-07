@@ -15,14 +15,16 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [CommonModule, AccountRoutingModule, ReactiveFormsModule],
   declarations: [LoginComponent],
 })
-export class AccountModule {}
+export class AccountModule {
+}

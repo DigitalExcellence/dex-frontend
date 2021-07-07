@@ -1,4 +1,3 @@
-
 /*
  *  Digital Excellence Copyright (C) 2020 Brend Smits
  *
@@ -16,10 +15,11 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 // Import quill and markdown module to support on the fly markdown typing and converting it to styled html.
+import { QuillModules } from 'ngx-quill';
 import Quill from 'quill';
 import MarkdownShortcuts from 'quill-markdown-shortcuts';
+
 Quill.register('modules/markdownShortcuts', MarkdownShortcuts);
-import { QuillModules } from 'ngx-quill';
 
 /**
  * Class containing utility methods for Quill Editors.

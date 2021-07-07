@@ -16,11 +16,11 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageOptions, LocalStorageUtils } from 'src/app/utils/localstorage.utils';
-import { AlertService } from 'src/app/services/alert.service';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 /**
  * Component used to display the basic layout of the application.

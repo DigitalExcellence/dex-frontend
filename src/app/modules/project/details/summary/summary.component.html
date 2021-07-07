@@ -1,0 +1,61 @@
+<div id="title-wrapper">
+  <h2 class="project-title">{{ project.name }}</h2>
+  <div class="circle" style="background-color: unset">
+    <img [src]="getIconUrl(project.projectIcon)" alt="Code project" loading="lazy" onerror="this.src='/assets/images/placeholder.svg';"/>
+  </div>
+</div>
+<div class="project-metadata">
+  <div *ngIf="project.user" class="project-metadata__item">
+    <p class="title">Uploader <em class="fas fa-user"></em></p>
+    <p>
+      {{ project.user.name }}
+    </p>
+  </div>
+
+  <div *ngIf="project.uri" class="project-metadata__item">
+    <p class="title">External Link <em class="fas fa-external-link-alt"></em></p>
+    <a class="hover" href="{{ project.uri }}" rel="noreferrer noopener" target="_blank">{{ project.uri }}</a>
+  </div>
+  <div class="project-metadata__item">
+    <p class="title">Likes <em class="fas fa-heart"></em></p>
+    <p (click)="likeClicked()" class="hover">
+      <em [ngClass]="[project.userHasLikedProject ? 'fas' : 'far', this.animationTriggered ? 'animated' : '']" class="fa-heart"></em>
+      {{ project.likeCount }}
+    </p>
+  </div>
+  <div [tooltip]="projectUpdated" class="project-metadata__item">
+    <p class="title cursor-pointer">Upload Date <em class="fas fa-calendar"></em></p>
+    <p class="hover">{{ project.created | date: "longDate" }}</p>
+    <ng-template #projectUpdated>
+      <p>Created: {{ project.created | date: "mediumDate" }}</p>
+      <p>Updated: {{ project.updated | date: "mediumDate" }}</p>
+    </ng-template>
+  </div>
+</div>
+
+<div class="project-categories-tags">
+  <ng-container *ngIf="!isProduction()">
+    <div>
+      <p class="title">Tags</p>
+      <div class="project-tags">
+        <div class="project-tags">
+          <!--  <span *ngFor="let tag of project.tags" class="tag" (click)="onTagClick(tag)">-->
+          <span>#html</span>
+          <span>#css</span>
+          <span>#javascript</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <div>
+    <p class="title">Categories</p>
+    <div class="project-categories">
+      <a
+          *ngFor="let category of project.categories"
+          class="category"
+          href="javascript:void(0)">
+        {{category.name}}
+      </a>
+    </div>
+  </div>
+</div>
