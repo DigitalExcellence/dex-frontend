@@ -64,10 +64,8 @@ export class BottomDrawerComponent implements OnInit {
   private determineDisplayCallToActionButton(): void {
     if (this.project && this.project.callToActions?.length > 0) {
       this.displayCallToActionButton = true;
-      return;
     } else {
       this.displayCallToActionButton = false;
-      return;
     }
   }
 

@@ -10,7 +10,7 @@ import { HighlightFormResult, ModalHighlightFormComponent } from '../../../modal
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { Project } from 'src/app/models/domain/project';
@@ -62,7 +62,7 @@ export class SettingsDropdownComponent implements OnInit {
    * When Indeterminate checkbox is checked start date and end date fields are disabled and will be null,
    * resulting in an infinite highlight.
    */
-  public onClickHighlightButton(canGoBack?: Boolean): void {
+  public onClickHighlightButton(canGoBack?: boolean): void {
     if (this.project == null || this.project.id === 0) {
       const alertConfig: AlertConfig = {
         type: AlertType.danger,
@@ -146,7 +146,7 @@ export class SettingsDropdownComponent implements OnInit {
     // Display modal
     const modalRef = this.modalService.show(ModalDeleteGenericComponent, modalOptions);
     // Map observable back to original type
-    const modalRefRemove = modalRef.content.remove as Observable<boolean>;
+    const modalRefRemove = modalRef.content.remove;
 
     // Subscribe to remove event.
     // Call the project remove service if true was returned.

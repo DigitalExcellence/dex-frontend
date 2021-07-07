@@ -67,10 +67,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    ul {
-      margin: 0;
-    }
-
     h3,
     p {
       margin: 0;
@@ -87,6 +83,7 @@
     }
 
     ul {
+      margin: 0;
       font-family: "Lato", sans-serif;
       color: $light-mode-grey-primary;
       padding: 0;
