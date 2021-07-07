@@ -15,10 +15,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
-import { WizardService } from 'src/app/services/wizard.service';
+import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { CallToActionsEditComponent } from 'src/app/modules/project/call-to-actions-edit/call-to-actions-edit.component';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-project-call-to-action',

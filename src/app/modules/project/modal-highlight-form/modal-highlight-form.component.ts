@@ -17,16 +17,16 @@
  *
  */
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Highlight } from 'src/app/models/domain/highlight';
-import { HighlightService } from 'src/app/services/highlight.service';
 import * as moment from 'moment';
-import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { AlertService } from 'src/app/services/alert.service';
-import { AlertType } from 'src/app/models/internal/alert-type';
-import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
+import { Highlight } from 'src/app/models/domain/highlight';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { HighlightService } from 'src/app/services/highlight.service';
 
 export interface HighlightFormResult {
   startDate?: Date;

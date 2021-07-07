@@ -17,22 +17,22 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
-import { ProjectService } from 'src/app/services/project.service';
+import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { Project } from 'src/app/models/domain/project';
-import { ProjectUpdate } from 'src/app/models/resources/project-update';
+import { ProjectCategory } from 'src/app/models/domain/projectCategory';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
-import { AlertService } from 'src/app/services/alert.service';
-import { QuillUtils } from 'src/app/utils/quill.utils';
-import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
-import { ProjectCategory } from 'src/app/models/domain/projectCategory';
-import { CategoryService } from 'src/app/services/category.service';
+import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
+import { ProjectUpdate } from 'src/app/models/resources/project-update';
 import { CallToActionsEditComponent } from 'src/app/modules/project/call-to-actions-edit/call-to-actions-edit.component';
-import { SafeUrl } from '@angular/platform-browser';
-import { UploadFile } from 'src/app/models/domain/uploadFile';
+import { AlertService } from 'src/app/services/alert.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { QuillUtils } from 'src/app/utils/quill.utils';
 
 /**
  * Component for editing adding a project.

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs/internal/operators/finalize';
 import { Highlight } from 'src/app/models/domain/highlight';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';

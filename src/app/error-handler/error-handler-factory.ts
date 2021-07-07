@@ -17,6 +17,7 @@
  *
  */
 import { SentryErrorHandler } from './sentry.error-handler';
+
 import { ErrorHandler } from '@angular/core';
 import { environment } from 'src/environments/environment';
 

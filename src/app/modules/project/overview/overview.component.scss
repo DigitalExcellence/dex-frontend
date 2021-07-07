@@ -369,10 +369,10 @@
       padding: 4px;
       margin-bottom: 8px;
       border-radius: 3px;
-      border: 0px;
+      border: 0;
       color: $light-mode-black;
       appearance: none;
-      background: $light-mode-grey-thertiary url("src/assets/images/chevron-down-solid.svg") no-repeat 95% center;
+      background: $light-mode-grey-thertiary url("/src/assets/images/chevron-down-solid.svg") no-repeat 95% center;
       background-size: 12px;
     }
     select,

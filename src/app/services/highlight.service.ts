@@ -15,13 +15,14 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { HttpBaseService } from './http-base.service';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from 'src/app/config/api-config';
 import { Highlight } from 'src/app/models/domain/highlight';
 import { HighlightAdd } from 'src/app/models/resources/highlight-add';
 import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
-import { HttpBaseService } from './http-base.service';
 
 @Injectable({
   providedIn: 'root',

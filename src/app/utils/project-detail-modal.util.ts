@@ -1,17 +1,17 @@
+import { Location } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { SEOService } from 'src/app/services/seo.service';
-import { Location } from '@angular/common';
-import { Injectable } from '@angular/core';
 
 
 /**
-  * This class is responsible for opening the project overview modal on a certain page.
-  */
+ * This class is responsible for opening the project overview modal on a certain page.
+ */
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root'
+})
 export class ProjectDetailModalUtility {
 
   private modalRef: BsModalRef;

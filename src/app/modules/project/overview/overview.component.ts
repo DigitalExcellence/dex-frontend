@@ -14,26 +14,26 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { debounceTime, distinctUntilChanged, filter, finalize } from 'rxjs/operators';
-import { Project } from 'src/app/models/domain/project';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { InternalSearchService } from 'src/app/services/internal-search.service';
-import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
-import { PaginationService } from 'src/app/services/pagination.service';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { environment } from 'src/environments/environment';
-import { SelectFormOption } from 'src/app/interfaces/select-form-option';
-import { SearchResultsResource } from 'src/app/models/resources/search-results';
-import { SEOService } from 'src/app/services/seo.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { DetailsComponent } from 'src/app/modules/project/details/details.component';
-import { Subscription, VirtualTimeScheduler } from 'rxjs';
-import { CategoryService } from 'src/app/services/category.service';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { debounceTime, distinctUntilChanged, filter, finalize } from 'rxjs/operators';
+import { SelectFormOption } from 'src/app/interfaces/select-form-option';
+import { Project } from 'src/app/models/domain/project';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
+import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
+import { SearchResultsResource } from 'src/app/models/resources/search-results';
+import { DetailsComponent } from 'src/app/modules/project/details/details.component';
+import { CategoryService } from 'src/app/services/category.service';
+import { InternalSearchService } from 'src/app/services/internal-search.service';
+import { PaginationService } from 'src/app/services/pagination.service';
+import { SEOService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Overview of all the projects

@@ -25,6 +25,7 @@ import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-del
 import { Highlight } from 'src/app/models/domain/highlight';
 import { Project } from 'src/app/models/domain/project';
 import { scopes } from 'src/app/models/domain/scopes';
+import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { User } from 'src/app/models/domain/user';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
@@ -45,7 +46,6 @@ import { LikeService } from 'src/app/services/like.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
-import { UploadFile } from 'src/app/models/domain/uploadFile';
 
 /**
  * Overview of a single project
