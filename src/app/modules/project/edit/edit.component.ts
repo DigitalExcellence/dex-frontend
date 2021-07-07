@@ -132,7 +132,6 @@ export class EditComponent implements OnInit {
           .subscribe(
               (projectResult) => {
                 this.project = projectResult;
-                console.log(this.project);
                 this.collaborators = this.project.collaborators;
 
                 this.categories = this.categories.map(category => ({

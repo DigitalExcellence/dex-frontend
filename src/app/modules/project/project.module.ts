@@ -21,7 +21,10 @@ import { EditComponent } from './edit/edit.component';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
 import { HighlightsModalComponent } from './highlights-modal/highlights-modal.component';
+import { FilterMenuComponent } from './overview/filter-menu/filter-menu.component';
 import { OverviewComponent } from './overview/overview.component';
+import { PaginationComponent } from './overview/pagination/pagination.component';
+import { ProjectListComponent } from './overview/project-list/project-list.component';
 import { ProjectRoutingModule } from './project-routing.module';
 
 import { CommonModule } from '@angular/common';
@@ -40,7 +43,7 @@ import { QuillModule } from 'ngx-quill';
 import { DndDirective } from 'src/app/components/file-uploader/DndDirective';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { ModalHighlightFormComponent } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
-import { ProjectComponent } from 'src/app/modules/project/overview/project/project.component';
+import { ProjectComponent } from 'src/app/modules/project/overview/project-list/project/project.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
 import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
@@ -61,7 +64,10 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
     ProjectComponent,
     CollaboratorComponent,
     ProjectComponent,
-    CallToActionsEditComponent
+    CallToActionsEditComponent,
+    ProjectListComponent,
+    FilterMenuComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
