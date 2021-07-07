@@ -1,15 +1,16 @@
-import { Component, Input } from '@angular/core';
-import { Project } from 'src/app/models/domain/project';
-import { Subject } from 'rxjs';
-import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { AlertType } from 'src/app/models/internal/alert-type';
-import { LikeService } from 'src/app/services/like.service';
-import { AlertService } from 'src/app/services/alert.service';
-import { AuthService } from '../../../../services/auth.service';
 import { environment } from '../../../../../environments/environment';
 import { UploadFile } from '../../../../models/domain/uploadFile';
-import { SafeUrl } from '@angular/platform-browser';
+import { AuthService } from '../../../../services/auth.service';
 import { FileRetrieverService } from '../../../../services/file-retriever.service';
+
+import { Component, Input } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import { Project } from 'src/app/models/domain/project';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
+import { LikeService } from 'src/app/services/like.service';
 
 @Component({
   selector: 'app-summary',

@@ -16,7 +16,10 @@
  */
 import { CallToActionsEditComponent } from './call-to-actions-edit/call-to-actions-edit.component';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
+import { BottomDrawerComponent } from './details/bottom-drawer/bottom-drawer.component';
+import { SettingsDropdownComponent } from './details/bottom-drawer/settings-dropdown/settings-dropdown.component';
 import { DetailsComponent } from './details/details.component';
+import { SummaryComponent } from './details/summary/summary.component';
 import { EditComponent } from './edit/edit.component';
 import { EmbedButtonComponent } from './embed-button/embed-button.component';
 import { EmbedComponent } from './embed/embed.component';
@@ -47,9 +50,6 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project-list/
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
 import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
-import { SummaryComponent } from './details/summary/summary.component';
-import { SettingsDropdownComponent } from './details/bottom-drawer/settings-dropdown/settings-dropdown.component';
-import { BottomDrawerComponent } from './details/bottom-drawer/bottom-drawer.component';
 
 @NgModule({
   declarations: [

@@ -15,6 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { FilterMenuComponent } from './filter-menu/filter-menu.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 
 import { Location } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
@@ -26,7 +27,6 @@ import { InternalSearchService } from 'src/app/services/internal-search.service'
 import { PaginationService } from 'src/app/services/pagination.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
-import { ProjectListComponent } from './project-list/project-list.component';
 
 /**
  * Overview of all the projects

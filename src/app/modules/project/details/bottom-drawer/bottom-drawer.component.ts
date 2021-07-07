@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Project } from 'src/app/models/domain/project';
-import { User } from 'src/app/models/domain/user';
 import { scopes } from '../../../../models/domain/scopes';
 import { AuthService } from '../../../../services/auth.service';
 import { HighlightByProjectIdService } from '../../../../services/highlightid.service';
+
+import { Component, Input, OnInit } from '@angular/core';
+import { Project } from 'src/app/models/domain/project';
+import { User } from 'src/app/models/domain/user';
 
 @Component({
   selector: 'app-bottom-drawer',

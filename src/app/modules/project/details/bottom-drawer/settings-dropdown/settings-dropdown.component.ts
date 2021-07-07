@@ -1,24 +1,25 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
-import { EMPTY, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { AlertType } from 'src/app/models/internal/alert-type';
-import { ProjectService } from 'src/app/services/project.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { HighlightService } from 'src/app/services/highlight.service';
-import { AlertService } from 'src/app/services/alert.service';
-import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
-import { Router } from '@angular/router';
-import { Project } from 'src/app/models/domain/project';
+import { Highlight } from '../../../../../models/domain/highlight';
 import { scopes } from '../../../../../models/domain/scopes';
 import { User } from '../../../../../models/domain/user';
 import { AlertConfig } from '../../../../../models/internal/alert-config';
-import { HighlightFormResult, ModalHighlightFormComponent } from '../../../modal-highlight-form/modal-highlight-form.component';
 import { HighlightAdd } from '../../../../../models/resources/highlight-add';
-import { Highlight } from '../../../../../models/domain/highlight';
-import { HighlightsModalComponent } from '../../../highlights-modal/highlights-modal.component';
 import { HighlightUpdate } from '../../../../../models/resources/highlight-update';
+import { HighlightsModalComponent } from '../../../highlights-modal/highlights-modal.component';
+import { HighlightFormResult, ModalHighlightFormComponent } from '../../../modal-highlight-form/modal-highlight-form.component';
+
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { EMPTY, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { Project } from 'src/app/models/domain/project';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { HighlightService } from 'src/app/services/highlight.service';
+import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-settings-dropdown',
