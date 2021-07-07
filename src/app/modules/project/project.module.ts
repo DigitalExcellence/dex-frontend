@@ -79,9 +79,6 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     PopoverModule.forRoot(),
     QuillModule
   ],
-  entryComponents: [
-    DetailsComponent
-  ],
   exports: [
     FileUploaderComponent,
     SafeHtmlPipe,
