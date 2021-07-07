@@ -47,6 +47,9 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project-list/
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
 import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
+import { SummaryComponent } from './details/summary/summary.component';
+import { SettingsDropdownComponent } from './details/bottom-drawer/settings-dropdown/settings-dropdown.component';
+import { BottomDrawerComponent } from './details/bottom-drawer/bottom-drawer.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +70,10 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
     CallToActionsEditComponent,
     ProjectListComponent,
     FilterMenuComponent,
-    PaginationComponent
+    PaginationComponent,
+    SummaryComponent,
+    SettingsDropdownComponent,
+    BottomDrawerComponent
   ],
   imports: [
     CommonModule,
