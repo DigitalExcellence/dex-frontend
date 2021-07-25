@@ -1,0 +1,69 @@
+@import "assets/styles/variables";
+
+.pagination-div {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-footer::ng-deep {
+  flex-wrap: wrap;
+
+  .pagination-next,
+  .pagination-prev {
+    max-width: 35px;
+    overflow: hidden;
+  }
+}
+
+.pagination-footer::ng-deep .page-link {
+  z-index: 1;
+  color: $light-mode-black;
+  height: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.pagination-footer::ng-deep .page-item.active .page-link {
+  border-color: $accent-color-red-primary;
+  background-color: $accent-color-red-primary !important;
+  color: #ffffff;
+}
+
+.paginationDropDown {
+  width: 80px;
+}
+
+.pagination-footer {
+  li {
+    height: 35px;
+    width: 35px;
+  }
+
+  a {
+    height: 35px;
+    width: 35px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .chevron-right {
+    margin-top: 1px;
+    transform: rotateZ(270deg);
+  }
+
+  .chevron-left {
+    margin-top: 1px;
+    transform: rotateZ(90deg);
+  }
+
+  .disabled {
+    opacity: 0.3;
+  }
+}
+
+.paginationDropDown {
+  width: 80px;
+}
