@@ -31,7 +31,7 @@ import { HomeModule } from './modules/home/home.module';
 import { ProjectModule } from './modules/project/project.module';
 import { SharedModule } from './modules/shared/shared.module';
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
