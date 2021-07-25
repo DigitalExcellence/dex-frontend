@@ -9,8 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "production": "npm run config && ng build --prod",
-    "postinstall": "npm run build"
+    "production": "npm run config && ng build --prod"
   },
   "private": true,
   "dependencies": {
