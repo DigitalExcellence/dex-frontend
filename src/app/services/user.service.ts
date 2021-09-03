@@ -15,15 +15,16 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { HttpBaseService } from './http-base.service';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { from, Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { API_CONFIG } from 'src/app/config/api-config';
+import { Project } from 'src/app/models/domain/project';
 import { User } from 'src/app/models/domain/user';
 import { UserAdd } from 'src/app/models/resources/user-add';
-import { HttpBaseService } from './http-base.service';
-import { from, Observable } from 'rxjs';
-import { Project } from 'src/app/models/domain/project';
-import { mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

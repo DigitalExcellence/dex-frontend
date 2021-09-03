@@ -15,12 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
+import { SafeUrl } from '@angular/platform-browser';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
-import { WizardService } from 'src/app/services/wizard.service';
-import { SafeUrl } from '@angular/platform-browser';
+import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-project-icon',

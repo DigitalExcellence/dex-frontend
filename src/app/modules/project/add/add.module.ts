@@ -15,23 +15,24 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { AddRoutingModule } from './add-routing.module';
+import { MainComponent } from './main/main.component';
+import { StepHeaderComponent } from './main/wizard/step-header/step-header.component';
+import { WizardComponent } from './main/wizard/wizard.component';
+import { ProjectCallToActionComponent } from './main/wizard/wizardPages/default/project-call-to-action/project-call-to-action.component';
+import { ProjectCategoriesComponent } from './main/wizard/wizardPages/default/project-categories/project-categories.component';
+import { ProjectCollaboratorsComponent } from './main/wizard/wizardPages/default/project-collaborators/project-collaborators.component';
+import { ProjectDescriptionComponent } from './main/wizard/wizardPages/default/project-description/project-description.component';
+import { ProjectIconComponent } from './main/wizard/wizardPages/default/project-icon/project-icon.component';
+import { ProjectImagesComponent } from './main/wizard/wizardPages/default/project-images/project-images.component';
+import { ProjectLinkComponent } from './main/wizard/wizardPages/default/project-link/project-link.component';
+import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-name/project-name.component';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
-import { AddRoutingModule } from './add-routing.module';
-import { MainComponent } from './main/main.component';
-import { WizardComponent } from './main/wizard/wizard.component';
-import { StepHeaderComponent } from './main/wizard/step-header/step-header.component';
-import { ProjectCollaboratorsComponent } from './main/wizard/wizardPages/default/project-collaborators/project-collaborators.component';
-import { ProjectLinkComponent } from './main/wizard/wizardPages/default/project-link/project-link.component';
-import { ProjectDescriptionComponent } from './main/wizard/wizardPages/default/project-description/project-description.component';
-import { ProjectIconComponent } from './main/wizard/wizardPages/default/project-icon/project-icon.component';
-import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-name/project-name.component';
 import { ProjectModule } from 'src/app/modules/project/project.module';
-import { ProjectCallToActionComponent } from './main/wizard/wizardPages/default/project-call-to-action/project-call-to-action.component';
-import { ProjectImagesComponent } from './main/wizard/wizardPages/default/project-images/project-images.component';
-import { ProjectCategoriesComponent } from './main/wizard/wizardPages/default/project-categories/project-categories.component';
 
 @NgModule({
   declarations: [

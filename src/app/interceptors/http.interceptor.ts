@@ -14,17 +14,17 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { API_CONFIG } from 'src/app/config/api-config';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as Sentry from '@sentry/browser';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import * as Sentry from '@sentry/browser';
-import { environment } from 'src/environments/environment';
-import { AlertType } from 'src/app/models/internal/alert-type';
+import { API_CONFIG } from 'src/app/config/api-config';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { AlertService } from 'src/app/services/alert.service';
+import { AlertType } from 'src/app/models/internal/alert-type';
 import { DeXHttpErrorResponse } from 'src/app/models/internal/dex-http-error-response';
+import { AlertService } from 'src/app/services/alert.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Interface to define ignoredRequests.

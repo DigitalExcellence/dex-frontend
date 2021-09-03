@@ -15,9 +15,9 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { WizardService } from 'src/app/services/wizard.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-step-header',

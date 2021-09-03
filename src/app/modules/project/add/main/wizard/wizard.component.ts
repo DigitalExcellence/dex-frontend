@@ -14,18 +14,18 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { WizardPage } from 'src/app/models/domain/wizard-page';
-import { Observable } from 'rxjs';
-import { WizardService } from 'src/app/services/wizard.service';
 import { Router } from '@angular/router';
-import { ProjectService } from 'src/app/services/project.service';
+import { Observable } from 'rxjs';
+import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
-import { AlertService } from 'src/app/services/alert.service';
-import { LocationStrategy } from '@angular/common';
-import { AuthService } from 'src/app/services/auth.service';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { ProjectService } from 'src/app/services/project.service';
+import { WizardService } from 'src/app/services/wizard.service';
 
 
 @Component({

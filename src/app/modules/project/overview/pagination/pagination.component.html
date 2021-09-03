@@ -1,0 +1,28 @@
+<div *ngIf="showPaginationFooter" class="pagination-div">
+  <pagination
+      (pageChanged)="pageChanged.emit($event.page)"
+      [customNextTemplate]="nextTemplate"
+      [customPreviousTemplate]="prevTemplate"
+      [itemsPerPage]="amountOfProjectsOnSinglePage"
+      [maxSize]="6"
+      [totalItems]="totalNumberOfProjects"
+      class="pagination-footer"
+  >
+  </pagination>
+  <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
+    <ng-container *ngIf="!disabled">
+      <span class="chevron-right fas fa-chevron-down"></span>
+    </ng-container>
+    <ng-container *ngIf="disabled">
+      <span class="chevron-right disabled fas fa-chevron-down"></span>
+    </ng-container>
+  </ng-template>
+  <ng-template #prevTemplate let-currentPage="currentPage" let-disabled="disabled">
+    <ng-container *ngIf="!disabled">
+      <span class="chevron-left fas fa-chevron-down"></span>
+    </ng-container>
+    <ng-container *ngIf="disabled">
+      <span class="chevron-left fas fa-chevron-down disabled"></span>
+    </ng-container>
+  </ng-template>
+</div>

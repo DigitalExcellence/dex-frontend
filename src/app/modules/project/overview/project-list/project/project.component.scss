@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-@import "src/assets/styles/_variables";
+@import "src/assets/styles/variables";
 
 .project {
   display: flex;
@@ -81,12 +81,19 @@
       }
     }
     .project-info {
+      text-align: left;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
       h3 {
         max-width: 100%;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
       }
+
       p {
         max-width: 100%;
         white-space: nowrap;
@@ -102,8 +109,9 @@
       height: 60px;
       width: 60px;
       background-color: white;
-      box-shadow: 0 0px 4px #0000001a;
+      box-shadow: 0 0 4px #0000001a;
       border-radius: 999px;
+
       img {
         width: 100%;
         height: 100%;
@@ -143,13 +151,6 @@
       text-align: center;
       margin: auto 0;
     }
-    .project-info {
-      text-align: left;
-
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
     .project-likes,
     .project-created-date,
     .project-user-name {
@@ -181,7 +182,7 @@
         min-height: 42px;
 
         h3 {
-          margin-bottom: 0px;
+          margin-bottom: 0;
           display: block;
           display: -webkit-box;
           max-width: 100%;
@@ -203,7 +204,8 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          box-shadow: 0 0px 4px #0000001a;
+          box-shadow: 0 0 4px #0000001a;
+
           img {
             width: 100%;
             height: 100%;

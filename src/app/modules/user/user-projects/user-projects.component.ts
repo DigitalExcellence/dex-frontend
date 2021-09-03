@@ -15,19 +15,19 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
+import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
+import { SEOService } from 'src/app/services/seo.service';
 import { UserService } from 'src/app/services/user.service';
 import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
-import { SEOService } from 'src/app/services/seo.service';
-import { Location } from '@angular/common';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { environment } from 'src/environments/environment';
 
 @Component({

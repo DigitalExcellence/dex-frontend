@@ -17,13 +17,13 @@
  *
  */
 
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { API_CONFIG } from 'src/app/config/api-config';
 import { RESOURCE_CONFIG } from 'src/app/config/resource-config';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
-import { HttpClient } from '@angular/common/http';
-import { API_CONFIG } from 'src/app/config/api-config';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

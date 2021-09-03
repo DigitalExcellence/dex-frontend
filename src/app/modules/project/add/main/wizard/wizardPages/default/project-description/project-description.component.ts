@@ -15,12 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
-import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { FormControl } from '@angular/forms';
 import * as showdown from 'showdown';
-import { QuillUtils } from 'src/app/utils/quill.utils';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { WizardService } from 'src/app/services/wizard.service';
+import { QuillUtils } from 'src/app/utils/quill.utils';
 
 @Component({
   selector: 'app-project-description',
