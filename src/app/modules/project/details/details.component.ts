@@ -72,7 +72,7 @@ export class DetailsComponent implements OnInit {
   /**
    * Property containing the text within the share button.
    */
-  public copyText = 'Copy url'
+  public copyText = 'Copy url';
 
   constructor(
     private projectService: ProjectService,
