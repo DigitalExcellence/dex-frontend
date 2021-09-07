@@ -128,3 +128,25 @@
   }
 }
 
+.btn {
+  background-color: #E85B3F;
+  border: none;
+  padding: 10px 16px;
+  margin: auto;
+  min-width: 175px;
+  
+  &:hover {
+    background-color: #FF755A;
+  }
+
+  img, h4 {
+    display: inline-flex;
+    align-items: center; 
+    justify-content: center; 
+    color: #FFFFFF;
+  }
+
+  h4 {
+    margin-left: 5px;
+  }
+}

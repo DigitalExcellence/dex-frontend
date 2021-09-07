@@ -45,7 +45,7 @@ export class DetailsComponent implements OnInit {
   @Input() activeTab = 'description';
 
   /**
-   * Variable to store the project which is retrieved from the api
+   * Variable to store the project which is retrieved from the api.
    */
   public project: Project;
 
@@ -60,7 +60,7 @@ export class DetailsComponent implements OnInit {
   public invalidId: string;
 
   /**
-   * Return whether the project was liked or not to the overview page
+   * Return whether the project was liked or not to the overview page.
    */
   public onLike: Subject<boolean>;
 
@@ -68,6 +68,11 @@ export class DetailsComponent implements OnInit {
    * Boolean to trigger animation only after first click and not on page load.
    */
   public animationTriggered = false;
+
+  /**
+   * Property containing the text within the share button.
+   */
+  public copyText = 'Copy url'
 
   constructor(
     private projectService: ProjectService,
@@ -123,6 +128,17 @@ export class DetailsComponent implements OnInit {
    */
   public getIconUrl(file: UploadFile): SafeUrl {
     return this.fileRetrieverService.getIconUrl(file);
+  }
+
+  /**
+   * Method for copying the current URL to the user's clipboard.
+   */
+  public copyUrlToClipboard(): void {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      this.copyText = 'Copied URL';
+    }, () => {
+      this.copyText = 'Try again';
+    });
   }
 
   /**

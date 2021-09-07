@@ -38,6 +38,12 @@
             [project]="project"
         >
         </app-summary>
+        
+        <button type="button" class="btn" (click)="copyUrlToClipboard()">
+          <img src="assets/images/share-icon.svg" alt="share-icon">
+          <h4>{{ copyText }}</h4>
+        </button>
+
         <hr/>
         <app-bottom-drawer
             [activeTab]="activeTab"
