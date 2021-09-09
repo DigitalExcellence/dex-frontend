@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { scopes } from '../../../../models/domain/scopes';
+import { User } from '../../../../models/domain/user'
+import { AlertConfig } from '../../../../models/internal/alert-config';
 
-import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { AlertService } from 'src/app/services/alert.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Project } from 'src/app/models/domain/project';
 import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
-import { Project } from 'src/app/models/domain/project';
-import { User } from 'src/app/models/domain/user';
-import { scopes } from 'src/app/models/domain/scopes';
 
 @Component({
   selector: 'app-bottom-drawer',
