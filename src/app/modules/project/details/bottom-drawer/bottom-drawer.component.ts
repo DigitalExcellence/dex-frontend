@@ -1,10 +1,13 @@
 import { scopes } from '../../../../models/domain/scopes';
 import { AuthService } from '../../../../services/auth.service';
 import { HighlightByProjectIdService } from '../../../../services/highlightid.service';
+import { AlertService } from '../../../../services/alert.service';
+import { AlertType } from 'src/app/models/internal/alert-type';
 
 import { Component, Input, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/domain/project';
 import { User } from 'src/app/models/domain/user';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
 
 @Component({
   selector: 'app-bottom-drawer',
@@ -21,8 +24,14 @@ export class BottomDrawerComponent implements OnInit {
   public displayCallToActionButton = true;
   public displayEmbedButton = false;
 
+  /**
+   * Property containing the text within the share button.
+   */
+  public copyText = 'Share project url';
+
   constructor(private authService: AuthService,
-              private highlightByProjectIdService: HighlightByProjectIdService) { }
+              private highlightByProjectIdService: HighlightByProjectIdService,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.determineDisplayEmbedButton();
@@ -52,10 +61,30 @@ export class BottomDrawerComponent implements OnInit {
   }
 
   /**
-   * Method to set the tab to the active tab from the params
+   * Method to set the tab to the active tab from the params.
    */
   public setActiveTab(newActiveTab): void {
     this.activeTab = newActiveTab;
+  }
+
+  /**
+   * Method for copying the current URL to the user's clipboard.
+   * Shows a success alert if succeeded.
+   */
+  public copyUrlToClipboard(): void {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const alertConfig: AlertConfig = {
+        type: AlertType.success,
+        preMessage: '',
+        mainMessage: 'Project url copied to clipboard',
+        dismissible: true,
+        autoDismiss: true,
+        timeout: 2000,
+      };
+      this.alertService.pushAlert(alertConfig);
+    }, () => {
+      this.copyText = 'Try again';
+    });
   }
 
   /**
@@ -71,7 +100,7 @@ export class BottomDrawerComponent implements OnInit {
 
   /**
    * Method to display the embed button based on the current user and the project user.
-   * If the user either has the EmbedWrite scope or is the creator of the project
+   * If the user either has the EmbedWrite scope or is the creator of the project.
    * @param project The project to check if the current user is the owner.
    */
   private determineDisplayEmbedButton(): void {

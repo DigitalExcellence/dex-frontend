@@ -69,11 +69,6 @@ export class DetailsComponent implements OnInit {
    */
   public animationTriggered = false;
 
-  /**
-   * Property containing the text within the share button.
-   */
-  public copyText = 'Copy url';
-
   constructor(
     private projectService: ProjectService,
     private authService: AuthService,
@@ -128,17 +123,6 @@ export class DetailsComponent implements OnInit {
    */
   public getIconUrl(file: UploadFile): SafeUrl {
     return this.fileRetrieverService.getIconUrl(file);
-  }
-
-  /**
-   * Method for copying the current URL to the user's clipboard.
-   */
-  public copyUrlToClipboard(): void {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      this.copyText = 'Copied URL';
-    }, () => {
-      this.copyText = 'Try again';
-    });
   }
 
   /**
