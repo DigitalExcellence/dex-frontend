@@ -39,7 +39,6 @@ export class ProjectDetailModalUtility {
    * @param element the object that needs to be updated in background
    */
   public subscribeToLikes(id: number, element) {
-    console.log(element);
     this.modalRef.content.onLike.subscribe(isLiked => {
       const projectIndexToUpdate = element.findIndex(project => project.id === id);
       if (isLiked) {
