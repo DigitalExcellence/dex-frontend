@@ -33,6 +33,25 @@ export class ProjectDetailModalUtility {
     this.location.replaceState(`/project/details/${id}-${name}`);
   }
 
+    /**
+   * Method to update like-count in background of modal
+   * @param id project id.
+   * @param element the object that needs to be updated in background
+   */
+  public subscribeToLikes(id: number, element) {
+    console.log(element);
+    this.modalRef.content.onLike.subscribe(isLiked => {
+      const projectIndexToUpdate = element.findIndex(project => project.id === id);
+      if (isLiked) {
+        element[projectIndexToUpdate].likeCount++;
+        element[projectIndexToUpdate].userHasLikedProject = true;
+      } else {
+        element[projectIndexToUpdate].likeCount--;
+        element[projectIndexToUpdate].userHasLikedProject = false;
+      }
+    });
+  }
+
   /**
    * Method to open the modal for a projects detail
    * @param projectId the id of the project that should be shown.
