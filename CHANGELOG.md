@@ -16,6 +16,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Removed
 
 ### Fixed
+- Recommended project cards now update likes given on an open modal - [#512](https://github.com/DigitalExcellence/dex-frontend/issues/512)
 
 ### Security
 
