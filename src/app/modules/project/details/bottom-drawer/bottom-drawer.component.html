@@ -18,7 +18,7 @@
         <div class="callToActionButtons">
           <button (click)="copyUrlToClipboard()" class="primary" id="call-to-action-button">
             {{ copyText }}
-            <i class="fas fa-share-alt"></i>
+            <em class="fas fa-share-alt"></em>
           </button>
           <ng-container *ngIf="displayCallToActionButton">
               <button (click)="onClickCallToActionButton(cta.value)" *ngFor="let cta of project?.callToActions" class="primary" id="call-to-action-button">
