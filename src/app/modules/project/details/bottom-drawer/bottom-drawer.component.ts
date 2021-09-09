@@ -1,11 +1,11 @@
-import { AlertService } from '../../../../services/alert.service';
-import { AlertType } from 'src/app/models/internal/alert-type';
-import { AuthService } from '../../../../services/auth.service';
-import { HighlightByProjectIdService } from '../../../../services/highlightid.service';
-import { scopes } from '../../../../models/domain/scopes';
-
-import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { Component, Input, OnInit } from '@angular/core';
+
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
+import { scopes } from 'src/app/models/domain/scopes';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { Project } from 'src/app/models/domain/project';
 import { User } from 'src/app/models/domain/user';
 
