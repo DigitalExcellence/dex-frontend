@@ -24,10 +24,7 @@ export class BottomDrawerComponent implements OnInit {
   public displayCallToActionButton = true;
   public displayEmbedButton = false;
 
-  /**
-   * Property containing the text within the share button.
-   */
-  public copyText = 'Share project url';
+  public copyButtonText = 'Share project url';
 
   constructor(private authService: AuthService,
               private highlightByProjectIdService: HighlightByProjectIdService,
