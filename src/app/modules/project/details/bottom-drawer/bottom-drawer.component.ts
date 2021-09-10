@@ -80,7 +80,7 @@ export class BottomDrawerComponent implements OnInit {
       };
       this.alertService.pushAlert(alertConfig);
     }, () => {
-      this.copyText = 'Try again';
+      this.copyButtonText = 'Try again';
     });
   }
 
