@@ -49,6 +49,7 @@ export class BottomDrawerComponent implements OnInit {
     }
   }
 
+  
   public onClickCallToActionButton(url: string) {
     if (!url.match(/^https?:\/\//i)) {
       url = 'https://' + url;
