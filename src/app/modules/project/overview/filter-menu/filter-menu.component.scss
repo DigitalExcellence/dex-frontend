@@ -9,15 +9,16 @@
   position: sticky;
   top: 0;
   margin: -24px 24px -64px -24px; // override padding from parent element & footer
-  padding: 48px 36px;
+  padding: 48px 36px 12px 36px;
   background-color: white;
+  overflow-y: auto;
 
   .divider {
     border-bottom: 1px solid $light-mode-grey-thertiary;
   }
 
   .filter-group {
-    padding: 24px 0;
+    padding: 12px 0;
     display: flex;
     flex-direction: column;
     color: $light-mode-grey-primary;
