@@ -12,6 +12,11 @@
   padding: 48px 36px 12px 36px;
   background-color: white;
   overflow-y: auto;
+  direction: rtl; //put scrollbar on the left 
+
+  .projects-filter{
+    direction: ltr; //resets direction change needed for scrollbar on left
+  }
 
   .divider {
     border-bottom: 1px solid $light-mode-grey-thertiary;
