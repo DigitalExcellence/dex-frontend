@@ -34,7 +34,8 @@ export class ProjectDetailModalUtility {
     } else {
       this.createProjectModal(id, returnPage, 'description');
     }
-    this.location.replaceState(`/project/details/${id}-${name}`);
+    const newUrl = name ? `/project/details/${id}-${name}` : `/project/details/${id}`;
+    this.location.replaceState(newUrl);
   }
 
     /**

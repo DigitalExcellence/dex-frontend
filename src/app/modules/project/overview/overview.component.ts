@@ -26,6 +26,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { SEOService } from 'src/app/services/seo.service';
+import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
 import { environment } from 'src/environments/environment';
 
 /**
@@ -70,7 +71,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       private seoService: SEOService,
       private location: Location,
       private categoryService: CategoryService,
-      private route: ActivatedRoute) {
+      private route: ActivatedRoute,
+      private modalUtility: ProjectDetailModalUtility) {
   }
 
   ngOnInit(): void {
@@ -84,6 +86,9 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       // We need the 1ms timeout to make sure the components are rendered, I don't know why angular doesn't do this but whatever
       setTimeout(() => {
         this.amountOfProjectsOnSinglePage = this.filterMenu.amountOfProjectsOnSinglePage;
+        if (projectId) {
+          this.modalUtility.openProjectModal(projectId, '' , '/project/overview');
+        }
       }, 1);
     });
   }
