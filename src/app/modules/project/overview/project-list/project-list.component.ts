@@ -4,8 +4,8 @@ import { DetailsComponent } from '../../details/details.component';
 import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Subscription } from 'rxjs';
+import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
+
 
 @Component({
   selector: 'app-project-list',
@@ -29,14 +29,8 @@ export class ProjectListComponent implements OnInit {
    */
   public showListView = false;
 
-  /**
-   * Store a reference to the modal and its subscriptions
-   */
-  private modalRef: BsModalRef;
-  private modalSubscriptions: Subscription[] = [];
 
-  constructor(private location: Location,
-              private modalService: BsModalService) {
+  constructor(private modalUtility: ProjectDetailModalUtility) {
     this.searchControl = new FormControl('');
   }
 
@@ -59,47 +53,16 @@ export class ProjectListComponent implements OnInit {
   public onClickProject(event: Event, project: Project): void {
     this.projectClicked.emit(project);
     const projectId = project.id;
+    const projectName = project.name;
 
     const clickedSection = event.target as Element;
 
     if (clickedSection.classList.contains('project-collaborators')) {
-      this.createProjectModal(projectId, 'collaborators');
+      this.modalUtility.openProjectModal(projectId, projectName, '/project/overview', 'collaborators');
     } else {
-      this.createProjectModal(projectId);
+      this.modalUtility.openProjectModal(projectId, projectName, 'project/overview');
     }
-  }
-
-  /**
-   * Method to open the modal for a projects detail
-   * @param projectId the id of the project that should be shown.
-   * @param activeTab Define the active tab
-   */
-  public createProjectModal(projectId: number, activeTab: string = 'description') {
-    const initialState = {
-      projectId: projectId,
-      activeTab: activeTab
-    };
-    if (projectId) {
-      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState});
-      this.modalRef.setClass('project-modal');
-
-      this.modalRef.content.onLike.subscribe(isLiked => {
-        const projectIndexToUpdate = this.filteredProjects.findIndex(project => project.id === projectId);
-        if (isLiked) {
-          this.filteredProjects[projectIndexToUpdate].likeCount++;
-          this.filteredProjects[projectIndexToUpdate].userHasLikedProject = true;
-        } else {
-          this.filteredProjects[projectIndexToUpdate].likeCount--;
-          this.filteredProjects[projectIndexToUpdate].userHasLikedProject = false;
-        }
-      });
-
-      // Go back to home page after the modal is closed
-      this.modalSubscriptions.push(
-          this.modalService.onHide.subscribe(() => {
-            this.modalClosed.emit();
-          })
-      );
-    }
+    this.modalUtility.subscribeToLikes(projectId, this.filteredProjects);
   }
 }
+

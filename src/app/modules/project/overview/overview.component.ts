@@ -84,7 +84,6 @@ export class OverviewComponent implements OnInit, AfterViewInit {
       // We need the 1ms timeout to make sure the components are rendered, I don't know why angular doesn't do this but whatever
       setTimeout(() => {
         this.amountOfProjectsOnSinglePage = this.filterMenu.amountOfProjectsOnSinglePage;
-        this.projectList.createProjectModal(projectId);
       }, 1);
     });
   }

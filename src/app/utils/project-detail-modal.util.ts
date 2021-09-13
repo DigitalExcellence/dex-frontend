@@ -26,10 +26,14 @@ export class ProjectDetailModalUtility {
    * @param id project id.
    * @param name project name
    */
-  public openProjectModal(id: number, name: string, returnPage: string): void {
+  public openProjectModal(id: number, name: string, returnPage: string, activeTab?: string): void {
     name = name.split(' ').join('-');
 
-    this.createProjectModal(id, returnPage);
+    if (activeTab) {
+      this.createProjectModal(id, returnPage, activeTab);
+    } else {
+      this.createProjectModal(id, returnPage, 'description');
+    }
     this.location.replaceState(`/project/details/${id}-${name}`);
   }
 
@@ -56,7 +60,7 @@ export class ProjectDetailModalUtility {
    * @param projectId the id of the project that should be shown.
    * @param activeTab Define the active tab
    */
-  private createProjectModal(projectId: number, returnPage: string, activeTab: string = 'description') {
+  private createProjectModal(projectId: number, returnPage: string, activeTab: string) {
     const initialState = {
       projectId: projectId,
       activeTab: activeTab,
