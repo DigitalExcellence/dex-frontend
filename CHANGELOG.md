@@ -16,6 +16,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Removed
 
 ### Fixed
+- Added scroll to the filtermenu to make sure it doesn't hide on screens with small height - [#555](https://github.com/DigitalExcellence/dex-frontend/issues/555)
 
 ### Security
 
