@@ -63,16 +63,16 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   public amountOfProjectsOnSinglePage = 12;
 
   constructor(
-      private router: Router,
-      private paginationService: PaginationService,
-      private internalSearchService: InternalSearchService,
-      private formBuilder: FormBuilder,
-      private activatedRoute: ActivatedRoute,
-      private seoService: SEOService,
-      private location: Location,
-      private categoryService: CategoryService,
-      private route: ActivatedRoute,
-      private modalUtility: ProjectDetailModalUtility) {
+    private router: Router,
+    private paginationService: PaginationService,
+    private internalSearchService: InternalSearchService,
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private seoService: SEOService,
+    private location: Location,
+    private categoryService: CategoryService,
+    private route: ActivatedRoute,
+    private modalUtility: ProjectDetailModalUtility) {
   }
 
   ngOnInit(): void {
@@ -81,13 +81,30 @@ export class OverviewComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.route.params.subscribe(params => {
-      const projectId = params.id?.split('-')[0];
+      const projectId = +params.id?.split('-')[0];
 
       // We need the 1ms timeout to make sure the components are rendered, I don't know why angular doesn't do this but whatever
       setTimeout(() => {
         this.amountOfProjectsOnSinglePage = this.filterMenu.amountOfProjectsOnSinglePage;
+
+        // Methods below are executed when an ID has been provided in the URL
         if (projectId) {
-          this.modalUtility.openProjectModal(projectId, '' , '/project/overview');
+          this.modalUtility.openProjectModal(projectId, '', '/project/overview');
+
+          // Interval to wait for projects to be loaded (Not a pretty solution, but coudn't find a better way)
+          const checkLoading = setInterval(() => {
+            if (!this.projectsLoading) {
+              // When projects are loaded, check if project is on overviewpage (in background) and subscribe to updated likes if needed
+              this.filteredProjects.forEach(project => {
+                if (project.id === projectId) {
+                  this.modalUtility.subscribeToLikes(projectId, this.filteredProjects);
+                }
+              });
+              // stop interval as soon as projects are loaded:
+              clearInterval(checkLoading);
+            }
+          }, 10);
+
         }
       }, 1);
     });
