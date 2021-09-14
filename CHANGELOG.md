@@ -17,6 +17,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 - Recommended project cards now update likes given on an open modal - [#512](https://github.com/DigitalExcellence/dex-frontend/issues/512)
+- Added scroll to the filtermenu to make sure it doesn't hide on screens with small height - [#555](https://github.com/DigitalExcellence/dex-frontend/issues/555)
+- Fixed problem where project overview card changes size on open modal - [#571](https://github.com/DigitalExcellence/dex-frontend/issues/571)
 
 ### Security
 
