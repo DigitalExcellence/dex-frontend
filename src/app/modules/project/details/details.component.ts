@@ -45,7 +45,7 @@ export class DetailsComponent implements OnInit {
   @Input() activeTab = 'description';
 
   /**
-   * Variable to store the project which is retrieved from the api
+   * Variable to store the project which is retrieved from the api.
    */
   public project: Project;
 
@@ -60,7 +60,7 @@ export class DetailsComponent implements OnInit {
   public invalidId: string;
 
   /**
-   * Return whether the project was liked or not to the overview page
+   * Return whether the project was liked or not to the overview page.
    */
   public onLike: Subject<boolean>;
 

@@ -18,7 +18,10 @@
  -->
 
 <div class='wrapper'>
-  <button (click)="onClickGenerateEmbed()" class="primary">Embed this</button>
+  <button (click)="onClickGenerateEmbed()" class="primary">
+    Embed this
+    <em class="fas fa-code"></em>
+  </button>
   <code *ngIf="embeddedProject">
     &lt;iframe src="{{frontendUrl}}/project/embed/{{embeddedProject.guid}}"
     style="border:0 #ffffff none;" name="myiFrame" scrolling="no"

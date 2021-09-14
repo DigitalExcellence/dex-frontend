@@ -97,9 +97,8 @@
     .top-buttons {
       display: grid;
       grid-auto-flow: row;
-      gap: 25px;
+      gap: 10px;
       width: fit-content;
-
 
       .callToActionButtons {
         margin-top: -10px;
@@ -141,6 +140,10 @@
   }
 }
 
+.project-highlighted-div {
+  float: left;
+}
+
 #call-to-action-button {
   text-transform: capitalize;
   width: fit-content;
@@ -150,9 +153,17 @@
   text-transform: uppercase;
 }
 
-.project-highlighted-div {
-  float: left;
-}
+// #share-project-button {
+//   img, 
+//   h4 {
+//     display: inline-flex;
+//     color: #FFFFFF;
+//   }
+  
+//   button{
+//     width: fit-content;
+//   }
+// }
 
 #project-share-buttons {
   display: flex;
