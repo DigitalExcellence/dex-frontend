@@ -31,14 +31,15 @@
     border: none;
   }
 }
-
-.project-info {
-  padding: 45px 60px;
-  display: flex;
-  gap: 30px;
-  flex-direction: column;
-  width: 800px;
-  max-width: 100%;
+.project-modal-content {
+  .project-info {
+    padding: 45px 60px;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    width: 800px;
+    max-width: 100%;
+  }
 }
 
 .highlight-modal {
@@ -70,7 +71,7 @@
     border: none;
     width: fit-content;
     margin: 0 auto;
-    max-width: 100%
+    max-width: 100%;
   }
 }
 
