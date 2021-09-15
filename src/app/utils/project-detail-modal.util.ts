@@ -1,17 +1,17 @@
+import { Location } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { SEOService } from 'src/app/services/seo.service';
-import { Location } from '@angular/common';
-import { Injectable } from '@angular/core';
 
 
 /**
-  * This class is responsible for opening the project overview modal on a certain page.
-  */
+ * This class is responsible for opening the project overview modal on a certain page.
+ */
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root'
+})
 export class ProjectDetailModalUtility {
 
   private modalRef: BsModalRef;
@@ -26,11 +26,34 @@ export class ProjectDetailModalUtility {
    * @param id project id.
    * @param name project name
    */
-  public openProjectModal(id: number, name: string, returnPage: string): void {
+  public openProjectModal(id: number, name: string, returnPage: string, activeTab?: string): void {
     name = name.split(' ').join('-');
 
-    this.createProjectModal(id, returnPage);
-    this.location.replaceState(`/project/details/${id}-${name}`);
+    if (activeTab) {
+      this.createProjectModal(id, returnPage, activeTab);
+    } else {
+      this.createProjectModal(id, returnPage, 'description');
+    }
+    const newUrl = name ? `/project/details/${id}-${name}` : `/project/details/${id}`;
+    this.location.replaceState(newUrl);
+  }
+
+    /**
+   * Method to update like-count in background of modal
+   * @param id project id.
+   * @param element the object that needs to be updated in background
+   */
+  public subscribeToLikes(id: number, element) {
+    this.modalRef.content.onLike.subscribe(isLiked => {
+      const projectIndexToUpdate = element.findIndex(project => project.id === id);
+      if (isLiked) {
+        element[projectIndexToUpdate].likeCount++;
+        element[projectIndexToUpdate].userHasLikedProject = true;
+      } else {
+        element[projectIndexToUpdate].likeCount--;
+        element[projectIndexToUpdate].userHasLikedProject = false;
+      }
+    });
   }
 
   /**
@@ -38,7 +61,7 @@ export class ProjectDetailModalUtility {
    * @param projectId the id of the project that should be shown.
    * @param activeTab Define the active tab
    */
-  private createProjectModal(projectId: number, returnPage: string, activeTab: string = 'description') {
+  private createProjectModal(projectId: number, returnPage: string, activeTab: string) {
     const initialState = {
       projectId: projectId,
       activeTab: activeTab,

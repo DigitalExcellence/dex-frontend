@@ -1,0 +1,40 @@
+<div class="col-md-2 projects-filter-wrapper">
+  <div class="projects-filter">
+    <h3><em class="fas fa-filter"></em> Filters</h3>
+    <div class="divider"></div>
+    <div class="filter-group">
+      <h4>Sort Options</h4>
+      <form class="sort-options-form">
+        <label for="asc-desc">Sort options</label>
+        <select (change)="onSortFormValueChange()" [formControl]="sortOptionControl" class="option-select" id="asc-desc">
+          <option *ngFor="let sortOption of sortSelectOptions" [ngValue]="sortOption">
+            {{ sortOption.viewValue }}
+          </option>
+        </select>
+      </form>
+    </div>
+    <div class="divider"></div>
+    <div class="filter-group">
+      <h4>Pagination</h4>
+      <label>Projects per page</label>
+      <select (change)="onPaginationChange()" [formControl]="paginationOptionControl" class="option-select">
+        <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption" class="paginationDropDown">
+          {{ paginationOption.amountOnPage }}
+        </option>
+      </select>
+    </div>
+    <div class="divider"></div>
+    <div class="filter-group">
+      <h4>Categories</h4>
+      <div class="project-categories">
+        <ng-container *ngFor="let category of categories">
+          <label class="container">
+            <input (change)="onCategoryChange(category.id)" [name]="category.name" [ngModel]="category.selected" type="checkbox">
+            <span class="checkmark"></span>
+            <span>{{category.name}}</span>
+          </label>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

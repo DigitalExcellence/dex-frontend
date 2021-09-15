@@ -5,13 +5,12 @@ on:
     branches: [ develop ]
 
 jobs:
-    build:
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          node-version: [12.x]
-  
-      steps:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+    steps:
       - uses: actions/checkout@v2
       - name: Cache node modules
         uses: actions/cache@v1
@@ -24,9 +23,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install and npm run build
-        run: |
-          npm i
-          npm run build --prod
-      - name: ng lint
+      - name: install node modules
+        run: npm i
+      - name: run linter
         run: npm run lint
+      - name: build angular project
+        run: npm run build --prod

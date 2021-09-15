@@ -72,6 +72,7 @@ export class RecommendationCardsComponent implements OnInit {
   public onClickRecommendedProject(id: number, name: string): void {
     name = name.split(' ').join('-');
     this.modalUtility.openProjectModal(id, name, '/home');
+    this.modalUtility.subscribeToLikes(id, this.recommendations);
   }
 
   /**

@@ -15,19 +15,20 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { WizardComponent } from './wizard/wizard.component';
+
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ExternalSource } from 'src/app/models/domain/external-source';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { WizardService } from 'src/app/services/wizard.service';
-import { ExternalSource } from 'src/app/models/domain/external-source';
-import { SafeUrl } from '@angular/platform-browser';
-import { FileRetrieverService } from 'src/app/services/file-retriever.service';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { WizardComponent } from './wizard/wizard.component';
 
 /**
  * Component to import projects from external sources

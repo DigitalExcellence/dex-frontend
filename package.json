@@ -9,20 +9,19 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "production": "npm run config && ng build --prod",
-    "postinstall": "npm run build"
+    "production": "npm run config && ng build --prod"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^9.1.13",
-    "@angular/common": "^9.1.13",
-    "@angular/compiler": "^9.1.13",
-    "@angular/core": "^9.1.13",
-    "@angular/forms": "^9.1.13",
-    "@angular/localize": "^9.1.13",
-    "@angular/platform-browser": "^9.1.13",
-    "@angular/platform-browser-dynamic": "^9.1.13",
-    "@angular/router": "^9.1.13",
+    "@angular/animations": "^11.2.14",
+    "@angular/common": "^11.2.14",
+    "@angular/compiler": "^11.2.14",
+    "@angular/core": "^11.2.14",
+    "@angular/forms": "^11.2.14",
+    "@angular/localize": "^11.2.14",
+    "@angular/platform-browser": "^11.2.14",
+    "@angular/platform-browser-dynamic": "^11.2.14",
+    "@angular/router": "^11.2.14",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@ngx-lite/debounce-click": "^0.2.3",
     "@sentry/browser": "^5.30.0",
@@ -41,14 +40,15 @@
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.901.13",
-    "@angular/cli": "^9.1.15",
-    "@angular/compiler-cli": "^9.1.13",
-    "@angular/language-service": "^9.1.13",
+    "@angular-devkit/build-angular": "^0.1102.14",
+    "@angular/cli": "^11.2.14",
+    "@angular/compiler-cli": "^11.2.14",
+    "@angular/language-service": "^11.2.14",
     "@types/jasmine": "^3.6.3",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.19.15",
     "codelyzer": "^5.2.2",
+    "import-sort": "^6.0.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^5.2.3",
@@ -59,7 +59,6 @@
     "protractor": "^7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "^6.1.3",
-    "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "~3.7.5"
+    "typescript": "~4.1.6"
   }
 }

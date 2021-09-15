@@ -16,14 +16,15 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
-import { Injectable } from '@angular/core';
-import { SearchResultsResource } from 'src/app/models/resources/search-results';
-import { API_CONFIG } from 'src/app/config/api-config';
-import { from, Observable } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from './auth.service';
+
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { from, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
+import { SearchResultsResource } from 'src/app/models/resources/search-results';
 
 /**
  * Service to communicate with the InteralSearchEndpoint of the API.

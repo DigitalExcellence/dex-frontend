@@ -15,16 +15,17 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { HttpBaseService } from './http-base.service';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { API_CONFIG } from 'src/app/config/api-config';
+import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-config';
 import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
 import { CallToActionOptionAdd } from 'src/app/models/resources/calltoaction-add';
 import { CallToActionOptionUpdate } from 'src/app/models/resources/calltoaction-update';
-import { HttpBaseService } from './http-base.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-config';
 
 @Injectable({
   providedIn: 'root'

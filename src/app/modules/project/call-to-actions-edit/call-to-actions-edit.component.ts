@@ -15,10 +15,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, Input, OnInit } from '@angular/core';
-import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
-import { WizardService } from 'src/app/services/wizard.service';
-import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
 import { CallToAction } from 'src/app/models/domain/call-to-action';
+import { CallToActionOption } from 'src/app/models/domain/call-to-action-option';
+import { CallToActionOptionService } from 'src/app/services/call-to-action-option.service';
+import { WizardService } from 'src/app/services/wizard.service';
 
 @Component({
   selector: 'app-call-to-actions-edit',

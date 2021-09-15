@@ -1,0 +1,41 @@
+@import "assets/styles/variables";
+
+#project-edit-buttons {
+  margin-top: 15px;
+  display: flex;
+
+  button {
+    border-radius: 18px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+  }
+}
+
+.cog {
+  cursor: pointer;
+  color: #323232;
+  
+  &:hover {
+    color: #F7755A;
+  }
+}
+
+.cog-tooltip-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  color: #323232;
+
+  em {
+    width: 20px;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: #E85B3F;
+    transition: ease 0.2s;
+  }
+}
+

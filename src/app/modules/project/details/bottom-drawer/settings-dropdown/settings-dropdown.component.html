@@ -1,0 +1,16 @@
+<ng-container *ngIf="displayHighlightButton || displayEditButton || displayDeleteProjectButton">
+  <em [outsideClick]="true" [popover]="cogPopOver" class="fas fa-cog cog" placement="bottom" triggers="click"> </em>
+  <ng-template #cogPopOver class="cog-tooltip">
+    <ng-container *ngIf="displayHighlightButton">
+      <a (click)="onClickEditHighlightButton()" class="cog-tooltip-item"><em class="fas fa-highlighter"></em>Highlight settings</a>
+    </ng-container>
+    <ng-container *ngIf="displayEditButton">
+      <a (click)="closeModalAndRedirect('project/edit/' + project?.id)" class="cog-tooltip-item"
+      ><em class="fas fa-edit"></em>Edit project</a
+      >
+    </ng-container>
+    <ng-container *ngIf="displayDeleteProjectButton">
+      <a (click)="onClickRemoveProject()" class="cog-tooltip-item"><em class="fas fa-trash"></em>Delete project</a>
+    </ng-container>
+  </ng-template>
+</ng-container>

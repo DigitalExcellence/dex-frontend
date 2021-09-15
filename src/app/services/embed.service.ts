@@ -16,13 +16,13 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Project } from 'src/app/models/domain/project';
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { API_CONFIG } from 'src/app/config/api-config';
 import { EmbeddedProject } from 'src/app/models/domain/embedded-project';
+import { Project } from 'src/app/models/domain/project';
 import { EmbeddedProjectResource } from 'src/app/models/resources/embedded-project-resource';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
