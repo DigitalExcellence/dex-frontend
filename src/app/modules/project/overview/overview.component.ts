@@ -62,6 +62,11 @@ export class OverviewComponent implements OnInit, AfterViewInit {
   public projectsLoading = true;
   public amountOfProjectsOnSinglePage = 12;
 
+  /**
+    * Object to keep track of a modal that was opened trough the url
+    */
+  private urlOpenedModal = { state: false, projectId: null };
+
   constructor(
     private router: Router,
     private paginationService: PaginationService,
@@ -90,21 +95,8 @@ export class OverviewComponent implements OnInit, AfterViewInit {
         // Methods below are executed when an ID has been provided in the URL
         if (projectId) {
           this.modalUtility.openProjectModal(projectId, '', '/project/overview');
-
-          // Interval to wait for projects to be loaded (Not a pretty solution, but coudn't find a better way)
-          const checkLoading = setInterval(() => {
-            if (!this.projectsLoading) {
-              // When projects are loaded, check if project is on overviewpage (in background) and subscribe to updated likes if needed
-              this.filteredProjects.forEach(project => {
-                if (project.id === projectId) {
-                  this.modalUtility.subscribeToLikes(projectId, this.filteredProjects);
-                }
-              });
-              // stop interval as soon as projects are loaded:
-              clearInterval(checkLoading);
-            }
-          }, 10);
-
+          // object to handle check for like-subscribe in filteredProjectsChanged()
+          this.urlOpenedModal = { state: true, projectId: projectId };
         }
       }, 1);
     });
@@ -124,6 +116,14 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     this.filteredProjects = result.projects;
     this.totalAmountOfProjects = result.totalAmount;
     this.showPaginationFooter = result.totalAmount > this.filterMenu.amountOfProjectsOnSinglePage;
+    // if a modal was opened trough the url, check if like-subscribe is needed
+    if (this.urlOpenedModal.state) {
+      this.filteredProjects.forEach(project => {
+        if (project.id === this.urlOpenedModal.projectId) {
+          this.modalUtility.subscribeToLikes(this.urlOpenedModal.projectId, this.filteredProjects);
+        }
+      });
+    }
   }
 
   public searchInputChanged(searchInput: string) {
