@@ -49,7 +49,7 @@
        <h3> {{ userName }} </h3>
        <div class="user-amounts">
        <div class="grid-item"><p>Projects:</p></div>
-       <div class="grid-item"><p>{{ userprojects.length }}</p></div>
+       <div class="grid-item"><p>{{ totalAmountOfProjects }}</p></div>
 
        </div>
       </div>
@@ -59,11 +59,37 @@
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <app-project
             (click)="onClickProject($event, project.id, project.name)"
-            *ngFor="let project of userprojects"
+            *ngFor="let project of userProjects"
             [project]="project"
             [showListView]="this.showListView"
         >
         </app-project>
+      </div>
+      <div class="pagination-div">
+        <pagination
+            [totalItems]="totalAmountOfProjects"
+            [itemsPerPage]="pageSize"
+            [customNextTemplate]="nextTemplate"
+            [customPreviousTemplate]="prevTemplate"
+            (pageChanged)="pageChanged($event)"
+            class="pagination-footer"
+        ></pagination>
+        <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
+          <ng-container *ngIf="!disabled">
+            <span class="chevron-right fas fa-chevron-down"></span>
+          </ng-container>
+          <ng-container *ngIf="disabled">
+            <span class="chevron-right disabled fas fa-chevron-down"></span>
+          </ng-container>
+        </ng-template>
+        <ng-template #prevTemplate let-currentPage="currentPage" let-disabled="disabled">
+          <ng-container *ngIf="!disabled">
+            <span class="chevron-left fas fa-chevron-down"></span>
+          </ng-container>
+          <ng-container *ngIf="disabled">
+            <span class="chevron-left fas fa-chevron-down disabled"></span>
+          </ng-container>
+        </ng-template>
       </div>
     </ng-container>
 

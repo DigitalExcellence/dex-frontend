@@ -15,11 +15,15 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { InternalSearchQuery } from '../../../models/resources/internal-search-query';
+import { InternalSearchService } from '../../../services/internal-search.service';
+
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
@@ -39,19 +43,23 @@ export class UserProjectsComponent implements OnInit {
   public projectsToDisplay: Project[] = [];
 
   /**
+   * Pagination object
+   */
+  public internalSearchQuery: InternalSearchQuery = {
+    query: null,
+    // If there is a search query, search on all pages
+    page: null,
+    amountOnPage: 3,
+    sortBy: '',
+    sortDirection: '',
+    categories: null
+  };
+
+
+  /**
    * User info
    */
   public userName: string;
-
-  /**
-   * The number of projects that belong to the user
-   */
-  public totalNrOfProjects = 0;
-
-  /**
-   * Boolean to determine whether the component is loading the information from the api.
-   */
-  public projectsLoading = true;
 
    /**
    * Boolean to determine whether to show the projects in listview or gridview
@@ -71,7 +79,7 @@ export class UserProjectsComponent implements OnInit {
   /**
    * Array to receive and store the projects from the api.
    */
-  public userprojects: Project[] = [];
+  public userProjects: Project[] = [];
 
   /**
    * Boolean to determine whether the component is loading the information from the api.
@@ -81,7 +89,6 @@ export class UserProjectsComponent implements OnInit {
   /**
    * Project parameter gets updated per project detail modal
    */
-  public currentProject: Project = null;
 
   public noProjects = false;
 
@@ -89,6 +96,12 @@ export class UserProjectsComponent implements OnInit {
    * Property to indicate whether the project is loading.
    */
   private modalRef: BsModalRef;
+
+  public totalAmountOfProjects: number;
+
+  public pageSize: number;
+
+  public projectsOnPage: number;
 
   constructor(private userService: UserService,
               private router: Router,
@@ -103,19 +116,9 @@ export class UserProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authNavStatus$.subscribe(status => {
       this.userName = this.authService.name;
+      this.setValues();
       if (status) {
-        this.userService.getProjectsFromUser()
-            .pipe(
-                finalize(() => (
-                    this.userProjectsLoading = false
-                ))
-            ).subscribe(result => {
-              if (result) {
-                this.userprojects = result;
-              } else {
-                this.noProjects = true;
-              }
-        });
+        this.getUserProjects(this.internalSearchQuery);
       }
     });
     this.updateSEOTags();
@@ -137,7 +140,7 @@ export class UserProjectsComponent implements OnInit {
    * Checks whether there are any projects
    */
   public projectsEmpty(): boolean {
-    return this.userprojects.length < 1;
+    return this.userProjects.length < 1;
   }
 
   /**
@@ -182,13 +185,13 @@ export class UserProjectsComponent implements OnInit {
       this.modalRef.setClass('project-modal');
 
       this.modalRef.content.onLike.subscribe(isLiked => {
-        const projectIndexToUpdate = this.userprojects.findIndex(project => project.id === projectId);
+        const projectIndexToUpdate = this.userProjects.findIndex(project => project.id === projectId);
         if (isLiked) {
-          this.userprojects[projectIndexToUpdate].likeCount++;
-          this.userprojects[projectIndexToUpdate].userHasLikedProject = true;
+          this.userProjects[projectIndexToUpdate].likeCount++;
+          this.userProjects[projectIndexToUpdate].userHasLikedProject = true;
         } else {
-          this.userprojects[projectIndexToUpdate].likeCount--;
-          this.userprojects[projectIndexToUpdate].userHasLikedProject = false;
+          this.userProjects[projectIndexToUpdate].likeCount--;
+          this.userProjects[projectIndexToUpdate].userHasLikedProject = false;
         }
       });
 
@@ -219,5 +222,33 @@ export class UserProjectsComponent implements OnInit {
 
   public addProjectClicked() {
     this.router.navigateByUrl('project/add');
+  }
+
+  public pageChanged(event: PageChangedEvent) {
+    console.log(event);
+    this.internalSearchQuery.page = event.page;
+    this.getUserProjects(this.internalSearchQuery);
+    return;
+  }
+
+  public setValues(pageSize: number = 5) {
+    this.internalSearchQuery.amountOnPage = pageSize;
+    this.pageSize = pageSize;
+  }
+
+  private getUserProjects(searchQuery: InternalSearchQuery) {
+    this.userService.getProjectsPaginated(searchQuery)
+        .pipe(
+            finalize(() => (
+                this.userProjectsLoading = false
+            ))
+        ).subscribe(result => {
+      if (result) {
+        this.userProjects = result.results;
+        this.totalAmountOfProjects = result.totalCount;
+      } else {
+        this.noProjects = true;
+      }
+    });
   }
 }

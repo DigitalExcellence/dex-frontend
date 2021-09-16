@@ -12,10 +12,10 @@ import { ProjectModule } from 'src/app/modules/project/project.module';
     UserProjectsComponent
   ],
   imports: [
-    CommonModule,
-    UserRoutingModule,
-    ProjectModule,
-    FormsModule
+      CommonModule,
+      UserRoutingModule,
+      ProjectModule,
+      FormsModule,
   ]
 })
 export class UserModule {
