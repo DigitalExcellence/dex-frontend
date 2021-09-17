@@ -69,8 +69,10 @@ export class DetailsComponent implements OnInit {
    */
   public animationTriggered = false;
 
-  // Boolean to check if editMode is activated;
-  public editMode = true;
+    /**
+   * Boolean to trigger showing the edit-mode
+   */
+  public editModeActivated = false;
 
   constructor(
     private projectService: ProjectService,
@@ -126,6 +128,10 @@ export class DetailsComponent implements OnInit {
    */
   public getIconUrl(file: UploadFile): SafeUrl {
     return this.fileRetrieverService.getIconUrl(file);
+  }
+
+  public toggleEditMode(state: boolean) {
+    this.editModeActivated = state;
   }
 
   /**

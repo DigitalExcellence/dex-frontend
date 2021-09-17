@@ -7,7 +7,7 @@ import { AlertService } from '../../../../services/alert.service';
 import { AuthService } from '../../../../services/auth.service';
 import { HighlightByProjectIdService } from '../../../../services/highlightid.service';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-bottom-drawer',
@@ -17,6 +17,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BottomDrawerComponent implements OnInit {
   @Input() project: Project;
   @Input() activeTab: string;
+  @Output() editMode = new EventEmitter<boolean>();
+
   public currentUser: User;
 
   public isProjectHighlighted = false;
@@ -111,5 +113,10 @@ export class BottomDrawerComponent implements OnInit {
       return;
     }
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
+  }
+
+  editButtonClicked(state) {
+    console.log('im here');
+    this.editMode.emit(state);
   }
 }

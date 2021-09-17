@@ -30,6 +30,7 @@ export class SettingsDropdownComponent implements OnInit {
   @Input() project: Project;
   @Input() currentUser: User;
   @Output() projectHighlighted = new EventEmitter<boolean>();
+  @Output() editButtonClicked = new EventEmitter<boolean>();
 
   public displayEditButton = false;
   public displayDeleteProjectButton = false;
@@ -129,6 +130,13 @@ export class SettingsDropdownComponent implements OnInit {
               }
             }
         );
+  }
+
+  /**
+   * Method to handle switching to edit-mode
+   */
+  public onClickEditButton() {
+    this.editButtonClicked.emit(true);
   }
 
   /**

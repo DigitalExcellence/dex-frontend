@@ -25,7 +25,7 @@
 
 <ng-template #projectLoaded>
   <ng-container *ngIf="project; else noProject">
-    <ng-container *ngIf="!editMode; else editable">
+    <ng-container *ngIf="!editModeActivated; else editable">
       <div class="project-modal-content">
         <carousel [interval]="5000" [isAnimated]="true" [noPause]="false" class="image-carousel">
           <slide *ngFor="let image of project.images">
@@ -41,6 +41,7 @@
           </app-summary>
           <hr/>
           <app-bottom-drawer
+              (editMode)='toggleEditMode($event)'
               [activeTab]="activeTab"
               [project]="project"
           ></app-bottom-drawer>
@@ -52,6 +53,7 @@
   <ng-template #editable>
     <app-edit
     [project]="project"
+    (editMode)='toggleEditMode($event)'
     >
     </app-edit>
   </ng-template>

@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -44,6 +44,7 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
 })
 export class EditComponent implements OnInit {
   @Input() project: Project;
+  @Output() editMode = new EventEmitter<boolean>();
   /**
    * Configuration for file-picker
    */
@@ -325,7 +326,7 @@ export class EditComponent implements OnInit {
 
           };
           this.alertService.pushAlert(alertConfig);
-          this.router.navigate([`project/details/${this.project.id}`]);
+          this.editMode.emit(false);
         });
   }
 }
