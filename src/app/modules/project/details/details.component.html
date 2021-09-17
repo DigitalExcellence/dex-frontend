@@ -50,7 +50,10 @@
   </ng-container>
 
   <ng-template #editable>
-    <p>you can edit now</p>
+    <app-edit
+    [project]="project"
+    >
+    </app-edit>
   </ng-template>
 
   <ng-template #noProject>

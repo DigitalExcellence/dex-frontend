@@ -70,7 +70,7 @@ export class DetailsComponent implements OnInit {
   public animationTriggered = false;
 
   // Boolean to check if editMode is activated;
-  public editMode = false;
+  public editMode = true;
 
   constructor(
     private projectService: ProjectService,

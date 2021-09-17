@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -43,6 +43,7 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
+  @Input() project: Project;
   /**
    * Configuration for file-picker
    */
@@ -58,7 +59,7 @@ export class EditComponent implements OnInit {
    */
   public editProjectForm: FormGroup;
   public editCollaboratorForm: FormGroup;
-  public project: Project;
+  // public project: Project;
   public categories: ProjectCategory[];
 
   /**
