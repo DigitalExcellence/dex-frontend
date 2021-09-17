@@ -114,9 +114,4 @@ export class BottomDrawerComponent implements OnInit {
     }
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
   }
-
-  editButtonClicked(state) {
-    console.log('im here');
-    this.editMode.emit(state);
-  }
 }

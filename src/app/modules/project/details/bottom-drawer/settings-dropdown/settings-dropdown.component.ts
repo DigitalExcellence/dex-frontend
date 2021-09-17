@@ -133,13 +133,6 @@ export class SettingsDropdownComponent implements OnInit {
   }
 
   /**
-   * Method to handle switching to edit-mode
-   */
-  public onClickEditButton() {
-    this.editButtonClicked.emit(true);
-  }
-
-  /**
    * Method which triggers when the delete project button is clicked.
    * Displays the remove modal.
    * Removes the project if modal returned true to confirm the delete.
