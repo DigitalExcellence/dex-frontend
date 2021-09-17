@@ -44,7 +44,6 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
 })
 export class EditComponent implements OnInit {
   @Input() project: Project;
-  @Input() projectCategories: ProjectCategory;
   /**
    * Configuration for file-picker
    */
@@ -114,17 +113,7 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const routeId = this.activatedRoute.snapshot.paramMap.get('id');
-    if (!routeId) {
-      return;
-    }
-
-    const id = Number(routeId);
-    if (!id || Number.isNaN(id) || id < 1) {
-      this.invalidId = routeId;
-      return;
-    }
-
+    const id = Number(this.project.id);
     this.categoryService.getAll().subscribe(categories => {
       this.categories = categories;
       this.projectService.get(id)
@@ -217,7 +206,6 @@ export class EditComponent implements OnInit {
     this.uploadingFiles = true;
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
-    console.log(this.categories);
     editedProject.categories = this.categories.filter(category => category.selected);
 
     const selectedCallToActions = this.callToActions.callToActionOptions
