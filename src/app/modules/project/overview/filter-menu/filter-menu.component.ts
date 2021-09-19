@@ -45,14 +45,14 @@ export class FilterMenuComponent implements OnInit {
   ];
 
   public sortSelectOptions: SelectFormOption[] = [
+    {value: 'likes,desc', viewValue: 'Likes (high-low)'},
+    {value: 'likes,asc', viewValue: 'Likes (low-high)'},
     {value: 'updated,desc', viewValue: 'Updated (new-old)'},
     {value: 'updated,asc', viewValue: 'Updated (old-new)'},
     {value: 'name,asc', viewValue: 'Name (a-z)'},
     {value: 'name,desc', viewValue: 'Name (z-a)'},
     {value: 'created,desc', viewValue: 'Created (new-old)'},
-    {value: 'created,asc', viewValue: 'Created (old-new)'},
-    {value: 'likes,desc', viewValue: 'Likes (high-low)'},
-    {value: 'likes,asc', viewValue: 'Likes (low-high)'},
+    {value: 'created,asc', viewValue: 'Created (old-new)'}
   ];
 
   /**
