@@ -15,11 +15,13 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { SelectFormOption } from '../../../interfaces/select-form-option';
 import { InternalSearchQuery } from '../../../models/resources/internal-search-query';
 import { InternalSearchService } from '../../../services/internal-search.service';
 
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -49,7 +51,7 @@ export class UserProjectsComponent implements OnInit {
     query: null,
     // If there is a search query, search on all pages
     page: null,
-    amountOnPage: 3,
+    amountOnPage: 12,
     sortBy: '',
     sortDirection: '',
     categories: null
@@ -99,9 +101,30 @@ export class UserProjectsComponent implements OnInit {
 
   public totalAmountOfProjects: number;
 
-  public pageSize: number;
+  public amountOnPage: number;
+  public sortOptionControl: FormControl = null;
+  public paginationOptionControl: FormControl = null;
 
-  public projectsOnPage: number;
+  public sortSelectOptions: SelectFormOption[] = [
+    {value: 'updated,desc', viewValue: 'Updated (new-old)'},
+    {value: 'updated,asc', viewValue: 'Updated (old-new)'},
+    {value: 'name,asc', viewValue: 'Name (a-z)'},
+    {value: 'name,desc', viewValue: 'Name (z-a)'},
+    {value: 'created,desc', viewValue: 'Created (new-old)'},
+    {value: 'created,asc', viewValue: 'Created (old-new)'},
+    {value: 'likes,desc', viewValue: 'Likes (high-low)'},
+    {value: 'likes,asc', viewValue: 'Likes (low-high)'},
+  ];
+
+  public currentSortOptions: string = this.sortSelectOptions[0].value;
+
+  public paginationDropDownOptions = [
+    {id: 0, amountOnPage: 12},
+    {id: 1, amountOnPage: 24},
+    {id: 2, amountOnPage: 36},
+  ];
+  private currentSortType: string = this.currentSortOptions.split(',')[0];
+  private currentSortDirection: string = this.currentSortOptions.split(',')[1];
 
   constructor(private userService: UserService,
               private router: Router,
@@ -111,12 +134,15 @@ export class UserProjectsComponent implements OnInit {
               private seoService: SEOService,
               private location: Location,
               private modalService: BsModalService,
-              private activatedRoute: ActivatedRoute) {}
+              private activatedRoute: ActivatedRoute) {
+    this.sortOptionControl = new FormControl(this.sortSelectOptions[0]);
+    this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
+  }
 
   ngOnInit(): void {
+    this.amountOnPage = this.paginationDropDownOptions[0].amountOnPage;
     this.authService.authNavStatus$.subscribe(status => {
       this.userName = this.authService.name;
-      this.setValues();
       if (status) {
         this.getUserProjects(this.internalSearchQuery);
       }
@@ -225,18 +251,38 @@ export class UserProjectsComponent implements OnInit {
   }
 
   public pageChanged(event: PageChangedEvent) {
-    console.log(event);
     this.internalSearchQuery.page = event.page;
     this.getUserProjects(this.internalSearchQuery);
     return;
   }
 
-  public setValues(pageSize: number = 5) {
-    this.internalSearchQuery.amountOnPage = pageSize;
-    this.pageSize = pageSize;
+  /**
+   * Method to show the amount of items per page.
+   */
+  public onPaginationChange() {
+    this.internalSearchQuery.amountOnPage = this.paginationOptionControl.value.amountOnPage;
+    this.getUserProjects(this.internalSearchQuery);
+  }
+/**
+ * Method to select the sort order of the projects.
+ */
+  public onSortChange() {
+    this.currentSortType = this.sortOptionControl.value.value.split(',')[0];
+    this.currentSortDirection = this.sortOptionControl.value.value.split(',')[1];
+    this.currentSortOptions = this.sortOptionControl.value.value;
+
+    this.internalSearchQuery.sortBy = this.sortOptionControl.value.value.split(',')[0];
+    this.internalSearchQuery.sortDirection = this.sortOptionControl.value.value.split(',')[1];
+
+    this.getUserProjects(this.internalSearchQuery);
   }
 
+  /**
+   * Method to retrieve the user projects.
+    * @param searchQuery The search query that's send with the api call.
+   */
   private getUserProjects(searchQuery: InternalSearchQuery) {
+    this.userProjectsLoading = true;
     this.userService.getProjectsPaginated(searchQuery)
         .pipe(
             finalize(() => (
