@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+##  Release v.1.7.0 - 29-9-2021
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+- Projects overview not sorting on Likes High > Low [#557](https://github.com/DigitalExcellence/dex-frontend/issues/557)
+### Security
+
 ##  Release v.1.6.0-beta - 15-9-2021
 
 ### Added
