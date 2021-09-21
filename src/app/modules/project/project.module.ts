@@ -96,7 +96,8 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
     FileUploaderComponent,
     SafeHtmlPipe,
     ProjectComponent,
-    CallToActionsEditComponent
+    CallToActionsEditComponent,
+    PaginationComponent
   ],
   providers: [Meta]
 })

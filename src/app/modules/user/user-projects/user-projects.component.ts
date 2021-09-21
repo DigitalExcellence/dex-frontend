@@ -15,9 +15,8 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { SelectFormOption } from '../../../interfaces/select-form-option';
-import { InternalSearchQuery } from '../../../models/resources/internal-search-query';
-import { InternalSearchService } from '../../../services/internal-search.service';
+import { SelectFormOption } from 'src/app/interfaces/select-form-option';
+import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -25,7 +24,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
@@ -56,7 +54,6 @@ export class UserProjectsComponent implements OnInit {
     sortDirection: '',
     categories: null
   };
-
 
   /**
    * User info
@@ -250,8 +247,8 @@ export class UserProjectsComponent implements OnInit {
     this.router.navigateByUrl('project/add');
   }
 
-  public pageChanged(event: PageChangedEvent) {
-    this.internalSearchQuery.page = event.page;
+  public pageChanged(event: number) {
+    this.internalSearchQuery.page = event;
     this.getUserProjects(this.internalSearchQuery);
     return;
   }

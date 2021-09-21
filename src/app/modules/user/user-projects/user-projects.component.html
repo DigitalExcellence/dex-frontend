@@ -86,31 +86,14 @@
         >
         </app-project>
       </div>
-      <div *ngIf="!projectsEmpty()" class="pagination-div">
-        <pagination
-            [totalItems]="totalAmountOfProjects"
-            [itemsPerPage]="amountOnPage"
-            [customNextTemplate]="nextTemplate"
-            [customPreviousTemplate]="prevTemplate"
-            (pageChanged)="pageChanged($event)"
-            class="pagination-footer"
-        ></pagination>
-        <ng-template #nextTemplate let-currentPage="currentPage" let-disabled="disabled">
-          <ng-container *ngIf="!disabled">
-            <span class="chevron-right fas fa-chevron-down"></span>
-          </ng-container>
-          <ng-container *ngIf="disabled">
-            <span class="chevron-right disabled fas fa-chevron-down"></span>
-          </ng-container>
-        </ng-template>
-        <ng-template #prevTemplate let-currentPage="currentPage" let-disabled="disabled">
-          <ng-container *ngIf="!disabled">
-            <span class="chevron-left fas fa-chevron-down"></span>
-          </ng-container>
-          <ng-container *ngIf="disabled">
-            <span class="chevron-left fas fa-chevron-down disabled"></span>
-          </ng-container>
-        </ng-template>
+        <div *ngIf="!projectsEmpty()" class="pagination-div">
+          <app-pagination
+              (pageChanged)="pageChanged($event)"
+              [amountOfProjectsOnSinglePage]="amountOnPage"
+              [totalNumberOfProjects]="totalAmountOfProjects"
+              [showPaginationFooter]="showPaginationFooter && !projectsEmpty()"
+          >
+          </app-pagination>
       </div>
     </ng-container>
     <ng-container *ngIf="projectsEmpty()">
