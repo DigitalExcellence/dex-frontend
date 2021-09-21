@@ -71,15 +71,15 @@
         </div>
       </div>
 
-      <ng-container *ngIf="this.activeTab == 'description'">
+      <div [ngClass]="{ hidden: this.activeTab !== 'description' }">
         <div class="long-description-editor">
           <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
             formControlName="description" placeholder="" [ngModel]="project?.description">
           </quill-editor>
         </div>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="this.activeTab == 'collaborators'">
+      <div [ngClass]="{ hidden: this.activeTab !== 'collaborators' }">
         <div class="row collaborator-overview" *ngIf="collaborators.length > 0">
           <div class="col-12">
             <h4>Collaborators</h4>
@@ -139,15 +139,15 @@
             </div>
           </div>
         </form>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="this.activeTab == 'cta'">
+      <div [ngClass]="{ hidden: this.activeTab !== 'cta' }">
         <p class="form-footnote">Select the type of call to action button you want for your project.</p>
         <app-call-to-actions-edit [projectCallToActions]="project.callToActions" class="col-12 call-to-actions">
         </app-call-to-actions-edit>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="this.activeTab == 'images'">
+      <div [ngClass]="{ hidden: this.activeTab !== 'images' }">
         <div class="project-images">
           <div class="left">
             <div class="file-preview">
@@ -170,9 +170,9 @@
             </app-file-uploader>
           </div>
         </div>
-      </ng-container>
-
+      </div>
     </div>
+    
     <hr />
 
     <div id='bottom-button-wrapper'>
