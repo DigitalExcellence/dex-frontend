@@ -15,9 +15,6 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { SelectFormOption } from 'src/app/interfaces/select-form-option';
-import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
-
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -25,7 +22,9 @@ import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs/operators';
+import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { Project } from 'src/app/models/domain/project';
+import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
