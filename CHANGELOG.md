@@ -10,13 +10,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 ### Changed
+- Projects overview not sorting on Likes High > Low [#557](https://github.com/DigitalExcellence/dex-frontend/issues/557)
 
 ### Deprecated
 
 ### Removed
 
 ### Fixed
-- Projects overview not sorting on Likes High > Low [#557](https://github.com/DigitalExcellence/dex-frontend/issues/557)
+
 ### Security
 
 ##  Release v.1.6.0-beta - 15-9-2021
