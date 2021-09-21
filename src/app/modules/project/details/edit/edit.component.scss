@@ -27,7 +27,8 @@
     display: grid;
     grid-template-columns: 1fr auto;
     justify-content: space-between;
-    gap: 20px;
+    align-items: center;
+    gap: 25px;
     min-height: 70px;
 
     .project-title {
@@ -87,19 +88,19 @@
     }
   }
 
-  #specs-wrapper{
+  #specs-wrapper {
     display: flex;
     flex-direction: column;
     gap: 12px;
 
-    .title{
-      font-size: .9em;
+    .title {
+      font-size: 0.9em;
     }
-    
-    .short-desc-input{
+
+    .short-desc-input {
       width: 100%;
     }
-    .form-footnote{
+    .form-footnote {
       margin-left: 10px;
       font-size: 0.9em;
     }
@@ -108,7 +109,7 @@
       display: flex;
       flex-wrap: wrap;
       margin-bottom: 10px;
-  
+
       .category {
         text-decoration: none;
         border-radius: 999px;
@@ -118,7 +119,7 @@
         box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
         margin: 5px 5px 5px 0;
         font-size: 12px;
-  
+
         &.selected {
           background: $accent-color-red-primary;
           color: #fff;
@@ -127,14 +128,122 @@
     }
   }
 
+  #bottom-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    .menu-wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        .item {
+          height: fit-content;
+          font-weight: bold;
+          padding-bottom: 4px;
+          cursor: pointer;
+
+          &.active {
+            border-bottom: 3px solid $accent-color-red-primary;
+          }
+
+          &:hover {
+            color: $accent-color-red-primary;
+            opacity: 0.75;
+          }
+        }
+      }
+    }
+
+    .add-collaborator-col {
+      display: flex;
+      justify-content: flex-end;
+      align-self: center;
+  
+      .add-collaborator-button {
+        margin: 0;
+        align-self: flex-end;
+      }
+  
+      button {
+        background: $accent-color-red-primary;
+        border-radius: 40px;
+        width: 40px;
+        height: 40px;
+        border: none;
+        font-size: 14px;
+        font-weight: 800;
+      }
+    }
+    .collaborator-overview {
+      .collaborator-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+  
+        strong {
+          margin-right: 5px;
+          margin-left: 10px;
+        }
+  
+        .collaborator-text-container {
+          display: flex;
+          justify-content: flex-start;
+        }
+        .collaborator-text-container .dash {
+          margin-left: 5px;
+          margin-right: 5px;
+        }
+        .collaborator-text-container div {
+          max-width: 50%;
+        }
+        .collaborator-text.font-weight-bold {
+          margin-left: 10px;
+        }
+  
+        .collaborator-text {
+          align-self: center;
+          margin: 0;
+          max-width: 100%;
+  
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
+  
+      button {
+        border-radius: 20px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $accent-color-red-primary;
+      }
+    }
+  }
+
   .project-form {
     input,
     textarea {
+      background-color: $light-mode-grey-thertiary;
       border: none;
       border-radius: 6px;
-      box-shadow: 0 3px 6px #0000001a;
       padding: 5px 15px;
       margin: 5px 0;
+      width: 100%;
     }
 
     textarea {
@@ -142,7 +251,7 @@
     }
 
     input:focus {
-      outline: auto #e4e4e4;
+      outline: auto #0000001a;
     }
 
     select {
@@ -177,14 +286,6 @@
       outline: auto #e4e4e4;
     }
 
-    select {
-      height: 45px;
-      box-shadow: 0 3px 6px #0000001a;
-    }
-
-    option::first-letter {
-      text-transform: uppercase;
-    }
   }
 
   .project-icon {

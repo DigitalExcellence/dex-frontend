@@ -92,6 +92,11 @@ export class EditComponent implements OnInit {
    */
   public projectLoading = true;
 
+    /**
+   * Property to indicate the tab to open in the bottom menu
+   */
+  public activeTab = 'description';
+
   constructor(
       private router: Router,
       private formBuilder: FormBuilder,
@@ -328,5 +333,9 @@ export class EditComponent implements OnInit {
           this.alertService.pushAlert(alertConfig);
           this.editMode.emit(false);
         });
+  }
+
+  public setActiveTab(newActiveTab): void {
+    this.activeTab = newActiveTab;
   }
 }

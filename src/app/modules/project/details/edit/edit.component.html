@@ -19,9 +19,9 @@
 <div id='edit-modal-content'>
   <form [formGroup]="editProjectForm" class="project-form">
     <div id="title-wrapper">
-      <h2><input class="project-title" placeholder="Project title" formControlName="name" required
+      <h3><input class="project-title" placeholder="Project title" formControlName="name" required
           [ngModel]="project?.name">
-      </h2>
+      </h3>
 
       <div class="icon-circle" style="background-color: unset">
         <img [src]="projectIconFileUploader.files[0]?.preview" alt="Code project" loading="lazy"
@@ -37,7 +37,8 @@
     <div id='specs-wrapper'>
       <div>
         <h4 class='title'>Short description</h4>
-        <input class='short-desc-input' formControlName="shortDescription" required [ngModel]="project?.shortDescription">
+        <input class='short-desc-input' formControlName="shortDescription" required
+          [ngModel]="project?.shortDescription">
         <p class="form-footnote">Describe your project in one sentence or 170 characters.</p>
       </div>
       <div>
@@ -54,8 +55,102 @@
         </div>
       </div>
     </div>
-    <hr/>
+    <hr />
+    <div id="bottom-wrapper">
+      <div class="menu-wrapper">
+        <div class="menu">
+          <div (click)="setActiveTab('description')" [ngClass]="{ active: this.activeTab == 'description' }"
+            class="item">Description</div>
+          <div (click)="setActiveTab('collaborators')" [ngClass]="{ active: this.activeTab == 'collaborators' }"
+            class="item">Collaborators
+          </div>
+          <div (click)="setActiveTab('collaborators')" [ngClass]="{ active: this.activeTab == 'cta' }"
+            class="item">Call to action
+          </div>
+        </div>
+      </div>
 
+      <ng-container *ngIf="this.activeTab == 'description'">
+        <div class="long-description-editor">
+          <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
+            formControlName="description" placeholder="" [ngModel]="project?.description">
+          </quill-editor>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="this.activeTab == 'collaborators'">
+
+        <div class="row collaborator-overview" *ngIf="collaborators.length > 0">
+
+          <div class="col-12">
+            <h4>Collaborators</h4>
+          </div>
+
+          <div *ngFor="let collaborator of collaborators; index as i" class="col-5 collaborator-item">
+            <button type="button" class="btn btn-icon btn-danger" aria-label="error"
+              (click)="onClickDeleteCollaborator(collaborator)"><span aria-hidden="true"> &times; </span>
+            </button>
+
+            <div class="collaborator-text-container w-100">
+
+              <div>
+                <p class="collaborator-text font-weight-bold" [tooltip]="collaborator?.fullName" delay="300">
+                  {{collaborator?.fullName}}</p>
+              </div>
+              <p class="collaborator-text dash">-</p>
+              <div>
+                <p class="collaborator-text" [tooltip]="collaborator?.role" delay="300">{{collaborator?.role}}</p>
+              </div>
+
+            </div>
+
+            <hr class="dashed">
+          </div>
+        </div>
+
+        <form [formGroup]="editCollaboratorForm" class="project-form">
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-5">
+                  <div>
+                    <h4>Collaborator full name</h4>
+                    <input formControlName="fullName" required>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div>
+                    <h4>Collaborator role</h4>
+                    <input formControlName="role" required>
+                  </div>
+                </div>
+
+                <div class="col-2 add-collaborator-col">
+                  <button type="button" class="btn btn-icon btn-primary add-collaborator-button" aria-label="settings"
+                    (click)="onClickAddCollaborator()" [disabled]="!editCollaboratorForm.valid">
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <div class="offset-5 col-5">
+                <p class="form-footnote">e.g.: developer, designer, etc...</p>
+              </div>
+
+            </div>
+          </div>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="this.activeTab == 'cta'">
+        <div class="long-description-editor">
+          <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
+            formControlName="description" placeholder="" [ngModel]="project?.description">
+          </quill-editor>
+        </div>
+      </ng-container>
+
+    </div>
   </form>
 </div>
 
