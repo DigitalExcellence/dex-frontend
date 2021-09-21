@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 - Added pagination to own projects page. [#526](https://github.com/DigitalExcellence/dex-frontend/issues/526)
+
 ### Changed
 
 ### Deprecated
