@@ -86,7 +86,7 @@
         >
         </app-project>
       </div>
-      <div class="pagination-div">
+      <div *ngIf="!projectsEmpty()" class="pagination-div">
         <pagination
             [totalItems]="totalAmountOfProjects"
             [itemsPerPage]="amountOnPage"
