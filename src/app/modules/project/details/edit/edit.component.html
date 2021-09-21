@@ -64,8 +64,9 @@
           <div (click)="setActiveTab('collaborators')" [ngClass]="{ active: this.activeTab == 'collaborators' }"
             class="item">Collaborators
           </div>
-          <div (click)="setActiveTab('collaborators')" [ngClass]="{ active: this.activeTab == 'cta' }"
-            class="item">Call to action
+          <div (click)="setActiveTab('cta')" [ngClass]="{ active: this.activeTab == 'cta' }" class="item">Call to action
+          </div>
+          <div (click)="setActiveTab('images')" [ngClass]="{ active: this.activeTab == 'images' }" class="item">Images
           </div>
         </div>
       </div>
@@ -79,9 +80,7 @@
       </ng-container>
 
       <ng-container *ngIf="this.activeTab == 'collaborators'">
-
         <div class="row collaborator-overview" *ngIf="collaborators.length > 0">
-
           <div class="col-12">
             <h4>Collaborators</h4>
           </div>
@@ -143,16 +142,54 @@
       </ng-container>
 
       <ng-container *ngIf="this.activeTab == 'cta'">
-        <div class="long-description-editor">
-          <quill-editor class="dex-quill-editor" [styles]="{height: '350px'}" [modules]="modulesConfigration"
-            formControlName="description" placeholder="" [ngModel]="project?.description">
-          </quill-editor>
+        <p class="form-footnote">Select the type of call to action button you want for your project.</p>
+        <app-call-to-actions-edit [projectCallToActions]="project.callToActions" class="col-12 call-to-actions">
+        </app-call-to-actions-edit>
+      </ng-container>
+
+      <ng-container *ngIf="this.activeTab == 'images'">
+        <div class="project-images">
+          <div class="left">
+            <div class="file-preview">
+              <div *ngFor="let image of getProjectImages(); let i = index"
+                [style.background-image]="'url(' + image + ')'" class="preview">
+                <div (click)="deleteImageClicked(i)" *ngIf="image; else noImage" class="overlay"><em
+                    class="fas fa-trash"></em></div>
+                <ng-template #noImage>
+                  <div (click)="addImageClick()" class="overlay"><em class="fas fa-plus"></em></div>
+                </ng-template>
+              </div>
+            </div>
+            <div class="buttons">
+              <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
+            </div>
+          </div>
+          <div class="project-image-picker">
+            <app-file-uploader #projectImagesFileUploader [acceptMultiple]="true" [acceptedTypes]="acceptedTypes"
+              [recommendedHeight]="400" [recommendedWidth]="800" [showPreview]="false">
+            </app-file-uploader>
+          </div>
         </div>
       </ng-container>
 
     </div>
+    <hr />
+
+    <div id='bottom-button-wrapper'>
+      <button (click)="onClickSubmit()" [disabled]="!editProjectForm.valid" class="btn btn-success" type="submit">
+        <div>
+          Save
+        </div>
+        <div *ngIf="uploadingFiles" class="loading-circle">
+          <em class="fas fa-circle-notch fa-pulse"></em>
+        </div>
+      </button>
+      <button (click)="editMode.emit(false)" class="btn btn-cancel">Cancel</button>
+    </div>
   </form>
 </div>
+
+<!--
 
 <div id='old-version' class="row">
   <div class="offset-2 col-8">
@@ -234,29 +271,28 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12">
-            <h3>Project images</h3>
-            <div class="project-images">
-              <div class="left">
-                <div class="file-preview">
-                  <div *ngFor="let image of getProjectImages(); let i = index"
-                    [style.background-image]="'url(' + image + ')'" class="preview">
-                    <div (click)="deleteImageClicked(i)" *ngIf="image; else noImage" class="overlay"><em
-                        class="fas fa-trash"></em></div>
-                    <ng-template #noImage>
-                      <div (click)="addImageClick()" class="overlay"><em class="fas fa-plus"></em></div>
-                    </ng-template>
-                  </div>
-                </div>
-                <div class="buttons">
-                  <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
+          <div class="col-12"></div>
+          <h3>Project images</h3>
+          <div class="project-images">
+            <div class="left">
+              <div class="file-preview">
+                <div *ngFor="let image of getProjectImages(); let i = index"
+                  [style.background-image]="'url(' + image + ')'" class="preview">
+                  <div (click)="deleteImageClicked(i)" *ngIf="image; else noImage" class="overlay"><em
+                      class="fas fa-trash"></em></div>
+                  <ng-template #noImage>
+                    <div (click)="addImageClick()" class="overlay"><em class="fas fa-plus"></em></div>
+                  </ng-template>
                 </div>
               </div>
-              <div class="project-image-picker">
-                <app-file-uploader #projectImagesFileUploader [acceptMultiple]="true" [acceptedTypes]="acceptedTypes"
-                  [recommendedHeight]="400" [recommendedWidth]="800" [showPreview]="false">
-                </app-file-uploader>
+              <div class="buttons">
+                <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
               </div>
+            </div>
+            <div class="project-image-picker">
+              <app-file-uploader #projectImagesFileUploader [acceptMultiple]="true" [acceptedTypes]="acceptedTypes"
+                [recommendedHeight]="400" [recommendedWidth]="800" [showPreview]="false">
+              </app-file-uploader>
             </div>
           </div>
         </div>
@@ -355,3 +391,4 @@
     </div>
   </div>
 </div>
+-->

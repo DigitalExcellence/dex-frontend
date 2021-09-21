@@ -166,12 +166,12 @@
       display: flex;
       justify-content: flex-end;
       align-self: center;
-  
+
       .add-collaborator-button {
         margin: 0;
         align-self: flex-end;
       }
-  
+
       button {
         background: $accent-color-red-primary;
         border-radius: 40px;
@@ -189,12 +189,12 @@
         margin-bottom: 10px;
         padding-top: 5px;
         padding-bottom: 5px;
-  
+
         strong {
           margin-right: 5px;
           margin-left: 10px;
         }
-  
+
         .collaborator-text-container {
           display: flex;
           justify-content: flex-start;
@@ -209,18 +209,18 @@
         .collaborator-text.font-weight-bold {
           margin-left: 10px;
         }
-  
+
         .collaborator-text {
           align-self: center;
           margin: 0;
           max-width: 100%;
-  
+
           text-overflow: ellipsis;
           overflow: hidden;
           white-space: nowrap;
         }
       }
-  
+
       button {
         border-radius: 20px;
         width: 20px;
@@ -232,6 +232,162 @@
         justify-content: center;
         background-color: $accent-color-red-primary;
       }
+    }
+
+    .project-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+
+      button {
+        &.grey {
+          display: none;
+        }
+      }
+
+      @media only screen and (max-width: 800px) {
+        grid-template-columns: 1fr;
+        .project-image-picker {
+          display: none;
+        }
+        button {
+          &.grey {
+            display: block;
+          }
+        }
+        img {
+          display: none;
+        }
+      }
+
+      .project-image-picker {
+        min-width: 300px;
+        margin-bottom: 30px;
+      }
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        .file-preview {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 15px;
+          max-width: 100%;
+          width: 100%;
+          position: relative;
+
+          .preview {
+            position: relative;
+            border-radius: $border-radius;
+            width: 100% !important;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-color: $light-mode-grey-quaternary;
+
+            border: 2px solid $light-mode-grey-thertiary;
+
+            &:first-child {
+              grid-column: span 3;
+
+              .overlay {
+                em {
+                  font-size: 35px;
+                }
+              }
+            }
+
+            @media only screen and (max-width: 600px) {
+              width: 95%;
+            }
+
+            &:after {
+              content: "";
+              display: block;
+              padding-bottom: calc(55% + 10px);
+            }
+
+            .overlay {
+              z-index: 2;
+              height: 100%;
+              width: 100%;
+              position: absolute;
+              background-color: rgba(0, 0, 0, 0.2);
+              left: 0;
+              top: 0;
+              opacity: 0;
+              transition: $transition-short;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              em {
+                cursor: pointer;
+                color: white;
+                font-size: 24px;
+              }
+            }
+
+            &:hover {
+              .overlay {
+                opacity: 1;
+              }
+            }
+          }
+
+          img {
+            display: inline-block;
+            z-index: 2;
+
+            &.workers {
+              position: absolute;
+              right: -5px;
+              bottom: -3px;
+            }
+
+            @media only screen and (max-width: 600px) {
+              display: none;
+            }
+          }
+        }
+
+        .buttons {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 15px;
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+
+  #bottom-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-success,
+    .btn-cancel {
+      display: flex;
+      white-space: nowrap;
+      gap: 10px;
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 6px;
+      font-size: 18px;
+      margin-right: 24px;
+    }
+
+    .btn-success {
+      background-color: $accent-color-red-primary;
+    }
+
+    .btn-cancel {
+      background-color: #8e8e8e;
     }
   }
 
@@ -285,7 +441,6 @@
     input:focus {
       outline: auto #e4e4e4;
     }
-
   }
 
   .project-icon {
