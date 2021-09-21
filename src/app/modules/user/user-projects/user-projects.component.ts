@@ -20,7 +20,7 @@ import { InternalSearchQuery } from 'src/app/models/resources/internal-search-qu
 
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -163,7 +163,7 @@ export class UserProjectsComponent implements OnInit {
    * Checks whether there are any projects
    */
   public projectsEmpty(): boolean {
-    return this.userProjects.length < 1;
+    return this.totalAmountOfProjects < 1;
   }
 
   /**
@@ -250,7 +250,6 @@ export class UserProjectsComponent implements OnInit {
   public pageChanged(event: number) {
     this.internalSearchQuery.page = event;
     this.getUserProjects(this.internalSearchQuery);
-    return;
   }
 
   /**

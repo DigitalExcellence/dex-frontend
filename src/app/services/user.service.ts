@@ -19,10 +19,9 @@ import { HttpBaseService } from './http-base.service';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable, pipe } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { API_CONFIG } from 'src/app/config/api-config';
-import { Project } from 'src/app/models/domain/project';
 import { User } from 'src/app/models/domain/user';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { SearchResultsResource } from 'src/app/models/resources/search-results';
