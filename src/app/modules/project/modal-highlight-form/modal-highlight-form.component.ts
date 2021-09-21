@@ -170,7 +170,6 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
    * Method which triggers when the back button is clicked.
    */
   public onClickBack(): void {
-    this.goBack.emit();
     this.bsModalRef.hide();
   }
 
