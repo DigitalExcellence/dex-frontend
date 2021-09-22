@@ -17,6 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Removed
 
 ### Fixed
+- Highlight project modal, not dissapearing when clicking out of it.[#569](https://github.com/DigitalExcellence/dex-frontend/issues/569)
 
 ### Security
 
