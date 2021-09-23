@@ -8,7 +8,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ##  Release v.1.7.0-beta - 8-10-2021
 
 ### Added
-
+- Back button to add project wizard - [#563](https://github.com/DigitalExcellence/dex-frontend/issues/563)
 ### Changed
 - Projects overview not sorting on Likes High > Low [#557](https://github.com/DigitalExcellence/dex-frontend/issues/557)
 

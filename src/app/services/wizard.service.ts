@@ -18,6 +18,7 @@
 import { AuthService } from './auth.service';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -291,6 +292,13 @@ export class WizardService {
    */
   public isLastStep(): boolean {
     return this.currentStep$.value.orderIndex === this.steps$.value.length;
+  }
+
+  /**
+   * Method that checks if the current step is the first one of the flow
+   */
+  public isFirstStep(): boolean {
+    return this.currentStep$.value.orderIndex === 1;
   }
 
   /**

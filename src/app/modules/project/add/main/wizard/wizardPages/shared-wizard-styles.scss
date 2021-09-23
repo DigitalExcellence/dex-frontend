@@ -62,9 +62,39 @@ p {
   }
 }
 
+.form-previous-btn {
+  min-width: 100px;
+  width: fit-content;
+  height: 40px;
+  border: none;
+  border-radius: $border-radius;
+  background-color: $light-mode-grey-primary;
+  box-shadow: $box-shadow;
+  color: white;
+  outline: none;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
+  align-items: center;
+  padding: 0 20px;
+
+  &:hover {
+    background: $light-mode-grey-secondary;
+  }
+
+  &.grey {
+    color: black;
+    background-color: $light-mode-grey-quaternary;
+
+    &:hover {
+      background: $light-mode-grey-thertiary;
+    }
+  }
+}
+
 .inline-input {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
 
   input {
     line-height: 3rem;
@@ -74,11 +104,11 @@ p {
   }
 
   button {
-    margin-left: -10px;
+    margin-left: 10px;
     @media only screen and (max-width: 500px) {
       width: fit-content;
       padding: 0 20px;
-      margin-left: 0;
+      margin-left: 4px;
       min-width: unset;
     }
   }
