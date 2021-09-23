@@ -28,6 +28,9 @@
       <div [style.background-image]="'url('+getProjectIcon()+')'" class="circle"></div>
       <img alt="Workers svg" class="workers" src="/assets/images/wizard/icon.svg"/>
     </div>
-    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next"}}</button>
+    <div class="inline-input">
+      <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
+      <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next"}}</button>
+    </div>
   </div>
 </div>

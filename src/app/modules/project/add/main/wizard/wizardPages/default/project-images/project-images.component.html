@@ -11,6 +11,7 @@
       </div>
     </div>
     <div class="buttons">
+      <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
       <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
       <button (click)="onClickNext()" class="form-continue-btn">
           {{ isOptional && !(fileUploader?.files.length > 0) ? "Skip" : "Next" }}
