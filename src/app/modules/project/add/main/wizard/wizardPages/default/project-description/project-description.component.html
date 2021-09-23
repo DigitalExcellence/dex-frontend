@@ -39,6 +39,9 @@
   </div>
   <div class="right">
     <img alt="describe svg" src="/assets/images/wizard/describe.svg"/>
-    <button (click)="onClickNext()" [disabled]="!shortDescription.valid || !longDescription.valid" class="form-continue-btn">Next</button>
+    <div class="inline-input">
+      <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
+      <button (click)="onClickNext()" [disabled]="!shortDescription.valid || !longDescription.valid" class="form-continue-btn">Next</button>
+    </div>
   </div>
 </div>

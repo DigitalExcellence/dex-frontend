@@ -29,6 +29,7 @@ import { Project } from 'src/app/models/domain/project';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -291,6 +292,13 @@ export class WizardService {
    */
   public isLastStep(): boolean {
     return this.currentStep$.value.orderIndex === this.steps$.value.length;
+  }
+
+  /**
+   * Method that checks if the current step is the first one of the flow
+   */
+  public isFirstStep(): boolean {
+    return this.currentStep$.value.orderIndex === 1;
   }
 
   /**

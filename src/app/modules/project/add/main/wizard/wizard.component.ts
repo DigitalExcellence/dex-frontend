@@ -95,6 +95,15 @@ export class WizardComponent implements OnInit {
   }
 
   /**
+   * Method which triggers when the button to the previous page is pressed
+   */
+  public onPreviousStep() {
+    if (!this.wizardService.isFirstStep()) {
+      this.wizardService.moveToPreviousStep();
+    }
+  }
+
+  /**
    * Method that will take the built project in the wizard and send it to the backend
    * @param newProject - the built project
    */

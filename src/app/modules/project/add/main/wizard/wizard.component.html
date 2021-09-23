@@ -24,25 +24,25 @@
       <ng-container [ngSwitch]="(currentStep | async)?.wizardPageName">
         <!--    From this point the steps are always displayed    -->
         <ng-container *ngSwitchCase="'project-categories'">
-          <app-project-categories (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-categories>
+          <app-project-categories (clickNext)="onNextStep()" (clickPrevious)="onPreviousStep()" [step]="(currentStep | async)"></app-project-categories>
         </ng-container>
         <ng-container *ngSwitchCase="'project-name'">
-          <app-project-name (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-name>
+          <app-project-name (clickNext)="onNextStep()" (clickPrevious)="onPreviousStep()" [step]="(currentStep | async)"></app-project-name>
         </ng-container>
         <ng-container *ngSwitchCase="'project-description'">
-          <app-project-description (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-description>
+          <app-project-description (clickNext)="onNextStep()" (clickPrevious)="onPreviousStep()" [step]="(currentStep | async)"></app-project-description>
         </ng-container>
         <ng-container *ngSwitchCase="'project-images'">
-          <app-project-images (clickNext)="onNextStep()" [step]="(currentStep | async)"></app-project-images>
+          <app-project-images (clickNext)="onNextStep()" (clickPrevious)="onPreviousStep()" [step]="(currentStep | async)"></app-project-images>
         </ng-container>
         <ng-container *ngSwitchCase="'project-icon'">
-          <app-project-icon (clickNext)="onNextStep()" [isOptional]="true" [step]="(currentStep | async)"></app-project-icon>
+          <app-project-icon (clickNext)="onNextStep()" (clickPrevious)="onPreviousStep()" [isOptional]="true" [step]="(currentStep | async)"></app-project-icon>
         </ng-container>
         <ng-container *ngSwitchCase="'project-collaborators'">
-          <app-project-collaborators (clickNext)="onNextStep()" [isOptional]="true" [step]="(currentStep | async)"></app-project-collaborators>
+          <app-project-collaborators (clickNext)="onNextStep()" (clickPrevious)="onPreviousStep()" [isOptional]="true" [step]="(currentStep | async)"></app-project-collaborators>
         </ng-container>
         <ng-container *ngSwitchCase="'project-call-to-action'">
-          <app-project-call-to-action (clickNext)="onNextStep()" [isOptional]="true" [step]="(currentStep | async)"></app-project-call-to-action>
+          <app-project-call-to-action (clickNext)="onNextStep()" (clickPrevious)="onPreviousStep()" [isOptional]="true" [step]="(currentStep | async)"></app-project-call-to-action>
         </ng-container>
         <ng-container *ngSwitchCase="'project-link'">
           <app-project-link (clickNext)="onNextStep()" [formSubmitted]="formSubmitted" [step]="(currentStep | async)"></app-project-link>
