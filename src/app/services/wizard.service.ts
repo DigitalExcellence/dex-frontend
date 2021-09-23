@@ -18,6 +18,7 @@
 import { AuthService } from './auth.service';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -29,7 +30,6 @@ import { Project } from 'src/app/models/domain/project';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
