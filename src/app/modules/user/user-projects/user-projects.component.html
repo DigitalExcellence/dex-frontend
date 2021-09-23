@@ -79,8 +79,8 @@
     <ng-container *ngIf="projectsLoading; else projectsLoading">
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <app-project
-            (click)="onClickProject($event, project.id, project.name)"
             *ngFor="let project of userProjects"
+            (click)="onClickUserProject(project.id, project.name)"
             [project]="project"
             [showListView]="this.showListView"
         >

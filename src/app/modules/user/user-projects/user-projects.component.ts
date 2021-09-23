@@ -25,7 +25,6 @@ import { finalize } from 'rxjs/operators';
 import { SelectFormOption } from 'src/app/interfaces/select-form-option';
 import { Project } from 'src/app/models/domain/project';
 import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
-import { DetailsComponent } from 'src/app/modules/project/details/details.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { SEOService } from 'src/app/services/seo.service';
@@ -121,6 +120,10 @@ export class UserProjectsComponent implements OnInit {
   ];
   private currentSortType: string = this.currentSortOptions.split(',')[0];
   private currentSortDirection: string = this.currentSortOptions.split(',')[1];
+  /**
+   * Object to keep track of a modal that was opened trough the url
+   */
+  private urlOpenedModal = { state: false, projectId: null };
 
   constructor(private userService: UserService,
               private router: Router,
@@ -148,14 +151,29 @@ export class UserProjectsComponent implements OnInit {
 
   ngAfterViewInit() {
     this.activatedRoute.params.subscribe(params => {
-      const projectId = params.id?.split('-')[0];
-      this.createProjectModal(projectId);
+      const projectId = +params.id?.split('-')[0];
+      // We need the 1ms timeout to make sure the components are rendered, I don't know why angular doesn't do this but whatever
+      setTimeout(() => {
+        // Methods below are executed when an ID has been provided in the URL
+        if (projectId) {
+          this.modalUtility.openProjectModal(projectId, '', '/project/overview');
+          // object to handle check for like-subscribe in filteredProjectsChanged()
+          this.urlOpenedModal = { state: true, projectId: projectId };
+        }
+      }, 1);
     });
   }
 
+  /**
+   * Method to open the modal for a projects detail
+   * @param id the id of the project that should be shown.
+   * @param name the project name that should be shown.
+   */
+
   public onClickUserProject(id: number, name: string): void {
     name = name.split(' ').join('-');
-    this.modalUtility.openProjectModal(id, name, '/home');
+    this.modalUtility.openProjectModal(id, name, '/user/projects');
+    this.updateSEOTags();
   }
 
   /**
@@ -166,25 +184,6 @@ export class UserProjectsComponent implements OnInit {
   }
 
   /**
-   * Triggers on project click in the list.
-   * @param event click event
-   * @param id project id.
-   * @param name project name
-   */
-  public onClickProject(event: Event, id: number, name: string): void {
-    name = name.split(' ').join('-');
-
-    const clickedSection = event.target as Element;
-
-    if (clickedSection.classList.contains('project-collaborators')) {
-      this.createProjectModal(id, 'collaborators');
-    } else {
-      this.createProjectModal(id);
-    }
-    this.location.replaceState(`/project/details/${id}-${name}`);
-  }
-
-  /**
    * Method to get the url of the icon of the project. This is retrieved
    * from the file retriever service
    */
@@ -192,38 +191,6 @@ export class UserProjectsComponent implements OnInit {
     return this.fileRetrieverService.getIconUrl(project.projectIcon);
   }
 
-  /**
-   * Method to open the modal for a projects detail
-   * @param projectId the id of the project that should be shown.
-   * @param activeTab Define the active tab
-   */
-  private createProjectModal(projectId: number, activeTab: string = 'description') {
-    const initialState = {
-      projectId: projectId,
-      activeTab: activeTab
-    };
-    if (projectId) {
-      this.modalRef = this.modalService.show(DetailsComponent, {animated: true, initialState});
-      this.modalRef.setClass('project-modal');
-
-      this.modalRef.content.onLike.subscribe(isLiked => {
-        const projectIndexToUpdate = this.userProjects.findIndex(project => project.id === projectId);
-        if (isLiked) {
-          this.userProjects[projectIndexToUpdate].likeCount++;
-          this.userProjects[projectIndexToUpdate].userHasLikedProject = true;
-        } else {
-          this.userProjects[projectIndexToUpdate].likeCount--;
-          this.userProjects[projectIndexToUpdate].userHasLikedProject = false;
-        }
-      });
-
-      // Go back to home page after the modal is closed
-      this.modalService.onHide.subscribe(() => {
-        this.location.replaceState(`/user/projects`);
-        this.updateSEOTags();
-      });
-    }
-  }
 
   /**
    * Methods to update the title and description through the SEO service
