@@ -32,6 +32,10 @@ export class ProjectNameComponent extends WizardStepBaseComponent implements OnI
    */
   public projectName = new FormControl('');
   /**
+   * Remembers if project-name is the first step in the current wizard
+   */
+  public isFirstStep: boolean;
+  /**
    * Hold a copy of the project temporarily to prevent the service from listening to every change
    */
   private project: ProjectAdd;
@@ -41,6 +45,7 @@ export class ProjectNameComponent extends WizardStepBaseComponent implements OnI
   }
 
   public ngOnInit(): void {
+    this.isFirstStep = this.wizardService.isFirstStep();
     this.project = this.wizardService.builtProject;
     if (this.project.name) {
       this.projectName.setValue(this.project.name);
