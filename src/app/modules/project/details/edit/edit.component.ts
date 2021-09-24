@@ -45,6 +45,7 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
 export class EditComponent implements OnInit {
   @Input() project: Project;
   @Output() editMode = new EventEmitter<boolean>();
+  @Output() updatedProject = new EventEmitter<Project>();
   /**
    * Configuration for file-picker
    */
@@ -332,6 +333,7 @@ export class EditComponent implements OnInit {
           };
           this.alertService.pushAlert(alertConfig);
           this.editMode.emit(false);
+          this.updatedProject.emit(this.project);
         });
   }
 

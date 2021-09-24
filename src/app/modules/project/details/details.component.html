@@ -54,6 +54,7 @@
     <app-edit
     [project]="project"
     (editMode)='toggleEditMode($event)'
+    (updatedProject)='updateProject($event)'
     >
     </app-edit>
   </ng-template>

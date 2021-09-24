@@ -142,4 +142,12 @@ export class DetailsComponent implements OnInit {
     this.modalService.hide(1);
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
   }
+
+  /**
+  * This method reloads the project detail page after edits have been made
+  */
+  updateProject(updatedProject: Project) {
+    this.project = updatedProject;
+    this.ngOnInit();
+  }
 }
