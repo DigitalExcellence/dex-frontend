@@ -114,4 +114,11 @@ export class BottomDrawerComponent implements OnInit {
     }
     this.displayEmbedButton = this.project.user.id === this.currentUser.id;
   }
+
+    /**
+   * Method to handle commmunication about clicked-edit button
+   */
+  public onEditButtonClicked(event: boolean) {
+    this.editMode.emit(event);
+  }
 }

@@ -7,7 +7,7 @@
     </div>
     <app-settings-dropdown
         (projectHighlighted)="isProjectHighlighted = $event"
-        (editButtonClicked)='this.editMode.emit($event)'
+        (editButtonClicked)='onEditButtonClicked($event)'
         [currentUser]="currentUser"
         [project]="project"
     ></app-settings-dropdown>

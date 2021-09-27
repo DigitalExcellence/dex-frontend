@@ -259,4 +259,12 @@ export class SettingsDropdownComponent implements OnInit {
       this.onClickHighlightButton(true);
     });
   }
+
+  /*
+  * method to handle the edit-bottn being clicked
+  */
+  public onEditButtonClicked() {
+    this.editButtonClicked.emit(true);
+  }
+
 }
