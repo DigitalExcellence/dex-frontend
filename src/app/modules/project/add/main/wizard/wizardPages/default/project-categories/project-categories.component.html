@@ -49,4 +49,10 @@
 <!--    #{{tag}}-->
 <!--  </span>-->
 <!--  </div>-->
-<button (click)="onClickNext()" class="form-continue-btn">{{isOptional ? "Skip" : "Next"}}</button>
+<div class="buttons">
+  <div class="inline-input">
+    <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
+    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional ? "Skip" : "Next"}}</button>
+  </div>
+</div>
+

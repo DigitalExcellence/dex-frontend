@@ -66,6 +66,9 @@
   </div>
   <div class="image-col">
     <img alt="" src="/assets/images/wizard/collaborators.svg" />
-    <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !(collaboratorList.length > 0) ? "Skip" : "Next"}}</button>
+    <div class="inline-input">
+      <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
+      <button (click)="onClickNext()" class="form-continue-btn">{{isOptional && !(collaboratorList.length > 0) ? "Skip" : "Next"}}</button>
+    </div>
   </div>
 </div>
