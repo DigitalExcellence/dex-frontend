@@ -72,7 +72,7 @@ export class DetailsComponent implements OnInit {
     /**
    * Boolean to trigger showing the edit-mode
    */
-  public editModeActivated = true;
+  public editModeActivated = false;
 
   constructor(
     private projectService: ProjectService,
