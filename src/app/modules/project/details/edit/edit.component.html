@@ -23,7 +23,7 @@
           [ngModel]="project?.name">
       </h3>
 
-      <div class="icon-circle" style="background-color: unset">
+      <div class="circle" style="background-color: unset">
         <img [src]="projectIconFileUploader.files[0]?.preview" alt="Code project" loading="lazy"
           onerror="this.src='/assets/images/placeholder.svg';" />
         <div (click)="projectIconFileUploader.fileInput.nativeElement.click()" class="overlay"><em
@@ -56,7 +56,7 @@
       </div>
     </div>
     <hr />
-    <div id="bottom-wrapper">
+    <div class="bottom">
       <div class="menu-wrapper">
         <div class="menu">
           <div (click)="setActiveTab('description')" [ngClass]="{ active: this.activeTab == 'description' }"

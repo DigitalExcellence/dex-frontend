@@ -17,6 +17,8 @@
  *
  */
 @import "assets/styles/variables";
+@import "../summary/summary.component.scss";
+@import "../bottom-drawer/bottom-drawer.component.scss";
 
 #edit-modal-content {
   padding: 45px 60px;
@@ -24,12 +26,7 @@
   max-width: 100%;
 
   #title-wrapper {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    justify-content: space-between;
-    align-items: center;
     gap: 25px;
-    min-height: 70px;
 
     .project-title {
       margin: 0;
@@ -43,21 +40,8 @@
       text-overflow: ellipsis;
     }
 
-    .icon-circle {
+    .circle {
       position: relative;
-      place-content: center;
-      width: 65px;
-      min-width: 65px;
-      height: 65px;
-      border-radius: 999px;
-      overflow: hidden;
-      box-shadow: 0 0 4px #0000001a;
-
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
 
       .overlay {
         z-index: 2;
@@ -106,8 +90,6 @@
     }
 
     .project-categories {
-      display: flex;
-      flex-wrap: wrap;
       margin-bottom: 10px;
 
       .category {
@@ -122,46 +104,13 @@
 
         &.selected {
           background: $accent-color-red-primary;
-          color: #fff;
+          color: $white;
         }
       }
     }
   }
 
-  #bottom-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-
-    .menu-wrapper {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 30px;
-
-      .menu {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-
-        .item {
-          height: fit-content;
-          font-weight: bold;
-          padding-bottom: 4px;
-          cursor: pointer;
-
-          &.active {
-            border-bottom: 3px solid $accent-color-red-primary;
-          }
-
-          &:hover {
-            color: $accent-color-red-primary;
-            opacity: 0.75;
-          }
-        }
-      }
-    }
-
+  .bottom {
     .hidden{
       display:none;
     }
