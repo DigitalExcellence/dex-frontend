@@ -19,7 +19,7 @@ import { AuthService } from './auth.service';
 import { HttpBaseService } from './http-base.service';
 
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { API_CONFIG } from 'src/app/config/api-config';
@@ -36,32 +36,34 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
     super(http, API_CONFIG.url + API_CONFIG.projectRoute);
   }
 
+  @Output() projectUpdated$: EventEmitter<number> = new EventEmitter();
+
   get(id: number): Observable<Project> {
     return super.get(id)
-        .pipe(
-            map(project => {
-              return {
-                ...project,
-                callToActions: project.callToActions.length > 0 ?
-                project.callToActions.map(cta => ({
-                    ...cta,
-                    iconName: CallToActionIconsConfig[cta.optionValue.toLowerCase()]
-                  })
-                )
-                 : undefined
-              };
-            }),
-            mergeMap(project =>
-                from(this.addLikes(project))
-            ));
+      .pipe(
+        map(project => {
+          return {
+            ...project,
+            callToActions: project.callToActions.length > 0 ?
+              project.callToActions.map(cta => ({
+                ...cta,
+                iconName: CallToActionIconsConfig[cta.optionValue.toLowerCase()]
+              })
+              )
+              : undefined
+          };
+        }),
+        mergeMap(project =>
+          from(this.addLikes(project))
+        ));
   }
 
   private addLikes(project): Promise<Project> {
     return this.authService.getBackendUser()
-        .then(currentUser => {
-            project.likeCount = project.likes?.length ? project.likes.length : 0;
-            project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
-            return project;
-          });
+      .then(currentUser => {
+        project.likeCount = project.likes?.length ? project.likes.length : 0;
+        project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
+        return project;
+      });
   }
 }

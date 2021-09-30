@@ -145,9 +145,10 @@ export class DetailsComponent implements OnInit {
 
   /**
   * This method reloads the project detail page after edits have been made
+  * And sends the updated project Id to the projectservice for updating the overview
   */
   updateProject(updatedProject: Project) {
-    this.project = updatedProject;
+    this.projectService.projectUpdated$.emit(updatedProject.id);
     this.ngOnInit();
   }
 }
