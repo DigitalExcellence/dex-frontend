@@ -24,9 +24,15 @@
   padding: 45px 60px;
   width: 800px;
   max-width: 100%;
+  @media only screen and (max-width: 600px) {
+    padding: 45px;
+  }
 
   #title-wrapper {
     gap: 25px;
+    @media only screen and (max-width: 600px) {
+      gap: 10px;
+    }
 
     .project-title {
       margin: 0;
@@ -90,6 +96,8 @@
     }
 
     .project-categories {
+      display: flex;
+      flex-wrap: wrap;
       margin-bottom: 10px;
 
       .category {
@@ -111,8 +119,8 @@
   }
 
   .bottom {
-    .hidden{
-      display:none;
+    .hidden {
+      display: none;
     }
 
     .add-collaborator-col {
@@ -135,6 +143,20 @@
         font-weight: 800;
       }
     }
+
+    @media only screen and (max-width: 800px) {
+      .add-collaborator {
+        grid-template-columns: 1fr;
+        .add-collaborator-item{
+          margin: 5px 0;
+        }
+        .add-collaborator-item, .add-collaborator-col {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+    }
+
     .collaborator-overview {
       .collaborator-item {
         display: flex;
@@ -185,6 +207,14 @@
         justify-content: center;
         background-color: $accent-color-red-primary;
       }
+
+      @media only screen and (max-width: 800px) {
+        grid-template-columns: 1fr;
+        .collaborator-item {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
     }
 
     .project-images {
@@ -193,6 +223,12 @@
       gap: 30px;
 
       button {
+        background-color: $accent-color-red-primary;
+        color: $white;
+        border: none;
+        padding: 6px 16px;
+        border-radius: 3px;
+
         &.grey {
           display: none;
         }
@@ -333,6 +369,11 @@
       border-radius: 6px;
       font-size: 18px;
       margin-right: 24px;
+      @media only screen and (max-width: 600px) {
+        padding: 8px 20px;
+        font-size: 16px;
+        margin: 0;
+      }
     }
 
     .btn-success {
@@ -341,6 +382,9 @@
 
     .btn-cancel {
       background-color: #8e8e8e;
+    }
+    @media only screen and (max-width: 600px) {
+      justify-content: space-around;
     }
   }
 
@@ -630,6 +674,12 @@
         justify-content: center;
         gap: 15px;
         margin-top: 30px;
+
+        .form-continue-btn {
+          background-color: $accent-color-red-primary;
+          color: $white;
+          border: none;
+        }
       }
     }
   }

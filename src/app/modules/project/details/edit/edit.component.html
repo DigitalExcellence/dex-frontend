@@ -107,35 +107,27 @@
           </div>
         </div>
 
-        <form [formGroup]="editCollaboratorForm" class="project-form">
+        <form [formGroup]="editCollaboratorForm" class="add-collaborator project-form">
           <div class="row">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-5">
-                  <div>
-                    <h4>Collaborator full name</h4>
-                    <input formControlName="fullName" required>
-                  </div>
-                </div>
-                <div class="col-5">
-                  <div>
-                    <h4>Collaborator role</h4>
-                    <input formControlName="role" required>
-                  </div>
-                </div>
-
-                <div class="col-2 add-collaborator-col">
-                  <button type="button" class="btn btn-icon btn-primary add-collaborator-button" aria-label="settings"
-                    (click)="onClickAddCollaborator()" [disabled]="!editCollaboratorForm.valid">
-                    +
-                  </button>
-                </div>
+            <div class="col-5 add-collaborator-item">
+              <div>
+                <h4>Collaborator full name</h4>
+                <input formControlName="fullName" required>
               </div>
-
-              <div class="offset-5 col-5">
+            </div>
+            <div class="col-5 add-collaborator-item">
+              <div>
+                <h4>Collaborator role</h4>
+                <input formControlName="role" required>
                 <p class="form-footnote">e.g.: developer, designer, etc...</p>
               </div>
+            </div>
 
+            <div class="col-2 add-collaborator-col">
+              <button type="button" class="btn btn-icon btn-primary add-collaborator-button" aria-label="settings"
+                (click)="onClickAddCollaborator()" [disabled]="!editCollaboratorForm.valid">
+                +
+              </button>
             </div>
           </div>
         </form>
@@ -172,7 +164,7 @@
         </div>
       </div>
     </div>
-    
+
     <hr />
 
     <div id='bottom-button-wrapper'>
