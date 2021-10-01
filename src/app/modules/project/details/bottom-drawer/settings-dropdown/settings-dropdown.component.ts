@@ -10,7 +10,7 @@ import { HighlightFormResult, ModalHighlightFormComponent } from '../../../modal
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { EMPTY } from 'rxjs';
+import { BehaviorSubject, EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { Project } from 'src/app/models/domain/project';
@@ -20,6 +20,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { ModalPotentialNewOwnerUserEmailComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
+import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
 
 @Component({
   selector: 'app-settings-dropdown',
@@ -34,6 +36,11 @@ export class SettingsDropdownComponent implements OnInit {
   public displayEditButton = false;
   public displayDeleteProjectButton = false;
   public displayHighlightButton = false;
+  public displayTransferProjectOwnershipButton = false;
+
+  public potentialNewOwnerUserEmail = "";
+  private emailFilledIn = false;
+  private didConfirm = false;
 
   constructor(private projectService: ProjectService,
               private authService: AuthService,
@@ -171,6 +178,44 @@ export class SettingsDropdownComponent implements OnInit {
   }
 
   /**
+   * Method to initiate a transfer project ownership.
+   */
+  public onClickTransferProjectOwnership(): void {
+    // Display modal
+    const modalRefEmail = this.modalService.show(ModalPotentialNewOwnerUserEmailComponent);
+
+    // Wait for modal to emit true
+    modalRefEmail.content.potentialNewOwnerUserEmailEvent.subscribe((potentialNewOwnerUserEmail: string) => {
+        this.potentialNewOwnerUserEmail = potentialNewOwnerUserEmail
+        this.showConfirmModal();
+    });
+  }
+
+  /**
+   * Method for asking user to confirm filled in potential new owner user email.
+   */
+  private showConfirmModal() {
+    var email = this.potentialNewOwnerUserEmail;
+
+    // Display modal
+    const modalRefEmailConfirm = this.modalService.show(ModalPotentialNewOwnerUserEmailConfirmationComponent, {initialState: {email}});
+
+    // Wait for modal to emit true
+    modalRefEmailConfirm.content.didConfirmEvent.subscribe(() => {
+        this.initiateTransferProjectOwnership();
+    });
+  }
+
+  /**
+   *
+   */
+  private initiateTransferProjectOwnership(): void {
+    // this.projectService.initiateTransferProjectOwnership(this.project.id).subscribe(text => {
+    //   console.log(text);
+    // });
+  }
+
+  /**
    * Method to display the edit project button based on the current user and the project user.
    * If the user either has the ProjectWrite scope or is the creator of the project
    */
@@ -178,12 +223,14 @@ export class SettingsDropdownComponent implements OnInit {
     if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayEditButton = false;
       this.displayDeleteProjectButton = false;
+      this.displayTransferProjectOwnershipButton = false;
       return;
     }
     if (this.project.user.id === this.currentUser.id ||
         this.authService.currentBackendUserHasScope(scopes.AdminProjectWrite)) {
       this.displayEditButton = true;
       this.displayDeleteProjectButton = true;
+      this.displayTransferProjectOwnershipButton = true;
     }
   }
 

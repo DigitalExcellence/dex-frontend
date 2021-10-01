@@ -27,6 +27,7 @@ import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-con
 import { Project } from 'src/app/models/domain/project';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectUpdate } from 'src/app/models/resources/project-update';
+import { ThisReceiver } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +37,7 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
     super(http, API_CONFIG.url + API_CONFIG.projectRoute);
   }
 
-  get(id: number): Observable<Project> {
+  public get(id: number): Observable<Project> {
     return super.get(id)
         .pipe(
             map(project => {
@@ -56,7 +57,11 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
             ));
   }
 
-  private addLikes(project): Promise<Project> {
+  public initiateTransferProjectOwnership(projectId: number, potentialNewOwnerUserEmail: string, ): Observable<string> {
+    return this.http.get<string>(this.url + '/transfer/' + projectId, { params: { potentialNewOwnerUserEmail: potentialNewOwnerUserEmail }});
+  }
+
+  private addLikes(project: any): Promise<Project> {
     return this.authService.getBackendUser()
         .then(currentUser => {
             project.likeCount = project.likes?.length ? project.likes.length : 0;

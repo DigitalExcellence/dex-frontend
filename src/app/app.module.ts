@@ -40,6 +40,8 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { QuillModule } from 'ngx-quill';
+import { ModalPotentialNewOwnerUserEmailComponent } from './components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
+import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from './components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { QuillModule } from 'ngx-quill';
     PrivacyPolicyComponent,
     NotFoundComponent,
     ModalDeleteGenericComponent,
-    SearchComponent
+    SearchComponent,
+    ModalPotentialNewOwnerUserEmailComponent,
+    ModalPotentialNewOwnerUserEmailConfirmationComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
