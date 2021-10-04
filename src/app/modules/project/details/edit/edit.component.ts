@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -43,6 +43,9 @@ import { QuillUtils } from 'src/app/utils/quill.utils';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
+  @Input() project: Project;
+  @Output() editMode = new EventEmitter<boolean>();
+  @Output() updatedProject = new EventEmitter<Project>();
   /**
    * Configuration for file-picker
    */
@@ -58,7 +61,6 @@ export class EditComponent implements OnInit {
    */
   public editProjectForm: FormGroup;
   public editCollaboratorForm: FormGroup;
-  public project: Project;
   public categories: ProjectCategory[];
 
   /**
@@ -90,13 +92,18 @@ export class EditComponent implements OnInit {
    */
   public projectLoading = true;
 
+  /**
+ * Property to indicate the tab to open in the bottom menu
+ */
+  public activeTab = 'description';
+
   constructor(
-      private router: Router,
-      private formBuilder: FormBuilder,
-      private projectService: ProjectService,
-      private activatedRoute: ActivatedRoute,
-      private alertService: AlertService,
-      private categoryService: CategoryService
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private projectService: ProjectService,
+    private activatedRoute: ActivatedRoute,
+    private alertService: AlertService,
+    private categoryService: CategoryService
   ) {
     this.editProjectForm = this.formBuilder.group({
       name: [null, Validators.required],
@@ -112,47 +119,39 @@ export class EditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const routeId = this.activatedRoute.snapshot.paramMap.get('id');
-    if (!routeId) {
-      return;
-    }
-
-    const id = Number(routeId);
-    if (!id || Number.isNaN(id) || id < 1) {
-      this.invalidId = routeId;
-      return;
-    }
-
-    this.categoryService.getAll().subscribe(categories => {
-      this.categories = categories;
-      this.projectService.get(id)
+    if (Number(this.project.id)) {
+      const id = Number(this.project.id);
+      this.categoryService.getAll().subscribe(categories => {
+        this.categories = categories;
+        this.projectService.get(id)
           .pipe(
-              finalize(() => this.projectLoading = false)
+            finalize(() => this.projectLoading = false)
           )
           .subscribe(
-              (projectResult) => {
-                this.project = projectResult;
-                this.collaborators = this.project.collaborators;
+            (projectResult) => {
+              this.project = projectResult;
+              this.collaborators = this.project.collaborators;
 
-                this.categories = this.categories.map(category => ({
-                  ...category,
-                  selected: !!this.project.categories?.find(c => c.name === category.name)
-                }));
+              this.categories = this.categories.map(category => ({
+                ...category,
+                selected: !!this.project.categories?.find(c => c.name === category.name)
+              }));
 
-                setTimeout(() => {
-                  this.projectIconFileUploader.setFiles([this.project.projectIcon]);
-                  this.projectImagesFileUploader.setFiles(this.project.images);
-                }, 1);
-              }
+              setTimeout(() => {
+                this.projectIconFileUploader.setFiles([this.project.projectIcon]);
+                this.projectImagesFileUploader.setFiles(this.project.images);
+              }, 1);
+            }
           );
-    });
+      });
+    }
   }
 
   public onCategoryClick(category): void {
     this.categories = this.categories.map(cat => (
-        cat.name === category.name
-            ? {...cat, selected: !category.selected}
-            : {...cat}
+      cat.name === category.name
+        ? { ...cat, selected: !category.selected }
+        : { ...cat }
     ));
   }
 
@@ -218,8 +217,8 @@ export class EditComponent implements OnInit {
     editedProject.categories = this.categories.filter(category => category.selected);
 
     const selectedCallToActions = this.callToActions.callToActionOptions
-        .filter(option => this.callToActions.selectedCallToActionOptionIds
-            .includes(option.id));
+      .filter(option => this.callToActions.selectedCallToActionOptionIds
+        .includes(option.id));
 
     editedProject.callToActions = selectedCallToActions.map(cta => ({
       optionValue: cta.value,
@@ -228,16 +227,16 @@ export class EditComponent implements OnInit {
     }));
 
     this.projectIconFileUploader.uploadFiles()
-        .subscribe(projectIcon => {
-          editedProject.iconId = this.getProjectIconId(projectIcon);
-          this.projectImagesFileUploader.uploadFiles()
-              .subscribe(projectImages => {
-                editedProject.imageIds = this.getProjectImagesIds(projectImages);
-                this.editProject(editedProject);
+      .subscribe(projectIcon => {
+        editedProject.iconId = this.getProjectIconId(projectIcon);
+        this.projectImagesFileUploader.uploadFiles()
+          .subscribe(projectImages => {
+            editedProject.imageIds = this.getProjectImagesIds(projectImages);
+            this.editProject(editedProject);
 
-                this.uploadingFiles = false;
-              });
-        });
+            this.uploadingFiles = false;
+          });
+      });
   }
 
   /**
@@ -318,23 +317,28 @@ export class EditComponent implements OnInit {
    */
   private editProject(edittedProject) {
     this.projectService
-        .put(this.project.id, edittedProject)
-        .pipe(
-            finalize(() => {
-              this.submitEnabled = false;
-            })
-        )
-        .subscribe(() => {
-          const alertConfig: AlertConfig = {
-            type: AlertType.success,
-            mainMessage: 'Project was succesfully updated',
-            dismissible: true,
-            autoDismiss: true,
-            timeout: this.alertService.defaultTimeout
+      .put(this.project.id, edittedProject)
+      .pipe(
+        finalize(() => {
+          this.submitEnabled = false;
+        })
+      )
+      .subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          mainMessage: 'Project was succesfully updated',
+          dismissible: true,
+          autoDismiss: true,
+          timeout: this.alertService.defaultTimeout
 
-          };
-          this.alertService.pushAlert(alertConfig);
-          this.router.navigate([`project/details/${this.project.id}`]);
-        });
+        };
+        this.alertService.pushAlert(alertConfig);
+        this.editMode.emit(false);
+        this.updatedProject.emit(this.project);
+      });
+  }
+
+  public setActiveTab(newActiveTab): void {
+    this.activeTab = newActiveTab;
   }
 }
