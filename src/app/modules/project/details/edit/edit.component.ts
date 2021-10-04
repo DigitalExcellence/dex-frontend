@@ -61,7 +61,6 @@ export class EditComponent implements OnInit {
    */
   public editProjectForm: FormGroup;
   public editCollaboratorForm: FormGroup;
-  // public project: Project;
   public categories: ProjectCategory[];
 
   /**
