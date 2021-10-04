@@ -15,14 +15,38 @@
    along with this program, in the LICENSE.md file in the root project directory.
    If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
 -->
-
 <div class="row">
-
-
+  <div class="col-md-2 projects-filter-wrapper">
+    <div class="projects-filter">
+      <h3><em class="fas fa-filter"></em> Filters</h3>
+      <div class="divider"></div>
+      <div class="filter-group">
+        <h4>Sort Options</h4>
+        <form class="sort-options-form">
+          <label for="asc-desc">Sort options</label>
+          <select (change)="onSortChange()" [formControl]="sortOptionControl" class="option-select" id="asc-desc">
+            <option *ngFor="let sortOption of sortSelectOptions" [ngValue]="sortOption">
+              {{ sortOption.viewValue }}
+            </option>
+          </select>
+        </form>
+      </div>
+      <div class="divider"></div>
+      <div class="filter-group">
+        <h4>Pagination</h4>
+        <label>Projects per page</label>
+        <select (change)="onPaginationChange()" [formControl]="paginationOptionControl" class="option-select">
+          <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption" class="paginationDropDown">
+            {{ paginationOption.amountOnPage }}
+          </option>
+        </select>
+      </div>
+      <div class="divider"></div>
+    </div>
+  </div>
   <div class="col-md projects-overview-wrapper">
     <div class="project-list-header">
       <h1 class="">My projects</h1>
-
       <div class="list-view-toggle">
         <label class="container">
           <input [(ngModel)]="showListView" [value]="false" aria-label="Switch to grid view" name="list-view" type="radio"/>
@@ -42,36 +66,40 @@
         </label>
       </div>
     </div>
-
     <div class="userinfo">
       <img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png" />
       <div class="usercreds">
        <h3> {{ userName }} </h3>
        <div class="user-amounts">
        <div class="grid-item"><p>Projects:</p></div>
-       <div class="grid-item"><p>{{ userprojects.length }}</p></div>
-
+       <div class="grid-item"><p>{{ totalAmountOfProjects }}</p></div>
        </div>
       </div>
     </div>
-
     <ng-container *ngIf="projectsLoading; else projectsLoading">
       <div class="project-list-wrapper" [ngClass]="this.showListView ? 'list' : 'grid'">
         <app-project
-            (click)="onClickProject($event, project.id, project.name)"
-            *ngFor="let project of userprojects"
+            *ngFor="let project of userProjects"
+            (click)="onClickUserProject(project.id, project.name)"
             [project]="project"
             [showListView]="this.showListView"
         >
         </app-project>
       </div>
+        <div *ngIf="!projectsEmpty()" class="pagination-div">
+          <app-pagination
+              (pageChanged)="pageChanged($event)"
+              [amountOfProjectsOnSinglePage]="amountOnPage"
+              [totalNumberOfProjects]="totalAmountOfProjects"
+              [showPaginationFooter]="showPaginationFooter && !projectsEmpty()"
+          >
+          </app-pagination>
+      </div>
     </ng-container>
-
     <ng-container *ngIf="projectsEmpty()">
       <h3>No projects found</h3>
       <button class="primary" (click)="addProjectClicked()">Create project</button>
     </ng-container>
-
     <ng-template #projectsLoading>
       <h2 class="fas fa-spinner fa-pulse loading-circle" *ngIf="userProjectsLoading"></h2>
       <p *ngIf="!userProjectsLoading">There are no projects available.</p>
