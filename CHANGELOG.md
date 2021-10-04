@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 - Added pagination to own projects page. [#526](https://github.com/DigitalExcellence/dex-frontend/issues/526)
 - Back button to add project wizard - [#563](https://github.com/DigitalExcellence/dex-frontend/issues/563)
+- Fixed the wizard long description text area to wrap words. - [#562](https://github.com/DigitalExcellence/dex-frontend/issues/562)
 
 ### Changed
 - Projects overview not sorting on Likes High > Low [#557](https://github.com/DigitalExcellence/dex-frontend/issues/557)
