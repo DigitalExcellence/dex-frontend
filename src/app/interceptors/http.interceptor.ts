@@ -61,6 +61,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     {endpoint: 'highlight/project/', method: HttpMethods.GET},
     {endpoint: 'wizard', method: HttpMethods.GET},
     {endpoint: 'project/search/autocomplete', method: HttpMethods.GET},
+    {endpoint: 'project/transfer', method: HttpMethods.POST},
+    {endpoint: 'project/transfer', method: HttpMethods.GET},
+    {endpoint: 'project/transfer', method: HttpMethods.DELETE}
   ];
 
   private readonly ignoredStatusCodes: number[] = [

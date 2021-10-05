@@ -33,6 +33,9 @@ export class TransferOwnershipComponent implements OnInit {
       this.reply = response.body;
       this.replyStatus = response.status;
       this.isLoading = false;
+    }, (error: HttpErrorResponse) => {
+      this.reply = error.message;
+      this.replyStatus = error.status;
     })
   }
 }

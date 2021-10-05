@@ -10,7 +10,7 @@ import { HighlightFormResult, ModalHighlightFormComponent } from '../../../modal
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { BehaviorSubject, EMPTY } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
 import { Project } from 'src/app/models/domain/project';
@@ -22,8 +22,6 @@ import { HighlightByProjectIdService } from 'src/app/services/highlightid.servic
 import { ProjectService } from 'src/app/services/project.service';
 import { ModalPotentialNewOwnerUserEmailComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
 import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-settings-dropdown',
@@ -50,17 +48,11 @@ export class SettingsDropdownComponent implements OnInit {
               private modalService: BsModalService,
               private alertService: AlertService,
               private highlightByProjectIdService: HighlightByProjectIdService,
-              private router: Router,
-              private http: HttpClient) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.determineDisplayEditAndDeleteProjectButton();
     this.determineDisplayHighlightButton();
-    this.projectService.checkProjectHasTransferRequest(this.project.id).subscribe(guid => {
-      this.transferGuid = guid;
-    }, error => {
-      console.log('xx: ' + error);
-    })
   }
 
   /**
@@ -186,49 +178,73 @@ export class SettingsDropdownComponent implements OnInit {
   }
 
   /**
-   *
+   * Method triggered on transfer ownership button pressed.
+   * Opens modal depending on if the project has a existing transfer request.
    */
-  public determineNextModal() {
-    if (this.transferGuid != null) {
-      const modalOptions: ModalOptions = {
-        initialState: {
-          titleText: 'Delete transfer request',
-          mainText: `Are you sure you want to delete the transfer request for this project, ${this.project.name}?`,
-        }
-      };
-      const deleteRefModal = this.modalService.show(ModalDeleteGenericComponent, modalOptions);
-      deleteRefModal.content.remove.subscribe((clickedRemove: boolean) => {
-        if (clickedRemove) {
-          this.projectService.deleteTransferRequest(this.transferGuid).subscribe(() => console.log('deleted pik'));
-        }
+  public onClickTransferOwnership() {
+    this.projectService.checkProjectHasTransferRequest(this.project.id).subscribe(guid => {
+      this.transferGuid = guid;
+      this.showDeleteTransferRequestModal();
+    }, () => {
+      this.showPotentialNewOwnerUserEmailModal();
+    });
+  }
+
+  /**
+   * Method for showing the potential new owner user email modal.
+   */
+  private showPotentialNewOwnerUserEmailModal() {
+    const modalRefEmail = this.modalService.show(ModalPotentialNewOwnerUserEmailComponent);
+    modalRefEmail.content.potentialNewOwnerUserEmailEvent.subscribe((potentialNewOwnerUserEmail: string) => {
+      this.potentialNewOwnerUserEmail = potentialNewOwnerUserEmail
+      this.showPotentialNewOwnerUserEmailConfirmationModal();
+    });
+  }
+
+  /**
+   * Method for showing the potential new owner user email confirmation modal.
+   */
+  private showDeleteTransferRequestModal() {
+    const modalOptions: ModalOptions = {
+      initialState: {
+        titleText: 'Delete transfer request',
+        mainText: `Are you sure you want to delete the transfer request for this project, ${this.project.name}?`,
+      }
+    };
+    const deleteRefModal = this.modalService.show(ModalDeleteGenericComponent, modalOptions);
+    deleteRefModal.content.remove.subscribe(() => {
+      this.projectService.deleteTransferRequest(this.transferGuid).subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          preMessage: 'Transfer ownership request canceled',
+          mainMessage: 'Transfer ownership request canceled',
+          dismissible: true,
+          autoDismiss: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
       });
-    } else {
-      const modalRefEmail = this.modalService.show(ModalPotentialNewOwnerUserEmailComponent);
-      modalRefEmail.content.potentialNewOwnerUserEmailEvent.subscribe((potentialNewOwnerUserEmail: string) => {
-        this.potentialNewOwnerUserEmail = potentialNewOwnerUserEmail
-        this.showConfirmModal();
-      });
-    }
+    });
   }
 
   /**
    * Method for asking user to confirm filled in potential new owner user email.
    */
-  private showConfirmModal() {
-    console.log('1');
+  private showPotentialNewOwnerUserEmailConfirmationModal() {
     var email = this.potentialNewOwnerUserEmail;
-    console.log('2');
-    // Display modal
     const modalRefEmailConfirm = this.modalService.show(ModalPotentialNewOwnerUserEmailConfirmationComponent, {initialState: {email}});
-    console.log('3');
-    // Wait for modal to emit true
-    modalRefEmailConfirm.content.didConfirmEvent.subscribe((didClick: boolean) => {
-      console.log('4');
-      if (didClick) {
-        console.log('5');
-        this.projectService.initiateTransferProjectOwnership(this.project.id, this.potentialNewOwnerUserEmail);
-      }
-      console.log('10');
+    modalRefEmailConfirm.content.didConfirmEvent.subscribe(() => {
+      this.projectService.initiateTransferProjectOwnership(this.project.id, this.potentialNewOwnerUserEmail).subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          preMessage: 'Transfer ownership requested',
+          mainMessage: `Transfer ownership requested from ${this.potentialNewOwnerUserEmail}`,
+          dismissible: true,
+          autoDismiss: true,
+          timeout: this.alertService.defaultTimeout
+        };
+        this.alertService.pushAlert(alertConfig);
+      });
     });
   }
 
