@@ -16,11 +16,9 @@
    If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
 
  -->
+<div id="overlay" (click)="this.bsModalRef.hide();"></div>
 
 <div class="modal-potential-new-owner-user-email-container">
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-  </button>
   <div class="modal-body">
     <input
       [(ngModel)]="potentialNewOwnerUserEmail"

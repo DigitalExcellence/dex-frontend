@@ -22,6 +22,8 @@ import { HighlightByProjectIdService } from 'src/app/services/highlightid.servic
 import { ProjectService } from 'src/app/services/project.service';
 import { ModalPotentialNewOwnerUserEmailComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
 import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-settings-dropdown',
@@ -39,8 +41,8 @@ export class SettingsDropdownComponent implements OnInit {
   public displayTransferProjectOwnershipButton = false;
 
   public potentialNewOwnerUserEmail = "";
-  private emailFilledIn = false;
-  private didConfirm = false;
+  private transferGuid: string = null;
+
 
   constructor(private projectService: ProjectService,
               private authService: AuthService,
@@ -48,11 +50,17 @@ export class SettingsDropdownComponent implements OnInit {
               private modalService: BsModalService,
               private alertService: AlertService,
               private highlightByProjectIdService: HighlightByProjectIdService,
-              private router: Router) { }
+              private router: Router,
+              private http: HttpClient) { }
 
   ngOnInit(): void {
     this.determineDisplayEditAndDeleteProjectButton();
     this.determineDisplayHighlightButton();
+    this.projectService.checkProjectHasTransferRequest(this.project.id).subscribe(guid => {
+      this.transferGuid = guid;
+    }, error => {
+      console.log('xx: ' + error);
+    })
   }
 
   /**
@@ -178,41 +186,50 @@ export class SettingsDropdownComponent implements OnInit {
   }
 
   /**
-   * Method to initiate a transfer project ownership.
+   *
    */
-  public onClickTransferProjectOwnership(): void {
-    // Display modal
-    const modalRefEmail = this.modalService.show(ModalPotentialNewOwnerUserEmailComponent);
-
-    // Wait for modal to emit true
-    modalRefEmail.content.potentialNewOwnerUserEmailEvent.subscribe((potentialNewOwnerUserEmail: string) => {
+  public determineNextModal() {
+    if (this.transferGuid != null) {
+      const modalOptions: ModalOptions = {
+        initialState: {
+          titleText: 'Delete transfer request',
+          mainText: `Are you sure you want to delete the transfer request for this project, ${this.project.name}?`,
+        }
+      };
+      const deleteRefModal = this.modalService.show(ModalDeleteGenericComponent, modalOptions);
+      deleteRefModal.content.remove.subscribe((clickedRemove: boolean) => {
+        if (clickedRemove) {
+          this.projectService.deleteTransferRequest(this.transferGuid).subscribe(() => console.log('deleted pik'));
+        }
+      });
+    } else {
+      const modalRefEmail = this.modalService.show(ModalPotentialNewOwnerUserEmailComponent);
+      modalRefEmail.content.potentialNewOwnerUserEmailEvent.subscribe((potentialNewOwnerUserEmail: string) => {
         this.potentialNewOwnerUserEmail = potentialNewOwnerUserEmail
         this.showConfirmModal();
-    });
+      });
+    }
   }
 
   /**
    * Method for asking user to confirm filled in potential new owner user email.
    */
   private showConfirmModal() {
+    console.log('1');
     var email = this.potentialNewOwnerUserEmail;
-
+    console.log('2');
     // Display modal
     const modalRefEmailConfirm = this.modalService.show(ModalPotentialNewOwnerUserEmailConfirmationComponent, {initialState: {email}});
-
+    console.log('3');
     // Wait for modal to emit true
-    modalRefEmailConfirm.content.didConfirmEvent.subscribe(() => {
-        this.initiateTransferProjectOwnership();
+    modalRefEmailConfirm.content.didConfirmEvent.subscribe((didClick: boolean) => {
+      console.log('4');
+      if (didClick) {
+        console.log('5');
+        this.projectService.initiateTransferProjectOwnership(this.project.id, this.potentialNewOwnerUserEmail);
+      }
+      console.log('10');
     });
-  }
-
-  /**
-   *
-   */
-  private initiateTransferProjectOwnership(): void {
-    // this.projectService.initiateTransferProjectOwnership(this.project.id).subscribe(text => {
-    //   console.log(text);
-    // });
   }
 
   /**

@@ -16,11 +16,9 @@
    If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
 
  -->
+<div id="overlay" (click)="this.bsModalRef.hide();"></div>
 
- <div class="modal-potential-new-owner-user-email-confirmation-container">
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+<div class="modal-potential-new-owner-user-email-confirmation-container">
   <div class="modal-body">
     <h6>Are you sure you want to ask project transfership to {{email}}?</h6>
     <div class="row">

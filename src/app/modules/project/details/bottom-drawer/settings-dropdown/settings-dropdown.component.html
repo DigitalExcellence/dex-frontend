@@ -13,7 +13,7 @@
       <a (click)="onClickRemoveProject()" class="cog-tooltip-item"><em class="fas fa-trash"></em>Delete project</a>
     </ng-container>
     <ng-container *ngIf="displayTransferProjectOwnershipButton">
-      <a (click)="onClickTransferProjectOwnership()" class="cog-tooltip-item"><em class="fas fa-exchange-alt"></em>Transfer Ownership</a>
+      <a (click)="determineNextModal()" class="cog-tooltip-item"><em class="fas fa-exchange-alt"></em>Transfer ownership</a>
     </ng-container>
   </ng-template>
 </ng-container>

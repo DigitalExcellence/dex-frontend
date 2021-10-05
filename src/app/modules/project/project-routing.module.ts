@@ -20,12 +20,14 @@ import { OverviewComponent } from './overview/overview.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TransferOwnershipComponent } from './transfer-ownership/transfer-ownership.component';
 
 const routes: Routes = [
   {path: 'overview', component: OverviewComponent},
   {path: 'details/:id', component: OverviewComponent},
   {path: 'edit/:id', component: EditComponent},
   {path: 'embed/:id', component: EmbedComponent},
+  {path: 'transferownership/:transferGuid/:isOwnerMail/:acceptedRequest', component: TransferOwnershipComponent},
   {path: 'add', loadChildren: () => import('./add/add.module').then((m) => m.AddModule)},
 ];
 

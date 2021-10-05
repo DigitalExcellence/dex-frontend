@@ -20,14 +20,15 @@ import { HttpBaseService } from './http-base.service';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { from, Observable, pipe, throwError } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { API_CONFIG } from 'src/app/config/api-config';
 import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-config';
 import { Project } from 'src/app/models/domain/project';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { ProjectUpdate } from 'src/app/models/resources/project-update';
-import { ThisReceiver } from '@angular/compiler';
+import { HttpHeaders } from '@angular/common/http';
+import { share } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -57,8 +58,22 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
             ));
   }
 
-  public initiateTransferProjectOwnership(projectId: number, potentialNewOwnerUserEmail: string, ): Observable<string> {
-    return this.http.get<string>(this.url + '/transfer/' + projectId, { params: { potentialNewOwnerUserEmail: potentialNewOwnerUserEmail }});
+
+  public initiateTransferProjectOwnership(projectId: number, potentialNewOwnerUserEmail: string): Observable<any> {
+    console.log('6');
+    return this.http.post(`${this.url}/transfer/${projectId}`, '', {headers: {'Content-Type':'text'}, params: {potentialNewOwnerUserEmail: potentialNewOwnerUserEmail}})
+  }
+
+  public processTransferProjectOwnership(transferGuid: string, isOwnerMail: boolean, acceptedRequest: boolean): Observable<any> {
+    return this.http.get(`${this.url}/transfer/process/${transferGuid}/${isOwnerMail}/${acceptedRequest}`, {responseType: 'text', observe: 'response'})
+  }
+
+  public checkProjectHasTransferRequest(projectId: number): Observable<any> {
+    return this.http.get(`${this.url}/transfer/check/${projectId}`);
+  }
+
+  public deleteTransferRequest(transferGuid: string): Observable<any> {
+    return this.http.delete(`${this.url}/transfer/${transferGuid}`).pipe(share());
   }
 
   private addLikes(project: any): Promise<Project> {

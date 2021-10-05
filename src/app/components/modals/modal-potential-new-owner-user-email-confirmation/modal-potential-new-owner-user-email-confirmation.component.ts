@@ -23,5 +23,4 @@ export class ModalPotentialNewOwnerUserEmailConfirmationComponent {
     this.didConfirmEvent.emit(true);
     this.bsModalRef.hide();
   }
-
 }
