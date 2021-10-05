@@ -43,6 +43,7 @@ import { QuillModule } from 'ngx-quill';
 import { ModalPotentialNewOwnerUserEmailComponent } from './components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
 import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from './components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
 import { TransferOwnershipComponent } from './modules/project/transfer-ownership/transfer-ownership.component';
+import { ModalInformationGenericComponent } from './components/modals/modal-information-generic/modal-information-generic.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { TransferOwnershipComponent } from './modules/project/transfer-ownership
     SearchComponent,
     ModalPotentialNewOwnerUserEmailComponent,
     ModalPotentialNewOwnerUserEmailConfirmationComponent,
-    TransferOwnershipComponent
+    TransferOwnershipComponent,
+    ModalInformationGenericComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),

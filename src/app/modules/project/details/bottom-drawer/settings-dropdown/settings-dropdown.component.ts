@@ -22,6 +22,7 @@ import { HighlightByProjectIdService } from 'src/app/services/highlightid.servic
 import { ProjectService } from 'src/app/services/project.service';
 import { ModalPotentialNewOwnerUserEmailComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
 import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
+import { ModalInformationGenericComponent } from 'src/app/components/modals/modal-information-generic/modal-information-generic.component';
 
 @Component({
   selector: 'app-settings-dropdown',
@@ -184,7 +185,7 @@ export class SettingsDropdownComponent implements OnInit {
   public onClickTransferOwnership() {
     this.projectService.checkProjectHasTransferRequest(this.project.id).subscribe(guid => {
       this.transferGuid = guid;
-      this.showDeleteTransferRequestModal();
+      this.showTransferRequestStatusModal();
     }, () => {
       this.showPotentialNewOwnerUserEmailModal();
     });
@@ -202,13 +203,32 @@ export class SettingsDropdownComponent implements OnInit {
   }
 
   /**
+   * Method for showing the project ownership transfer request status with
+   * possibility to cancel this request.
+   */
+  private showTransferRequestStatusModal() {
+    const modalOptions: ModalOptions = {
+      initialState: {
+        titleText: 'Transfer ownership request',
+        mainText: `Your transfer ownership request for this project is waiting for acceptence or denial.`,
+        ctaButtonText: 'Cancel request',
+        secondaryButtonText: 'Go back'
+      }
+    };
+    const informationRefModal = this.modalService.show(ModalInformationGenericComponent, modalOptions);
+    informationRefModal.content.cta.subscribe(() => {
+      this.showDeleteTransferRequestModal();
+    });
+  }
+
+  /**
    * Method for showing the potential new owner user email confirmation modal.
    */
   private showDeleteTransferRequestModal() {
     const modalOptions: ModalOptions = {
       initialState: {
-        titleText: 'Delete transfer request',
-        mainText: `Are you sure you want to delete the transfer request for this project, ${this.project.name}?`,
+        titleText: 'Cancel transfer request',
+        mainText: `Are you sure you want to cancel the transfer request for this project, ${this.project.name}?`,
       }
     };
     const deleteRefModal = this.modalService.show(ModalDeleteGenericComponent, modalOptions);
@@ -216,11 +236,11 @@ export class SettingsDropdownComponent implements OnInit {
       this.projectService.deleteTransferRequest(this.transferGuid).subscribe(() => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
-          preMessage: 'Transfer ownership request canceled',
+          preMessage: '',
           mainMessage: 'Transfer ownership request canceled',
           dismissible: true,
           autoDismiss: true,
-          timeout: this.alertService.defaultTimeout
+          timeout: 10000
         };
         this.alertService.pushAlert(alertConfig);
       });
@@ -234,14 +254,14 @@ export class SettingsDropdownComponent implements OnInit {
     var email = this.potentialNewOwnerUserEmail;
     const modalRefEmailConfirm = this.modalService.show(ModalPotentialNewOwnerUserEmailConfirmationComponent, {initialState: {email}});
     modalRefEmailConfirm.content.didConfirmEvent.subscribe(() => {
-      this.projectService.initiateTransferProjectOwnership(this.project.id, this.potentialNewOwnerUserEmail).subscribe(() => {
+      this.projectService.initiateTransferProjectOwnership(this.project.id, this.potentialNewOwnerUserEmail).subscribe(response => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
-          preMessage: 'Transfer ownership requested',
-          mainMessage: `Transfer ownership requested from ${this.potentialNewOwnerUserEmail}`,
+          preMessage: '',
+          mainMessage: 'Transfer ownership request confirmation has been sent to your email inbox',
           dismissible: true,
           autoDismiss: true,
-          timeout: this.alertService.defaultTimeout
+          timeout: 10000
         };
         this.alertService.pushAlert(alertConfig);
       });

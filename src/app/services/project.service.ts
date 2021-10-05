@@ -58,7 +58,7 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
 
 
   public initiateTransferProjectOwnership(projectId: number, potentialNewOwnerUserEmail: string): Observable<any> {
-    return this.http.post(`${this.url}/transfer/${projectId}`, '', {headers: {'Content-Type':'text'}, params: {potentialNewOwnerUserEmail: potentialNewOwnerUserEmail}});
+    return this.http.post(`${this.url}/transfer/${projectId}`, '', {responseType: 'text', params: {potentialNewOwnerUserEmail: potentialNewOwnerUserEmail}});
   }
 
   public processTransferProjectOwnership(transferGuid: string, isOwnerMail: boolean, acceptedRequest: boolean): Observable<any> {
@@ -70,7 +70,7 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
   }
 
   public deleteTransferRequest(transferGuid: string): Observable<any> {
-    return this.http.delete(`${this.url}/transfer/${transferGuid}`);
+    return this.http.delete(`${this.url}/transfer/${transferGuid}`, {responseType: 'text'});
   }
 
   private addLikes(project: any): Promise<Project> {
