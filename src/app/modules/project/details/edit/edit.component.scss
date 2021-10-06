@@ -84,9 +84,6 @@
         color: $white;
         background-color: $accent-color-red-primary;
       }
-      .hidden{
-        display: none;
-      }
       @media only screen and (max-width: 600px) {
         grid-column: 1;
         grid-row: 2;
