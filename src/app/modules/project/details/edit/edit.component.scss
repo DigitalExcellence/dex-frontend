@@ -29,10 +29,7 @@
   }
 
   #title-wrapper {
-    gap: 25px;
-    @media only screen and (max-width: 600px) {
-      gap: 10px;
-    }
+    gap: 5px 25px;
 
     .project-title {
       margin: 0;
@@ -74,6 +71,25 @@
         .overlay {
           opacity: 1;
         }
+      }
+    }
+    .icon-remove-btn {
+      grid-column: 2;
+      justify-items: center;
+      button {
+        border: none;
+        border-radius: 5px;
+        margin: 0;
+        width: 100%;
+        color: $white;
+        background-color: $accent-color-red-primary;
+      }
+      .hidden{
+        display: none;
+      }
+      @media only screen and (max-width: 600px) {
+        grid-column: 1;
+        grid-row: 2;
       }
     }
   }
@@ -147,10 +163,11 @@
     @media only screen and (max-width: 800px) {
       .add-collaborator {
         grid-template-columns: 1fr;
-        .add-collaborator-item{
+        .add-collaborator-item {
           margin: 5px 0;
         }
-        .add-collaborator-item, .add-collaborator-col {
+        .add-collaborator-item,
+        .add-collaborator-col {
           flex: 0 0 100%;
           max-width: 100%;
         }
