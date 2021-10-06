@@ -20,12 +20,18 @@
 <p class="step-description">{{step.description}}</p>
 <div class="wrapper">
   <div class="project-icon-picker">
-    <app-file-uploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false"></app-file-uploader>
+    <app-file-uploader #projectIconFileUploader [acceptMultiple]="acceptMultiple" [acceptedTypes]="acceptedTypes" [showPreview]="false"></app-file-uploader>
   </div>
-  <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
+  <div class='button-wrapper'>
+    <button (click)="mobileUploadButtonClick()" class="form-continue-btn grey">Upload image</button>
+    <button (click)="deleteIconClicked()" *ngIf="projectIconFileUploader.files[0]" class="form-continue-btn grey">Remove image</button>
+  </div>
+  
   <div class="right">
     <div class="file-preview">
       <div [style.background-image]="'url('+getProjectIcon()+')'" class="circle"></div>
+      <div (click)="deleteIconClicked()" *ngIf="projectIconFileUploader.files[0]" class="overlay"><em
+        class="fas fa-trash"></em></div>
       <img alt="Workers svg" class="workers" src="/assets/images/wizard/icon.svg"/>
     </div>
     <div class="inline-input">

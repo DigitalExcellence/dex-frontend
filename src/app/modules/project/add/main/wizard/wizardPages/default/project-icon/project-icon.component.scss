@@ -20,6 +20,11 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 30px;
+
+  .button-wrapper{
+    display: flex;
+    justify-content: space-around;
+  }
   button {
     &.grey {
       display: none;
@@ -78,6 +83,39 @@
         }
       }
 
+      .overlay {
+        z-index: 2;
+        height: 100%;
+        width: 75%;
+        border-radius: 100%;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.2);
+        left: 0;
+        top: 0;
+        opacity: 0;
+        transition: $transition-short;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        em {
+          cursor: pointer;
+          color: white;
+          font-size: 48px;
+        }
+      }
+      @media only screen and (max-width: 600px) {
+        .overlay {
+          display: none;
+        }
+      }
+
+      &:hover {
+        .overlay {
+          opacity: 1;
+        }
+      }
+
       img {
         display: inline-block;
         z-index: 2;
@@ -93,7 +131,7 @@
         }
       }
     }
-
+    
     button {
       margin-top: 30px;
     }
