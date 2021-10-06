@@ -1,20 +1,19 @@
-import { Highlight } from '../../../../../models/domain/highlight';
-import { scopes } from '../../../../../models/domain/scopes';
-import { User } from '../../../../../models/domain/user';
-import { AlertConfig } from '../../../../../models/internal/alert-config';
-import { HighlightAdd } from '../../../../../models/resources/highlight-add';
-import { HighlightUpdate } from '../../../../../models/resources/highlight-update';
-import { HighlightsModalComponent } from '../../../highlights-modal/highlights-modal.component';
-import { HighlightFormResult, ModalHighlightFormComponent } from '../../../modal-highlight-form/modal-highlight-form.component';
-
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { Highlight } from 'src/app/models/domain/highlight';
 import { Project } from 'src/app/models/domain/project';
+import { scopes } from 'src/app/models/domain/scopes';
+import { User } from 'src/app/models/domain/user';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
+import { HighlightAdd } from 'src/app/models/resources/highlight-add';
+import { HighlightUpdate } from 'src/app/models/resources/highlight-update';
+import { HighlightsModalComponent } from 'src/app/modules/project/highlights-modal/highlights-modal.component';
+import { HighlightFormResult, ModalHighlightFormComponent } from 'src/app/modules/project/modal-highlight-form/modal-highlight-form.component';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
@@ -33,6 +32,7 @@ export class SettingsDropdownComponent implements OnInit {
   @Input() project: Project;
   @Input() currentUser: User;
   @Output() projectHighlighted = new EventEmitter<boolean>();
+  @Output() editButtonClicked = new EventEmitter<boolean>();
 
   public displayEditButton = false;
   public displayDeleteProjectButton = false;
@@ -358,4 +358,12 @@ export class SettingsDropdownComponent implements OnInit {
       this.onClickHighlightButton(true);
     });
   }
+
+  /*
+  * method to handle the edit-bottn being clicked
+  */
+  public onEditButtonClicked() {
+    this.editButtonClicked.emit(true);
+  }
+
 }

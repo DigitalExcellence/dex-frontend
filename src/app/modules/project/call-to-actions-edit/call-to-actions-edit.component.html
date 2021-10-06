@@ -23,7 +23,6 @@
   </div>
 </ng-template>
 <ng-template #callToActionOptionsLoaded>
-  <p class="error-message">{{errorMessage}}</p>
   <div class="grid">
     <ng-container *ngFor="let callToActionOption of callToActionOptions">
       <label class="container">
@@ -45,10 +44,12 @@
              [ngClass]="{'disabled': !selectedCallToActionOptionIds.includes(callToActionOption.id)}"
              [ngModel]="callToActionOption.optionValue"
              [required]="selectedCallToActionOptionIds.includes(callToActionOption.id)"
+             placeholder="www.example.com"
              aria-label="action-url"
              class="text-input"
              type="url"/>
     </ng-container>
+    <p class="error-message">{{errorMessage}}</p>
   </div>
 </ng-template>
 

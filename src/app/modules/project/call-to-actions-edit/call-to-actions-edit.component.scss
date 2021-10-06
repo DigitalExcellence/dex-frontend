@@ -28,6 +28,9 @@
   .disabled {
     opacity: .5;
   }
+  .disabled::placeholder{
+    color: transparent;
+}
 
   .container {
     display: inline-block;
@@ -128,4 +131,8 @@
 .loading-circle {
   margin: 0 auto;
   height: fit-content;
+}
+
+.error-message{
+  color: $accent-color-red-primary;
 }

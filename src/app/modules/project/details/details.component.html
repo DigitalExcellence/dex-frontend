@@ -25,27 +25,39 @@
 
 <ng-template #projectLoaded>
   <ng-container *ngIf="project; else noProject">
-    <div class="project-modal-content">
-      <carousel [interval]="5000" [isAnimated]="true" [noPause]="false" class="image-carousel">
-        <slide *ngFor="let image of project.images">
-          <img [src]="getIconUrl(image)" alt="project-image" loading="lazy" style="display: block; width: 100%;"/>
-        </slide>
-      </carousel>
-      <div class="project-info">
-        <app-summary
-            [animationTriggered]="animationTriggered"
-            [onLike]="onLike"
-            [project]="project"
-        >
-        </app-summary>
-        <hr/>
-        <app-bottom-drawer
-            [activeTab]="activeTab"
-            [project]="project"
-        ></app-bottom-drawer>
+    <ng-container *ngIf="!editModeActivated; else editable">
+      <div class="project-modal-content">
+        <carousel [interval]="5000" [isAnimated]="true" [noPause]="false" class="image-carousel">
+          <slide *ngFor="let image of project.images">
+            <img [src]="getIconUrl(image)" alt="project-image" loading="lazy" style="display: block; width: 100%;"/>
+          </slide>
+        </carousel>
+        <div class="project-info">
+          <app-summary
+              [animationTriggered]="animationTriggered"
+              [onLike]="onLike"
+              [project]="project"
+            >
+          </app-summary>
+          <hr/>
+          <app-bottom-drawer
+              (editMode)='toggleEditMode($event)'
+              [activeTab]="activeTab"
+              [project]="project"
+          ></app-bottom-drawer>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </ng-container>
+
+  <ng-template #editable>
+    <app-edit
+    [project]="project"
+    (editMode)='toggleEditMode($event)'
+    (updatedProject)='updateProject($event)'
+    >
+    </app-edit>
+  </ng-template>
 
   <ng-template #noProject>
     <div class="row not-found">
