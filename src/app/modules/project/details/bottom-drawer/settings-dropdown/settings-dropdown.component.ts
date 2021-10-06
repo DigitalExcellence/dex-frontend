@@ -13,6 +13,9 @@ import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { ModalInformationGenericComponent } from 'src/app/components/modals/modal-information-generic/modal-information-generic.component';
+import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
+import { ModalPotentialNewOwnerUserEmailComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
 import { Project } from 'src/app/models/domain/project';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
@@ -20,9 +23,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { HighlightByProjectIdService } from 'src/app/services/highlightid.service';
 import { ProjectService } from 'src/app/services/project.service';
-import { ModalPotentialNewOwnerUserEmailComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
-import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
-import { ModalInformationGenericComponent } from 'src/app/components/modals/modal-information-generic/modal-information-generic.component';
 
 @Component({
   selector: 'app-settings-dropdown',
@@ -39,7 +39,7 @@ export class SettingsDropdownComponent implements OnInit {
   public displayHighlightButton = false;
   public displayTransferProjectOwnershipButton = false;
 
-  public potentialNewOwnerUserEmail = "";
+  public potentialNewOwnerUserEmail = '';
   private transferGuid: string = null;
 
 
@@ -197,7 +197,7 @@ export class SettingsDropdownComponent implements OnInit {
   private showPotentialNewOwnerUserEmailModal() {
     const modalRefEmail = this.modalService.show(ModalPotentialNewOwnerUserEmailComponent);
     modalRefEmail.content.potentialNewOwnerUserEmailEvent.subscribe((potentialNewOwnerUserEmail: string) => {
-      this.potentialNewOwnerUserEmail = potentialNewOwnerUserEmail
+      this.potentialNewOwnerUserEmail = potentialNewOwnerUserEmail;
       this.showPotentialNewOwnerUserEmailConfirmationModal();
     });
   }
@@ -251,14 +251,24 @@ export class SettingsDropdownComponent implements OnInit {
    * Method for asking user to confirm filled in potential new owner user email.
    */
   private showPotentialNewOwnerUserEmailConfirmationModal() {
-    var email = this.potentialNewOwnerUserEmail;
+    const email = this.potentialNewOwnerUserEmail;
     const modalRefEmailConfirm = this.modalService.show(ModalPotentialNewOwnerUserEmailConfirmationComponent, {initialState: {email}});
     modalRefEmailConfirm.content.didConfirmEvent.subscribe(() => {
-      this.projectService.initiateTransferProjectOwnership(this.project.id, this.potentialNewOwnerUserEmail).subscribe(response => {
+      this.projectService.initiateTransferProjectOwnership(this.project.id, this.potentialNewOwnerUserEmail).subscribe(() => {
         const alertConfig: AlertConfig = {
           type: AlertType.success,
           preMessage: '',
           mainMessage: 'Transfer ownership request confirmation has been sent to your email inbox',
+          dismissible: true,
+          autoDismiss: true,
+          timeout: 10000
+        };
+        this.alertService.pushAlert(alertConfig);
+      }, () => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.danger,
+          preMessage: '',
+          mainMessage: 'Email not sent, make sure you fill in the right email',
           dismissible: true,
           autoDismiss: true,
           timeout: 10000

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ProjectService } from 'src/app/services/project.service';
-import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs/operators';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-transfer-ownership',
@@ -15,7 +15,7 @@ export class TransferOwnershipComponent implements OnInit {
   private isOwnerMail;
   private acceptedRequest;
 
-  public reply = "";
+  public reply = '';
   public replyStatus: number;
   public isLoading = true;
 
@@ -36,6 +36,6 @@ export class TransferOwnershipComponent implements OnInit {
     }, (error: HttpErrorResponse) => {
       this.reply = error.message;
       this.replyStatus = error.status;
-    })
+    });
   }
 }

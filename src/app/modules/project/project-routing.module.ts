@@ -17,10 +17,10 @@
 import { EditComponent } from './edit/edit.component';
 import { EmbedComponent } from './embed/embed.component';
 import { OverviewComponent } from './overview/overview.component';
+import { TransferOwnershipComponent } from './transfer-ownership/transfer-ownership.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TransferOwnershipComponent } from './transfer-ownership/transfer-ownership.component';
 
 const routes: Routes = [
   {path: 'overview', component: OverviewComponent},
