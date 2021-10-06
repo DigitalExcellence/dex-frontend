@@ -39,6 +39,9 @@
     flex-direction: column;
     width: 800px;
     max-width: 100%;
+    @media only screen and (max-width: 600px) {
+      padding: 45px
+    }
   }
 }
 

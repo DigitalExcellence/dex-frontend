@@ -3,7 +3,8 @@ import { UserRoutingModule } from './user-routing.module';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProjectModule } from 'src/app/modules/project/project.module';
 
 
@@ -12,11 +13,13 @@ import { ProjectModule } from 'src/app/modules/project/project.module';
     UserProjectsComponent
   ],
   imports: [
-    CommonModule,
-    UserRoutingModule,
-    ProjectModule,
-    FormsModule
-  ]
+        CommonModule,
+        UserRoutingModule,
+        ProjectModule,
+        FormsModule,
+        PaginationModule,
+        ReactiveFormsModule,
+    ]
 })
 export class UserModule {
 }
