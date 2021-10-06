@@ -35,6 +35,10 @@
     position: relative;
     width: 100%;
     max-width: 812px;
+
+    input[type="search"]::-webkit-search-cancel-button{
+    display: none !important;
+  }
     input[type="search"] {
       width: 100%;
       position: relative;

@@ -18,7 +18,6 @@
  */
 
  @import "assets/styles/variables";
-
 .content-container {
   min-height: calc(100vh - 324px);
 }
@@ -107,7 +106,6 @@
   .navbar-toggler {
     border: none;
   }
-
   .search-bar {
     input[type="search"] {
       width: 266px;
@@ -275,8 +273,11 @@
       height: 64px;
       padding-bottom: 15px;
     }
+    @include media-breakpoint-down(md){
+      transform: rotate(90deg);
+      transform-origin: left bottom;
+    }
   }
-
   // Move button to the bottom left and make it vertical
   @include media-breakpoint-down(md) {
     bottom: 30%;
@@ -334,6 +335,9 @@
 
   a {
     cursor: pointer;
+    &:active{
+      background-color: $light-mode-grey-primary;
+    }
   }
 
   @include media-breakpoint-down(sm) {

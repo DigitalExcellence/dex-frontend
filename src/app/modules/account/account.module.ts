@@ -15,12 +15,13 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
+import { SharedModule } from '../shared/shared.module';
 import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SharedModule } from '../shared/shared.module';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';

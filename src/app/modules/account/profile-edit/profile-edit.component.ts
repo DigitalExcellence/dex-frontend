@@ -1,12 +1,12 @@
-import { AlertService } from 'src/app/services/alert.service';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/domain/user';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserEditResource } from 'src/app/models/resources/user-edit';
+import { __core_private_testing_placeholder__ } from '@angular/core/testing';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/models/domain/user';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
-import { __core_private_testing_placeholder__ } from '@angular/core/testing';
+import { UserEditResource } from 'src/app/models/resources/user-edit';
+import { AlertService } from 'src/app/services/alert.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile-edit',
@@ -32,7 +32,6 @@ export class ProfileEditComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-
   }
 
   ngOnChanges(): void {
@@ -51,6 +50,13 @@ export class ProfileEditComponent implements OnInit, OnChanges {
    * Method which triggers when the submit button gets pressed;
    */
   public onClickSubmit(): void {
+    const alertConfig: AlertConfig = {
+      type: AlertType.success,
+      mainMessage: 'User was succesfully updated',
+      dismissible: true,
+      timeout: this.alertService.defaultTimeout
+    };
+    this.alertService.pushAlert(alertConfig);
     if (this.editProfileForm.invalid) {
       return;
     }

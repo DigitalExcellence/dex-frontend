@@ -1,7 +1,7 @@
-import { finalize, take } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { finalize, take } from 'rxjs/operators';
 import { User } from 'src/app/models/domain/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',

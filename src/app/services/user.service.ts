@@ -15,8 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { UserEditResource } from './../models/resources/user-edit';
-
+import { UserEditResource } from '../models/resources/user-edit';
 import { HttpBaseService } from './http-base.service';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
