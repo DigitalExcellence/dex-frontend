@@ -4,13 +4,10 @@ import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
-<<<<<<< HEAD
 import { ModalInformationGenericComponent } from 'src/app/components/modals/modal-information-generic/modal-information-generic.component';
 import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
 import { ModalPotentialNewOwnerUserEmailComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
-=======
 import { Highlight } from 'src/app/models/domain/highlight';
->>>>>>> 1165fb4c17cc499591b330d3099ed33601e9eb4c
 import { Project } from 'src/app/models/domain/project';
 import { scopes } from 'src/app/models/domain/scopes';
 import { User } from 'src/app/models/domain/user';

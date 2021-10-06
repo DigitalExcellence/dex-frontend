@@ -36,6 +36,8 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
     super(http, API_CONFIG.url + API_CONFIG.projectRoute);
   }
 
+  @Output() projectUpdated$: EventEmitter<number> = new EventEmitter();
+
   public get(id: number): Observable<Project> {
     return super.get(id)
       .pipe(
