@@ -15,8 +15,12 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { User } from './user';
+import { CallToAction } from './call-to-action';
 import { Collaborator } from './collaborator';
+import { ProjectCategory } from './projectCategory';
+import { ProjectLike } from './projectLike';
+import { UploadFile } from './uploadFile';
+import { User } from './user';
 
 export interface Project {
   id: number;
@@ -28,4 +32,11 @@ export interface Project {
   updated: Date;
   uri?: string;
   collaborators?: Collaborator[];
+  callToActions?: CallToAction[];
+  projectIcon?: UploadFile;
+  images?: UploadFile[];
+  likes?: Array<ProjectLike>;
+  userHasLikedProject: boolean;
+  likeCount: number;
+  categories?: Array<ProjectCategory>;
 }

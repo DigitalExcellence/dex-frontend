@@ -1,0 +1,41 @@
+<div class="highlight-slider">
+  <carousel
+    [interval]="animationPaused ? 100000 : 5000"
+    [isAnimated]="true"
+    (activeSlideChange)="setCurrentHighlight($event)"
+    [(activeSlide)]="currentHighlightIndex"
+    class="image-carousel"
+  >
+    <slide class="carousel-slide" *ngFor="let highlight of highlights">
+      <img [src]="getHighlightImageByUrl(highlight)" alt="project-image" loading="lazy" style="display: block; width: 100%" />
+    </slide>
+  </carousel>
+  <img alt="lines" class="lines" src="/assets/images/shapes/lines.svg" />
+  <div class="overlay"></div>
+  <div class="content">
+    <div class="text">
+      <h1>DeX - Connecting Digital Excellence</h1>
+      <p>The platform for ICT experts to share, collaborate and explore digital excellence projects.</p>
+      <div class="buttons">
+        <button (click)="viewAllProjects()">View all projects</button>
+        <button (click)="viewAddProject()">Add your project</button>
+      </div>
+    </div>
+    <div class="cards">
+      <div
+        *ngFor="let highlight of highlights; index as index"
+        [ngClass]="{ active: currentHighlightIndex === index }"
+        (click)="onClickHighlightedProject(highlight.project.id, highlight.project.name)"
+        (mouseover)="setActiveSlide(index)"
+        (mouseout)="continueSlides($event)"
+        class="card"
+      >
+        <div class="card-title">
+          <div [ngStyle]="{ 'background-image': 'url(' + getIconUrl(highlight.project.id) + ')' }" class="icon"></div>
+          <h3>{{ highlight.project.name }}</h3>
+        </div>
+        <p class="large">{{ highlight.description | striphtml }}</p>
+      </div>
+    </div>
+  </div>
+</div>

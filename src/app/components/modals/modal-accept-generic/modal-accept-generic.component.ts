@@ -16,14 +16,14 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { Component } from '@angular/core';
-import { Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 /**
  * Modal to remove items.
  * Emits true via remove property if the removable was confirmed.
  */
+
 @Component({
   selector: 'app-modal-accept-generic',
   templateUrl: './modal-accept-generic.component.html',

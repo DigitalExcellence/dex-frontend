@@ -1,0 +1,135 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+ @import "assets/styles/variables";
+ @import "app/modules/project/overview/project-list/project-list.component.scss";
+
+
+ .userinfo{
+    display: flex;
+   background-color: #ffffff;
+   border-radius: 5px;
+   box-shadow: 0 3px 4px rgb(0 0 0 / 8%);
+   width: 400px;
+   height: 150px;
+   position: relative;
+   margin-bottom: 50px;
+
+   @media only screen and (max-width: 720px) {
+    width: 100%;
+  }
+
+   .profile-picture {
+     width: 120px;
+     height: 120px;
+     border-radius: 50%;
+     margin: 15px;
+   }
+
+   .usercreds{
+     height: calc(100% - 30px);
+     margin: 30px;
+   }
+
+   .user-amounts{
+     display: grid;
+     grid-template-columns: auto auto;
+   }
+ }
+
+ .project-chooser{
+  width: 100%;
+  display: flex;
+  margin-bottom: 30px;
+
+  .item{
+    width: 200px;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 20px auto;
+    font-weight: 700;
+    overflow: inherit;
+
+    div {
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      i {
+        justify-self: center;
+        color: $light-mode-black;
+      }
+    }
+
+      &:hover {
+        color: $accent-color-red-primary;
+      }
+    }
+  }
+
+  .option-select{
+    width: 200px;
+    display: inline-block;
+    margin: 10px 0 40px 0;
+    padding-left: 5px;
+    height: 30px;
+    background-color: #ffffff;
+    border: 0;
+    border-radius: 5px;
+  }
+
+ .projects-overview-wrapper {
+   padding: 0 5vw;
+   max-width: 1880px;
+   margin-left: auto;
+   margin-right: auto;
+
+   .project-list-wrapper {
+     width: 100%;
+     display: grid;
+     gap: 15px;
+     margin-bottom: 35px;
+
+     &.grid {
+       gap: 25px;
+       grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+     }
+   }
+ }
+
+.projects-filter-wrapper {
+   min-width: 250px;
+   @media only screen and (min-width: 1000px) {
+     max-width: 300px;
+   }
+   height: 100vh;
+   position: sticky;
+   top: 0;
+   margin: -24px 24px -64px -24px; // override padding from parent element & footer
+   padding: 48px 36px;
+   background-color: white;
+
+  .divider {
+     border-bottom: 1px solid $light-mode-grey-thertiary;
+   }
+  }
+
+ @import "app/modules/project/overview/filter-menu/filter-menu.component.scss";

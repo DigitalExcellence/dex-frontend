@@ -1,0 +1,221 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+@import "assets/styles/variables";
+
+.modal-body {
+  position: unset;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+
+.modal-highlight-container {
+  background: #fff;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  padding: 15px;
+  position: relative;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  max-width: 100%;
+  z-index: 1151;
+
+  button.close {
+    border: none;
+    background: none;
+    display: flex;
+    float: right;
+
+    &:focus,
+    &:active {
+      border: none;
+      outline: none;
+    }
+  }
+
+  button {
+    &.grey {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    button.grey {
+      display: block;
+    }
+  }
+}
+
+input, textarea {
+  background-color: $light-mode-grey-quaternary;
+  border: none !important;
+}
+
+.highlight-form {
+  margin-top: 20px;
+
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  textarea.description,
+  input[type="text"],
+  input[type="date"] {
+    border: none;
+    border-radius: 6px;
+    height: 45px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 0 20px;
+
+    &:focus {
+      outline: none;
+      border: 1px solid #707070;
+    }
+  }
+
+  textarea.description {
+    resize: vertical;
+    max-height: 300px;
+    min-height: 90px;
+    height: 90px;
+    padding: 10px 15px;
+  }
+
+
+  p.validation-error-message {
+    color: $accent-color-red-primary;
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    input[type="checkbox"] {
+      border: solid 1px #707070;
+      margin-right: 15px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.highlight-image {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .overlay {
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.2);
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: $transition-short;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    em {
+      cursor: pointer;
+      color: white;
+      font-size: 24px;
+    }
+  }
+
+  &:hover {
+    .overlay {
+      opacity: 1;
+    }
+  }
+
+  .preview {
+    position: relative;
+    place-content: center;
+    background-color: $accent-color-red-primary;
+    overflow: hidden;
+    box-shadow: 0 0 4px #0000001a;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  button:nth-child(1) {
+    margin-right: 15px;
+  }
+}
+
+.back-button {
+  color: $accent-color-red-primary;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.trash-icon {
+  display: flex;
+  align-items: center;
+  color: $light-mode-grey-secondary;
+  cursor: pointer;
+}
+
+.buttons-bottom {
+  gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+#overlay {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 1150;
+  cursor: pointer;
+  transition: opacity .5s ease-in;
+}

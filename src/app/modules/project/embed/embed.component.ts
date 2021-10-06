@@ -14,10 +14,12 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { EmbedService } from 'src/app/services/embed.service';
 import { Component, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
+import { EmbedService } from 'src/app/services/embed.service';
+import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 
 /**
  * Overview of a single project
@@ -36,7 +38,8 @@ export class EmbedComponent implements OnInit {
 
   constructor(
     private activedRoute: ActivatedRoute,
-    private embedService: EmbedService) { }
+    private embedService: EmbedService,
+    private fileRetrieverService: FileRetrieverService) { }
 
   ngOnInit(): void {
     const routeId = this.activedRoute.snapshot.paramMap.get('id');
@@ -54,6 +57,13 @@ export class EmbedComponent implements OnInit {
         this.project = result;
       }
     );
+  }
 
+   /**
+   * Method to get the url of the icon of the project. This is retrieved
+   * from the RetrieveFileUtils
+   */
+  public getIconUrl(): SafeUrl {
+    return this.fileRetrieverService.getIconUrl(this.project.projectIcon);
   }
 }

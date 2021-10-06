@@ -14,27 +14,21 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { finalize, debounceTime } from 'rxjs/operators';
+import { FilterMenuComponent } from './filter-menu/filter-menu.component';
+import { ProjectListComponent } from './project-list/project-list.component';
+
+import { Location } from '@angular/common';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from 'src/app/models/domain/project';
-import { FormControl } from '@angular/forms';
+import { CategoryService } from 'src/app/services/category.service';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
-import { InternalSearchQuery } from 'src/app/models/resources/internal-search-query';
 import { PaginationService } from 'src/app/services/pagination.service';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { SelectFormOption } from 'src/app/interfaces/select-form-option';
-import { SearchResultsResource } from 'src/app/models/resources/search-results';
+import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
-
-
-interface SortFormResult {
-  type: string;
-  direction: string;
-}
+import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
+import { environment } from 'src/environments/environment';
 
 /**
  * Overview of all the projects
@@ -42,107 +36,37 @@ interface SortFormResult {
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss'],
+  styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements OnInit {
-  /**
-   * Array to receive and store the projects from the api.
-   */
-  public projects: Project[] = [];
-  public projectsToDisplay: Project[] = [];
-  public projectsTotal: Project[] = [];
-
-  /**
-   * Stores the response with the paginated projects etc. from the api.
-   */
-  public paginationResponse: SearchResultsResource;
-
-  /**
-   * Boolean to determine whether the component is loading the information from the api.
-   */
-  public projectsLoading = true;
+export class OverviewComponent implements OnInit, AfterViewInit {
+  @ViewChild(FilterMenuComponent) filterMenu!: FilterMenuComponent;
+  @ViewChild(ProjectListComponent) projectList!: ProjectListComponent;
 
   /**
    * FormControl for getting the input.
    */
   public searchControl: FormControl = null;
-
-  /**
-   * The amount of projects that will be displayed on a single page.
-   */
-  public amountOfProjectsOnSinglePage = 10;
-
-  /**
-   * The number of projects that are on the platform
-   */
-  public totalNrOfProjects = 0;
-
-  /**
-   * Default pagination option for the dropdown
-   */
-  public defaultPaginationOption = {
-    id: 0,
-    amountOnPage: 10
-  };
+  public sortOptionControl: FormControl = null;
 
   public showPaginationFooter = true;
 
-  /**
-   * The possible pagination options for the dropdown
-   */
-  public paginationDropDownOptions = [
-    { id: 0, amountOnPage: 10 },
-    { id: 1, amountOnPage: 20 },
-    { id: 2, amountOnPage: 30 },
-  ];
-
-  /**
-   * FormGroup for the category search option.
-   */
-  public categoryForm: FormGroup;
-
-  /**
-   * FormGroup for the tags search option.
-   */
-  public tagsForm: FormGroup;
-
-  public sortForm: FormGroup;
-
-  public highlightFormControl: FormControl;
-
-  public sortTypeSelectOptions: SelectFormOption[] = [
-    { value: 'updated', viewValue: 'Updated' },
-    { value: 'created', viewValue: 'Created' },
-    { value: 'name', viewValue: 'Name' }
-  ];
-
-  public sortDirectionSelectOptions: SelectFormOption[] = [
-    { value: 'desc', viewValue: 'Descending' },
-    { value: 'asc', viewValue: 'Ascending' }
-  ];
-
-  public highlightSelectOptions: SelectFormOption[] = [
-    { value: null, viewValue: 'All projects' },
-    { value: true, viewValue: 'Only highlighted' },
-    { value: false, viewValue: 'Only non highlighted' }
-  ];
-
   public displaySearchElements = false;
-
-  private searchSubject = new BehaviorSubject<string>(null);
+  public currentPage = 1;
 
   /**
    * Parameters for keeping track of the current internalSearch query values.
    */
-  private currentSearchInput: string = null;
+  public currentSearchInput: string;
 
-  private currentSortType: string = this.sortTypeSelectOptions[0].value;
+  public filteredProjects: Project[];
+  public totalAmountOfProjects = 0;
+  public projectsLoading = true;
+  public amountOfProjectsOnSinglePage = 12;
 
-  private currentSortDirection: string = this.sortDirectionSelectOptions[0].value;
-
-  public currentOnlyHighlightedProjects: boolean = null;
-
-  private currentPage = 1;
+  /**
+    * Object to keep track of a modal that was opened trough the url
+    */
+  private urlOpenedModal = { state: false, projectId: null };
 
   constructor(
     private router: Router,
@@ -150,207 +74,108 @@ export class OverviewComponent implements OnInit {
     private internalSearchService: InternalSearchService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private seoService: SEOService
-  ) {
-    this.searchControl = new FormControl('');
-
-    this.categoryForm = this.formBuilder.group({
-      code: false,
-      video: false,
-      research_paper: false,
-      survey_results: false
-    });
-
-    this.tagsForm = this.formBuilder.group({
-      learning: false,
-      research: false,
-      mobile: false,
-      ux: false
-    });
-
-    this.sortForm = this.formBuilder.group({
-      type: this.sortTypeSelectOptions[0].value,
-      direction: this.sortDirectionSelectOptions[0].value
-    });
-
-    // Initialize with index value of 0 to by default select the first select option.
-    this.highlightFormControl = this.formBuilder.control(0);
-
-    if (!environment.production) {
-      this.displaySearchElements = true;
-    }
-
+    private seoService: SEOService,
+    private location: Location,
+    private categoryService: CategoryService,
+    private route: ActivatedRoute,
+    private modalUtility: ProjectDetailModalUtility,
+    private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
-    this.currentSearchInput = this.activatedRoute.snapshot.queryParamMap.get('query');
-    this.searchControl.patchValue(this.currentSearchInput);
-    this.onInternalQueryChange();
+    this.updateSEOTags();
 
-    // Subscribe to search subject to debounce the input and afterwards searchAndFilter.
-    this.searchSubject
-      .pipe(
-        debounceTime(500)
-      )
-      .subscribe((result) => {
-        if (result == null) {
-          return;
+    // Code below is executed when a project is updated (for example on edit component)
+    // find the updated project in de database and replace it in the overview
+    this.projectService.projectUpdated$.subscribe(updatedProjectId => {
+      const projectIndexToUpdate = this.filteredProjects.findIndex(project => project.id === updatedProjectId);
+      this.projectService.get(updatedProjectId).subscribe(updatedProject => {
+          this.filteredProjects.splice(projectIndexToUpdate, 1, updatedProject);
+        });
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.route.params.subscribe(params => {
+      const projectId = +params.id?.split('-')[0];
+
+      // We need the 1ms timeout to make sure the components are rendered, I don't know why angular doesn't do this but whatever
+      setTimeout(() => {
+        this.amountOfProjectsOnSinglePage = this.filterMenu.amountOfProjectsOnSinglePage;
+
+        // Methods below are executed when an ID has been provided in the URL
+        if (projectId) {
+          this.modalUtility.openProjectModal(projectId, '', '/project/overview');
+          // object to handle check for like-subscribe in filteredProjectsChanged()
+          this.urlOpenedModal = { state: true, projectId: projectId };
         }
-        this.onInternalQueryChange();
+      }, 1);
+    });
+  }
+
+  /**
+   * Method that sets the new page when the user clicks
+   * @param page The page that was selected
+   */
+  public pageChanged(page: number): void {
+    this.currentPage = page;
+
+    this.filterMenu.onPaginationChange();
+  }
+
+  public filteredProjectsChanged(result): void {
+    this.filteredProjects = result.projects;
+    this.totalAmountOfProjects = result.totalAmount;
+    this.showPaginationFooter = result.totalAmount > this.filterMenu.amountOfProjectsOnSinglePage;
+    // if a modal was opened trough the url, check if like-subscribe is needed
+    if (this.urlOpenedModal.state) {
+      this.filteredProjects.forEach(project => {
+        if (project.id === this.urlOpenedModal.projectId) {
+          this.modalUtility.subscribeToLikes(this.urlOpenedModal.projectId, this.filteredProjects);
+        }
       });
+    }
+  }
 
-    this.searchControl.valueChanges.subscribe((value) => this.onSearchInputValueChange(value));
+  public searchInputChanged(searchInput: string) {
+    this.filterMenu.onSearchInputValueChange(searchInput);
+  }
 
-    this.sortForm.valueChanges.subscribe((value) => this.onSortFormValueChange(value));
+  /**
+   * Method to make tags change appearance on clicking.
+   * further implementation is still pending.
+   */
+  public tagClicked(event) {
+    if (event.target.className === 'tag clicked') {
+      event.target.className = 'tag';
+    } else {
+      event.target.className = 'tag clicked';
+    }
+  }
 
-    this.highlightFormControl.valueChanges.subscribe((value) => this.onHighlightFormValueChanges(value));
+  public modalClosed() {
+    this.updateSEOTags();
+    this.filterMenu.modalClosed();
+  }
 
+  /**
+   * Method to display the tags based on the environment variable.
+   * Tags should be hidden in production for now until further implementation is finished.
+   */
+  public displayTags(): boolean {
+    return !environment.production;
+  }
+
+  projectsLoadingChanged(state: boolean) {
+    this.projectsLoading = state;
+  }
+
+  /**
+   * Methods to update the title and description through the SEO service
+   */
+  private updateSEOTags() {
     // Updates meta and title tags
     this.seoService.updateTitle('Project overview');
     this.seoService.updateDescription('Browse or search for specific projects or ideas within DeX');
-
-
-    // Following two oberservables can be used in the feature to implement category & tags searching
-    // this.categoryForm.valueChanges.subscribe((categoryFormResult: CategoryFormResult) => {
-    //   console.log(categoryFormResult);
-    // });
-
-    // this.tagsForm.valueChanges.subscribe((tagFormResult: TagFormResult) => {
-    //   console.log(tagFormResult);
-    // });
-  }
-
-  /**
-   * Method which triggers when the serach input receives a key up.
-   * Updates the search subject with the query.
-   * @param $event the event containing the info of the keyboard press.
-   */
-  public onSearchInputValueChange(value: string): void {
-    // Do nothing if input did not change.
-    if (this.currentSearchInput === value) {
-      return;
-    }
-
-    // Do nothing if the input contains only spaces or line breaks AND the value is not already empty.
-    // Indicating that the search was cleared and a new request should be made.
-    if (value !== '' && !value.replace(/\s/g, '').length) {
-      return;
-    }
-
-    this.currentSearchInput = value;
-    this.searchSubject.next(value);
-  }
-
-  /**
-   * Checks whether there are any projects
-   */
-  public projectsEmpty(): boolean {
-    return this.projects.length < 1;
-  }
-
-  /**
-   * Triggers on project click in the list.
-   * @param id project id.
-   * @param name project name
-   */
-  public onClickProject(id: number, name: string): void {
-    name = name.split(' ').join('-');
-    this.router.navigate([`/project/details/${id}-${name}`]);
-  }
-
-  /**
-   * Method that retrieves the page of the pagination footer when the user selects a new one.
-   * @param event holds the current page of the pagination footer, as well as the amount
-   * of projects that are being displayed on a single page.
-   */
-  public pageChanged(event: PageChangedEvent): void {
-    this.currentPage = event.page;
-    this.onInternalQueryChange();
-  }
-
-  /**
-   * Method that retrieves the value that has changed from the pagination dropdown in the accordion,
-   * and based on that value retrieves the paginated projects with the right parameters.
-   * @param $event the identifier of the selected value.
-   */
-  public onChangePaginationSelect($event: number) {
-    this.amountOfProjectsOnSinglePage = this.paginationDropDownOptions[$event].amountOnPage;
-    if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
-      this.currentPage = 1;
-    }
-    this.onInternalQueryChange();
-  }
-
-  /**
-   * Method to handle value changes of the sort form.
-   * @param value the value of the form.
-   */
-  private onSortFormValueChange(value: SortFormResult): void {
-    if (value == null || value.type == null || value.type === 'null') {
-      return;
-    }
-    this.currentSortType = value.type;
-    this.currentSortDirection = value.direction;
-    this.onInternalQueryChange();
-  }
-
-  /**
-   * Method to handle the value changes of the highlight form.
-   * @param value the value of the highlight form.
-   */
-  private onHighlightFormValueChanges(value: number): void {
-    // Case the value since for some reason it is always returned as a string.
-    const convertedIndex = +value;
-    const foundOption = this.highlightSelectOptions[convertedIndex];
-    if (foundOption == null) {
-      return;
-    }
-    this.currentOnlyHighlightedProjects = foundOption.value;
-    this.onInternalQueryChange();
-  }
-
-  /**
-   * Method to build the new internal search query when any of it params have changed.
-   * Calls the projectService or searchService based on the value of the query.
-   */
-  private onInternalQueryChange(): void {
-    const internalSearchQuery: InternalSearchQuery = {
-      query: this.currentSearchInput === '' ? null : this.currentSearchInput,
-      page: this.currentPage,
-      amountOnPage: this.amountOfProjectsOnSinglePage,
-      sortBy: this.currentSortType,
-      sortDirection: this.currentSortDirection,
-      highlighted: this.currentOnlyHighlightedProjects,
-    };
-
-    if (internalSearchQuery.query == null) {
-      // No search query provided use projectService.
-      this.paginationService
-        .getProjectsPaginated(internalSearchQuery)
-        .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe((result) => this.handleSearchAndProjectResponse(result));
-    } else {
-      // Search query provided use searchService.
-      this.internalSearchService
-        .getSearchResultsPaginated(internalSearchQuery)
-        .pipe(finalize(() => (this.projectsLoading = false)))
-        .subscribe((result) => this.handleSearchAndProjectResponse(result));
-    }
-  }
-
-  /**
-   * Method to handle the response of the call to the project or search service.
-   */
-  private handleSearchAndProjectResponse(response: SearchResultsResource): void {
-    this.paginationResponse = response;
-    this.projects = response.results;
-    this.projectsToDisplay = response.results;
-    this.totalNrOfProjects = response.totalCount;
-
-    if (this.projects.length < this.amountOfProjectsOnSinglePage && this.currentPage <= 1) {
-      this.showPaginationFooter = false;
-    } else {
-      this.showPaginationFooter = true;
-    }
   }
 }

@@ -17,13 +17,14 @@
  *
  */
 
+import { UserService } from './user.service';
+
 import { Injectable } from '@angular/core';
 import { User, UserManager, UserManagerSettings } from 'oidc-client';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { User as BackendUser } from 'src/app/models/domain/user';
 import { environment } from 'src/environments/environment';
-import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -173,6 +174,6 @@ export function getClientSettings(): UserManagerSettings {
     filterProtocolClaims: true,
     loadUserInfo: true,
     automaticSilentRenew: true,
-    silent_redirect_uri: environment.identitySilentRedirectUri,
+    silent_redirect_uri: environment.identitySilentRedirectUri
   };
 }

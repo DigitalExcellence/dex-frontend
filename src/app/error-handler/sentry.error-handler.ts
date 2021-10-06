@@ -14,13 +14,13 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
+import {ErrorHandler, Injectable} from '@angular/core';
 import * as Sentry from '@sentry/browser';
-import { ErrorHandler } from '@angular/core';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import {environment} from 'src/environments/environment';
 
 Sentry.init({
-    dsn: environment.sentryDsnUrl
+    dsn: environment.sentryDsnUrl,
+    release: 'dex-frontend@1.6.0-beta'
 });
 
 /**

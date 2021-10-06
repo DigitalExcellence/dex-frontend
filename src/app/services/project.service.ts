@@ -15,19 +15,55 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { API_CONFIG } from '../config/api-config';
-import { Project } from '../models/domain/project';
-import { ProjectAdd } from '../models/resources/project-add';
-import { ProjectUpdate } from '../models/resources/project-update';
+import { AuthService } from './auth.service';
 import { HttpBaseService } from './http-base.service';
+
+import { HttpClient } from '@angular/common/http';
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { from, Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+import { API_CONFIG } from 'src/app/config/api-config';
+import { CallToActionIconsConfig } from 'src/app/config/call-to-action-icons-config';
+import { Project } from 'src/app/models/domain/project';
+import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { ProjectUpdate } from 'src/app/models/resources/project-update';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService extends HttpBaseService<Project, ProjectAdd, ProjectUpdate> {
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private authService: AuthService) {
     super(http, API_CONFIG.url + API_CONFIG.projectRoute);
+  }
+
+  @Output() projectUpdated$: EventEmitter<number> = new EventEmitter();
+
+  get(id: number): Observable<Project> {
+    return super.get(id)
+      .pipe(
+        map(project => {
+          return {
+            ...project,
+            callToActions: project.callToActions.length > 0 ?
+              project.callToActions.map(cta => ({
+                ...cta,
+                iconName: CallToActionIconsConfig[cta.optionValue.toLowerCase()]
+              })
+              )
+              : undefined
+          };
+        }),
+        mergeMap(project =>
+          from(this.addLikes(project))
+        ));
+  }
+
+  private addLikes(project): Promise<Project> {
+    return this.authService.getBackendUser()
+      .then(currentUser => {
+        project.likeCount = project.likes?.length ? project.likes.length : 0;
+        project.userHasLikedProject = project.likes.filter(like => like.userId === currentUser?.id).length > 0;
+        return project;
+      });
   }
 }

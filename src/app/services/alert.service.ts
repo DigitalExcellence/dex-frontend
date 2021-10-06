@@ -16,10 +16,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { AlertConfig } from 'src/app/models/internal/alert-config';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { timer } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { AlertConfig } from 'src/app/models/internal/alert-config';
 
 /**
  * Service for keeping track of alerts.
@@ -49,8 +49,8 @@ export class AlertService {
 
     this.$activeAlerts.next(this.activeAlerts);
 
-    // Dismissable alerts with no timeout will not be automaticcaly removed.
-    if (alertConfig.dismissible && (alertConfig.timeout == null || alertConfig.timeout <= 0)) {
+    // Alerts that aren't configured to auto dismiss will return.
+    if (alertConfig.autoDismiss == null || !alertConfig.autoDismiss) {
       return;
     }
 
@@ -69,13 +69,20 @@ export class AlertService {
     }
 
     timer(alertTimeOut).subscribe(() => {
-      const index = this.activeAlerts.findIndex(activeAlert => activeAlert === alertConfig);
-      if (index < 0) {
-        return;
-      }
-
-      this.activeAlerts.splice(index, 1);
-      this.$activeAlerts.next(this.activeAlerts);
+      this.removeAlert(alertConfig);
     });
+  }
+
+  /**
+   * Method to remove an alert.
+   * @param alertConfig the alert to remove.
+   */
+  private removeAlert(alertConfig: AlertConfig): void {
+    const index = this.activeAlerts.findIndex(activeAlert => activeAlert === alertConfig);
+
+    if (index < 0) { return; }
+
+    this.activeAlerts.splice(index, 1);
+    this.$activeAlerts.next(this.activeAlerts);
   }
 }

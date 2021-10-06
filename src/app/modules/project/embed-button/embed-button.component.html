@@ -1,9 +1,31 @@
-<button (click)="onClickGenerateEmbed()" class="primary ml-2">Embed this</button>
-<pre>
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+
+<div class='wrapper'>
+  <button (click)="onClickGenerateEmbed()" class="primary">
+    Embed this
+    <em class="fas fa-code"></em>
+  </button>
   <code *ngIf="embeddedProject">
     &lt;iframe src="{{frontendUrl}}/project/embed/{{embeddedProject.guid}}"
-    style="border:0px #ffffff none;" name="myiFrame" scrolling="no" 
-    frameborder="1" marginheight="0px" marginwidth="0px" 
+    style="border:0 #ffffff none;" name="myiFrame" scrolling="no"
+    frameborder="1" marginheight="0" marginwidth="0"
     height="400px" width="600px" allowfullscreen>&lt;/iframe>
   </code>
-</pre>
+</div>

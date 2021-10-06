@@ -14,55 +14,59 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AlertComponent } from './components/alert/alert.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
-import { HomeComponent } from './components/home/home.component';
-import { TokenInterceptor } from './interceptors/auth.interceptor';
-import { TopHighlightCardsComponent } from './modules/highlight/top-highlight-cards/top-highlight-cards.component';
-import { SharedModule } from './modules/shared/shared.module';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { FooterComponent } from './components/footer/footer.component';
-import { HttpErrorInterceptor } from './interceptors/http.interceptor';
-import { errorHandlerFactory } from './error-handler/error-handler-factory';
-import { AlertModule } from 'ngx-bootstrap/alert';
-import { AlertComponent } from './components/alert/alert.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
-import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
-import { StripHtmlPipe } from './utils/striptags.pipe';
+import { SearchComponent } from './components/search/search.component';
+import { errorHandlerFactory } from './error-handler/error-handler-factory';
+import { TokenInterceptor } from './interceptors/auth.interceptor';
+import { HttpErrorInterceptor } from './interceptors/http.interceptor';
+import { HomeModule } from './modules/home/home.module';
+import { ProjectModule } from './modules/project/project.module';
+import { SharedModule } from './modules/shared/shared.module';
+
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertModule } from 'ngx-bootstrap/alert';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { QuillModule } from 'ngx-quill';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AppLayoutComponent,
-    HomeComponent,
     AuthCallbackComponent,
-    TopHighlightCardsComponent,
     AlertComponent,
     FooterComponent,
     PrivacyPolicyComponent,
     NotFoundComponent,
     ModalDeleteGenericComponent,
-    StripHtmlPipe
+    SearchComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),
     AlertModule.forRoot(),
     ModalModule.forRoot(),
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    HomeModule,
+    ProjectModule
   ],
   providers: [
     {
@@ -81,5 +85,6 @@ import { QuillModule } from 'ngx-quill';
     }
   ],
   bootstrap: [AppComponent],
+  exports: [SearchComponent]
 })
 export class AppModule { }

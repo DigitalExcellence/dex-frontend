@@ -16,11 +16,19 @@
  */
 
 import { CollaboratorAdd } from './collaborator-add';
+
+import { CallToAction } from 'src/app/models/domain/call-to-action';
+import { ProjectCategory } from 'src/app/models/domain/projectCategory';
+
 export interface ProjectAdd {
   userId: number;
   name: string;
   collaborators: CollaboratorAdd[];
   shortDescription: string;
   description?: string;
-  url: string;
+  uri: string;
+  callToActions: CallToAction[];
+  iconId?: number;
+  imageIds?: number[];
+  categories?: ProjectCategory[];
 }

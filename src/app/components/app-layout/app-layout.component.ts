@@ -16,11 +16,11 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { LocalStorageUtils, LocalStorageOptions } from 'src/app/utils/localstorage.utils';
-import { AlertService } from 'src/app/services/alert.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { LocalStorageOptions, LocalStorageUtils } from 'src/app/utils/localstorage.utils';
 
 /**
  * Component used to display the basic layout of the application.
@@ -37,14 +37,17 @@ export class AppLayoutComponent implements OnInit {
   public displayAlertContainer = false;
   public displayContentWithoutLayout = false;
   public navbarOpen = false;
+  public showSearchbar = false;
 
   public readonly dexGithubIssueUrl = 'https://github.com/DigitalExcellence/dex-frontend/issues/new/choose';
   public displayBetaBanner = true;
 
   constructor(
-      private authService: AuthService,
-      private alertService: AlertService,
-      private router: Router) { }
+    private authService: AuthService,
+    private alertService: AlertService,
+    private router: Router) {
+
+  }
 
   ngOnInit(): void {
     this.subscription = this.authService.authNavStatus$.subscribe((status) => {
@@ -57,6 +60,16 @@ export class AppLayoutComponent implements OnInit {
         this.displayAlertContainer = false;
       } else {
         this.displayAlertContainer = true;
+      }
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if ((event.url === '/home' || event.url === '/')) {
+          this.showSearchbar = true;
+        } else {
+          this.showSearchbar = false;
+        }
       }
     });
 
@@ -89,11 +102,27 @@ export class AppLayoutComponent implements OnInit {
   }
 
   /**
+   * Navigate to project overview, if on project overview already reload page.
+   */
+  public onClickProjects() {
+    if (this.router.url === '/project/overview') {
+      location.reload();
+    } else {
+      this.router.navigate(['project/overview']);
+    }
+  }
+
+  /**
    * Method which triggers when the user clicks the beta text in the header.
    * Displays the beta banner.
    */
   public onClickHeaderBetaText(): void {
     this.displayBetaBanner = true;
+  }
+
+
+  public viewUserProjects() {
+    this.router.navigate(['user/projects']);
   }
 
   /**

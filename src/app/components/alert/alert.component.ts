@@ -16,10 +16,10 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  *
  */
-import { AlertService } from 'src/app/services/alert.service';
 import { Component, OnInit } from '@angular/core';
-import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
+import { AlertType } from 'src/app/models/internal/alert-type';
+import { AlertService } from 'src/app/services/alert.service';
 
 /**
  * Component to display alerts provided by the AlertService.
