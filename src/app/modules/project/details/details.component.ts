@@ -69,6 +69,11 @@ export class DetailsComponent implements OnInit {
    */
   public animationTriggered = false;
 
+    /**
+   * Boolean to trigger showing the edit-mode
+   */
+  public editModeActivated = false;
+
   constructor(
     private projectService: ProjectService,
     private authService: AuthService,
@@ -125,6 +130,10 @@ export class DetailsComponent implements OnInit {
     return this.fileRetrieverService.getIconUrl(file);
   }
 
+  public toggleEditMode(state: boolean) {
+    this.editModeActivated = state;
+  }
+
   /**
    * This method will hide the active modal and remove the
    * according class.
@@ -132,5 +141,14 @@ export class DetailsComponent implements OnInit {
   private hideModalAndRemoveClass(): void {
     this.modalService.hide(1);
     document.getElementsByTagName('body')[0].classList.remove('modal-open');
+  }
+
+  /**
+  * This method reloads the project detail page after edits have been made
+  * And sends the updated project Id to the projectservice for updating the overview
+  */
+  updateProject(updatedProject: Project) {
+    this.projectService.projectUpdated$.emit(updatedProject.id);
+    this.ngOnInit();
   }
 }

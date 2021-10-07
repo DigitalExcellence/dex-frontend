@@ -25,6 +25,7 @@ import { Project } from 'src/app/models/domain/project';
 import { CategoryService } from 'src/app/services/category.service';
 import { InternalSearchService } from 'src/app/services/internal-search.service';
 import { PaginationService } from 'src/app/services/pagination.service';
+import { ProjectService } from 'src/app/services/project.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
 import { environment } from 'src/environments/environment';
@@ -77,11 +78,21 @@ export class OverviewComponent implements OnInit, AfterViewInit {
     private location: Location,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private modalUtility: ProjectDetailModalUtility) {
+    private modalUtility: ProjectDetailModalUtility,
+    private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
     this.updateSEOTags();
+
+    // Code below is executed when a project is updated (for example on edit component)
+    // find the updated project in de database and replace it in the overview
+    this.projectService.projectUpdated$.subscribe(updatedProjectId => {
+      const projectIndexToUpdate = this.filteredProjects.findIndex(project => project.id === updatedProjectId);
+      this.projectService.get(updatedProjectId).subscribe(updatedProject => {
+          this.filteredProjects.splice(projectIndexToUpdate, 1, updatedProject);
+        });
+    });
   }
 
   ngAfterViewInit(): void {

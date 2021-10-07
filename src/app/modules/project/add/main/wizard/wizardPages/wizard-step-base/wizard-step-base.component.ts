@@ -26,6 +26,7 @@ export class WizardStepBaseComponent {
   @Input() step: WizardPage;
   @Input() isOptional = false;
   @Output() clickNext = new EventEmitter();
+  @Output() clickPrevious = new EventEmitter();
 
   /**
    * Method which triggers when the button to the next page is pressed
@@ -33,5 +34,13 @@ export class WizardStepBaseComponent {
   public onClickNext(): void {
     this.step.isComplete = true;
     this.clickNext.emit();
+  }
+
+  /**
+   * Method which triggers when the button to the previous page is pressed
+   */
+  public onClickPrevious(): void {
+    this.step.isComplete = false;
+    this.clickPrevious.emit();
   }
 }

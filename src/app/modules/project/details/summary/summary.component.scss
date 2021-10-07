@@ -4,8 +4,18 @@
   display: grid;
   grid-template-columns: 1fr auto;
   justify-content: space-between;
+  align-items: center;
   gap: 20px;
   min-height: 70px;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-items: center;
+  }
+
 
   h2 {
     margin: 0;
@@ -33,6 +43,9 @@
       height: 100%;
       width: 100%;
       object-fit: cover;
+    }
+    @media only screen and (max-width: 600px) {
+      grid-row: 1;
     }
   }
 
