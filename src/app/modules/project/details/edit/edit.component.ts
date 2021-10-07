@@ -170,6 +170,10 @@ export class EditComponent implements OnInit {
     this.projectImagesFileUploader.deleteFile(index);
   }
 
+  public iconRemoveButtonClick() {
+    this.projectIconFileUploader.deleteFile(0);
+  }
+
   /**
    * Method that determines which preview to use for the project icon
    */

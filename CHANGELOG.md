@@ -23,6 +23,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 - Highlight project modal, not dissapearing when clicking out of it.[#569](https://github.com/DigitalExcellence/dex-frontend/issues/569)
 - Project filter is not cleared anymore after editing project. [#561](https://github.com/DigitalExcellence/dex-frontend/issues/561)
+- Added option to remove a previously uploaded icon to edit page and wizard[#482](https://github.com/DigitalExcellence/dex-frontend/issues/482)
 
 ### Security
 
