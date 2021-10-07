@@ -72,6 +72,15 @@
           opacity: 1;
         }
       }
+
+      @media only screen and (max-width: 600px) {
+        .overlay{
+          opacity: 1;
+          em {
+            opacity: .8;
+          }
+        }
+      }
     }
     .icon-remove-btn {
       grid-column: 2;
@@ -337,6 +346,17 @@
             &:hover {
               .overlay {
                 opacity: 1;
+              }
+            }
+
+            @media only screen and (max-width: 600px) {
+              .overlay {
+                &.trash{
+                  opacity: 1;
+                  em {
+                    opacity: .8;
+                  }
+                }
               }
             }
           }
