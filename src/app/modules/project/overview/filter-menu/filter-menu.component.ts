@@ -165,11 +165,12 @@ export class FilterMenuComponent implements OnInit {
    * Method that retrieves the value that has changed from the pagination dropdown in the accordion,
    * and based on that value retrieves the paginated projects with the right parameters.
    */
-  public onPaginationChange() {
+  public onPaginationChange(page:number = this.currentPage) {
     this.amountOfProjectsOnSinglePage = this.paginationOptionControl.value.amountOnPage;
     if (this.amountOfProjectsOnSinglePage === this.paginationResponse.totalCount) {
       this.currentPage = 1;
     }
+    this.currentPage = page;
     this.updateQueryParams();
     this.onInternalQueryChange();
   }
@@ -201,7 +202,6 @@ export class FilterMenuComponent implements OnInit {
           .map(value => value.selected ? value.id : null)
           .filter(value => value)
     };
-
 
     if (internalSearchQuery.query == null) {
       // No search query provided use projectService.
