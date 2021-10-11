@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   justify-content: space-between;
+  align-items: center;
   gap: 20px;
   min-height: 70px;
   @media only screen and (max-width: 600px) {

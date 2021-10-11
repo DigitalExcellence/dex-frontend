@@ -33,6 +33,10 @@
           [hidden]="true" [recommendedHeight]="512" [recommendedWidth]="512" [showPreview]="false">
         </app-file-uploader>
       </div>
+      <div class='icon-remove-btn' *ngIf="projectIconFileUploader.files[0]">
+        <button (click)="iconRemoveButtonClick()">Remove</button>
+      </div>
+      
     </div>
     <div id='specs-wrapper'>
       <div>
