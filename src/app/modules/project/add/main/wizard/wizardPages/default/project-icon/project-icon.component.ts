@@ -76,6 +76,13 @@ export class ProjectIconComponent extends WizardStepBaseComponent implements OnI
   }
 
   /**
+   * Method that triggers when the delete-overlay is clicked
+   */
+  public deleteIconClicked() {
+    this.fileUploader.deleteFile(0);
+  }
+
+  /**
    * Method that determines which preview to use for the project icon
    */
   public getProjectIcon(): SafeUrl {
