@@ -119,8 +119,7 @@ export class OverviewComponent implements OnInit, AfterViewInit {
    */
   public pageChanged(page: number): void {
     this.currentPage = page;
-
-    this.filterMenu.onPaginationChange();
+    this.filterMenu.onPaginationChange(page);
   }
 
   public filteredProjectsChanged(result): void {
