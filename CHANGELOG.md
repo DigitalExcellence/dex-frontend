@@ -17,6 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 - Fixed pagination project overview - [#564](https://github.com/DigitalExcellence/dex-frontend/issues/564)
+- Fixed Session TimeOut input lost - [#559](https://github.com/DigitalExcellence/dex-frontend/issues/559)
 
 ### Security
 
