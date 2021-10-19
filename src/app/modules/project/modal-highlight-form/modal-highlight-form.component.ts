@@ -52,7 +52,6 @@ export class ModalHighlightFormComponent implements OnInit, AfterViewInit {
 
   @ViewChild(FileUploaderComponent) fileUploader: FileUploaderComponent;
 
-
   public highlightProjectForm: FormGroup;
   public dateFieldsEnabled = true;
   public validationErrorMessage: string = null;
