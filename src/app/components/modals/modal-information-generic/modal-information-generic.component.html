@@ -1,0 +1,16 @@
+<div class="modal-information-container">
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+  </button>
+  <div class="modal-body">
+      <h2>{{titleText}}</h2>
+      <p [innerHTML]="mainText"></p>
+      <div class="row">
+          <div class="col-12 modal-buttons">
+              <button type="button" class="cancel" (click)="bsModalRef.hide()">{{secondaryButtonText}}</button>
+              <button type="button" class="primary" (click)="onClickCta()">{{ctaButtonText}}</button>
+          </div>
+      </div>
+
+  </div>
+</div>

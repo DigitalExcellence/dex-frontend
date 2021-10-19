@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-12 container-transfer-ownership">
+    <div *ngIf="isLoading; else loaded">
+      <h1>Loading...</h1>
+    </div>
+    <ng-template #loaded [ngSwitch]="replyStatus">
+      <h1 *ngSwitchCase="200">Success</h1>
+      <h1 *ngSwitchCase="400">Error 400 Bad Request</h1>
+      <h1 *ngSwitchCase="404">Error 404 Not Found</h1>
+      <p>{{reply}}</p>
+    </ng-template>
+    <button class="primary" routerLink="/home">Go back to home</button>
+  </div>
+</div>
