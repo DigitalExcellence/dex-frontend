@@ -1,0 +1,17 @@
+@import "assets/styles/variables";
+
+.container-transfer-ownership {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+
+  button{
+    margin-top: 30px;
+    width: 250px;
+  }
+
+  a {
+    color: $accent-color-red-primary;
+  }
+}

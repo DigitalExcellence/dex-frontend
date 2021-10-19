@@ -24,9 +24,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ##  Release v.1.7.0-beta - 8-10-2021
 
 ### Added
-- Added pagination to own projects page. [#526](https://github.com/DigitalExcellence/dex-frontend/issues/526)
+- Pagination to own projects page. [#526](https://github.com/DigitalExcellence/dex-frontend/issues/526)
 - Back button to add project wizard - [#563](https://github.com/DigitalExcellence/dex-frontend/issues/563)
-- Fixed the wizard long description text area to wrap words. - [#562](https://github.com/DigitalExcellence/dex-frontend/issues/562)
+- Frontend implementation of transfer project ownership - [#581](https://github.com/DigitalExcellence/dex-frontend/issues/581)
+- Option to remove a previously uploaded icon to edit page and wizard[#482](https://github.com/DigitalExcellence/dex-frontend/issues/482)
 
 ### Changed
 - Projects overview not sorting on Likes High > Low [#557](https://github.com/DigitalExcellence/dex-frontend/issues/557)
@@ -39,7 +40,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 - Highlight project modal, not dissapearing when clicking out of it.[#569](https://github.com/DigitalExcellence/dex-frontend/issues/569)
 - Project filter is not cleared anymore after editing project. [#561](https://github.com/DigitalExcellence/dex-frontend/issues/561)
-- Added option to remove a previously uploaded icon to edit page and wizard[#482](https://github.com/DigitalExcellence/dex-frontend/issues/482)
+- The wizard long description text area to wrap words. - [#562](https://github.com/DigitalExcellence/dex-frontend/issues/562)
 
 ### Security
 

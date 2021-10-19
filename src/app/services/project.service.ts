@@ -38,7 +38,7 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
 
   @Output() projectUpdated$: EventEmitter<number> = new EventEmitter();
 
-  get(id: number): Observable<Project> {
+  public get(id: number): Observable<Project> {
     return super.get(id)
       .pipe(
         map(project => {
@@ -58,7 +58,25 @@ export class ProjectService extends HttpBaseService<Project, ProjectAdd, Project
         ));
   }
 
-  private addLikes(project): Promise<Project> {
+  public initiateTransferProjectOwnership(projectId: number, potentialNewOwnerUserEmail: string): Observable<any> {
+    return this.http.post(`${this.url}/transfer/${projectId}`, '',
+      {responseType: 'text', params: {potentialNewOwnerUserEmail: potentialNewOwnerUserEmail}}
+    );
+  }
+
+  public processTransferProjectOwnership(transferGuid: string, isOwnerMail: boolean, acceptedRequest: boolean): Observable<any> {
+    return this.http.get(`${this.url}/transfer/process/${transferGuid}/${isOwnerMail}/${acceptedRequest}`, {responseType: 'text', observe: 'response'});
+  }
+
+  public checkProjectHasTransferRequest(projectId: number): Observable<any> {
+    return this.http.get(`${this.url}/transfer/check/${projectId}`);
+  }
+
+  public deleteTransferRequest(transferGuid: string): Observable<any> {
+    return this.http.delete(`${this.url}/transfer/${transferGuid}`, {responseType: 'text'});
+  }
+
+  private addLikes(project: any): Promise<Project> {
     return this.authService.getBackendUser()
       .then(currentUser => {
         project.likeCount = project.likes?.length ? project.likes.length : 0;
