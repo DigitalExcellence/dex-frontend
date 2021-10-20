@@ -20,7 +20,7 @@ import { WizardComponent } from './wizard/wizard.component';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ExternalSource } from 'src/app/models/domain/external-source';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
@@ -143,7 +143,12 @@ export class MainComponent implements OnInit {
    * Methods which creates the wizard modal
    */
   private createWizardModal() {
-    this.modalRef = this.modalService.show(WizardComponent, {animated: true});
+    const modalConfig: ModalOptions = {
+      animated: true,
+      ignoreBackdropClick: true,
+      keyboard: false
+    };
+    this.modalRef = this.modalService.show(WizardComponent, modalConfig);
     this.modalRef.setClass('wizard-modal');
   }
 
