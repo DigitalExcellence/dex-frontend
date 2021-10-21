@@ -62,7 +62,7 @@
     @include media-breakpoint-up(md) {
       display: grid !important;
       gap: 10px;
-      grid-template-columns: auto 1fr auto;
+
       .search-bar-mobile {
         display: none;
       }
