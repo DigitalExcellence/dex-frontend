@@ -62,7 +62,7 @@
     @include media-breakpoint-up(md) {
       display: grid !important;
       gap: 10px;
-      grid-template-columns: auto 1fr 200px;
+      grid-template-columns: auto 1fr auto;
       .search-bar-mobile {
         display: none;
       }
@@ -179,6 +179,7 @@
     align-items: center;
     margin-left: auto;
     margin-right: 24px;
+
     @include media-breakpoint-down(sm) {
       margin-left: 0;
     }
@@ -190,6 +191,15 @@
     .profile-picture {
       width: 30px;
       border-radius: 50%;
+    }
+
+    .profile-name {
+      display: inline-block;
+      vertical-align: middle;
+      white-space: nowrap;
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 

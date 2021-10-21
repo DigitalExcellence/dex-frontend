@@ -17,7 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 - Fixed pagination project overview - [#564](https://github.com/DigitalExcellence/dex-frontend/issues/564)
-- Fixed the navbar layout + smooth loading animation - [#593](https://github.com/DigitalExcellence/dex-frontend/issues/593)
+- Fixed the navbar for longer names, adjusted the loading animation to be smooth. - [#593](https://github.com/DigitalExcellence/dex-frontend/issues/593)
 ### Security
 
 ##  Release v.1.7.0-beta - 8-10-2021
