@@ -30,6 +30,9 @@
     <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
   </div>
 </div>
+<div *ngIf="projectName.errors?.maxlength && projectName.dirty" class="text-danger">
+    Project name should be less than {{ projectName.errors.maxlength.requiredLength }} characters
+</div>
 <div class="image-wrapper">
   <img alt="name svg" src="/assets/images/wizard/name.svg"/>
 </div>

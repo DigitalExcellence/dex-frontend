@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
 import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { WizardService } from 'src/app/services/wizard.service';
@@ -30,7 +30,7 @@ export class ProjectNameComponent extends WizardStepBaseComponent implements OnI
   /**
    * Form fields
    */
-  public projectName = new FormControl('');
+  public projectName = new FormControl('', Validators.maxLength(75));
   /**
    * Remembers if project-name is the first step in the current wizard
    */
