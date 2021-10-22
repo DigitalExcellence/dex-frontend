@@ -426,9 +426,6 @@
       <option name="SPACES_WITHIN_IMPORTS" value="true" />
       <option name="BLACKLIST_IMPORTS" value="rxjs/Rx" />
     </TypeScriptCodeStyleSettings>
-    <XML>
-      <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
-    </XML>
     <codeStyleSettings language="HTML">
       <indentOptions>
         <option name="SMART_TABS" value="true" />

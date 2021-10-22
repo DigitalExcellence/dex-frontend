@@ -21,7 +21,7 @@
   <header *ngIf="!displayContentWithoutLayout" class="header header-6 navbar navbar-expand-md navbar-light">
     <div class="branding">
       <span class="title"
-        ><a aria-label="Back to the Homepage" routerLink=""><img alt="" loading="lazy" src="assets/images/dex-logo-dark-orange.png" /></a
+      ><a aria-label="Back to the Homepage" routerLink=""><img alt="" loading="lazy" src="assets/images/dex-logo-dark-orange.png"/></a
       ></span>
       <p (click)="onClickHeaderBetaText()" class="beta-text">Beta</p>
     </div>
@@ -48,11 +48,12 @@
         <div *ngIf="isAuthenticated" class="profile">
           <div class="btn-group profile-dropdown w-100" dropdown>
             <button aria-controls="dropdown-basic" class="btn dropdown-toggle profile-dropdown" dropdownToggle id="button-basic" type="button">
-              {{ name }} <img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png" />
+              <span class="profile-name">{{ name }}</span>
+              <img alt="" class="profile-picture" loading="lazy" src="assets/images/profile-placeholder.png"/>
               <span class="caret"></span>
             </button>
             <ul *dropdownMenu aria-labelledby="button-basic" class="dropdown-menu" id="dropdown-basic" role="menu">
-              <li role="menuitem"> <a class="dropdown-item" routerLink="user/projects">My Projects</a></li>
+              <li role="menuitem"><a class="dropdown-item" routerLink="user/projects">My Projects</a></li>
               <li role="menuitem"><a (click)="onClickSignout()" class="dropdown-item">Sign Out</a></li>
 
             </ul>
@@ -93,10 +94,10 @@
   </div>
 
   <svg class="background" viewBox="0 0 355.4 374.9" xmlns="http://www.w3.org/2000/svg">
-    <polygon fill="#e85b3f" points="240.9 166 347.7 0 245.2 0 188.7 92.5 240.9 166" />
+    <polygon fill="#e85b3f" points="240.9 166 347.7 0 245.2 0 188.7 92.5 240.9 166"/>
     <polygon
-      fill="#1d1d1b"
-      points="230.9 181 215.8 159.8 112.1 0 5.3 0 122.1 185.3 0 374.9 108.3 374.9 176.7 258.7 246.2 374.9 355.4 374.9 230.9 181"
+        fill="#1d1d1b"
+        points="230.9 181 215.8 159.8 112.1 0 5.3 0 122.1 185.3 0 374.9 108.3 374.9 176.7 258.7 246.2 374.9 355.4 374.9 230.9 181"
     />
   </svg>
 
