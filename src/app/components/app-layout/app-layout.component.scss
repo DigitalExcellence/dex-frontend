@@ -35,6 +35,7 @@
   .right {
     display: flex;
   }
+
   .header-nav {
     display: flex;
 
@@ -52,18 +53,16 @@
   }
 
   .content {
+    grid-template-columns: auto 1fr auto;
     @include media-breakpoint-down(sm) {
       .search-bar {
         display: none;
       }
     }
-    @include media-breakpoint-down(md) {
-      grid-template-columns: auto 1fr auto !important;
-    }
     @include media-breakpoint-up(md) {
       display: grid !important;
       gap: 10px;
-      grid-template-columns: auto 1fr 200px;
+
       .search-bar-mobile {
         display: none;
       }
@@ -109,6 +108,7 @@
       width: 90px;
     }
   }
+
   .navbar-toggler {
     border: none;
   }
@@ -160,8 +160,9 @@
     -khtml-user-select: none; /* Konqueror HTML */
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome, Edge, Opera and Firefox */
   }
 
   .account {
@@ -177,7 +178,7 @@
     display: flex;
     align-items: center;
     margin-left: auto;
-    margin-right: 24px;
+
     @include media-breakpoint-down(sm) {
       margin-left: 0;
     }
@@ -189,6 +190,15 @@
     .profile-picture {
       width: 30px;
       border-radius: 50%;
+    }
+
+    .profile-name {
+      display: inline-block;
+      vertical-align: middle;
+      white-space: nowrap;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
@@ -339,6 +349,10 @@
 
   a {
     cursor: pointer;
+
+    &:active {
+      background-color: $light-mode-grey-secondary;
+    }
   }
 
   @include media-breakpoint-down(sm) {
