@@ -17,8 +17,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 - Fixed pagination project overview - [#564](https://github.com/DigitalExcellence/dex-frontend/issues/564)
-- Fixed the navbar for longer names, adjusted the loading animation to be smooth. - [#593](https://github.com/DigitalExcellence/dex-frontend/issues/593)
 - Added a close button onto the add project modal, ignore background click - [#558](https://github.com/DigitalExcellence/dex-frontend/issues/558)
+- Fixed input being lost upon session timeout - [#559](https://github.com/DigitalExcellence/dex-frontend/issues/559)
+- Fixed the navbar for longer names, adjusted the loading animation to be smooth. - [#593](https://github.com/DigitalExcellence/dex-frontend/issues/593)
 
 ### Security
 
