@@ -68,7 +68,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
   h2 {
     font-size: 3em;
     color: $accent-color-red-primary !important;

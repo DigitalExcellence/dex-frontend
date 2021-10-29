@@ -17,6 +17,7 @@
 import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
 import { WizardPage } from 'src/app/models/domain/wizard-page';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
@@ -46,7 +47,8 @@ export class WizardComponent implements OnInit {
       private projectService: ProjectService,
       private alertService: AlertService,
       private location: LocationStrategy,
-      private authService: AuthService) {
+      private authService: AuthService,
+      public bsModalRef: BsModalRef) {
     // check if back or forward button is pressed and prevent it.
     this.registerNavigationListener();
   }
