@@ -16,7 +16,12 @@
    If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
 
  -->
-<div class="form-page-container">
+ <div class="modal-header">
+  <button class="btn-close close pull-right" (click)="bsModalRef.hide()">
+    <span>&times;</span>
+  </button>
+ </div>
+ <div class="form-page-container">
   <app-step-header></app-step-header>
   <div class="step-page-container">
     <div class="form-step">
