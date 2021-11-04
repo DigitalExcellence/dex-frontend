@@ -24,6 +24,7 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { DeXHttpErrorResponse } from 'src/app/models/internal/dex-http-error-response';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 
 /**
@@ -61,6 +62,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     {endpoint: 'highlight/project/', method: HttpMethods.GET},
     {endpoint: 'wizard', method: HttpMethods.GET},
     {endpoint: 'project/search/autocomplete', method: HttpMethods.GET},
+    {endpoint: 'project/transfer', method: HttpMethods.GET},
+    {endpoint: 'project/transfer', method: HttpMethods.POST}
   ];
 
   private readonly ignoredStatusCodes: number[] = [
@@ -68,7 +71,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ];
 
   constructor(
-      private alertService: AlertService
+      private alertService: AlertService,
+      private authService: AuthService
   ) { }
 
   /**
@@ -110,10 +114,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     'Please check your internet connection'));
               } else {
                 // API Could be reached but returned error
-                // tslint:disable-next-line: max-line-length
-                this.alertService.pushAlert(this.createErrorAlertConfig(httpErrorResponse.error.title, httpErrorResponse.error.detail));
+                this.alertService.pushAlert(this.createErrorAlertConfig(httpErrorResponse.error.title,
+                    httpErrorResponse.error.detail));
               }
-
+              // Api returned unauthorized.
+              if (httpErrorResponse.status === 401) {
+                if (this.authService.isUserExpired()) {
+                  this.authService.silentLogin();
+                  return EMPTY;
+                }
+                return EMPTY;
+              }
               // Return if the status codes are ignored.
               if (this.ignoredStatusCodes.includes(httpErrorResponse.status)) {
                 return EMPTY;
@@ -132,20 +143,20 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         );
   }
 
-    /**
-     * Method to return the default error AlertConfig for HttpInterceptor
-     * @param preMessage the alert message prefix.
-     * @param mainMessage the alert message main content.
-     */
+  /**
+   * Method to return the default error AlertConfig for HttpInterceptor
+   * @param preMessage the alert message prefix.
+   * @param mainMessage the alert message main content.
+   */
   private createErrorAlertConfig(preMessage: string, mainMessage: string): AlertConfig {
-        const alertConfig: AlertConfig = {
-          type: AlertType.danger,
-          preMessage: preMessage,
-          mainMessage: mainMessage,
-          dismissible: true,
-          autoDismiss: true,
-          timeout: this.alertService.defaultTimeout
-        };
-        return alertConfig;
-    }
+    const alertConfig: AlertConfig = {
+      type: AlertType.danger,
+      preMessage: preMessage,
+      mainMessage: mainMessage,
+      dismissible: true,
+      autoDismiss: true,
+      timeout: this.alertService.defaultTimeout
+    };
+    return alertConfig;
+  }
 }

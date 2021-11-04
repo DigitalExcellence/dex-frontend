@@ -44,7 +44,7 @@ export class AuthService {
   private backenduser: BackendUser | null;
 
   constructor(
-    private userService: UserService
+      private userService: UserService
   ) {
     this.manager = new UserManager(getClientSettings());
 
@@ -69,7 +69,7 @@ export class AuthService {
    */
   public login(providerSchema?: string): Promise<void> {
     if (providerSchema != null) {
-      this.manager.settings.extraQueryParams = { 'provider': providerSchema };
+      this.manager.settings.extraQueryParams = {'provider': providerSchema};
     }
     return this.manager.signinRedirect();
   }
@@ -128,6 +128,31 @@ export class AuthService {
    */
   public isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
+  }
+
+  /**
+   * Checks if the users token is expired.
+   * @returns true if expired.
+   */
+  public isUserExpired(): boolean {
+    return this.user.expired;
+  }
+
+  /**
+   * Silent login, for use of the refresh token
+   */
+  public silentLogin(): void {
+    this.manager.signinSilent().then(() => {
+      this.manager.getUser().then((user) => {
+        this.user = user;
+        if (this.isAuthenticated()) {
+          this.getBackendUser().then((backendUser) => {
+            this.backenduser = backendUser;
+            this.$user.next(backendUser);
+          });
+        }
+      }).catch(err => console.log(err));
+    });
   }
 
   /**

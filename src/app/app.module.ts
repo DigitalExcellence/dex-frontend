@@ -21,6 +21,9 @@ import { AppLayoutComponent } from './components/app-layout/app-layout.component
 import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ModalDeleteGenericComponent } from './components/modals/modal-delete-generic/modal-delete-generic.component';
+import { ModalInformationGenericComponent } from './components/modals/modal-information-generic/modal-information-generic.component';
+import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from './components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
+import { ModalPotentialNewOwnerUserEmailComponent } from './components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SearchComponent } from './components/search/search.component';
@@ -29,6 +32,7 @@ import { TokenInterceptor } from './interceptors/auth.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http.interceptor';
 import { HomeModule } from './modules/home/home.module';
 import { ProjectModule } from './modules/project/project.module';
+import { TransferOwnershipComponent } from './modules/project/transfer-ownership/transfer-ownership.component';
 import { SharedModule } from './modules/shared/shared.module';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -41,7 +45,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { QuillModule } from 'ngx-quill';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +55,11 @@ import { QuillModule } from 'ngx-quill';
     PrivacyPolicyComponent,
     NotFoundComponent,
     ModalDeleteGenericComponent,
-    SearchComponent
+    SearchComponent,
+    ModalPotentialNewOwnerUserEmailComponent,
+    ModalPotentialNewOwnerUserEmailConfirmationComponent,
+    TransferOwnershipComponent,
+    ModalInformationGenericComponent
   ],
   imports: [
     BsDropdownModule.forRoot(),

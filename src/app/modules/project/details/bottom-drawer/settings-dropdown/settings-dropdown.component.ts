@@ -4,6 +4,9 @@ import { BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ModalDeleteGenericComponent } from 'src/app/components/modals/modal-delete-generic/modal-delete-generic.component';
+import { ModalInformationGenericComponent } from 'src/app/components/modals/modal-information-generic/modal-information-generic.component';
+import { ModalPotentialNewOwnerUserEmailConfirmationComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email-confirmation/modal-potential-new-owner-user-email-confirmation.component';
+import { ModalPotentialNewOwnerUserEmailComponent } from 'src/app/components/modals/modal-potential-new-owner-user-email/modal-potential-new-owner-user-email.component';
 import { Highlight } from 'src/app/models/domain/highlight';
 import { Project } from 'src/app/models/domain/project';
 import { scopes } from 'src/app/models/domain/scopes';
@@ -34,6 +37,11 @@ export class SettingsDropdownComponent implements OnInit {
   public displayEditButton = false;
   public displayDeleteProjectButton = false;
   public displayHighlightButton = false;
+  public displayTransferProjectOwnershipButton = false;
+
+  public potentialNewOwnerUserEmail = '';
+  private transferGuid: string = null;
+
 
   constructor(private projectService: ProjectService,
               private authService: AuthService,
@@ -171,6 +179,106 @@ export class SettingsDropdownComponent implements OnInit {
   }
 
   /**
+   * Method triggered on transfer ownership button pressed.
+   * Opens modal depending on if the project has a existing transfer request.
+   */
+  public onClickTransferOwnership() {
+    this.projectService.checkProjectHasTransferRequest(this.project.id).subscribe(guid => {
+      this.transferGuid = guid;
+      this.showTransferRequestStatusModal();
+    }, () => {
+      this.showPotentialNewOwnerUserEmailModal();
+    });
+  }
+
+  /**
+   * Method for showing the potential new owner user email modal.
+   */
+  private showPotentialNewOwnerUserEmailModal() {
+    const modalRefEmail = this.modalService.show(ModalPotentialNewOwnerUserEmailComponent);
+    modalRefEmail.content.potentialNewOwnerUserEmailEvent.subscribe((potentialNewOwnerUserEmail: string) => {
+      this.potentialNewOwnerUserEmail = potentialNewOwnerUserEmail;
+      this.showPotentialNewOwnerUserEmailConfirmationModal();
+    });
+  }
+
+  /**
+   * Method for showing the project ownership transfer request status with
+   * possibility to cancel this request.
+   */
+  private showTransferRequestStatusModal() {
+    const modalOptions: ModalOptions = {
+      initialState: {
+        titleText: 'Transfer ownership request',
+        mainText: `Your transfer ownership request for this project is waiting for acceptence or denial.`,
+        ctaButtonText: 'Cancel request',
+        secondaryButtonText: 'Go back'
+      }
+    };
+    const informationRefModal = this.modalService.show(ModalInformationGenericComponent, modalOptions);
+    informationRefModal.content.cta.subscribe(() => {
+      this.showDeleteTransferRequestModal();
+    });
+  }
+
+  /**
+   * Method for showing the potential new owner user email confirmation modal.
+   */
+  private showDeleteTransferRequestModal() {
+    const modalOptions: ModalOptions = {
+      initialState: {
+        titleText: 'Cancel transfer request',
+        mainText: `Are you sure you want to cancel the transfer request for this project, ${this.project.name}?`,
+      }
+    };
+    const deleteRefModal = this.modalService.show(ModalDeleteGenericComponent, modalOptions);
+    deleteRefModal.content.remove.subscribe(() => {
+      this.projectService.deleteTransferRequest(this.transferGuid).subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          preMessage: '',
+          mainMessage: 'Transfer ownership request canceled',
+          dismissible: true,
+          autoDismiss: true,
+          timeout: 10000
+        };
+        this.alertService.pushAlert(alertConfig);
+      });
+    });
+  }
+
+  /**
+   * Method for asking user to confirm filled in potential new owner user email.
+   */
+  private showPotentialNewOwnerUserEmailConfirmationModal() {
+    const email = this.potentialNewOwnerUserEmail;
+    const modalRefEmailConfirm = this.modalService.show(ModalPotentialNewOwnerUserEmailConfirmationComponent, {initialState: {email}});
+    modalRefEmailConfirm.content.didConfirmEvent.subscribe(() => {
+      this.projectService.initiateTransferProjectOwnership(this.project.id, this.potentialNewOwnerUserEmail).subscribe(() => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.success,
+          preMessage: '',
+          mainMessage: 'Transfer ownership request confirmation has been sent to your email inbox',
+          dismissible: true,
+          autoDismiss: true,
+          timeout: 10000
+        };
+        this.alertService.pushAlert(alertConfig);
+      }, () => {
+        const alertConfig: AlertConfig = {
+          type: AlertType.danger,
+          preMessage: '',
+          mainMessage: 'Email not sent, make sure you fill in the right email',
+          dismissible: true,
+          autoDismiss: true,
+          timeout: 10000
+        };
+        this.alertService.pushAlert(alertConfig);
+      });
+    });
+  }
+
+  /**
    * Method to display the edit project button based on the current user and the project user.
    * If the user either has the ProjectWrite scope or is the creator of the project
    */
@@ -178,12 +286,14 @@ export class SettingsDropdownComponent implements OnInit {
     if (this.currentUser == null || this.project == null || this.project.user == null) {
       this.displayEditButton = false;
       this.displayDeleteProjectButton = false;
+      this.displayTransferProjectOwnershipButton = false;
       return;
     }
     if (this.project.user.id === this.currentUser.id ||
         this.authService.currentBackendUserHasScope(scopes.AdminProjectWrite)) {
       this.displayEditButton = true;
       this.displayDeleteProjectButton = true;
+      this.displayTransferProjectOwnershipButton = true;
     }
   }
 

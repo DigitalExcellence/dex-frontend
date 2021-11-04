@@ -17,6 +17,7 @@
 import { EditComponent } from './details/edit/edit.component';
 import { EmbedComponent } from './embed/embed.component';
 import { OverviewComponent } from './overview/overview.component';
+import { TransferOwnershipComponent } from './transfer-ownership/transfer-ownership.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'details/:id', component: OverviewComponent},
   {path: 'edit/:id', component: EditComponent},
   {path: 'embed/:id', component: EmbedComponent},
+  {path: 'transferownership/:transferGuid/:isOwnerMail/:acceptedRequest', component: TransferOwnershipComponent},
   {path: 'add', loadChildren: () => import('./add/add.module').then((m) => m.AddModule)},
 ];
 

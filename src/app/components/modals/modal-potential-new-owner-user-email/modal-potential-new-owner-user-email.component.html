@@ -16,23 +16,20 @@
    If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
 
  -->
-<h2 class="step-header">{{step.name}}</h2>
-<p class="step-description">{{step.description}}</p>
-<div class="inline-input">
-  <input
-      (keydown.enter)="onClickNext()"
-      [formControl]="projectName"
-      placeholder="Project name"
+<div id="overlay" (click)="this.bsModalRef.hide();"></div>
+
+<div class="modal-potential-new-owner-user-email-container">
+  <div class="modal-body">
+    <input
+      [(ngModel)]="potentialNewOwnerUserEmail"
+      placeholder="New project owner's email"
       required
-      type="text"/>
-  <button (click)="onClickNext()" [disabled]="!projectName.valid" class="form-continue-btn">Next</button>
-  <div *ngIf="!isFirstStep">
-    <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
+      type="email"/>
+    <div class="row">
+      <div class="col-12 modal-buttons">
+        <button type="button" class="cancel" (click)="bsModalRef.hide()">Cancel</button>
+        <button type="button" class="primary" (click)="onClickContinue()">Continue</button>
+      </div>
+    </div>
   </div>
-</div>
-<div *ngIf="projectName.errors?.maxlength && projectName.dirty" class="text-danger">
-    Project name should be less than {{ projectName.errors.maxlength.requiredLength }} characters
-</div>
-<div class="image-wrapper">
-  <img alt="name svg" src="/assets/images/wizard/name.svg"/>
 </div>
