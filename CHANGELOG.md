@@ -5,27 +5,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-##  Release v.1.8.0-beta - 11-4-2021
-
-### Added
-- Transfer ownership sendgrid templates [#589](https://github.com/DigitalExcellence/dex-frontend/issues/589)
-- Design + implement Project ownership transfer page or modal. [#581](https://github.com/DigitalExcellence/dex-frontend/issues/581)
-- added mobile styling to overlay [#586](https://github.com/DigitalExcellence/dex-frontend/pull/586)
- 
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-- Fixed pagination project overview - [#564](https://github.com/DigitalExcellence/dex-frontend/issues/564)
-- Added a close button onto the add project modal, ignore background click - [#558](https://github.com/DigitalExcellence/dex-frontend/issues/558)
-- Fixed input being lost upon session timeout - [#559](https://github.com/DigitalExcellence/dex-frontend/issues/559)
-- Fixed the navbar for longer names, adjusted the loading animation to be smooth. - [#593](https://github.com/DigitalExcellence/dex-frontend/issues/593) 
-
-### Security
-
 ##  Release v.1.7.0-beta - 8-10-2021
 
 ### Added
