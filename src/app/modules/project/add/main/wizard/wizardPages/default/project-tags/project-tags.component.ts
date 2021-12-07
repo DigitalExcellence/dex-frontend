@@ -28,12 +28,24 @@ import { environment } from 'src/environments/environment';
 })
 export class ProjectTagsComponent extends WizardStepBaseComponent implements OnInit {
 
-  public helperQuestions =  [
-    'What programming languages do you use? (C#, JavaScript, Python)',
-    'What themes does your project have? (Glow, Education, Health)',
-    'What workfield does your project relate to? (UX, Software, Technology, Infrastructure)',
-    'Which competence level is the project? (Beginner, Intermediate, Expert)'
+  public suggestionQuestions =  [
+    'What programming languages do you use?',
+    'What themes does your project have?',
+    'What workfield does your project relate to?',
+    'Which competence level is the project?'
   ];
+  public suggestionExamples =  [
+    'C#, JavaScript, Python',
+    'Glow, Education, Health',
+    'UX, Software, Technology, Infrastructure',
+    'Beginner, Intermediate, Expert'
+  ];
+
+  public tags = ['C#', 'JavaScript', 'UI/UX', 'Open Innovation'];
+
+  public recommended = ['Angular', 'Smart Mobile'];
+
+  public questionIndex = 0;
 
   /**
   * Hold a copy of the project temporarily to prevent the service from listening to every change
@@ -48,6 +60,18 @@ export class ProjectTagsComponent extends WizardStepBaseComponent implements OnI
     this.project = this.wizardService.builtProject;
   }
 
+    /**
+ * Method to switch between different suggestion-questions
+ */
+  public nextSuggestion() {
+    if ( this.questionIndex + 1 >= this.suggestionQuestions.length){
+      this.questionIndex = 0;
+    } else {
+      this.questionIndex++;
+    }
+  }
+
+
   /**
  * Method which triggers when the button to the next page is pressed
  */
@@ -55,4 +79,5 @@ export class ProjectTagsComponent extends WizardStepBaseComponent implements OnI
     // this.wizardService.updateProject({ ...this.project, collaborators: this.collaboratorList });
     super.onClickNext();
   }
+
 }

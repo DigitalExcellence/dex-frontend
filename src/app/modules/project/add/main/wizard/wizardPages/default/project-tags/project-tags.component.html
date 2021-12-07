@@ -19,20 +19,37 @@
 <h2 class="step-header">{{step.name}}</h2>
 <p class="step-description">{{step.description}}</p>
 
-<h3>What tags would you liek to add?</h3>
-<p>Tags can help people find your project</p>
-<div class=tag-input-box>
-    <p id="tag-helper">
-        {{this.helperQuestions[0]}}
-    </p>
+<div class="wrapper">
+<div class='left' id=tag-input-wrapper>
+    <div id=suggestions>
+        <p id="question">
+            E.g. {{this.suggestionQuestions[questionIndex]}} <br> <span class='example'>{{this.suggestionExamples[questionIndex]}}</span>
+        </p>
+        <a class='skip' (click)='nextSuggestion()'>Next Suggestion</a>
+    </div>
 
-    <input type="text">
-    
+    <input type="text" placeholder="type here...">
+
+    <div id='tags-wrapper'>
+        <div class='tag-group'>
+            <a *ngFor="let tag of tags" class="tag">
+                {{tag}} <button>&times;</button>
+            </a>
+        </div>
+        <div class="divider"></div>
+        <div class='tag-group recommended'>
+            <a *ngFor="let tag of recommended" class="tag recommended">
+                {{tag}} <button>&times;</button>
+            </a>
+        </div>
+    </div>
+
 </div>
-
-<div class="buttons">
+<div class='right'>
+    <img alt="" src="/assets/images/wizard/tags.svg"/>
     <div class="inline-input">
         <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
-        <button (click)="onClickNext()" class="form-continue-btn">{{isOptional ? "Skip" : "Next"}}</button>
-    </div>
+        <button (click)="onClickNext()" class="form-continue-btn">Next</button>
+      </div>
+</div>
 </div>
