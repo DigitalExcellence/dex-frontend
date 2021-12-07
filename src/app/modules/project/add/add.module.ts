@@ -27,6 +27,7 @@ import { ProjectIconComponent } from './main/wizard/wizardPages/default/project-
 import { ProjectImagesComponent } from './main/wizard/wizardPages/default/project-images/project-images.component';
 import { ProjectLinkComponent } from './main/wizard/wizardPages/default/project-link/project-link.component';
 import { ProjectNameComponent } from './main/wizard/wizardPages/default/project-name/project-name.component';
+import { ProjectTagsComponent } from './main/wizard/wizardPages/default/project-tags/project-tags.component';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -48,6 +49,7 @@ import { ProjectModule } from 'src/app/modules/project/project.module';
     ProjectCallToActionComponent,
     ProjectCategoriesComponent,
     ProjectImagesComponent,
+    ProjectTagsComponent,
 
   ],
   imports: [
