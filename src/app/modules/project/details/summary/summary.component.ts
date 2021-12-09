@@ -22,6 +22,9 @@ export class SummaryComponent {
   @Input() onLike: Subject<boolean>;
   @Input() animationTriggered: boolean;
 
+  //temporary string of tags
+  public tags = ["tag", "tag", "tag", "tag", "tag", "tag"]
+
   constructor(
       private likeService: LikeService,
       private alertService: AlertService,

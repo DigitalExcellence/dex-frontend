@@ -16,7 +16,6 @@
     justify-items: center;
   }
 
-
   h2 {
     margin: 0;
     display: block;
@@ -168,31 +167,10 @@
   margin-top: 0;
 }
 
-.project-categories-tags {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
-  .project-categories {
+.project-tags {
+  margin-top: 10px;
+  
+  .tag-group {
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-
-    .category {
-      text-decoration: none;
-      border-radius: 999px;
-      background-color: $accent-color-red-primary;
-      color: $white;
-      padding: 3px 20px;
-      box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
-      margin: 5px 5px 5px 0;
-      font-size: 12px;
-    }
-  }
-
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    color: $light-mode-grey-secondary;
   }
 }
