@@ -27,18 +27,9 @@
     </div>
     <div class="divider"></div>
     <div class="filter-group">
-      <!-- <h4>Categories</h4>
-      <div class="project-categories">
-        <ng-container *ngFor="let category of categories">
-          <label class="container">
-            <input (change)="onCategoryChange(category.id)" [name]="category.name" [ngModel]="category.selected" type="checkbox">
-            <span class="checkmark"></span>
-            <span>{{category.name}}</span>
-          </label>
-        </ng-container>
-      </div> -->
       <h4>Tags</h4>
       <div class="project-tags">
+        <input type="text" placeholder="search for a tag">
         <div class='tag-group'>
           <a *ngFor="let tag of tags" class="tag with-button">
             {{tag}} <button>&times;</button>

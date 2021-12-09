@@ -121,12 +121,20 @@
 
     .project-tags{
       background-color: $light-mode-grey-thertiary;
-      border-radius: 20px;
-      padding: 5px 10px;
+      border-radius: 15px;
+      padding: 10px 10px;
       max-width: 200px;
       min-height: 30vh;
       display: flex;
       flex-direction: column;
+
+      input{
+        border-radius: 6px;
+        outline: none;
+        padding: 4px;
+        box-shadow: $inner-shadow;
+        border: 1px solid $light-mode-grey-thertiary;
+      }
 
       .tag-group{
         display: flex;

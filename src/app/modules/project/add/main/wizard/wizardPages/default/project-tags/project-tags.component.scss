@@ -87,6 +87,7 @@
     input {
         flex: 0 1 auto;
         background-color: white;
+        box-shadow: $inner-shadow;
     }
 
     #tags-wrapper {
