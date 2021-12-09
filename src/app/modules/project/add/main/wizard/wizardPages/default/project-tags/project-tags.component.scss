@@ -103,32 +103,4 @@
             border-top: 1px solid $light-mode-grey-secondary;
         }
     }
-    .tag {
-        white-space: nowrap;
-        user-select: none;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        text-decoration: none;
-        border-radius: 999px;
-        background-color: $accent-color-red-primary;
-        color: $white;
-        padding: 3px 10px 3px 20px;
-        box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
-        margin: 5px 5px 5px 0;
-        font-size: 12px;
-        &.recommended {
-            background-color: $light-mode-grey-primary;
-            button {
-                transform: rotate(45deg);
-            }
-        }
-        button {
-            padding: 0;
-            background-color: transparent;
-            border: none;
-            color: inherit;
-            font-size: 1.25em;
-        }
-    }
 }

@@ -1,0 +1,68 @@
+/*
+ *
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ *
+ */
+@import "assets/styles/variables";
+
+.tag {
+  //'default' orange tag styling:
+  white-space: nowrap;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 999px;
+  background-color: $accent-color-red-primary;
+  color: $white;
+  padding: 3px 20px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
+  margin: 5px 5px 5px 0;
+  font-size: 12px;
+
+  // padding and button styling when 'add' button is there
+  &.with-button {
+    gap: 12px;
+    padding: 3px 12px 3px 20px;
+
+    button {
+      padding: 0;
+      background-color: transparent;
+      border: none;
+      color: inherit;
+      font-size: 1.25em;
+    }
+  }
+
+  //greyed-out tag styling
+  &.inactive {
+    background-color: $light-mode-grey-primary;
+    button {
+      transform: rotate(45deg);
+    }
+    &:hover {
+      background-color: $light-mode-grey-secondary;
+    }
+  }
+
+  //overwrite default 'a' styles
+  &:hover {
+    background-color: $accent-color-red-secondary;
+    cursor: pointer;
+    color: $white;
+    text-decoration: none;
+  }
+}

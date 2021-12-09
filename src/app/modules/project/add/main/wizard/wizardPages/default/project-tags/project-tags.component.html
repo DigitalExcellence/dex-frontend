@@ -32,13 +32,13 @@
 
     <div id='tags-wrapper'>
         <div class='tag-group'>
-            <a *ngFor="let tag of tags" class="tag">
+            <a *ngFor="let tag of tags" class="tag with-button">
                 {{tag}} <button>&times;</button>
             </a>
         </div>
         <div class="divider"></div>
         <div class='tag-group recommended'>
-            <a *ngFor="let tag of recommended" class="tag recommended">
+            <a *ngFor="let tag of recommended" class="tag inactive with-button">
                 {{tag}} <button>&times;</button>
             </a>
         </div>
