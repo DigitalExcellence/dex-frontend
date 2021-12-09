@@ -6,7 +6,8 @@
       <h4>Sort Options</h4>
       <form class="sort-options-form">
         <label for="asc-desc">Sort options</label>
-        <select (change)="onSortFormValueChange()" [formControl]="sortOptionControl" class="option-select" id="asc-desc">
+        <select (change)="onSortFormValueChange()" [formControl]="sortOptionControl" class="option-select"
+          id="asc-desc">
           <option *ngFor="let sortOption of sortSelectOptions" [ngValue]="sortOption">
             {{ sortOption.viewValue }}
           </option>
@@ -18,14 +19,15 @@
       <h4>Pagination</h4>
       <label>Projects per page</label>
       <select (change)="onPaginationChange()" [formControl]="paginationOptionControl" class="option-select">
-        <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption" class="paginationDropDown">
+        <option *ngFor="let paginationOption of paginationDropDownOptions" [ngValue]="paginationOption"
+          class="paginationDropDown">
           {{ paginationOption.amountOnPage }}
         </option>
       </select>
     </div>
     <div class="divider"></div>
     <div class="filter-group">
-      <h4>Categories</h4>
+      <!-- <h4>Categories</h4>
       <div class="project-categories">
         <ng-container *ngFor="let category of categories">
           <label class="container">
@@ -34,7 +36,20 @@
             <span>{{category.name}}</span>
           </label>
         </ng-container>
+      </div> -->
+      <h4>Tags</h4>
+      <div class="project-tags">
+        <div class='tag-group'>
+          <a *ngFor="let tag of tags" class="tag with-button">
+            {{tag}} <button>&times;</button>
+          </a>
+        </div>
+        <div class='tag-group'>
+          <a *ngFor="let tag of recommended" class="tag with-button inactive">
+            {{tag}} <button>&times;</button>
+          </a>
+          <div class='tag-group'>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>

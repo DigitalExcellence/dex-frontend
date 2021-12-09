@@ -25,6 +25,14 @@ export class FilterMenuComponent implements OnInit {
   @Input() currentPage = 1;
 
   public categories: ProjectCategory[];
+
+   /**
+  * Temporary strings to display as tags
+  * toDo: Fix Connection to backend!
+  */
+  public tags = ['C#', 'JavaScript', 'UI/UX', 'Open Innovation'];
+  public recommended = ['Angular', 'Smart Mobile'];
+
   /**
    * Stores the api response with the paginated projects etc.
    */
