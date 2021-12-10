@@ -31,12 +31,12 @@
       <div class="project-tags">
         <input type="text" placeholder="search for a tag">
         <div class='tag-group'>
-          <a *ngFor="let tag of tags" class="tag with-button">
+          <a *ngFor="let tag of tags" class="tag with-button smaller">
             {{tag}} <button>&times;</button>
           </a>
         </div>
         <div class='tag-group'>
-          <a *ngFor="let tag of recommended" class="tag with-button inactive">
+          <a *ngFor="let tag of recommended" class="tag with-button inactive smaller">
             {{tag}} <button>&times;</button>
           </a>
           <div class='tag-group'>

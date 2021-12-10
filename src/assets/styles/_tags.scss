@@ -19,7 +19,7 @@
 @import "assets/styles/variables";
 
 .tag {
-  //'default' orange tag styling:
+  //default orange tag styling:
   white-space: nowrap;
   user-select: none;
   display: flex;
@@ -28,23 +28,34 @@
   border-radius: 999px;
   background-color: $accent-color-red-primary;
   color: $white;
-  padding: 3px 20px;
+  padding: 4px 22px;
   box-shadow: rgba(0, 0, 0, 0.15) 0 3px 5px;
   margin: 5px 5px 5px 0;
-  font-size: 12px;
+  font-size: 13px;
+  transition: $transition-short;
 
   // padding and button styling when 'add' button is there
   &.with-button {
     gap: 12px;
-    padding: 3px 12px 3px 20px;
+    padding: 4px 12px 4px 22px;
+
+    &.smaller {
+      padding: 2px 8px 2px 12px;
+    }
 
     button {
       padding: 0;
+      margin: 0;
       background-color: transparent;
       border: none;
       color: inherit;
       font-size: 1.25em;
     }
+  }
+
+  &.smaller {
+    font-size: 12px;
+    padding: 2px 8px 2px 8px;
   }
 
   //greyed-out tag styling
@@ -58,11 +69,11 @@
     }
   }
 
-  //overwrite default 'a' styles
+
   &:hover {
     background-color: $accent-color-red-secondary;
     cursor: pointer;
-    color: $white;
+    color: $white;   //overwrite default <a> styles
     text-decoration: none;
   }
 }

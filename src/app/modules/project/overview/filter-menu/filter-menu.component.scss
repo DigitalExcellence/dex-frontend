@@ -9,7 +9,7 @@
   position: sticky;
   top: 0;
   margin: -24px 24px -64px -24px; // override padding from parent element & footer
-  padding: 48px 36px 12px 36px;
+  padding: 36px 36px 12px 36px;
   background-color: white;
   overflow-y: auto;
   direction: rtl; //put scrollbar on the left 
@@ -143,9 +143,6 @@
         &.recommended {
             border-top: 1px solid $light-mode-grey-secondary;
         }
-        .tag{
-          padding: 2px 8px 2px 12px;
-        }
       }
     }
 
@@ -181,5 +178,9 @@
     margin: -24px;
     height: auto;
     position: relative;
+
+     .filter-group .project-tags{
+       max-width: none; //overwrites max-with of 200px;
+     }
   }
 }
