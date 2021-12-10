@@ -55,13 +55,17 @@
       </div>
       <p class="project-short-description">{{ project.shortDescription }}</p>
     </div>
-    <div class="tags">
-      <div
-          (click)="tagClicked($event)"
-          *ngFor="let category of project.categories"
-          class="tag">
-        {{category.name}}
-      </div>
+    <div class="tag-group">
+      <a *ngFor="let tag of displayedTags"
+          class="tag smaller">
+          {{tag}}
+      </a>
+      <a [tooltip]="tagTooltip" class='tag smaller' *ngIf='this.overflowTags.length != 0'>
+        + {{this.overflowTags.length}}
+      </a>
+      <ng-template class='tag-tooltip' #tagTooltip>
+        <p *ngFor="let tag of overflowTags">{{tag}}</p>
+      </ng-template>
     </div>
     <div class="bottom-wrapper">
       <div (click)="likeClicked($event)" class="item">

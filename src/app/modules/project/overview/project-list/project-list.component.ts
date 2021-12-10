@@ -2,7 +2,7 @@ import { Project } from '../../../../models/domain/project';
 import { DetailsComponent } from '../../details/details.component';
 
 import { Location } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.util';
 
@@ -12,7 +12,7 @@ import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.ut
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.scss']
 })
-export class ProjectListComponent implements OnInit {
+export class ProjectListComponent implements OnInit, AfterContentChecked {
   @Input() filteredProjects: Project[];
   @Input() projectsLoading: boolean;
   @Output() projectClicked = new EventEmitter<Project>();
@@ -30,12 +30,17 @@ export class ProjectListComponent implements OnInit {
   public showListView = false;
 
 
-  constructor(private modalUtility: ProjectDetailModalUtility) {
+  constructor(private modalUtility: ProjectDetailModalUtility,
+              private changeDetector: ChangeDetectorRef) {
     this.searchControl = new FormControl('');
   }
 
   ngOnInit(): void {
     this.searchControl.valueChanges.subscribe((value) => this.searchInputChanged.emit(value));
+  }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   /**

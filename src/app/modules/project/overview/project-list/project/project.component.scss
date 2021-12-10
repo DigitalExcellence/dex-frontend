@@ -224,26 +224,17 @@
         text-overflow: ellipsis;
       }
     }
-    .tags {
+    .tag-group {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 18px;
-      .tag {
-        background-color: $accent-color-red-primary;
-        color: white;
-        border-radius: 999px;
-        padding: 2px 10px;
-        font-size: 12px;
-        &.plus {
-          width: 26px;
-          padding: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      }
+      flex-wrap: no-wrap;
+      gap: 3px;
+      padding-bottom: 18px;
+      overflow-x: hidden;
     }
+    .tag-tooltip{
+      transform:translate(0px,-50px)
+    }
+
     .bottom-wrapper {
       display: grid;
       grid-template-columns: 4fr 5fr;

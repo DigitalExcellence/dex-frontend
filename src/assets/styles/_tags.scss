@@ -33,6 +33,11 @@
   margin: 5px 5px 5px 0;
   font-size: 13px;
   transition: $transition-short;
+  
+  &.smaller {
+    font-size: 12px;
+    padding: 2px 12px;
+  }
 
   // padding and button styling when 'add' button is there
   &.with-button {
@@ -51,11 +56,6 @@
       color: inherit;
       font-size: 1.25em;
     }
-  }
-
-  &.smaller {
-    font-size: 12px;
-    padding: 2px 8px 2px 8px;
   }
 
   //greyed-out tag styling
