@@ -29,7 +29,10 @@
     <div class="filter-group">
       <h4>Tags</h4>
       <div class="project-tags">
-        <input type="text" placeholder="search for a tag">
+        <div class='searchbar'>
+          <input type="text" placeholder="search tag" maxlength="100">
+          <button><img alt="" aria-label="Search tag" loading="lazy" src="assets/images/research.svg"/></button>
+        </div>
         <div class='tag-group'>
           <a *ngFor="let tag of tags" class="tag with-button smaller">
             {{tag}} <button>&times;</button>

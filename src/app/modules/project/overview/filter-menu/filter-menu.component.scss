@@ -127,13 +127,32 @@
       min-height: 30vh;
       display: flex;
       flex-direction: column;
-
-      input{
-        border-radius: 6px;
-        outline: none;
-        padding: 4px;
-        box-shadow: $inner-shadow;
-        border: 1px solid $light-mode-grey-thertiary;
+      .searchbar{
+        display: flex;
+        input{
+          border-radius: 6px;
+          outline: none;
+          padding: 4px;
+          box-shadow: $inner-shadow;
+          border: 1px solid $light-mode-grey-thertiary;
+          flex-grow: 3;
+        }
+        button{
+          border: none;
+          background: none;
+          position: relative;
+          right: 20%;
+          flex-grow: 1;
+          &:hover{
+            img{
+              transform: $transform-rotate;
+            }
+          }
+          img{
+            height: 75%;
+            transition: $transition-long;
+          }
+        }
       }
 
       .tag-group{
