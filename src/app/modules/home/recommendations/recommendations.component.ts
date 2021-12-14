@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { AfterContentChecked, ChangeDetectorRef,Component, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
