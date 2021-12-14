@@ -43,7 +43,7 @@ export class ProjectComponent {
   public animationTriggered = false;
 
   // temporary string of tags
-  public tags = ['UX', 'JavaScript', 'Angular', 'C#', 'HelloWorld'];
+  public tags = ['UX', 'JavaScript', 'Angular', 'C#', 'HelloWorld', 'UX', 'JavaScript', 'Angular'];
   public displayedTags = [];
   public overflowTags = [];
 
@@ -127,10 +127,14 @@ export class ProjectComponent {
       totalLength += (tag.length * 10 + 25);
       if (totalLength < maxWidth) {
         displayedTags.push(tag);
-      } else {
+      } else if (overflowTags.length < 5 ) {
         overflowTags.push(tag);
       }
     });
+
+    if (overflowTags.length < (this.tags.length - displayedTags.length)) {
+      overflowTags.push('+' + (this.tags.length - displayedTags.length - overflowTags.length) + ' more');
+    }
 
     this.displayedTags = displayedTags;
     this.overflowTags = overflowTags;

@@ -61,7 +61,7 @@
           {{tag}}
       </a>
       <a [tooltip]="tagTooltip" class='tag smaller' *ngIf='this.overflowTags.length != 0'>
-        + {{this.overflowTags.length}}
+        + {{this.tags.length - displayedTags.length}}
       </a>
       <ng-template class='tag-tooltip' #tagTooltip>
         <p *ngFor="let tag of overflowTags">{{tag}}</p>
