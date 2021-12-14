@@ -28,7 +28,11 @@
         <a class='skip' (click)='nextSuggestion()'>Next Suggestion</a>
     </div>
 
-    <input type="text" placeholder="type here...">
+    <div class='inline-input'>
+        <input type="text" maxlength='100' placeholder="type here...">
+        <button class='form-continue-btn add-tag'>+</button>
+    </div>
+
 
     <div id='tags-wrapper'>
         <div class='tag-group'>

@@ -89,6 +89,12 @@
         background-color: white;
         box-shadow: $inner-shadow;
     }
+    .add-tag{
+        min-width: 0;
+        height: 90%;
+        font-size: 1.5em;
+        align-self: center;
+    }
 
     #tags-wrapper {
         display: flex;
