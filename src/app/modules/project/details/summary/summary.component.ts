@@ -23,7 +23,7 @@ export class SummaryComponent {
   @Input() animationTriggered: boolean;
 
   // temporary string of tags
-  public tags = ['UX', 'Angular', 'HelloWorld', 'Java', 'JavaScript', 'UI', 'Proftaak 2021-2022', 'UX', 'Angular', 'HelloWorld', 'Java', 'JavaScript', 'UI', 'Proftaak 2021-2022'];
+  public tags = ['UX', 'Angular', 'HelloWorld', 'Java', 'JavaScript', 'UI', 'My Tag', 'C#', 'Python', 'Fontys', 'UX', 'Angular'];
 
   // strings to store the tags to handle displaying them
   public displayedTags = [];
@@ -96,7 +96,7 @@ export class SummaryComponent {
     const overflowTags = [];
 
     tagList.forEach(function (tag) {
-      totalLength += (tag.length * 10 + 40);
+      totalLength += (tag.length * 10 + 30);
       if (totalLength < maxWidth) {
         displayedTags.push(tag);
       } else {
