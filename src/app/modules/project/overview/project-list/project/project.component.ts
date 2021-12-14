@@ -60,12 +60,12 @@ export class ProjectComponent {
   ngOnInit(): void {
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe(evt => {
-      this.displayMyTags(this.tags, document.getElementsByClassName('tag-group')[2].clientWidth);
+      this.displayMyTags(this.tags, document.getElementsByClassName('project-tag-group')[0].clientWidth);
     });
   }
 
   ngAfterViewInit() {
-    this.displayMyTags(this.tags, document.getElementsByClassName('tag-group')[2].clientWidth);
+    this.displayMyTags(this.tags, document.getElementsByClassName('project-tag-group')[0].clientWidth);
   }
 
   ngOnDestroy() {

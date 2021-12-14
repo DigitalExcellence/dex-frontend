@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef,Component, OnInit } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
@@ -29,7 +29,7 @@ import { ProjectDetailModalUtility } from 'src/app/utils/project-detail-modal.ut
   templateUrl: './recommendations.component.html',
   styleUrls: ['./recommendations.component.scss'],
 })
-export class RecommendationCardsComponent implements OnInit {
+export class RecommendationCardsComponent implements OnInit, AfterContentChecked {
 
   public isAuthenticated: boolean;
 
@@ -46,7 +46,8 @@ export class RecommendationCardsComponent implements OnInit {
   constructor(private recommendationService: RecommendationService,
               private fileRetrieverService: FileRetrieverService,
               private modalUtility: ProjectDetailModalUtility,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.authService.authNavStatus$.subscribe((status) => {
@@ -62,6 +63,10 @@ export class RecommendationCardsComponent implements OnInit {
           });
       }
     });
+  }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 
   /**
