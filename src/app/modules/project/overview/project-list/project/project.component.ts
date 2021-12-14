@@ -127,7 +127,6 @@ export class ProjectComponent {
       totalLength += (tag.length * 10 + 25);
       if (totalLength < maxWidth) {
         displayedTags.push(tag);
-        console.log('here');
       } else {
         overflowTags.push(tag);
       }
