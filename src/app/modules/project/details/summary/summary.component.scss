@@ -170,7 +170,18 @@
 .project-tags {
   margin-top: 10px;
   
-  .tag-group {
+  .detail-tag-group {
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    .hidden{
+      display: none;
+    }
+  }
+  .btn-toggle-overflow{
+    color: $light-mode-grey-primary;
+    text-decoration: underline;
+    border: none;
+    background: none;
   }
 }

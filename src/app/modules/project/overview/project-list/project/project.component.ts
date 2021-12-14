@@ -127,7 +127,7 @@ export class ProjectComponent {
       totalLength += (tag.length * 10 + 25);
       if (totalLength < maxWidth) {
         displayedTags.push(tag);
-      } else if (overflowTags.length < 5 ) {
+      } else {
         overflowTags.push(tag);
       }
     });

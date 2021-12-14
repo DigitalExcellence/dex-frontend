@@ -5,7 +5,7 @@ import { FileRetrieverService } from '../../../../services/file-retriever.servic
 
 import { Component, Input } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
+import { fromEvent, Observable, Subject, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
@@ -22,8 +22,13 @@ export class SummaryComponent {
   @Input() onLike: Subject<boolean>;
   @Input() animationTriggered: boolean;
 
-  //temporary string of tags
-  public tags = ["tag", "tag", "tag", "tag", "tag", "tag"]
+  // temporary string of tags
+  public tags = ['UX', 'Angular', 'HelloWorld', 'Java', 'JavaScript', 'UI', 'Proftaak 2021-2022', 'UX', 'Angular', 'HelloWorld', 'Java', 'JavaScript', 'UI', 'Proftaak 2021-2022'];
+
+  // strings to store the tags to handle displaying them
+  public displayedTags = [];
+  public overflowTags = [];
+  public displayOverflowTags = false;
 
   constructor(
       private likeService: LikeService,
@@ -31,6 +36,23 @@ export class SummaryComponent {
       private authService: AuthService,
       private fileRetrieverService: FileRetrieverService) { }
 
+  resizeObservable$: Observable<Event>;
+  resizeSubscription$: Subscription;
+
+  ngOnInit(): void {
+        this.resizeObservable$ = fromEvent(window, 'resize');
+        this.resizeSubscription$ = this.resizeObservable$.subscribe(evt => {
+          this.displayMyTags(this.tags, document.getElementsByClassName('detail-tag-group')[0].clientWidth * 2);
+        });
+      }
+
+  ngAfterViewInit() {
+    this.displayMyTags(this.tags, document.getElementsByClassName('detail-tag-group')[0].clientWidth * 2);
+  }
+
+  ngOnDestroy() {
+    this.resizeSubscription$.unsubscribe();
+  }
   /**
    * Method to handle the click of the like button
    * It will either like or unlike the project
@@ -62,6 +84,27 @@ export class SummaryComponent {
       };
       this.alertService.pushAlert(alertConfig);
     }
+  }
+
+    /**
+   * Method to split tags into what fits directly and what is
+   * in the collapsable part
+   */
+  public displayMyTags(tagList: string[], maxWidth: number) {
+    let totalLength = 0;
+    const displayedTags = [];
+    const overflowTags = [];
+
+    tagList.forEach(function (tag) {
+      totalLength += (tag.length * 10 + 40);
+      if (totalLength < maxWidth) {
+        displayedTags.push(tag);
+      } else {
+        overflowTags.push(tag);
+      }
+    });
+    this.displayedTags = displayedTags;
+    this.overflowTags = overflowTags;
   }
 
   /**

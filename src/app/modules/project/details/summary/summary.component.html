@@ -35,9 +35,16 @@
 
 <div class="project-tags">
       <p class="title">Tags</p>
-      <div class="tag-group">
-         <a *ngFor="let tag of tags" class="tag">
+      <div class="detail-tag-group">
+         <a *ngFor="let tag of displayedTags" class="tag">
            {{tag}}
          </a>
+        <a  *ngFor="let tag of overflowTags" class="tag" [ngClass]="{ hidden: !displayOverflowTags }">
+          {{tag}}
+        </a>
       </div>
+      <button class="btn-toggle-overflow" [ngClass]="{ hidden: displayOverflowTags }" *ngIf="overflowTags.length > 0" (click)="displayOverflowTags = !displayOverflowTags">
+        <span *ngIf="!displayOverflowTags">Show {{overflowTags.length}} more</span>
+        <span *ngIf="displayOverflowTags">Hide</span>
+      </button>
 </div>
