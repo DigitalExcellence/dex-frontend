@@ -46,7 +46,8 @@ export class WizardService {
     shortDescription: '',
     uri: '',
     userId: 0,
-    categories: []
+    categories: [],
+    tags: []
   };
 
   /**

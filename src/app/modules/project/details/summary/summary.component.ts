@@ -11,6 +11,7 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { LikeService } from 'src/app/services/like.service';
+import { ProjectTag } from 'src/app/models/domain/projectTag';
 
 @Component({
   selector: 'app-summary',
@@ -21,9 +22,6 @@ export class SummaryComponent {
   @Input() project: Project;
   @Input() onLike: Subject<boolean>;
   @Input() animationTriggered: boolean;
-
-  // temporary string of tags
-  public tags = ['UX', 'Angular', 'HelloWorld', 'Java', 'JavaScript', 'UI', 'My Tag', 'C#', 'Python', 'Fontys', 'UX', 'Angular'];
 
   // strings to store the tags to handle displaying them
   public displayedTags = [];
@@ -42,12 +40,12 @@ export class SummaryComponent {
   ngOnInit(): void {
         this.resizeObservable$ = fromEvent(window, 'resize');
         this.resizeSubscription$ = this.resizeObservable$.subscribe(evt => {
-          this.displayMyTags(this.tags, document.getElementsByClassName('detail-tag-group')[0].clientWidth * 2);
+          this.displayMyTags(this.project.tags, document.getElementsByClassName('detail-tag-group')[0].clientWidth * 2);
         });
       }
 
   ngAfterViewInit() {
-    this.displayMyTags(this.tags, document.getElementsByClassName('detail-tag-group')[0].clientWidth * 2);
+    this.displayMyTags(this.project.tags, document.getElementsByClassName('detail-tag-group')[0].clientWidth * 2);
   }
 
   ngOnDestroy() {
@@ -90,13 +88,13 @@ export class SummaryComponent {
    * Method to split tags into what fits directly and what is
    * in the collapsable part
    */
-  public displayMyTags(tagList: string[], maxWidth: number) {
+  public displayMyTags(tagList: ProjectTag[], maxWidth: number) {
     let totalLength = 0;
     const displayedTags = [];
     const overflowTags = [];
 
     tagList.forEach(function (tag) {
-      totalLength += (tag.length * 10 + 30);
+      totalLength += (tag.name.length * 10 + 30);
       if (totalLength < maxWidth) {
         displayedTags.push(tag);
       } else {

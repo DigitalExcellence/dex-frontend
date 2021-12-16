@@ -16,10 +16,10 @@
  */
 
 import { CollaboratorUpdate } from './collaborator-update';
+import { ProjectTagAdd } from './project-tag-add';
 
 import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
-import { ProjectTag } from 'src/app/models/domain/projectTag';
 
 export interface ProjectUpdate {
   id: number;
@@ -31,7 +31,7 @@ export interface ProjectUpdate {
   url: string;
   callToActions: CallToAction[];
   categories: ProjectCategory[];
-  tags: ProjectTag[];
+  tags: ProjectTagAdd[];
   iconId?: number;
   imageIds?: number[];
 }
