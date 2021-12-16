@@ -20,45 +20,44 @@
 <p class="step-description">{{step.description}}</p>
 
 <div class="wrapper">
-<div class='left' id=tag-input-wrapper>
-    <div id=suggestions>
-        <p id="question">
-            E.g. {{this.suggestionQuestions[questionIndex]}} <br> <span class='example'>{{this.suggestionExamples[questionIndex]}}</span>
-        </p>
-        <a class='skip' (click)='nextSuggestion()'>Next Suggestion</a>
-    </div>
-
-    <div class='inline-input'>
-        <input type="text"
-            maxlength='30'
-            placeholder="type here..."
-            (keydown.enter)="addTag()"
-            [formControl]="tagInput"
-        >
-        <button (click)="addTag()" class='form-continue-btn add-tag'>+</button>
-    </div>
-
-
-    <div id='tags-wrapper'>
-        <div class='tag-group'>
-            <a *ngFor="let tag of tags" class="tag with-button">
-                {{tag.name}} <button>&times;</button>
-            </a>
+    <div class='left' id=tag-input-wrapper>
+        <div id=suggestions>
+            <p id="question">
+                E.g. {{this.suggestionQuestions[questionIndex]}} <br> <span
+                    class='example'>{{this.suggestionExamples[questionIndex]}}</span>
+            </p>
+            <a class='skip' (click)='nextSuggestion()'>Next Suggestion</a>
         </div>
-        <div class="divider"></div>
-        <div class='tag-group recommended'>
-            <a *ngFor="let tag of recommendedTags" class="tag inactive with-button">
-                {{tag.name}} <button>&times;</button>
-            </a>
+
+        <div class='inline-input'>
+            <input type="text" maxlength='30' placeholder="type here..." (keydown.enter)="inputTag()"
+                [formControl]="tagInput">
+            <button (click)="inputTag()" class='form-continue-btn add-tag'>+</button>
+        </div>
+
+
+        <div id='tags-wrapper'>
+            <div class='tag-group'>
+                <a *ngFor="let tag of tags; index as i" class="tag with-button"
+                    (click)='moveTag(tags, recommendedTags, i)'>
+                    {{tag.name}} <button>&times;</button>
+                </a>
+            </div>
+            <div class="divider"></div>
+            <div class='tag-group recommended'>
+                <a *ngFor="let tag of recommendedTags; index as i" class="tag inactive with-button"
+                    (click)='moveTag(recommendedTags, tags, i)'>
+                    {{tag.name}} <button>&times;</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class='right'>
+        <img alt="" src="/assets/images/wizard/tags.svg" />
+        <div class="inline-input">
+            <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
+            <button (click)="onClickNext()" class="form-continue-btn">Next</button>
         </div>
     </div>
-
-</div>
-<div class='right'>
-    <img alt="" src="/assets/images/wizard/tags.svg"/>
-    <div class="inline-input">
-        <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
-        <button (click)="onClickNext()" class="form-continue-btn">Next</button>
-      </div>
-</div>
 </div>

@@ -14,10 +14,11 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, Input, ViewEncapsulation} from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
+import { ProjectTag } from 'src/app/models/domain/projectTag';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
@@ -45,6 +46,8 @@ export class ProjectComponent {
   /**
    * Two arrays to keep track of tags to be displayed or not displayed:
   */
+
+  public tags = [{id: 1, name: 'tag1'}, {id: 2, name: 'tag2'}];
   public displayedTags = [];
   public overflowTags = [];
 
@@ -119,17 +122,19 @@ export class ProjectComponent {
     }
   }
 
-  public displayMyTags(tagList, maxWidth: number) {
+  public displayMyTags(tagList: ProjectTag[], maxWidth: number) {
     let totalLength = 0;
     const displayedTags = [];
     const overflowTags = [];
 
-    tagList.forEach(function (tag) {
-      totalLength += (tag.name.length * 10 + 25);
-      if (totalLength < maxWidth) {
-        displayedTags.push(tag);
-      } else {
-        overflowTags.push(tag);
+    tagList.forEach(function (tag: ProjectTag) {
+      if (tag.name != null) {
+        totalLength += (tag.name.length * 10 + 25);
+        if (totalLength < maxWidth) {
+          displayedTags.push(tag);
+        } else {
+          overflowTags.push(tag);
+        }
       }
     });
 

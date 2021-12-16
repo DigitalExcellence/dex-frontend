@@ -29,13 +29,13 @@ import { environment } from 'src/environments/environment';
 })
 export class ProjectTagsComponent extends WizardStepBaseComponent implements OnInit {
 
-  public suggestionQuestions =  [
+  public suggestionQuestions = [
     'What programming languages do you use?',
     'What themes does your project have?',
     'What workfield does your project relate to?',
     'Which competence level is the project?'
   ];
-  public suggestionExamples =  [
+  public suggestionExamples = [
     'C#, JavaScript, Python',
     'Glow, Education, Health',
     'UX, Software, Technology, Infrastructure',
@@ -63,23 +63,29 @@ export class ProjectTagsComponent extends WizardStepBaseComponent implements OnI
     this.project = this.wizardService.builtProject;
   }
 
-    /**
- * Method to switch between different suggestion-questions
- */
+  /**
+* Method to switch between different suggestion-questions
+*/
   public nextSuggestion() {
-    if ( this.questionIndex + 1 >= this.suggestionQuestions.length) {
+    if (this.questionIndex + 1 >= this.suggestionQuestions.length) {
       this.questionIndex = 0;
     } else {
       this.questionIndex++;
     }
   }
 
-  public addTag(): void {
+  public inputTag(): void {
     if (this.tagInput.value.length > 0) {
-      this.tags.push({name: this.tagInput.value});
+      const newTag = { name: this.tagInput.value };
+      this.tags.push(newTag);
+      this.nextSuggestion();
       this.tagInput.setValue('');
     }
-    this.nextSuggestion();
+  }
+
+  public moveTag(start: any[], end: any[], myIndex: number): void {
+    end.push(start[myIndex]);
+    start.splice(myIndex, 1);
   }
 
   /**
@@ -87,8 +93,8 @@ export class ProjectTagsComponent extends WizardStepBaseComponent implements OnI
  */
   public onClickNext(): void {
     this.wizardService.updateProject({
-    ...this.project,
-    tags: this.tags
+      ...this.project,
+      tags: this.tags
     });
     super.onClickNext();
   }
