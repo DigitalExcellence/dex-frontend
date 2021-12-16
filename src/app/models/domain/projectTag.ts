@@ -15,30 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { CallToAction } from './call-to-action';
-import { Collaborator } from './collaborator';
-import { ProjectCategory } from './projectCategory';
-import { ProjectLike } from './projectLike';
-import { ProjectTag } from './projectTag';
-import { UploadFile } from './uploadFile';
-import { User } from './user';
-
-export interface Project {
+export interface ProjectTag {
   id: number;
-  user?: User;
   name: string;
-  description?: string;
-  shortDescription?: string;
-  created: Date;
-  updated: Date;
-  uri?: string;
-  collaborators?: Collaborator[];
-  callToActions?: CallToAction[];
-  projectIcon?: UploadFile;
-  images?: UploadFile[];
-  likes?: Array<ProjectLike>;
-  userHasLikedProject: boolean;
-  likeCount: number;
-  categories?: Array<ProjectCategory>;
-  tags?: Array<ProjectTag>;
 }
