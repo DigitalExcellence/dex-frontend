@@ -29,21 +29,26 @@
     </div>
 
     <div class='inline-input'>
-        <input type="text" maxlength='100' placeholder="type here...">
-        <button class='form-continue-btn add-tag'>+</button>
+        <input type="text"
+            maxlength='30'
+            placeholder="type here..."
+            (keydown.enter)="addTag()"
+            [formControl]="tagInput"
+        >
+        <button (click)="addTag()" class='form-continue-btn add-tag'>+</button>
     </div>
 
 
     <div id='tags-wrapper'>
         <div class='tag-group'>
             <a *ngFor="let tag of tags" class="tag with-button">
-                {{tag}} <button>&times;</button>
+                {{tag.name}} <button>&times;</button>
             </a>
         </div>
         <div class="divider"></div>
         <div class='tag-group recommended'>
-            <a *ngFor="let tag of recommended" class="tag inactive with-button">
-                {{tag}} <button>&times;</button>
+            <a *ngFor="let tag of recommendedTags" class="tag inactive with-button">
+                {{tag.name}} <button>&times;</button>
             </a>
         </div>
     </div>

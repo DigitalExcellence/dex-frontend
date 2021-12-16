@@ -17,6 +17,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ProjectAdd } from 'src/app/models/resources/project-add';
+import { ProjectTagAdd } from 'src/app/models/resources/project-tag-add';
 import { WizardStepBaseComponent } from 'src/app/modules/project/add/main/wizard/wizardPages/wizard-step-base/wizard-step-base.component';
 import { WizardService } from 'src/app/services/wizard.service';
 import { environment } from 'src/environments/environment';
@@ -41,9 +42,11 @@ export class ProjectTagsComponent extends WizardStepBaseComponent implements OnI
     'Beginner, Intermediate, Expert'
   ];
 
-  public tags = ['C#', 'JavaScript', 'UI/UX', 'Open Innovation'];
+  public tags: ProjectTagAdd[] = [];
 
-  public recommended = ['Angular', 'Smart Mobile'];
+  public tagInput = new FormControl('');
+
+  public recommendedTags: ProjectTagAdd[] = [];
 
   public questionIndex = 0;
 
@@ -64,20 +67,29 @@ export class ProjectTagsComponent extends WizardStepBaseComponent implements OnI
  * Method to switch between different suggestion-questions
  */
   public nextSuggestion() {
-    if ( this.questionIndex + 1 >= this.suggestionQuestions.length){
+    if ( this.questionIndex + 1 >= this.suggestionQuestions.length) {
       this.questionIndex = 0;
     } else {
       this.questionIndex++;
     }
   }
 
+  public addTag(): void {
+    if (this.tagInput.value.length > 0) {
+      this.tags.push({name: this.tagInput.value});
+      this.tagInput.setValue('');
+    }
+    this.nextSuggestion();
+  }
 
   /**
  * Method which triggers when the button to the next page is pressed
  */
   public onClickNext(): void {
-    // this.wizardService.updateProject({ ...this.project, collaborators: this.collaboratorList });
+    this.wizardService.updateProject({
+    ...this.project,
+    tags: this.tags
+    });
     super.onClickNext();
   }
-
 }
