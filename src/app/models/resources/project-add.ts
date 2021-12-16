@@ -19,6 +19,7 @@ import { CollaboratorAdd } from './collaborator-add';
 
 import { CallToAction } from 'src/app/models/domain/call-to-action';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
+import { ProjectTag } from 'src/app/models/domain/projectTag';
 
 export interface ProjectAdd {
   userId: number;
@@ -31,4 +32,5 @@ export interface ProjectAdd {
   iconId?: number;
   imageIds?: number[];
   categories?: ProjectCategory[];
+  tags?: ProjectTag[];
 }
