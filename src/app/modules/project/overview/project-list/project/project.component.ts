@@ -42,8 +42,9 @@ export class ProjectComponent {
    */
   public animationTriggered = false;
 
-  // temporary string of tags
-  public tags = ['UX', 'JavaScript', 'Angular', 'C#', 'HelloWorld', 'UX', 'JavaScript', 'Angular'];
+  /**
+   * Two arrays to keep track of tags to be displayed or not displayed:
+  */
   public displayedTags = [];
   public overflowTags = [];
 
@@ -60,12 +61,12 @@ export class ProjectComponent {
   ngOnInit(): void {
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe(evt => {
-      this.displayMyTags(this.tags, document.getElementsByClassName('project-tag-group')[0].clientWidth);
+      this.displayMyTags(this.project.tags, document.getElementsByClassName('project-tag-group')[0].clientWidth);
     });
   }
 
   ngAfterViewInit() {
-    this.displayMyTags(this.tags, document.getElementsByClassName('project-tag-group')[0].clientWidth);
+    this.displayMyTags(this.project.tags, document.getElementsByClassName('project-tag-group')[0].clientWidth);
   }
 
   ngOnDestroy() {
@@ -118,13 +119,13 @@ export class ProjectComponent {
     }
   }
 
-  public displayMyTags(tagList: string[], maxWidth: number) {
+  public displayMyTags(tagList, maxWidth: number) {
     let totalLength = 0;
     const displayedTags = [];
     const overflowTags = [];
 
     tagList.forEach(function (tag) {
-      totalLength += (tag.length * 10 + 25);
+      totalLength += (tag.name.length * 10 + 25);
       if (totalLength < maxWidth) {
         displayedTags.push(tag);
       } else {
@@ -132,8 +133,8 @@ export class ProjectComponent {
       }
     });
 
-    if (overflowTags.length < (this.tags.length - displayedTags.length)) {
-      overflowTags.push('+' + (this.tags.length - displayedTags.length - overflowTags.length) + ' more');
+    if (overflowTags.length < (tagList.length - displayedTags.length)) {
+      overflowTags.push('+' + (tagList.length - displayedTags.length - overflowTags.length) + ' more');
     }
 
     this.displayedTags = displayedTags;

@@ -58,13 +58,13 @@
     <div class="project-tag-group">
       <a *ngFor="let tag of displayedTags"
           class="tag smaller">
-          {{tag}}
+          {{tag.name}}
       </a>
       <a [tooltip]="tagTooltip" class='tag smaller' *ngIf='this.overflowTags.length != 0'>
-        + {{this.tags.length - displayedTags.length}}
+        + {{project.tags.length - displayedTags.length}}
       </a>
       <ng-template class='tag-tooltip' #tagTooltip>
-        <p *ngFor="let tag of overflowTags">{{tag}}</p>
+        <p *ngFor="let tag of overflowTags">{{tag.name}}</p>
       </ng-template>
     </div>
     <div class="bottom-wrapper">
