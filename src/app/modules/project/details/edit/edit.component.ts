@@ -173,7 +173,6 @@ export class EditComponent implements OnInit {
       this.addedTags.push(newTag);
       this.tagInput.setValue('');
     }
-    console.log(this.addedTags);
   }
 
   public moveTag(start: any[], end: any[], myIndex: number): void {
@@ -246,7 +245,6 @@ export class EditComponent implements OnInit {
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
     editedProject.tags = this.addedTags;
-    console.log(editedProject);
 
     const selectedCallToActions = this.callToActions.callToActionOptions
       .filter(option => this.callToActions.selectedCallToActionOptionIds

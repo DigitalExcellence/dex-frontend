@@ -51,14 +51,18 @@
       </div>
       <h4 class='title'>Tags</h4>
       <div class="project-tags">
-        <input type="text" maxlength='30' placeholder="type here..." (keydown.enter)="onAddTagClick()"
+        <div class="inline-input">
+          <input type="text" maxlength='30' placeholder="add new tag" (keydown.enter)="onAddTagClick()"
           [formControl]="tagInput">
-        <button (click)="onAddTagClick()" class='form-continue-btn add-tag'>+</button>
+          <button (click)="onAddTagClick()" class='add-tag'>+</button>
+        </div>
 
-        <a *ngFor="let tag of addedTags; index as i" class="tag smaller with-button"
-          (click)='moveTag(addedTags, recommendedTags, i)'>
-          {{tag.name}} <button>&times;</button>
-        </a>
+        <div class="tag-group">
+          <a *ngFor="let tag of addedTags; index as i" class="tag smaller with-button"
+            (click)='moveTag(addedTags, recommendedTags, i)'>
+            {{tag.name}} <button>&times;</button>
+          </a>
+        </div>
 
         <div class='tag-group recommended'>
           <a *ngFor="let tag of recommendedTags; index as i" class="tag smaller inactive with-button"
