@@ -16,7 +16,7 @@
  */
 
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -37,7 +37,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './user-projects.component.html',
   styleUrls: ['./user-projects.component.scss'],
 })
-export class UserProjectsComponent implements OnInit {
+export class UserProjectsComponent implements OnInit, AfterContentChecked {
   public projectsToDisplay: Project[] = [];
 
   /**
@@ -133,7 +133,8 @@ export class UserProjectsComponent implements OnInit {
               private seoService: SEOService,
               private location: Location,
               private modalService: BsModalService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private changeDetector: ChangeDetectorRef) {
     this.sortOptionControl = new FormControl(this.sortSelectOptions[0]);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
   }
@@ -163,6 +164,11 @@ export class UserProjectsComponent implements OnInit {
       }, 1);
     });
   }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
+  }
+
 
   /**
    * Method to open the modal for a projects detail
