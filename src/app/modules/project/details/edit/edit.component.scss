@@ -146,9 +146,9 @@
       display: flex;
       flex-direction: column;
       margin-bottom: 5vh;
-      .inline-input{
+      .inline-input {
         display: flex;
-        width: 40%;
+        width: 50%;
         input {
           flex: 0 1 auto;
           background-color: white;
@@ -163,7 +163,7 @@
           color: white;
           border: none;
           border-radius: $border-radius;
-          &:hover{
+          &:hover {
             background-color: $accent-color-red-secondary;
           }
         }
@@ -175,6 +175,12 @@
         padding: 5px 0;
         &.recommended {
           border-top: 1px solid $light-mode-grey-secondary;
+        }
+      }
+      @media only screen and (max-width: 800px) {
+        .inline-input {
+          display: flex;
+          width: 100%;
         }
       }
     }
