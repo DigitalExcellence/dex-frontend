@@ -7,11 +7,11 @@ import { Component, Input } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { fromEvent, Observable, Subject, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
+import { ProjectTag } from 'src/app/models/domain/projectTag';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { LikeService } from 'src/app/services/like.service';
-import { ProjectTag } from 'src/app/models/domain/projectTag';
 
 @Component({
   selector: 'app-summary',
