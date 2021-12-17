@@ -16,17 +16,19 @@
  */
 
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { FileUploaderComponent } from 'src/app/components/file-uploader/file-uploader.component';
 import { Project } from 'src/app/models/domain/project';
 import { ProjectCategory } from 'src/app/models/domain/projectCategory';
+import { ProjectTag } from 'src/app/models/domain/projectTag';
 import { UploadFile } from 'src/app/models/domain/uploadFile';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { CollaboratorAdd } from 'src/app/models/resources/collaborator-add';
+import { ProjectTagAdd } from 'src/app/models/resources/project-tag-add';
 import { ProjectUpdate } from 'src/app/models/resources/project-update';
 import { CallToActionsEditComponent } from 'src/app/modules/project/call-to-actions-edit/call-to-actions-edit.component';
 import { AlertService } from 'src/app/services/alert.service';
@@ -64,8 +66,11 @@ export class EditComponent implements OnInit {
   public categories: ProjectCategory[];
 
   /**
-   * Projects selected call to action
+   * Variables to handle the tags
    */
+  public addedTags: ProjectTagAdd[] = [];
+  public recommendedTags = [];
+  public tagInput = new FormControl('');
 
   /**
    * Project's collaborators.
@@ -145,6 +150,7 @@ export class EditComponent implements OnInit {
           );
       });
     }
+    this.displayProjectTags();
   }
 
   public onCategoryClick(category): void {
@@ -153,6 +159,25 @@ export class EditComponent implements OnInit {
         ? { ...cat, selected: !category.selected }
         : { ...cat }
     ));
+  }
+
+  public displayProjectTags(): void {
+    this.project.tags.forEach(tag => {
+      this.addedTags.push({name: tag.name});
+    });
+  }
+
+  public onAddTagClick() {
+    if (this.tagInput.value.length > 0) {
+      const newTag = { name: this.tagInput.value };
+      this.addedTags.push(newTag);
+      this.tagInput.setValue('');
+    }
+  }
+
+  public moveTag(start: any[], end: any[], myIndex: number): void {
+    end.push(start[myIndex]);
+    start.splice(myIndex, 1);
   }
 
   /**
@@ -219,6 +244,7 @@ export class EditComponent implements OnInit {
     const editedProject: ProjectUpdate = this.editProjectForm.value;
     editedProject.collaborators = this.collaborators;
     editedProject.categories = this.categories.filter(category => category.selected);
+    editedProject.tags = this.addedTags;
 
     const selectedCallToActions = this.callToActions.callToActionOptions
       .filter(option => this.callToActions.selectedCallToActionOptionIds

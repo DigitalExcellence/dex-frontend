@@ -15,7 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { Component, HostListener, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, HostListener, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -40,7 +40,7 @@ import { SEOService } from 'src/app/services/seo.service';
   styleUrls: ['./details.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, AfterContentChecked {
   @Input() projectId: number;
   @Input() activeTab = 'description';
 
@@ -84,6 +84,7 @@ export class DetailsComponent implements OnInit {
     private router: Router,
     private seoService: SEOService,
     private fileRetrieverService: FileRetrieverService,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.onLike = new Subject<boolean>();
   }
@@ -109,6 +110,11 @@ export class DetailsComponent implements OnInit {
         }
       );
   }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
+  }
+
 
   /**
    * The pop state event is fired when the active history entry

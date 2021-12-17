@@ -16,7 +16,9 @@
  */
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
+import { fromEvent, Observable, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
+import { ProjectTag } from 'src/app/models/domain/projectTag';
 import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
@@ -41,13 +43,38 @@ export class ProjectComponent {
    */
   public animationTriggered = false;
 
+  /**
+   * Two arrays to keep track of tags to be displayed or not displayed:
+  */
+
+  public tags = [{id: 1, name: 'tag1'}, {id: 2, name: 'tag2'}];
+  public displayedTags = [];
+  public overflowTags = [];
+
   constructor(
-      private fileRetrieverService: FileRetrieverService,
-      private likeService: LikeService,
-      private authService: AuthService,
-      private alertService: AlertService) {
+    private fileRetrieverService: FileRetrieverService,
+    private likeService: LikeService,
+    private authService: AuthService,
+    private alertService: AlertService) {
   }
 
+  resizeObservable$: Observable<Event>;
+  resizeSubscription$: Subscription;
+
+  ngOnInit(): void {
+    this.resizeObservable$ = fromEvent(window, 'resize');
+    this.resizeSubscription$ = this.resizeObservable$.subscribe(evt => {
+      this.displayMyTags(this.project.tags, document.getElementsByClassName('project-tag-group')[0].clientWidth);
+    });
+  }
+
+  ngAfterViewInit() {
+    this.displayMyTags(this.project.tags, document.getElementsByClassName('project-tag-group')[0].clientWidth);
+  }
+
+  ngOnDestroy() {
+    this.resizeSubscription$.unsubscribe();
+  }
   /**
    * Method to get the url of the icon of the project. This is retrieved
    * from the file retriever service
@@ -95,11 +122,29 @@ export class ProjectComponent {
     }
   }
 
-  /**
-   * Method to display the tags based on the environment variable.
-   * Tags should be hidden in production for now until further implementation is finished.
-   */
-  public displayTags(): boolean {
-    return !environment.production;
+  public displayMyTags(tagList: ProjectTag[], maxWidth: number) {
+    let totalLength = 0;
+    const displayedTags = [];
+    const overflowTags = [];
+
+    tagList.forEach(function (tag: ProjectTag) {
+      if (tag.name != null) {
+        totalLength += (tag.name.length * 10 + 25);
+        if (totalLength < maxWidth) {
+          displayedTags.push(tag);
+        } else {
+          overflowTags.push(tag);
+        }
+      }
+    });
+
+    if (overflowTags.length < (tagList.length - displayedTags.length)) {
+      overflowTags.push('+' + (tagList.length - displayedTags.length - overflowTags.length) + ' more');
+    }
+
+    this.displayedTags = displayedTags;
+    this.overflowTags = overflowTags;
   }
+
 }
+

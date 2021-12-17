@@ -23,5 +23,5 @@ export const WizardPageConfig: WizardPageConfig = {
   8: 'project-collaborators',
   9: 'project-call-to-action',
   10: 'project-link',
-  11: 'project-categories'
+  11: 'project-tags'
 };

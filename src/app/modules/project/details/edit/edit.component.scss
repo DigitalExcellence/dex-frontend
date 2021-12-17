@@ -74,10 +74,10 @@
       }
 
       @media only screen and (max-width: 600px) {
-        .overlay{
+        .overlay {
           opacity: 1;
           em {
-            opacity: .8;
+            opacity: 0.8;
           }
         }
       }
@@ -135,6 +135,52 @@
         &.selected {
           background: $accent-color-red-primary;
           color: $white;
+        }
+      }
+    }
+    .project-tags {
+      background-color: $light-mode-grey-quaternary;
+      border-radius: 20px;
+      padding: 10px 20px;
+      min-height: 20vh;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 5vh;
+      .inline-input {
+        display: flex;
+        width: 50%;
+        input {
+          flex: 0 1 auto;
+          background-color: white;
+          box-shadow: $inner-shadow;
+        }
+        .add-tag {
+          min-width: 0;
+          height: 70%;
+          font-size: 1.5em;
+          align-self: center;
+          background-color: $accent-color-red-primary;
+          color: white;
+          border: none;
+          border-radius: $border-radius;
+          &:hover {
+            background-color: $accent-color-red-secondary;
+          }
+        }
+      }
+
+      .tag-group {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px 0;
+        &.recommended {
+          border-top: 1px solid $light-mode-grey-secondary;
+        }
+      }
+      @media only screen and (max-width: 800px) {
+        .inline-input {
+          display: flex;
+          width: 100%;
         }
       }
     }
@@ -351,10 +397,10 @@
 
             @media only screen and (max-width: 600px) {
               .overlay {
-                &.trash{
+                &.trash {
                   opacity: 1;
                   em {
-                    opacity: .8;
+                    opacity: 0.8;
                   }
                 }
               }

@@ -33,29 +33,18 @@
   </div>
 </div>
 
-<div class="project-categories-tags">
-  <ng-container *ngIf="!isProduction()">
-    <div>
+<div class="project-tags">
       <p class="title">Tags</p>
-      <div class="project-tags">
-        <div class="project-tags">
-          <!--  <span *ngFor="let tag of project.tags" class="tag" (click)="onTagClick(tag)">-->
-          <span>#html</span>
-          <span>#css</span>
-          <span>#javascript</span>
-        </div>
+      <div class="detail-tag-group">
+         <a *ngFor="let tag of displayedTags" class="tag">
+           {{tag.name}}
+         </a>
+        <a  *ngFor="let tag of overflowTags" class="tag" [ngClass]="{ hidden: !displayOverflowTags }">
+          {{tag.name}}
+        </a>
       </div>
-    </div>
-  </ng-container>
-  <div>
-    <p class="title">Categories</p>
-    <div class="project-categories">
-      <a
-          *ngFor="let category of project.categories"
-          class="category"
-          href="javascript:void(0)">
-        {{category.name}}
-      </a>
-    </div>
-  </div>
+      <button class="btn-toggle-overflow" [ngClass]="{ hidden: displayOverflowTags }" *ngIf="overflowTags.length > 0" (click)="displayOverflowTags = !displayOverflowTags">
+        <span *ngIf="!displayOverflowTags">Show {{overflowTags.length}} more</span>
+        <span *ngIf="displayOverflowTags">Hide</span>
+      </button>
 </div>

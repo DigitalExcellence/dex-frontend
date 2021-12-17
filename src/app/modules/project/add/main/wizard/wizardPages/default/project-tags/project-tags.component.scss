@@ -1,0 +1,115 @@
+/*
+ *  Digital Excellence Copyright (C) 2020 Brend Smits
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published
+ *   by the Free Software Foundation version 3 of the License.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty
+ *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *   See the GNU Lesser General Public License for more details.
+ *
+ *   You can find a copy of the GNU Lesser General Public License
+ *   along with this program, in the LICENSE.md file in the root project directory.
+ *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+ */
+@import "assets/styles/variables";
+
+.wrapper {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 30px;
+    @media only screen and (max-width: 800px) {
+        grid-template-columns: 1fr;
+        img {
+            display: none !important;
+        }
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 50px;
+        }
+    }
+}
+
+#tag-input-wrapper {
+    background-color: $light-mode-grey-quaternary;
+    border-radius: 20px;
+    padding: 10px 20px;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5vh;
+
+    #suggestions {
+        flex: 0 1 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        #question {
+            color: $black;
+            .example {
+                padding-left: 3px;
+                font-style: italic;
+                color: $light-mode-grey-secondary;
+            }
+        }
+        .skip {
+            font-size: 10px;
+            right: 0px;
+            text-align: right;
+            color: $black;
+            text-decoration: underline;
+            user-select: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+    }
+
+    input {
+        flex: 0 1 auto;
+        background-color: white;
+        box-shadow: $inner-shadow;
+    }
+    .add-tag{
+        min-width: 0;
+        height: 90%;
+        font-size: 1.5em;
+        align-self: center;
+    }
+
+    #tags-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1 1 auto;
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+    .tag-group {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px 0;
+        &.recommended {
+            border-top: 1px solid $light-mode-grey-secondary;
+        }
+    }
+}

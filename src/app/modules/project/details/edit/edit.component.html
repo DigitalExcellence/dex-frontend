@@ -36,7 +36,7 @@
       <div class='icon-remove-btn' *ngIf="projectIconFileUploader.files[0]">
         <button (click)="iconRemoveButtonClick()">Remove</button>
       </div>
-      
+
     </div>
     <div id='specs-wrapper'>
       <div>
@@ -49,12 +49,25 @@
         <h4 class='title'>Project Link</h4>
         <input [ngModel]="project?.uri" formControlName="uri" placeholder="https://github.com/fontys/digitalexcellence">
       </div>
-      <div>
-        <h4 class='title'>Categories</h4>
-        <div class="project-categories">
-          <a (click)="onCategoryClick(category)" *ngFor="let category of categories"
-            [ngClass]="{selected: category.selected}" class="category" href="javascript:void(0)">
-            {{category.name}}
+      <h4 class='title'>Tags</h4>
+      <div class="project-tags">
+        <div class="inline-input">
+          <input type="text" maxlength='30' placeholder="add new tag" (keydown.enter)="onAddTagClick()"
+          [formControl]="tagInput">
+          <button (click)="onAddTagClick()" class='add-tag'>+</button>
+        </div>
+
+        <div class="tag-group">
+          <a *ngFor="let tag of addedTags; index as i" class="tag smaller with-button"
+            (click)='moveTag(addedTags, recommendedTags, i)'>
+            {{tag.name}} <button>&times;</button>
+          </a>
+        </div>
+
+        <div class='tag-group recommended'>
+          <a *ngFor="let tag of recommendedTags; index as i" class="tag smaller inactive with-button"
+            (click)='moveTag(recommendedTags, addedTags, i)'>
+            {{tag.name}} <button>&times;</button>
           </a>
         </div>
       </div>
