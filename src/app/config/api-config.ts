@@ -33,6 +33,7 @@ export interface ApiConfig {
   uploadFileRoute: string;
   projectLikes: string;
   categoryRoute: string;
+  tagRoute: string;
 }
 
 export const API_CONFIG: ApiConfig = {
@@ -50,6 +51,7 @@ export const API_CONFIG: ApiConfig = {
   wizardPageRoute: 'wizardpage',
   uploadFileRoute: 'file',
   projectLikes: 'project/like',
-  categoryRoute: 'category'
+  categoryRoute: 'category',
+  tagRoute: 'tag'
 };
 

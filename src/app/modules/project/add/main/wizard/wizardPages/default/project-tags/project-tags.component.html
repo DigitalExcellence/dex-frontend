@@ -1,0 +1,63 @@
+<!--
+
+  Digital Excellence Copyright (C) 2020 Brend Smits
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published
+   by the Free Software Foundation version 3 of the License.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty
+   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU Lesser General Public License for more details.
+
+   You can find a copy of the GNU Lesser General Public License
+   along with this program, in the LICENSE.md file in the root project directory.
+   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
+
+ -->
+<h2 class="step-header">{{step.name}}</h2>
+<p class="step-description">{{step.description}}</p>
+
+<div class="wrapper">
+    <div class='left' id=tag-input-wrapper>
+        <div id=suggestions>
+            <p id="question">
+                E.g. {{this.suggestionQuestions[questionIndex]}} <br> <span
+                    class='example'>{{this.suggestionExamples[questionIndex]}}</span>
+            </p>
+            <a class='skip' (click)='nextSuggestion()'>Next Suggestion</a>
+        </div>
+
+        <div class='inline-input'>
+            <input type="text" maxlength='30' placeholder="type here..." (keydown.enter)="inputTag()"
+                [formControl]="tagInput">
+            <button (click)="inputTag()" class='form-continue-btn add-tag'>+</button>
+        </div>
+
+
+        <div id='tags-wrapper'>
+            <div class='tag-group'>
+                <a *ngFor="let tag of tags; index as i" class="tag with-button"
+                    (click)='moveTag(tags, recommendedTags, i)'>
+                    {{tag.name}} <button>&times;</button>
+                </a>
+            </div>
+            <div class="divider"></div>
+            <div class='tag-group recommended'>
+                <a *ngFor="let tag of recommendedTags; index as i" class="tag inactive with-button"
+                    (click)='moveTag(recommendedTags, tags, i)'>
+                    {{tag.name}} <button>&times;</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class='right'>
+        <img alt="" src="/assets/images/wizard/tags.svg" />
+        <div class="inline-input">
+            <button (click)="onClickPrevious()" class="form-previous-btn">Previous</button>
+            <button (click)="onClickNext()" class="form-continue-btn">Next</button>
+        </div>
+    </div>
+</div>

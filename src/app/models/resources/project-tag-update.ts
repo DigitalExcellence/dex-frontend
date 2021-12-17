@@ -15,23 +15,7 @@
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
 
-import { CollaboratorUpdate } from './collaborator-update';
-import { ProjectTagAdd } from './project-tag-add';
-
-import { CallToAction } from 'src/app/models/domain/call-to-action';
-import { ProjectCategory } from 'src/app/models/domain/projectCategory';
-
-export interface ProjectUpdate {
+export interface ProjectTagUpdate {
   id: number;
-  userId: number;
-  collaborators: CollaboratorUpdate[];
   name: string;
-  shortDescription: string;
-  description: string;
-  url: string;
-  callToActions: CallToAction[];
-  categories: ProjectCategory[];
-  tags: ProjectTagAdd[];
-  iconId?: number;
-  imageIds?: number[];
 }

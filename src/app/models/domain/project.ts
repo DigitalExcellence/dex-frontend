@@ -19,6 +19,7 @@ import { CallToAction } from './call-to-action';
 import { Collaborator } from './collaborator';
 import { ProjectCategory } from './projectCategory';
 import { ProjectLike } from './projectLike';
+import { ProjectTag } from './projectTag';
 import { UploadFile } from './uploadFile';
 import { User } from './user';
 
@@ -39,4 +40,5 @@ export interface Project {
   userHasLikedProject: boolean;
   likeCount: number;
   categories?: Array<ProjectCategory>;
+  tags?: Array<ProjectTag>;
 }
