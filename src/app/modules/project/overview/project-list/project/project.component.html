@@ -40,7 +40,7 @@
       </ng-template>
     </div>
     <div (click)="userClicked($event)" class="item project-user-name disabled"><em class="fas fa-user"></em> {{ project.user.name }}</div>
-  </div> 
+  </div>
 </ng-container>
 
 <!-- Grid Project-->
@@ -57,7 +57,7 @@
     </div>
     <div class="project-tag-group">
       <a *ngFor="let tag of displayedTags"
-          class="tag smaller">
+          class="tag smaller cursor-text">
           {{tag.name}}
       </a>
       <a [tooltip]="tagTooltip" class='tag smaller' *ngIf='this.overflowTags.length != 0'>

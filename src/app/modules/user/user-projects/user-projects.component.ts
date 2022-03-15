@@ -50,7 +50,8 @@ export class UserProjectsComponent implements OnInit, AfterContentChecked {
     amountOnPage: 12,
     sortBy: '',
     sortDirection: '',
-    categories: null
+    categories: null,
+    tags: null
   };
 
   /**

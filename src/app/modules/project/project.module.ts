@@ -50,6 +50,7 @@ import { ProjectComponent } from 'src/app/modules/project/overview/project-list/
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { FormatDatePipe } from 'src/app/utils/format-date.pipe';
 import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
+import { TagFilterPipe } from './overview/filter-menu/tag-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { SafeHtmlPipe } from 'src/app/utils/safeHtml.pipe';
     PaginationComponent,
     SummaryComponent,
     SettingsDropdownComponent,
-    BottomDrawerComponent
+    BottomDrawerComponent,
+    TagFilterPipe
   ],
   imports: [
     CommonModule,

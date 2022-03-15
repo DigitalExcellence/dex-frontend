@@ -12,6 +12,7 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { LikeService } from 'src/app/services/like.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-summary',
@@ -29,6 +30,7 @@ export class SummaryComponent {
   public displayOverflowTags = false;
 
   constructor(
+      private router: Router,
       private likeService: LikeService,
       private alertService: AlertService,
       private authService: AuthService,
@@ -103,6 +105,10 @@ export class SummaryComponent {
     });
     this.displayedTags = displayedTags;
     this.overflowTags = overflowTags;
+  }
+
+  public goToTag() {
+    // this.commonService.AClicked('Component A is clicked!!');
   }
 
   /**

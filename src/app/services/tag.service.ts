@@ -3,9 +3,9 @@ import { HttpBaseService } from './http-base.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from 'src/app/config/api-config';
-import { ProjectTag } from 'src/app/models/domain/projectTag';
-import { ProjectTagAdd } from 'src/app/models/resources/project-tag-add';
 import { ProjectTagUpdate } from 'src/app/models/resources/project-tag-update';
+import { ProjectTag } from '../models/domain/projectTag';
+import { ProjectTagAdd } from '../models/resources/project-tag-add';
 
 @Injectable({
   providedIn: 'root'

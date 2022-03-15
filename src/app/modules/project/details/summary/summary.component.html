@@ -36,10 +36,10 @@
 <div class="project-tags">
       <p class="title">Tags</p>
       <div class="detail-tag-group">
-         <a *ngFor="let tag of displayedTags" class="tag">
+         <a *ngFor="let tag of displayedTags" class="tag" (click)="goToTag()">
            {{tag.name}}
          </a>
-        <a  *ngFor="let tag of overflowTags" class="tag" [ngClass]="{ hidden: !displayOverflowTags }">
+        <a *ngFor="let tag of overflowTags" class="tag" [ngClass]="{ hidden: !displayOverflowTags }">
           {{tag.name}}
         </a>
       </div>
