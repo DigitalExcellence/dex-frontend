@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { debounceTime, distinctUntilChanged, filter, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
 import { ProjectTag } from '../../../../models/domain/projectTag';
+import { TagfilterService } from '../../../../services/tagfilter.service';
 
 @Component({
   selector: 'app-filter-menu',
@@ -26,6 +27,8 @@ export class FilterMenuComponent implements OnInit {
   @Output() filteredProjectsChanged = new EventEmitter<{ projects: Project[], totalAmount: number }>();
   @Output() projectsLoadingChanged = new EventEmitter<boolean>();
   @Input() currentPage = 1;
+
+  subscription: any;
 
   public categories: ProjectCategory[];
 
@@ -93,9 +96,12 @@ export class FilterMenuComponent implements OnInit {
               private location: Location,
               private categoryService: CategoryService,
               private tagService: TagService,
+              private tagfilterService: TagfilterService,
               private route: ActivatedRoute) {
     this.sortOptionControl = new FormControl(this.sortSelectOptions[0]);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
+
+    this.subscription = this.tagfilterService.getTagChangeEmitter().subscribe(tagId => this.onTagChange(tagId));
   }
 
   ngOnInit(): void {

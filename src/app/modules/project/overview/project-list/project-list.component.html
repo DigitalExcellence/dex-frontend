@@ -27,6 +27,7 @@
 <ng-container *ngIf="!projectsEmpty(); else noProjects">
   <div [ngClass]="this.showListView ? 'list' : 'grid'" class="project-list-wrapper">
     <app-project
+        (filterTagEvent)="filtertTag($event)"
         (click)="onClickProject($event, project)"
         *ngFor="let project of filteredProjects"
         [project]="project"

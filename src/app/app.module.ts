@@ -44,6 +44,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { QuillModule } from 'ngx-quill';
+import { TagfilterService } from './services/tagfilter.service';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,9 @@ import { QuillModule } from 'ngx-quill';
     {
       provide: ErrorHandler,
       useFactory: errorHandlerFactory,
+    },
+    {
+      provide: TagfilterService
     }
   ],
   bootstrap: [AppComponent],

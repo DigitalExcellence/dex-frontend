@@ -14,7 +14,7 @@
  *   along with this program, in the LICENSE.md file in the root project directory.
  *   If not, see https://www.gnu.org/licenses/lgpl-3.0.txt
  */
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { Project } from 'src/app/models/domain/project';
@@ -25,8 +25,8 @@ import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FileRetrieverService } from 'src/app/services/file-retriever.service';
 import { LikeService } from 'src/app/services/like.service';
-import { environment } from 'src/environments/environment';
-
+import { Tag } from '@angular/compiler/src/i18n/serializers/xml_helper';
+import { TagfilterService } from '../../../../../services/tagfilter.service';
 
 @Component({
   selector: 'app-project',
@@ -34,9 +34,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./project.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class ProjectComponent {
   @Input() showListView: boolean;
   @Input() project: Project;
+  @Output() filterTagEvent = new EventEmitter<Tag>();
 
   /**
    * Boolean to trigger animation only after first click and not on page load.
@@ -55,6 +57,7 @@ export class ProjectComponent {
     private fileRetrieverService: FileRetrieverService,
     private likeService: LikeService,
     private authService: AuthService,
+    private tagfilterService: TagfilterService,
     private alertService: AlertService) {
   }
 
@@ -89,6 +92,10 @@ export class ProjectComponent {
 
   public userClicked(event) {
     event.stopPropagation();
+  }
+
+  public filterTag(tagId) {
+    this.tagfilterService.emitTagChangeEvent(tagId);
   }
 
 
