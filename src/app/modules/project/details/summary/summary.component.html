@@ -36,7 +36,7 @@
 <div class="project-tags">
       <p class="title">Tags</p>
       <div class="detail-tag-group">
-         <a *ngFor="let tag of displayedTags" (click)="filterTag(tag.id)" class="tag">
+         <a *ngFor="let tag of displayedTags" (click)="filterTag($event, tag.id)" class="tag">
            {{tag.name}}
          </a>
 

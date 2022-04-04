@@ -26,7 +26,7 @@ export class SummaryComponent {
   @Input() animationTriggered: boolean;
 
   // strings to store the tags to handle displaying them
-  public displayedTags = [{'id': 1, 'name': 'test'}];
+  public displayedTags = [];
   public overflowTags = [];
   public displayOverflowTags = false;
 
@@ -100,16 +100,18 @@ export class SummaryComponent {
     tagList.forEach(function (tag) {
       totalLength += (tag.name.length * 10 + 30);
       if (totalLength < maxWidth) {
-        // displayedTags.push(tag);
+        displayedTags.push(tag);
       } else {
         overflowTags.push(tag);
       }
     });
-    // this.displayedTags = displayedTags;
+    this.displayedTags = displayedTags;
     this.overflowTags = overflowTags;
   }
 
-  public filterTag(tagId) {
+  public filterTag(event, tagId) {
+    event.stopPropagation();
+
     this.tagFilterService.emitTagChangeEvent(tagId);
   }
 

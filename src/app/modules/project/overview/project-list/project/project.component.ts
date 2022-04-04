@@ -94,7 +94,9 @@ export class ProjectComponent {
     event.stopPropagation();
   }
 
-  public filterTag(tagId) {
+  public filterTag(event, tagId) {
+    event.stopPropagation();
+
     this.tagfilterService.emitTagChangeEvent(tagId);
   }
 
