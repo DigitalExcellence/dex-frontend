@@ -71,8 +71,8 @@
 
 
   &:hover {
-    //background-color: $accent-color-red-secondary;
-    cursor: text;
+    background-color: $accent-color-red-secondary;
+    cursor: pointer;
     color: $white;   //overwrite default <a> styles
     text-decoration: none;
   }
