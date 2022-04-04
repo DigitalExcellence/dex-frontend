@@ -23,4 +23,5 @@ export interface InternalSearchQuery {
   sortBy: string;
   sortDirection: string;
   categories: number[];
+  tags: number[];
 }

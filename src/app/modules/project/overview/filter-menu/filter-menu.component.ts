@@ -3,6 +3,7 @@ import { ProjectCategory } from '../../../../models/domain/projectCategory';
 import { InternalSearchQuery } from '../../../../models/resources/internal-search-query';
 import { SearchResultsResource } from '../../../../models/resources/search-results';
 import { CategoryService } from '../../../../services/category.service';
+import { TagService } from '../../../../services/tag.service';
 import { InternalSearchService } from '../../../../services/internal-search.service';
 import { PaginationService } from '../../../../services/pagination.service';
 
@@ -13,24 +14,32 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { debounceTime, distinctUntilChanged, filter, finalize } from 'rxjs/operators';
 import { Project } from 'src/app/models/domain/project';
+import { ProjectTag } from '../../../../models/domain/projectTag';
+import { TagfilterService } from '../../../../services/tagfilter.service';
 
 @Component({
   selector: 'app-filter-menu',
   templateUrl: './filter-menu.component.html',
   styleUrls: ['./filter-menu.component.scss']
 })
+
 export class FilterMenuComponent implements OnInit {
   @Output() filteredProjectsChanged = new EventEmitter<{ projects: Project[], totalAmount: number }>();
   @Output() projectsLoadingChanged = new EventEmitter<boolean>();
   @Input() currentPage = 1;
 
+  subscription: any;
+
   public categories: ProjectCategory[];
+
+  public tags: ProjectTag[];
+
+  public tagSearch: string;
 
    /**
   * Temporary strings to display as tags
   * toDo: Fix Connection to backend!
   */
-  public tags = ['C#', 'JavaScript', 'UI/UX', 'Open Innovation'];
   public recommended = ['Angular', 'Smart Mobile'];
 
   /**
@@ -86,9 +95,13 @@ export class FilterMenuComponent implements OnInit {
               private internalSearchService: InternalSearchService,
               private location: Location,
               private categoryService: CategoryService,
+              private tagService: TagService,
+              private tagfilterService: TagfilterService,
               private route: ActivatedRoute) {
     this.sortOptionControl = new FormControl(this.sortSelectOptions[0]);
     this.paginationOptionControl = new FormControl(this.paginationDropDownOptions[0]);
+
+    this.subscription = this.tagfilterService.getTagChangeEmitter().subscribe(tagId => this.onTagChange(tagId));
   }
 
   ngOnInit(): void {
@@ -114,6 +127,20 @@ export class FilterMenuComponent implements OnInit {
       this.categories = categories;
       this.processQueryParams();
     });
+
+    this.tagService.getAll().subscribe(tags => {
+      this.tags = tags.filter(tag => !tag.selected);
+
+      this.processQueryParams();
+    });
+  }
+
+  public notSelectedTags() {
+    return this.tags !== undefined ? this.tags.filter(tag => !tag.selected) : [];
+  }
+
+  public selectedTags() {
+    return this.tags !== undefined ? this.tags.filter(tag => tag.selected) : [];
   }
 
   /**
@@ -169,6 +196,21 @@ export class FilterMenuComponent implements OnInit {
     this.updateQueryParams();
   }
 
+  public onTagChange(tagId: number): void {
+    this.tags = this.tags.map(tag =>
+        tag.id === tagId
+            ? {...tag, selected: !tag.selected}
+            : tag);
+
+    this.onInternalQueryChange();
+    this.updateQueryParams();
+  }
+
+  public onTagSearchChange(): void {
+    this.onInternalQueryChange();
+    this.updateQueryParams();
+  }
+
   /**
    * Method that retrieves the value that has changed from the pagination dropdown in the accordion,
    * and based on that value retrieves the paginated projects with the right parameters.
@@ -206,9 +248,12 @@ export class FilterMenuComponent implements OnInit {
       amountOnPage: this.amountOfProjectsOnSinglePage,
       sortBy: this.currentSortType,
       sortDirection: this.currentSortDirection,
-      categories: this.categories
+      categories: this.categories != undefined ? this.categories
           .map(value => value.selected ? value.id : null)
-          .filter(value => value)
+          .filter(value => value) : null,
+      tags: this.tags != undefined ? this.tags
+          .map(value => value.selected ? value.id : null)
+          .filter(value => value) : null
     };
 
     if (internalSearchQuery.query == null) {
@@ -250,6 +295,11 @@ export class FilterMenuComponent implements OnInit {
                 this.categories?.map(category =>
                     category.selected ? category.id : null
                 ).filter(category => category)
+            ),
+            tags: JSON.stringify(
+                this.tags?.map(tag =>
+                    tag.selected ? tag.id : null
+                ).filter(tag => tag)
             )
           },
           queryParamsHandling: 'merge'
@@ -260,6 +310,7 @@ export class FilterMenuComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const {query, sortOption, pagination} = params;
       let {categories: selectedCategories} = params;
+      let {tags: selectedTags} = params;
       if (query && query !== 'null' && query !== 'undefined') {
         this.currentSearchInput = query;
       }
@@ -271,6 +322,18 @@ export class FilterMenuComponent implements OnInit {
             return {
               ...category,
               selected: selectedCategories.indexOf(category.id) >= 0
+            };
+          });
+        }
+      }
+
+      if (selectedTags) {
+        selectedTags = JSON.parse(selectedTags);
+        if (selectedTags.length > 0) {
+          this.tags = this.tags?.map(tag => {
+            return {
+              ...tag,
+              selected: selectedTags.indexOf(tag.id) >= 0
             };
           });
         }
@@ -299,14 +362,20 @@ export class FilterMenuComponent implements OnInit {
         category => category.selected ? category.id : null)
         .filter(category => category);
 
+    const tags = this.tags?.map(
+        tag => tag.selected ? tag.id : null)
+        .filter(category => category);
+
     const queryValue = this.currentSearchInput;
     const sortOptionValue = this.sortOptionControl.value.value;
     const paginationValue = this.amountOfProjectsOnSinglePage;
     const categoriesValue = JSON.stringify(categories);
+    const tagsValue = JSON.stringify(tags);
 
     return `query=${queryValue}`
         + `&sortOption=${sortOptionValue}`
         + `&pagination=${paginationValue}`
-        + `&categories=${categoriesValue}`;
+        + `&categories=${categoriesValue}`
+        + `&tags=${tagsValue}`;
   }
 }

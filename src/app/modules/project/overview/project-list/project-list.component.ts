@@ -50,6 +50,10 @@ export class ProjectListComponent implements OnInit, AfterContentChecked {
     return !this.filteredProjects || this.filteredProjects.length < 1;
   }
 
+  public filtertTag(event) {
+    console.log(event);
+  }
+
   /**
    * Triggers on project click in the list.
    * @param event click event

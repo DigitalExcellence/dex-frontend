@@ -12,6 +12,8 @@ import { AlertConfig } from 'src/app/models/internal/alert-config';
 import { AlertType } from 'src/app/models/internal/alert-type';
 import { AlertService } from 'src/app/services/alert.service';
 import { LikeService } from 'src/app/services/like.service';
+import { Router } from '@angular/router';
+import { TagfilterService } from '../../../../services/tagfilter.service';
 
 @Component({
   selector: 'app-summary',
@@ -29,9 +31,11 @@ export class SummaryComponent {
   public displayOverflowTags = false;
 
   constructor(
+      private router: Router,
       private likeService: LikeService,
       private alertService: AlertService,
       private authService: AuthService,
+      private tagFilterService: TagfilterService,
       private fileRetrieverService: FileRetrieverService) { }
 
   resizeObservable$: Observable<Event>;
@@ -103,6 +107,12 @@ export class SummaryComponent {
     });
     this.displayedTags = displayedTags;
     this.overflowTags = overflowTags;
+  }
+
+  public filterTag(event, tagId) {
+    event.stopPropagation();
+
+    this.tagFilterService.emitTagChangeEvent(tagId);
   }
 
   /**
